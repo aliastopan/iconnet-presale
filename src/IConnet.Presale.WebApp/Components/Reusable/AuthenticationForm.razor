@@ -1,0 +1,96 @@
+@rendermode InteractiveServer
+
+@using IConnet.Presale.WebApp.Services
+@using IConnet.Presale.Shared.Contracts.Identity.Authentication
+@using IConnet.Presale.WebApp.Models.Identity
+
+@namespace IConnet.Presale.WebApp.Components.Reusable
+@attribute [Authorize]
+
+@inject IdentityClientService IdentityClient
+@inject ProtectedSessionStorage SessionStorage
+@inject AuthenticationStateProvider AuthStateProvider
+@inject NavigationManager NavManager
+
+<div>
+    <FluentCard Width="250px" Height="200px">
+        <h3>Sign In</h3>
+        <div class="form-container">
+            <FluentTextField Class="m-1" @bind-Value=signInForm.Username Placeholder="Username"></FluentTextField>
+            <FluentTextField Class="m-1" @bind-Value=signInForm.Password Placeholder="Password" TextFieldType="TextFieldType.Password"></FluentTextField>
+
+            <FluentButton Class="m-1" Appearance="Appearance.Accent" OnClick="SubmitAsync">Sign In</FluentButton>
+        </div>
+    </FluentCard>
+</div>
+<div class="p-1">
+    <span>@result</span>
+</div>
+<div class="p-1">
+    <span>@state</span>
+    <AuthorizeView>
+        <Authorized>
+            <p>You are authenticated.</p>
+        </Authorized>
+        <NotAuthorized>
+            <p>You are not authenticated.</p>
+        </NotAuthorized>
+    </AuthorizeView>
+    <FluentButton Class="m-1" Appearance="Appearance.Accent" OnClick="CheckAsync">Check</FluentButton>
+</div>
+
+@code
+{
+    private readonly SignInModel signInForm = new();
+    string? result = "[http result]";
+    string? state = "[waiting...]";
+
+    private async Task SubmitAsync()
+    {
+        result = await SignInAsync();
+        StateHasChanged();
+    }
+
+    public async Task<string> SignInAsync()
+    {
+        var httpResult = await IdentityClient.SignInAsync(
+            signInForm.Username,
+            signInForm.Password);
+
+        if (httpResult.IsSuccessStatusCode)
+        {
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+            var response = JsonSerializer.Deserialize<SignInResponse>(httpResult.Content, options);
+            var accessToken = response!.AccessToken;
+            var refreshToken = response!.RefreshTokenStr;
+
+            await SessionStorage.SetAsync("access-token", accessToken);
+            await SessionStorage.SetAsync("refresh-token", refreshToken);
+
+            return accessToken;
+        }
+
+        return httpResult.Content;
+    }
+
+    public async Task CheckAsync()
+    {
+        var authenticationState = await AuthStateProvider.GetAuthenticationStateAsync();
+        if (authenticationState.User.Identity is not null)
+        {
+            state = "authentication has successful";
+            Serilog.Log.Warning("Identity: {0}", authenticationState.User.Identity!.IsAuthenticated);
+        }
+        else
+        {
+            state = "authentication has failed";
+        }
+
+        this.StateHasChanged();
+        NavManager.NavigateTo("/");
+    }
+
+}

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>IConnet.Presale.WebApp</RootNamespace>
+    <AssemblyName>IConnet.Presale.WebApp</AssemblyName>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>fdebdfe8-9f9c-4226-8cab-94bfa4e6366d</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IConnet.Presale.Application\IConnet.Presale.Application.csproj" />
+    <ProjectReference Include="..\IConnet.Presale.Infrastructure\IConnet.Presale.Infrastructure.csproj" />
+    <ProjectReference Include="..\IConnet.Presale.Shared\IConnet.Presale.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+	  <PackageReference Include="AnnotatedResult.AspNetCore" Version="1.0.0-rc.1" />
+	  <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.3.1" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.3.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
+  </ItemGroup>
+</Project>
