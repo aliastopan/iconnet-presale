@@ -1,6 +1,6 @@
 @rendermode InteractiveServer
 
-@using IConnet.Presale.WebApp.Models
+@using IConnet.Presale.WebApp.Models.Presales
 @using IConnet.Presale.WebApp.Services
 
 @inject IJSRuntime _js
@@ -16,9 +16,45 @@
     <span>Enter: @_newLineCounter</span>
     <span>Column: @_column</span>
     <span>N/A: @_whitespace</span>
+    <span>Valid Row: @_validRow</span>
+
 </div>
 
 <FluentButton Class="m-1" Appearance="Appearance.Accent" OnClick="OnCrmImport">Import</FluentButton>
+
+@if (_crmImportService.ApprovalOpportunities is not null)
+{
+    <FluentDataGrid Items="@_crmImportService.ApprovalOpportunities">
+        <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.IdPermohonan)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.TglPermohonan)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="DURASI TIDAK LANJUT" Property="@(crm => crm.DurasiTidakLanjut)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="NAMA PEMOHON" Property="@(crm => crm.NamaPemohon)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="ID PLN" Property="@(crm => crm.IdPln)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="LAYANAN" Property="@(crm => crm.Layanan)" Sortable="true" />
+        <PropertyColumn Title="SUMBER PERMOHONAN" Property="@(crm => crm.SumberPermohonan)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="STATUS PERMOHONAN" Property="@(crm => crm.StatusPermohonan)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="NAMA AGEN" Property="@(crm => crm.NamaAgen)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="EMAIL AGEN" Property="@(crm => crm.EmailAgen)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="TELEPON AGEN" Property="@(crm => crm.TeleponAgen)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="MITRA AGEN" Property="@(crm => crm.MitraAgen)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="SPLITTER" Property="@(crm => crm.Splitter)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="JENIS PERMOHONAN" Property="@(crm => crm.JenisPermohonan)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="TELEPON PEMOHON" Property="@(crm => crm.TeleponPemohon)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="EMAIL PEMOHON" Property="@(crm => crm.EmailPemohon)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="NIK PEMOHON" Property="@(crm => crm.NikPemohon)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="NPWP PEMOHON" Property="@(crm => crm.NpwpPemohon)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="KETERANGAN" Property="@(crm => crm.Keterangan)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="ALAMAT PEMOHON" Property="@(crm => crm.AlamatPemohon)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="REGIONAL" Property="@(crm => crm.Regional)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="KANTOR PERWAKILAN" Property="@(crm => crm.KantorPerwakilan)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="PROVINSI" Property="@(crm => crm.Provinsi)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="KABUPATEN" Property="@(crm => crm.Kabupaten)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="KECAMATAN" Property="@(crm => crm.Kecamatan)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="KELURAHAN" Property="@(crm => crm.Kelurahan)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="LATITUDE" Property="@(crm => crm.Latitude)" Sortable="true" Style="width: 200px;"/>
+        <PropertyColumn Title="LONGITUDE" Property="@(crm => crm.Longitude)" Sortable="true" Style="width: 200px;"/>
+    </FluentDataGrid>
+}
 
 @code {
     private string _clipboardContent = "[empty]";
@@ -27,6 +63,7 @@
     private int _column = 0;
     private int _whitespace = 0;
     private string[] _contentSplit = { };
+    private bool _validRow;
 
     private async Task OnCrmImport()
     {
@@ -40,6 +77,8 @@
         _contentSplit = _crmImportService.SplitBySpecialCharacters(_clipboardContent);
         _whitespace = _crmImportService.EmptySplitCount(_contentSplit);
         _column = _contentSplit.Length;
+
+        _validRow = _contentSplit.Length % 28 == 0;
 
         StateHasChanged();
     }
