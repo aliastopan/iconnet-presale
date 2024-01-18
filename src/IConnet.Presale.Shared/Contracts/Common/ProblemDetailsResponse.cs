@@ -1,6 +1,6 @@
 #nullable disable
 
-namespace IConnet.Presale.Shared.Contracts;
+namespace IConnet.Presale.Shared.Contracts.Common;
 
 public record ProblemDetailsResponse
 {
