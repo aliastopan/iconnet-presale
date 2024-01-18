@@ -1,7 +1,7 @@
 #nullable disable
 using IConnet.Presale.Shared.Interfaces.Models.Presales;
 
-namespace IConnet.Presale.WebApp.Models.Identity;
+namespace IConnet.Presale.WebApp.Models.Presales;
 
 public class ImportModel : IApprovalOpportunityModel
 {
