@@ -9,4 +9,6 @@ public class User
     public string EmailAddress { get; set; }
     public UserRole UserRole { get; set; }
     public ICollection<UserPrivilege> UserPrivileges { get; set; }
+    public UserShift UserShift { get; set; }
+    public string JobTitle { get; set; }
 }

@@ -46,5 +46,13 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
                     c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
                     c => c.ToList()))
             .IsRequired();
+
+        builder.Property(u => u.UserShift)
+            .HasColumnName("user_shift")
+            .IsRequired();
+
+        builder.Property(u => u.JobTitle)
+            .HasColumnName("job_title")
+            .HasMaxLength(64);
     }
 }
