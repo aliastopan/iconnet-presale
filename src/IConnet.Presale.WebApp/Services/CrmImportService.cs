@@ -22,6 +22,7 @@ public sealed class CrmImportService
         bool isValid = contents.Length % 28 == 0;
         if (!isValid)
         {
+            Log.Warning("Invalid row count of {0}", contents.Length);
             return;
         }
 
@@ -56,6 +57,8 @@ public sealed class CrmImportService
             Latitude = contents[26],
             Longitude = contents[27]
         };
+
+        _importModels.Add(importModel);
     }
 
     public string[] SplitBySpecialCharacters(string input)
