@@ -50,12 +50,22 @@ public class Applicant
 
 public class Regional
 {
+    public Regional()
+    {
+        Coordinate = new Coordinate();
+    }
+
     public string Bagian { get; set; }
     public string RepresentativeOffice { get; set; }
     public string Provinsi { get; set; }
     public string Kabupaten { get; set; }
     public string Kecamatan { get; set; }
     public string Kelurahan { get; set; }
+    public Coordinate Coordinate { get; set; }
+}
+
+public class Coordinate
+{
     public string Latitude { get; set; }
     public string Longitude { get; set; }
 }
