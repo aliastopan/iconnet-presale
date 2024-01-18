@@ -1,9 +1,23 @@
+@rendermode InteractiveServer
+
 @using IConnet.Presale.WebApp.Models
+@inject IJSRuntime _js
 
 @namespace IConnet.Presale.WebApp.Components.Reusable
 
+<div class="p-5">
+    @clipboardContent
+</div>
 
+<FluentButton Class="m-1" Appearance="Appearance.Accent" OnClick="OnCrmImport">Import</FluentButton>
 
 @code {
+    private string clipboardContent = "[empty]";
 
+    private async Task OnCrmImport()
+    {
+        var readText = await _js.InvokeAsync<string>("navigator.clipboard.readText");
+        clipboardContent = readText;
+        StateHasChanged();
+    }
 }
