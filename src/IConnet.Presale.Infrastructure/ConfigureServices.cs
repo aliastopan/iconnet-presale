@@ -33,7 +33,6 @@ public static class ConfigureServices
         // services.AddSingleton<IPasswordService, BcryptPasswordService>();
 
         services.AddScoped<IAccessTokenService, AccessTokenProvider>();
-        services.AddScoped<IMailService, MailProvider>();
 
         return services;
     }
