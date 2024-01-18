@@ -18,7 +18,7 @@ public class UserAccount : IAggregateRoot
             UserId = Guid.NewGuid(),
             Username = username,
             EmailAddress = emailAddress,
-            UserRole = UserRole.Standard,
+            UserRole = UserRole.Guest,
             UserPrivileges = new List<UserPrivilege>()
             {
                 UserPrivilege.Viewer

@@ -14,7 +14,7 @@ public static class IdentityFactory
             {
                 Username = "tester",
                 EmailAddress = "tester@mail.com",
-                UserRole = UserRole.Standard,
+                UserRole = UserRole.Guest,
                 UserPrivileges = new List<UserPrivilege>()
                 {
                     UserPrivilege.Viewer
