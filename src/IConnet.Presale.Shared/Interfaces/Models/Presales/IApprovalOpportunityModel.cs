@@ -30,4 +30,7 @@ public interface IApprovalOpportunityModel
     string Kelurahan { get; }
     string Latitude { get; }
     string Longitude { get; }
+
+    DateTimeOffset ImportDateTime { get; }
+    string ClaimName { get; }
 }

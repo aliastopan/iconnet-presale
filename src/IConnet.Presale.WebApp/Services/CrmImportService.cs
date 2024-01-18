@@ -1,4 +1,5 @@
 using System.Linq;
+using IConnet.Presale.Application.Common.Interfaces.Services;
 using IConnet.Presale.WebApp.Models.Presales;
 
 namespace IConnet.Presale.WebApp.Services;
@@ -6,10 +7,12 @@ namespace IConnet.Presale.WebApp.Services;
 public sealed class CrmImportService
 {
     private readonly List<ImportModel> _importModels;
+    private readonly IDateTimeService _dateTimeService;
 
-    public CrmImportService()
+    public CrmImportService(IDateTimeService dateTimeService)
     {
         _importModels = new List<ImportModel>();
+        _dateTimeService = dateTimeService;
     }
 
     public IQueryable<ImportModel> ApprovalOpportunities => _importModels.AsQueryable();
@@ -44,7 +47,7 @@ public sealed class CrmImportService
         _importModels.AddRange(importModels);
     }
 
-    private static ImportModel CreateImportModel(string[] column)
+    private ImportModel CreateImportModel(string[] column)
     {
         return new ImportModel
         {
@@ -75,7 +78,9 @@ public sealed class CrmImportService
             Kecamatan = column[24],
             Kelurahan = column[25],
             Latitude = column[26],
-            Longitude = column[27]
+            Longitude = column[27],
+            ImportDateTime = _dateTimeService.DateTimeOffsetNow,
+            ClaimName = "PAC"
         };
     }
 

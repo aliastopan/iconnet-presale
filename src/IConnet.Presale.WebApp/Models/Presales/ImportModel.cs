@@ -33,4 +33,7 @@ public class ImportModel : IApprovalOpportunityModel
     public string Kelurahan { get; set; }
     public string Latitude { get; set; }
     public string Longitude { get; set; }
+
+    public DateTimeOffset ImportDateTime { get; set; }
+    public string ClaimName { get; set; }
 }
