@@ -5,7 +5,6 @@
 
 @inject IJSRuntime _js
 @inject CrmImportService _crmImportService
-
 @namespace IConnet.Presale.WebApp.Components.Reusable
 
 <div class="p-1 flex-col">
@@ -19,43 +18,49 @@
 
 <FluentButton Class="m-1" Appearance="Appearance.Accent" OnClick="OnCrmImport">Import</FluentButton>
 
-@if (_crmImportService.ApprovalOpportunities is not null)
-{
-    <div class="table-wrapper">
-        <FluentDataGrid Items="@_crmImportService.ApprovalOpportunities">
-            <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.IdPermohonan)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.TglPermohonan)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="DURASI TIDAK LANJUT" Property="@(crm => crm.DurasiTidakLanjut)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="NAMA PEMOHON" Property="@(crm => crm.NamaPemohon)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="ID PLN" Property="@(crm => crm.IdPln)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="LAYANAN" Property="@(crm => crm.Layanan)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="SUMBER PERMOHONAN" Property="@(crm => crm.SumberPermohonan)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="STATUS PERMOHONAN" Property="@(crm => crm.StatusPermohonan)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="NAMA AGEN" Property="@(crm => crm.NamaAgen)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="EMAIL AGEN" Property="@(crm => crm.EmailAgen)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="TELEPON AGEN" Property="@(crm => crm.TeleponAgen)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="MITRA AGEN" Property="@(crm => crm.MitraAgen)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="SPLITTER" Property="@(crm => crm.Splitter)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="JENIS PERMOHONAN" Property="@(crm => crm.JenisPermohonan)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="TELEPON PEMOHON" Property="@(crm => crm.TeleponPemohon)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="EMAIL PEMOHON" Property="@(crm => crm.EmailPemohon)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="NIK PEMOHON" Property="@(crm => crm.NikPemohon)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="NPWP PEMOHON" Property="@(crm => crm.NpwpPemohon)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="KETERANGAN" Property="@(crm => crm.Keterangan)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="ALAMAT PEMOHON" Property="@(crm => crm.AlamatPemohon)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="REGIONAL" Property="@(crm => crm.Regional)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="KANTOR PERWAKILAN" Property="@(crm => crm.KantorPerwakilan)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="PROVINSI" Property="@(crm => crm.Provinsi)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="KABUPATEN" Property="@(crm => crm.Kabupaten)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="KECAMATAN" Property="@(crm => crm.Kecamatan)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="KELURAHAN" Property="@(crm => crm.Kelurahan)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="LATITUDE" Property="@(crm => crm.Latitude)" Sortable="true" Style="min-width: 200px;"/>
-            <PropertyColumn Title="LONGITUDE" Property="@(crm => crm.Longitude)" Sortable="true" Style="min-width: 200px;"/>
-        </FluentDataGrid>
-    </div>
-}
+<div class="table-wrapper">
+    <FluentDataGrid Items="@_crmImportService.ApprovalOpportunities">
+        <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.IdPermohonan)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.TglPermohonan)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="DURASI TIDAK LANJUT" Property="@(crm => crm.DurasiTidakLanjut)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="NAMA PEMOHON" Property="@(crm => crm.NamaPemohon)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="ID PLN" Property="@(crm => crm.IdPln)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="LAYANAN" Property="@(crm => crm.Layanan)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="SUMBER PERMOHONAN" Property="@(crm => crm.SumberPermohonan)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="STATUS PERMOHONAN" Property="@(crm => crm.StatusPermohonan)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="NAMA AGEN" Property="@(crm => crm.NamaAgen)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="EMAIL AGEN" Property="@(crm => crm.EmailAgen)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="TELEPON AGEN" Property="@(crm => crm.TeleponAgen)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="MITRA AGEN" Property="@(crm => crm.MitraAgen)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="SPLITTER" Property="@(crm => crm.Splitter)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="JENIS PERMOHONAN" Property="@(crm => crm.JenisPermohonan)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="TELEPON PEMOHON" Property="@(crm => crm.TeleponPemohon)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="EMAIL PEMOHON" Property="@(crm => crm.EmailPemohon)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="NIK PEMOHON" Property="@(crm => crm.NikPemohon)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="NPWP PEMOHON" Property="@(crm => crm.NpwpPemohon)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="KETERANGAN" Property="@(crm => crm.Keterangan)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="ALAMAT PEMOHON" Property="@(crm => crm.AlamatPemohon)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="REGIONAL" Property="@(crm => crm.Regional)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="KANTOR PERWAKILAN" Property="@(crm => crm.KantorPerwakilan)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="PROVINSI" Property="@(crm => crm.Provinsi)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="KABUPATEN" Property="@(crm => crm.Kabupaten)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="KECAMATAN" Property="@(crm => crm.Kecamatan)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="KELURAHAN" Property="@(crm => crm.Kelurahan)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="LATITUDE" Property="@(crm => crm.Latitude)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="LONGITUDE" Property="@(crm => crm.Longitude)" Sortable="true" Style="min-width: 200px;"/>
+    </FluentDataGrid>
+
+    <FluentOverlay @bind-Visible=@isLoading
+        Opacity="0.4"
+        Alignment="@Align.Center"
+        Justification="@JustifyContent.Center">
+        <FluentProgressRing />
+    </FluentOverlay>
+</div>
 
 @code {
+    bool isLoading = false;
+
     private string _clipboardContent = "";
     private int _tabCounter = 0;
     private int _newLineCounter = 0;
@@ -66,9 +71,11 @@
 
     private async Task OnCrmImport()
     {
+        isLoading = true;
         var readText = await _js.InvokeAsync<string>("navigator.clipboard.readText");
 
         _crmImportService.Import(readText);
+        isLoading = false;
 
         _clipboardContent = readText;
         _crmImportService.CountSpecialCharacters(_clipboardContent, out int tabCount, out int newlineCount);
