@@ -1,15 +1,62 @@
+using System.Linq;
 using IConnet.Presale.WebApp.Models.Presales;
 
 namespace IConnet.Presale.WebApp.Services;
 
 public sealed class CrmImportService
 {
+    private readonly List<ImportModel> _importModels;
+
     public CrmImportService()
     {
-        ApprovalOpportunities = new List<ImportModel>();
+        _importModels = new List<ImportModel>();
     }
 
-    public List<ImportModel> ApprovalOpportunities { get; set; }
+    public IQueryable<ImportModel> ApprovalOpportunities => _importModels.AsQueryable();
+
+    public void Import(string input)
+    {
+        char[] delimiters = new char[] { '\t', '\n' };
+        string[] contents = input.Split(delimiters);
+
+        bool isValid = contents.Length % 28 == 0;
+        if (!isValid)
+        {
+            return;
+        }
+
+        var importModel = new ImportModel
+        {
+            IdPermohonan = contents[0],
+            TglPermohonan = contents[1],
+            DurasiTidakLanjut = contents[2],
+            NamaPemohon = contents[3],
+            IdPln = contents[4],
+            Layanan = contents[5],
+            SumberPermohonan = contents[6],
+            StatusPermohonan = contents[7],
+            NamaAgen = contents[8],
+            EmailAgen = contents[9],
+            TeleponAgen = contents[10],
+            MitraAgen = contents[11],
+            Splitter = contents[12],
+            JenisPermohonan = contents[13],
+            TeleponPemohon = contents[14],
+            EmailPemohon = contents[15],
+            NikPemohon = contents[16],
+            NpwpPemohon = contents[17],
+            Keterangan = contents[18],
+            AlamatPemohon = contents[19],
+            Regional = contents[20],
+            KantorPerwakilan = contents[21],
+            Provinsi = contents[22],
+            Kabupaten = contents[23],
+            Kecamatan = contents[24],
+            Kelurahan = contents[25],
+            Latitude = contents[26],
+            Longitude = contents[27]
+        };
+    }
 
     public string[] SplitBySpecialCharacters(string input)
     {
