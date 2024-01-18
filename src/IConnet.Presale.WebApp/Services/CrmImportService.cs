@@ -34,7 +34,11 @@ public sealed class CrmImportService
         {
             string[] chunk = contents.Skip(i * chunkSize).Take(chunkSize).ToArray();
             var importModel = CreateImportModel(chunk);
-            importModels.Add(importModel);
+
+            if (!_importModels.Any(crm => crm.IdPermohonan == importModel.IdPermohonan))
+            {
+                importModels.Add(importModel);
+            }
         }
 
         _importModels.AddRange(importModels);
