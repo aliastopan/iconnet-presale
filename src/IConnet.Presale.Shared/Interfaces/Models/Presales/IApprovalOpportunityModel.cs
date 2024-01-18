@@ -5,10 +5,10 @@ public interface IApprovalOpportunityModel
     string IdPermohonan { get; }
     string TglPermohonan { get; }
     string DurasiTidakLanjut { get; }
-    string NamPemohon { get; }
+    string NamaPemohon { get; }
     string IdPln { get; }
     string Layanan { get; }
-    string SumberPemohon { get; }
+    string SumberPermohonan { get; }
     string StatusPermohonan { get; }
     string NamaAgen { get; }
     string EmailAgen { get; }

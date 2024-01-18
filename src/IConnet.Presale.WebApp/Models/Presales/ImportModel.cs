@@ -8,10 +8,10 @@ public class ImportModel : IApprovalOpportunityModel
     public string IdPermohonan { get; set; }
     public string TglPermohonan { get; set; }
     public string DurasiTidakLanjut { get; set; }
-    public string NamPemohon { get; set; }
+    public string NamaPemohon { get; set; }
     public string IdPln { get; set; }
     public string Layanan { get; set; }
-    public string SumberPemohon { get; set; }
+    public string SumberPermohonan { get; set; }
     public string StatusPermohonan { get; set; }
     public string NamaAgen { get; set; }
     public string EmailAgen { get; set; }
