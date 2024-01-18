@@ -1,16 +1,21 @@
 @rendermode InteractiveServer
 
 @using IConnet.Presale.WebApp.Models
+@using IConnet.Presale.WebApp.Services
+
 @inject IJSRuntime _js
+@inject CrmImportService _crmImportService
 
 @namespace IConnet.Presale.WebApp.Components.Reusable
 
 <div class="p-5">
     @_clipboardContent
 </div>
-<div class="p-1 flex-row">
+<div class="p-1 flex-col">
     <span>Tab: @_tabCounter</span>
     <span>Enter: @_newLineCounter</span>
+    <span>Column: @_column</span>
+    <span>N/A: @_whitespace</span>
 </div>
 
 <FluentButton Class="m-1" Appearance="Appearance.Accent" OnClick="OnCrmImport">Import</FluentButton>
@@ -19,33 +24,23 @@
     private string _clipboardContent = "[empty]";
     private int _tabCounter = 0;
     private int _newLineCounter = 0;
+    private int _column = 0;
+    private int _whitespace = 0;
+    private string[] _contentSplit = { };
 
     private async Task OnCrmImport()
     {
         var readText = await _js.InvokeAsync<string>("navigator.clipboard.readText");
 
         _clipboardContent = readText;
-        CountSpecialCharacters(_clipboardContent, out int tabCount, out int newlineCount);
+        _crmImportService.CountSpecialCharacters(_clipboardContent, out int tabCount, out int newlineCount);
         _tabCounter = tabCount;
         _newLineCounter = newlineCount;
 
-        StateHasChanged();
-    }
+        _contentSplit = _crmImportService.SplitBySpecialCharacters(_clipboardContent);
+        _whitespace = _crmImportService.EmptySplitCount(_contentSplit);
+        _column = _contentSplit.Length;
 
-    public void CountSpecialCharacters(string input, out int tabCount, out int newlineCount)
-    {
-        tabCount = 0;
-        newlineCount = 0;
-        foreach (char c in input)
-        {
-            if (c == '\t')
-            {
-                tabCount++;
-            }
-            else if (c == '\n')
-            {
-                newlineCount++;
-            }
-        }
+        StateHasChanged();
     }
 }
