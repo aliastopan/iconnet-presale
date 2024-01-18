@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using StackExchange.Redis;
 
 namespace IConnet.Presale.Infrastructure;
 
@@ -19,7 +19,7 @@ public static class ConfigureServices
         if (scope is ServiceScope.WEBAPP_ONLY_SERVICE)
         {
             Log.Warning("Infrastructure:WEBAPP-ONLY SERVICE");
-            services.ConfigureWebAppServices();
+            services.ConfigureWebAppServices(context.Configuration);
         }
 
         Log.Warning("Infrastructure:COMMON SERVICE");
@@ -51,8 +51,16 @@ public static class ConfigureServices
         return services;
     }
 
-    internal static IServiceCollection ConfigureWebAppServices(this IServiceCollection services)
+    internal static IServiceCollection ConfigureWebAppServices(this IServiceCollection services,
+        IConfiguration configuration)
     {
+        services.AddSingleton<IConnectionMultiplexer>(provider =>
+        {
+            var connectionString = configuration[AppSecretSettings.Section.RedisConnection];
+            return ConnectionMultiplexer.Connect(connectionString!);
+        });
+        services.AddSingleton<ICacheService, RedisCacheProvider>();
+
         return services;
     }
 }
