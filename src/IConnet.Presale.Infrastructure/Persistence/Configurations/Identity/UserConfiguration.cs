@@ -28,8 +28,7 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(u => u.EmailAddress)
             .HasColumnName("email_address")
-            .HasMaxLength(255)
-            .IsRequired();
+            .HasMaxLength(255);
 
         builder.Property(u => u.UserRole)
             .HasColumnName("user_role")

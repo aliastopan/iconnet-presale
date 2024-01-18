@@ -21,15 +21,13 @@ internal sealed class UserProfileConfiguration : IEntityTypeConfiguration<UserPr
 
         builder.Property(u => u.FirstName)
             .HasColumnName("first_name")
-            .HasMaxLength(64)
-            .IsRequired();
+            .HasMaxLength(64);
 
         builder.Property(u => u.LastName)
             .HasColumnName("last_name")
             .HasMaxLength(64);
 
         builder.Property(u => u.DateOfBirth)
-            .HasColumnName("date_of_birth")
-            .IsRequired();
+            .HasColumnName("date_of_birth");
     }
 }
