@@ -8,9 +8,6 @@
 
 @namespace IConnet.Presale.WebApp.Components.Reusable
 
-<div class="p-5">
-    @_clipboardContent
-</div>
 <div class="p-1 flex-col">
     <span>Tab: @_tabCounter</span>
     <span>Enter: @_newLineCounter</span>
@@ -59,7 +56,7 @@
 }
 
 @code {
-    private string _clipboardContent = "[empty]";
+    private string _clipboardContent = "";
     private int _tabCounter = 0;
     private int _newLineCounter = 0;
     private int _column = 0;

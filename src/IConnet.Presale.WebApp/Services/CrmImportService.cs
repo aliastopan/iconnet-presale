@@ -16,49 +16,63 @@ public sealed class CrmImportService
 
     public void Import(string input)
     {
+        int chunkSize = 28;
         char[] delimiters = new char[] { '\t', '\n' };
         string[] contents = input.Split(delimiters);
 
-        bool isValid = contents.Length % 28 == 0;
+        bool isValid = contents.Length % chunkSize == 0;
         if (!isValid)
         {
             Log.Warning("Invalid row count of {0}", contents.Length);
             return;
         }
 
-        var importModel = new ImportModel
-        {
-            IdPermohonan = contents[0],
-            TglPermohonan = contents[1],
-            DurasiTidakLanjut = contents[2],
-            NamaPemohon = contents[3],
-            IdPln = contents[4],
-            Layanan = contents[5],
-            SumberPermohonan = contents[6],
-            StatusPermohonan = contents[7],
-            NamaAgen = contents[8],
-            EmailAgen = contents[9],
-            TeleponAgen = contents[10],
-            MitraAgen = contents[11],
-            Splitter = contents[12],
-            JenisPermohonan = contents[13],
-            TeleponPemohon = contents[14],
-            EmailPemohon = contents[15],
-            NikPemohon = contents[16],
-            NpwpPemohon = contents[17],
-            Keterangan = contents[18],
-            AlamatPemohon = contents[19],
-            Regional = contents[20],
-            KantorPerwakilan = contents[21],
-            Provinsi = contents[22],
-            Kabupaten = contents[23],
-            Kecamatan = contents[24],
-            Kelurahan = contents[25],
-            Latitude = contents[26],
-            Longitude = contents[27]
-        };
+        int chunkTotal = contents.Length / chunkSize;
+        var importModels = new List<ImportModel>();
 
-        _importModels.Add(importModel);
+        for (int i = 0; i < chunkTotal; i++)
+        {
+            string[] chunk = contents.Skip(i * chunkSize).Take(chunkSize).ToArray();
+            var importModel = CreateImportModel(chunk);
+            importModels.Add(importModel);
+        }
+
+        _importModels.AddRange(importModels);
+    }
+
+    private static ImportModel CreateImportModel(string[] column)
+    {
+        return new ImportModel
+        {
+            IdPermohonan = column[0],
+            TglPermohonan = column[1],
+            DurasiTidakLanjut = column[2],
+            NamaPemohon = column[3],
+            IdPln = column[4],
+            Layanan = column[5],
+            SumberPermohonan = column[6],
+            StatusPermohonan = column[7],
+            NamaAgen = column[8],
+            EmailAgen = column[9],
+            TeleponAgen = column[10],
+            MitraAgen = column[11],
+            Splitter = column[12],
+            JenisPermohonan = column[13],
+            TeleponPemohon = column[14],
+            EmailPemohon = column[15],
+            NikPemohon = column[16],
+            NpwpPemohon = column[17],
+            Keterangan = column[18],
+            AlamatPemohon = column[19],
+            Regional = column[20],
+            KantorPerwakilan = column[21],
+            Provinsi = column[22],
+            Kabupaten = column[23],
+            Kecamatan = column[24],
+            Kelurahan = column[25],
+            Latitude = column[26],
+            Longitude = column[27]
+        };
     }
 
     public string[] SplitBySpecialCharacters(string input)
