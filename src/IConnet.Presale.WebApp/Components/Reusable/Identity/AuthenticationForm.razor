@@ -16,8 +16,8 @@
     <FluentCard Width="250px" Height="200px">
         <h3>Sign In</h3>
         <div class="form-container">
-            <FluentTextField Class="m-1" @bind-Value=signInForm.Username Placeholder="Username"></FluentTextField>
-            <FluentTextField Class="m-1" @bind-Value=signInForm.Password Placeholder="Password" TextFieldType="TextFieldType.Password"></FluentTextField>
+            <FluentTextField Class="m-1" @bind-Value=_signInForm.Username Placeholder="Username"></FluentTextField>
+            <FluentTextField Class="m-1" @bind-Value=_signInForm.Password Placeholder="Password" TextFieldType="TextFieldType.Password"></FluentTextField>
 
             <FluentButton Class="m-1" Appearance="Appearance.Accent" OnClick="SubmitAsync">Sign In</FluentButton>
         </div>
@@ -35,9 +35,17 @@
     </AuthorizeView>
 </div>
 
+<FluentOverlay @bind-Visible=@_isLoading
+    Opacity="0.4"
+    Alignment="@Align.Center"
+    Justification="@JustifyContent.Center">
+    <FluentProgressRing />
+</FluentOverlay>
+
 @code
 {
-    private readonly SignInModel signInForm = new();
+    private bool _isLoading = false;
+    private readonly SignInModel _signInForm = new();
     string? result = "[security token]";
 
     private async Task SubmitAsync()
@@ -48,9 +56,11 @@
 
     public async Task<string> SignInAsync()
     {
+        _isLoading = true;
+
         var httpResult = await IdentityClient.SignInAsync(
-            signInForm.Username,
-            signInForm.Password);
+            _signInForm.Username,
+            _signInForm.Password);
 
         if (httpResult.IsSuccessStatusCode)
         {
@@ -67,9 +77,11 @@
 
             var authenticationState = await AuthStateProvider.GetAuthenticationStateAsync();
 
+            _isLoading = false;
             return accessToken;
         }
 
+        _isLoading = false;
         return httpResult.Content;
     }
 
