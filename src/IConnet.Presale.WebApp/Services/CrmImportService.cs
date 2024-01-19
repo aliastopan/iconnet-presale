@@ -85,52 +85,21 @@ public sealed class CrmImportService
         };
     }
 
-    private CrmImportMetadata GetImportMetadata(string input, string[] contents)
+    private static CrmImportMetadata GetImportMetadata(string input, string[] contents)
     {
         return new CrmImportMetadata
         {
             StringLength = input.Length,
             NumberOfWhiteSpaces = contents.Count(string.IsNullOrWhiteSpace),
             NumberOfTabSeparators = input.Count(c => c == '\t'),
-            NumberOfRows = input.Count(c => c == '\n'),
+            NumberOfRows = input.Count(c => c == '\n') + 1,
             IsValidImport = contents.Length % NUMBER_OF_COLUMN == 0
         };
     }
 
-    private string[] SplitBySpecialCharacters(string input)
+    private static string[] SplitBySpecialCharacters(string input)
     {
-        char[] delimiters = new char[] { '\t', '\n' };
+        char[] delimiters = ['\t', '\n'];
         return input.Split(delimiters);
-    }
-
-    private int EmptySplitCount(string[] strings)
-    {
-        int counter = 0;
-        foreach (var col in strings)
-        {
-            if (string.IsNullOrWhiteSpace(col))
-            {
-                counter++;
-            }
-        }
-
-        return counter;
-    }
-
-    private void CountSpecialCharacters(string input, out int tabCount, out int newlineCount)
-    {
-        tabCount = 0;
-        newlineCount = 0;
-        foreach (char c in input)
-        {
-            if (c == '\t')
-            {
-                tabCount++;
-            }
-            else if (c == '\n')
-            {
-                newlineCount++;
-            }
-        }
     }
 }
