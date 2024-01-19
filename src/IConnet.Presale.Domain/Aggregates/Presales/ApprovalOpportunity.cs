@@ -8,64 +8,64 @@ public class ApprovalOpportunity
     public ApprovalOpportunity()
     {
         ApprovalOpportunityId = Guid.NewGuid();
-        Applicant = new Applicant();
-        Agent = new Agent();
+        Pemohon = new Applicant();
+        Agen = new Agent();
         Regional = new Regional();
     }
 
     public Guid ApprovalOpportunityId { get; set; }
-    public string ApplicationId { get; set; }
-    public DateTime ApplicationDate { get; set; }
-    public string ApplicationStatus { get; set; }
-    public string Service { get; set; }
-    public string ApplicationSource { get; set; }
-    public string ApplicationType { get; set; }
+    public string IdPermohonan { get; set; }
+    public DateTime TglPermohonan { get; set; }
+    public string StatusPermohonan { get; set; }
+    public string Layanan { get; set; }
+    public string SumberPermohonan { get; set; }
+    public string JenisPermohonan { get; set; }
     public string Splitter { get; set; }
 
-    public Applicant Applicant { get; set; }
-    public Agent Agent { get; set; }
+    public Applicant Pemohon { get; set; }
+    public Agent Agen { get; set; }
     public Regional Regional { get; set; }
 
-    [NotMapped] public TimeSpan OpportunityLifetime => DateTime.Now - ApplicationDate;
+    [NotMapped] public TimeSpan OpportunityLifetime => DateTime.Now - TglPermohonan;
 
-    public DateTime ImportDateTime { get; set; }
-    public string ImportClaimName { get; set; }
+    public DateTime TglImport { get; set; }
+    public string NamaClaimImport { get; set; }
 }
 
 public class Agent
 {
-    public string FullName { get; set; }
-    public string EmailAddress { get; set; }
-    public string PhoneNumber { get; set; }
-    public string Partner { get; set; }
+    public string NamaLengkap { get; set; }
+    public string Email { get; set; }
+    public string NomorTelepon { get; set; }
+    public string Mitra { get; set; }
 }
 
 public class Applicant
 {
-    public string FullName { get; set; }
-    public string PlnId { get; set; }
-    public string EmailAddress { get; set; }
-    public string PhoneNumber { get; set; }
+    public string NamaLengkap { get; set; }
+    public string IdPln { get; set; }
+    public string Email { get; set; }
+    public string NomorTelepon { get; set; }
     public string Nik { get; set; }
     public string Npwp { get; set; }
-    public string Information { get; set; }
-    public string Address { get; set; }
+    public string Keterangan { get; set; }
+    public string Alamat { get; set; }
 }
 
 public class Regional
 {
     public Regional()
     {
-        Coordinate = new Coordinate();
+        Koordinat = new Coordinate();
     }
 
     public string Bagian { get; set; }
-    public string RepresentativeOffice { get; set; }
+    public string KantorPerwakilan { get; set; }
     public string Provinsi { get; set; }
     public string Kabupaten { get; set; }
     public string Kecamatan { get; set; }
     public string Kelurahan { get; set; }
-    public Coordinate Coordinate { get; set; }
+    public Coordinate Koordinat { get; set; }
 }
 
 public class Coordinate

@@ -79,8 +79,8 @@ public sealed class CrmImportService
             Kelurahan = column[25],
             Latitude = column[26],
             Longitude = column[27],
-            ImportDateTime = _dateTimeService.DateTimeOffsetNow,
-            ImportClaimName = "PAC"
+            TglImport = _dateTimeService.DateTimeOffsetNow,
+            NamaClaimImport = "PAC"
         };
     }
 

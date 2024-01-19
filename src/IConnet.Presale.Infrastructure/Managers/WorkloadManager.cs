@@ -16,47 +16,47 @@ internal sealed class WorkloadManager : IWorkloadManager
     {
         var ApprovalOpportunity = new ApprovalOpportunity
         {
-            ApplicationId = ImportModel.IdPermohonan,
-            ApplicationDate = _dateTimeService.ParseExact(ImportModel.TglPermohonan),
-            ApplicationSource = ImportModel.SumberPermohonan,
-            ApplicationStatus = ImportModel.StatusPermohonan,
-            ApplicationType = ImportModel.JenisPermohonan,
-            Service = ImportModel.Layanan,
+            IdPermohonan = ImportModel.IdPermohonan,
+            TglPermohonan = _dateTimeService.ParseExact(ImportModel.TglPermohonan),
+            SumberPermohonan = ImportModel.SumberPermohonan,
+            StatusPermohonan = ImportModel.StatusPermohonan,
+            JenisPermohonan = ImportModel.JenisPermohonan,
+            Layanan = ImportModel.Layanan,
             Splitter = ImportModel.Splitter,
-            Applicant = new Applicant
+            Pemohon = new Applicant
             {
-                FullName = ImportModel.NamaPemohon,
-                PlnId = ImportModel.IdPln,
-                EmailAddress = ImportModel.EmailPemohon,
-                PhoneNumber = ImportModel.TeleponPemohon,
+                NamaLengkap = ImportModel.NamaPemohon,
+                IdPln = ImportModel.IdPln,
+                Email = ImportModel.EmailPemohon,
+                NomorTelepon = ImportModel.TeleponPemohon,
                 Nik = ImportModel.NikPemohon,
                 Npwp = ImportModel.NpwpPemohon,
-                Information = ImportModel.Keterangan,
-                Address = ImportModel.AlamatPemohon
+                Keterangan = ImportModel.Keterangan,
+                Alamat = ImportModel.AlamatPemohon
             },
-            Agent = new Agent
+            Agen = new Agent
             {
-                FullName = ImportModel.NamaAgen,
-                EmailAddress = ImportModel.EmailAgen,
-                PhoneNumber = ImportModel.TeleponAgen,
-                Partner = ImportModel.MitraAgen
+                NamaLengkap = ImportModel.NamaAgen,
+                Email = ImportModel.EmailAgen,
+                NomorTelepon = ImportModel.TeleponAgen,
+                Mitra = ImportModel.MitraAgen
             },
             Regional = new Regional
             {
                 Bagian = ImportModel.Regional,
-                RepresentativeOffice = ImportModel.KantorPerwakilan,
+                KantorPerwakilan = ImportModel.KantorPerwakilan,
                 Provinsi = ImportModel.Provinsi,
                 Kabupaten = ImportModel.Kabupaten,
                 Kecamatan = ImportModel.Kecamatan,
                 Kelurahan = ImportModel.Kelurahan,
-                Coordinate = new Coordinate
+                Koordinat = new Coordinate
                 {
                     Latitude = ImportModel.Latitude,
                     Longitude = ImportModel.Longitude
                 }
             },
-            ImportDateTime = ImportModel.ImportDateTime.DateTime,
-            ImportClaimName = ImportModel.ImportClaimName
+            TglImport = ImportModel.TglImport.DateTime,
+            NamaClaimImport = ImportModel.NamaClaimImport
         };
 
        return Task.CompletedTask;
