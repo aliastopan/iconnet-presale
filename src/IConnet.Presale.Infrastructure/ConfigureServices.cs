@@ -59,6 +59,7 @@ public static class ConfigureServices
             return ConnectionMultiplexer.Connect(connectionString!);
         });
         services.AddSingleton<ICacheService, RedisCacheProvider>();
+        services.AddScoped<IWorkloadManager, WorkloadManager>();
 
         return services;
     }
