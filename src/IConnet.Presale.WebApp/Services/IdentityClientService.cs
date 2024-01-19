@@ -15,6 +15,15 @@ public sealed class IdentityClientService
 
     public async Task<HttpResult> SignInAsync(string username, string password)
     {
+        var isResponding = await IsHostRespondingAsync();
+        if (!isResponding)
+        {
+            return new HttpResult
+            {
+                IsSuccessStatusCode = false
+            };
+        }
+
         var request = new SignInRequest(username, password);
         var jsonBody = JsonSerializer.Serialize(request);
         var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
@@ -31,6 +40,15 @@ public sealed class IdentityClientService
 
     public async Task<HttpResult> RefreshAccessAsync(string accessToken, string refreshTokenStr)
     {
+        var isResponding = await IsHostRespondingAsync();
+        if (!isResponding)
+        {
+            return new HttpResult
+            {
+                IsSuccessStatusCode = false
+            };
+        }
+
         var request = new RefreshAccessRequest(accessToken, refreshTokenStr);
         var jsonBody = JsonSerializer.Serialize(request);
         var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
@@ -43,5 +61,22 @@ public sealed class IdentityClientService
             Headers = responseMessage.Headers,
             Content = await responseMessage.Content.ReadAsStringAsync()
         };
+    }
+
+    public async Task<bool> IsHostRespondingAsync()
+    {
+
+        try
+        {
+            using var responseMessage = await _httpClient.GetAsync("/");
+            responseMessage.EnsureSuccessStatusCode();
+
+            return true;
+        }
+        catch (HttpRequestException)
+        {
+            Log.Fatal("Host does not responding.");
+            return false;
+        }
     }
 }
