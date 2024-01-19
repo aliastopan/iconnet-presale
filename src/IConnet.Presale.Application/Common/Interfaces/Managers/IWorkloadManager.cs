@@ -6,5 +6,6 @@ namespace IConnet.Presale.Application.Common.Interfaces.Managers;
 public interface IWorkloadManager
 {
     Task<int> CacheWorkloadAsync(List<IApprovalOpportunityModel> importModels);
+    Task<List<WorkPaper>> FetchWorkloadAsync();
     WorkPaper CreateWorkPaper(IApprovalOpportunityModel importModel);
 }

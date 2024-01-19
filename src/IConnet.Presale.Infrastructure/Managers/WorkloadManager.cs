@@ -38,6 +38,25 @@ internal sealed class WorkloadManager : IWorkloadManager
         return workloadCount;
     }
 
+    public async Task<List<WorkPaper>> FetchWorkloadAsync()
+    {
+        List<WorkPaper> workPapers = [];
+        List<string?> jsonWorkPapers = await _cacheService.GetAllCacheValuesAsync();
+
+        foreach (var json in jsonWorkPapers)
+        {
+            if (json is null)
+            {
+                continue;
+            }
+
+            var workPaper = JsonSerializer.Deserialize<WorkPaper>(json)!;
+            workPapers.Add(workPaper);
+        }
+
+        return workPapers;
+    }
+
     public WorkPaper CreateWorkPaper(IApprovalOpportunityModel importModel)
     {
         var approvalOpportunity = CreateApprovalOpportunity(importModel);
