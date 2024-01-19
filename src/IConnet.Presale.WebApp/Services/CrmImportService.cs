@@ -1,10 +1,12 @@
 using IConnet.Presale.Shared.Interfaces.Models.Presales;
+using IConnet.Presale.WebApp.Helpers;
 using IConnet.Presale.WebApp.Models.Presales;
 
 namespace IConnet.Presale.WebApp.Services;
 
 public sealed class CrmImportService
 {
+    private const int NUMBER_OF_COLUMN = 28;
     private readonly List<IApprovalOpportunityModel> _importModels;
     private readonly IDateTimeService _dateTimeService;
 
@@ -16,25 +18,24 @@ public sealed class CrmImportService
 
     public IQueryable<IApprovalOpportunityModel> ApprovalOpportunities => _importModels.AsQueryable();
 
-    public List<IApprovalOpportunityModel> Import(string input)
+    public List<IApprovalOpportunityModel> Import(string input, out CrmImportMetadata importMetadata)
     {
-        int chunkSize = 28;
-        char[] delimiters = new char[] { '\t', '\n' };
-        string[] contents = input.Split(delimiters);
+        string[] contents = SplitBySpecialCharacters(input);
+        importMetadata = GetImportMetadata(input, contents);
 
-        bool isValid = contents.Length % chunkSize == 0;
+        bool isValid = contents.Length % NUMBER_OF_COLUMN == 0;
         if (!isValid)
         {
             Log.Warning("Invalid row count of {0}", contents.Length);
             return new List<IApprovalOpportunityModel>();
         }
 
-        int chunkTotal = contents.Length / chunkSize;
+        int numberOfRows = contents.Length / NUMBER_OF_COLUMN;
         var importModels = new List<ImportModel>();
 
-        for (int i = 0; i < chunkTotal; i++)
+        for (int i = 0; i < numberOfRows; i++)
         {
-            string[] chunk = contents.Skip(i * chunkSize).Take(chunkSize).ToArray();
+            string[] chunk = contents.Skip(i * NUMBER_OF_COLUMN).Take(NUMBER_OF_COLUMN).ToArray();
             var importModel = CreateImportModel(chunk);
 
             if (!_importModels.Any(crm => crm.IdPermohonan == importModel.IdPermohonan))
@@ -84,13 +85,25 @@ public sealed class CrmImportService
         };
     }
 
-    public string[] SplitBySpecialCharacters(string input)
+    private CrmImportMetadata GetImportMetadata(string input, string[] contents)
+    {
+        return new CrmImportMetadata
+        {
+            StringLength = input.Length,
+            NumberOfWhiteSpaces = contents.Count(string.IsNullOrWhiteSpace),
+            NumberOfTabSeparators = input.Count(c => c == '\t'),
+            NumberOfRows = input.Count(c => c == '\n'),
+            IsValidImport = contents.Length % NUMBER_OF_COLUMN == 0
+        };
+    }
+
+    private string[] SplitBySpecialCharacters(string input)
     {
         char[] delimiters = new char[] { '\t', '\n' };
         return input.Split(delimiters);
     }
 
-    public int EmptySplitCount(string[] strings)
+    private int EmptySplitCount(string[] strings)
     {
         int counter = 0;
         foreach (var col in strings)
@@ -104,7 +117,7 @@ public sealed class CrmImportService
         return counter;
     }
 
-    public void CountSpecialCharacters(string input, out int tabCount, out int newlineCount)
+    private void CountSpecialCharacters(string input, out int tabCount, out int newlineCount)
     {
         tabCount = 0;
         newlineCount = 0;

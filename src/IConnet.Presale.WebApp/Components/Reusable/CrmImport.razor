@@ -1,5 +1,6 @@
 @rendermode InteractiveServer
 
+@using IConnet.Presale.WebApp.Helpers
 @using IConnet.Presale.WebApp.Models.Presales
 @using IConnet.Presale.WebApp.Services
 
@@ -64,6 +65,7 @@
 @code {
     bool _isLoading = false;
 
+    private CrmImportMetadata crmImportMetadata = null!;
     private string _clipboardContent = "";
     private int _tabCounter = 0;
     private int _newLineCounter = 0;
@@ -79,18 +81,16 @@
 
         var readText = await _js.InvokeAsync<string>("navigator.clipboard.readText");
 
-        var importModels = _crmImportService.Import(readText);
+        var importModels = _crmImportService.Import(readText, out var importMetadata);
         _importCount = await _workloadManager.CacheWorkloadAsync(importModels);
 
         _isLoading = false;
 
         _clipboardContent = readText;
-        _crmImportService.CountSpecialCharacters(_clipboardContent, out int tabCount, out int newlineCount);
-        _tabCounter = tabCount;
-        _newLineCounter = newlineCount;
+        _tabCounter = importMetadata.NumberOfTabSeparators;
+        _newLineCounter = importMetadata.NumberOfRows;
 
-        _contentSplit = _crmImportService.SplitBySpecialCharacters(_clipboardContent);
-        _whitespace = _crmImportService.EmptySplitCount(_contentSplit);
+        _whitespace = importMetadata.NumberOfWhiteSpaces;
         _column = _contentSplit.Length;
 
         _validRow = _contentSplit.Length % 28 == 0;
