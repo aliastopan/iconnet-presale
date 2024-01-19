@@ -4,6 +4,7 @@ internal sealed class DateTimeProvider : IDateTimeService
 {
     public DateTime UtcNow => DateTime.UtcNow;
     public DateTimeOffset DateTimeOffsetNow => DateTimeOffset.Now;
+    public DateTime Zero => DateTime.MinValue;
 
     public string GetFormat()
     {
