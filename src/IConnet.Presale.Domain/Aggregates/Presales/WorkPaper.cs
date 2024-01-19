@@ -9,6 +9,7 @@ public class WorkPaper : IAggregateRoot
         WorkPaperId = Guid.NewGuid();
         ProsesValidasi = new ValidationProcess();
         ProsesApproval = new ApprovalProcess();
+        ApprovalOpportunity = new ApprovalOpportunity();
     }
 
     public Guid WorkPaperId { get; set; }
