@@ -11,27 +11,25 @@ internal sealed class RedisCacheProvider : ICacheService
         _connectionMultiplexer = connectionMultiplexer;
     }
 
+    public IDatabase Redis => _connectionMultiplexer.GetDatabase(3);
+
     public async Task<string?> GetCacheValueAsync(string key)
     {
-        var db = _connectionMultiplexer.GetDatabase();
-        return await db.StringGetAsync(key);
+        return await Redis.StringGetAsync(key);
     }
 
     public async Task SetCacheValueAsync(string key, string value, TimeSpan? expiry = null)
     {
-        var db = _connectionMultiplexer.GetDatabase();
-        await db.StringSetAsync(key, value, expiry);
+        await Redis.StringSetAsync(key, value, expiry);
     }
 
     public async Task<bool> IsKeyExistsAsync(string key)
     {
-        var db = _connectionMultiplexer.GetDatabase();
-        return await db.KeyExistsAsync(key);
+        return await Redis.KeyExistsAsync(key);
     }
 
     public async Task<bool> DeleteCacheValueAsync(string key)
     {
-        var db = _connectionMultiplexer.GetDatabase();
-        return await db.KeyDeleteAsync(key);
+        return await Redis.KeyDeleteAsync(key);
     }
 }
