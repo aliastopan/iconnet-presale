@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using IConnet.Presale.Domain.Aggregates.Identity;
 using IConnet.Presale.Domain.Enums;
 
@@ -9,14 +10,17 @@ internal sealed class AppDbContextSeeder : IAppDbContextSeeder
     private readonly IAppDbContextFactory<IAppDbContext> _dbContextFactory;
     private readonly IPasswordService _passwordService;
     private readonly IDateTimeService _dateTimeService;
+    private readonly IConfiguration _configuration;
 
     public AppDbContextSeeder(IAppDbContextFactory<IAppDbContext> dbContextFactory,
         IPasswordService passwordService,
-        IDateTimeService dateTimeService)
+        IDateTimeService dateTimeService,
+        IConfiguration configuration)
     {
         _dbContextFactory = dbContextFactory;
         _passwordService = passwordService;
         _dateTimeService = dateTimeService;
+        _configuration = configuration;
     }
 
     public async Task<int> GenerateUsersAsync()
@@ -42,7 +46,7 @@ internal sealed class AppDbContextSeeder : IAppDbContextSeeder
                 LastName = "Augusta",
                 DateOfBirth = new DateOnly(year: 1996, month: 8, day: 19)
             },
-            PasswordHash = _passwordService.HashPassword("LongPassword012", out var salt),
+            PasswordHash = _passwordService.HashPassword(_configuration["Credentials:Administrator"]!, out var salt),
             PasswordSalt = salt,
             IsVerified = true,
             CreationDate = _dateTimeService.DateTimeOffsetNow,
