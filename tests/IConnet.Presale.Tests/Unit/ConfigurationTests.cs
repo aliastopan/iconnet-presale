@@ -11,7 +11,7 @@ public class ConfigurationTests : UnitTest
     }
 
     [Fact]
-    public void SecurityTokenSettings_Issuer_ShouldBeIConnet.Presale()
+    public void SecurityTokenSettings_Issuer_ShouldBeIConnetPresale()
     {
         Configuration["SecurityToken:Issuer"]
             .Should()
@@ -19,7 +19,7 @@ public class ConfigurationTests : UnitTest
     }
 
     [Fact]
-    public void SecurityTokenSettings_Audience_ShouldBeIConnet.Presale()
+    public void SecurityTokenSettings_Audience_ShouldBeIConnetPresale()
     {
         Configuration["SecurityToken:Audience"]
             .Should()
