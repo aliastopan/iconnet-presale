@@ -7,6 +7,7 @@ public class ApprovalOpportunity
 {
     public ApprovalOpportunity()
     {
+        ApprovalOpportunityId = Guid.NewGuid();
         Applicant = new Applicant();
         Agent = new Agent();
         Regional = new Regional();
@@ -26,6 +27,9 @@ public class ApprovalOpportunity
     public Regional Regional { get; set; }
 
     [NotMapped] public TimeSpan OpportunityLifetime => DateTime.Now - ApplicationDate;
+
+    public DateTimeOffset ImportDateTime { get; set; }
+    public string ImportClaimName { get; set; }
 }
 
 public class Agent

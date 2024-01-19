@@ -35,5 +35,5 @@ public class ImportModel : IApprovalOpportunityModel
     public string Longitude { get; set; }
 
     public DateTimeOffset ImportDateTime { get; set; }
-    public string ClaimName { get; set; }
+    public string ImportClaimName { get; set; }
 }

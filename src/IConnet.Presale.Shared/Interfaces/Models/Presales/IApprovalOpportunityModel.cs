@@ -32,5 +32,5 @@ public interface IApprovalOpportunityModel
     string Longitude { get; }
 
     DateTimeOffset ImportDateTime { get; }
-    string ClaimName { get; }
+    string ImportClaimName { get; }
 }
