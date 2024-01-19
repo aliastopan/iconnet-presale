@@ -28,7 +28,7 @@ public class ApprovalOpportunity
 
     [NotMapped] public TimeSpan OpportunityLifetime => DateTime.Now - ApplicationDate;
 
-    public DateTimeOffset ImportDateTime { get; set; }
+    public DateTime ImportDateTime { get; set; }
     public string ImportClaimName { get; set; }
 }
 

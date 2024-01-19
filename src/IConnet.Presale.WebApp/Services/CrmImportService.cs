@@ -80,7 +80,7 @@ public sealed class CrmImportService
             Latitude = column[26],
             Longitude = column[27],
             ImportDateTime = _dateTimeService.DateTimeOffsetNow,
-            ClaimName = "PAC"
+            ImportClaimName = "PAC"
         };
     }
 
