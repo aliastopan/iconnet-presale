@@ -1,23 +1,22 @@
-using System.Linq;
-using IConnet.Presale.Application.Common.Interfaces.Services;
+using IConnet.Presale.Shared.Interfaces.Models.Presales;
 using IConnet.Presale.WebApp.Models.Presales;
 
 namespace IConnet.Presale.WebApp.Services;
 
 public sealed class CrmImportService
 {
-    private readonly List<ImportModel> _importModels;
+    private readonly List<IApprovalOpportunityModel> _importModels;
     private readonly IDateTimeService _dateTimeService;
 
     public CrmImportService(IDateTimeService dateTimeService)
     {
-        _importModels = new List<ImportModel>();
+        _importModels = new List<IApprovalOpportunityModel>();
         _dateTimeService = dateTimeService;
     }
 
-    public IQueryable<ImportModel> ApprovalOpportunities => _importModels.AsQueryable();
+    public IQueryable<IApprovalOpportunityModel> ApprovalOpportunities => _importModels.AsQueryable();
 
-    public void Import(string input)
+    public List<IApprovalOpportunityModel> Import(string input)
     {
         int chunkSize = 28;
         char[] delimiters = new char[] { '\t', '\n' };
@@ -27,7 +26,7 @@ public sealed class CrmImportService
         if (!isValid)
         {
             Log.Warning("Invalid row count of {0}", contents.Length);
-            return;
+            return new List<IApprovalOpportunityModel>();
         }
 
         int chunkTotal = contents.Length / chunkSize;
@@ -45,6 +44,7 @@ public sealed class CrmImportService
         }
 
         _importModels.AddRange(importModels);
+        return _importModels;
     }
 
     private ImportModel CreateImportModel(string[] column)
