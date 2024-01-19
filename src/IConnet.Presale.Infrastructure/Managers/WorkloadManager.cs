@@ -34,7 +34,7 @@ internal sealed class WorkloadManager : IWorkloadManager
                 Keterangan = ImportModel.Keterangan,
                 Alamat = ImportModel.AlamatPemohon
             },
-            Agen = new Agent
+            Agen = new Salesperson
             {
                 NamaLengkap = ImportModel.NamaAgen,
                 Email = ImportModel.EmailAgen,
