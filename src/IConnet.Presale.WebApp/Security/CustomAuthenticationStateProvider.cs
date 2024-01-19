@@ -32,7 +32,7 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
 
         if (tryGetAccessToken.IsFailure || tryGetRefreshToken.IsFailure)
         {
-            Log.Fatal("Fail to authenticate.");
+            Log.Warning("Fail to authenticate.");
             return UnauthenticatedState();
         }
 
@@ -42,7 +42,7 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
         var principal = _accessTokenService.GetPrincipalFromToken(accessToken);
         if (principal is null)
         {
-            Log.Fatal("Fail to authenticate.");
+            Log.Warning("Fail to authenticate.");
             return UnauthenticatedState();
         }
 
@@ -70,8 +70,8 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
             }
             else
             {
-                Log.Fatal("Refresh token was invalid.");
-                Log.Fatal("Fail to authenticate.");
+                Log.Warning("Refresh token was invalid.");
+                Log.Warning("Fail to authenticate.");
                 NotifyAuthenticationStateChanged(Task.FromResult(UnauthenticatedState()));
                 return UnauthenticatedState();
             }
