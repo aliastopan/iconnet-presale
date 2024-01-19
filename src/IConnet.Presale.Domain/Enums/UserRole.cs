@@ -5,6 +5,6 @@ public enum UserRole
 {
     Guest = 0,
     Helpdesk = 1,
-    PAC = 2, // Planning Asset Coverage
+    PlanningAssetCoverage = 2,
     Administrator = 64
 }
