@@ -12,8 +12,8 @@ public class WorkPaper : IAggregateRoot
     }
 
     public Guid WorkPaperId { get; set; }
-    public PersonInCharge PersonInCharge { get; set; }
     public string Shift { get; set; }
+    public PersonInCharge PersonInCharge { get; set; }
     public ValidationProcess ProsesValidasi { get; set; }
     public ApprovalProcess ProsesApproval { get; set; }
 
