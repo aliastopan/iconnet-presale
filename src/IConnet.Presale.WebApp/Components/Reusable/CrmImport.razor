@@ -4,7 +4,9 @@
 @using IConnet.Presale.WebApp.Services
 
 @inject IJSRuntime _js
+@inject IWorkloadManager _workloadManager
 @inject CrmImportService _crmImportService
+
 @namespace IConnet.Presale.WebApp.Components.Reusable
 
 <div class="p-1 flex-col">
@@ -19,6 +21,7 @@
 <FluentButton Class="m-1" Appearance="Appearance.Accent" OnClick="OnCrmImport">Import</FluentButton>
 
 <div class="table-wrapper">
+    <span>Import Count: @_importCount</span>
     <FluentDataGrid Items="@_crmImportService.ApprovalOpportunities">
         <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.IdPermohonan)" Sortable="true" Style="min-width: 200px;"/>
         <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.TglPermohonan)" Sortable="true" Style="min-width: 200px;"/>
@@ -50,7 +53,7 @@
         <PropertyColumn Title="LONGITUDE" Property="@(crm => crm.Longitude)" Sortable="true" Style="min-width: 200px;"/>
     </FluentDataGrid>
 
-    <FluentOverlay @bind-Visible=@isLoading
+    <FluentOverlay @bind-Visible=@_isLoading
         Opacity="0.4"
         Alignment="@Align.Center"
         Justification="@JustifyContent.Center">
@@ -59,7 +62,7 @@
 </div>
 
 @code {
-    bool isLoading = false;
+    bool _isLoading = false;
 
     private string _clipboardContent = "";
     private int _tabCounter = 0;
@@ -68,14 +71,18 @@
     private int _whitespace = 0;
     private string[] _contentSplit = { };
     private bool _validRow;
+    private int _importCount = 0;
 
     private async Task OnCrmImport()
     {
-        isLoading = true;
+        _isLoading = true;
+
         var readText = await _js.InvokeAsync<string>("navigator.clipboard.readText");
 
-        _crmImportService.Import(readText);
-        isLoading = false;
+        var importModels = _crmImportService.Import(readText);
+        _importCount = await _workloadManager.CacheWorkloadAsync(importModels);
+
+        _isLoading = false;
 
         _clipboardContent = readText;
         _crmImportService.CountSpecialCharacters(_clipboardContent, out int tabCount, out int newlineCount);

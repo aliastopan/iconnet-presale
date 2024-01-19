@@ -1,3 +1,4 @@
+using System.Text.Json;
 using IConnet.Presale.Domain.Aggregates.Presales;
 using IConnet.Presale.Shared.Interfaces.Models.Presales;
 
@@ -6,15 +7,40 @@ namespace IConnet.Presale.Infrastructure.Managers;
 internal sealed class WorkloadManager : IWorkloadManager
 {
     private readonly IDateTimeService _dateTimeService;
+    private readonly ICacheService _cacheService;
 
-    public WorkloadManager(IDateTimeService dateTimeService)
+    public WorkloadManager(IDateTimeService dateTimeService,
+        ICacheService cacheService)
     {
         _dateTimeService = dateTimeService;
+        _cacheService = cacheService;
     }
 
-    public WorkPaper CreateWorkPaper(IApprovalOpportunityModel ImportModel)
+    public async Task<int> CacheWorkloadAsync(List<IApprovalOpportunityModel> importModels)
     {
-        var approvalOpportunity = CreateApprovalOpportunity(ImportModel);
+        int workloadCount = 0;
+
+        foreach (var importModel in importModels)
+        {
+            var workPaper = CreateWorkPaper(importModel);
+
+            var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
+            var key = workPaper.ApprovalOpportunity.IdPermohonan;
+
+            var isKeyExists = await _cacheService.IsKeyExistsAsync(key);
+            if (!isKeyExists)
+            {
+                await _cacheService.SetCacheValueAsync(key, jsonWorkPaper);
+                workloadCount++;
+            }
+        }
+
+        return workloadCount;
+    }
+
+    public WorkPaper CreateWorkPaper(IApprovalOpportunityModel importModel)
+    {
+        var approvalOpportunity = CreateApprovalOpportunity(importModel);
         return new WorkPaper
         {
             FkApprovalOpportunityId = approvalOpportunity.ApprovalOpportunityId,
@@ -45,55 +71,64 @@ internal sealed class WorkloadManager : IWorkloadManager
                 },
                 StatusValidasi = "",
                 Keterangan = ""
+            },
+            ProsesApproval = new ApprovalProcess
+            {
+                StatusApproval = "",
+                SebabPenolakan = "",
+                Keterangan = "",
+                JarakShareLoc = "",
+                JarakICrmPlus = "",
+                VaTerbit = _dateTimeService.Zero
             }
         };
     }
 
-    public ApprovalOpportunity CreateApprovalOpportunity(IApprovalOpportunityModel ImportModel)
+    public ApprovalOpportunity CreateApprovalOpportunity(IApprovalOpportunityModel importModel)
     {
         return new ApprovalOpportunity
         {
-            IdPermohonan = ImportModel.IdPermohonan,
-            TglPermohonan = _dateTimeService.ParseExact(ImportModel.TglPermohonan),
-            SumberPermohonan = ImportModel.SumberPermohonan,
-            StatusPermohonan = ImportModel.StatusPermohonan,
-            JenisPermohonan = ImportModel.JenisPermohonan,
-            Layanan = ImportModel.Layanan,
-            Splitter = ImportModel.Splitter,
+            IdPermohonan = importModel.IdPermohonan,
+            TglPermohonan = _dateTimeService.ParseExact(importModel.TglPermohonan),
+            SumberPermohonan = importModel.SumberPermohonan,
+            StatusPermohonan = importModel.StatusPermohonan,
+            JenisPermohonan = importModel.JenisPermohonan,
+            Layanan = importModel.Layanan,
+            Splitter = importModel.Splitter,
             Pemohon = new Applicant
             {
-                NamaLengkap = ImportModel.NamaPemohon,
-                IdPln = ImportModel.IdPln,
-                Email = ImportModel.EmailPemohon,
-                NomorTelepon = ImportModel.TeleponPemohon,
-                Nik = ImportModel.NikPemohon,
-                Npwp = ImportModel.NpwpPemohon,
-                Keterangan = ImportModel.Keterangan,
-                Alamat = ImportModel.AlamatPemohon
+                NamaLengkap = importModel.NamaPemohon,
+                IdPln = importModel.IdPln,
+                Email = importModel.EmailPemohon,
+                NomorTelepon = importModel.TeleponPemohon,
+                Nik = importModel.NikPemohon,
+                Npwp = importModel.NpwpPemohon,
+                Keterangan = importModel.Keterangan,
+                Alamat = importModel.AlamatPemohon
             },
             Agen = new Salesperson
             {
-                NamaLengkap = ImportModel.NamaAgen,
-                Email = ImportModel.EmailAgen,
-                NomorTelepon = ImportModel.TeleponAgen,
-                Mitra = ImportModel.MitraAgen
+                NamaLengkap = importModel.NamaAgen,
+                Email = importModel.EmailAgen,
+                NomorTelepon = importModel.TeleponAgen,
+                Mitra = importModel.MitraAgen
             },
             Regional = new Regional
             {
-                Bagian = ImportModel.Regional,
-                KantorPerwakilan = ImportModel.KantorPerwakilan,
-                Provinsi = ImportModel.Provinsi,
-                Kabupaten = ImportModel.Kabupaten,
-                Kecamatan = ImportModel.Kecamatan,
-                Kelurahan = ImportModel.Kelurahan,
+                Bagian = importModel.Regional,
+                KantorPerwakilan = importModel.KantorPerwakilan,
+                Provinsi = importModel.Provinsi,
+                Kabupaten = importModel.Kabupaten,
+                Kecamatan = importModel.Kecamatan,
+                Kelurahan = importModel.Kelurahan,
                 Koordinat = new Coordinate
                 {
-                    Latitude = ImportModel.Latitude,
-                    Longitude = ImportModel.Longitude
+                    Latitude = importModel.Latitude,
+                    Longitude = importModel.Longitude
                 }
             },
-            TglImport = ImportModel.TglImport.DateTime,
-            NamaClaimImport = ImportModel.NamaClaimImport
+            TglImport = importModel.TglImport.DateTime,
+            NamaClaimImport = importModel.NamaClaimImport
         };
     }
 }
