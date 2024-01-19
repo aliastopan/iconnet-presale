@@ -23,11 +23,8 @@
         </div>
     </FluentCard>
 </div>
+
 <div class="p-1">
-    <span>@result</span>
-</div>
-<div class="p-1">
-    <span>@state</span>
     <AuthorizeView>
         <Authorized>
             <p>You are authenticated.</p>
@@ -36,14 +33,12 @@
             <p>You are not authenticated.</p>
         </NotAuthorized>
     </AuthorizeView>
-    <FluentButton Class="m-1" Appearance="Appearance.Accent" OnClick="CheckAsync">Check</FluentButton>
 </div>
 
 @code
 {
     private readonly SignInModel signInForm = new();
-    string? result = "[http result]";
-    string? state = "[waiting...]";
+    string? result = "[security token]";
 
     private async Task SubmitAsync()
     {
@@ -70,27 +65,12 @@
             await SessionStorage.SetAsync("access-token", accessToken);
             await SessionStorage.SetAsync("refresh-token", refreshToken);
 
+            var authenticationState = await AuthStateProvider.GetAuthenticationStateAsync();
+
             return accessToken;
         }
 
         return httpResult.Content;
-    }
-
-    public async Task CheckAsync()
-    {
-        var authenticationState = await AuthStateProvider.GetAuthenticationStateAsync();
-        if (authenticationState.User.Identity is not null)
-        {
-            state = "authentication has successful";
-            Serilog.Log.Warning("Identity: {0}", authenticationState.User.Identity!.IsAuthenticated);
-        }
-        else
-        {
-            state = "authentication has failed";
-        }
-
-        this.StateHasChanged();
-        NavManager.NavigateTo("/");
     }
 
 }
