@@ -8,7 +8,7 @@
 @attribute [Authorize]
 
 @inject IdentityClientService IdentityClient
-@inject ProtectedSessionStorage SessionStorage
+@inject ProtectedLocalStorage LocalStorage
 @inject AuthenticationStateProvider AuthStateProvider
 @inject NavigationManager NavManager
 
@@ -62,8 +62,8 @@
             var accessToken = response!.AccessToken;
             var refreshToken = response!.RefreshTokenStr;
 
-            await SessionStorage.SetAsync("access-token", accessToken);
-            await SessionStorage.SetAsync("refresh-token", refreshToken);
+            await LocalStorage.SetAsync("access-token", accessToken);
+            await LocalStorage.SetAsync("refresh-token", refreshToken);
 
             var authenticationState = await AuthStateProvider.GetAuthenticationStateAsync();
 

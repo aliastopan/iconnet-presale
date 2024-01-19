@@ -11,15 +11,15 @@ namespace IConnet.Presale.WebApp.Security;
 public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvider
 {
     private readonly IAccessTokenService _accessTokenService;
-    private readonly ProtectedSessionStorage _sessionStorage;
+    private readonly ProtectedLocalStorage _localStorage;
     private readonly IdentityClientService _identityClientService;
 
     public CustomAuthenticationStateProvider(IAccessTokenService accessTokenService,
-        ProtectedSessionStorage sessionStorage,
+        ProtectedLocalStorage localStorage,
         IdentityClientService identityClientService)
     {
         _accessTokenService = accessTokenService;
-        _sessionStorage = sessionStorage;
+        _localStorage = localStorage;
         _identityClientService = identityClientService;
     }
 
@@ -46,7 +46,6 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
             return UnauthenticatedState();
         }
 
-        Log.Warning("Authenticating...");
         var tryAuthenticate = _accessTokenService.TryValidateAccessToken(accessToken);
         if (tryAuthenticate.IsFailure())
         {
@@ -65,8 +64,11 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
                 var response = JsonSerializer.Deserialize<RefreshAccessResponse>(httpResult.Content, options);
                 accessToken = response!.AccessToken;
                 refreshToken = response!.RefreshTokenStr;
-                await _sessionStorage.SetAsync("access-token", accessToken);
-                await _sessionStorage.SetAsync("refresh-token", refreshToken);
+                await _localStorage.SetAsync("access-token", accessToken);
+                await _localStorage.SetAsync("refresh-token", refreshToken);
+
+                Log.Information("Authentication success.");
+
             }
             else
             {
@@ -83,7 +85,7 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
 
     private async Task<Result<string>> TryGetAccessTokenAsync()
     {
-        var result = await _sessionStorage.GetAsync<string>("access-token");
+        var result = await _localStorage.GetAsync<string>("access-token");
 
         if (result.Success)
         {
@@ -96,7 +98,7 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
 
     private async Task<Result<string>> TryGetRefreshTokenAsync()
     {
-        var result = await _sessionStorage.GetAsync<string>("refresh-token");
+        var result = await _localStorage.GetAsync<string>("refresh-token");
 
         if (result.Success)
         {
