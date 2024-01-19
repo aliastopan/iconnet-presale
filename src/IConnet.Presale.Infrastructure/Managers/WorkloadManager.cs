@@ -12,9 +12,46 @@ internal sealed class WorkloadManager : IWorkloadManager
         _dateTimeService = dateTimeService;
     }
 
-    public Task CreateWorkPaper(IApprovalOpportunityModel ImportModel)
+    public WorkPaper CreateWorkPaper(IApprovalOpportunityModel ImportModel)
     {
-        var ApprovalOpportunity = new ApprovalOpportunity
+        var approvalOpportunity = CreateApprovalOpportunity(ImportModel);
+        return new WorkPaper
+        {
+            FkApprovalOpportunityId = approvalOpportunity.ApprovalOpportunityId,
+            ApprovalOpportunity = approvalOpportunity,
+            Shift = "",
+            PersonInCharge = new PersonInCharge
+            {
+                Helpdesk = "",
+                PlanningAssetCoverage = ""
+            },
+            ProsesValidasi = new ValidationProcess
+            {
+                TglChatCallMulai = _dateTimeService.DateTimeOffsetNow.DateTime,
+                TglChatCallRespons = _dateTimeService.DateTimeOffsetNow.DateTime,
+                LinkRecapChatHistory = "",
+                ParameterValidasi = new ValidationParameter
+                {
+                    PlnId = "",
+                    NamaPelanggan = "",
+                    NomorTelepon = "",
+                    Email = "",
+                    AlamatPelanggan = "",
+                    ShareLoc = new Coordinate
+                    {
+                        Latitude = "",
+                        Longitude = ""
+                    }
+                },
+                StatusValidasi = "",
+                Keterangan = ""
+            }
+        };
+    }
+
+    public ApprovalOpportunity CreateApprovalOpportunity(IApprovalOpportunityModel ImportModel)
+    {
+        return new ApprovalOpportunity
         {
             IdPermohonan = ImportModel.IdPermohonan,
             TglPermohonan = _dateTimeService.ParseExact(ImportModel.TglPermohonan),
@@ -58,7 +95,5 @@ internal sealed class WorkloadManager : IWorkloadManager
             TglImport = ImportModel.TglImport.DateTime,
             NamaClaimImport = ImportModel.NamaClaimImport
         };
-
-       return Task.CompletedTask;
     }
 }
