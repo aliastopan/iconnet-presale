@@ -30,8 +30,8 @@ internal sealed class AppDbContextSeeder : IAppDbContextSeeder
             UserAccountId = Guid.Parse("9dd0aa01-3a6e-4159-8c7b-8ee4caa1d4ea"),
             User = new User
             {
-                Username = "aliastopan",
-                EmailAddress = "alias.topan@proton.me",
+                Username = "erasmus",
+                EmailAddress = "erasmus@proton.me",
                 UserRole = UserRole.Administrator,
                 UserPrivileges = new List<UserPrivilege>()
                 {
