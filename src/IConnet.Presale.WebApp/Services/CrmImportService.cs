@@ -6,7 +6,7 @@ namespace IConnet.Presale.WebApp.Services;
 
 public sealed class CrmImportService
 {
-    private const int NUMBER_OF_COLUMN = 28;
+    private const int NumberOfColumn = 28;
     private readonly List<IApprovalOpportunityModel> _importModels;
     private readonly IDateTimeService _dateTimeService;
 
@@ -23,19 +23,19 @@ public sealed class CrmImportService
         string[] contents = SplitBySpecialCharacters(input);
         importMetadata = GetImportMetadata(input, contents);
 
-        bool isValid = contents.Length % NUMBER_OF_COLUMN == 0;
+        bool isValid = contents.Length % NumberOfColumn == 0;
         if (!isValid)
         {
             Log.Warning("Invalid row count of {0}", contents.Length);
             return new List<IApprovalOpportunityModel>();
         }
 
-        int numberOfRows = contents.Length / NUMBER_OF_COLUMN;
+        int numberOfRows = contents.Length / NumberOfColumn;
         var importModels = new List<ImportModel>();
 
         for (int i = 0; i < numberOfRows; i++)
         {
-            string[] chunk = contents.Skip(i * NUMBER_OF_COLUMN).Take(NUMBER_OF_COLUMN).ToArray();
+            string[] chunk = contents.Skip(i * NumberOfColumn).Take(NumberOfColumn).ToArray();
             var importModel = CreateImportModel(chunk);
 
             if (!_importModels.Any(crm => crm.IdPermohonan == importModel.IdPermohonan))
@@ -93,7 +93,7 @@ public sealed class CrmImportService
             NumberOfWhiteSpaces = contents.Count(string.IsNullOrWhiteSpace),
             NumberOfTabSeparators = input.Count(c => c == '\t'),
             NumberOfRows = input.Count(c => c == '\n') + 1,
-            IsValidImport = contents.Length % NUMBER_OF_COLUMN == 0
+            IsValidImport = contents.Length % NumberOfColumn == 0
         };
     }
 
