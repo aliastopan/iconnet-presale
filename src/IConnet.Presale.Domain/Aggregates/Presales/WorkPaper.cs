@@ -6,12 +6,10 @@ public class WorkPaper : IAggregateRoot
 {
     public WorkPaper()
     {
-        ApprovalOpportunity = new ApprovalOpportunity();
         ValidationParameter = new ValidationParameter();
     }
 
     public Guid WorkPaperId { get; set; }
-    public ApprovalOpportunity ApprovalOpportunity { get; set; }
     public string HelpdeskClaim { get; set; }
     public string HelpdeskShift { get; set; }
     public DateTimeOffset ChatCallDateTime { get; set; }
@@ -26,6 +24,9 @@ public class WorkPaper : IAggregateRoot
     public string ShareLocDistance { get; set; }
     public string ICrmPlusDistance { get; set; }
     public DateTime VirtualAccountPublish { get; set; }
+
+    public Guid FkApprovalOpportunityId { get; init; }
+    public virtual ApprovalOpportunity ApprovalOpportunity { get; init; }
 }
 
 public class ValidationParameter
