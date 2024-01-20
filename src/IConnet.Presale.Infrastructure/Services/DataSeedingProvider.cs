@@ -3,7 +3,7 @@ using IConnet.Presale.Domain.Aggregates.Identity;
 using IConnet.Presale.Domain.Enums;
 
 [assembly: InternalsVisibleTo("IConnet.Presale.Tests")]
-namespace IConnet.Presale.Infrastructure.Persistence;
+namespace IConnet.Presale.Infrastructure.Services;
 
 internal sealed class DataSeedingProvider : IDataSeedingService
 {
