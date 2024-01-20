@@ -39,7 +39,8 @@ internal sealed class DataSeedingProvider : IDataSeedingService
                     UserPrivilege.Editor,
                     UserPrivilege.Administrator
                 },
-                UserShift = UserShift.Siang
+                UserShift = UserShift.Siang,
+                JobTitle = "Developer"
             },
             UserProfile = new UserProfile
             {
@@ -66,7 +67,8 @@ internal sealed class DataSeedingProvider : IDataSeedingService
                     UserPrivilege.Viewer,
                     UserPrivilege.Editor,
                 },
-                UserShift = UserShift.Siang
+                UserShift = UserShift.Siang,
+                JobTitle = "Helpdesk"
             },
             UserProfile = new UserProfile
             {
@@ -93,7 +95,8 @@ internal sealed class DataSeedingProvider : IDataSeedingService
                     UserPrivilege.Viewer,
                     UserPrivilege.Editor,
                 },
-                UserShift = UserShift.Siang
+                UserShift = UserShift.Siang,
+                JobTitle = "Planning Asset Coverage"
             },
             UserProfile = new UserProfile
             {
