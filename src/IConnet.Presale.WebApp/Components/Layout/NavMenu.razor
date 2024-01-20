@@ -7,6 +7,15 @@
             <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.Home())" IconColor="Color.Accent">Home</FluentNavLink>
             <FluentNavLink Href="import" Icon="@(new Icons.Regular.Size20.ArrowImport())" IconColor="Color.Accent">Import</FluentNavLink>
             <FluentNavLink Href="workload" Icon="@(new Icons.Regular.Size20.DocumentTable())" IconColor="Color.Accent">Workload</FluentNavLink>
+            <FluentNavLink Href="settings" Icon="@(new Icons.Regular.Size20.Settings())" IconColor="Color.Accent">Settings</FluentNavLink>
+            <AuthorizeView>
+                <Authorized>
+                    <FluentNavLink Href="/sign-out" Icon="@(new Icons.Regular.Size20.ArrowExit())" IconColor="Color.Accent">Sign-Out</FluentNavLink>
+                </Authorized>
+                <NotAuthorized>
+                    <FluentNavLink Href="/sign-in" Icon="@(new Icons.Regular.Size20.ArrowEnter())" IconColor="Color.Accent">Sign-In</FluentNavLink>
+                </NotAuthorized>
+            </AuthorizeView>
         </FluentNavMenu>
     </nav>
 </div>
