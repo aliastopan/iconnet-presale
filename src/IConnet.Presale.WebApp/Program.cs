@@ -19,6 +19,7 @@ builder.Host.ConfigureServices((context, services) =>
             .AddInteractiveServerComponents();
     services.AddFluentUIComponents();
     services.AddHttpContextAccessor();
+    services.AddAccessControl();
     services.AddHttpClient<IdentityClientService>((_, httpClient) =>
     {
         httpClient.BaseAddress = new Uri("https://localhost:7244");
