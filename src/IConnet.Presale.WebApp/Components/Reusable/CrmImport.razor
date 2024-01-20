@@ -30,7 +30,7 @@
             <FluentOverflowItem><FluentBadge>Import Count: @_importCount</FluentBadge></FluentOverflowItem>
         </FluentOverflow>
     }
-    <FluentDataGrid Items="@_crmImportService.ApprovalOpportunities">
+    <FluentDataGrid Items="@_crmImportService.ApprovalOpportunities" ResizableColumns=true Virtualize="true" ItemSize="32">
         <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.IdPermohonan)" Sortable="true" Style="min-width: 200px;"/>
         <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.TglPermohonan)" Sortable="true" Style="min-width: 200px;"/>
         <PropertyColumn Title="DURASI TIDAK LANJUT" Property="@(crm => crm.DurasiTidakLanjut)" Sortable="true" Style="min-width: 200px;"/>
