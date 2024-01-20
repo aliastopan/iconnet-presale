@@ -1,9 +1,9 @@
 using IConnet.Presale.Domain.Aggregates.Identity;
 using IConnet.Presale.Domain.Enums;
 
-namespace IConnet.Presale.Application.Common.Interfaces.Services.Aggregates;
+namespace IConnet.Presale.Application.Common.Interfaces.Handlers;
 
-public interface IIdentityAggregateService
+public interface IIdentityAggregateHandler
 {
     // user account
     Task<UserAccount> CreateUserAccountAsync(string username, string firstName, string lastName,

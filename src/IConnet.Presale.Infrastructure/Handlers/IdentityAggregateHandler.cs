@@ -1,15 +1,15 @@
 using IConnet.Presale.Domain.Aggregates.Identity;
 using IConnet.Presale.Domain.Enums;
 
-namespace IConnet.Presale.Infrastructure.Services.Aggregates;
+namespace IConnet.Presale.Infrastructure.Handlers;
 
-internal sealed class IdentityAggregateProvider : IIdentityAggregateService
+internal sealed class IdentityAggregateHandler : IIdentityAggregateHandler
 {
     private readonly AppDbContextFactory _dbContextFactory;
     private readonly IPasswordService _passwordService;
     private readonly IDateTimeService _dateTimeService;
 
-    public IdentityAggregateProvider(AppDbContextFactory dbContextFactory,
+    public IdentityAggregateHandler(AppDbContextFactory dbContextFactory,
         IPasswordService passwordService,
         IDateTimeService dateTimeService)
     {
