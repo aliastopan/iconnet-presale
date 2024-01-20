@@ -5,14 +5,14 @@ using IConnet.Presale.Domain.Enums;
 [assembly: InternalsVisibleTo("IConnet.Presale.Tests")]
 namespace IConnet.Presale.Infrastructure.Persistence;
 
-internal sealed class AppDbContextSeeder : IAppDbContextSeeder
+internal sealed class DataSeedingProvider : IDataSeedingService
 {
     private readonly AppDbContextFactory _dbContextFactory;
     private readonly IPasswordService _passwordService;
     private readonly IDateTimeService _dateTimeService;
     private readonly IConfiguration _configuration;
 
-    public AppDbContextSeeder(AppDbContextFactory dbContextFactory,
+    public DataSeedingProvider(AppDbContextFactory dbContextFactory,
         IPasswordService passwordService,
         IDateTimeService dateTimeService,
         IConfiguration configuration)

@@ -1,6 +1,5 @@
 global using IConnet.Presale.Tests;
 global using IConnet.Presale.Tests.Common;
-global using IConnet.Presale.Application.Common.Interfaces.Persistence;
 global using IConnet.Presale.Application.Common.Interfaces.Services;
 global using IConnet.Presale.Infrastructure.Persistence;
 global using IConnet.Presale.Infrastructure.Services;

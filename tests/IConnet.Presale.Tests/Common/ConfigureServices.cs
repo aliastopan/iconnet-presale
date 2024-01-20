@@ -22,7 +22,7 @@ public static class ConfigureService
             options.UseInMemoryDatabase($"Database-IConnet.Presale");
         });
         services.AddScoped<AppDbContextFactory>();
-        services.AddScoped<IAppDbContextSeeder, AppDbContextSeeder>();
+        services.AddScoped<IDataSeedingService, DataSeedingProvider>();
 
         return services;
     }

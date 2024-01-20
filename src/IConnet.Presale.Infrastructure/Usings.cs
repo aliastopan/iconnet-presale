@@ -1,6 +1,5 @@
 global using IConnet.Presale.Application;
 global using IConnet.Presale.Application.Common.Interfaces.Managers;
-global using IConnet.Presale.Application.Common.Interfaces.Persistence;
 global using IConnet.Presale.Application.Common.Interfaces.Services;
 global using IConnet.Presale.Application.Common.Interfaces.Services.Aggregates;
 global using IConnet.Presale.Infrastructure.Extensions;
