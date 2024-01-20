@@ -26,7 +26,8 @@ public class ApprovalOpportunity
     public Salesperson Agen { get; set; }
     public Regional Regional { get; set; }
 
-    [NotMapped] public TimeSpan OpportunityLifetime => DateTime.Now - TglPermohonan;
+    [NotMapped]
+    public TimeSpan OpportunityLifetime => DateTime.Now - TglPermohonan;
 
     public DateTime TglImport { get; set; }
     public string NamaClaimImport { get; set; }
