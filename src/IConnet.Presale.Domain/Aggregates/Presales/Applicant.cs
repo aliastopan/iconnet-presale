@@ -1,4 +1,5 @@
 #nullable disable
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IConnet.Presale.Domain.Aggregates.Presales;
 
@@ -12,4 +13,7 @@ public class Applicant
     public string Npwp { get; set; }
     public string Keterangan { get; set; }
     public string Alamat { get; set; }
+
+    [NotMapped]
+    public string WhatsApp => $"wa.me/{(NomorTelepon.StartsWith('+') ? NomorTelepon[1..] : NomorTelepon)}";
 }
