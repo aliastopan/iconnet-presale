@@ -49,7 +49,6 @@ internal sealed class DataSeedingProvider : IDataSeedingService
             },
             PasswordHash = _passwordService.HashPassword(_configuration["Credentials:Administrator"]!, out var salt),
             PasswordSalt = salt,
-            IsVerified = true,
             CreationDate = _dateTimeService.DateTimeOffsetNow,
             LastSignedIn = _dateTimeService.DateTimeOffsetNow
         };

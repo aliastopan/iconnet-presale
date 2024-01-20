@@ -41,7 +41,6 @@ public class UserAccount : IAggregateRoot
     }
 
     public Guid UserAccountId { get; init; }
-    public bool IsVerified { get; set; }
     public string PasswordHash { get; set; }
     public string PasswordSalt { get; set; }
     public DateTimeOffset CreationDate { get; init; }

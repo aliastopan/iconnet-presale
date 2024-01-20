@@ -19,10 +19,6 @@ internal sealed class UserAccountConfiguration : IEntityTypeConfiguration<UserAc
             .HasMaxLength(36)
             .IsRequired();
 
-        builder.Property(u => u.IsVerified)
-            .HasColumnName("is_verified")
-            .IsRequired();
-
         builder.Property(u => u.PasswordHash)
             .HasColumnName("password_hash")
             .HasMaxLength(96) // SHA384 (48-byte)
