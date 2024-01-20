@@ -1,4 +1,3 @@
-using IConnet.Presale.Api.Security.Requirements;
 using IConnet.Presale.Application.Common.Interfaces.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -49,14 +48,7 @@ public static class AccessControl
                 policy.RequireAuthenticatedUser();
                 policy.RequireClaim("privileges", "Administrator");
             });
-            options.AddPolicy(Policies.VerifiedUserPolicy, policy =>
-            {
-                policy.RequireAuthenticatedUser();
-                policy.Requirements.Add(new VerifiedUserRequirement());
-            });
         });
-
-        services.AddScoped<IAuthorizationHandler, VerifiedUserRequirementHandler>();
 
         return services;
     }
