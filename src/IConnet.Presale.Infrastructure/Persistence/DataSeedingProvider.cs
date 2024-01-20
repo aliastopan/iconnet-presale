@@ -25,7 +25,7 @@ internal sealed class DataSeedingProvider : IDataSeedingService
 
     public async Task<int> GenerateUsersAsync()
     {
-        var userAccount01 = new UserAccount
+        var administrator01 = new UserAccount
         {
             UserAccountId = Guid.Parse("9dd0aa01-3a6e-4159-8c7b-8ee4caa1d4ea"),
             User = new User
@@ -38,7 +38,8 @@ internal sealed class DataSeedingProvider : IDataSeedingService
                     UserPrivilege.Viewer,
                     UserPrivilege.Editor,
                     UserPrivilege.Administrator
-                }
+                },
+                UserShift = UserShift.Siang
             },
             UserProfile = new UserProfile
             {
@@ -55,7 +56,7 @@ internal sealed class DataSeedingProvider : IDataSeedingService
 
         using var dbContext = _dbContextFactory.CreateDbContext();
 
-        dbContext.UserAccounts.Add(userAccount01);
+        dbContext.UserAccounts.Add(administrator01);
         return await dbContext.SaveChangesAsync();
     }
 }
