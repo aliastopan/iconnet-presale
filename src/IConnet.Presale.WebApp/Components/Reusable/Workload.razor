@@ -1,12 +1,83 @@
-@rendermode InteractiveServer
+@attribute [StreamRendering]
+
+@using IConnet.Presale.Domain.Aggregates.Presales
 
 @inject IWorkloadManager _workloadManager
 
-<div class="table-wrapper">
-
-</div>
+@if (_workPapers is null)
+{
+    <FluentProgressRing />
+}
+else
+{
+    <div class="table-wrapper">
+        <FluentDataGrid Items="@_workPapers" ResizableColumns=true Virtualize="true" ItemSize="32">
+            <PropertyColumn Title="PIC CHAT/CALL" Property="@(crm => crm.PersonInCharge.Helpdesk)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="SHIFT" Property="@(crm => crm.Shift)" Sortable="true" Style="min-width: 200px;"/>
+            @* Proses Validasi *@
+            <PropertyColumn Title="TGL CHAT/CALL HELPDESK" Property="@(crm => crm.ProsesValidasi.TglChatCallMulai)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="NAMA PELANGGAN" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.NamaPelanggan)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="NOMOR TELP AKTIF" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.NomorTelepon)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="EMAIL AKTIF" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.Email)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="ALAMAT PELANGGAN" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.AlamatPelanggan)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="ID PLAN" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.PlnId)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="SHARE KOORDINAT" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.ShareLoc.LatitudeLongitude)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="TGL CHAT/CALL DIJAWAB" Property="@(crm => crm.ProsesValidasi.TglChatCallRespons)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="REKAP CHAT HISTORY" Property="@(crm => crm.ProsesValidasi.LinkRecapChatHistory)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="STATUS VALIDASI" Property="@(crm => crm.ProsesValidasi.StatusValidasi)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="KETERANGAN VALIDASI" Property="@(crm => crm.ProsesValidasi.Keterangan)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="WHATSAPP" Property="@(crm => crm.ApprovalOpportunity.Pemohon.WhatsApp)" Sortable="true" Style="min-width: 200px;"/>
+            @* Proses Approval *@
+            <PropertyColumn Title="STATUS APPROVAL" Property="@(crm => crm.ProsesApproval.StatusApproval)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="SEBAB PENOLAKAN" Property="@(crm => crm.ProsesApproval.SebabPenolakan)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="PIC PAC" Property="@(crm => crm.PersonInCharge.PlanningAssetCoverage)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="KETERANGAN APPROVAL" Property="@(crm => crm.ProsesApproval.Keterangan)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="JARAK SHARE LOC" Property="@(crm => crm.ProsesApproval.JarakShareLoc)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="JARAK ICRM+" Property="@(crm => crm.ProsesApproval.JarakICrmPlus)" Sortable="true" Style="min-width: 200px;"/>
+            @* <PropertyColumn Title="AGING BELUM DIJAWAB" Property="" Sortable="true" Style="min-width: 200px;"/> *@
+            <PropertyColumn Title="VA TERBIT" Property="@(crm => crm.ProsesApproval.VaTerbit)" Sortable="true" Style="min-width: 200px;"/>
+            @* CRM Data *@
+            <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.IdPermohonan)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.TglPermohonan)" Sortable="true" Style="min-width: 200px;"/>
+            @* <PropertyColumn Title="DURASI TIDAK LANJUT" Property="" Sortable="true" Style="min-width: 200px;"/> *@
+            <PropertyColumn Title="NAMA PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.NamaLengkap)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="ID PLN" Property="@(crm => crm.ApprovalOpportunity.Pemohon.IdPln)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="LAYANAN" Property="@(crm => crm.ApprovalOpportunity.Layanan)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="SUMBER PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.SumberPermohonan)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="STATUS PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.StatusPermohonan)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="NAMA AGEN" Property="@(crm => crm.ApprovalOpportunity.Agen.NamaLengkap)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="EMAIL AGEN" Property="@(crm => crm.ApprovalOpportunity.Agen.Email)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="TELEPON AGEN" Property="@(crm => crm.ApprovalOpportunity.Agen.NomorTelepon)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="MITRA AGEN" Property="@(crm => crm.ApprovalOpportunity.Agen.Mitra)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="SPLITTER" Property="@(crm => crm.ApprovalOpportunity.Splitter)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="JENIS PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.JenisPermohonan)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="TELEPON PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.NomorTelepon)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="EMAIL PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.Email)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="NIK PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.Nik)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="NPWP PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.Npwp)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="KETERANGAN" Property="@(crm => crm.ApprovalOpportunity.Pemohon.Keterangan)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="ALAMAT PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.Alamat)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="REGIONAL" Property="@(crm => crm.ApprovalOpportunity.Regional.Bagian)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="KANTOR PERWAKILAN" Property="@(crm => crm.ApprovalOpportunity.Regional.KantorPerwakilan)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="PROVINSI" Property="@(crm => crm.ApprovalOpportunity.Regional.Provinsi)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="KABUPATEN" Property="@(crm => crm.ApprovalOpportunity.Regional.Kabupaten)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="KECAMATAN" Property="@(crm => crm.ApprovalOpportunity.Regional.Kecamatan)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="KELURAHAN" Property="@(crm => crm.ApprovalOpportunity.Regional.Kelurahan)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="LATITUDE" Property="@(crm => crm.ApprovalOpportunity.Regional.Koordinat.Latitude)" Sortable="true" Style="min-width: 200px;"/>
+            <PropertyColumn Title="LONGITUDE" Property="@(crm => crm.ApprovalOpportunity.Regional.Koordinat.Longitude)" Sortable="true" Style="min-width: 200px;"/>
+        </FluentDataGrid>
+    </div>
+}
 
 @code {
     private bool _isLoading = false;
+    private IQueryable<WorkPaper>? _workPapers;
 
+    protected override async Task OnInitializedAsync()
+    {
+        List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync();
+        _workPapers = workload.AsQueryable();
+
+        await Task.CompletedTask;
+    }
 }
