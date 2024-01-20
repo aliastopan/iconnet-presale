@@ -1,7 +1,7 @@
 using IConnet.Presale.Domain.Aggregates.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace IConnet.Presale.Application.Common.Extensions.Repository;
+namespace IConnet.Presale.Infrastructure.Extensions.Repository;
 
 public static class RefreshTokenExtensions
 {

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using IConnet.Presale.Domain.Aggregates.Identity;
 
-namespace IConnet.Presale.Application.Common.Extensions.Repository;
+namespace IConnet.Presale.Infrastructure.Extensions.Repository;
 
 public static class UserAccountExtensions
 {
