@@ -7,12 +7,12 @@ namespace IConnet.Presale.Infrastructure.Persistence;
 
 internal sealed class AppDbContextSeeder : IAppDbContextSeeder
 {
-    private readonly IAppDbContextFactory<IAppDbContext> _dbContextFactory;
+    private readonly AppDbContextFactory _dbContextFactory;
     private readonly IPasswordService _passwordService;
     private readonly IDateTimeService _dateTimeService;
     private readonly IConfiguration _configuration;
 
-    public AppDbContextSeeder(IAppDbContextFactory<IAppDbContext> dbContextFactory,
+    public AppDbContextSeeder(AppDbContextFactory dbContextFactory,
         IPasswordService passwordService,
         IDateTimeService dateTimeService,
         IConfiguration configuration)

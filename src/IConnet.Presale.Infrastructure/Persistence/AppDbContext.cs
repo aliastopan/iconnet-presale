@@ -5,7 +5,7 @@ using IConnet.Presale.Domain.Aggregates.Identity;
 [assembly: InternalsVisibleTo("IConnet.Presale.Tests")]
 namespace IConnet.Presale.Infrastructure.Persistence;
 
-internal sealed class AppDbContext : DbContext, IAppDbContext
+internal sealed class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
