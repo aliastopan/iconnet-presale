@@ -7,10 +7,9 @@
 @namespace IConnet.Presale.WebApp.Components.Reusable.Identity
 @attribute [Authorize]
 
-@inject IdentityClientService IdentityClient
-@inject ProtectedLocalStorage LocalStorage
-@inject AuthenticationStateProvider AuthStateProvider
-@inject NavigationManager NavManager
+@inject IdentityClientService _identityClient
+@inject ProtectedLocalStorage _localStorage
+@inject AuthenticationStateProvider _authStateProvider
 
 <div>
     <FluentCard Width="250px" Height="200px">
@@ -58,7 +57,7 @@
     {
         _isLoading = true;
 
-        var httpResult = await IdentityClient.SignInAsync(
+        var httpResult = await _identityClient.SignInAsync(
             _signInForm.Username,
             _signInForm.Password);
 
@@ -72,10 +71,10 @@
             var accessToken = response!.AccessToken;
             var refreshToken = response!.RefreshTokenStr;
 
-            await LocalStorage.SetAsync("access-token", accessToken);
-            await LocalStorage.SetAsync("refresh-token", refreshToken);
+            await _localStorage.SetAsync("access-token", accessToken);
+            await _localStorage.SetAsync("refresh-token", refreshToken);
 
-            var authenticationState = await AuthStateProvider.GetAuthenticationStateAsync();
+            var authenticationState = await _authStateProvider.GetAuthenticationStateAsync();
 
             _isLoading = false;
             return accessToken;
