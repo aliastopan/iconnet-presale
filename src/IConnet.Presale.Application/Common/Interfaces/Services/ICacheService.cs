@@ -6,6 +6,6 @@ public interface ICacheService
     Task<List<string?>> GetAllCacheValuesAsync();
     Task SetCacheValueAsync(string key, string value, TimeSpan? expiry = null);
     Task<bool> UpdateCacheValueAsync(string key, string value, TimeSpan? expiry = null);
-    Task<bool> IsKeyExistsAsync(string key);
     Task<bool> DeleteCacheValueAsync(string key);
+    Task<bool> IsKeyExistsAsync(string key);
 }

@@ -51,13 +51,13 @@ internal sealed class RedisCacheProvider : ICacheService
         return false;
     }
 
-    public async Task<bool> IsKeyExistsAsync(string key)
-    {
-        return await Redis.KeyExistsAsync(key);
-    }
-
     public async Task<bool> DeleteCacheValueAsync(string key)
     {
         return await Redis.KeyDeleteAsync(key);
+    }
+
+    public async Task<bool> IsKeyExistsAsync(string key)
+    {
+        return await Redis.KeyExistsAsync(key);
     }
 }
