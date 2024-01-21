@@ -1,4 +1,7 @@
 ﻿@inherits LayoutComponentBase
+
+@inject AuthenticationStateProvider _authStateProvider
+
 <FluentLayout>
     <FluentHeader>
         IConnet.Presale.WebApp
@@ -26,3 +29,11 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        await _authStateProvider.GetAuthenticationStateAsync();
+    }
+}
