@@ -9,16 +9,16 @@ namespace IConnet.Presale.WebApp.Security;
 
 public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvider
 {
-    private readonly IAccessTokenService _accessTokenService;
     private readonly ProtectedLocalStorage _localStorage;
+    private readonly IAccessTokenService _accessTokenService;
     private readonly IdentityClientService _identityClientService;
 
-    public CustomAuthenticationStateProvider(IAccessTokenService accessTokenService,
-        ProtectedLocalStorage localStorage,
+    public CustomAuthenticationStateProvider(ProtectedLocalStorage localStorage,
+        IAccessTokenService accessTokenService,
         IdentityClientService identityClientService)
     {
-        _accessTokenService = accessTokenService;
         _localStorage = localStorage;
+        _accessTokenService = accessTokenService;
         _identityClientService = identityClientService;
     }
 
