@@ -94,7 +94,7 @@ internal sealed class WorkloadManager : IWorkloadManager
             ProsesApproval = new ApprovalProcess
             {
                 StatusApproval = "",
-                SebabPenolakan = "",
+                RootCause = "",
                 Keterangan = "",
                 JarakShareLoc = "",
                 JarakICrmPlus = "",
