@@ -2,7 +2,6 @@ using System.Security.Claims;
 using System.Text.Json;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using IConnet.Presale.Application.Common.Interfaces.Services;
 using IConnet.Presale.Shared.Contracts.Identity.Authentication;
 using IConnet.Presale.WebApp.Services;
 
