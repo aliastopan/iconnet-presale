@@ -12,17 +12,14 @@ internal sealed class AccessTokenProvider : IAccessTokenService
     private readonly IDateTimeService _dateTimeService;
     private readonly ISecurityTokenValidatorService _securityTokenValidatorService;
     private readonly AppSecretSettings _appSecretSettings;
-    private readonly SecurityTokenSettings _securityTokenSettings;
 
     public AccessTokenProvider(IDateTimeService dateTimeService,
         ISecurityTokenValidatorService securityTokenValidatorService,
-        IOptions<AppSecretSettings> appSecretSettings,
-        IOptions<SecurityTokenSettings> securityTokenSettings)
+        IOptions<AppSecretSettings> appSecretSettings)
     {
         _dateTimeService = dateTimeService;
         _securityTokenValidatorService = securityTokenValidatorService;
         _appSecretSettings = appSecretSettings.Value;
-        _securityTokenSettings = securityTokenSettings.Value;
 
         JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
     }
@@ -35,9 +32,9 @@ internal sealed class AccessTokenProvider : IAccessTokenService
         var jwtHandler = new JwtSecurityTokenHandler();
         var jwt = new JwtSecurityToken
         (
-            issuer: _securityTokenSettings.Issuer,
-            audience: _securityTokenSettings.Audience,
-            expires: _dateTimeService.UtcNow.Add(_securityTokenSettings.AccessTokenLifeTime),
+            issuer: _appSecretSettings.JwtIssuer,
+            audience: _appSecretSettings.JwtAudience,
+            expires: _dateTimeService.UtcNow.Add(_appSecretSettings.JwtLifeTime),
             claims: CreateClaims(userAccount),
             signingCredentials: signingCredentials
         );

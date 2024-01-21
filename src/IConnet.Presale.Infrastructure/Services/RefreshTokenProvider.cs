@@ -5,20 +5,20 @@ namespace IConnet.Presale.Infrastructure.Services;
 
 internal sealed class RefreshTokenProvider : IRefreshTokenService
 {
+    private readonly AppSecretSettings _appSecretSettings;
     private readonly AppDbContextFactory _dbContextFactory;
     private readonly IAccessTokenService _accessTokenService;
     private readonly IDateTimeService _dateTimeService;
-    private readonly SecurityTokenSettings _securityTokenSettings;
 
-    public RefreshTokenProvider(AppDbContextFactory dbContextFactory,
+    public RefreshTokenProvider(IOptions<AppSecretSettings> appSecretSettings,
+        AppDbContextFactory dbContextFactory,
         IAccessTokenService accessTokenService,
-        IDateTimeService dateTimeService,
-        IOptions<SecurityTokenSettings> securityTokenSettings)
+        IDateTimeService dateTimeService)
     {
+        _appSecretSettings = appSecretSettings.Value;
         _dbContextFactory = dbContextFactory;
         _accessTokenService = accessTokenService;
         _dateTimeService = dateTimeService;
-        _securityTokenSettings = securityTokenSettings.Value;
     }
 
     public Result<RefreshToken> TryGenerateRefreshToken(string accessToken, UserAccount userAccount)
@@ -37,7 +37,7 @@ internal sealed class RefreshTokenProvider : IRefreshTokenService
             Token = Guid.NewGuid().ToString(),
             Jti = jti,
             CreationDate = _dateTimeService.DateTimeOffsetNow,
-            ExpiryDate = _dateTimeService.DateTimeOffsetNow.Add(_securityTokenSettings.RefreshTokenLifeTime),
+            ExpiryDate = _dateTimeService.DateTimeOffsetNow.Add(_appSecretSettings.JwtRefreshLifeTime),
             FkUserAccountId = userAccount.UserAccountId,
             UserAccount = userAccount,
         };

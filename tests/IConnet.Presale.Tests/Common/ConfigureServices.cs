@@ -9,7 +9,6 @@ public static class ConfigureService
         services.AddSingleton<IConfiguration>(configuration);
 
         services.Configure<AppSecretSettings>(configuration.GetSection(AppSecretSettings.SectionName));
-        services.Configure<SecurityTokenSettings>(configuration.GetSection(SecurityTokenSettings.SectionName));
 
         services.AddScoped<IDateTimeService, DateTimeProvider>();
         services.AddScoped<IPasswordService, PasswordProvider>();

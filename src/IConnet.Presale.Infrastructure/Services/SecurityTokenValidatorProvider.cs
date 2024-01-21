@@ -7,13 +7,10 @@ namespace IConnet.Presale.Infrastructure.Services;
 internal sealed class SecurityTokenValidatorProvider : ISecurityTokenValidatorService
 {
     private readonly AppSecretSettings _appSecretSettings;
-    private readonly SecurityTokenSettings _securityTokenSettings;
 
-    public SecurityTokenValidatorProvider(IOptions<AppSecretSettings> appSecretSettings,
-        IOptions<SecurityTokenSettings> securityTokenSettings)
+    public SecurityTokenValidatorProvider(IOptions<AppSecretSettings> appSecretSettings)
     {
         _appSecretSettings = appSecretSettings.Value;
-        _securityTokenSettings = securityTokenSettings.Value;
     }
 
     public TokenValidationParameters GetAccessTokenValidationParameters()
@@ -21,8 +18,8 @@ internal sealed class SecurityTokenValidatorProvider : ISecurityTokenValidatorSe
         var masterKey =  _appSecretSettings.MasterKey;
         return new TokenValidationParameters
         {
-            ValidIssuer = _securityTokenSettings.Issuer,
-            ValidAudience = _securityTokenSettings.Audience,
+            ValidIssuer = _appSecretSettings.JwtIssuer,
+            ValidAudience = _appSecretSettings.JwtAudience,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(masterKey!)),
             ValidateIssuer = true,
             ValidateAudience = true,
