@@ -10,14 +10,17 @@ namespace IConnet.Presale.WebApp.Security;
 public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvider
 {
     private readonly ProtectedLocalStorage _localStorage;
+    private readonly SessionService _sessionService;
     private readonly IAccessTokenService _accessTokenService;
     private readonly IdentityClientService _identityClientService;
 
     public CustomAuthenticationStateProvider(ProtectedLocalStorage localStorage,
+        SessionService sessionService,
         IAccessTokenService accessTokenService,
         IdentityClientService identityClientService)
     {
         _localStorage = localStorage;
+        _sessionService = sessionService;
         _accessTokenService = accessTokenService;
         _identityClientService = identityClientService;
     }
@@ -78,6 +81,7 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
             }
         }
 
+        _sessionService.SetSession(principal);
         NotifyAuthenticationStateChanged(Task.FromResult(AuthenticatedState(principal)));
         return AuthenticatedState(principal);
     }

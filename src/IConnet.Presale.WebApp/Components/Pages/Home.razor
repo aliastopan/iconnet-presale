@@ -1,6 +1,32 @@
 ﻿@page "/"
 @rendermode InteractiveServer
 
+@using IConnet.Presale.WebApp.Models.Identity
+@using IConnet.Presale.WebApp.Services
+
+@inject SessionService _sessionService
+
 <PageTitle>Home</PageTitle>
 
-<AuthenticationForm />
+<FluentCard Width="400px">
+    <AuthorizeView>
+        <Authorized>
+            <FluentPresenceBadge OutOfOffice=true Status="PresenceStatus.Available">
+                <FluentIcon Value="@(new Icons.Filled.Size48.Person())" />
+            </FluentPresenceBadge>
+            <span>@_sessionService.UserModel!.Username</span>
+        </Authorized>
+        <NotAuthorized>
+            <FluentPresenceBadge OutOfOffice=true Status="PresenceStatus.DoNotDisturb">
+                <FluentIcon Value="@(new Icons.Filled.Size48.Person())" />
+            </FluentPresenceBadge>
+            <span>Guest</span>
+        </NotAuthorized>
+    </AuthorizeView>
+</FluentCard>
+
+@code
+{
+    private UserModel? _userModel;
+
+}
