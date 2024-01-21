@@ -21,6 +21,7 @@ builder.Host.ConfigureServices((context, services) =>
     {
         httpClient.BaseAddress = new Uri("https://localhost:7244");
     });
+    services.AddScoped<SessionService>();
     services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 
     services.AddScoped<CrmImportService>();
