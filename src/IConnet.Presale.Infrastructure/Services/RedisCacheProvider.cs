@@ -39,6 +39,18 @@ internal sealed class RedisCacheProvider : ICacheService
         await Redis.StringSetAsync(key, value, expiry);
     }
 
+    public async Task<bool> UpdateCacheValueAsync(string key, string value, TimeSpan? expiry = null)
+    {
+        var exists = await Redis.KeyExistsAsync(key);
+        if (exists)
+        {
+            await Redis.StringSetAsync(key, value, expiry);
+            return true;
+        }
+
+        return false;
+    }
+
     public async Task<bool> IsKeyExistsAsync(string key)
     {
         return await Redis.KeyExistsAsync(key);
