@@ -15,9 +15,6 @@ builder.Host.ConfigureServices((context, services) =>
 {
     services.AddApplicationServices(ServiceScope.WEBAPP_ONLY_SERVICE);
     services.AddInfrastructureServices(ServiceScope.WEBAPP_ONLY_SERVICE, context);
-    services.AddRazorComponents()
-            .AddInteractiveServerComponents();
-    services.AddFluentUIComponents();
     services.AddHttpContextAccessor();
     services.AddAccessControl();
     services.AddHttpClient<IdentityClientService>((_, httpClient) =>
@@ -27,6 +24,10 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 
     services.AddScoped<CrmImportService>();
+
+    services.AddRazorComponents()
+            .AddInteractiveServerComponents();
+    services.AddFluentUIComponents();
 });
 
 var app = builder.Build();
