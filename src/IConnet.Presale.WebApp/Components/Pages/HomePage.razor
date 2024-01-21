@@ -8,13 +8,20 @@
 
 <PageTitle>Home</PageTitle>
 
-<FluentCard Width="400px">
+<FluentCard Width="300px">
     <AuthorizeView>
         <Authorized>
-            <FluentPresenceBadge OutOfOffice=true Status="PresenceStatus.Available">
-                <FluentIcon Value="@(new Icons.Filled.Size48.Person())" />
-            </FluentPresenceBadge>
-            <span>@_sessionService.UserModel!.Username</span>
+            <FluentStack>
+                <FluentPresenceBadge OutOfOffice=true Status="PresenceStatus.Available">
+                    <FluentIcon Value="@(new Icons.Filled.Size48.Person())" />
+                </FluentPresenceBadge>
+                <div class="d-flex flex-column">
+                    <span>@_sessionService.UserModel!.Username (@_sessionService.UserModel.Role)</span>
+                    <FluentBadge Appearance="Appearance.Accent">
+                        @_sessionService.UserModel!.JobTitle
+                    </FluentBadge>
+                </div>
+            </FluentStack>
         </Authorized>
         <NotAuthorized>
             <FluentPresenceBadge OutOfOffice=true Status="PresenceStatus.DoNotDisturb">
@@ -22,11 +29,16 @@
             </FluentPresenceBadge>
             <span>Guest</span>
         </NotAuthorized>
+        <Authorizing>
+            <FluentPresenceBadge OutOfOffice=true Status="PresenceStatus.DoNotDisturb">
+                <FluentIcon Value="@(new Icons.Filled.Size48.Person())" />
+            </FluentPresenceBadge>
+            <span>Guest</span>
+        </Authorizing>
     </AuthorizeView>
 </FluentCard>
 
 @code
 {
-    private UserModel? _userModel;
 
 }
