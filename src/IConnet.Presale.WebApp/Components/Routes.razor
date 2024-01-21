@@ -1,6 +1,6 @@
 ﻿@rendermode InteractiveServer
 
-@inject IHttpContextAccessor httpContextAccessor
+@inject IHttpContextAccessor _httpContextAccessor
 
 @if (isPreRender)
 {
@@ -22,8 +22,7 @@
 
     protected override void OnInitialized()
     {
-        isPreRender = !(httpContextAccessor.HttpContext is not null
-            && httpContextAccessor.HttpContext.Response.HasStarted);
-
+        isPreRender = !(_httpContextAccessor.HttpContext is not null
+            && _httpContextAccessor.HttpContext.Response.HasStarted);
     }
 }
