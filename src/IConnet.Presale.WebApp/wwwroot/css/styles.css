@@ -1,5 +1,5 @@
-fluent-data-grid-row{
-    border-bottom: 1px solid rgb(141, 141, 141);
+fluent-data-grid{
+    min-width: max-content;
 }
 
 fluent-data-grid-row:not(.header):hover {
@@ -7,7 +7,6 @@ fluent-data-grid-row:not(.header):hover {
     cursor: default;
 }
 
-/* fluent-data-grid-cell:hover{
-    background-color: rgb(241, 241, 241);
-    border-bottom: 1px solid rgb(141, 141, 141);
-} */
+fluent-data-grid-cell:not(.column-header):hover + fluent-data-grid-row{
+    background-color: rgb(231, 231, 231);
+}
