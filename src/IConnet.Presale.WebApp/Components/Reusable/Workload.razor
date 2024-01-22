@@ -77,7 +77,5 @@ else
     {
         List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync();
         _workPapers = workload.AsQueryable();
-
-        await Task.CompletedTask;
     }
 }
