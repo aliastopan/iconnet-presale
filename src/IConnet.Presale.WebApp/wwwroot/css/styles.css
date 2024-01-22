@@ -1,0 +1,13 @@
+fluent-data-grid-row{
+    border-bottom: 1px solid rgb(141, 141, 141);
+}
+
+fluent-data-grid-row:not(.header):hover {
+    background-color: rgb(240, 240, 240);
+    cursor: default;
+}
+
+/* fluent-data-grid-cell:hover{
+    background-color: rgb(241, 241, 241);
+    border-bottom: 1px solid rgb(141, 141, 141);
+} */
