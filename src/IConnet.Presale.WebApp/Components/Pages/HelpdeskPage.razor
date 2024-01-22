@@ -8,7 +8,8 @@
 <PageTitle>Helpdesk</PageTitle>
 
 <div class="table-wrapper">
-    <FluentDataGrid Items="@_workPapers" ResizableColumns=true Virtualize="true" ItemSize="32">
+    <FluentDataGrid Items="@_workPapers" ResizableColumns=true Virtualize="true" ItemSize="32" OnRowFocus="@OnRowSelected" TGridItem="WorkPaper">
+        <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.IdPermohonan)" Sortable="true" Style="min-width: 200px;"/>
         <PropertyColumn Title="PIC CHAT/CALL" Property="@(crm => crm.PersonInCharge.Helpdesk)" Sortable="true" Style="min-width: 200px;"/>
         <PropertyColumn Title="SHIFT" Property="@(crm => crm.Shift)" Sortable="true" Style="min-width: 200px;"/>
         <PropertyColumn Title="TGL CHAT/CALL HELPDESK" Property="@(crm => crm.ProsesValidasi.TglChatCallMulai)" Sortable="true" Style="min-width: 200px;"/>
@@ -37,5 +38,14 @@
     {
         List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync();
         _workPapers = workload.AsQueryable();
+    }
+
+    private void OnRowSelected(FluentDataGridRow<WorkPaper> row)
+    {
+        if (row.Item is not null)
+        {
+            _rowSelected = $"{row.Item!.ApprovalOpportunity.IdPermohonan}";
+            StateHasChanged();
+        }
     }
 }
