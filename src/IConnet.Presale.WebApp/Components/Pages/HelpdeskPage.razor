@@ -8,7 +8,7 @@
 <PageTitle>Helpdesk</PageTitle>
 
 <div class="table-wrapper">
-    <FluentDataGrid Items="@_workPapers" ResizableColumns=true Virtualize="true" ItemSize="32" OnRowFocus="@OnRowSelected" TGridItem="WorkPaper">
+    <FluentDataGrid Class="data-table" Items="@_workPapers" ItemSize="32" OnRowFocus="@OnRowSelected" TGridItem="WorkPaper">
         <TemplateColumn Title="ID PERMOHONAN" Sortable="true" Style="min-width: 200px;">
             <div class="">
                 @context.ApprovalOpportunity.IdPermohonan
