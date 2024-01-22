@@ -75,7 +75,11 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        _isLoading = true;
+
         List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync();
         _workPapers = workload.AsQueryable();
+
+        _isLoading = false;
     }
 }
