@@ -1,0 +1,41 @@
+@page "/helpdesk"
+@rendermode InteractiveServer
+
+@using IConnet.Presale.Domain.Aggregates.Presales
+
+@inject IWorkloadManager _workloadManager
+
+<PageTitle>Helpdesk</PageTitle>
+
+<div class="table-wrapper">
+    <FluentDataGrid Items="@_workPapers" ResizableColumns=true Virtualize="true" ItemSize="32">
+        <PropertyColumn Title="PIC CHAT/CALL" Property="@(crm => crm.PersonInCharge.Helpdesk)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="SHIFT" Property="@(crm => crm.Shift)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="TGL CHAT/CALL HELPDESK" Property="@(crm => crm.ProsesValidasi.TglChatCallMulai)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="NAMA PELANGGAN" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.NamaPelanggan)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="NOMOR TELP AKTIF" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.NomorTelepon)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="EMAIL AKTIF" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.Email)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="ALAMAT PELANGGAN" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.AlamatPelanggan)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="ID PLAN" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.PlnId)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="SHARE KOORDINAT" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.ShareLoc.LatitudeLongitude)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="TGL CHAT/CALL DIJAWAB" Property="@(crm => crm.ProsesValidasi.TglChatCallRespons)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="REKAP CHAT HISTORY" Property="@(crm => crm.ProsesValidasi.LinkRecapChatHistory)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="STATUS VALIDASI" Property="@(crm => crm.ProsesValidasi.StatusValidasi)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="KETERANGAN VALIDASI" Property="@(crm => crm.ProsesValidasi.Keterangan)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="WHATSAPP" Property="@(crm => crm.ApprovalOpportunity.Pemohon.WhatsApp)" Sortable="true" Style="min-width: 200px;"/>
+    </FluentDataGrid>
+</div>
+
+<p>Row selected: @_rowSelected</p>
+
+@code
+{
+    private IQueryable<WorkPaper>? _workPapers;
+    private string _rowSelected = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync();
+        _workPapers = workload.AsQueryable();
+    }
+}

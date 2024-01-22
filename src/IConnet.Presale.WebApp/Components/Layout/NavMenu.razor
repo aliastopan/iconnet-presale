@@ -7,6 +7,7 @@
             <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.Home())" IconColor="Color.Accent">Home</FluentNavLink>
             <FluentNavLink Href="import" Icon="@(new Icons.Regular.Size20.ArrowImport())" IconColor="Color.Accent">Import</FluentNavLink>
             <FluentNavLink Href="workload" Icon="@(new Icons.Regular.Size20.DocumentTable())" IconColor="Color.Accent">Workload</FluentNavLink>
+            <FluentNavLink Href="helpdesk" Icon="@(new Icons.Regular.Size20.PersonDesktop())" IconColor="Color.Accent">Helpdesk</FluentNavLink>
             <FluentNavLink Href="settings" Icon="@(new Icons.Regular.Size20.Settings())" IconColor="Color.Accent">Settings</FluentNavLink>
             <AuthorizeView>
                 <Authorizing>
@@ -23,7 +24,8 @@
     </nav>
 </div>
 
-@code {
+@code
+{
     private bool expanded = true;
 
 }
