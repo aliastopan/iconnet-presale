@@ -3,7 +3,7 @@
 <div class="navmenu">
     <input type="checkbox" id="navmenu-toggle" />
     <nav class="sitenav" aria-labelledby="main-menu" onclick="document.getElementById('navmenu-toggle').click();">
-        <FluentNavMenu Id="main-menu" Collapsible="true" Width="250" Title="Navigation menu" @bind-Expanded="expanded">
+        <FluentNavMenu Id="main-menu" Collapsible="true" Width="200" Title="Navigation menu" @bind-Expanded="_expanded">
             <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.Home())" IconColor="Color.Accent">Home</FluentNavLink>
             <AuthorizeView>
                 <Authorized>
@@ -26,7 +26,7 @@
 
 @code
 {
-    private bool expanded = true;
+    private bool _expanded = true;
 
 }
 
