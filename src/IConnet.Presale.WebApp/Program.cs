@@ -6,6 +6,7 @@ using IConnet.Presale.WebApp.Components;
 using IConnet.Presale.WebApp.Logging;
 using IConnet.Presale.WebApp.Security;
 using IConnet.Presale.WebApp.Services;
+using IConnet.Presale.WebApp.WebSockets;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,12 +24,19 @@ builder.Host.ConfigureServices((context, services) =>
     });
     services.AddScoped<SessionService>();
     services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
-
+    services.AddScoped<RealTimeService>();
     services.AddScoped<CrmImportService>();
 
     services.AddRazorComponents()
             .AddInteractiveServerComponents();
     services.AddFluentUIComponents();
+
+    services.AddSignalR(options =>
+    {
+        options.EnableDetailedErrors = true;
+        options.KeepAliveInterval = TimeSpan.FromSeconds(10);
+        options.HandshakeTimeout = TimeSpan.FromSeconds(5);
+    });
 });
 
 var app = builder.Build();
@@ -47,5 +55,7 @@ app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
+
+app.MapHub<UpdateHub>("/update");
 
 app.Run();
