@@ -1,6 +1,9 @@
 ﻿@rendermode InteractiveServer
 
+@using IConnet.Presale.WebApp.Services
+
 @inject IHttpContextAccessor _httpContextAccessor
+@inject RealTimeService _realTimeService
 
 @if (isPreRender)
 {
@@ -20,9 +23,11 @@
 {
     private bool isPreRender;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         isPreRender = !(_httpContextAccessor.HttpContext is not null
             && _httpContextAccessor.HttpContext.Response.HasStarted);
+
+        await _realTimeService.StartConnectionAsync();
     }
 }
