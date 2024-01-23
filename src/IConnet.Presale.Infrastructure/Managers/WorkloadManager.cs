@@ -151,4 +151,23 @@ internal sealed class WorkloadManager : IWorkloadManager
             NamaClaimImport = importModel.NamaClaimImport
         };
     }
+
+    public async Task<bool> ClaimWorkPaperAsync(string cacheKey, string claimName)
+    {
+        var isWorkPaperExist = await _cacheService.IsKeyExistsAsync(cacheKey);
+        if (!isWorkPaperExist)
+        {
+            return false;
+        }
+
+        var jsonWorkPaper = await _cacheService.GetCacheValueAsync(cacheKey);
+        var workPaper = JsonSerializer.Deserialize<WorkPaper>(jsonWorkPaper!);
+
+        workPaper!.PersonInCharge.Helpdesk = claimName;
+
+        jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
+        await _cacheService.SetCacheValueAsync(cacheKey, jsonWorkPaper);
+
+        return true;
+    }
 }
