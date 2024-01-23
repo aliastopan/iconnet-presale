@@ -136,7 +136,11 @@
 
         Log.Warning("Workload has been updated: {0}", cacheKey);
 
-       StateHasChanged();
+        // ensure component update is handle by UI thread
+        await InvokeAsync(() =>
+        {
+            StateHasChanged();
+        });
     }
 
     private async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
