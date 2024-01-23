@@ -5,20 +5,20 @@
     <nav class="sitenav" aria-labelledby="main-menu" onclick="document.getElementById('navmenu-toggle').click();">
         <FluentNavMenu Id="main-menu" Collapsible="true" Width="250" Title="Navigation menu" @bind-Expanded="expanded">
             <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.Home())" IconColor="Color.Accent">Home</FluentNavLink>
-            <FluentNavLink Href="import" Icon="@(new Icons.Regular.Size20.ArrowImport())" IconColor="Color.Accent">Import</FluentNavLink>
-            <FluentNavLink Href="workload" Icon="@(new Icons.Regular.Size20.DocumentTable())" IconColor="Color.Accent">Workload</FluentNavLink>
-            <FluentNavLink Href="helpdesk" Icon="@(new Icons.Regular.Size20.PersonDesktop())" IconColor="Color.Accent">Helpdesk</FluentNavLink>
-            <FluentNavLink Href="settings" Icon="@(new Icons.Regular.Size20.Settings())" IconColor="Color.Accent">Settings</FluentNavLink>
             <AuthorizeView>
-                <Authorizing>
-                    <FluentNavLink Href="/sign-in" Icon="@(new Icons.Regular.Size20.ArrowEnter())" IconColor="Color.Accent">Sign-Out</FluentNavLink>
-                </Authorizing>
                 <Authorized>
+                    <FluentNavLink Href="import" Icon="@(new Icons.Regular.Size20.ArrowImport())" IconColor="Color.Accent">Import</FluentNavLink>
+                    <FluentNavLink Href="workload" Icon="@(new Icons.Regular.Size20.DocumentTable())" IconColor="Color.Accent">Workload</FluentNavLink>
+                    <FluentNavLink Href="helpdesk" Icon="@(new Icons.Regular.Size20.PersonDesktop())" IconColor="Color.Accent">Helpdesk</FluentNavLink>
+                    <FluentNavLink Href="settings" Icon="@(new Icons.Regular.Size20.Settings())" IconColor="Color.Accent">Settings</FluentNavLink>
                     <FluentNavLink Href="/sign-out" Icon="@(new Icons.Regular.Size20.ArrowExit())" IconColor="Color.Accent">Sign-Out</FluentNavLink>
                 </Authorized>
                 <NotAuthorized>
                     <FluentNavLink Href="/sign-in" Icon="@(new Icons.Regular.Size20.ArrowEnter())" IconColor="Color.Accent">Sign-In</FluentNavLink>
                 </NotAuthorized>
+                <Authorizing>
+                    <FluentNavLink Href="/sign-in" Icon="@(new Icons.Regular.Size20.ArrowEnter())" IconColor="Color.Accent">Sign-Out</FluentNavLink>
+                </Authorizing>
             </AuthorizeView>
         </FluentNavMenu>
     </nav>
