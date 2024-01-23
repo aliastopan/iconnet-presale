@@ -13,4 +13,7 @@ fluent-data-grid-cell:not(.column-header):hover + fluent-data-grid-row{
 
 fluent-data-grid-cell{
     width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
