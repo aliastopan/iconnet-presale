@@ -70,16 +70,11 @@ else
 }
 
 @code {
-    private bool _isLoading = false;
     private IQueryable<WorkPaper>? _workPapers;
 
     protected override async Task OnInitializedAsync()
     {
-        _isLoading = true;
-
         List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync();
         _workPapers = workload.AsQueryable();
-
-        _isLoading = false;
     }
 }
