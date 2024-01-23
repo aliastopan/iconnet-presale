@@ -19,7 +19,7 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddAccessControl();
     services.AddHttpClient<IdentityClientService>((_, httpClient) =>
     {
-        httpClient.BaseAddress = new Uri("https://localhost:7244");
+        httpClient.BaseAddress = new Uri(context.Configuration["HttpClient:BaseAddress"]!);
     });
     services.AddScoped<SessionService>();
     services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
