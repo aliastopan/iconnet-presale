@@ -14,20 +14,88 @@
                 @context.ApprovalOpportunity.IdPermohonan
             </div>
         </TemplateColumn>
-        <PropertyColumn Title="PIC CHAT/CALL" Property="@(crm => crm.PersonInCharge.Helpdesk)" Sortable="true"/>
-        <PropertyColumn Title="SHIFT" Property="@(crm => crm.Shift)" Sortable="true"/>
-        <PropertyColumn Title="TGL CHAT/CALL HELPDESK" Property="@(crm => crm.ProsesValidasi.TglChatCallMulai)" Sortable="true"/>
-        <PropertyColumn Title="NAMA PELANGGAN" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.NamaPelanggan)" Sortable="true"/>
-        <PropertyColumn Title="NOMOR TELP AKTIF" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.NomorTelepon)" Sortable="true"/>
-        <PropertyColumn Title="EMAIL AKTIF" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.Email)" Sortable="true"/>
-        <PropertyColumn Title="ALAMAT PELANGGAN" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.AlamatPelanggan)" Sortable="true"/>
-        <PropertyColumn Title="ID PLAN" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.PlnId)" Sortable="true"/>
-        <PropertyColumn Title="SHARE KOORDINAT" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.ShareLoc.LatitudeLongitude)" Sortable="true"/>
-        <PropertyColumn Title="TGL CHAT/CALL DIJAWAB" Property="@(crm => crm.ProsesValidasi.TglChatCallRespons)" Sortable="true"/>
-        <PropertyColumn Title="REKAP CHAT HISTORY" Property="@(crm => crm.ProsesValidasi.LinkRecapChatHistory)" Sortable="true"/>
-        <PropertyColumn Title="STATUS VALIDASI" Property="@(crm => crm.ProsesValidasi.StatusValidasi)" Sortable="true"/>
-        <PropertyColumn Title="KETERANGAN VALIDASI" Property="@(crm => crm.ProsesValidasi.Keterangan)" Sortable="true"/>
-        <PropertyColumn Title="WHATSAPP" Property="@(crm => crm.ApprovalOpportunity.Pemohon.WhatsApp)" Sortable="true"/>
+        <TemplateColumn Title="PIC CHAT/CALL" Sortable="true">
+            <div class="">
+                @if (string.IsNullOrEmpty(context.PersonInCharge.Helpdesk))
+                {
+                    <span>Menunggu Claim</span>
+                }
+                else
+                {
+                    @context.PersonInCharge.Helpdesk
+                }
+            </div>
+        </TemplateColumn>
+        <TemplateColumn Title="SHIFT" Sortable="true">
+            <div class="">
+                @context.Shift
+            </div>
+        </TemplateColumn>
+        <TemplateColumn Title="TGL CHAT/CALL HELPDESK" Sortable="true">
+            <div class="">
+                @context.ProsesValidasi.TglChatCallMulai
+            </div>
+        </TemplateColumn>
+        <TemplateColumn Title="NAMA PELANGGAN" Sortable="true">
+            <div class="">
+                @context.ProsesValidasi.ParameterValidasi.NamaPelanggan
+            </div>
+        </TemplateColumn>
+        <TemplateColumn Title="NOMOR TELP AKTIF" Sortable="true">
+            <div class="">
+                @context.ProsesValidasi.ParameterValidasi.NomorTelepon
+            </div>
+        </TemplateColumn>
+        <TemplateColumn Title="EMAIL AKTIF" Sortable="true">
+            <div class="">
+                @context.ProsesValidasi.ParameterValidasi.Email
+            </div>
+        </TemplateColumn>
+        <TemplateColumn Title="ALAMAT PELANGGAN" Sortable="true">
+            <div class="">
+                @context.ProsesValidasi.ParameterValidasi.AlamatPelanggan
+            </div>
+        </TemplateColumn>
+        <TemplateColumn Title="ID PLAN" Sortable="true">
+            <div class="">
+                @context.ProsesValidasi.ParameterValidasi.PlnId
+            </div>
+        </TemplateColumn>
+        <TemplateColumn Title="SHARE LOC" Sortable="true">
+            <div class="">
+                @context.ProsesValidasi.ParameterValidasi.ShareLoc.LatitudeLongitude
+            </div>
+        </TemplateColumn>
+        <TemplateColumn Title="TGL CHAT/CALL DIJAWAB" Sortable="true">
+            <div class="">
+                @context.ProsesValidasi.TglChatCallRespons
+            </div>
+        </TemplateColumn>
+        <TemplateColumn Title="REKAP CHAT HISTORY" Sortable="true">
+            <div class="">
+                @context.ProsesValidasi.LinkRecapChatHistory
+            </div>
+        </TemplateColumn>
+        <TemplateColumn Title="STATUS VALIDASI" Sortable="true">
+            <div class="">
+                @context.ProsesValidasi.StatusValidasi
+            </div>
+        </TemplateColumn>
+        <TemplateColumn Title="KETERANGAN VALIDASI" Sortable="true">
+            <div class="">
+                @context.ProsesValidasi.StatusValidasi
+            </div>
+        </TemplateColumn>
+        <TemplateColumn Title="CONTACT WHATSAPP" Sortable="true">
+            <div class="">
+                @{
+                    var url = $"http://{context.ApprovalOpportunity.Pemohon.WhatsApp}";
+                }
+                <FluentAnchor Href="@url" Target="_blank" Appearance="Appearance.Lightweight">
+                    @context.ApprovalOpportunity.Pemohon.WhatsApp
+                </FluentAnchor>
+            </div>
+        </TemplateColumn>
     </FluentDataGrid>
 </div>
 
