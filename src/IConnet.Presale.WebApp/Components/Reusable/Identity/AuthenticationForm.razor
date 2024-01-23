@@ -10,6 +10,7 @@
 @inject IdentityClientService _identityClient
 @inject ProtectedLocalStorage _localStorage
 @inject AuthenticationStateProvider _authStateProvider
+@inject NavigationManager _navigationManager
 
 <div>
     <FluentCard Width="250px" Height="200px">
@@ -75,6 +76,11 @@
             await _localStorage.SetAsync("refresh-token", refreshToken);
 
             var authenticationState = await _authStateProvider.GetAuthenticationStateAsync();
+
+            if (authenticationState.User.Identity!.IsAuthenticated)
+            {
+                _navigationManager.NavigateTo("/");
+            }
 
             _isLoading = false;
             return accessToken;
