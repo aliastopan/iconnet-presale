@@ -99,12 +99,17 @@
     </FluentDataGrid>
 </div>
 
-<p class="">Row selected: @_rowSelected</p>
+@if (_workPaper is not null)
+{
+    <CascadingValue Name="CascadeWorkPaper" Value="@_workPaper">
+        <WorkPaperStaging />
+    </CascadingValue>
+}
 
 @code
 {
     private IQueryable<WorkPaper>? _workPapers;
-    private string _rowSelected = "";
+    private WorkPaper? _workPaper;
 
     protected override async Task OnInitializedAsync()
     {
@@ -116,7 +121,8 @@
     {
         if (row.Item is not null)
         {
-            _rowSelected = $"{row.Item!.ApprovalOpportunity.IdPermohonan}";
+            _workPaper = row.Item;
+            Log.Warning("Cascade is {0}", _workPaper is null ? "null" : "not null");
             StateHasChanged();
         }
     }
