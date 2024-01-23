@@ -11,7 +11,7 @@
 else
 {
     <div class="table-wrapper">
-        <FluentDataGrid Items="@_workPapers" ItemSize="32">
+        <FluentDataGrid Items="@_workPapers" Virtualize="true" ItemSize="32">
             <PropertyColumn Title="PIC CHAT/CALL" Property="@(crm => crm.PersonInCharge.Helpdesk)" Sortable="true" Style="min-width: 200px;"/>
             <PropertyColumn Title="SHIFT" Property="@(crm => crm.Shift)" Sortable="true" Style="min-width: 200px;"/>
             @* Proses Validasi *@
