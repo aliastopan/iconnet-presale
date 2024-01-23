@@ -1,3 +1,12 @@
+table {
+    border-collapse: collapse;
+}
+
+td, th {
+    text-decoration: none;
+    font-weight: normal;
+}
+
 .table-wrapper{
     overflow-x: auto;
     margin-bottom: 20px;
