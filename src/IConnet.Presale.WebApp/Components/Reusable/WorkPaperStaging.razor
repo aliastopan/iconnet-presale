@@ -1,0 +1,59 @@
+@rendermode InteractiveServer
+
+@using IConnet.Presale.Domain.Aggregates.Presales
+
+@if (WorkPaper is not null)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>ID PERMOHONAN</th>
+                <td>@WorkPaper.ApprovalOpportunity.IdPermohonan</td>
+            </tr>
+            <tr>
+                <th>TGL PERMOHONAN</th>
+                <td>
+                    <span>@WorkPaper.ApprovalOpportunity.TglPermohonan.Date</span>
+                    <span>@WorkPaper.ApprovalOpportunity.TglPermohonan.TimeOfDay</span>
+                </td>
+            </tr>
+            <tr>
+                <th>NAMA PELANGGAN</th>
+                <td>@WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap</td>
+            </tr>
+            <tr>
+                <th>ALAMAT PELANGGAN</th>
+                <td>@WorkPaper.ApprovalOpportunity.Pemohon.Alamat</td>
+            </tr>
+            <tr>
+                <th>EMAIL</th>
+                <td>@WorkPaper.ApprovalOpportunity.Pemohon.Email</td>
+            </tr>
+            <tr>
+                <th>ID PLN</th>
+                <td>@WorkPaper.ApprovalOpportunity.Pemohon.IdPln</td>
+            </tr>
+            <tr>
+                <th>NO. TELPON AKTIF</th>
+                <td>
+                    <div class="d-flex flex-row align-items-center">
+                        @WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon
+                        <FluentIcon Value="@(new Icons.Regular.Size20.Chat())" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+            <th>SHARE LOC</th>
+            <td>
+                <span>@WorkPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude</span>
+            </td>
+            </tr>
+        </thead>
+    </table>
+}
+
+@code
+{
+    [CascadingParameter(Name = "CascadeWorkPaper")]
+    public WorkPaper? WorkPaper { get; set; }
+}
