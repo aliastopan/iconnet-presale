@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.FluentUI.AspNetCore.Components;
 using IConnet.Presale.Application;
 using IConnet.Presale.Infrastructure;
@@ -56,6 +57,11 @@ app.UseAntiforgery();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
+app.MapPost("broadcast", async (string message, IHubContext<UpdateHub> context) =>
+{
+    await context.Clients.All.SendAsync("ReceiveUpdate", message);
+    return Results.NoContent();
+});
 app.MapHub<UpdateHub>("/update");
 
 app.Run();

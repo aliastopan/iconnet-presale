@@ -1,9 +1,13 @@
 @page "/helpdesk"
 @rendermode InteractiveServer
 
+@using Microsoft.AspNetCore.SignalR
+@using Microsoft.AspNetCore.SignalR.Client
 @using IConnet.Presale.Domain.Aggregates.Presales
+@using IConnet.Presale.WebApp.Services
 
 @inject IWorkloadManager _workloadManager
+@inject RealTimeService _realTimeService
 
 <PageTitle>Helpdesk</PageTitle>
 
@@ -118,15 +122,33 @@
     {
         List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync();
         _workPapers = workload.AsQueryable();
+
+        await _realTimeService.OnUpdate(async (string key) =>
+        {
+            await NotifyUpdate("RANDOM_KEY");
+        });
     }
 
-    private void OnRowSelected(FluentDataGridRow<WorkPaper> row)
+    private async Task NotifyUpdate(string cacheKey)
+    {
+        List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync();
+        _workPapers = workload.AsQueryable();
+
+        Log.Warning("Workload has been updated: {0}", cacheKey);
+
+       StateHasChanged();
+    }
+
+    private async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
     {
         if (row.Item is not null)
         {
             _workPaper = row.Item;
             Log.Warning("Cascade is {0}", _workPaper is null ? "null" : "not null");
+
             StateHasChanged();
         }
+
+        await Task.CompletedTask;
     }
 }

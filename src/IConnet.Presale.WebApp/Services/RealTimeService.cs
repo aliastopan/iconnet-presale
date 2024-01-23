@@ -38,14 +38,12 @@ public sealed class RealTimeService : IDisposable
 
     public async Task OnUpdate(Action<string> action)
     {
-        HubConnection.On("ReceiveUpdate", (string message) =>
+        HubConnection.On("ReceiveUpdate", (string cacheKey) =>
         {
-            if (message.Contains("redis"))
-            {
-                action(message);
-            }
+            action(cacheKey);
+            Log.Warning("Updating Redis database: {0}", cacheKey);
 
-            return message;
+            return cacheKey;
         });
 
         await Task.CompletedTask;
