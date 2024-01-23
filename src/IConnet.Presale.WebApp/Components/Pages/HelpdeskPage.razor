@@ -9,12 +9,12 @@
 
 <div class="table-wrapper">
     <FluentDataGrid Class="data-table" Items="@_workPapers" Virtualize="true" ItemSize="32" OnRowFocus="@OnRowSelected" TGridItem="WorkPaper">
-        <TemplateColumn Title="ID PERMOHONAN" Sortable="true">
+        <TemplateColumn Title="ID PERMOHONAN" SortBy="@sortByIdPermohonan">
             <div class="">
                 @context.ApprovalOpportunity.IdPermohonan
             </div>
         </TemplateColumn>
-        <TemplateColumn Title="PIC CHAT/CALL" Sortable="true">
+        <TemplateColumn Title="PIC CHAT/CALL">
             <div class="">
                 @if (string.IsNullOrEmpty(context.PersonInCharge.Helpdesk))
                 {
@@ -26,67 +26,67 @@
                 }
             </div>
         </TemplateColumn>
-        <TemplateColumn Title="SHIFT" Sortable="true">
+        <TemplateColumn Title="SHIFT">
             <div class="">
                 @context.Shift
             </div>
         </TemplateColumn>
-        <TemplateColumn Title="TGL CHAT/CALL HELPDESK" Sortable="true">
+        <TemplateColumn Title="TGL CHAT/CALL HELPDESK">
             <div class="">
                 @context.ProsesValidasi.TglChatCallMulai
             </div>
         </TemplateColumn>
-        <TemplateColumn Title="NAMA PELANGGAN" Sortable="true">
+        <TemplateColumn Title="NAMA PELANGGAN">
             <div class="">
                 @context.ProsesValidasi.ParameterValidasi.NamaPelanggan
             </div>
         </TemplateColumn>
-        <TemplateColumn Title="NOMOR TELP AKTIF" Sortable="true">
+        <TemplateColumn Title="NOMOR TELP AKTIF">
             <div class="">
                 @context.ProsesValidasi.ParameterValidasi.NomorTelepon
             </div>
         </TemplateColumn>
-        <TemplateColumn Title="EMAIL AKTIF" Sortable="true">
+        <TemplateColumn Title="EMAIL AKTIF">
             <div class="">
                 @context.ProsesValidasi.ParameterValidasi.Email
             </div>
         </TemplateColumn>
-        <TemplateColumn Title="ALAMAT PELANGGAN" Sortable="true">
+        <TemplateColumn Title="ALAMAT PELANGGAN">
             <div class="">
                 @context.ProsesValidasi.ParameterValidasi.AlamatPelanggan
             </div>
         </TemplateColumn>
-        <TemplateColumn Title="ID PLAN" Sortable="true">
+        <TemplateColumn Title="ID PLAN">
             <div class="">
                 @context.ProsesValidasi.ParameterValidasi.PlnId
             </div>
         </TemplateColumn>
-        <TemplateColumn Title="SHARE LOC" Sortable="true">
+        <TemplateColumn Title="SHARE LOC">
             <div class="">
                 @context.ProsesValidasi.ParameterValidasi.ShareLoc.LatitudeLongitude
             </div>
         </TemplateColumn>
-        <TemplateColumn Title="TGL CHAT/CALL DIJAWAB" Sortable="true">
+        <TemplateColumn Title="TGL CHAT/CALL DIJAWAB">
             <div class="">
                 @context.ProsesValidasi.TglChatCallRespons
             </div>
         </TemplateColumn>
-        <TemplateColumn Title="REKAP CHAT HISTORY" Sortable="true">
+        <TemplateColumn Title="REKAP CHAT HISTORY">
             <div class="">
                 @context.ProsesValidasi.LinkRecapChatHistory
             </div>
         </TemplateColumn>
-        <TemplateColumn Title="STATUS VALIDASI" Sortable="true">
+        <TemplateColumn Title="STATUS VALIDASI">
             <div class="">
                 @context.ProsesValidasi.StatusValidasi
             </div>
         </TemplateColumn>
-        <TemplateColumn Title="KETERANGAN VALIDASI" Sortable="true">
+        <TemplateColumn Title="KETERANGAN VALIDASI">
             <div class="">
                 @context.ProsesValidasi.StatusValidasi
             </div>
         </TemplateColumn>
-        <TemplateColumn Title="CONTACT WHATSAPP" Sortable="true">
+        <TemplateColumn Title="CONTACT WHATSAPP">
             <div class="">
                 @{
                     var url = $"http://{context.ApprovalOpportunity.Pemohon.WhatsApp}";
@@ -110,6 +110,9 @@
 {
     private IQueryable<WorkPaper>? _workPapers;
     private WorkPaper? _workPaper;
+
+    GridSort<WorkPaper> sortByIdPermohonan = GridSort<WorkPaper>
+        .ByAscending(workPaper => workPaper.ApprovalOpportunity.IdPermohonan);
 
     protected override async Task OnInitializedAsync()
     {
