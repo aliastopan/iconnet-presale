@@ -30,35 +30,35 @@
             <FluentOverflowItem><FluentBadge>Import Count: @_importCount</FluentBadge></FluentOverflowItem>
         </FluentOverflow>
     }
-    <FluentDataGrid Items="@_crmImportService.ApprovalOpportunities" ResizableColumns=true Virtualize="true" ItemSize="32" EmptyContent="@CreateEmptyContent()">
-        <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.IdPermohonan)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.TglPermohonan)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="DURASI TIDAK LANJUT" Property="@(crm => crm.DurasiTidakLanjut)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="NAMA PEMOHON" Property="@(crm => crm.NamaPemohon)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="ID PLN" Property="@(crm => crm.IdPln)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="LAYANAN" Property="@(crm => crm.Layanan)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="SUMBER PERMOHONAN" Property="@(crm => crm.SumberPermohonan)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="STATUS PERMOHONAN" Property="@(crm => crm.StatusPermohonan)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="NAMA AGEN" Property="@(crm => crm.NamaAgen)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="EMAIL AGEN" Property="@(crm => crm.EmailAgen)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="TELEPON AGEN" Property="@(crm => crm.TeleponAgen)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="MITRA AGEN" Property="@(crm => crm.MitraAgen)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="SPLITTER" Property="@(crm => crm.Splitter)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="JENIS PERMOHONAN" Property="@(crm => crm.JenisPermohonan)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="TELEPON PEMOHON" Property="@(crm => crm.TeleponPemohon)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="EMAIL PEMOHON" Property="@(crm => crm.EmailPemohon)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="NIK PEMOHON" Property="@(crm => crm.NikPemohon)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="NPWP PEMOHON" Property="@(crm => crm.NpwpPemohon)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="KETERANGAN" Property="@(crm => crm.Keterangan)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="ALAMAT PEMOHON" Property="@(crm => crm.AlamatPemohon)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="REGIONAL" Property="@(crm => crm.Regional)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="KANTOR PERWAKILAN" Property="@(crm => crm.KantorPerwakilan)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="PROVINSI" Property="@(crm => crm.Provinsi)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="KABUPATEN" Property="@(crm => crm.Kabupaten)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="KECAMATAN" Property="@(crm => crm.Kecamatan)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="KELURAHAN" Property="@(crm => crm.Kelurahan)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="LATITUDE" Property="@(crm => crm.Latitude)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="LONGITUDE" Property="@(crm => crm.Longitude)" Sortable="true" Style="min-width: 200px;"/>
+    <FluentDataGrid Items="@_crmImportService.ApprovalOpportunities" ItemSize="32" EmptyContent="@CreateEmptyContent()">
+        <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.IdPermohonan)" Sortable="true"/>
+        <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.TglPermohonan)" Sortable="true"/>
+        <PropertyColumn Title="DURASI TIDAK LANJUT" Property="@(crm => crm.DurasiTidakLanjut)" Sortable="true"/>
+        <PropertyColumn Title="NAMA PEMOHON" Property="@(crm => crm.NamaPemohon)" Sortable="true"/>
+        <PropertyColumn Title="ID PLN" Property="@(crm => crm.IdPln)" Sortable="true"/>
+        <PropertyColumn Title="LAYANAN" Property="@(crm => crm.Layanan)" Sortable="true"/>
+        <PropertyColumn Title="SUMBER PERMOHONAN" Property="@(crm => crm.SumberPermohonan)" Sortable="true"/>
+        <PropertyColumn Title="STATUS PERMOHONAN" Property="@(crm => crm.StatusPermohonan)" Sortable="true"/>
+        <PropertyColumn Title="NAMA AGEN" Property="@(crm => crm.NamaAgen)" Sortable="true"/>
+        <PropertyColumn Title="EMAIL AGEN" Property="@(crm => crm.EmailAgen)" Sortable="true"/>
+        <PropertyColumn Title="TELEPON AGEN" Property="@(crm => crm.TeleponAgen)" Sortable="true"/>
+        <PropertyColumn Title="MITRA AGEN" Property="@(crm => crm.MitraAgen)" Sortable="true"/>
+        <PropertyColumn Title="SPLITTER" Property="@(crm => crm.Splitter)" Sortable="true"/>
+        <PropertyColumn Title="JENIS PERMOHONAN" Property="@(crm => crm.JenisPermohonan)" Sortable="true"/>
+        <PropertyColumn Title="TELEPON PEMOHON" Property="@(crm => crm.TeleponPemohon)" Sortable="true"/>
+        <PropertyColumn Title="EMAIL PEMOHON" Property="@(crm => crm.EmailPemohon)" Sortable="true"/>
+        <PropertyColumn Title="NIK PEMOHON" Property="@(crm => crm.NikPemohon)" Sortable="true"/>
+        <PropertyColumn Title="NPWP PEMOHON" Property="@(crm => crm.NpwpPemohon)" Sortable="true"/>
+        <PropertyColumn Title="KETERANGAN" Property="@(crm => crm.Keterangan)" Sortable="true"/>
+        <PropertyColumn Title="ALAMAT PEMOHON" Property="@(crm => crm.AlamatPemohon)" Sortable="true"/>
+        <PropertyColumn Title="REGIONAL" Property="@(crm => crm.Regional)" Sortable="true"/>
+        <PropertyColumn Title="KANTOR PERWAKILAN" Property="@(crm => crm.KantorPerwakilan)" Sortable="true"/>
+        <PropertyColumn Title="PROVINSI" Property="@(crm => crm.Provinsi)" Sortable="true"/>
+        <PropertyColumn Title="KABUPATEN" Property="@(crm => crm.Kabupaten)" Sortable="true"/>
+        <PropertyColumn Title="KECAMATAN" Property="@(crm => crm.Kecamatan)" Sortable="true"/>
+        <PropertyColumn Title="KELURAHAN" Property="@(crm => crm.Kelurahan)" Sortable="true"/>
+        <PropertyColumn Title="LATITUDE" Property="@(crm => crm.Latitude)" Sortable="true"/>
+        <PropertyColumn Title="LONGITUDE" Property="@(crm => crm.Longitude)" Sortable="true"/>
     </FluentDataGrid>
 
     <FluentOverlay @bind-Visible=@_isLoading

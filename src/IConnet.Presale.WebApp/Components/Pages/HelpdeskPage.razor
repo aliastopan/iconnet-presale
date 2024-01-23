@@ -9,25 +9,25 @@
 
 <div class="table-wrapper">
     <FluentDataGrid Class="data-table" Items="@_workPapers" ItemSize="32" OnRowFocus="@OnRowSelected" TGridItem="WorkPaper">
-        <TemplateColumn Title="ID PERMOHONAN" Sortable="true" Style="min-width: 200px;">
+        <TemplateColumn Title="ID PERMOHONAN" Sortable="true">
             <div class="">
                 @context.ApprovalOpportunity.IdPermohonan
             </div>
         </TemplateColumn>
-        <PropertyColumn Title="PIC CHAT/CALL" Property="@(crm => crm.PersonInCharge.Helpdesk)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="SHIFT" Property="@(crm => crm.Shift)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="TGL CHAT/CALL HELPDESK" Property="@(crm => crm.ProsesValidasi.TglChatCallMulai)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="NAMA PELANGGAN" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.NamaPelanggan)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="NOMOR TELP AKTIF" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.NomorTelepon)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="EMAIL AKTIF" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.Email)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="ALAMAT PELANGGAN" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.AlamatPelanggan)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="ID PLAN" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.PlnId)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="SHARE KOORDINAT" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.ShareLoc.LatitudeLongitude)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="TGL CHAT/CALL DIJAWAB" Property="@(crm => crm.ProsesValidasi.TglChatCallRespons)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="REKAP CHAT HISTORY" Property="@(crm => crm.ProsesValidasi.LinkRecapChatHistory)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="STATUS VALIDASI" Property="@(crm => crm.ProsesValidasi.StatusValidasi)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="KETERANGAN VALIDASI" Property="@(crm => crm.ProsesValidasi.Keterangan)" Sortable="true" Style="min-width: 200px;"/>
-        <PropertyColumn Title="WHATSAPP" Property="@(crm => crm.ApprovalOpportunity.Pemohon.WhatsApp)" Sortable="true" Style="min-width: 200px;"/>
+        <PropertyColumn Title="PIC CHAT/CALL" Property="@(crm => crm.PersonInCharge.Helpdesk)" Sortable="true"/>
+        <PropertyColumn Title="SHIFT" Property="@(crm => crm.Shift)" Sortable="true"/>
+        <PropertyColumn Title="TGL CHAT/CALL HELPDESK" Property="@(crm => crm.ProsesValidasi.TglChatCallMulai)" Sortable="true"/>
+        <PropertyColumn Title="NAMA PELANGGAN" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.NamaPelanggan)" Sortable="true"/>
+        <PropertyColumn Title="NOMOR TELP AKTIF" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.NomorTelepon)" Sortable="true"/>
+        <PropertyColumn Title="EMAIL AKTIF" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.Email)" Sortable="true"/>
+        <PropertyColumn Title="ALAMAT PELANGGAN" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.AlamatPelanggan)" Sortable="true"/>
+        <PropertyColumn Title="ID PLAN" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.PlnId)" Sortable="true"/>
+        <PropertyColumn Title="SHARE KOORDINAT" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.ShareLoc.LatitudeLongitude)" Sortable="true"/>
+        <PropertyColumn Title="TGL CHAT/CALL DIJAWAB" Property="@(crm => crm.ProsesValidasi.TglChatCallRespons)" Sortable="true"/>
+        <PropertyColumn Title="REKAP CHAT HISTORY" Property="@(crm => crm.ProsesValidasi.LinkRecapChatHistory)" Sortable="true"/>
+        <PropertyColumn Title="STATUS VALIDASI" Property="@(crm => crm.ProsesValidasi.StatusValidasi)" Sortable="true"/>
+        <PropertyColumn Title="KETERANGAN VALIDASI" Property="@(crm => crm.ProsesValidasi.Keterangan)" Sortable="true"/>
+        <PropertyColumn Title="WHATSAPP" Property="@(crm => crm.ApprovalOpportunity.Pemohon.WhatsApp)" Sortable="true"/>
     </FluentDataGrid>
 </div>
 
