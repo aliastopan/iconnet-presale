@@ -1,5 +1,6 @@
 using System.Text.Json;
 using IConnet.Presale.Domain.Aggregates.Presales;
+using IConnet.Presale.Domain.Enums;
 using IConnet.Presale.Shared.Interfaces.Models.Presales;
 
 namespace IConnet.Presale.Infrastructure.Managers;
@@ -77,18 +78,18 @@ internal sealed class WorkloadManager : IWorkloadManager
                 LinkRecapChatHistory = "",
                 ParameterValidasi = new ValidationParameter
                 {
-                    PlnId = "",
-                    NamaPelanggan = "",
-                    NomorTelepon = "",
-                    Email = "",
-                    AlamatPelanggan = "",
+                    PlnId = ValidationStatus.Unset,
+                    NamaPelanggan = ValidationStatus.Unset,
+                    NomorTelepon = ValidationStatus.Unset,
+                    Email = ValidationStatus.Unset,
+                    AlamatPelanggan = ValidationStatus.Unset,
                     ShareLoc = new Coordinate
                     {
                         Latitude = "",
                         Longitude = ""
                     }
                 },
-                StatusValidasi = "",
+                StatusValidasi = ValidationStatus.Unset,
                 Keterangan = ""
             },
             ProsesApproval = new ApprovalProcess

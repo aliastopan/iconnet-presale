@@ -13,6 +13,6 @@ public class ValidationProcess
     public DateTime TglChatCallRespons { get; set; }
     public string LinkRecapChatHistory { get; set; }
     public ValidationParameter ParameterValidasi { get; set; }
-    public string StatusValidasi { get; set; }
+    public ValidationStatus StatusValidasi { get; set; }
     public string Keterangan { get; set; }
 }
