@@ -4,9 +4,9 @@ namespace IConnet.Presale.WebApp.WebSockets;
 
 public sealed class NotificationHub : Hub
 {
-    // replace with OnConnectionStart
-    public async Task BroadcastNotification(string message)
+    public override async Task OnConnectedAsync()
     {
+        var message = $"Connection to {Context.ConnectionId} has been established.";
         await Clients.All.SendAsync("Broadcast", message);
     }
 }
