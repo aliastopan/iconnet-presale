@@ -4,7 +4,7 @@ using IConnet.Presale.WebApp.WebSockets;
 
 namespace IConnet.Presale.WebApp.Services;
 
-public sealed class RealTimeService : IDisposable
+public sealed class RealTimeService : IAsyncDisposable
 {
     private readonly IHubContext<UpdateHub> _hubContext;
     private readonly HubConnection _hubConnection;
@@ -49,8 +49,8 @@ public sealed class RealTimeService : IDisposable
         await Task.CompletedTask;
     }
 
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        _hubConnection.DisposeAsync().GetAwaiter().GetResult();
+        await _hubConnection.DisposeAsync();
     }
 }
