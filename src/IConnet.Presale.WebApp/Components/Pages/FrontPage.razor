@@ -1,0 +1,96 @@
+@rendermode InteractiveServer
+
+@using IConnet.Presale.WebApp.Services
+@using IConnet.Presale.Shared.Contracts.Identity.Authentication
+@using IConnet.Presale.WebApp.Models.Identity
+
+@inject ProtectedLocalStorage _localStorage
+@inject AuthenticationStateProvider _authenticationStateProvider
+@inject NavigationManager _navigationManager
+@inject IIdentityHttpClientService _identityHttpClientService
+
+<PageTitle>IConnet Presale</PageTitle>
+
+<FluentBodyContent Class="front-page">
+    <div class="front-page">
+        <FluentStack Orientation="Orientation.Vertical"
+            HorizontalAlignment="HorizontalAlignment.Center"
+            VerticalAlignment="VerticalAlignment.Center">
+
+                    <FluentTextField @bind-Value=_signInForm.Username Placeholder="Username" Class="username-textfield" ></FluentTextField>
+                    <FluentTextField @bind-Value=_signInForm.Password Placeholder="Password" TextFieldType="TextFieldType.Password" Class="password-textfield"></FluentTextField>
+
+                    <FluentButton Class="sign-in-button"
+                        Appearance="Appearance.Accent"
+                        IconStart="@(new Icons.Regular.Size16.ArrowEnter())"
+                        Required="true"
+                        OnClick="SubmitAsync">
+                        Sign-In</FluentButton>
+
+                    <FluentButton Class="sign-in-button-guest"
+                        Appearance="Appearance.Lightweight"
+                        IconStart="@(new Icons.Regular.Size16.Guest())"
+                        Required="true">
+                        Sign as Guest</FluentButton>
+
+        </FluentStack>
+    </div>
+</FluentBodyContent>
+
+<FluentOverlay @bind-Visible=@_isLoading
+    Opacity="0.4"
+    Alignment="@Align.Center"
+    Justification="@JustifyContent.Center">
+    <FluentProgressRing />
+</FluentOverlay>
+
+@code
+{
+    private bool _isLoading = false;
+    private readonly SignInModel _signInForm = new();
+    string? result = "[security token]";
+
+    private async Task SubmitAsync()
+    {
+        result = await SignInAsync();
+        StateHasChanged();
+    }
+
+    public async Task<string> SignInAsync()
+    {
+        _isLoading = true;
+
+        var httpResult = await _identityHttpClientService.SignInAsync(
+            _signInForm.Username,
+            _signInForm.Password);
+
+        if (httpResult.IsSuccessStatusCode)
+        {
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+            var response = JsonSerializer.Deserialize<SignInResponse>(httpResult.Content, options);
+            var accessToken = response!.AccessToken;
+            var refreshToken = response!.RefreshTokenStr;
+
+            await _localStorage.SetAsync("access-token", accessToken);
+            await _localStorage.SetAsync("refresh-token", refreshToken);
+
+            var authenticationState = await _authenticationStateProvider.GetAuthenticationStateAsync();
+
+            if (authenticationState.User.Identity!.IsAuthenticated)
+            {
+                Log.Warning("Redirecting...");
+                _navigationManager.NavigateTo("/", true);
+            }
+
+            _isLoading = false;
+            return accessToken;
+        }
+
+        _isLoading = false;
+        return httpResult.Content;
+    }
+
+}

@@ -1,0 +1,28 @@
+.front-page{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.username-textfield{
+    width: 200px;
+}
+
+.password-textfield{
+    width: 200px;
+}
+
+/* .username-textfield::part(root),
+.password-textfield::part(root){
+    border: 1px solid;
+} */
+
+.sign-in-button{
+    width: 200px;
+}
+
+.sign-in-button-guest{
+    width: 200px;
+    margin-top: 30px;
+}
