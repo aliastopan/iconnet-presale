@@ -6,14 +6,17 @@ namespace IConnet.Presale.WebApp.Services;
 
 public sealed class NotificationService : IAsyncDisposable
 {
+    private readonly IConfiguration _configuration;
     private readonly IHubContext<NotificationHub> _hubContext;
     private readonly HubConnection _hubConnection;
 
-    public NotificationService(IHubContext<NotificationHub> hubContext)
+    public NotificationService(IConfiguration configuration,
+        IHubContext<NotificationHub> hubContext)
     {
+        _configuration = configuration;
         _hubContext = hubContext;
         _hubConnection = new HubConnectionBuilder()
-            .WithUrl("wss://localhost:7101/broadcast")
+            .WithUrl($"{_configuration["WebSocket:BaseAddress"]}/broadcast")
             .Build();
     }
 
