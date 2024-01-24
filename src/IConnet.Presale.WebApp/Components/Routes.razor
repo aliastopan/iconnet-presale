@@ -3,7 +3,7 @@
 @using IConnet.Presale.WebApp.Services
 
 @inject IHttpContextAccessor _httpContextAccessor
-@inject RealTimeService _realTimeService
+@inject NotificationService _notificationService
 
 @if (isPreRender)
 {
@@ -28,6 +28,6 @@
         isPreRender = !(_httpContextAccessor.HttpContext is not null
             && _httpContextAccessor.HttpContext.Response.HasStarted);
 
-        await _realTimeService.StartConnectionAsync();
+        await _notificationService.StartConnectionAsync();
     }
 }

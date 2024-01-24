@@ -5,7 +5,7 @@
 
 @inject IWorkloadManager _workloadManager
 @inject SessionService _sessionService
-@inject RealTimeService _realTimeService
+@inject NotificationService _notificationService
 
 @if (WorkPaper is not null)
 {
@@ -81,7 +81,7 @@
         var claimName = _sessionService.UserModel!.Username;
 
         await _workloadManager.ClaimWorkPaperAsync(cacheKey, claimName);
-        await _realTimeService.NotifyUpdateAsync(cacheKey);
+        await _notificationService.BroadcastNotificationAsync(message: "Workload claim.");
 
         _isLoading = false;
     }

@@ -25,7 +25,7 @@ builder.Host.ConfigureServices((context, services) =>
     });
     services.AddScoped<SessionService>();
     services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
-    services.AddScoped<RealTimeService>();
+    services.AddScoped<NotificationService>();
     services.AddScoped<CrmImportService>();
 
     services.AddRazorComponents()
@@ -57,11 +57,12 @@ app.UseAntiforgery();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
-app.MapPost("broadcast", async (string message, IHubContext<UpdateHub> context) =>
-{
-    await context.Clients.All.SendAsync("ReceiveUpdate", message);
-    return Results.NoContent();
-});
-app.MapHub<UpdateHub>("/update");
+// app.MapPost("broadcast", async (string message, IHubContext<UpdateHub> context) =>
+// {
+//     await context.Clients.All.SendAsync("ReceiveUpdate", message);
+//     return Results.NoContent();
+// });
+
+app.MapHub<NotificationHub>("/broadcast");
 
 app.Run();

@@ -7,7 +7,7 @@
 @using IConnet.Presale.WebApp.Services
 
 @inject IWorkloadManager _workloadManager
-@inject RealTimeService _realTimeService
+@inject NotificationService _notificationService
 
 <PageTitle>Helpdesk</PageTitle>
 
@@ -123,7 +123,7 @@
         List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync();
         _workPapers = workload.AsQueryable();
 
-        await _realTimeService.OnUpdate(async (string key) =>
+        _notificationService.OnNotification(async (string message) =>
         {
             await NotifyUpdate("RANDOM_KEY");
         });
