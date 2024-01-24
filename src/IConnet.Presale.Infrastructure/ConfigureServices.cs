@@ -54,6 +54,8 @@ public static class ConfigureServices
     internal static IServiceCollection ConfigureWebAppServices(this IServiceCollection services,
         IConfiguration configuration)
     {
+        services.ConfigureHttpClient(configuration);
+
         services.AddSingleton<IConnectionMultiplexer>(provider =>
         {
             var connectionString = configuration[AppSecretSettings.Section.RedisConnection];
@@ -92,6 +94,17 @@ public static class ConfigureServices
             });
             services.AddScoped<AppDbContextFactory>();
         }
+
+        return services;
+    }
+
+    internal static IServiceCollection ConfigureHttpClient(this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        services.AddHttpClient<IIdentityHttpClientService, IdentityHttpClientProvider>((_, httpClient) =>
+        {
+            httpClient.BaseAddress = new Uri(configuration["HttpClient:BaseAddress"]!);
+        });
 
         return services;
     }

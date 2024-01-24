@@ -7,10 +7,10 @@
 @namespace IConnet.Presale.WebApp.Components.Reusable.Identity
 @attribute [Authorize]
 
-@inject IdentityClientService _identityClient
 @inject ProtectedLocalStorage _localStorage
 @inject AuthenticationStateProvider _authStateProvider
 @inject NavigationManager _navigationManager
+@inject IIdentityHttpClientService _identityHttpClientService
 
 <div>
     <FluentCard Width="250px" Height="200px">
@@ -58,7 +58,7 @@
     {
         _isLoading = true;
 
-        var httpResult = await _identityClient.SignInAsync(
+        var httpResult = await _identityHttpClientService.SignInAsync(
             _signInForm.Username,
             _signInForm.Password);
 

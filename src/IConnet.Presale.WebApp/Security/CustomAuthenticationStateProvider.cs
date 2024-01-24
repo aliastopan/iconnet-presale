@@ -12,17 +12,17 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
     private readonly ProtectedLocalStorage _localStorage;
     private readonly SessionService _sessionService;
     private readonly IAccessTokenService _accessTokenService;
-    private readonly IdentityClientService _identityClientService;
+    private readonly IIdentityHttpClientService _identityHttpClientService;
 
     public CustomAuthenticationStateProvider(ProtectedLocalStorage localStorage,
         SessionService sessionService,
         IAccessTokenService accessTokenService,
-        IdentityClientService identityClientService)
+        IIdentityHttpClientService identityHttpClientService)
     {
         _localStorage = localStorage;
         _sessionService = sessionService;
         _accessTokenService = accessTokenService;
-        _identityClientService = identityClientService;
+        _identityHttpClientService = identityHttpClientService;
     }
 
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
@@ -54,7 +54,7 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
             Log.Warning("Authentication failed.");
             Log.Warning("{0}", tryAuthenticate.Errors[0].Message);
             Log.Warning("Trying to refresh authentication.");
-            var httpResult = await _identityClientService.RefreshAccessAsync(accessToken, refreshToken);
+            var httpResult = await _identityHttpClientService.RefreshAccessAsync(accessToken, refreshToken);
             Log.Warning("Response: {0}", httpResult.IsSuccessStatusCode);
             if (httpResult.IsSuccessStatusCode)
             {

@@ -19,10 +19,7 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddInfrastructureServices(ServiceScope.WEBAPP_ONLY_SERVICE, context);
     services.AddHttpContextAccessor();
     services.AddAccessControl();
-    services.AddHttpClient<IdentityClientService>((_, httpClient) =>
-    {
-        httpClient.BaseAddress = new Uri(context.Configuration["HttpClient:BaseAddress"]!);
-    });
+
     services.AddScoped<SessionService>();
     services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
     services.AddScoped<NotificationService>();
