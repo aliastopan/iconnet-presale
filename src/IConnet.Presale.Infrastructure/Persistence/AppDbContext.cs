@@ -9,7 +9,9 @@ internal sealed class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
-    { }
+    {
+
+    }
 
     // aggregates
     public DbSet<UserAccount> UserAccounts => Set<UserAccount>();
