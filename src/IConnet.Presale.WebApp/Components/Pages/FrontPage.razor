@@ -4,9 +4,8 @@
 @using IConnet.Presale.Shared.Contracts.Identity.Authentication
 @using IConnet.Presale.WebApp.Models.Identity
 
-@inject ProtectedLocalStorage _localStorage
 @inject AuthenticationStateProvider _authenticationStateProvider
-@inject NavigationManager _navigationManager
+@inject ProtectedLocalStorage _localStorage
 @inject IIdentityHttpClientService _identityHttpClientService
 
 <PageTitle>IConnet Presale</PageTitle>
@@ -82,7 +81,7 @@
             if (authenticationState.User.Identity!.IsAuthenticated)
             {
                 Log.Warning("Redirecting...");
-                _navigationManager.NavigateTo("/", true);
+                StateHasChanged();
             }
 
             _isLoading = false;
