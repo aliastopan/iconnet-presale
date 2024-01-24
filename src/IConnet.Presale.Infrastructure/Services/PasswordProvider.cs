@@ -6,16 +6,14 @@ namespace IConnet.Presale.Infrastructure.Services;
 
 internal sealed class PasswordProvider : IPasswordService
 {
-    private readonly Encoding _encoding = Encoding.UTF8;
-
     public string HashPassword(string password, out string passwordSalt)
     {
         passwordSalt = SecretSauce.GenerateSalt(length: 16);
-        return SecretSauce.GetHash<SHA384>(password, passwordSalt, _encoding);
+        return SecretSauce.GetHash<SHA384>(password, passwordSalt, Encoding.UTF8);
     }
 
     public bool VerifyPassword(string password, string passwordSalt, string passwordHash)
     {
-        return SecretSauce.Verify<SHA384>(password, passwordSalt, passwordHash, _encoding);
+        return SecretSauce.Verify<SHA384>(password, passwordSalt, passwordHash, Encoding.UTF8);
     }
 }
