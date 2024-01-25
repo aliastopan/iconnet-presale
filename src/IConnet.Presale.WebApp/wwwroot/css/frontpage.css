@@ -26,3 +26,11 @@
     width: 200px;
     margin-top: 30px;
 }
+
+.loading-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0; /* Optional background color */
+}
