@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
-@inject AuthenticationStateProvider _authStateProvider
+@inject AuthenticationStateProvider _authenticationStateProvider
 
 <AuthorizeView>
     <Authorized>
@@ -47,6 +47,6 @@
 {
     protected override async Task OnInitializedAsync()
     {
-        await _authStateProvider.GetAuthenticationStateAsync();
+        await _authenticationStateProvider.GetAuthenticationStateAsync();
     }
 }
