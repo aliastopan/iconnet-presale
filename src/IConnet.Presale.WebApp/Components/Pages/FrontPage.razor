@@ -72,7 +72,6 @@
         }
 
         _result = await SignInAsync();
-        StateHasChanged();
     }
 
     public async Task<string> SignInAsync()
@@ -101,7 +100,6 @@
             if (authenticationState.User.Identity!.IsAuthenticated)
             {
                 Log.Warning("Redirecting...");
-                StateHasChanged();
             }
 
             _isLoading = false;
