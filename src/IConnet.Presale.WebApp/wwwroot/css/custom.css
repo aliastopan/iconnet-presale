@@ -7,6 +7,14 @@ td, th {
     font-weight: normal;
 }
 
+input:invalid::part(root) {
+    outline: none;
+}
+
+.invalid::part(root) {
+    outline: none;
+}
+
 .table-wrapper{
     overflow-x: auto;
     margin-bottom: 20px;
