@@ -6,6 +6,7 @@
 @inject IWorkloadManager _workloadManager
 @inject SessionService _sessionService
 @inject NotificationService _notificationService
+@inject NavigationManager _navigationManager
 
 @if (WorkPaper is not null)
 {
@@ -56,7 +57,15 @@
         </thead>
     </table>
 
-    <FluentButton Appearance="Appearance.Accent" OnClick="@ClaimWorkPaperAsync">Claim</FluentButton>
+    <FluentButton Appearance="Appearance.Accent"
+        OnClick="@ClaimWorkPaperAsync">
+        Claim</FluentButton>
+
+    <FluentButton Appearance="Appearance.Accent"
+        Class="mx-1"
+        OnClick="@RedirectToValidationPage"
+        Disabled="@IsDisabled">
+        Mulai Validasi</FluentButton>
 }
 
 <FluentOverlay @bind-Visible=@_isLoading
@@ -72,6 +81,7 @@
 
     [CascadingParameter(Name = "CascadeWorkPaper")]
     public WorkPaper? WorkPaper { get; set; }
+    public bool IsDisabled => _sessionService.UserModel!.Username != WorkPaper!.PersonInCharge.Helpdesk;
 
     private async Task ClaimWorkPaperAsync()
     {
@@ -84,5 +94,10 @@
         await _notificationService.BroadcastNotificationAsync(message: "Workload claim.");
 
         _isLoading = false;
+    }
+
+    private void RedirectToValidationPage()
+    {
+        _navigationManager.NavigateTo($"/workpaper-validation/{WorkPaper!.ApprovalOpportunity.IdPermohonan}");
     }
 }
