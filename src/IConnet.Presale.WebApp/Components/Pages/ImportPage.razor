@@ -1,6 +1,95 @@
 @page "/import"
 @rendermode InteractiveServer
 
+@using IConnet.Presale.WebApp.Helpers
+@using IConnet.Presale.WebApp.Models.Presales
+@using IConnet.Presale.WebApp.Services
+
+@inject IJSRuntime _js
+@inject IWorkloadManager _workloadManager
+@inject CrmImportService _crmImportService
+
 <PageTitle>Import</PageTitle>
 
-<CrmImport />
+<FluentButton Class="m-1"
+    Appearance="Appearance.Accent"
+    IconStart="@(new Icons.Regular.Size20.ArrowImport())"
+    OnClick="OnCrmImport">
+    Import
+</FluentButton>
+
+<div class="table-wrapper">
+
+    @if (_importMetadata is not null)
+    {
+        <FluentOverflow Class="m-1">
+            <FluentOverflowItem><FluentBadge>String Lenght: @_importMetadata.StringLength</FluentBadge></FluentOverflowItem>
+            <FluentOverflowItem><FluentBadge>Empty Column: @_importMetadata.NumberOfWhiteSpaces</FluentBadge></FluentOverflowItem>
+            <FluentOverflowItem><FluentBadge>Separator: @_importMetadata.NumberOfTabSeparators</FluentBadge></FluentOverflowItem>
+            <FluentOverflowItem><FluentBadge>Total Rows: @_importMetadata.NumberOfRows</FluentBadge></FluentOverflowItem>
+            <FluentOverflowItem><FluentBadge>@(_importMetadata.IsValidImport ? "Valid" : "Invalid")</FluentBadge></FluentOverflowItem>
+            <FluentOverflowItem><FluentBadge>Import Count: @_importCount</FluentBadge></FluentOverflowItem>
+        </FluentOverflow>
+    }
+    <FluentDataGrid Items="@_crmImportService.ApprovalOpportunities" ItemSize="32" EmptyContent="@EmptyContent">
+        <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.IdPermohonan)"/>
+        <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.TglPermohonan)"/>
+        <PropertyColumn Title="DURASI TIDAK LANJUT" Property="@(crm => crm.DurasiTidakLanjut)"/>
+        <PropertyColumn Title="NAMA PEMOHON" Property="@(crm => crm.NamaPemohon)"/>
+        <PropertyColumn Title="ID PLN" Property="@(crm => crm.IdPln)"/>
+        <PropertyColumn Title="LAYANAN" Property="@(crm => crm.Layanan)"/>
+        <PropertyColumn Title="SUMBER PERMOHONAN" Property="@(crm => crm.SumberPermohonan)"/>
+        <PropertyColumn Title="STATUS PERMOHONAN" Property="@(crm => crm.StatusPermohonan)"/>
+        <PropertyColumn Title="NAMA AGEN" Property="@(crm => crm.NamaAgen)"/>
+        <PropertyColumn Title="EMAIL AGEN" Property="@(crm => crm.EmailAgen)"/>
+        <PropertyColumn Title="TELEPON AGEN" Property="@(crm => crm.TeleponAgen)"/>
+        <PropertyColumn Title="MITRA AGEN" Property="@(crm => crm.MitraAgen)"/>
+        <PropertyColumn Title="SPLITTER" Property="@(crm => crm.Splitter)"/>
+        <PropertyColumn Title="JENIS PERMOHONAN" Property="@(crm => crm.JenisPermohonan)"/>
+        <PropertyColumn Title="TELEPON PEMOHON" Property="@(crm => crm.TeleponPemohon)"/>
+        <PropertyColumn Title="EMAIL PEMOHON" Property="@(crm => crm.EmailPemohon)"/>
+        <PropertyColumn Title="NIK PEMOHON" Property="@(crm => crm.NikPemohon)"/>
+        <PropertyColumn Title="NPWP PEMOHON" Property="@(crm => crm.NpwpPemohon)"/>
+        <PropertyColumn Title="KETERANGAN" Property="@(crm => crm.Keterangan)"/>
+        <PropertyColumn Title="ALAMAT PEMOHON" Property="@(crm => crm.AlamatPemohon)"/>
+        <PropertyColumn Title="REGIONAL" Property="@(crm => crm.Regional)"/>
+        <PropertyColumn Title="KANTOR PERWAKILAN" Property="@(crm => crm.KantorPerwakilan)"/>
+        <PropertyColumn Title="PROVINSI" Property="@(crm => crm.Provinsi)"/>
+        <PropertyColumn Title="KABUPATEN" Property="@(crm => crm.Kabupaten)"/>
+        <PropertyColumn Title="KECAMATAN" Property="@(crm => crm.Kecamatan)"/>
+        <PropertyColumn Title="KELURAHAN" Property="@(crm => crm.Kelurahan)"/>
+        <PropertyColumn Title="LATITUDE" Property="@(crm => crm.Latitude)"/>
+        <PropertyColumn Title="LONGITUDE" Property="@(crm => crm.Longitude)"/>
+    </FluentDataGrid>
+
+    <FluentOverlay @bind-Visible=@_isLoading
+        Opacity="0.4"
+        Alignment="@Align.Center"
+        Justification="@JustifyContent.Center">
+        <FluentProgressRing />
+    </FluentOverlay>
+</div>
+
+@code
+{
+    private bool _isLoading = false;
+    private int _importCount = 0;
+    private CrmImportMetadata _importMetadata = default!;
+
+    public RenderFragment EmptyContent => @<span>Data tidak tersedia.</span>;
+
+    private async Task OnCrmImport()
+    {
+        _isLoading = true;
+
+        var readText = await _js.InvokeAsync<string>("navigator.clipboard.readText");
+
+        var importModels = _crmImportService.Import(readText, out var importMetadata);
+        _importCount = await _workloadManager.CacheWorkloadAsync(importModels);
+        _importMetadata = importMetadata;
+
+        _isLoading = false;
+        StateHasChanged();
+    }
+
+}
