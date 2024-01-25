@@ -11,4 +11,14 @@ public class SignInModel : IAuthenticationModel
 
     [Required(ErrorMessage = "Password tidak boleh kosong.")]
     public string Password { get; set; }
+
+    public static string SummarizeErrorMessage(Error[] errors)
+    {
+        if(errors.Length > 1)
+        {
+            return "Username and Password tidak boleh kosong.";
+        }
+
+        return errors.First().Message;
+    }
 }
