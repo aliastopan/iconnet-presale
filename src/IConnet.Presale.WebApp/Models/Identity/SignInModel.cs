@@ -6,9 +6,9 @@ namespace IConnet.Presale.WebApp.Models.Identity;
 
 public class SignInModel : IAuthenticationModel
 {
-    [Required]
+    [Required(ErrorMessage = "Username tidak boleh kosong.")]
     public string Username { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Password tidak boleh kosong.")]
     public string Password { get; set; }
 }
