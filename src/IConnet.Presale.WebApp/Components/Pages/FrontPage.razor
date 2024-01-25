@@ -3,6 +3,7 @@
 @using IConnet.Presale.WebApp.Services
 @using IConnet.Presale.Shared.Contracts.Identity.Authentication
 @using IConnet.Presale.WebApp.Models.Identity
+@using AnnotatedResult
 
 @inject AuthenticationStateProvider _authenticationStateProvider
 @inject ProtectedLocalStorage _localStorage
@@ -12,31 +13,38 @@
 
 <FluentBodyContent Class="front-page">
     <div class="front-page">
-        <EditForm Model="@_signInForm" OnValidSubmit="@SubmitAsync">
-            <DataAnnotationsValidator/>
-            <FluentStack Orientation="Orientation.Vertical"
-                HorizontalAlignment="HorizontalAlignment.Center"
-                VerticalAlignment="VerticalAlignment.Center">
+        <FluentStack Orientation="Orientation.Vertical"
+            HorizontalAlignment="HorizontalAlignment.Center"
+            VerticalAlignment="VerticalAlignment.Center">
 
-                        <FluentTextField @bind-Value=_signInForm.Username Placeholder="Username" Class="username-textfield" ></FluentTextField>
-                        <FluentTextField @bind-Value=_signInForm.Password Placeholder="Password" TextFieldType="TextFieldType.Password" Class="password-textfield"></FluentTextField>
+            <FluentTextField @bind-Value=_signInForm.Username Placeholder="Username" Class="username-textfield" ></FluentTextField>
+            <FluentTextField @bind-Value=_signInForm.Password Placeholder="Password" TextFieldType="TextFieldType.Password" Class="password-textfield"></FluentTextField>
 
-                        <FluentButton Class="sign-in-button"
-                            Type="ButtonType.Submit"
-                            Appearance="Appearance.Accent"
-                            IconStart="@(new Icons.Regular.Size16.ArrowEnter())"
-                            Immediate="true">
-                            Sign-In</FluentButton>
+            <FluentButton Class="sign-in-button"
+                Type="ButtonType.Submit"
+                Appearance="Appearance.Accent"
+                IconStart="@(new Icons.Regular.Size16.ArrowEnter())"
+                Immediate="true"
+                OnClick="SubmitAsync">
+                Sign-In</FluentButton>
 
-                        <FluentButton Class="sign-in-button-guest"
-                            Appearance="Appearance.Lightweight"
-                            IconStart="@(new Icons.Regular.Size16.Guest())"
-                            Immediate="true">
-                            Sign as Guest</FluentButton>
+            <FluentButton Class="sign-in-button-guest"
+                Appearance="Appearance.Lightweight"
+                IconStart="@(new Icons.Regular.Size16.Guest())"
+                Immediate="true">
+                Sign as Guest</FluentButton>
 
-                        <ValidationSummary/>
-            </FluentStack>
-        </EditForm>
+        @if (_errorMessages.Count > 0)
+        {
+            @foreach (var errorMessage in _errorMessages)
+            {
+                <div class="error-warning-container">
+                    <FluentIcon Value="@(new Icons.Regular.Size20.ErrorCircle())" />
+                    <span class="px-1">@errorMessage</span>
+                </div>
+            }
+        }
+        </FluentStack>
     </div>
 </FluentBodyContent>
 
@@ -51,11 +59,26 @@
 {
     private bool _isLoading = false;
     private readonly SignInModel _signInForm = new();
-    string? result = "[security token]";
+    private string? _result = "[security token]";
+
+    private List<string> _errorMessages = new();
 
     private async Task SubmitAsync()
     {
-        result = await SignInAsync();
+        _errorMessages.Clear();
+
+        var isValid = _signInForm.TryValidate(out Error[] errors);
+        if (!isValid)
+        {
+            foreach (var error in errors)
+            {
+                _errorMessages.Add(error.Message);
+            }
+
+            return;
+        }
+
+        _result = await SignInAsync();
         StateHasChanged();
     }
 

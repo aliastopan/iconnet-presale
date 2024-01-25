@@ -13,6 +13,12 @@
     width: 200px;
 }
 
+.error-warning-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* .username-textfield::part(root),
 .password-textfield::part(root){
     border: 1px solid;
