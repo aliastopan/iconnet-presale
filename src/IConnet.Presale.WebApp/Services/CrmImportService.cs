@@ -35,13 +35,17 @@ public sealed class CrmImportService
 
         for (int i = 0; i < numberOfRows; i++)
         {
-            string[] chunk = contents.Skip(i * NumberOfColumn).Take(NumberOfColumn).ToArray();
-            var importModel = CreateImportModel(chunk);
+            string[] rowData = contents.Skip(i * NumberOfColumn).Take(NumberOfColumn).ToArray();
+            var importModel = CreateImportModel(rowData);
 
-            if (!_importModels.Any(crm => crm.IdPermohonan == importModel.IdPermohonan))
+            var hasDuplicate = _importModels.Any(crm => crm.IdPermohonan == importModel.IdPermohonan);
+            if (hasDuplicate)
             {
-                importModels.Add(importModel);
+                importMetadata.NumberOfDuplicates++;
+                continue;
             }
+
+            importModels.Add(importModel);
         }
 
         _importModels.AddRange(importModels);

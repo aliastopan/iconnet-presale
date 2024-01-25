@@ -19,18 +19,6 @@
 </FluentButton>
 
 <div class="table-wrapper">
-
-    @if (_importMetadata is not null)
-    {
-        <FluentOverflow Class="m-1">
-            <FluentOverflowItem><FluentBadge>String Lenght: @_importMetadata.StringLength</FluentBadge></FluentOverflowItem>
-            <FluentOverflowItem><FluentBadge>Empty Column: @_importMetadata.NumberOfWhiteSpaces</FluentBadge></FluentOverflowItem>
-            <FluentOverflowItem><FluentBadge>Separator: @_importMetadata.NumberOfTabSeparators</FluentBadge></FluentOverflowItem>
-            <FluentOverflowItem><FluentBadge>Total Rows: @_importMetadata.NumberOfRows</FluentBadge></FluentOverflowItem>
-            <FluentOverflowItem><FluentBadge>@(_importMetadata.IsValidImport ? "Valid" : "Invalid")</FluentBadge></FluentOverflowItem>
-            <FluentOverflowItem><FluentBadge>Import Count: @_importCount</FluentBadge></FluentOverflowItem>
-        </FluentOverflow>
-    }
     <FluentDataGrid Items="@_crmImportService.ApprovalOpportunities" ItemSize="32" EmptyContent="@EmptyContent">
         <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.IdPermohonan)"/>
         <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.TglPermohonan)"/>
@@ -70,17 +58,48 @@
     </FluentOverlay>
 </div>
 
+
+@if (!_isImported)
+{
+    return;
+}
+
+@if (!_isValidImport)
+{
+    <FluentMessageBar Class="my-2" Title="Error" Intent="@MessageIntent.Error">
+        Proses import gagal. Jumlah kolom dan baris tidak sesuai.
+    </FluentMessageBar>
+}
+
+@if (_importCount > 0)
+{
+    <FluentMessageBar Class="my-2" Title="Success" Intent="@MessageIntent.Success">
+        @_importCount dari @_importMetadata!.NumberOfRows data telah berhasil di-import.
+    </FluentMessageBar>
+}
+
+@if (_importMetadata!.NumberOfDuplicates > 0)
+{
+    <FluentMessageBar Class="my-2" Title="Warning" Intent="@MessageIntent.Warning">
+        Terdapat @_importMetadata!.NumberOfDuplicates duplikasi saat dalam proses copy-paste dari iCRM.
+    </FluentMessageBar>
+}
+
 @code
 {
     private bool _isLoading = false;
+    private bool _isImported = false;
     private int _importCount = 0;
     private CrmImportMetadata _importMetadata = default!;
+    private bool _isValidImport = false;
 
-    public RenderFragment EmptyContent => @<span>Data tidak tersedia.</span>;
+    public RenderFragment EmptyContent => @<span class="p-2">Data tidak tersedia.</span>;
 
     private async Task OnCrmImport()
     {
         _isLoading = true;
+        _isImported = false;
+        _isValidImport = false;
 
         var readText = await _js.InvokeAsync<string>("navigator.clipboard.readText");
 
@@ -88,8 +107,11 @@
         _importCount = await _workloadManager.CacheWorkloadAsync(importModels);
         _importMetadata = importMetadata;
 
+        _importMetadata.NumberOfDuplicates = _importMetadata.NumberOfRows - _importCount;
+        _isValidImport = _importMetadata.IsValidImport;
+
         _isLoading = false;
-        StateHasChanged();
+        _isImported = true;
     }
 
 }
