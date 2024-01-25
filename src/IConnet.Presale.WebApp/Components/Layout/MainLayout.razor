@@ -1,6 +1,10 @@
 ﻿@inherits LayoutComponentBase
 
+@using System.Text.RegularExpressions
+@using IConnet.Presale.Shared.Validations
+
 @inject AuthenticationStateProvider _authenticationStateProvider
+@inject NavigationManager _navigationManager
 
 <AuthorizeView>
     <Authorized>
@@ -28,6 +32,9 @@
     </Authorized>
     <NotAuthorized>
         <FluentLayout>
+            @{
+                Redirect();
+            }
             <FrontPage />
         </FluentLayout>
     </NotAuthorized>
@@ -48,5 +55,16 @@
     protected override async Task OnInitializedAsync()
     {
         await _authenticationStateProvider.GetAuthenticationStateAsync();
+    }
+
+    private void Redirect()
+    {
+        var homePage = new Regex(RegexPattern.HomePageUrl);
+        var currentUrl = _navigationManager.Uri;
+
+        if (!homePage.IsMatch(currentUrl))
+        {
+            _navigationManager.NavigateTo("/");
+        }
     }
 }
