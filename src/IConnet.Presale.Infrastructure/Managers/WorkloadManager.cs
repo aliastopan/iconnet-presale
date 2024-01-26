@@ -53,7 +53,7 @@ internal sealed class WorkloadManager : IWorkloadManager
 
             var workPaper = JsonSerializer.Deserialize<WorkPaper>(json)!;
 
-            if (onlyVerified && workPaper.StatusImport != ImportStatus.Verified)
+            if (onlyVerified && workPaper.ApprovalOpportunity.StatusImport != ImportStatus.Verified)
             {
                 continue;
             }
@@ -106,8 +106,7 @@ internal sealed class WorkloadManager : IWorkloadManager
                 JarakShareLoc = "",
                 JarakICrmPlus = "",
                 VaTerbit = _dateTimeService.Zero
-            },
-            StatusImport = ImportStatus.Unverified
+            }
         };
     }
 
@@ -154,6 +153,7 @@ internal sealed class WorkloadManager : IWorkloadManager
                     Longitude = importModel.Longitude
                 }
             },
+            StatusImport = ImportStatus.Unverified,
             TglImport = importModel.TglImport.DateTime,
             ImportClaimAccountId = importModel.ImportClaimAccountId,
             ImportClaimAlias = importModel.ImportClaimAlias

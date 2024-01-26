@@ -17,7 +17,6 @@ public class WorkPaper : IAggregateRoot
     public PersonInCharge PersonInCharge { get; set; }
     public ValidationProcess ProsesValidasi { get; set; }
     public ApprovalProcess ProsesApproval { get; set; }
-    public ImportStatus StatusImport { get; set; }
 
     public Guid FkApprovalOpportunityId { get; init; }
     public virtual ApprovalOpportunity ApprovalOpportunity { get; init; }
