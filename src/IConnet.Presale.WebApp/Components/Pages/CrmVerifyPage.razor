@@ -9,8 +9,13 @@
 <PageTitle>CRM Verify</PageTitle>
 
 <div class="table-wrapper">
-    <FluentDataGrid Items="@_workPapers" Virtualize="true" ItemSize="32" EmptyContent="@HtmlFragment.EmptyContent">
-        @* CRM Data *@
+    <FluentDataGrid Items="@_workPapers"
+        TGridItem="WorkPaper"
+        Virtualize="true"
+        Pagination="@_pagination"
+        ItemSize="32"
+        EmptyContent="@HtmlFragment.EmptyContent">
+
         <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.IdPermohonan)"/>
         <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.TglPermohonan)"/>
         <PropertyColumn Title="IMPORT KLAIM" Property="@(crm => crm.ApprovalOpportunity.ImportClaimAlias)"/>
@@ -40,16 +45,27 @@
         <PropertyColumn Title="KELURAHAN" Property="@(crm => crm.ApprovalOpportunity.Regional.Kelurahan)"/>
         <PropertyColumn Title="LATITUDE" Property="@(crm => crm.ApprovalOpportunity.Regional.Koordinat.Latitude)"/>
         <PropertyColumn Title="LONGITUDE" Property="@(crm => crm.ApprovalOpportunity.Regional.Koordinat.Longitude)"/>
+
     </FluentDataGrid>
 </div>
+<FluentPaginator State="@_pagination">
+    <SummaryTemplate>
+        Terdapat <strong>@(_pagination.TotalItemCount ?? 0)</strong> baris
+    </SummaryTemplate>
+    <PaginationTextTemplate>
+        Halaman <strong>@(_pagination.CurrentPageIndex + 1)</strong> dari <strong>@(_pagination.LastPageIndex + 1)</strong> halaman
+    </PaginationTextTemplate>
+</FluentPaginator>
 
 @code
 {
     private IQueryable<WorkPaper>? _workPapers;
+    private PaginationState _pagination = new PaginationState { ItemsPerPage = 10 };
 
     protected override async Task OnInitializedAsync()
     {
         List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync(onlyVerified: false);
         _workPapers = workload.AsQueryable();
     }
+
 }
