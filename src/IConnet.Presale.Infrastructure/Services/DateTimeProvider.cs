@@ -13,7 +13,7 @@ internal sealed class DateTimeProvider : IDateTimeService
 
     public TimeSpan GetElapsedTime(DateTime startDateTime)
     {
-        return startDateTime - DateTime.Now;
+        return DateTime.Now - startDateTime;
     }
 
     public DateTime ParseExact(string dateTimeString)
