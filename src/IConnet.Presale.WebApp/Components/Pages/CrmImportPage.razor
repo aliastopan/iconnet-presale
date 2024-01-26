@@ -19,7 +19,7 @@
 </FluentButton>
 
 <div class="table-wrapper">
-    <FluentDataGrid Items="@_crmImportService.ApprovalOpportunities" ItemSize="32" EmptyContent="@EmptyContent">
+    <FluentDataGrid Items="@_crmImportService.ApprovalOpportunities" ItemSize="32" EmptyContent="@HtmlFragment.EmptyContent">
         <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.IdPermohonan)"/>
         <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.TglPermohonan)"/>
         <PropertyColumn Title="DURASI TIDAK LANJUT" Property="@(crm => crm.DurasiTidakLanjut)"/>
@@ -92,8 +92,6 @@
     private int _importCount = 0;
     private CrmImportMetadata _importMetadata = default!;
     private bool _isValidImport = false;
-
-    public RenderFragment EmptyContent => @<span class="p-2">Data tidak tersedia.</span>;
 
     private async Task OnCrmImport()
     {

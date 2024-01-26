@@ -9,7 +9,7 @@
 <PageTitle>CRM Verify</PageTitle>
 
 <div class="table-wrapper">
-    <FluentDataGrid Items="@_workPapers" Virtualize="true" ItemSize="32" EmptyContent="@EmptyContent">
+    <FluentDataGrid Items="@_workPapers" Virtualize="true" ItemSize="32" EmptyContent="@HtmlFragment.EmptyContent">
         @* CRM Data *@
         <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.IdPermohonan)"/>
         <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.TglPermohonan)"/>
@@ -45,8 +45,6 @@
 @code
 {
     private IQueryable<WorkPaper>? _workPapers;
-
-    public RenderFragment EmptyContent => @<span class="p-2">Data tidak tersedia.</span>;
 
     protected override async Task OnInitializedAsync()
     {
