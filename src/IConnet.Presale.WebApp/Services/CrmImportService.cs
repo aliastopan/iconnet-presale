@@ -19,7 +19,10 @@ public sealed class CrmImportService
         _sessionService = sessionService;
     }
 
-    public IQueryable<IApprovalOpportunityModel> ApprovalOpportunities => _importModels.AsQueryable();
+    public IQueryable<IApprovalOpportunityModel> ApprovalOpportunities
+    {
+        get => _importModels.OrderByDescending(x => x.TglImport).AsQueryable();
+    }
 
     public List<IApprovalOpportunityModel> Import(string input, out CrmImportMetadata importMetadata)
     {
