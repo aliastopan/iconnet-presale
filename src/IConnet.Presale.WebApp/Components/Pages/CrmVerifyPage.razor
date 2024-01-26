@@ -9,6 +9,8 @@
 <PageTitle>CRM Verify</PageTitle>
 
 <div class="table-wrapper">
+@if (_workPapers is not null)
+{
     <FluentDataGrid Items="@_workPapers"
         TGridItem="WorkPaper"
         Virtualize="true"
@@ -47,6 +49,11 @@
         <PropertyColumn Title="LONGITUDE" Property="@(crm => crm.ApprovalOpportunity.Regional.Koordinat.Longitude)"/>
 
     </FluentDataGrid>
+}
+else
+{
+    <span>Loading...</span>
+}
 </div>
 <FluentPaginator State="@_pagination">
     <SummaryTemplate>
