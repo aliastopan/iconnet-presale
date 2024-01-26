@@ -22,6 +22,8 @@
 <div class="table-wrapper">
     <FluentDataGrid Items="@_crmImportService.ApprovalOpportunities"
         TGridItem="IApprovalOpportunityModel"
+        Virtualize="true"
+        Pagination="@_pagination"
         ItemSize="32"
         EmptyContent="@HtmlFragment.EmptyContent">
 
@@ -64,6 +66,14 @@
     </FluentOverlay>
 </div>
 
+<FluentPaginator State="@_pagination">
+    <SummaryTemplate>
+        Terdapat <strong>@(_pagination.TotalItemCount ?? 0)</strong> baris
+    </SummaryTemplate>
+    <PaginationTextTemplate>
+        Halaman <strong>@(_pagination.CurrentPageIndex + 1)</strong> dari <strong>@(_pagination.LastPageIndex + 1)</strong> halaman
+    </PaginationTextTemplate>
+</FluentPaginator>
 
 @if (!_isImported)
 {
@@ -93,6 +103,8 @@
 
 @code
 {
+    private PaginationState _pagination = new PaginationState { ItemsPerPage = 10 };
+
     private bool _isLoading = false;
     private bool _isImported = false;
     private int _importCount = 0;
