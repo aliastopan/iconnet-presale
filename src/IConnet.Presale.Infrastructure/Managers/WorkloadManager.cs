@@ -100,7 +100,8 @@ internal sealed class WorkloadManager : IWorkloadManager
                 JarakShareLoc = "",
                 JarakICrmPlus = "",
                 VaTerbit = _dateTimeService.Zero
-            }
+            },
+            StatusImport = ImportStatus.Unverified
         };
     }
 
