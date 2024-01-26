@@ -35,5 +35,6 @@ public class ImportModel : IApprovalOpportunityModel
     public string Longitude { get; set; }
 
     public DateTimeOffset TglImport { get; set; }
-    public string NamaClaimImport { get; set; }
+    public Guid ImportClaimAccountId { get; set; }
+    public string ImportClaimAlias { get; set; }
 }

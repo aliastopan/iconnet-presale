@@ -30,5 +30,6 @@ public class ApprovalOpportunity
     public TimeSpan OpportunityLifetime => DateTime.Now - TglPermohonan;
 
     public DateTime TglImport { get; set; }
-    public string NamaClaimImport { get; set; }
+    public Guid ImportClaimAccountId { get; set; }
+    public string ImportClaimAlias { get; set; }
 }

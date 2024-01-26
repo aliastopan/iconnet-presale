@@ -8,6 +8,9 @@ public sealed class UserModel
 {
     public UserModel(ClaimsPrincipal principal)
     {
+        var jwtSub = principal.FindFirst(c => c.Type == JwtClaimTypes.Sub)!.Value;
+        UserAccountId = Guid.Parse(jwtSub);
+
         Username = principal.FindFirst(c => c.Type == JwtClaimTypes.UniqueName)!.Value;
 
         var employmentStatus = principal.FindFirst(c => c.Type == JwtClaimTypes.EmploymentStatus)!.Value;
@@ -29,6 +32,7 @@ public sealed class UserModel
         JobTitle = principal.FindFirst(c => c.Type == JwtClaimTypes.JobTitle)!.Value;
     }
 
+    public Guid UserAccountId { get; set; }
     public string Username { get; set; }
     public EmploymentStatus EmploymentStatus { get; set; }
     public UserRole Role { get; set; }

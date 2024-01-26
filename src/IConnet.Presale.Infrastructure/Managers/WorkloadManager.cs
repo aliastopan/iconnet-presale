@@ -155,7 +155,8 @@ internal sealed class WorkloadManager : IWorkloadManager
                 }
             },
             TglImport = importModel.TglImport.DateTime,
-            NamaClaimImport = importModel.NamaClaimImport
+            ImportClaimAccountId = importModel.ImportClaimAccountId,
+            ImportClaimAlias = importModel.ImportClaimAlias
         };
     }
 

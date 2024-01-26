@@ -32,5 +32,6 @@ public interface IApprovalOpportunityModel
     string Longitude { get; }
 
     DateTimeOffset TglImport { get; }
-    string NamaClaimImport { get; }
+    Guid ImportClaimAccountId { get; }
+    string ImportClaimAlias { get; }
 }
