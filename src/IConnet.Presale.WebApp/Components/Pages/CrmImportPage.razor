@@ -1,6 +1,7 @@
 @page "/crm-import"
 @rendermode InteractiveServer
 
+@using IConnet.Presale.Shared.Interfaces.Models.Presales
 @using IConnet.Presale.WebApp.Helpers
 @using IConnet.Presale.WebApp.Models.Presales
 @using IConnet.Presale.WebApp.Services
@@ -19,7 +20,11 @@
 </FluentButton>
 
 <div class="table-wrapper">
-    <FluentDataGrid Items="@_crmImportService.ApprovalOpportunities" ItemSize="32" EmptyContent="@HtmlFragment.EmptyContent">
+    <FluentDataGrid Items="@_crmImportService.ApprovalOpportunities"
+        TGridItem="IApprovalOpportunityModel"
+        ItemSize="32"
+        EmptyContent="@HtmlFragment.EmptyContent">
+
         <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.IdPermohonan)"/>
         <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.TglPermohonan)"/>
         <PropertyColumn Title="DURASI TIDAK LANJUT" Property="@(crm => crm.DurasiTidakLanjut)"/>
@@ -48,6 +53,7 @@
         <PropertyColumn Title="KELURAHAN" Property="@(crm => crm.Kelurahan)"/>
         <PropertyColumn Title="LATITUDE" Property="@(crm => crm.Latitude)"/>
         <PropertyColumn Title="LONGITUDE" Property="@(crm => crm.Longitude)"/>
+
     </FluentDataGrid>
 
     <FluentOverlay @bind-Visible=@_isLoading
