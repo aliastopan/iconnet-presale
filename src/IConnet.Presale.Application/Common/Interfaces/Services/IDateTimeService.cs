@@ -7,5 +7,6 @@ public interface IDateTimeService
     DateTime Zero { get; }
 
     string GetFormat();
+    TimeSpan GetElapsedTime(DateTime startDateTime);
     DateTime ParseExact(string dateTimeString);
 }

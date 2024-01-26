@@ -11,6 +11,11 @@ internal sealed class DateTimeProvider : IDateTimeService
         return "yyyy-MM-dd HH:mm";
     }
 
+    public TimeSpan GetElapsedTime(DateTime startDateTime)
+    {
+        return startDateTime - DateTime.Now;
+    }
+
     public DateTime ParseExact(string dateTimeString)
     {
         return DateTime.ParseExact(dateTimeString, GetFormat(), System.Globalization.CultureInfo.InvariantCulture);
