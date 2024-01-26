@@ -35,7 +35,6 @@ input:invalid::part(root) {
 
 .table-wrapper{
     overflow-x: auto;
-    margin-bottom: 20px;
 }
 
 .table-wrapper::-webkit-scrollbar{
