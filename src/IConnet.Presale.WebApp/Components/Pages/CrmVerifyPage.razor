@@ -5,6 +5,8 @@
 
 @inject IWorkloadManager _workloadManager
 @inject IDateTimeService _dateTimeService
+@inject IDialogService _dialogService
+
 
 <PageTitle>CRM Verify</PageTitle>
 
@@ -85,8 +87,23 @@ else
         if (row.Item is not null)
         {
             _idPermohonan = row.Item.ApprovalOpportunity.IdPermohonan;
+            await OpenDialogAsync(row.Item);
         }
 
         await Task.CompletedTask;
+    }
+
+    private async Task OpenDialogAsync(WorkPaper workPaper)
+    {
+        var parameters = new DialogParameters()
+        {
+            Title = "Verifikasi Import CRM",
+            TrapFocus = true,
+            PreventScroll = true,
+            Width = "500px",
+        };
+
+        var dialog = await _dialogService.ShowDialogAsync<CrmVerifyDialog>(workPaper, parameters);
+        var result = await dialog.Result;
     }
 }

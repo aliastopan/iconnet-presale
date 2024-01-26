@@ -1,0 +1,58 @@
+@using IConnet.Presale.Domain.Aggregates.Presales
+@using IConnet.Presale.Application.Common.Interfaces.Services
+
+@implements IDialogContentComponent<WorkPaper>
+
+@inject IDateTimeService _dateTimeService
+
+<FluentDialogHeader ShowDismiss="true">
+    <FluentStack VerticalAlignment="VerticalAlignment.Center">
+        <FluentIcon Value="@(new Icons.Regular.Size24.DocumentCheckmark())" />
+        <FluentLabel Typo="Typography.PaneHeader">
+            @Dialog.Instance.Parameters.Title
+        </FluentLabel>
+    </FluentStack>
+</FluentDialogHeader>
+
+    <div class="d-flex flex-row mb-3">
+        <span class="px-1">Di-Import</span>
+        <FluentBadge Appearance="Appearance.Accent">
+            @(_dateTimeService.GetElapsedTime(Content.ApprovalOpportunity.TglImport).AsReadableString())
+        </FluentBadge>
+        <span class="px-1">yang lalu</span>
+        <FluentBadge Appearance="Appearance.Accent">
+            @Content.ApprovalOpportunity.ImportClaimAlias
+        </FluentBadge>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="padding-right: 1rem;">ID PERMOHONAN</th>
+                <td>@Content.ApprovalOpportunity.IdPermohonan</td>
+            </tr>
+            <tr>
+                <th style="padding-right: 1rem;">TGL PERMOHONAN</th>
+                <td>@Content.ApprovalOpportunity.TglPermohonan</td>
+            </tr>
+        </thead>
+    </table>
+
+@code
+{
+    [Parameter]
+    public WorkPaper Content { get; set; } = default!;
+
+    [CascadingParameter]
+    public FluentDialog Dialog { get; set; } = default!;
+
+    private async Task SaveAsync()
+    {
+        await Dialog.CloseAsync(Content);
+    }
+
+    private async Task CancelAsync()
+    {
+        await Dialog.CancelAsync();
+    }
+}
