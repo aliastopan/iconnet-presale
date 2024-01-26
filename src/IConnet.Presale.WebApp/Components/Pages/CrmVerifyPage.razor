@@ -16,6 +16,7 @@
         Virtualize="true"
         Pagination="@_pagination"
         ItemSize="32"
+        OnRowFocus="@OnRowSelected"
         EmptyContent="@HtmlFragment.EmptyContent">
 
         <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.IdPermohonan)"/>
@@ -65,10 +66,13 @@ else
     </PaginationTextTemplate>
 </FluentPaginator>
 
+<span>@_idPermohonan</span>
+
 @code
 {
     private IQueryable<WorkPaper>? _workPapers;
     private PaginationState _pagination = new PaginationState { ItemsPerPage = 10 };
+    private string _idPermohonan = "";
 
     protected override async Task OnInitializedAsync()
     {
@@ -76,4 +80,13 @@ else
         _workPapers = workload.AsQueryable();
     }
 
+    private async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
+    {
+        if (row.Item is not null)
+        {
+            _idPermohonan = row.Item.ApprovalOpportunity.IdPermohonan;
+        }
+
+        await Task.CompletedTask;
+    }
 }
