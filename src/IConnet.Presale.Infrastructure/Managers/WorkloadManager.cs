@@ -39,7 +39,7 @@ internal sealed class WorkloadManager : IWorkloadManager
         return workloadCount;
     }
 
-    public async Task<List<WorkPaper>> FetchWorkloadAsync()
+    public async Task<List<WorkPaper>> FetchWorkloadAsync(bool onlyVerified = true)
     {
         List<WorkPaper> workPapers = [];
         List<string?> jsonWorkPapers = await _cacheService.GetAllCacheValuesAsync();
@@ -52,6 +52,12 @@ internal sealed class WorkloadManager : IWorkloadManager
             }
 
             var workPaper = JsonSerializer.Deserialize<WorkPaper>(json)!;
+
+            if (onlyVerified && workPaper.StatusImport != ImportStatus.Verified)
+            {
+                continue;
+            }
+
             workPapers.Add(workPaper);
         }
 
