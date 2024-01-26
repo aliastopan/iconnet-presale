@@ -9,11 +9,14 @@ public sealed class CrmImportService
     private const int NumberOfColumn = 28;
     private readonly List<IApprovalOpportunityModel> _importModels;
     private readonly IDateTimeService _dateTimeService;
+    private readonly SessionService _sessionService;
 
-    public CrmImportService(IDateTimeService dateTimeService)
+    public CrmImportService(IDateTimeService dateTimeService,
+        SessionService sessionService)
     {
         _importModels = new List<IApprovalOpportunityModel>();
         _dateTimeService = dateTimeService;
+        _sessionService = sessionService;
     }
 
     public IQueryable<IApprovalOpportunityModel> ApprovalOpportunities => _importModels.AsQueryable();
@@ -85,7 +88,7 @@ public sealed class CrmImportService
             Latitude = column[26],
             Longitude = column[27],
             TglImport = _dateTimeService.DateTimeOffsetNow,
-            NamaClaimImport = "PAC"
+            NamaClaimImport = _sessionService.SessionAlias
         };
     }
 
