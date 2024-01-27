@@ -91,8 +91,8 @@ public sealed class CrmImportService
             Latitude = column[26],
             Longitude = column[27],
             TglImport = _dateTimeService.DateTimeOffsetNow,
-            ImportClaimAccountId = _sessionService.UserModel!.UserAccountId,
-            ImportClaimAlias = _sessionService.SessionAlias
+            ImportSignatureAccountId = _sessionService.UserModel!.UserAccountId,
+            ImportSignatureAlias = _sessionService.SessionAlias
         };
     }
 
