@@ -154,9 +154,19 @@ internal sealed class WorkloadManager : IWorkloadManager
                 }
             },
             StatusImport = ImportStatus.Unverified,
-            TglImport = importModel.TglImport.DateTime,
-            ImportClaimAccountId = importModel.ImportClaimAccountId,
-            ImportClaimAlias = importModel.ImportClaimAlias
+            ImportSignature = new ActionSignature
+            {
+                SignatureAccountId = importModel.ImportSignatureAccountId,
+                SignatureAlias = importModel.ImportSignatureAlias,
+                ActionDateTime = importModel.TglImport.DateTime,
+
+            },
+            CrmVerificationSignature = new ActionSignature
+            {
+                SignatureAccountId = Guid.Empty,
+                SignatureAlias = "",
+                ActionDateTime = _dateTimeService.Zero
+            }
         };
     }
 

@@ -17,11 +17,11 @@
     <div class="d-flex flex-row mb-3">
         <span class="px-1">Di-Import</span>
         <FluentBadge Appearance="Appearance.Accent">
-            @(_dateTimeService.GetElapsedTime(Content.ApprovalOpportunity.TglImport).AsReadableString())
+            @(_dateTimeService.GetElapsedTime(Content.ApprovalOpportunity.ImportSignature.ActionDateTime).AsReadableString())
         </FluentBadge>
         <span class="px-1">yang lalu</span>
         <FluentBadge Appearance="Appearance.Accent">
-            @Content.ApprovalOpportunity.ImportClaimAlias
+            @Content.ApprovalOpportunity.ImportSignature.SignatureAlias
         </FluentBadge>
     </div>
 
