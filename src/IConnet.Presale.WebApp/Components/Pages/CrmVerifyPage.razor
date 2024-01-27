@@ -9,7 +9,7 @@
 @inject IDialogService _dialogService
 @inject NotificationService _notificationService
 
-<PageTitle>CRM Verify</PageTitle>
+<PageTitle>Verifikasi CRM</PageTitle>
 
 <div class="table-wrapper">
     @if (_workPapers is not null)
@@ -98,7 +98,7 @@
         await InvokeAsync(() =>
         {
             StateHasChanged();
-            Log.Warning("Re-rendering component.");
+            Log.Warning("Re-render 'CRM Verify Page'.");
         });
     }
 
