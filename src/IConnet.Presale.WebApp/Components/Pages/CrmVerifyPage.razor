@@ -2,11 +2,12 @@
 @rendermode InteractiveServer
 
 @using IConnet.Presale.Domain.Aggregates.Presales
+@using IConnet.Presale.WebApp.Services
 
 @inject IWorkloadManager _workloadManager
 @inject IDateTimeService _dateTimeService
 @inject IDialogService _dialogService
-
+@inject NotificationService _notificationService
 
 <PageTitle>CRM Verify</PageTitle>
 
@@ -99,6 +100,7 @@
 
     private async Task OpenDialogAsync(WorkPaper workPaper)
     {
+        Log.Warning("Import status before: {0}", workPaper.ApprovalOpportunity.StatusImport);
         var parameters = new DialogParameters()
         {
             Title = "Verifikasi Import CRM",
@@ -108,5 +110,21 @@
 
         var dialog = await _dialogService.ShowDialogAsync<CrmVerifyDialog>(workPaper, parameters);
         var result = await dialog.Result;
+
+        if (!result.Cancelled && result.Data != null)
+        {
+            var dialoagData = (WorkPaper)result.Data;
+            await VerifyCrmAsync(dialoagData);
+
+            Log.Warning("Import status after: {0}", dialoagData.ApprovalOpportunity.StatusImport);
+        }
+    }
+
+    private async Task VerifyCrmAsync(WorkPaper workPaper)
+    {
+        await _workloadManager.UpdateWorkloadAsync(workPaper);
+
+        var message = $"CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been verified";
+        await _notificationService.BroadcastNotificationAsync(message);
     }
 }

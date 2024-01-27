@@ -1,9 +1,12 @@
 @using IConnet.Presale.Domain.Aggregates.Presales
+@using IConnet.Presale.Domain.Enums
 @using IConnet.Presale.Application.Common.Interfaces.Services
+@using IConnet.Presale.WebApp.Services
 
 @implements IDialogContentComponent<WorkPaper>
 
 @inject IDateTimeService _dateTimeService
+@inject SessionService _sessionService
 
 <FluentDialogHeader ShowDismiss="true">
     <FluentStack VerticalAlignment="VerticalAlignment.Center">
@@ -193,11 +196,20 @@
 
     private async Task SaveAsync()
     {
+        VerifyCrm();
         await Dialog.CloseAsync(Content);
     }
 
     private async Task CancelAsync()
     {
         await Dialog.CancelAsync();
+    }
+
+    private void VerifyCrm()
+    {
+        Content.ApprovalOpportunity.StatusImport = ImportStatus.Verified;
+        Content.ApprovalOpportunity.CrmVerificationSignature.SignatureAccountId = _sessionService.UserModel!.UserAccountId;
+        Content.ApprovalOpportunity.CrmVerificationSignature.SignatureAlias = _sessionService.SessionAlias;
+        Content.ApprovalOpportunity.CrmVerificationSignature.ActionDateTime = _dateTimeService.DateTimeOffsetNow.DateTime;
     }
 }
