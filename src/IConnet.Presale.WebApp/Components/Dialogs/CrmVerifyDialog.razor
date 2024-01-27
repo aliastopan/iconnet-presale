@@ -14,152 +14,173 @@
     </FluentStack>
 </FluentDialogHeader>
 
-    <div class="d-flex flex-row mb-3">
-        <span class="px-1">Di-Import</span>
-        <FluentBadge Appearance="Appearance.Accent">
-            @(_dateTimeService.GetElapsedTime(Content.ApprovalOpportunity.ImportSignature.ActionDateTime).AsReadableString())
-        </FluentBadge>
-        <span class="px-1">yang lalu</span>
-        <FluentBadge Appearance="Appearance.Accent">
-            @Content.ApprovalOpportunity.ImportSignature.SignatureAlias
-        </FluentBadge>
-    </div>
+<div class="d-flex flex-row mb-3">
+    <span class="px-1">Di-Import</span>
+    <FluentBadge Appearance="Appearance.Accent">
+        @(_dateTimeService.GetElapsedTime(Content.ApprovalOpportunity.ImportSignature.ActionDateTime).AsReadableString())
+    </FluentBadge>
+    <span class="px-1">yang lalu</span>
+    <FluentBadge Appearance="Appearance.Accent">
+        @Content.ApprovalOpportunity.ImportSignature.SignatureAlias
+    </FluentBadge>
+</div>
 
-    <FluentLabel Typo="Typography.H3">Data Permohonan</FluentLabel>
-    <table>
-        <thead>
-            <tr>
-                <th style="padding-right: 1rem;">ID PERMOHONAN</th>
-                <td>@Content.ApprovalOpportunity.IdPermohonan</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">TGL PERMOHONAN</th>
-                <td>@Content.ApprovalOpportunity.TglPermohonan</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">DURASI TIDAK LANJUT</th>
-                <td>@_dateTimeService.GetElapsedTime(Content.ApprovalOpportunity.TglPermohonan).AsReadableString()</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">LAYANAN</th>
-                <td>@Content.ApprovalOpportunity.Layanan</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">SUMBER PERMOHONAN</th>
-                <td>@Content.ApprovalOpportunity.SumberPermohonan</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">STATUS PERMOHONAN</th>
-                <td>@Content.ApprovalOpportunity.StatusPermohonan</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">JENIS PERMOHONAN</th>
-                <td>@Content.ApprovalOpportunity.JenisPermohonan</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">SPLITTER</th>
-                <td>@Content.ApprovalOpportunity.Splitter</td>
-            </tr>
-        </thead>
-    </table>
+<div>
 
-    <FluentLabel Typo="Typography.H3">Data Pelanggan</FluentLabel>
-    <table>
-        <thead>
-            <tr>
-                <th style="padding-right: 1rem;">NAMA LENGKAP</th>
-                <td>@Content.ApprovalOpportunity.Pemohon.NamaLengkap</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">ID PLN</th>
-                <td>@Content.ApprovalOpportunity.Pemohon.IdPln</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">EMAIL</th>
-                <td>@Content.ApprovalOpportunity.Pemohon.Email</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">NIK</th>
-                <td>@Content.ApprovalOpportunity.Pemohon.Nik</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">NPWP</th>
-                <td>@Content.ApprovalOpportunity.Pemohon.Npwp</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">ALAMAT</th>
-                <td>@Content.ApprovalOpportunity.Pemohon.Alamat</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">NOMOR TELEPON</th>
-                <td>@Content.ApprovalOpportunity.Pemohon.NomorTelepon</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">KETERANGAN</th>
-                <td>@Content.ApprovalOpportunity.Pemohon.Keterangan</td>
-            </tr>
-        </thead>
-    </table>
+</div>
 
-    <FluentLabel Typo="Typography.H3">Data Agen</FluentLabel>
-    <table>
-        <thead>
-            <tr>
-                <th style="padding-right: 1rem;">NAMA</th>
-                <td>@Content.ApprovalOpportunity.Agen.NamaLengkap</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">EMAIL</th>
-                <td>@Content.ApprovalOpportunity.Agen.Email</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">NOMOR TELEPON</th>
-                <td>@Content.ApprovalOpportunity.Agen.NomorTelepon</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">MITRA</th>
-                <td>@Content.ApprovalOpportunity.Agen.Mitra</td>
-            </tr>
-        </thead>
-    </table>
+    <FluentCard Class="mb-2">
+        <FluentLabel Typo="Typography.Header">Data Permohonan</FluentLabel>
+        <table class="crm-verify-view mt-3">
+            <thead>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px; width: 200px;">ID PERMOHONAN</th>
+                    <td>@Content.ApprovalOpportunity.IdPermohonan</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">TGL PERMOHONAN</th>
+                    <td>@Content.ApprovalOpportunity.TglPermohonan</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">DURASI TIDAK LANJUT</th>
+                    <td>@_dateTimeService.GetElapsedTime(Content.ApprovalOpportunity.TglPermohonan).AsReadableString()</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">LAYANAN</th>
+                    <td>@Content.ApprovalOpportunity.Layanan</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">SUMBER PERMOHONAN</th>
+                    <td>@Content.ApprovalOpportunity.SumberPermohonan</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">STATUS PERMOHONAN</th>
+                    <td>@Content.ApprovalOpportunity.StatusPermohonan</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">JENIS PERMOHONAN</th>
+                    <td>@Content.ApprovalOpportunity.JenisPermohonan</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">SPLITTER</th>
+                    <td>@Content.ApprovalOpportunity.Splitter</td>
+                </tr>
+            </thead>
+        </table>
+    </FluentCard>
 
-    <FluentLabel Typo="Typography.H3">Data Wilayah</FluentLabel>
-    <table>
-        <thead>
-            <tr>
-                <th style="padding-right: 1rem;">REGIONAL</th>
-                <td>@Content.ApprovalOpportunity.Regional.Bagian</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">KANTOR PERWAKILAN</th>
-                <td>@Content.ApprovalOpportunity.Regional.KantorPerwakilan</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">PRONVINSI</th>
-                <td>@Content.ApprovalOpportunity.Regional.Provinsi</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">KABUPATEN</th>
-                <td>@Content.ApprovalOpportunity.Regional.Kabupaten</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">KECAMATAN</th>
-                <td>@Content.ApprovalOpportunity.Regional.Kecamatan</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">KELURAHAN</th>
-                <td>@Content.ApprovalOpportunity.Regional.Kecamatan</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">LATITUDE</th>
-                <td>@Content.ApprovalOpportunity.Regional.Koordinat.Latitude</td>
-            </tr>
-            <tr>
-                <th style="padding-right: 1rem;">LONGITUDE</th>
-                <td>@Content.ApprovalOpportunity.Regional.Koordinat.Longitude</td>
-            </tr>
-        </thead>
-    </table>
+    <FluentCard Class="mb-2">
+        <FluentLabel Typo="Typography.Header">Data Pelanggan</FluentLabel>
+        <table class="crm-verify-view mt-3">
+            <thead>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">NAMA LENGKAP</th>
+                    <td>@Content.ApprovalOpportunity.Pemohon.NamaLengkap</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">ID PLN</th>
+                    <td>@Content.ApprovalOpportunity.Pemohon.IdPln</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">EMAIL</th>
+                    <td>@Content.ApprovalOpportunity.Pemohon.Email</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">NIK</th>
+                    <td>@Content.ApprovalOpportunity.Pemohon.Nik</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">NPWP</th>
+                    <td>@Content.ApprovalOpportunity.Pemohon.Npwp</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">ALAMAT</th>
+                    <td>@Content.ApprovalOpportunity.Pemohon.Alamat</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">NOMOR TELEPON</th>
+                    <td>@Content.ApprovalOpportunity.Pemohon.NomorTelepon</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">KETERANGAN</th>
+                    <td>@Content.ApprovalOpportunity.Pemohon.Keterangan</td>
+                </tr>
+            </thead>
+        </table>
+    </FluentCard>
+
+    <FluentCard Class="mb-2">
+        <FluentLabel Typo="Typography.Header">Data Agen</FluentLabel>
+        <table class="crm-verify-view mt-3">
+            <thead>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">NAMA</th>
+                    <td>@Content.ApprovalOpportunity.Agen.NamaLengkap</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">EMAIL</th>
+                    <td>@Content.ApprovalOpportunity.Agen.Email</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">NOMOR TELEPON</th>
+                    <td>@Content.ApprovalOpportunity.Agen.NomorTelepon</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">MITRA</th>
+                    <td>@Content.ApprovalOpportunity.Agen.Mitra</td>
+                </tr>
+            </thead>
+        </table>
+    </FluentCard>
+
+    <FluentCard Class="mb-2">
+        <FluentLabel Typo="Typography.Header">Data Wilayah</FluentLabel>
+        <table class="crm-verify-view mt-3">
+            <thead>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">REGIONAL</th>
+                    <td>@Content.ApprovalOpportunity.Regional.Bagian</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">KANTOR PERWAKILAN</th>
+                    <td>@Content.ApprovalOpportunity.Regional.KantorPerwakilan</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">PRONVINSI</th>
+                    <td>@Content.ApprovalOpportunity.Regional.Provinsi</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">KABUPATEN</th>
+                    <td>@Content.ApprovalOpportunity.Regional.Kabupaten</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">KECAMATAN</th>
+                    <td>@Content.ApprovalOpportunity.Regional.Kecamatan</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">KELURAHAN</th>
+                    <td>@Content.ApprovalOpportunity.Regional.Kecamatan</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">LATITUDE</th>
+                    <td>@Content.ApprovalOpportunity.Regional.Koordinat.Latitude</td>
+                </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">LONGITUDE</th>
+                    <td>@Content.ApprovalOpportunity.Regional.Koordinat.Longitude</td>
+                </tr>
+            </thead>
+        </table>
+    </FluentCard>
+
+<FluentDialogFooter>
+    <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.End">
+        <FluentCheckbox @bind-Value="@_isCrmValid" Label="Data CRM telah sesuai" />
+        <FluentButton Appearance="Appearance.Accent"  OnClick="@SaveAsync" Disabled="@(!_isCrmValid)" IconStart="@(new Icons.Regular.Size16.Save())">Simpan</FluentButton>
+        <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Batal</FluentButton>
+    </FluentStack>
+</FluentDialogFooter>
+
 @code
 {
     [Parameter]
@@ -167,6 +188,8 @@
 
     [CascadingParameter]
     public FluentDialog Dialog { get; set; } = default!;
+
+    private bool _isCrmValid;
 
     private async Task SaveAsync()
     {
