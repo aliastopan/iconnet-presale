@@ -13,6 +13,8 @@
 <div class="table-wrapper">
 @if (_workPapers is not null)
 {
+    _pagination.DynamicPagePerItem(_workPapers.Count(), _itemPerPage);
+
     <FluentDataGrid Items="@_workPapers"
         TGridItem="WorkPaper"
         Virtualize="true"
@@ -72,8 +74,10 @@ else
 
 @code
 {
+    private const int _itemPerPage = 10;
+    private PaginationState _pagination = new PaginationState { ItemsPerPage = _itemPerPage };
+
     private IQueryable<WorkPaper>? _workPapers;
-    private PaginationState _pagination = new PaginationState { ItemsPerPage = 10 };
     private string _idPermohonan = "";
 
     protected override async Task OnInitializedAsync()
