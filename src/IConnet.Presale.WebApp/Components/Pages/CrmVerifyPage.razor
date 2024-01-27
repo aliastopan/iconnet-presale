@@ -69,15 +69,12 @@
     </PaginationTextTemplate>
 </FluentPaginator>
 
-<span>@_idPermohonan</span>
-
 @code
 {
     private const int _itemPerPage = 10;
     private PaginationState _pagination = new PaginationState { ItemsPerPage = _itemPerPage };
 
     private IQueryable<WorkPaper>? _workPapers;
-    private string _idPermohonan = "";
 
     protected override async Task OnInitializedAsync()
     {
@@ -106,7 +103,6 @@
     {
         if (row.Item is not null)
         {
-            _idPermohonan = row.Item.ApprovalOpportunity.IdPermohonan;
             await OpenDialogAsync(row.Item);
         }
 
