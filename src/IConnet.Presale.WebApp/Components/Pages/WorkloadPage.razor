@@ -71,7 +71,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync();
+        List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync(CacheFetchMode.OnlyImportVerified);
         _workPapers = workload.AsQueryable();
     }
 }

@@ -120,7 +120,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync();
+        List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync(CacheFetchMode.OnlyImportVerified);
         _workPapers = workload.AsQueryable();
 
         _notificationService.OnNotification(async (string message) =>
@@ -131,7 +131,7 @@
 
     private async Task NotifyUpdate(string cacheKey)
     {
-        List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync();
+        List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync(CacheFetchMode.OnlyImportVerified);
         _workPapers = workload.AsQueryable();
 
         Log.Warning("Workload has been updated: {0}", cacheKey);

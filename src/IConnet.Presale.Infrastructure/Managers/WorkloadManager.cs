@@ -39,31 +39,6 @@ internal sealed class WorkloadManager : IWorkloadManager
         return workloadCount;
     }
 
-    public async Task<List<WorkPaper>> FetchWorkloadAsync(bool onlyVerified = true)
-    {
-        List<WorkPaper> workPapers = [];
-        List<string?> jsonWorkPapers = await _cacheService.GetAllCacheValuesAsync();
-
-        foreach (var json in jsonWorkPapers)
-        {
-            if (json is null)
-            {
-                continue;
-            }
-
-            var workPaper = JsonSerializer.Deserialize<WorkPaper>(json)!;
-
-            if (onlyVerified && workPaper.ApprovalOpportunity.StatusImport != ImportStatus.Verified)
-            {
-                continue;
-            }
-
-            workPapers.Add(workPaper);
-        }
-
-        return workPapers;
-    }
-
     public WorkPaper CreateWorkPaper(IApprovalOpportunityModel importModel)
     {
         var approvalOpportunity = CreateApprovalOpportunity(importModel);
@@ -187,6 +162,42 @@ internal sealed class WorkloadManager : IWorkloadManager
         await _cacheService.SetCacheValueAsync(cacheKey, jsonWorkPaper);
 
         return true;
+    }
+
+    public async Task<List<WorkPaper>> FetchWorkloadAsync(CacheFetchMode cacheFetchMode = CacheFetchMode.All)
+    {
+        List<WorkPaper> workPapers = [];
+        List<string?> jsonWorkPapers = await _cacheService.GetAllCacheValuesAsync();
+
+        foreach (var json in jsonWorkPapers)
+        {
+            if (json is null)
+            {
+                continue;
+            }
+
+            var workPaper = JsonSerializer.Deserialize<WorkPaper>(json)!;
+
+             switch (cacheFetchMode)
+            {
+                case CacheFetchMode.OnlyImportVerified:
+                    if (workPaper.ApprovalOpportunity.StatusImport != ImportStatus.Verified)
+                    {
+                        continue;
+                    }
+                    break;
+                case CacheFetchMode.OnlyImportUnverified:
+                    if (workPaper.ApprovalOpportunity.StatusImport != ImportStatus.Unverified)
+                    {
+                        continue;
+                    }
+                    break;
+            }
+
+            workPapers.Add(workPaper);
+        }
+
+        return workPapers;
     }
 
     public async Task<bool> UpdateWorkloadAsync(WorkPaper workPaper)
