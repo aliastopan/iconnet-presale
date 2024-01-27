@@ -188,4 +188,19 @@ internal sealed class WorkloadManager : IWorkloadManager
 
         return true;
     }
+
+    public async Task<bool> UpdateWorkloadAsync(WorkPaper workPaper)
+    {
+        var cacheKey = workPaper.ApprovalOpportunity.IdPermohonan;
+        var isWorkPaperExist = await _cacheService.IsKeyExistsAsync(cacheKey);
+        if (!isWorkPaperExist)
+        {
+            return false;
+        }
+
+        var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
+        await _cacheService.SetCacheValueAsync(cacheKey, jsonWorkPaper);
+
+        return true;
+    }
 }
