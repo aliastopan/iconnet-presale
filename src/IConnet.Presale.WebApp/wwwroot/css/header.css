@@ -1,0 +1,36 @@
+.header-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.identity {
+    margin-left: auto;
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.alias{
+    text-align: center;
+}
+
+.username{
+    font-weight: 600;
+}
+
+.role{
+    font-weight: 300;
+}
+
+.job-title{
+    background-color: rgb(32, 100, 201);
+    color: white;
+    font-weight: 300;
+    font-size: 13px;
+    text-align: center;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
