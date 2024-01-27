@@ -21,11 +21,6 @@
 </FluentButton>
 
 <div class="table-wrapper">
-    @if (_crmImportService.ApprovalOpportunities.Count() != 0)
-    {
-        _pagination.DynamicPagePerItem(_crmImportService.ApprovalOpportunities.Count(), _itemPerPage);
-    }
-
     <FluentDataGrid Items="@_crmImportService.ApprovalOpportunities"
         TGridItem="IApprovalOpportunityModel"
         Virtualize="true"
