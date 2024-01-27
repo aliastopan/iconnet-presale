@@ -2,16 +2,30 @@
 
 @using System.Text.RegularExpressions
 @using IConnet.Presale.Shared.Validations
+@using IConnet.Presale.WebApp.Services
 
 @inject AuthenticationStateProvider _authenticationStateProvider
 @inject NavigationManager _navigationManager
+@inject SessionService _sessionService
 
 <AuthorizeView>
     <Authorized>
         <FluentLayout>
-            <FluentHeader>
-                <span style="font-weight: 600 !important;">Presale</span>
-                <span style="font-weight: 300 !important;">Application</span>
+            <FluentHeader Height="60" Class="header-container">
+                <div>
+                    <span style="font-weight: 600 !important;">Presale</span>
+                    <span style="font-weight: 300 !important;">Application</span>
+                </div>
+                <div class="identity">
+                    <div class="alias">
+                        <span class="username">@_sessionService.UserModel!.Username</span>
+                        <span class="role">(@_sessionService.UserModel.Role)</span>
+                    </div>
+                    <div class="job-title">
+                        @_sessionService.UserModel!.JobTitle
+                    </div>
+                </div>
+
             </FluentHeader>
             <FluentStack Class="main" Orientation="Orientation.Horizontal" Width="100%">
                 <NavMenu />
