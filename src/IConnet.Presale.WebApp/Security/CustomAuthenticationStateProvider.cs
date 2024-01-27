@@ -55,7 +55,6 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
             Log.Warning("{0}", tryAuthenticate.Errors[0].Message);
             Log.Warning("Trying to refresh authentication.");
             var httpResult = await _identityHttpClientService.RefreshAccessAsync(accessToken, refreshToken);
-            Log.Warning("Response: {0}", httpResult.IsSuccessStatusCode);
             if (httpResult.IsSuccessStatusCode)
             {
                 Log.Warning("Refresh authentication has successful.");
@@ -74,6 +73,9 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
             }
             else
             {
+                await _localStorage.DeleteAsync("access-token");
+                await _localStorage.DeleteAsync("refresh-token");
+
                 Log.Warning("Refresh token was invalid.");
                 Log.Warning("Fail to authenticate.");
                 NotifyAuthenticationStateChanged(Task.FromResult(UnauthenticatedState()));
