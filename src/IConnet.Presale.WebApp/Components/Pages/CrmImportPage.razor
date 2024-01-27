@@ -9,6 +9,7 @@
 @inject IJSRuntime _js
 @inject IWorkloadManager _workloadManager
 @inject CrmImportService _crmImportService
+@inject NotificationService _notificationService
 
 <PageTitle>CRM Import</PageTitle>
 
@@ -131,6 +132,12 @@
 
         _importMetadata.NumberOfDuplicates = _importMetadata.NumberOfRows - _importCount;
         _isValidImport = _importMetadata.IsValidImport;
+
+        if (_isValidImport && _importCount > 0)
+        {
+            var message = $"{_importCount} CRM data has been imported.";
+            await _notificationService.BroadcastNotificationAsync(message);
+        }
 
         _isLoading = false;
         _isImported = true;
