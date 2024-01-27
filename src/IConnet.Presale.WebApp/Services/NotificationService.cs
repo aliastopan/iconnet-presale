@@ -43,12 +43,21 @@ public sealed class NotificationService : IAsyncDisposable
         await _hubContext.Clients.All.SendAsync("Broadcast", message);
     }
 
+    // TODO: delete this later. Use Subscribe instead
     public void OnNotification(Action<string> action)
     {
         HubConnection.On("Broadcast", (string message) =>
         {
             action(message);
             Log.Warning("Broadcast: {0}", message);
+        });
+    }
+
+    public void Subscribe(Func<string, Task> action)
+    {
+        HubConnection.On("Broadcast", async (string message) =>
+        {
+            await action(message);
         });
     }
 
