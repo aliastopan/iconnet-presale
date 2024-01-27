@@ -31,5 +31,5 @@ public class ApprovalOpportunity
 
     public ImportStatus StatusImport { get; set; }
     public ActionSignature ImportSignature { get; set ; }
-    public ActionSignature CrmVerificationSignature { get; set ; }
+    public ActionSignature ImportVerifikasiSignature { get; set ; }
 }

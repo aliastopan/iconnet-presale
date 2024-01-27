@@ -20,11 +20,11 @@
 <div class="d-flex flex-row mb-3">
     <span class="px-1">Di-Import</span>
     <FluentBadge Appearance="Appearance.Accent">
-        @(_dateTimeService.GetElapsedTime(Content.ApprovalOpportunity.ImportSignature.ActionDateTime).AsReadableString())
+        @(_dateTimeService.GetElapsedTime(Content.ApprovalOpportunity.ImportSignature.TglAksi).AsReadableString())
     </FluentBadge>
     <span class="px-1">yang lalu</span>
     <FluentBadge Appearance="Appearance.Accent">
-        @Content.ApprovalOpportunity.ImportSignature.SignatureAlias
+        @Content.ApprovalOpportunity.ImportSignature.Alias
     </FluentBadge>
 </div>
 
@@ -208,8 +208,8 @@
     private void VerifyCrm()
     {
         Content.ApprovalOpportunity.StatusImport = ImportStatus.Verified;
-        Content.ApprovalOpportunity.CrmVerificationSignature.SignatureAccountId = _sessionService.UserModel!.UserAccountId;
-        Content.ApprovalOpportunity.CrmVerificationSignature.SignatureAlias = _sessionService.SessionAlias;
-        Content.ApprovalOpportunity.CrmVerificationSignature.ActionDateTime = _dateTimeService.DateTimeOffsetNow.DateTime;
+        Content.ApprovalOpportunity.ImportVerifikasiSignature.AccountIdSignature = _sessionService.UserModel!.UserAccountId;
+        Content.ApprovalOpportunity.ImportVerifikasiSignature.Alias = _sessionService.SessionAlias;
+        Content.ApprovalOpportunity.ImportVerifikasiSignature.TglAksi = _dateTimeService.DateTimeOffsetNow.DateTime;
     }
 }

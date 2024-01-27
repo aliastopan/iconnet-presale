@@ -131,16 +131,16 @@ internal sealed class WorkloadManager : IWorkloadManager
             StatusImport = ImportStatus.Unverified,
             ImportSignature = new ActionSignature
             {
-                SignatureAccountId = importModel.ImportSignatureAccountId,
-                SignatureAlias = importModel.ImportSignatureAlias,
-                ActionDateTime = importModel.TglImport.DateTime,
+                AccountIdSignature = importModel.ImportAccountIdSignature,
+                Alias = importModel.ImportAliasSignature,
+                TglAksi = importModel.TglImport.DateTime,
 
             },
-            CrmVerificationSignature = new ActionSignature
+            ImportVerifikasiSignature = new ActionSignature
             {
-                SignatureAccountId = Guid.Empty,
-                SignatureAlias = "",
-                ActionDateTime = _dateTimeService.Zero
+                AccountIdSignature = Guid.Empty,
+                Alias = "",
+                TglAksi = _dateTimeService.Zero
             }
         };
     }
