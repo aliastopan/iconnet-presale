@@ -2,8 +2,10 @@
 @rendermode InteractiveServer
 
 @using IConnet.Presale.Domain.Aggregates.Presales
+@using IConnet.Presale.WebApp.Services
 
 @inject IWorkloadManager _workloadManager
+@inject NotificationService _notificationService
 
 <PageTitle>Workload</PageTitle>
 
@@ -98,5 +100,22 @@
     {
         List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync(CacheFetchMode.OnlyImportVerified);
         _workPapers = workload.AsQueryable();
+
+        _notificationService.Subscribe(OnUpdateWorkloadAsync);
+    }
+
+    private async Task OnUpdateWorkloadAsync(string message)
+    {
+        List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync(CacheFetchMode.OnlyImportVerified);
+        _workPapers = workload.AsQueryable();
+
+        Log.Warning(message);
+
+        // ensure component update is handle by UI thread
+        await InvokeAsync(() =>
+        {
+            StateHasChanged();
+            Log.Warning("Re-render 'Workload Page'.");
+        });
     }
 }
