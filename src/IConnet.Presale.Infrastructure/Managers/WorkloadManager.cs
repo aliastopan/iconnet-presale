@@ -156,31 +156,6 @@ internal sealed class WorkloadManager : IWorkloadManager
         };
     }
 
-    public async Task<bool> ClaimWorkPaperAsync(string cacheKey, string claimName)
-    {
-        var isWorkPaperExist = await _cacheService.IsKeyExistsAsync(cacheKey);
-        if (!isWorkPaperExist)
-        {
-            return false;
-        }
-
-        var jsonWorkPaper = await _cacheService.GetCacheValueAsync(cacheKey);
-        var workPaper = JsonSerializer.Deserialize<WorkPaper>(jsonWorkPaper!);
-
-        var personInCharge = new PersonInCharge
-        {
-            Helpdesk = claimName,
-            PlanningAssetCoverage = workPaper!.PersonInCharge.PlanningAssetCoverage
-        };
-
-        workPaper!.PersonInCharge = personInCharge;
-
-        jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
-        await _cacheService.SetCacheValueAsync(cacheKey, jsonWorkPaper);
-
-        return true;
-    }
-
     public async Task<List<WorkPaper>> FetchWorkloadAsync(CacheFetchMode cacheFetchMode = CacheFetchMode.All)
     {
         List<WorkPaper> workPapers = [];
