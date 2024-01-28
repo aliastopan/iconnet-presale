@@ -167,7 +167,13 @@ internal sealed class WorkloadManager : IWorkloadManager
         var jsonWorkPaper = await _cacheService.GetCacheValueAsync(cacheKey);
         var workPaper = JsonSerializer.Deserialize<WorkPaper>(jsonWorkPaper!);
 
-        workPaper!.PersonInCharge.Helpdesk = claimName;
+        var personInCharge = new PersonInCharge
+        {
+            Helpdesk = claimName,
+            PlanningAssetCoverage = workPaper!.PersonInCharge.PlanningAssetCoverage
+        };
+
+        workPaper!.PersonInCharge = personInCharge;
 
         jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
         await _cacheService.SetCacheValueAsync(cacheKey, jsonWorkPaper);
