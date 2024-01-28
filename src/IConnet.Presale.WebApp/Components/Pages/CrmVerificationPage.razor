@@ -119,7 +119,7 @@
             Width = "500px",
         };
 
-        var dialog = await _dialogService.ShowDialogAsync<CrmVerifyDialog>(workPaper, parameters);
+        var dialog = await _dialogService.ShowDialogAsync<CrmVerificationDialog>(workPaper, parameters);
         var result = await dialog.Result;
 
         if (!result.Cancelled && result.Data != null)
