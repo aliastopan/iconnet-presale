@@ -12,100 +12,25 @@
 <PageTitle>IConnet Presale</PageTitle>
 
 <FluentBodyContent Class="front-page">
-    <div class="front-page">
-        <FluentStack Orientation="Orientation.Vertical"
-            HorizontalAlignment="HorizontalAlignment.Center"
-            VerticalAlignment="VerticalAlignment.Center">
-
-            <FluentTextField @bind-Value=_signInForm.Username Immediate="true" Placeholder="Username" Class="username-textfield" ></FluentTextField>
-            <FluentTextField @bind-Value=_signInForm.Password Immediate="true" Placeholder="Password" TextFieldType="TextFieldType.Password" Class="password-textfield"></FluentTextField>
-
-            <FluentButton Class="sign-in-button"
-                Type="ButtonType.Submit"
-                Appearance="Appearance.Accent"
-                IconStart="@(new Icons.Regular.Size16.ArrowEnter())"
-                OnClick="SubmitAsync">
-                Sign-In</FluentButton>
-
-            <FluentButton Class="sign-in-button-guest"
-                Appearance="Appearance.Lightweight"
-                IconStart="@(new Icons.Regular.Size16.Guest())">
-                Sign as Guest</FluentButton>
-
-        @if (!string.IsNullOrEmpty(_errorMessage))
-        {
-            <div class="error-warning-container">
-                <FluentIcon Value="@(new Icons.Regular.Size20.ErrorCircle())" />
-                <span class="px-1">@_errorMessage</span>
-            </div>
-        }
-        </FluentStack>
-    </div>
+    @if (_enableSignInForm)
+    {
+        <div class="front-page">
+            <SignInForm Callback="ToggleEnabled"/>
+        </div>
+    }
+    else
+    {
+        <span>Guest Mode</span>
+    }
 </FluentBodyContent>
-
-<FluentOverlay @bind-Visible=@_isLoading
-    Opacity="0.4"
-    Alignment="@Align.Center"
-    Justification="@JustifyContent.Center">
-    <FluentProgressRing />
-</FluentOverlay>
 
 @code
 {
-    private bool _isLoading = false;
-    private readonly SignInModel _signInForm = new();
-    private string? _result = "[security token]";
+    private bool _enableSignInForm = true;
 
-    private string _errorMessage = "";
-
-    private async Task SubmitAsync()
+    private void ToggleEnabled()
     {
-        _errorMessage = "";
-
-        var isValid = _signInForm.TryValidate(out Error[] errors);
-        if (!isValid)
-        {
-            _errorMessage = SignInModel.SummarizeErrorMessage(errors);
-            return;
-        }
-
-        _result = await SignInAsync();
-    }
-
-    public async Task<string> SignInAsync()
-    {
-        _isLoading = true;
-
-        var httpResult = await _identityHttpClientService.SignInAsync(
-            _signInForm.Username,
-            _signInForm.Password);
-
-        if (httpResult.IsSuccessStatusCode)
-        {
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
-            var response = JsonSerializer.Deserialize<SignInResponse>(httpResult.Content, options);
-            var accessToken = response!.AccessToken;
-            var refreshToken = response!.RefreshTokenStr;
-
-            await _localStorage.SetAsync("access-token", accessToken);
-            await _localStorage.SetAsync("refresh-token", refreshToken);
-
-            var authenticationState = await _authenticationStateProvider.GetAuthenticationStateAsync();
-
-            if (authenticationState.User.Identity!.IsAuthenticated)
-            {
-                Log.Warning("Redirecting...");
-            }
-
-            _isLoading = false;
-            return accessToken;
-        }
-
-        _isLoading = false;
-        return httpResult.Content;
+        _enableSignInForm = !_enableSignInForm;
     }
 
 }
