@@ -123,23 +123,21 @@
         List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync(CacheFetchMode.OnlyImportVerified);
         _workPapers = workload.AsQueryable();
 
-        _notificationService.OnNotification(async (string message) =>
-        {
-            await NotifyUpdate("RANDOM_KEY");
-        });
+        _notificationService.Subscribe(OnUpdateWorkloadAsync);
     }
 
-    private async Task NotifyUpdate(string cacheKey)
+    private async Task OnUpdateWorkloadAsync(string message)
     {
         List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync(CacheFetchMode.OnlyImportVerified);
         _workPapers = workload.AsQueryable();
 
-        Log.Warning("Workload has been updated: {0}", cacheKey);
+        Log.Warning(message);
 
         // ensure component update is handle by UI thread
         await InvokeAsync(() =>
         {
             StateHasChanged();
+            Log.Warning("Re-render 'Helpdesk Page'.");
         });
     }
 
