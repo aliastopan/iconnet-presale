@@ -34,7 +34,7 @@ public class ImportModel : IApprovalOpportunityModel
     public string Latitude { get; set; }
     public string Longitude { get; set; }
 
-    public DateTimeOffset TglImport { get; set; }
+    public DateTime TglImport { get; set; }
     public Guid ImportAccountIdSignature { get; set; }
     public string ImportAliasSignature { get; set; }
 }

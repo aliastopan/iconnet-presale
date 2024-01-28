@@ -31,7 +31,7 @@ public interface IApprovalOpportunityModel
     string Latitude { get; }
     string Longitude { get; }
 
-    DateTimeOffset TglImport { get; }
+    DateTime TglImport { get; }
     Guid ImportAccountIdSignature { get; }
     string ImportAliasSignature { get; }
 }

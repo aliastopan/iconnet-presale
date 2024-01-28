@@ -90,7 +90,7 @@ public sealed class CrmImportService
             Kelurahan = column[25],
             Latitude = column[26],
             Longitude = column[27],
-            TglImport = _dateTimeService.DateTimeOffsetNow,
+            TglImport = _dateTimeService.DateTimeOffsetNow.DateTime,
             ImportAccountIdSignature = _sessionService.UserModel!.UserAccountId,
             ImportAliasSignature = _sessionService.SessionAlias
         };

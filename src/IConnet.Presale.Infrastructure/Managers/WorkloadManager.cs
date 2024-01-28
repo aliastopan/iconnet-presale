@@ -133,7 +133,7 @@ internal sealed class WorkloadManager : IWorkloadManager
             {
                 AccountIdSignature = importModel.ImportAccountIdSignature,
                 Alias = importModel.ImportAliasSignature,
-                TglAksi = importModel.TglImport.DateTime,
+                TglAksi = importModel.TglImport,
 
             },
             ImportVerifikasiSignature = new ActionSignature
