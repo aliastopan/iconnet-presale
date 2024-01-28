@@ -6,11 +6,13 @@ public class ValidationProcess
 {
     public ValidationProcess()
     {
+        ChatCallMulai = new ActionSignature();
+        ChatCallRespons = new ActionSignature();
         ParameterValidasi = new ValidationParameter();
     }
 
-    public DateTime TglChatCallMulai { get; set; }
-    public DateTime TglChatCallRespons { get; set; }
+    public ActionSignature ChatCallMulai { get; set;}
+    public ActionSignature ChatCallRespons { get; set;}
     public string LinkRecapChatHistory { get; set; }
     public ValidationParameter ParameterValidasi { get; set; }
     public ValidationStatus StatusValidasi { get; set; }

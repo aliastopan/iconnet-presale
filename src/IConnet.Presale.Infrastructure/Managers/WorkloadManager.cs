@@ -54,8 +54,18 @@ internal sealed class WorkloadManager : IWorkloadManager
             },
             ProsesValidasi = new ValidationProcess
             {
-                TglChatCallMulai = _dateTimeService.DateTimeOffsetNow.DateTime,
-                TglChatCallRespons = _dateTimeService.DateTimeOffsetNow.DateTime,
+                ChatCallMulai = new ActionSignature
+                {
+                    AccountIdSignature = Guid.Empty,
+                    Alias = "",
+                    TglAksi = _dateTimeService.Zero
+                },
+                ChatCallRespons = new ActionSignature
+                {
+                    AccountIdSignature = Guid.Empty,
+                    Alias = "",
+                    TglAksi = _dateTimeService.Zero
+                },
                 LinkRecapChatHistory = "",
                 ParameterValidasi = new ValidationParameter
                 {

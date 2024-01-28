@@ -22,14 +22,14 @@
             <PropertyColumn Title="PIC CHAT/CALL" Property="@(crm => crm.PersonInCharge.Helpdesk)"/>
             <PropertyColumn Title="SHIFT" Property="@(crm => crm.Shift)"/>
             @* Proses Validasi *@
-            <PropertyColumn Title="TGL CHAT/CALL HELPDESK" Property="@(crm => crm.ProsesValidasi.TglChatCallMulai)"/>
+            <PropertyColumn Title="TGL CHAT/CALL HELPDESK" Property="@(crm => crm.ProsesValidasi.ChatCallMulai.TglAksi)"/>
             <PropertyColumn Title="NAMA PELANGGAN" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.NamaPelanggan)"/>
             <PropertyColumn Title="NOMOR TELP AKTIF" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.NomorTelepon)"/>
             <PropertyColumn Title="EMAIL AKTIF" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.Email)"/>
             <PropertyColumn Title="ALAMAT PELANGGAN" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.AlamatPelanggan)"/>
             <PropertyColumn Title="ID PLAN" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.PlnId)"/>
             <PropertyColumn Title="SHARE KOORDINAT" Property="@(crm => crm.ProsesValidasi.ParameterValidasi.ShareLoc.LatitudeLongitude)"/>
-            <PropertyColumn Title="TGL CHAT/CALL DIJAWAB" Property="@(crm => crm.ProsesValidasi.TglChatCallRespons)"/>
+            <PropertyColumn Title="TGL CHAT/CALL DIJAWAB" Property="@(crm => crm.ProsesValidasi.ChatCallRespons.TglAksi)"/>
             <PropertyColumn Title="REKAP CHAT HISTORY" Property="@(crm => crm.ProsesValidasi.LinkRecapChatHistory)"/>
             <PropertyColumn Title="STATUS VALIDASI" Property="@(crm => crm.ProsesValidasi.StatusValidasi)"/>
             <PropertyColumn Title="KETERANGAN VALIDASI" Property="@(crm => crm.ProsesValidasi.Keterangan)"/>
