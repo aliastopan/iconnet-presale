@@ -11,16 +11,18 @@
 
 <PageTitle>IConnet Presale</PageTitle>
 
-<FluentBodyContent Class="front-page">
+<FluentBodyContent>
     @if (_enableSignInForm)
     {
-        <div class="front-page">
+        <div class="sign-in-form">
             <SignInForm Callback="ToggleEnabled"/>
         </div>
     }
     else
     {
-        <span>Guest Mode</span>
+        <div class="guest-page">
+            <GuestPage />
+        </div>
     }
 </FluentBodyContent>
 

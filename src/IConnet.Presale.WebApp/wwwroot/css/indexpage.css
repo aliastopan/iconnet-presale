@@ -1,4 +1,4 @@
-.front-page{
+.sign-in-form{
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -39,4 +39,12 @@
     justify-content: center;
     align-items: center;
     background-color: #f0f0f0; /* Optional background color */
+}
+
+
+.guest-page{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
