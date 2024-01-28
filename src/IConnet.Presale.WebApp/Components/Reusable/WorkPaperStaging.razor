@@ -1,6 +1,7 @@
 @rendermode InteractiveServer
 
 @using IConnet.Presale.Domain.Aggregates.Presales
+@using IConnet.Presale.Domain.Aggregates.Presales.ValueObjects
 @using IConnet.Presale.WebApp.Services
 
 @inject IWorkloadManager _workloadManager
@@ -90,7 +91,13 @@
         var cacheKey = WorkPaper!.ApprovalOpportunity.IdPermohonan;
         var claimName = _sessionService.UserModel!.Username;
 
-        await _workloadManager.ClaimWorkPaperAsync(cacheKey, claimName);
+        WorkPaper.PersonInCharge = new PersonInCharge
+        {
+            Helpdesk = claimName,
+            PlanningAssetCoverage = WorkPaper.PersonInCharge.PlanningAssetCoverage
+        };
+
+        await _workloadManager.UpdateWorkloadAsync(WorkPaper);
         await _notificationService.BroadcastNotificationAsync(message: "Workload claim.");
 
         _isLoading = false;
