@@ -1,5 +1,6 @@
 using System.Text.Json;
 using IConnet.Presale.Domain.Aggregates.Presales;
+using IConnet.Presale.Domain.Aggregates.Presales.ValueObjects;
 using IConnet.Presale.Domain.Enums;
 using IConnet.Presale.Shared.Interfaces.Models.Presales;
 

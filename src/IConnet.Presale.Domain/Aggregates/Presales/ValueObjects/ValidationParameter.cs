@@ -1,6 +1,6 @@
 #nullable disable
 
-namespace IConnet.Presale.Domain.Aggregates.Presales;
+namespace IConnet.Presale.Domain.Aggregates.Presales.ValueObjects;
 
 public class ValidationParameter
 {

@@ -1,5 +1,6 @@
 #nullable disable
 using System.ComponentModel.DataAnnotations.Schema;
+using IConnet.Presale.Domain.Aggregates.Presales.ValueObjects;
 
 namespace IConnet.Presale.Domain.Aggregates.Presales;
 

@@ -1,7 +1,7 @@
 #nullable disable
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace IConnet.Presale.Domain.Aggregates.Presales;
+namespace IConnet.Presale.Domain.Aggregates.Presales.ValueObjects;
 
 public class Coordinate
 {

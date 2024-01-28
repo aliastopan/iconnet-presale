@@ -1,4 +1,5 @@
 #nullable disable
+using IConnet.Presale.Domain.Aggregates.Presales.ValueObjects;
 
 namespace IConnet.Presale.Domain.Aggregates.Presales;
 
