@@ -1,12 +1,12 @@
-.crm-verify-view thead tr th,
-.crm-verify-view thead tr td{
+.crm-verification-view thead tr th,
+.crm-verification-view thead tr td{
     vertical-align: top;
     border-bottom: 1px solid #dfdfdf;
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
 }
 
-.footer-crm-verify{
+.footer-crm-verification{
     display: flex;
     flex-direction: row;
     justify-content: center;
