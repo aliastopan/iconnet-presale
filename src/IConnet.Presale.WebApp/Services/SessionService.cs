@@ -1,6 +1,5 @@
 using System.Security.Claims;
 using IConnet.Presale.WebApp.Models.Identity;
-
 using IConnet.Presale.Domain.Enums;
 
 namespace IConnet.Presale.WebApp.Services;
@@ -9,14 +8,13 @@ public sealed class SessionService
 {
     public UserModel? UserModel { get; private set; }
     public bool HasUser => UserModel is not null;
-    public string SessionAlias => GetSessionAlias();
 
     public void SetSession(ClaimsPrincipal principal)
     {
         UserModel = new UserModel(principal);
     }
 
-    private string GetSessionAlias()
+    public string GetSessionAlias()
     {
         return UserModel switch
         {

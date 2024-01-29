@@ -210,7 +210,7 @@
         Content.ApprovalOpportunity.ImportVerifikasiSignature = new ActionSignature
         {
             AccountIdSignature = _sessionService.UserModel!.UserAccountId,
-            Alias = _sessionService.SessionAlias,
+            Alias = _sessionService.GetSessionAlias(),
             TglAksi = _dateTimeService.DateTimeOffsetNow.DateTime
         };
     }
