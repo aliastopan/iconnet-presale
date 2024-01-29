@@ -56,6 +56,7 @@ public static class ConfigureServices
     {
         services.ConfigureHttpClient(configuration);
 
+        services.AddSingleton<WorkloadFactory>();
         services.AddSingleton<IConnectionMultiplexer>(provider =>
         {
             var connectionString = configuration[AppSecretSettings.Section.RedisConnection];

@@ -5,6 +5,7 @@ global using IConnet.Presale.Application.Common.Interfaces.Managers.Options;
 global using IConnet.Presale.Application.Common.Interfaces.Services;
 global using IConnet.Presale.Infrastructure.Extensions;
 global using IConnet.Presale.Infrastructure.Extensions.Repository;
+global using IConnet.Presale.Infrastructure.Factories;
 global using IConnet.Presale.Infrastructure.Handlers;
 global using IConnet.Presale.Infrastructure.Managers;
 global using IConnet.Presale.Infrastructure.Persistence;
