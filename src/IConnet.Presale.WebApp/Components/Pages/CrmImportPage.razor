@@ -14,13 +14,17 @@
 <PageTitle>Import CRM</PageTitle>
 
 <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Import CRM</FluentLabel>
-
-<FluentButton Class="m-1"
-    Appearance="Appearance.Accent"
-    IconStart="@(new Icons.Regular.Size20.ArrowImport())"
-    OnClick="OnCrmImport">
-    Import
-</FluentButton>
+<div class="d-flex flex-column align-items-start">
+    <span class="page-description">Import iCRM+ data ke aplikasi Presale</span>
+    <div style="margin-left: -5px; margin-bottom: 0.5rem;">
+        <FluentButton Class="m-1"
+            Appearance="Appearance.Accent"
+            IconStart="@(new Icons.Regular.Size20.ArrowImport())"
+            OnClick="OnCrmImport">
+            Import
+        </FluentButton>
+    </div>
+</div>
 
 <div class="table-wrapper">
     <FluentDataGrid Items="@_crmImportService.ApprovalOpportunities"

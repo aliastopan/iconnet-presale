@@ -54,3 +54,7 @@ input:invalid::part(root) {
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
 }
+
+.page-description{
+    margin-bottom: 0.5rem;
+}
