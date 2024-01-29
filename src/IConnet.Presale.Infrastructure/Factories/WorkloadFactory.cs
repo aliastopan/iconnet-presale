@@ -88,6 +88,12 @@ internal sealed class WorkloadFactory
                 Helpdesk = string.Empty,
                 PlanningAssetCoverage = string.Empty
             },
+            HelpdeskInCharge = new ActionSignature
+            {
+                AccountIdSignature = Guid.Empty,
+                Alias = string.Empty,
+                TglAksi = _dateTimeService.Zero
+            },
             ProsesValidasi = new ValidationProcess
             {
                 ChatCallMulai = new ActionSignature
