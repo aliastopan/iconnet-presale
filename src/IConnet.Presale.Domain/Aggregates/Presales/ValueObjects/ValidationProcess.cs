@@ -12,12 +12,13 @@ public class ValidationProcess : ValueObject
     }
 
     public ValidationProcess(ActionSignature chatCallMulai, ActionSignature chatCallRespons, string linkRecapChatHistory,
-        ValidationParameter parameterValidasi, ValidationStatus statusValidasi, string keterangan)
+        ValidationParameter parameterValidasi, ValidationCorrection koreksiValidasi, ValidationStatus statusValidasi, string keterangan)
     {
         ChatCallMulai = chatCallMulai;
         ChatCallRespons = chatCallRespons;
         LinkRecapChatHistory = linkRecapChatHistory;
         ParameterValidasi = parameterValidasi;
+        KoreksiValidasi = koreksiValidasi;
         StatusValidasi = statusValidasi;
         Keterangan = keterangan;
     }
@@ -26,6 +27,7 @@ public class ValidationProcess : ValueObject
     public ActionSignature ChatCallRespons { get; init;}
     public string LinkRecapChatHistory { get; init; }
     public ValidationParameter ParameterValidasi { get; init; }
+    public ValidationCorrection KoreksiValidasi { get; set; }
     public ValidationStatus StatusValidasi { get; init; }
     public string Keterangan { get; init; }
 
@@ -35,6 +37,7 @@ public class ValidationProcess : ValueObject
         yield return ChatCallRespons;
         yield return LinkRecapChatHistory;
         yield return ParameterValidasi;
+        yield return KoreksiValidasi;
         yield return StatusValidasi;
         yield return Keterangan;
     }
