@@ -2,6 +2,7 @@
 @rendermode InteractiveServer
 
 @using IConnet.Presale.Domain.Aggregates.Presales
+@using IConnet.Presale.Domain.Enums
 @using IConnet.Presale.WebApp.Services
 
 @inject IWorkloadManager _workloadManager
@@ -118,6 +119,12 @@
             TrapFocus = true,
             Width = "500px",
         };
+
+        var isImportVerified = workPaper.ApprovalOpportunity.StatusImport == ImportStatus.Verified;
+        if (isImportVerified)
+        {
+            return;
+        }
 
         var dialog = await _dialogService.ShowDialogAsync<CrmVerificationDialog>(workPaper, parameters);
         var result = await dialog.Result;
