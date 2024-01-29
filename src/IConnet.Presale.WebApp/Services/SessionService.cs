@@ -16,11 +16,6 @@ public sealed class SessionService
         UserModel = new UserModel(principal);
     }
 
-    public void UnsetSession()
-    {
-        UserModel = null;
-    }
-
     private string GetSessionAlias()
     {
         return UserModel switch
