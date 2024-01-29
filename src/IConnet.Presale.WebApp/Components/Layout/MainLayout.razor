@@ -30,7 +30,7 @@
                 <div>
                     <FluentButton IconEnd="@(new Icons.Regular.Size20.ArrowExit())"
                         Appearance="Appearance.Lightweight"
-                        OnClick="SignOutAsync">Sign-Out</FluentButton>
+                        OnClick="_sessionService.SignOutAsync">Sign-Out</FluentButton>
                 </div>
             </FluentHeader>
 
@@ -92,13 +92,5 @@
         {
             _navigationManager.NavigateTo("/");
         }
-    }
-
-    private async Task SignOutAsync()
-    {
-        await _localStorage.DeleteAsync("access-token");
-        await _localStorage.DeleteAsync("refresh-token");
-
-        _navigationManager.NavigateTo("/", forceLoad: true);
     }
 }
