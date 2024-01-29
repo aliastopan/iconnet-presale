@@ -21,7 +21,7 @@
 <div class="d-flex flex-row mb-3">
     <span class="px-1">Di-Import</span>
     <FluentBadge Appearance="Appearance.Accent">
-        @(_dateTimeService.GetElapsedTime(Content.ApprovalOpportunity.ImportSignature.TglAksi).AsReadableDateTime())
+        @(_dateTimeService.GetElapsedTime(Content.ApprovalOpportunity.ImportSignature.TglAksi).AsReadableDateTimeWithSeconds())
     </FluentBadge>
     <span class="px-1">yang lalu</span>
     <FluentBadge Appearance="Appearance.Accent">
