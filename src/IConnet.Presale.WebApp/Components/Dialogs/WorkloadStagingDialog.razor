@@ -97,11 +97,12 @@
 
     public void ClaimWorkload()
     {
-        Content.PersonInCharge = new PersonInCharge
-        {
-            Helpdesk = _sessionService.GetSessionAlias(),
-            PlanningAssetCoverage = Content.PersonInCharge.PlanningAssetCoverage
-        };
         Content.Shift = _sessionService.UserModel!.JobShift.ToString();
+        Content.HelpdeskInCharge = new ActionSignature
+        {
+            AccountIdSignature = _sessionService.UserModel!.UserAccountId,
+            Alias = _sessionService.GetSessionAlias(),
+            TglAksi = _dateTimeService.DateTimeOffsetNow.DateTime
+        };
     }
 }

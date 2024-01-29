@@ -21,7 +21,7 @@
             ItemSize="32"
             EmptyContent="@HtmlFragment.EmptyContent">
 
-            <PropertyColumn Title="PIC CHAT/CALL" Property="@(crm => crm.PersonInCharge.Helpdesk)"/>
+            <PropertyColumn Title="PIC CHAT/CALL" Property="@(crm => crm.HelpdeskInCharge.Alias)"/>
             <PropertyColumn Title="SHIFT" Property="@(crm => crm.Shift)"/>
             @* Proses Validasi *@
             <PropertyColumn Title="TGL CHAT/CALL HELPDESK" Property="@(crm => crm.ProsesValidasi.ChatCallMulai.TglAksi)"/>

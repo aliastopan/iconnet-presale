@@ -33,13 +33,13 @@
             </TemplateColumn>
             <TemplateColumn Title="PIC CHAT/CALL">
                 <div class="">
-                    @if (string.IsNullOrEmpty(context.PersonInCharge.Helpdesk))
+                    @if (string.IsNullOrEmpty(context.HelpdeskInCharge.Alias))
                     {
                         <span>Menunggu Klaim</span>
                     }
                     else
                     {
-                        @context.PersonInCharge.Helpdesk
+                        @context.HelpdeskInCharge.Alias
                     }
                 </div>
             </TemplateColumn>
@@ -197,7 +197,7 @@
     {
         await _workloadManager.UpdateWorkloadAsync(workPaper);
 
-        var message = $"{workPaper.PersonInCharge.Helpdesk} has claimed '{workPaper.ApprovalOpportunity.IdPermohonan}'";
+        var message = $"{workPaper.HelpdeskInCharge.Alias} has claimed '{workPaper.ApprovalOpportunity.IdPermohonan}'";
         await _notificationService.BroadcastNotificationAsync(message);
     }
 }
