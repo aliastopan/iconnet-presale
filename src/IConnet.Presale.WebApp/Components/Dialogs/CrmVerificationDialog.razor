@@ -21,7 +21,7 @@
 <div class="d-flex flex-row mb-3">
     <span class="px-1">Di-Import</span>
     <FluentBadge Appearance="Appearance.Accent">
-        @(_dateTimeService.GetElapsedTime(Content.ApprovalOpportunity.ImportSignature.TglAksi).AsReadableString())
+        @(_dateTimeService.GetElapsedTime(Content.ApprovalOpportunity.ImportSignature.TglAksi).AsReadableDateTime())
     </FluentBadge>
     <span class="px-1">yang lalu</span>
     <FluentBadge Appearance="Appearance.Accent">
@@ -44,7 +44,7 @@
                 </tr>
                 <tr>
                     <th style="padding-right: 1rem; width: 200px;">DURASI TIDAK LANJUT</th>
-                    <td>@_dateTimeService.GetElapsedTime(Content.ApprovalOpportunity.TglPermohonan).AsReadableString()</td>
+                    <td>@_dateTimeService.GetElapsedTime(Content.ApprovalOpportunity.TglPermohonan).AsReadableDateTime()</td>
                 </tr>
                 <tr>
                     <th style="padding-right: 1rem; width: 200px;">LAYANAN</th>

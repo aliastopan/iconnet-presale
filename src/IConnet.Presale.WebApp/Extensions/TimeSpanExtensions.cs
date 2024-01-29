@@ -2,7 +2,7 @@ namespace IConnet.Presale.WebApp.Extensions;
 
 public static class TimeSpanExtensions
 {
-    public static string AsReadableString(this TimeSpan timeSpan)
+    public static string AsReadableDateTime(this TimeSpan timeSpan)
     {
         int minutes = timeSpan.Minutes;
         int hours = timeSpan.Hours;
@@ -12,8 +12,6 @@ public static class TimeSpanExtensions
             return $"{minutes} Menit";
         }
 
-        string result = $"{hours} Jam {minutes} Menit";
-
-        return result;
+        return $"{hours} Jam {minutes} Menit";
     }
 }

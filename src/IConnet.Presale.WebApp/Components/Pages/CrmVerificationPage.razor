@@ -26,7 +26,7 @@
             <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.IdPermohonan)"/>
             <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.TglPermohonan)"/>
             <PropertyColumn Title="IMPORT SIGNATURE" Property="@(crm => crm.ApprovalOpportunity.ImportSignature.Alias)"/>
-            <PropertyColumn Title="DURASI TIDAK LANJUT" Property="@(crm => _dateTimeService.GetElapsedTime(crm.ApprovalOpportunity.TglPermohonan).AsReadableString())"/>
+            <PropertyColumn Title="DURASI TIDAK LANJUT" Property="@(crm => _dateTimeService.GetElapsedTime(crm.ApprovalOpportunity.TglPermohonan).AsReadableDateTime())"/>
             <PropertyColumn Title="NAMA PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.NamaLengkap)"/>
             <PropertyColumn Title="ID PLN" Property="@(crm => crm.ApprovalOpportunity.Pemohon.IdPln)"/>
             <PropertyColumn Title="LAYANAN" Property="@(crm => crm.ApprovalOpportunity.Layanan)"/>
