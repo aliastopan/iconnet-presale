@@ -6,7 +6,7 @@ public class Regional : ValueObject
 {
     public Regional()
     {
-        Koordinat = new Coordinate();
+
     }
 
     public Regional(string bagian, string kantorPerwakilan, string provinsi,
@@ -21,13 +21,13 @@ public class Regional : ValueObject
         Koordinat = koordinat;
     }
 
-    public string Bagian { get; set; }
-    public string KantorPerwakilan { get; set; }
-    public string Provinsi { get; set; }
-    public string Kabupaten { get; set; }
-    public string Kecamatan { get; set; }
-    public string Kelurahan { get; set; }
-    public Coordinate Koordinat { get; set; }
+    public string Bagian { get; init; } = string.Empty;
+    public string KantorPerwakilan { get; init; } = string.Empty;
+    public string Provinsi { get; init; } = string.Empty;
+    public string Kabupaten { get; init; } = string.Empty;
+    public string Kecamatan { get; init; } = string.Empty;
+    public string Kelurahan { get; init; } = string.Empty;
+    public Coordinate Koordinat { get; init; } = new();
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
