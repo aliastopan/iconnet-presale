@@ -11,3 +11,11 @@
     flex-direction: row;
     justify-content: center;
 }
+
+.workload-staging thead tr th,
+.workload-staging-view thead tr td{
+    vertical-align: top;
+    border-bottom: 1px solid #dfdfdf;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
