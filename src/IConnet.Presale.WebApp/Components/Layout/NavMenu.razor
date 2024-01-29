@@ -9,7 +9,11 @@
             <FluentNavLink Href="crm-verification" Icon="@(new Icons.Regular.Size20.DocumentCheckmark())" IconColor="Color.Accent">Verifikasi CRM</FluentNavLink>
             <FluentNavLink Href="workload" Icon="@(new Icons.Regular.Size20.DocumentTable())" IconColor="Color.Accent">Workload</FluentNavLink>
             <FluentNavLink Href="helpdesk" Icon="@(new Icons.Regular.Size20.PersonDesktop())" IconColor="Color.Accent">Helpdesk</FluentNavLink>
-            <FluentNavLink Href="settings" Icon="@(new Icons.Regular.Size20.Settings())" IconColor="Color.Accent">Settings</FluentNavLink>
+
+            <AuthorizeView Policy="@Policies.AdministratorPrivilege">
+                <FluentNavLink Href="settings" Icon="@(new Icons.Regular.Size20.Settings())" IconColor="Color.Accent">Settings</FluentNavLink>
+            </AuthorizeView>
+
         </FluentNavMenu>
     </nav>
 </div>
