@@ -20,6 +20,27 @@ public class ActionSignature : ValueObject
     public string Alias { get; init; } = string.Empty;
     public DateTime TglAksi { get; init; } = default;
 
+    public bool IsEmptySignature()
+    {
+        return AccountIdSignature == default
+            && Alias == string.Empty
+            && TglAksi == default;
+    }
+
+    public bool IsDurationExceeded(DateTime dateTimeEnd, TimeSpan duration)
+    {
+        var elapsedTime = dateTimeEnd - TglAksi;
+        return elapsedTime > duration;
+    }
+
+    public TimeSpan GetDurationRemaining(DateTime dateTimeEnd, TimeSpan duration)
+    {
+        var elapsedTime = dateTimeEnd - TglAksi;
+        var remainingTime = duration - elapsedTime;
+
+        return remainingTime > TimeSpan.Zero ? remainingTime : TimeSpan.Zero;
+    }
+
     protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return AccountIdSignature;
