@@ -185,13 +185,13 @@
 
 @code
 {
+    private bool _isCrmValid = false;
+
     [Parameter]
     public WorkPaper Content { get; set; } = default!;
 
     [CascadingParameter]
     public FluentDialog Dialog { get; set; } = default!;
-
-    private bool _isCrmValid;
 
     private async Task SaveAsync()
     {
