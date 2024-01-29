@@ -61,6 +61,16 @@ public sealed class SessionService
         };
     }
 
+    public async Task<Guid> GetUserAccountIdAsync()
+    {
+        if (UserModel is null)
+        {
+            await SignOutAsync();
+        }
+
+        return UserModel!.UserAccountId;
+    }
+
     public async Task<string> GetJobShiftAsync()
     {
         if (UserModel is null)
