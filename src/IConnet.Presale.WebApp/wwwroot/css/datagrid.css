@@ -17,3 +17,26 @@ fluent-data-grid-cell{
     flex-direction: column;
     justify-content: center;
 }
+
+.datagrid-wrapper{
+    margin-top: 0.5rem;
+    overflow-x: auto;
+}
+
+.datagrid-wrapper::-webkit-scrollbar{
+    width: 12px;
+    height: 0.65rem;
+
+}
+.datagrid-wrapper::-webkit-scrollbar-track{
+    background-color: rgb(209, 207, 207);
+}
+
+.datagrid-wrapper::-webkit-scrollbar-thumb{
+    background-color: #646464;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
