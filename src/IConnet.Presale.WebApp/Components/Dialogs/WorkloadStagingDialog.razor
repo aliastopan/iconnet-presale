@@ -19,8 +19,62 @@
 </FluentDialogHeader>
 
 <div>
-    @Content.ApprovalOpportunity.IdPermohonan
+    <table class="workload-staging-view mt-3">
+        <thead>
+            <tr>
+                <th style="padding-right: 1rem; width: 200px;">ID PERMOHONAN</th>
+                <td>@Content.ApprovalOpportunity.IdPermohonan</td>
+            </tr>
+            <tr>
+                <th style="padding-right: 1rem; width: 200px;">TGL PERMOHONAN</th>
+                <td>
+                    <span>@Content.ApprovalOpportunity.TglPermohonan.Date</span>
+                    <span>@Content.ApprovalOpportunity.TglPermohonan.TimeOfDay</span>
+                </td>
+            </tr>
+            <tr>
+                <th style="padding-right: 1rem; width: 200px;">NAMA PELANGGAN</th>
+                <td>@Content.ApprovalOpportunity.Pemohon.NamaLengkap</td>
+            </tr>
+            <tr>
+                <th style="padding-right: 1rem; width: 200px;">ALAMAT PELANGGAN</th>
+                <td>@Content.ApprovalOpportunity.Pemohon.Alamat</td>
+            </tr>
+            <tr>
+                <th style="padding-right: 1rem; width: 200px;">EMAIL</th>
+                <td>@Content.ApprovalOpportunity.Pemohon.Email</td>
+            </tr>
+            <tr>
+                <th style="padding-right: 1rem; width: 200px;">ID PLN</th>
+                <td>@Content.ApprovalOpportunity.Pemohon.IdPln</td>
+            </tr>
+            <tr>
+                <th style="padding-right: 1rem; width: 200px;">NO. TELPON AKTIF</th>
+                <td>
+                    <div class="d-flex flex-row align-items-center">
+                        <span style="padding-right: 1rem;">
+                            @Content.ApprovalOpportunity.Pemohon.NomorTelepon
+                        </span>
+                        <FluentIcon Value="@(new Icons.Regular.Size20.Chat())" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+            <th>SHARE LOC</th>
+            <td>
+                <span>@Content.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude</span>
+            </td>
+            </tr>
+        </thead>
+    </table>
 </div>
+
+<FluentDialogFooter>
+    <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.End">
+        <FluentButton Appearance="Appearance.Accent"  OnClick="@SaveAsync" IconStart="@(new Icons.Regular.Size16.Save())">Klaim</FluentButton>
+        <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Batal</FluentButton>
+    </FluentStack>
+</FluentDialogFooter>
 
 @code
 {
@@ -29,4 +83,25 @@
 
     [CascadingParameter]
     public FluentDialog Dialog { get; set; } = default!;
+
+    private async Task SaveAsync()
+    {
+        ClaimWorkload();
+        await Dialog.CloseAsync(Content);
+    }
+
+    private async Task CancelAsync()
+    {
+        await Dialog.CancelAsync();
+    }
+
+    public void ClaimWorkload()
+    {
+        Content.PersonInCharge = new PersonInCharge
+        {
+            Helpdesk = _sessionService.GetSessionAlias(),
+            PlanningAssetCoverage = Content.PersonInCharge.PlanningAssetCoverage
+        };
+        Content.Shift = _sessionService.UserModel!.JobShift.ToString();
+    }
 }
