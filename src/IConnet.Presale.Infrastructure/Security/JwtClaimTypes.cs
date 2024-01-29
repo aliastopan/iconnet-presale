@@ -16,8 +16,8 @@ public static class JwtClaimTypes
     public const string Nonce = "nonce";
     public const string UniqueName = "unique_name";
     public const string Privileges = "privileges";
-    public const string Shift = "shift";
     public const string EmploymentStatus = "employment_status";
     public const string Role = "role";
     public const string JobTitle = "job_title";
+    public const string JobShift = "job_shift";
 }

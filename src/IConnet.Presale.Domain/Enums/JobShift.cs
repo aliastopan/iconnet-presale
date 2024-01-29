@@ -1,7 +1,7 @@
 namespace IConnet.Presale.Domain.Enums;
 
 [Flags]
-public enum UserShift
+public enum JobShift
 {
     Siang = 0,
     Malam = 1

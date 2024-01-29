@@ -47,12 +47,12 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
                     c => c.ToList()))
             .IsRequired();
 
-        builder.Property(u => u.UserShift)
-            .HasColumnName("user_shift")
-            .IsRequired();
-
         builder.Property(u => u.JobTitle)
             .HasColumnName("job_title")
             .HasMaxLength(64);
+
+        builder.Property(u => u.JobShift)
+            .HasColumnName("job_shift")
+            .IsRequired();
     }
 }

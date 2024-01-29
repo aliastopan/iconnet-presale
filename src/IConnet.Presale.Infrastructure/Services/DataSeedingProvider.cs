@@ -40,7 +40,7 @@ internal sealed class DataSeedingProvider : IDataSeedingService
                     UserPrivilege.Editor,
                     UserPrivilege.Administrator
                 },
-                UserShift = UserShift.Siang,
+                JobShift = JobShift.Siang,
                 JobTitle = "Developer"
             },
             UserProfile = new UserProfile
@@ -68,7 +68,7 @@ internal sealed class DataSeedingProvider : IDataSeedingService
                     UserPrivilege.Viewer,
                     UserPrivilege.Editor,
                 },
-                UserShift = UserShift.Siang,
+                JobShift = JobShift.Siang,
                 JobTitle = "Helpdesk"
             },
             UserProfile = new UserProfile
@@ -96,7 +96,7 @@ internal sealed class DataSeedingProvider : IDataSeedingService
                     UserPrivilege.Viewer,
                     UserPrivilege.Editor,
                 },
-                UserShift = UserShift.Siang,
+                JobShift = JobShift.Siang,
                 JobTitle = "Planning Asset Coverage"
             },
             UserProfile = new UserProfile

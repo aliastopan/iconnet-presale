@@ -100,7 +100,7 @@ internal sealed class AccessTokenProvider : IAccessTokenService
             new Claim(JwtClaimTypes.Sub, userAccount.UserAccountId.ToString()),
             new Claim(JwtClaimTypes.UniqueName, userAccount.User.Username),
             new Claim(JwtClaimTypes.EmploymentStatus, userAccount.User.EmploymentStatus.ToString()),
-            new Claim(JwtClaimTypes.Shift, userAccount.User.UserShift.ToString()),
+            new Claim(JwtClaimTypes.JobShift, userAccount.User.JobShift.ToString()),
             new Claim(JwtClaimTypes.Role, userAccount.User.UserRole.ToString()),
             new Claim(JwtClaimTypes.JobTitle, userAccount.User.JobTitle)
         };
