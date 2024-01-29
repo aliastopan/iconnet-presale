@@ -1,0 +1,32 @@
+@using IConnet.Presale.Domain.Aggregates.Presales
+@using IConnet.Presale.Domain.Aggregates.Presales.ValueObjects
+@using IConnet.Presale.Domain.Enums
+@using IConnet.Presale.Application.Common.Interfaces.Services
+@using IConnet.Presale.WebApp.Services
+
+@implements IDialogContentComponent<WorkPaper>
+
+@inject IDateTimeService _dateTimeService
+@inject SessionService _sessionService
+
+<FluentDialogHeader ShowDismiss="true">
+    <FluentStack VerticalAlignment="VerticalAlignment.Center">
+        <FluentIcon Value="@(new Icons.Regular.Size24.BookmarkAdd())" />
+        <FluentLabel Typo="Typography.PaneHeader">
+            @Dialog.Instance.Parameters.Title
+        </FluentLabel>
+    </FluentStack>
+</FluentDialogHeader>
+
+<div>
+    @Content.ApprovalOpportunity.IdPermohonan
+</div>
+
+@code
+{
+    [Parameter]
+    public WorkPaper Content { get; set; } = default!;
+
+    [CascadingParameter]
+    public FluentDialog Dialog { get; set; } = default!;
+}

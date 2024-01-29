@@ -4,9 +4,11 @@
 @using Microsoft.AspNetCore.SignalR
 @using Microsoft.AspNetCore.SignalR.Client
 @using IConnet.Presale.Domain.Aggregates.Presales
+@using IConnet.Presale.Domain.Enums
 @using IConnet.Presale.WebApp.Services
 
 @inject IWorkloadManager _workloadManager
+@inject IDialogService _dialogService
 @inject NotificationService _notificationService
 
 <PageTitle>Helpdesk</PageTitle>
@@ -168,9 +170,25 @@
             var workPaper = row.Item;
             Log.Warning("Selected row {0}", workPaper is null ? "null" : workPaper.ApprovalOpportunity.IdPermohonan);
 
-            StateHasChanged();
+            await OpenDialogAsync(row.Item);
         }
+    }
 
-        await Task.CompletedTask;
+    private async Task OpenDialogAsync(WorkPaper workPaper)
+    {
+        var parameters = new DialogParameters()
+        {
+            Title = "Klaim Workload",
+            TrapFocus = true,
+            Width = "500px",
+        };
+
+        var dialog = await _dialogService.ShowDialogAsync<WorkloadStagingDialog>(workPaper, parameters);
+        var result = await dialog.Result;
+
+        if (!result.Cancelled && result.Data != null)
+        {
+
+        }
     }
 }
