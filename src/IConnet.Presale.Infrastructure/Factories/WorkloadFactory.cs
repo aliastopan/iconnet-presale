@@ -94,6 +94,12 @@ internal sealed class WorkloadFactory
                 Alias = string.Empty,
                 TglAksi = _dateTimeService.Zero
             },
+            PlanningAssetCoverageInCharge = new ActionSignature
+            {
+                AccountIdSignature = Guid.Empty,
+                Alias = string.Empty,
+                TglAksi = _dateTimeService.Zero
+            },
             ProsesValidasi = new ValidationProcess
             {
                 ChatCallMulai = new ActionSignature

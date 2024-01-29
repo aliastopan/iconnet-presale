@@ -17,6 +17,7 @@ public class WorkPaper : IAggregateRoot
     public string Shift { get; set; }
     public PersonInCharge PersonInCharge { get; set; }
     public ActionSignature HelpdeskInCharge { get; set; }
+    public ActionSignature PlanningAssetCoverageInCharge { get; set; }
     public ValidationProcess ProsesValidasi { get; set; }
     public ApprovalProcess ProsesApproval { get; set; }
 
