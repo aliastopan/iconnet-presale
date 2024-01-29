@@ -23,14 +23,14 @@ public class Applicant : ValueObject
         Keterangan = keterangan;
     }
 
-    public string IdPln { get; init; }
-    public string NamaLengkap { get; init; }
-    public string NomorTelepon { get; init; }
-    public string Email { get; init; }
-    public string Alamat { get; init; }
-    public string Nik { get; init; }
-    public string Npwp { get; init; }
-    public string Keterangan { get; init; }
+    public string IdPln { get; init; } = string.Empty;
+    public string NamaLengkap { get; init; }  = string.Empty;
+    public string NomorTelepon { get; init; }  = string.Empty;
+    public string Email { get; init; } = string.Empty;
+    public string Alamat { get; init; }  = string.Empty;
+    public string Nik { get; init; } = string.Empty;
+    public string Npwp { get; init; } = string.Empty;
+    public string Keterangan { get; init; } = string.Empty;
 
     [NotMapped]
     public string WhatsApp => $"wa.me/{(NomorTelepon.StartsWith('+') ? NomorTelepon[1..] : NomorTelepon)}";

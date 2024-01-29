@@ -17,10 +17,10 @@ public class Salesperson : ValueObject
         Mitra = mitra;
     }
 
-    public string NamaLengkap { get; init; }
-    public string Email { get; init; }
-    public string NomorTelepon { get; init; }
-    public string Mitra { get; init; }
+    public string NamaLengkap { get; init; } = string.Empty;
+    public string Email { get; init; } = string.Empty;
+    public string NomorTelepon { get; init; } = string.Empty;
+    public string Mitra { get; init; } = string.Empty;
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

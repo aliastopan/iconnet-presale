@@ -15,8 +15,8 @@ public class PersonInCharge : ValueObject
         PlanningAssetCoverage = planningAssetCoverage;
     }
 
-    public string Helpdesk { get; init; }
-    public string PlanningAssetCoverage { get; init; }
+    public string Helpdesk { get; init; } = string.Empty;
+    public string PlanningAssetCoverage { get; init; } = string.Empty;
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

@@ -6,7 +6,7 @@ public class ValidationParameter : ValueObject
 {
     public ValidationParameter()
     {
-        ShareLoc = new Coordinate();
+
     }
 
     public ValidationParameter(ValidationStatus plnId, ValidationStatus namaPelanggan, ValidationStatus nomorTelepon,
@@ -20,12 +20,12 @@ public class ValidationParameter : ValueObject
         ShareLoc = shareLoc;
     }
 
-    public ValidationStatus PlnId { get; init; }
-    public ValidationStatus NamaPelanggan { get; init; }
-    public ValidationStatus NomorTelepon { get; init; }
-    public ValidationStatus Email { get; init; }
-    public ValidationStatus AlamatPelanggan { get; init; }
-    public Coordinate ShareLoc { get; init; }
+    public ValidationStatus PlnId { get; init; } = default;
+    public ValidationStatus NamaPelanggan { get; init; } = default;
+    public ValidationStatus NomorTelepon { get; init; } = default;
+    public ValidationStatus Email { get; init; } = default;
+    public ValidationStatus AlamatPelanggan { get; init; } = default;
+    public Coordinate ShareLoc { get; init; } = new();
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

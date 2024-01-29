@@ -6,9 +6,7 @@ public class ValidationProcess : ValueObject
 {
     public ValidationProcess()
     {
-        ChatCallMulai = new ActionSignature();
-        ChatCallRespons = new ActionSignature();
-        ParameterValidasi = new ValidationParameter();
+
     }
 
     public ValidationProcess(ActionSignature chatCallMulai, ActionSignature chatCallRespons, string linkRecapChatHistory,
@@ -23,13 +21,13 @@ public class ValidationProcess : ValueObject
         Keterangan = keterangan;
     }
 
-    public ActionSignature ChatCallMulai { get; init;}
-    public ActionSignature ChatCallRespons { get; init;}
-    public string LinkRecapChatHistory { get; init; }
-    public ValidationParameter ParameterValidasi { get; init; }
-    public ValidationCorrection KoreksiValidasi { get; set; }
-    public ValidationStatus StatusValidasi { get; init; }
-    public string Keterangan { get; init; }
+    public ActionSignature ChatCallMulai { get; init;} = new();
+    public ActionSignature ChatCallRespons { get; init;} = new();
+    public string LinkRecapChatHistory { get; init; } = string.Empty;
+    public ValidationParameter ParameterValidasi { get; init; } = new();
+    public ValidationCorrection KoreksiValidasi { get; set; } = new();
+    public ValidationStatus StatusValidasi { get; init; } = default;
+    public string Keterangan { get; init; }  = string.Empty;
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

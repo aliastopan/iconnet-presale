@@ -16,9 +16,9 @@ public class ActionSignature : ValueObject
         TglAksi = tglAksi;
     }
 
-    public Guid AccountIdSignature { get; init; }
-    public string Alias { get; init; }
-    public DateTime TglAksi { get; init; }
+    public Guid AccountIdSignature { get; init; } = default;
+    public string Alias { get; init; } = string.Empty;
+    public DateTime TglAksi { get; init; } = default;
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

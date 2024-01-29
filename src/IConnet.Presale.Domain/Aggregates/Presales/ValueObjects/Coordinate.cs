@@ -16,8 +16,8 @@ public class Coordinate : ValueObject
         Longitude = longitude;
     }
 
-    public string Latitude { get; init; }
-    public string Longitude { get; init; }
+    public string Latitude { get; init; } = string.Empty;
+    public string Longitude { get; init; } = string.Empty;
 
     [NotMapped]
     public string LatitudeLongitude => $"{Latitude}, {Longitude}";

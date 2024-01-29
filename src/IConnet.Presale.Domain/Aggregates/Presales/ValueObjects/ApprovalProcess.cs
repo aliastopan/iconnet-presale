@@ -20,12 +20,12 @@ public class ApprovalProcess : ValueObject
         VaTerbit = vaTerbit;
     }
 
-    public string StatusApproval { get; init; }
-    public string RootCause { get; init; }
-    public string Keterangan { get; init; }
-    public string JarakShareLoc { get; init; }
-    public string JarakICrmPlus { get; init; }
-    public DateTime VaTerbit { get; init; }
+    public string StatusApproval { get; init; } = string.Empty;
+    public string RootCause { get; init; } = string.Empty;
+    public string Keterangan { get; init; } = string.Empty;
+    public string JarakShareLoc { get; init; } = string.Empty;
+    public string JarakICrmPlus { get; init; } = string.Empty;
+    public DateTime VaTerbit { get; init; } = default;
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
