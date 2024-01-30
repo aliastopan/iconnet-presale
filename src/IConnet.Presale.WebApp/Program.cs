@@ -22,7 +22,7 @@ builder.Host.ConfigureServices((context, services) =>
 
     services.AddScoped<SessionService>();
     services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
-    services.AddScoped<NotificationService>();
+    services.AddScoped<BroadcastService>();
     services.AddScoped<CrmImportService>();
 
     services.AddRazorComponents()
@@ -62,6 +62,6 @@ app.MapRazorComponents<App>()
 //     return Results.NoContent();
 // });
 
-app.MapHub<NotificationHub>("/broadcast");
+app.MapHub<BroadcastHub>("/broadcast");
 
 app.Run();

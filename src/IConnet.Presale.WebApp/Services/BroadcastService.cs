@@ -4,13 +4,13 @@ using IConnet.Presale.WebApp.WebSockets;
 
 namespace IConnet.Presale.WebApp.Services;
 
-public sealed class NotificationService : IAsyncDisposable
+public sealed class BroadcastService : IAsyncDisposable
 {
     private readonly IConfiguration _configuration;
     private readonly IHubContext<NotificationHub> _hubContext;
     private readonly HubConnection _hubConnection;
 
-    public NotificationService(IConfiguration configuration,
+    public BroadcastService(IConfiguration configuration,
         IHubContext<NotificationHub> hubContext)
     {
         _configuration = configuration;
@@ -38,7 +38,7 @@ public sealed class NotificationService : IAsyncDisposable
         }
     }
 
-    public async Task BroadcastNotificationAsync(string message)
+    public async Task BroadcastMessageAsync(string message)
     {
         await _hubContext.Clients.All.SendAsync("Broadcast", message);
     }

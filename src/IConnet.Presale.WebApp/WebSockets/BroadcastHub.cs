@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace IConnet.Presale.WebApp.WebSockets;
 
-public sealed class NotificationHub : Hub
+public sealed class BroadcastHub : Hub
 {
     public override async Task OnConnectedAsync()
     {

@@ -8,7 +8,7 @@
 @inject IWorkloadManager _workloadManager
 @inject IDateTimeService _dateTimeService
 @inject IDialogService _dialogService
-@inject NotificationService _notificationService
+@inject BroadcastService _broadcastService
 
 <PageTitle>Verifikasi CRM</PageTitle>
 
@@ -85,7 +85,7 @@
         List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync(CacheFetchMode.OnlyImportUnverified);
         _workPapers = workload.AsQueryable();
 
-        _notificationService.Subscribe(OnUpdateWorkloadAsync);
+        _broadcastService.Subscribe(OnUpdateWorkloadAsync);
     }
 
     private async Task OnUpdateWorkloadAsync(string message)
@@ -144,6 +144,6 @@
         await _workloadManager.UpdateWorkloadAsync(workPaper);
 
         var message = $"CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been verified";
-        await _notificationService.BroadcastNotificationAsync(message);
+        await _broadcastService.BroadcastMessageAsync(message);
     }
 }

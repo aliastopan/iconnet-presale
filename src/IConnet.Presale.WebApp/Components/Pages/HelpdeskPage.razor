@@ -9,7 +9,7 @@
 
 @inject IWorkloadManager _workloadManager
 @inject IDialogService _dialogService
-@inject NotificationService _notificationService
+@inject BroadcastService _broadcastService
 
 <PageTitle>Helpdesk</PageTitle>
 
@@ -145,7 +145,7 @@
         List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync(CacheFetchMode.OnlyImportVerified);
         _workPapers = workload.AsQueryable();
 
-        _notificationService.Subscribe(OnUpdateWorkloadAsync);
+        _broadcastService.Subscribe(OnUpdateWorkloadAsync);
     }
 
     private async Task OnUpdateWorkloadAsync(string message)
@@ -198,6 +198,6 @@
         await _workloadManager.UpdateWorkloadAsync(workPaper);
 
         var message = $"{workPaper.HelpdeskInCharge.Alias} has claimed '{workPaper.ApprovalOpportunity.IdPermohonan}'";
-        await _notificationService.BroadcastNotificationAsync(message);
+        await _broadcastService.BroadcastMessageAsync(message);
     }
 }

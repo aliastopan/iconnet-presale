@@ -9,7 +9,7 @@
 @inject IJSRuntime _js
 @inject IWorkloadManager _workloadManager
 @inject CrmImportService _crmImportService
-@inject NotificationService _notificationService
+@inject BroadcastService _broadcastService
 
 <PageTitle>Import CRM</PageTitle>
 
@@ -140,7 +140,7 @@
         if (_importMetadata.IsValidImport && _importCount > 0)
         {
             var message = $"{_importCount} CRM data has been imported.";
-            await _notificationService.BroadcastNotificationAsync(message);
+            await _broadcastService.BroadcastMessageAsync(message);
         }
 
         _isLoading = false;

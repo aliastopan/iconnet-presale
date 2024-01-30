@@ -5,7 +5,7 @@
 @using IConnet.Presale.WebApp.Services
 
 @inject IWorkloadManager _workloadManager
-@inject NotificationService _notificationService
+@inject BroadcastService _broadcastService
 
 <PageTitle>Workload</PageTitle>
 
@@ -103,7 +103,7 @@
         List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync(CacheFetchMode.OnlyImportVerified);
         _workPapers = workload.AsQueryable();
 
-        _notificationService.Subscribe(OnUpdateWorkloadAsync);
+        _broadcastService.Subscribe(OnUpdateWorkloadAsync);
     }
 
     private async Task OnUpdateWorkloadAsync(string message)
