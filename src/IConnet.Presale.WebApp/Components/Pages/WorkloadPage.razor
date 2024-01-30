@@ -4,9 +4,6 @@
 @using IConnet.Presale.Domain.Aggregates.Presales
 @using IConnet.Presale.WebApp.Services
 
-@inject IWorkloadManager _workloadManager
-@inject BroadcastService _broadcastService
-
 <PageTitle>Workload</PageTitle>
 
 <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Workload</FluentLabel>
@@ -90,34 +87,3 @@
         Halaman <strong>@(_pagination.CurrentPageIndex + 1)</strong> dari <strong>@(_pagination.LastPageIndex + 1)</strong> halaman
     </PaginationTextTemplate>
 </FluentPaginator>
-
-@code
-{
-    private const int _itemPerPage = 10;
-    private PaginationState _pagination = new PaginationState { ItemsPerPage = _itemPerPage };
-
-    private IQueryable<WorkPaper>? _workPapers;
-
-    protected override async Task OnInitializedAsync()
-    {
-        List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync(CacheFetchMode.OnlyImportVerified);
-        _workPapers = workload.AsQueryable();
-
-        _broadcastService.Subscribe(OnUpdateWorkloadAsync);
-    }
-
-    private async Task OnUpdateWorkloadAsync(string message)
-    {
-        List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync(CacheFetchMode.OnlyImportVerified);
-        _workPapers = workload.AsQueryable();
-
-        Log.Warning(message);
-
-        // ensure component update is handle by UI thread
-        await InvokeAsync(() =>
-        {
-            StateHasChanged();
-            Log.Warning("Re-render 'Workload Page'.");
-        });
-    }
-}
