@@ -10,9 +10,11 @@ public class WorkloadPageBase : ComponentBase
 
     private IQueryable<WorkPaper>? _workPapers;
 
+    protected string PageName { get; set; } = "Workload page (base)";
     protected PaginationState Pagination => _pagination;
     protected IQueryable<WorkPaper>? WorkPapers => _workPapers;
     protected CacheFetchMode CacheFetchMode { get; set; } = CacheFetchMode.OnlyImportVerified;
+    protected bool IsLoading { get; set; } = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -33,7 +35,7 @@ public class WorkloadPageBase : ComponentBase
         await InvokeAsync(() =>
         {
             StateHasChanged();
-            Log.Warning("Re-render 'Workload Page'.");
+            Log.Warning($"Re-render '{PageName}'.");
         });
     }
 }
