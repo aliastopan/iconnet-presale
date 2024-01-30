@@ -94,22 +94,30 @@ internal sealed class AccessTokenProvider : IAccessTokenService
 
     private static List<Claim> CreateClaims(UserAccount userAccount)
     {
-        var claims = new List<Claim>
+        try
         {
-            new Claim(JwtClaimTypes.Jti, Guid.NewGuid().ToString()),
-            new Claim(JwtClaimTypes.Sub, userAccount.UserAccountId.ToString()),
-            new Claim(JwtClaimTypes.UniqueName, userAccount.User.Username),
-            new Claim(JwtClaimTypes.EmploymentStatus, userAccount.User.EmploymentStatus.ToString()),
-            new Claim(JwtClaimTypes.JobShift, userAccount.User.JobShift.ToString()),
-            new Claim(JwtClaimTypes.Role, userAccount.User.UserRole.ToString()),
-            new Claim(JwtClaimTypes.JobTitle, userAccount.User.JobTitle)
-        };
+            var claims = new List<Claim>
+            {
+                new Claim(JwtClaimTypes.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtClaimTypes.Sub, userAccount.UserAccountId.ToString()),
+                new Claim(JwtClaimTypes.UniqueName, userAccount.User.Username),
+                new Claim(JwtClaimTypes.EmploymentStatus, userAccount.User.EmploymentStatus.ToString()),
+                new Claim(JwtClaimTypes.JobShift, userAccount.User.JobShift.ToString()),
+                new Claim(JwtClaimTypes.Role, userAccount.User.UserRole.ToString()),
+                new Claim(JwtClaimTypes.JobTitle, userAccount.User.JobTitle)
+            };
 
-        foreach (var privilege in userAccount.User.UserPrivileges)
-        {
-            claims.Add(new Claim(JwtClaimTypes.Privileges, privilege.ToString()));
+            foreach (var privilege in userAccount.User.UserPrivileges)
+            {
+                claims.Add(new Claim(JwtClaimTypes.Privileges, privilege.ToString()));
+            }
+
+            return claims;
         }
-
-        return claims;
+        catch
+        {
+            var message = $"There is null value property within {typeof(UserAccount).Name} object";
+            throw new NullReferenceException(message);
+        }
     }
 }
