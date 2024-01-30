@@ -19,9 +19,9 @@ public sealed class CrmImportService
         _sessionService = sessionService;
     }
 
-    public IQueryable<IApprovalOpportunityModel> ApprovalOpportunities
+    public IQueryable<IApprovalOpportunityModel> GetApprovalOpportunities()
     {
-        get => _importModels.OrderByDescending(x => x.TglImport).AsQueryable();
+        return _importModels.OrderByDescending(x => x.TglImport).AsQueryable();
     }
 
     public async Task<(List<IApprovalOpportunityModel>, CrmImportMetadata)> ImportAsync(string input)

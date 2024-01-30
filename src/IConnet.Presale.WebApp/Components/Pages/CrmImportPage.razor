@@ -27,7 +27,7 @@
 </div>
 
 <div class="datagrid-wrapper">
-    <FluentDataGrid Items="@_crmImportService.ApprovalOpportunities"
+    <FluentDataGrid Items="@_importModels"
         TGridItem="IApprovalOpportunityModel"
         Virtualize="true"
         Pagination="@_pagination"
@@ -82,12 +82,12 @@
     </PaginationTextTemplate>
 </FluentPaginator>
 
-@if (!_isImported)
+@if (!EnableMessageBar)
 {
     return;
 }
 
-@if (!_isValidImport)
+@if (!_importMetadata.IsValidImport)
 {
     <FluentMessageBar Class="my-2" Title="Error" Intent="@MessageIntent.Error">
         Proses import gagal. Jumlah kolom dan baris tidak sesuai.
@@ -113,37 +113,37 @@
     private const int _itemPerPage = 10;
     private PaginationState _pagination = new PaginationState { ItemsPerPage = _itemPerPage };
 
+    private IQueryable<IApprovalOpportunityModel>? _importModels;
+
     private bool _isLoading = false;
-    private bool _isImported = false;
     private int _importCount = 0;
     private CrmImportMetadata _importMetadata = default!;
-    private bool _isValidImport = false;
+
+    public bool EnableMessageBar => _importModels is not null && _importMetadata is not null;
 
     private async Task CrmImportAsync()
     {
         _isLoading = true;
-        _isImported = false;
-        _isValidImport = false;
 
         string clipboard = await PasteClipboardAsync();
 
         (List<IApprovalOpportunityModel> importModels, CrmImportMetadata importMetadata) result;
         result = await _crmImportService.ImportAsync(clipboard);
 
+        _importModels = _crmImportService.GetApprovalOpportunities();;
+
         _importCount = await _workloadManager.CacheWorkloadAsync(result.importModels);
         _importMetadata = result.importMetadata;
 
         _importMetadata.NumberOfDuplicates = _importMetadata.NumberOfRows - _importCount;
-        _isValidImport = _importMetadata.IsValidImport;
 
-        if (_isValidImport && _importCount > 0)
+        if (_importMetadata.IsValidImport && _importCount > 0)
         {
             var message = $"{_importCount} CRM data has been imported.";
             await _notificationService.BroadcastNotificationAsync(message);
         }
 
         _isLoading = false;
-        _isImported = true;
     }
 
     private async Task<string> PasteClipboardAsync()
