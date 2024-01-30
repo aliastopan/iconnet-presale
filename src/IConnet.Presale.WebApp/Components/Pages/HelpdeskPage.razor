@@ -1,16 +1,6 @@
 @page "/helpdesk"
 @rendermode InteractiveServer
 
-@using Microsoft.AspNetCore.SignalR
-@using Microsoft.AspNetCore.SignalR.Client
-@using IConnet.Presale.Domain.Aggregates.Presales
-@using IConnet.Presale.Domain.Enums
-@using IConnet.Presale.WebApp.Services
-
-@inject IWorkloadManager _workloadManager
-@inject IDialogService _dialogService
-@inject BroadcastService _broadcastService
-
 <PageTitle>Helpdesk</PageTitle>
 
 <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Helpdesk</FluentLabel>
@@ -26,7 +16,7 @@
             OnRowFocus="@OnRowSelected"
             EmptyContent="@HtmlFragment.EmptyContent">
 
-            <TemplateColumn Title="ID PERMOHONAN" SortBy="@sortByIdPermohonan">
+            <TemplateColumn Title="ID PERMOHONAN" SortBy="@_sortByIdPermohonan">
                 <div class="">
                     @context.ApprovalOpportunity.IdPermohonan
                 </div>
@@ -129,75 +119,3 @@
         Halaman <strong>@(_pagination.CurrentPageIndex + 1)</strong> dari <strong>@(_pagination.LastPageIndex + 1)</strong> halaman
     </PaginationTextTemplate>
 </FluentPaginator>
-
-@code
-{
-    private const int _itemPerPage = 10;
-    private PaginationState _pagination = new PaginationState { ItemsPerPage = _itemPerPage };
-
-    private IQueryable<WorkPaper>? _workPapers;
-
-    GridSort<WorkPaper> sortByIdPermohonan = GridSort<WorkPaper>
-        .ByAscending(workPaper => workPaper.ApprovalOpportunity.IdPermohonan);
-
-    protected override async Task OnInitializedAsync()
-    {
-        List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync(CacheFetchMode.OnlyImportVerified);
-        _workPapers = workload.AsQueryable();
-
-        _broadcastService.Subscribe(OnUpdateWorkloadAsync);
-    }
-
-    private async Task OnUpdateWorkloadAsync(string message)
-    {
-        List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync(CacheFetchMode.OnlyImportVerified);
-        _workPapers = workload.AsQueryable();
-
-        Log.Warning(message);
-
-        // ensure component update is handle by UI thread
-        await InvokeAsync(() =>
-        {
-            StateHasChanged();
-            Log.Warning("Re-render 'Helpdesk Page'.");
-        });
-    }
-
-    private async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
-    {
-        if (row.Item is not null)
-        {
-            var workPaper = row.Item;
-            Log.Warning("Selected row {0}", workPaper is null ? "null" : workPaper.ApprovalOpportunity.IdPermohonan);
-
-            await OpenDialogAsync(row.Item);
-        }
-    }
-
-    private async Task OpenDialogAsync(WorkPaper workPaper)
-    {
-        var parameters = new DialogParameters()
-        {
-            Title = "Klaim Workload",
-            TrapFocus = true,
-            Width = "500px",
-        };
-
-        var dialog = await _dialogService.ShowDialogAsync<WorkloadStagingDialog>(workPaper, parameters);
-        var result = await dialog.Result;
-
-        if (!result.Cancelled && result.Data != null)
-        {
-            var dialoagData = (WorkPaper)result.Data;
-            await ClaimWorkloadAsync(dialoagData);
-        }
-    }
-
-    private async Task ClaimWorkloadAsync(WorkPaper workPaper)
-    {
-        await _workloadManager.UpdateWorkloadAsync(workPaper);
-
-        var message = $"{workPaper.HelpdeskInCharge.Alias} has claimed '{workPaper.ApprovalOpportunity.IdPermohonan}'";
-        await _broadcastService.BroadcastMessageAsync(message);
-    }
-}
