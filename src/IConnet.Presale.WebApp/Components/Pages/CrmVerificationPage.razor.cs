@@ -10,7 +10,7 @@ public partial class CrmVerificationPage
     [Inject] public BroadcastService BroadcastService { get; set; } = default!;
 
     private const int _itemPerPage = 10;
-    private PaginationState _pagination = new PaginationState { ItemsPerPage = _itemPerPage };
+    private readonly PaginationState _pagination = new PaginationState { ItemsPerPage = _itemPerPage };
 
     private IQueryable<WorkPaper>? _workPapers;
 
