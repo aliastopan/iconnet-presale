@@ -96,7 +96,7 @@ public sealed class CrmImportService
         };
     }
 
-    public async Task<(List<IApprovalOpportunityModel> crmModels, CrmImportMetadata crmMetadata)> ImportAsync(string input)
+    public async Task<(List<IApprovalOpportunityModel>, CrmImportMetadata)> ImportAsync(string input)
     {
         string[] contents = SplitBySpecialCharacters(input);
         var importMetadata = GetImportMetadata(input, contents);

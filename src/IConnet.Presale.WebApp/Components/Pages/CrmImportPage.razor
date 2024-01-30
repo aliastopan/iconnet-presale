@@ -20,7 +20,7 @@
         <FluentButton Class="m-1"
             Appearance="Appearance.Accent"
             IconStart="@(new Icons.Regular.Size20.ArrowImport())"
-            OnClick="OnCrmImport">
+            OnClick="CrmImportAsync">
             Import
         </FluentButton>
     </div>
@@ -119,17 +119,19 @@
     private CrmImportMetadata _importMetadata = default!;
     private bool _isValidImport = false;
 
-    private async Task OnCrmImport()
+    private async Task CrmImportAsync()
     {
         _isLoading = true;
         _isImported = false;
         _isValidImport = false;
 
-        var readText = await _js.InvokeAsync<string>("navigator.clipboard.readText");
+        string clipboard = await PasteClipboardAsync();
 
-        var importModels = _crmImportService.Import(readText, out var importMetadata);
-        _importCount = await _workloadManager.CacheWorkloadAsync(importModels);
-        _importMetadata = importMetadata;
+        (List<IApprovalOpportunityModel> importModels, CrmImportMetadata importMetadata) result;
+        result = await _crmImportService.ImportAsync(clipboard);
+
+        _importCount = await _workloadManager.CacheWorkloadAsync(result.importModels);
+        _importMetadata = result.importMetadata;
 
         _importMetadata.NumberOfDuplicates = _importMetadata.NumberOfRows - _importCount;
         _isValidImport = _importMetadata.IsValidImport;
@@ -142,6 +144,11 @@
 
         _isLoading = false;
         _isImported = true;
+    }
+
+    private async Task<string> PasteClipboardAsync()
+    {
+        return await _js.InvokeAsync<string>("navigator.clipboard.readText");
     }
 
 }
