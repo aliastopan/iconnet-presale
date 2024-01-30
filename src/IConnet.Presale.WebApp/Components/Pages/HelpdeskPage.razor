@@ -1,4 +1,5 @@
 @page "/helpdesk"
+@inherits HelpdeskPageBase
 @rendermode InteractiveServer
 
 <PageTitle>Helpdesk</PageTitle>
@@ -7,17 +8,17 @@
 <span class="page-description">Klaim permohonan</span>
 
 <div class="datagrid-wrapper">
-    @if (_workPapers is not null)
+    @if (WorkPapers is not null)
     {
-        <FluentDataGrid Items="@_workPapers"
+        <FluentDataGrid Items="@WorkPapers"
             TGridItem="WorkPaper"
             Virtualize="true"
-            Pagination="@_pagination"
+            Pagination="@Pagination"
             ItemSize="32"
             OnRowFocus="@OnRowSelected"
             EmptyContent="@HtmlFragment.EmptyContent">
 
-            <TemplateColumn Title="ID PERMOHONAN" SortBy="@_sortByIdPermohonan">
+            <TemplateColumn Title="ID PERMOHONAN" SortBy="@SortByIdPermohonan">
                 <div class="">
                     @context.ApprovalOpportunity.IdPermohonan
                 </div>
@@ -112,11 +113,11 @@
     }
 </div>
 
-<FluentPaginator State="@_pagination">
+<FluentPaginator State="@Pagination">
     <SummaryTemplate>
-        Terdapat <strong>@(_pagination.TotalItemCount ?? 0)</strong> baris
+        Terdapat <strong>@(Pagination.TotalItemCount ?? 0)</strong> baris
     </SummaryTemplate>
     <PaginationTextTemplate>
-        Halaman <strong>@(_pagination.CurrentPageIndex + 1)</strong> dari <strong>@(_pagination.LastPageIndex + 1)</strong> halaman
+        Halaman <strong>@(Pagination.CurrentPageIndex + 1)</strong> dari <strong>@(Pagination.LastPageIndex + 1)</strong> halaman
     </PaginationTextTemplate>
 </FluentPaginator>
