@@ -18,7 +18,9 @@ public static class IdentityFactory
                 UserPrivileges = new List<UserPrivilege>()
                 {
                     UserPrivilege.Viewer
-                }
+                },
+                JobShift = JobShift.Siang,
+                JobTitle = "Tester"
             },
             UserProfile = new UserProfile
             {
