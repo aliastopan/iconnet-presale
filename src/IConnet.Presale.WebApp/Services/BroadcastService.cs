@@ -10,6 +10,8 @@ public sealed class BroadcastService : IAsyncDisposable
     private readonly IHubContext<BroadcastHub> _hubContext;
     private readonly HubConnection _hubConnection;
 
+    private bool _isDisposed = false;
+
     public BroadcastService(IConfiguration configuration,
         IHubContext<BroadcastHub> hubContext)
     {
@@ -45,6 +47,11 @@ public sealed class BroadcastService : IAsyncDisposable
 
     public void Subscribe(Func<string, Task> action)
     {
+        if (!HasConnection())
+        {
+            return;
+        }
+
         HubConnection.On("Broadcast", async (string message) =>
         {
             await action(message);
@@ -53,6 +60,30 @@ public sealed class BroadcastService : IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
+        _isDisposed = true;
         await _hubConnection.DisposeAsync();
+    }
+
+    private bool HasConnection()
+    {
+        if (_isDisposed)
+        {
+            Log.Warning("WebSocket connection is disposed. Cannot subscribe to events.");
+            return false;
+        }
+
+        if (_hubConnection == null)
+        {
+            Log.Warning("WebSocket connection is null. Cannot subscribe to events.");
+            return false;
+        }
+
+        if (_hubConnection.State == HubConnectionState.Disconnected)
+        {
+            Log.Warning("WebSocket connection is disconnected. Cannot subscribe to events.");
+            return false;
+        }
+
+        return true;
     }
 }
