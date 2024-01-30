@@ -10,6 +10,7 @@ public class HelpdeskPageBase : WorkloadPageBase
     private readonly GridSort<WorkPaper> _sortByIdPermohonan = GridSort<WorkPaper>
         .ByAscending(workPaper => workPaper.ApprovalOpportunity.IdPermohonan);
 
+    // TODO: move sort to `WorkloadPageBase`
     protected GridSort<WorkPaper> SortByIdPermohonan => _sortByIdPermohonan;
 
     protected override async Task OnInitializedAsync()
