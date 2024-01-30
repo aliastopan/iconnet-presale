@@ -1,15 +1,6 @@
 @page "/crm-verification"
 @rendermode InteractiveServer
 
-@using IConnet.Presale.Domain.Aggregates.Presales
-@using IConnet.Presale.Domain.Enums
-@using IConnet.Presale.WebApp.Services
-
-@inject IWorkloadManager _workloadManager
-@inject IDateTimeService _dateTimeService
-@inject IDialogService _dialogService
-@inject BroadcastService _broadcastService
-
 <PageTitle>Verifikasi CRM</PageTitle>
 
 <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Verifikasi CRM</FluentLabel>
@@ -29,7 +20,7 @@
             <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.IdPermohonan)"/>
             <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.TglPermohonan)"/>
             <PropertyColumn Title="IMPORT SIGNATURE" Property="@(crm => crm.ApprovalOpportunity.ImportSignature.Alias)"/>
-            <PropertyColumn Title="DURASI TIDAK LANJUT" Property="@(crm => _dateTimeService.GetElapsedTime(crm.ApprovalOpportunity.TglPermohonan).AsReadableDateTime())"/>
+            <PropertyColumn Title="DURASI TIDAK LANJUT" Property="@(crm => DateTimeService.GetElapsedTime(crm.ApprovalOpportunity.TglPermohonan).AsReadableDateTime())"/>
             <PropertyColumn Title="NAMA PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.NamaLengkap)"/>
             <PropertyColumn Title="ID PLN" Property="@(crm => crm.ApprovalOpportunity.Pemohon.IdPln)"/>
             <PropertyColumn Title="LAYANAN" Property="@(crm => crm.ApprovalOpportunity.Layanan)"/>
@@ -72,78 +63,3 @@
         Halaman <strong>@(_pagination.CurrentPageIndex + 1)</strong> dari <strong>@(_pagination.LastPageIndex + 1)</strong> halaman
     </PaginationTextTemplate>
 </FluentPaginator>
-
-@code
-{
-    private const int _itemPerPage = 10;
-    private PaginationState _pagination = new PaginationState { ItemsPerPage = _itemPerPage };
-
-    private IQueryable<WorkPaper>? _workPapers;
-
-    protected override async Task OnInitializedAsync()
-    {
-        List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync(CacheFetchMode.OnlyImportUnverified);
-        _workPapers = workload.AsQueryable();
-
-        _broadcastService.Subscribe(OnUpdateWorkloadAsync);
-    }
-
-    private async Task OnUpdateWorkloadAsync(string message)
-    {
-        List<WorkPaper> workload = await _workloadManager.FetchWorkloadAsync(CacheFetchMode.OnlyImportUnverified);
-        _workPapers = workload.AsQueryable();
-
-        Log.Warning(message);
-
-        // ensure component update is handle by UI thread
-        await InvokeAsync(() =>
-        {
-            StateHasChanged();
-            Log.Warning("Re-render 'CRM Verify Page'.");
-        });
-    }
-
-    private async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
-    {
-        if (row.Item is not null)
-        {
-            await OpenDialogAsync(row.Item);
-        }
-    }
-
-    private async Task OpenDialogAsync(WorkPaper workPaper)
-    {
-        Log.Warning("Import status before: {0}", workPaper.ApprovalOpportunity.StatusImport);
-        var parameters = new DialogParameters()
-        {
-            Title = "Verifikasi Import CRM",
-            TrapFocus = true,
-            Width = "500px",
-        };
-
-        var isImportVerified = workPaper.ApprovalOpportunity.StatusImport == ImportStatus.Verified;
-        if (isImportVerified)
-        {
-            return;
-        }
-
-        var dialog = await _dialogService.ShowDialogAsync<CrmVerificationDialog>(workPaper, parameters);
-        var result = await dialog.Result;
-
-        if (!result.Cancelled && result.Data != null)
-        {
-            var dialoagData = (WorkPaper)result.Data;
-            await VerifyCrmAsync(dialoagData);
-
-            Log.Warning("Import status after: {0}", dialoagData.ApprovalOpportunity.StatusImport);
-        }
-    }
-
-    private async Task VerifyCrmAsync(WorkPaper workPaper)
-    {
-        await _workloadManager.UpdateWorkloadAsync(workPaper);
-
-        var message = $"CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been verified";
-        await _broadcastService.BroadcastMessageAsync(message);
-    }
-}
