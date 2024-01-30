@@ -47,8 +47,8 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStatusCodePagesWithRedirects("/status-code/{0}");
-// app.UseStatusCodePagesWithReExecute("/status-code/{0}");
+app.UseStatusCodePagesWithRedirects("/redirect/{0}");
+// app.UseStatusCodePagesWithReExecute("/redirect/{0}");
 
 app.UseStaticFiles();
 app.UseAntiforgery();
