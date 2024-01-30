@@ -13,23 +13,23 @@ public class ConfigurationTests : UnitTest
     [Fact]
     public void SecurityTokenSettings_Issuer_ShouldBeIConnetPresale()
     {
-        Configuration["SecurityToken:Issuer"]
+        Configuration["AppSecrets:JwtIssuer"]
             .Should()
-            .Be("IConnet.Presale");
+            .Be("CleanArch");
     }
 
     [Fact]
     public void SecurityTokenSettings_Audience_ShouldBeIConnetPresale()
     {
-        Configuration["SecurityToken:Audience"]
+        Configuration["AppSecrets:JwtAudience"]
             .Should()
-            .Be("IConnet.Presale");
+            .Be("CleanArch");
     }
 
     [Fact]
-    public void UserSecrets_ApiKey_ShouldNotBeNull()
+    public void UserSecrets_MasterKey_ShouldNotBeNull()
     {
-        Configuration["UserSecrets:ApiKey"]
+        Configuration["AppSecrets:MasterKey"]
             .Should()
             .NotBeNull();
     }
