@@ -6,7 +6,7 @@
 @using IConnet.Presale.WebApp.Models.Presales
 @using IConnet.Presale.WebApp.Services
 
-@inject IJSRuntime _js
+@inject IJSRuntime _jsRuntime
 @inject IWorkloadManager _workloadManager
 @inject CrmImportService _crmImportService
 @inject BroadcastService _broadcastService
@@ -148,7 +148,7 @@
 
     private async Task<string> PasteClipboardAsync()
     {
-        return await _js.InvokeAsync<string>("navigator.clipboard.readText");
+        return await _jsRuntime.InvokeAsync<string>("navigator.clipboard.readText");
     }
 
 }
