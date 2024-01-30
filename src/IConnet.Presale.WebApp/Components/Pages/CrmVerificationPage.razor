@@ -4,7 +4,20 @@
 <PageTitle>Verifikasi CRM</PageTitle>
 
 <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Verifikasi CRM</FluentLabel>
-<span class="page-description">Verifikasi hasil import iCRM+</span>
+<div>
+    @if (!_isLoading)
+    {
+        <span class="page-description">Verifikasi hasil import iCRM+</span>
+    }
+    else
+    {
+        <div class="d-flex flex-row align-items-center">
+            <span class="px-1">Updating</span>
+            <FluentProgressRing  style="width: 14px; height: 14px;"></FluentProgressRing>
+        </div>
+    }
+
+</div>
 
 <div class="datagrid-wrapper">
     @if (_workPapers is not null)

@@ -12,6 +12,8 @@ public partial class CrmVerificationPage
     private const int _itemPerPage = 10;
     private readonly PaginationState _pagination = new PaginationState { ItemsPerPage = _itemPerPage };
 
+    private bool _isLoading = false;
+
     private IQueryable<WorkPaper>? _workPapers;
 
     protected override async Task OnInitializedAsync()
@@ -75,9 +77,13 @@ public partial class CrmVerificationPage
 
     private async Task VerifyCrmAsync(WorkPaper workPaper)
     {
+        _isLoading = true;
+
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
 
         var message = $"CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been verified";
         await BroadcastService.BroadcastMessageAsync(message);
+
+        _isLoading = false;
     }
 }
