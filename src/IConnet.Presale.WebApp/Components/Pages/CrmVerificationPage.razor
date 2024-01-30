@@ -1,11 +1,12 @@
 @page "/crm-verification"
+@inherits CrmVerificationPageBase
 @rendermode InteractiveServer
 
 <PageTitle>Verifikasi CRM</PageTitle>
 
 <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Verifikasi CRM</FluentLabel>
 <div>
-    @if (!_isLoading)
+    @if (!IsLoading)
     {
         <span class="page-description">Verifikasi hasil import iCRM+</span>
     }
@@ -20,12 +21,12 @@
 </div>
 
 <div class="datagrid-wrapper">
-    @if (_workPapers is not null)
+    @if (WorkPapers is not null)
     {
-        <FluentDataGrid Items="@_workPapers"
+        <FluentDataGrid Items="@WorkPapers"
             TGridItem="WorkPaper"
             Virtualize="true"
-            Pagination="@_pagination"
+            Pagination="@Pagination"
             ItemSize="32"
             OnRowFocus="@OnRowSelected"
             EmptyContent="@HtmlFragment.EmptyContent">
@@ -68,11 +69,11 @@
     }
 </div>
 
-<FluentPaginator State="@_pagination">
+<FluentPaginator State="@Pagination">
     <SummaryTemplate>
-        Terdapat <strong>@(_pagination.TotalItemCount ?? 0)</strong> baris
+        Terdapat <strong>@(Pagination.TotalItemCount ?? 0)</strong> baris
     </SummaryTemplate>
     <PaginationTextTemplate>
-        Halaman <strong>@(_pagination.CurrentPageIndex + 1)</strong> dari <strong>@(_pagination.LastPageIndex + 1)</strong> halaman
+        Halaman <strong>@(Pagination.CurrentPageIndex + 1)</strong> dari <strong>@(Pagination.LastPageIndex + 1)</strong> halaman
     </PaginationTextTemplate>
 </FluentPaginator>

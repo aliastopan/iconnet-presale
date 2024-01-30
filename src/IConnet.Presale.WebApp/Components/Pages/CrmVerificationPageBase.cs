@@ -2,44 +2,22 @@ using IConnet.Presale.WebApp.Components.Dialogs;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
 
-public partial class CrmVerificationPage
+public class CrmVerificationPageBase : WorkloadPageBase
 {
-    [Inject] public IWorkloadManager WorkloadManager { get; init; } = default!;
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public IDialogService DialogService { get; set; } = default!;
-    [Inject] public BroadcastService BroadcastService { get; set; } = default!;
 
-    private const int _itemPerPage = 10;
-    private readonly PaginationState _pagination = new PaginationState { ItemsPerPage = _itemPerPage };
-
-    private bool _isLoading = false;
-
-    private IQueryable<WorkPaper>? _workPapers;
+    private readonly string _pageName = "CRM Verification page";
 
     protected override async Task OnInitializedAsync()
     {
-        List<WorkPaper> workload = await WorkloadManager.FetchWorkloadAsync(CacheFetchMode.OnlyImportUnverified);
-        _workPapers = workload.AsQueryable();
+        PageName = _pageName;
+        CacheFetchMode = CacheFetchMode.OnlyImportUnverified;
 
-        BroadcastService.Subscribe(OnUpdateWorkloadAsync);
+        await base.OnInitializedAsync();
     }
 
-    private async Task OnUpdateWorkloadAsync(string message)
-    {
-        List<WorkPaper> workload = await WorkloadManager.FetchWorkloadAsync(CacheFetchMode.OnlyImportUnverified);
-        _workPapers = workload.AsQueryable();
-
-        Log.Warning(message);
-
-        // ensure component update is handle by UI thread
-        await InvokeAsync(() =>
-        {
-            StateHasChanged();
-            Log.Warning("Re-render 'CRM Verify Page'.");
-        });
-    }
-
-    private async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
+    protected async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
     {
         if (row.Item is not null)
         {
@@ -47,7 +25,7 @@ public partial class CrmVerificationPage
         }
     }
 
-    private async Task OpenDialogAsync(WorkPaper workPaper)
+    protected async Task OpenDialogAsync(WorkPaper workPaper)
     {
         Log.Warning("Import status before: {0}", workPaper.ApprovalOpportunity.StatusImport);
         var parameters = new DialogParameters()
@@ -75,15 +53,15 @@ public partial class CrmVerificationPage
         }
     }
 
-    private async Task VerifyCrmAsync(WorkPaper workPaper)
+    protected async Task VerifyCrmAsync(WorkPaper workPaper)
     {
-        _isLoading = true;
+        IsLoading = true;
 
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
 
         var message = $"CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been verified";
         await BroadcastService.BroadcastMessageAsync(message);
 
-        _isLoading = false;
+        IsLoading = false;
     }
 }
