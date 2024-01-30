@@ -58,7 +58,7 @@ public partial class HelpdeskPage
             Width = "500px",
         };
 
-        var dialog = await DialogService.ShowDialogAsync<WorkloadStagingDialog>(workPaper, parameters);
+        var dialog = await DialogService.ShowDialogAsync<WorkloadClaimDialog>(workPaper, parameters);
         var result = await dialog.Result;
 
         if (!result.Cancelled && result.Data != null)
