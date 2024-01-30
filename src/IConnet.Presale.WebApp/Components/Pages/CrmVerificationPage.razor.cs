@@ -6,7 +6,7 @@ public partial class CrmVerificationPage
 {
     [Inject] public IWorkloadManager WorkloadManager { get; init; } = default!;
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
-    [Inject] public DialogService DialogService { get; set; } = default!;
+    [Inject] public IDialogService DialogService { get; set; } = default!;
     [Inject] public BroadcastService BroadcastService { get; set; } = default!;
 
     private const int _itemPerPage = 10;
