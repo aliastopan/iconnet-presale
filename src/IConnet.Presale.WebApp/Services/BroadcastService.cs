@@ -7,11 +7,11 @@ namespace IConnet.Presale.WebApp.Services;
 public sealed class BroadcastService : IAsyncDisposable
 {
     private readonly IConfiguration _configuration;
-    private readonly IHubContext<NotificationHub> _hubContext;
+    private readonly IHubContext<BroadcastHub> _hubContext;
     private readonly HubConnection _hubConnection;
 
     public BroadcastService(IConfiguration configuration,
-        IHubContext<NotificationHub> hubContext)
+        IHubContext<BroadcastHub> hubContext)
     {
         _configuration = configuration;
         _hubContext = hubContext;
