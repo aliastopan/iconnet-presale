@@ -2,44 +2,22 @@ using IConnet.Presale.WebApp.Components.Dialogs;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
 
-public class HelpdeskPageBase : ComponentBase
+public class HelpdeskPageBase : WorkloadPageBase
 {
-    [Inject] public IWorkloadManager WorkloadManager { get; init; } = default!;
     [Inject] public IDialogService DialogService { get; set; } = default!;
-    [Inject] public BroadcastService BroadcastService { get; set; } = default!;
 
-    private const int _itemPerPage = 10;
-    private readonly PaginationState _pagination = new PaginationState { ItemsPerPage = _itemPerPage };
+    private readonly string _pageName = "Helpdesk page";
     private readonly GridSort<WorkPaper> _sortByIdPermohonan = GridSort<WorkPaper>
         .ByAscending(workPaper => workPaper.ApprovalOpportunity.IdPermohonan);
 
-    private IQueryable<WorkPaper>? _workPapers;
-
-    protected PaginationState Pagination => _pagination;
     protected GridSort<WorkPaper> SortByIdPermohonan => _sortByIdPermohonan;
-    protected IQueryable<WorkPaper>? WorkPapers => _workPapers;
 
     protected override async Task OnInitializedAsync()
     {
-        List<WorkPaper> workload = await WorkloadManager.FetchWorkloadAsync(CacheFetchMode.OnlyImportVerified);
-        _workPapers = workload.AsQueryable();
+        PageName = _pageName;
+        CacheFetchMode = CacheFetchMode.OnlyImportVerified;
 
-        BroadcastService.Subscribe(OnUpdateWorkloadAsync);
-    }
-
-    protected async Task OnUpdateWorkloadAsync(string message)
-    {
-        List<WorkPaper> workload = await WorkloadManager.FetchWorkloadAsync(CacheFetchMode.OnlyImportVerified);
-        _workPapers = workload.AsQueryable();
-
-        Log.Warning(message);
-
-        // ensure component update is handle by UI thread
-        await InvokeAsync(() =>
-        {
-            StateHasChanged();
-            Log.Warning("Re-render 'Helpdesk Page'.");
-        });
+        await base.OnInitializedAsync();
     }
 
     protected async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
