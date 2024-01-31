@@ -60,7 +60,12 @@ public static class ConfigureServices
         services.AddSingleton<IConnectionMultiplexer>(provider =>
         {
             var connectionString = configuration[AppSecretSettings.Section.RedisConnection];
-            return ConnectionMultiplexer.Connect(connectionString!);
+            var options = new ConfigurationOptions
+            {
+                EndPoints = { connectionString! },
+                ConnectTimeout = 5000
+            };
+            return ConnectionMultiplexer.Connect(options);
         });
         services.AddSingleton<ICacheService, RedisCacheProvider>();
         services.AddScoped<IWorkloadManager, WorkloadManager>();
