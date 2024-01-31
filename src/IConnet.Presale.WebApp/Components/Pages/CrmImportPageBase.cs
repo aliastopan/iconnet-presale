@@ -1,26 +1,27 @@
 namespace IConnet.Presale.WebApp.Components.Pages;
 
-public partial class CrmImportPage
+public class CrmImportPageBase : ComponentBase
 {
     [Inject] public IJSRuntime JsRuntime { get; init; } = default!;
     [Inject] public IWorkloadManager WorkloadManager { get; init; } = default!;
-    [Inject] public CrmImportService CrmImportService { get; init; } = default!;
     [Inject] public BroadcastService BroadcastService { get; init; } = default!;
+    [Inject] public CrmImportService CrmImportService { get; init; } = default!;
 
     private const int _itemPerPage = 10;
     private readonly PaginationState _pagination = new PaginationState { ItemsPerPage = _itemPerPage };
-
     private IQueryable<IApprovalOpportunityModel>? _importModels;
-
-    private bool _isLoading = false;
-    private int _importCount = 0;
     private CrmImportMetadata _importMetadata = default!;
 
-    public bool EnableMessageBar => _importModels is not null && _importMetadata is not null;
+    protected PaginationState Pagination => _pagination;
+    protected IQueryable<IApprovalOpportunityModel>? ImportModels => _importModels;
+    protected CrmImportMetadata ImportMetadata => _importMetadata;
+    protected int ImportCount { get; set; }
+    protected bool EnableMessageBar => _importModels is not null && _importMetadata is not null;
+    protected bool IsLoading { get; set; } = false;
 
-    private async Task CrmImportAsync()
+    protected async Task CrmImportAsync()
     {
-        _isLoading = true;
+        IsLoading = true;
 
         string clipboard = await PasteClipboardAsync();
 
@@ -29,21 +30,21 @@ public partial class CrmImportPage
 
         _importModels = CrmImportService.GetApprovalOpportunities();;
 
-        _importCount = await WorkloadManager.CacheWorkloadAsync(result.importModels);
+        ImportCount = await WorkloadManager.CacheWorkloadAsync(result.importModels);
         _importMetadata = result.importMetadata;
 
-        _importMetadata.NumberOfDuplicates = _importMetadata.NumberOfRows - _importCount;
+        _importMetadata.NumberOfDuplicates = _importMetadata.NumberOfRows - ImportCount;
 
-        if (_importMetadata.IsValidImport && _importCount > 0)
+        if (_importMetadata.IsValidImport && ImportCount > 0)
         {
-            var message = $"{_importCount} CRM data has been imported.";
+            var message = $"{ImportCount} CRM data has been imported.";
             await BroadcastService.BroadcastMessageAsync(message);
         }
 
-        _isLoading = false;
+        IsLoading = false;
     }
 
-    private async Task<string> PasteClipboardAsync()
+    protected async Task<string> PasteClipboardAsync()
     {
         return await JsRuntime.InvokeAsync<string>("navigator.clipboard.readText");
     }

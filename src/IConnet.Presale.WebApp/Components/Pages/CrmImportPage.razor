@@ -1,4 +1,5 @@
 @page "/crm-import"
+@inherits CrmImportPageBase
 @rendermode InteractiveServer
 
 <PageTitle>Import CRM</PageTitle>
@@ -17,10 +18,10 @@
 </div>
 
 <div class="datagrid-wrapper">
-    <FluentDataGrid Items="@_importModels"
+    <FluentDataGrid Items="@ImportModels"
         TGridItem="IApprovalOpportunityModel"
         Virtualize="true"
-        Pagination="@_pagination"
+        Pagination="@Pagination"
         ItemSize="32"
         EmptyContent="@HtmlFragment.EmptyContent">
 
@@ -55,7 +56,7 @@
 
     </FluentDataGrid>
 
-    <FluentOverlay @bind-Visible=@_isLoading
+    <FluentOverlay @bind-Visible=@IsLoading
         Opacity="0.4"
         Alignment="@Align.Center"
         Justification="@JustifyContent.Center">
@@ -63,12 +64,12 @@
     </FluentOverlay>
 </div>
 
-<FluentPaginator State="@_pagination">
+<FluentPaginator State="@Pagination">
     <SummaryTemplate>
-        Terdapat <strong>@(_pagination.TotalItemCount ?? 0)</strong> baris
+        Terdapat <strong>@(Pagination.TotalItemCount ?? 0)</strong> baris
     </SummaryTemplate>
     <PaginationTextTemplate>
-        Halaman <strong>@(_pagination.CurrentPageIndex + 1)</strong> dari <strong>@(_pagination.LastPageIndex + 1)</strong> halaman
+        Halaman <strong>@(Pagination.CurrentPageIndex + 1)</strong> dari <strong>@(Pagination.LastPageIndex + 1)</strong> halaman
     </PaginationTextTemplate>
 </FluentPaginator>
 
@@ -77,23 +78,23 @@
     return;
 }
 
-@if (!_importMetadata.IsValidImport)
+@if (!ImportMetadata.IsValidImport)
 {
     <FluentMessageBar Class="my-2" Title="Error" Intent="@MessageIntent.Error">
         Proses import gagal. Jumlah kolom dan baris tidak sesuai.
     </FluentMessageBar>
 }
 
-@if (_importCount > 0)
+@if (ImportCount > 0)
 {
     <FluentMessageBar Class="my-2" Title="Success" Intent="@MessageIntent.Success">
-        @_importCount dari @_importMetadata!.NumberOfRows data telah berhasil di-import.
+        @ImportCount dari @ImportMetadata!.NumberOfRows data telah berhasil di-import.
     </FluentMessageBar>
 }
 
-@if (_importMetadata!.NumberOfDuplicates > 0)
+@if (ImportMetadata!.NumberOfDuplicates > 0)
 {
     <FluentMessageBar Class="my-2" Title="Warning" Intent="@MessageIntent.Warning">
-        Terdapat @_importMetadata!.NumberOfDuplicates duplikasi saat dalam proses copy-paste dari iCRM.
+        Terdapat @ImportMetadata!.NumberOfDuplicates duplikasi saat dalam proses copy-paste dari iCRM.
     </FluentMessageBar>
 }
