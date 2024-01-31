@@ -16,48 +16,97 @@ internal sealed class RedisCacheProvider : ICacheService
 
     public async Task<string?> GetCacheValueAsync(string key)
     {
-        return await Redis.StringGetAsync(key);
+        try
+        {
+            return await Redis.StringGetAsync(key);
+        }
+        catch (TimeoutException exception)
+        {
+            Log.Fatal($"Redis operation timed out: {exception.Message}");
+            throw;
+        }
     }
 
     public async Task<List<string?>> GetAllCacheValuesAsync()
     {
-        var server = _connectionMultiplexer.GetServer(_connectionMultiplexer.GetEndPoints().First());
-        var keys = server.Keys(DbIndex);
-        var values = new List<string?>();
-
-        foreach (var key in keys)
+        try
         {
-            var value = await Redis.StringGetAsync(key);
-            values.Add(value);
+            var server = _connectionMultiplexer.GetServer(_connectionMultiplexer.GetEndPoints().First());
+            var keys = server.Keys(DbIndex);
+            var values = new List<string?>();
+
+            foreach (var key in keys)
+            {
+                var value = await Redis.StringGetAsync(key);
+                values.Add(value);
+            }
+
+            return values;
+        }
+        catch (TimeoutException exception)
+        {
+            Log.Fatal($"Redis operation timed out: {exception.Message}");
+            throw;
         }
 
-        return values;
     }
 
     public async Task SetCacheValueAsync(string key, string value, TimeSpan? expiry = null)
     {
-        await Redis.StringSetAsync(key, value, expiry);
+        try
+        {
+            await Redis.StringSetAsync(key, value, expiry);
+        }
+        catch (TimeoutException exception)
+        {
+            Log.Fatal($"Redis operation timed out: {exception.Message}");
+            throw;
+        }
     }
 
     public async Task<bool> UpdateCacheValueAsync(string key, string value, TimeSpan? expiry = null)
     {
-        var exists = await Redis.KeyExistsAsync(key);
-        if (exists)
+        try
         {
-            await Redis.StringSetAsync(key, value, expiry);
-            return true;
-        }
+            var exists = await Redis.KeyExistsAsync(key);
+            if (exists)
+            {
+                await Redis.StringSetAsync(key, value, expiry);
+                return true;
+            }
 
-        return false;
+            return false;
+        }
+        catch (TimeoutException exception)
+        {
+            Log.Fatal($"Redis operation timed out: {exception.Message}");
+            throw;
+        }
     }
 
     public async Task<bool> DeleteCacheValueAsync(string key)
     {
-        return await Redis.KeyDeleteAsync(key);
+        try
+        {
+            return await Redis.KeyDeleteAsync(key);
+        }
+        catch (TimeoutException exception)
+        {
+            Log.Fatal($"Redis operation timed out: {exception.Message}");
+            throw;
+        }
     }
 
     public async Task<bool> IsKeyExistsAsync(string key)
     {
-        return await Redis.KeyExistsAsync(key);
+        try
+        {
+            return await Redis.KeyExistsAsync(key);
+        }
+        catch (TimeoutException exception)
+        {
+            Log.Fatal($"Redis operation timed out: {exception.Message}");
+            throw;
+        }
     }
 }
