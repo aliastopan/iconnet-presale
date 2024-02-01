@@ -29,37 +29,38 @@
             Pagination="@Pagination"
             ItemSize="32"
             OnRowFocus="@OnRowSelected"
-            EmptyContent="@HtmlFragment.EmptyContent">
+            EmptyContent="@HtmlFragment.EmptyContent"
+            GridTemplateColumns="150px 180px 180px 200px 150px 120px 150px 250px 250px 150px 150px 150px 150px 150px 150px 150px 150px 150px 150px 180px 180px 150px 150px 150px 150px 150px 150px;">
 
-            <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.IdPermohonan)"/>
-            <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.TglPermohonan)"/>
-            <PropertyColumn Title="IMPORT SIGNATURE" Property="@(crm => crm.ApprovalOpportunity.ImportSignature.Alias)"/>
-            <PropertyColumn Title="DURASI TIDAK LANJUT" Property="@(crm => DateTimeService.GetElapsedTime(crm.ApprovalOpportunity.TglPermohonan).AsReadableDateTime())"/>
-            <PropertyColumn Title="NAMA PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.NamaLengkap)"/>
-            <PropertyColumn Title="ID PLN" Property="@(crm => crm.ApprovalOpportunity.Pemohon.IdPln)"/>
-            <PropertyColumn Title="LAYANAN" Property="@(crm => crm.ApprovalOpportunity.Layanan)"/>
-            <PropertyColumn Title="SUMBER PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.SumberPermohonan)"/>
-            <PropertyColumn Title="STATUS PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.StatusPermohonan)"/>
-            <PropertyColumn Title="NAMA AGEN" Property="@(crm => crm.ApprovalOpportunity.Agen.NamaLengkap)"/>
-            <PropertyColumn Title="EMAIL AGEN" Property="@(crm => crm.ApprovalOpportunity.Agen.Email)"/>
-            <PropertyColumn Title="TELEPON AGEN" Property="@(crm => crm.ApprovalOpportunity.Agen.NomorTelepon)"/>
-            <PropertyColumn Title="MITRA AGEN" Property="@(crm => crm.ApprovalOpportunity.Agen.Mitra)"/>
-            <PropertyColumn Title="SPLITTER" Property="@(crm => crm.ApprovalOpportunity.Splitter)"/>
-            <PropertyColumn Title="JENIS PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.JenisPermohonan)"/>
-            <PropertyColumn Title="TELEPON PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.NomorTelepon)"/>
-            <PropertyColumn Title="EMAIL PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.Email)"/>
-            <PropertyColumn Title="NIK PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.Nik)"/>
-            <PropertyColumn Title="NPWP PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.Npwp)"/>
-            <PropertyColumn Title="KETERANGAN" Property="@(crm => crm.ApprovalOpportunity.Pemohon.Keterangan)"/>
-            <PropertyColumn Title="ALAMAT PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.Alamat)"/>
-            <PropertyColumn Title="REGIONAL" Property="@(crm => crm.ApprovalOpportunity.Regional.Bagian)"/>
-            <PropertyColumn Title="KANTOR PERWAKILAN" Property="@(crm => crm.ApprovalOpportunity.Regional.KantorPerwakilan)"/>
-            <PropertyColumn Title="PROVINSI" Property="@(crm => crm.ApprovalOpportunity.Regional.Provinsi)"/>
-            <PropertyColumn Title="KABUPATEN" Property="@(crm => crm.ApprovalOpportunity.Regional.Kabupaten)"/>
-            <PropertyColumn Title="KECAMATAN" Property="@(crm => crm.ApprovalOpportunity.Regional.Kecamatan)"/>
-            <PropertyColumn Title="KELURAHAN" Property="@(crm => crm.ApprovalOpportunity.Regional.Kelurahan)"/>
-            <PropertyColumn Title="LATITUDE" Property="@(crm => crm.ApprovalOpportunity.Regional.Koordinat.Latitude)"/>
-            <PropertyColumn Title="LONGITUDE" Property="@(crm => crm.ApprovalOpportunity.Regional.Koordinat.Longitude)"/>
+            <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.IdPermohonan)" Style="width: 150px;"/>
+            <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.TglPermohonan)" Style="width: 180px;"/>
+            <PropertyColumn Title="IMPORT SIGNATURE" Property="@(crm => crm.ApprovalOpportunity.ImportSignature.Alias)" Style="width: 180px;"/>
+            <PropertyColumn Title="DURASI TIDAK LANJUT" Property="@(crm => DateTimeService.GetElapsedTime(crm.ApprovalOpportunity.TglPermohonan).AsReadableDateTime())" Style="width: 200px;"/>
+            <PropertyColumn Title="NAMA PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.NamaLengkap)" Style="width: 150px;"/>
+            <PropertyColumn Title="ID PLN" Property="@(crm => crm.ApprovalOpportunity.Pemohon.IdPln)" Style="width: 120px;"/>
+            <PropertyColumn Title="LAYANAN" Property="@(crm => crm.ApprovalOpportunity.Layanan)" Style="width: 150px;"/>
+            <PropertyColumn Title="SUMBER PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.SumberPermohonan)" Style="width: 250px;"/>
+            <PropertyColumn Title="STATUS PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.StatusPermohonan)" Style="width: 250px;"/>
+            <PropertyColumn Title="NAMA AGEN" Property="@(crm => crm.ApprovalOpportunity.Agen.NamaLengkap)" Style="width: 150px;"/>
+            <PropertyColumn Title="EMAIL AGEN" Property="@(crm => crm.ApprovalOpportunity.Agen.Email)" Style="width: 150px;"/>
+            <PropertyColumn Title="TELEPON AGEN" Property="@(crm => crm.ApprovalOpportunity.Agen.NomorTelepon)" Style="width: 150px;"/>
+            <PropertyColumn Title="MITRA AGEN" Property="@(crm => crm.ApprovalOpportunity.Agen.Mitra)" Style="width: 150px;"/>
+            <PropertyColumn Title="SPLITTER" Property="@(crm => crm.ApprovalOpportunity.Splitter)" Style="width: 150px;"/>
+            <PropertyColumn Title="JENIS PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.JenisPermohonan)" Style="width: 150px;"/>
+            <PropertyColumn Title="TELEPON PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.NomorTelepon)" Style="width: 150px;"/>
+            <PropertyColumn Title="EMAIL PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.Email)" Style="width: 150px;"/>
+            <PropertyColumn Title="NIK PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.Nik)" Style="width: 150px;"/>
+            <PropertyColumn Title="NPWP PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.Npwp)" Style="width: 150px;"/>
+            <PropertyColumn Title="KETERANGAN" Property="@(crm => crm.ApprovalOpportunity.Pemohon.Keterangan)" Style="width: 150px;"/>
+            <PropertyColumn Title="ALAMAT PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.Alamat)" Style="width: 150px;"/>
+            <PropertyColumn Title="REGIONAL" Property="@(crm => crm.ApprovalOpportunity.Regional.Bagian)" Style="width: 180px;"/>
+            <PropertyColumn Title="KANTOR PERWAKILAN" Property="@(crm => crm.ApprovalOpportunity.Regional.KantorPerwakilan)" Style="width: 180px;"/>
+            <PropertyColumn Title="PROVINSI" Property="@(crm => crm.ApprovalOpportunity.Regional.Provinsi)" Style="width: 150px;"/>
+            <PropertyColumn Title="KABUPATEN" Property="@(crm => crm.ApprovalOpportunity.Regional.Kabupaten)" Style="width: 150px;"/>
+            <PropertyColumn Title="KECAMATAN" Property="@(crm => crm.ApprovalOpportunity.Regional.Kecamatan)" Style="width: 150px;"/>
+            <PropertyColumn Title="KELURAHAN" Property="@(crm => crm.ApprovalOpportunity.Regional.Kelurahan)" Style="width: 150px;"/>
+            <PropertyColumn Title="LATITUDE" Property="@(crm => crm.ApprovalOpportunity.Regional.Koordinat.Latitude)" Style="width: 150px;"/>
+            <PropertyColumn Title="LONGITUDE" Property="@(crm => crm.ApprovalOpportunity.Regional.Koordinat.Longitude)" Style="width: 150px;"/>
 
         </FluentDataGrid>
     }
