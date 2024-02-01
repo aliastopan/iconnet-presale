@@ -59,11 +59,13 @@ public static class ConfigureServices
         services.AddSingleton<WorkloadFactory>();
         services.AddSingleton<IConnectionMultiplexer>(provider =>
         {
-            var connectionString = configuration[AppSecretSettings.Section.RedisConnection];
+            var connectionString = configuration[AppSecretSettings.Section.RedisConnectionString];
+            var password = configuration[AppSecretSettings.Section.RedisPassword];
             var options = new ConfigurationOptions
             {
                 EndPoints = { connectionString! },
-                ConnectTimeout = 5000
+                Password = password,
+                ConnectTimeout = 5000,
             };
             return ConnectionMultiplexer.Connect(options);
         });
