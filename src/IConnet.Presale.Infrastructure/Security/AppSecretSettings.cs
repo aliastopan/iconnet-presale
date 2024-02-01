@@ -14,13 +14,13 @@ public class AppSecretSettings
 
     public const string SectionName = "AppSecrets";
 
-    public string MasterKey { get; set; } = "";
-    public string MysqlConnectionString { get; set; } = "";
-    public string RedisConnectionString { get; set; } = "";
-    public string RedisPassword { get; set; } = "";
+    public string MasterKey { get; set; } = string.Empty;
+    public string MysqlConnectionString { get; set; } = string.Empty;
+    public string RedisConnectionString { get; set; } = string.Empty;
+    public string RedisPassword { get; set; } = string.Empty;
 
-    public string JwtIssuer { get; init; } = null!;
-    public string JwtAudience { get; init; } = null!;
-    public TimeSpan JwtLifeTime { get; init; }
-    public TimeSpan JwtRefreshLifeTime { get; init; }
+    public string JwtIssuer { get; init; } = string.Empty;
+    public string JwtAudience { get; init; } = string.Empty;
+    public TimeSpan JwtLifeTime { get; init; } = default;
+    public TimeSpan JwtRefreshLifeTime { get; init; } = default;
 }
