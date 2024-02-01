@@ -4,5 +4,6 @@ namespace IConnet.Presale.Domain.Enums;
 public enum ImportStatus
 {
     Unverified,
-    Verified
+    Verified,
+    Invalid
 }
