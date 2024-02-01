@@ -62,6 +62,11 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
 
     private void SetHelpdeskInChargeColWidth()
     {
+        if (WorkPapers is null || !WorkPapers.Any())
+        {
+            return;
+        }
+
         var contentWidth = WorkPapers!.Max(workPaper => workPaper.HelpdeskInCharge.Alias.Length);
         _colWidthInChargePx = (contentWidth * CharWidth) + ColsWidthPadding;
 
