@@ -178,7 +178,8 @@
 <FluentDialogFooter>
     <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.End">
         <FluentCheckbox @bind-Value="@_isCrmValid" Label="Data CRM telah sesuai" />
-        <FluentButton Appearance="Appearance.Accent"  OnClick="@SaveAsync" Disabled="@(!_isCrmValid)" IconStart="@(new Icons.Regular.Size16.Save())">Simpan</FluentButton>
+        <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync" Disabled="@(!_isCrmValid)" IconStart="@(new Icons.Regular.Size16.Save())">Simpan</FluentButton>
+        <FluentButton BackgroundColor="crimson" Color="white" OnClick="@DeleteAsync" Disabled="@(_isCrmValid)">Hapus</FluentButton>
         <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Batal</FluentButton>
     </FluentStack>
 </FluentDialogFooter>
@@ -199,6 +200,12 @@
         await Dialog.CloseAsync(Content);
     }
 
+    private async Task DeleteAsync()
+    {
+        DeleteCrm();
+        await Dialog.CloseAsync(Content);
+    }
+
     private async Task CancelAsync()
     {
         await Dialog.CancelAsync();
@@ -207,6 +214,17 @@
     private void VerifyCrm()
     {
         Content.ApprovalOpportunity.StatusImport = ImportStatus.Verified;
+        Content.ApprovalOpportunity.ImportVerifikasiSignature = new ActionSignature
+        {
+            AccountIdSignature = _sessionService.UserModel!.UserAccountId,
+            Alias = _sessionService.GetSessionAlias(),
+            TglAksi = _dateTimeService.DateTimeOffsetNow.DateTime
+        };
+    }
+
+    private void DeleteCrm()
+    {
+        Content.ApprovalOpportunity.StatusImport = ImportStatus.Invalid;
         Content.ApprovalOpportunity.ImportVerifikasiSignature = new ActionSignature
         {
             AccountIdSignature = _sessionService.UserModel!.UserAccountId,

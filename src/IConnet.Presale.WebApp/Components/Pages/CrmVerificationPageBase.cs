@@ -44,16 +44,39 @@ public class CrmVerificationPageBase : WorkloadPageBase
         var dialog = await DialogService.ShowDialogAsync<CrmVerificationDialog>(workPaper, parameters);
         var result = await dialog.Result;
 
-        if (!result.Cancelled && result.Data != null)
+        if (result.Cancelled || result.Data == null)
         {
-            var dialogData = (WorkPaper)result.Data;
-            await VerifyCrmAsync(dialogData);
+            return;
+        }
 
+        var dialogData = (WorkPaper)result.Data;
+
+        if (dialogData.ApprovalOpportunity.StatusImport == ImportStatus.Verified)
+        {
+            await VerifyCrmAsync(dialogData);
             Log.Warning("Import status after: {0}", dialogData.ApprovalOpportunity.StatusImport);
+        }
+
+        if (dialogData.ApprovalOpportunity.StatusImport == ImportStatus.Invalid)
+        {
+            await DeleteCrmAsync(dialogData);
+            Log.Warning("CRM '{0}' has been deleted", dialogData.ApprovalOpportunity.StatusImport);
         }
     }
 
     protected async Task VerifyCrmAsync(WorkPaper workPaper)
+    {
+        IsLoading = true;
+
+        await WorkloadManager.UpdateWorkloadAsync(workPaper);
+
+        var message = $"CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been verified";
+        await BroadcastService.BroadcastMessageAsync(message);
+
+        IsLoading = false;
+    }
+
+    protected async Task DeleteCrmAsync(WorkPaper workPaper)
     {
         IsLoading = true;
 
