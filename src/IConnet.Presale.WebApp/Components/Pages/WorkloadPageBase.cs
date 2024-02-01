@@ -5,6 +5,8 @@ public class WorkloadPageBase : ComponentBase
     [Inject] public IWorkloadManager WorkloadManager { get; init; } = default!;
     [Inject] public BroadcastService BroadcastService { get; init; } = default!;
 
+    private const int _charWidth = 8; //px
+    private const int _colsWidthPadding = 20; //px
     private const int _itemPerPage = 10;
     private readonly PaginationState _pagination = new PaginationState { ItemsPerPage = _itemPerPage };
 
@@ -12,6 +14,8 @@ public class WorkloadPageBase : ComponentBase
     private readonly GridSort<WorkPaper> _sortByIdPermohonan = GridSort<WorkPaper>
         .ByAscending(workPaper => workPaper.ApprovalOpportunity.IdPermohonan);
 
+    protected int CharWidth => _charWidth;
+    protected int ColsWidthPadding => _colsWidthPadding;
     protected PaginationState Pagination => _pagination;
     protected CacheFetchMode CacheFetchMode { get; set; } = CacheFetchMode.OnlyImportVerified;
     protected virtual IQueryable<WorkPaper>? WorkPapers => _workPapers;

@@ -17,14 +17,14 @@
             ItemSize="32"
             OnRowFocus="@OnRowSelected"
             EmptyContent="@HtmlFragment.EmptyContent"
-            GridTemplateColumns="185px 150px 80px 150px 150px 150px 150px 150px 150px 150px 150px 150px 150px 150px 150px;">
+            GridTemplateColumns="@GridTemplateCols">
 
             <TemplateColumn Title="ID PERMOHONAN" SortBy="@SortByIdPermohonan" Style="width: 185px;">
                 <div class="">
                     @context.ApprovalOpportunity.IdPermohonan
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="PIC CHAT/CALL" Style="width: 150px;">
+            <TemplateColumn Title="PIC CHAT/CALL" Style="@ColWidthInChargeStyle">
                 <div class="">
                     @if (string.IsNullOrEmpty(context.HelpdeskInCharge.Alias))
                     {
@@ -91,12 +91,12 @@
                     @context.ProsesValidasi.StatusValidasi
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="KETERANGAN VALIDASI" Style="width: 150px;">
+            <TemplateColumn Title="KETERANGAN VALIDASI" Style="width: 250px;">
                 <div class="">
                     @context.ProsesValidasi.StatusValidasi
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="CONTACT WHATSAPP" Style="width: 150px;">
+            <TemplateColumn Title="CONTACT WHATSAPP" Style="width: 225px;">
                 <div class="">
                     @{
                         var url = $"http://{context.ApprovalOpportunity.Pemohon.WhatsApp}";
