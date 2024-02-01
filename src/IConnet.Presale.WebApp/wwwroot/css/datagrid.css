@@ -9,12 +9,14 @@ fluent-data-grid-row:not(.header):hover {
 }
 
 fluent-data-grid-cell:not(.column-header):hover + fluent-data-grid-row{
-    background-color: rgb(231, 231, 231);
+    background-color: rgb(240, 240, 240);
 }
 
+fluent-data-grid-row.header,
 fluent-data-grid-cell.column-header{
-    background-color: rgb(237 237 237);
+    background-color: rgb(240, 240, 240);
     color: #373737;
+    cursor: default;
 }
 
 fluent-data-grid-cell{
