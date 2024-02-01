@@ -53,7 +53,7 @@ internal sealed class WorkloadManager : IWorkloadManager
 
             var workPaper = JsonSerializer.Deserialize<WorkPaper>(json)!;
 
-             switch (cacheFetchMode)
+            switch (cacheFetchMode)
             {
                 case CacheFetchMode.OnlyImportVerified:
                     if (workPaper.ApprovalOpportunity.StatusImport != ImportStatus.Verified)
@@ -64,6 +64,14 @@ internal sealed class WorkloadManager : IWorkloadManager
                 case CacheFetchMode.OnlyImportUnverified:
                     if (workPaper.ApprovalOpportunity.StatusImport != ImportStatus.Unverified)
                     {
+                        continue;
+                    }
+                    break;
+                case CacheFetchMode.OnlyStaged:
+                    if (workPaper.ApprovalOpportunity.StatusImport == ImportStatus.Unverified
+                        || workPaper.HelpdeskInCharge.IsEmptySignature())
+                    {
+
                         continue;
                     }
                     break;

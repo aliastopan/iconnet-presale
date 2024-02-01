@@ -12,7 +12,7 @@ public class HelpdeskPageBase : WorkloadPageBase
     protected override async Task OnInitializedAsync()
     {
         PageName = _pageName;
-        CacheFetchMode = CacheFetchMode.OnlyImportVerified; // needs only claimed fetch mode
+        CacheFetchMode = CacheFetchMode.OnlyStaged;
 
         await base.OnInitializedAsync();
     }
