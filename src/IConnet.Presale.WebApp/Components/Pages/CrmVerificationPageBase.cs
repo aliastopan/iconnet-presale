@@ -50,18 +50,19 @@ public class CrmVerificationPageBase : WorkloadPageBase
         }
 
         var dialogData = (WorkPaper)result.Data;
-
-        if (dialogData.ApprovalOpportunity.StatusImport == ImportStatus.Verified)
+        switch (dialogData.ApprovalOpportunity.StatusImport)
         {
-            await VerifyCrmAsync(dialogData);
-            Log.Warning("Import status after: {0}", dialogData.ApprovalOpportunity.StatusImport);
+            case ImportStatus.Verified:
+                await VerifyCrmAsync(dialogData);
+                break;
+            case ImportStatus.Invalid:
+                await DeleteCrmAsync(dialogData);
+                break;
+            default:
+                break;
         }
 
-        if (dialogData.ApprovalOpportunity.StatusImport == ImportStatus.Invalid)
-        {
-            await DeleteCrmAsync(dialogData);
-            Log.Warning("CRM '{0}' has been deleted", dialogData.ApprovalOpportunity.StatusImport);
-        }
+        Log.Warning("Import status after: {0}", dialogData.ApprovalOpportunity.StatusImport);
     }
 
     protected async Task VerifyCrmAsync(WorkPaper workPaper)
@@ -80,9 +81,9 @@ public class CrmVerificationPageBase : WorkloadPageBase
     {
         IsLoading = true;
 
-        await WorkloadManager.UpdateWorkloadAsync(workPaper);
+        await WorkloadManager.DeleteWorkloadAsync(workPaper);
 
-        var message = $"CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been verified";
+        var message = $"Invalid CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been deleted";
         await BroadcastService.BroadcastMessageAsync(message);
 
         IsLoading = false;
