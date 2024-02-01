@@ -86,7 +86,7 @@
 
     private async Task SaveAsync()
     {
-        await ClaimWorkloadAsync();
+        await StageWorkloadAsync();
         await Dialog.CloseAsync(Content);
     }
 
@@ -95,7 +95,7 @@
         await Dialog.CancelAsync();
     }
 
-    public async Task ClaimWorkloadAsync()
+    public async Task StageWorkloadAsync()
     {
         Content.Shift = (await _sessionService.GetJobShiftAsync()).ToString();
         Content.HelpdeskInCharge = new ActionSignature

@@ -42,17 +42,17 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
             Width = "500px",
         };
 
-        var dialog = await DialogService.ShowDialogAsync<WorkloadClaimDialog>(workPaper, parameters);
+        var dialog = await DialogService.ShowDialogAsync<WorkloadStageDialog>(workPaper, parameters);
         var result = await dialog.Result;
 
         if (!result.Cancelled && result.Data != null)
         {
             var dialogData = (WorkPaper)result.Data;
-            await ClaimWorkloadAsync(dialogData);
+            await StageWorkloadAsync(dialogData);
         }
     }
 
-    protected async Task ClaimWorkloadAsync(WorkPaper workPaper)
+    protected async Task StageWorkloadAsync(WorkPaper workPaper)
     {
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
 
