@@ -91,7 +91,7 @@ public static class ConfigureServices
         }
         else
         {
-            var connectionString = configuration[AppSecretSettings.Section.ConnectionString];
+            var connectionString = configuration[AppSecretSettings.Section.MysqlConnectionString];
             var serverVersion = new MariaDbServerVersion(new Version(10, 6, 16));
 
             services.AddDbContext<AppDbContext>(options =>
