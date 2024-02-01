@@ -2,11 +2,11 @@ using IConnet.Presale.WebApp.Components.Dialogs;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
 
-public class HelpdeskPageBase : WorkloadPageBase
+public class HelpdeskStagingPageBase : WorkloadPageBase
 {
     [Inject] public IDialogService DialogService { get; set; } = default!;
 
-    private readonly string _pageName = "Helpdesk page";
+    private readonly string _pageName = "Helpdesk staging page";
     private readonly GridSort<WorkPaper> _sortByIdPermohonan = GridSort<WorkPaper>
         .ByAscending(workPaper => workPaper.ApprovalOpportunity.IdPermohonan);
 
