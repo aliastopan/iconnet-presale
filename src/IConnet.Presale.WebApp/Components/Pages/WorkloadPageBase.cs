@@ -12,7 +12,7 @@ public class WorkloadPageBase : ComponentBase
 
     protected string PageName { get; set; } = "Workload page (base)";
     protected PaginationState Pagination => _pagination;
-    protected IQueryable<WorkPaper>? WorkPapers => _workPapers;
+    protected virtual IQueryable<WorkPaper>? WorkPapers => _workPapers;
     protected CacheFetchMode CacheFetchMode { get; set; } = CacheFetchMode.OnlyImportVerified;
     protected bool IsLoading { get; set; } = false;
 
