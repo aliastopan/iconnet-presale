@@ -12,6 +12,11 @@ fluent-data-grid-cell:not(.column-header):hover + fluent-data-grid-row{
     background-color: rgb(231, 231, 231);
 }
 
+fluent-data-grid-cell.column-header{
+    background-color: rgb(237 237 237);
+    color: #373737;
+}
+
 fluent-data-grid-cell{
     width: 200px;
     display: flex;
