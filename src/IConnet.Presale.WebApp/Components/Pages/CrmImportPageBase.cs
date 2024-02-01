@@ -6,6 +6,7 @@ public class CrmImportPageBase : ComponentBase
     [Inject] public IWorkloadManager WorkloadManager { get; init; } = default!;
     [Inject] public BroadcastService BroadcastService { get; init; } = default!;
     [Inject] public CrmImportService CrmImportService { get; init; } = default!;
+    [Inject] public IToastService ToastService { get; set; } = default!;
 
     private const int _itemPerPage = 10;
     private readonly PaginationState _pagination = new PaginationState { ItemsPerPage = _itemPerPage };
@@ -42,10 +43,35 @@ public class CrmImportPageBase : ComponentBase
         }
 
         IsLoading = false;
+        ToastNotification();
     }
 
     protected async Task<string> PasteClipboardAsync()
     {
         return await JsRuntime.InvokeAsync<string>("navigator.clipboard.readText");
+    }
+
+    protected void ToastNotification()
+    {
+        if (ImportCount > 0)
+        {
+            var intent = ToastIntent.Success;
+            var message = $"{ImportCount} dari {ImportMetadata.NumberOfRows} data telah berhasil di-import.";
+            ToastService.ShowToast(intent, message);
+        }
+
+        if (!ImportMetadata.IsValidImport)
+        {
+            var intent = ToastIntent.Error;
+            var message = "Proses import gagal. Jumlah kolom dan baris tidak sesuai.";
+            ToastService.ShowToast(intent, message);
+        }
+
+        if (ImportMetadata!.NumberOfDuplicates > 0)
+        {
+            var intent = ToastIntent.Warning;
+            var message = $"Terdapat {ImportMetadata.NumberOfDuplicates} duplikasi saat dalam proses copy-paste dari iCRM+.";
+            ToastService.ShowToast(intent, message);
+        }
     }
 }
