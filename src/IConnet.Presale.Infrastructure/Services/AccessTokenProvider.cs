@@ -15,11 +15,11 @@ internal sealed class AccessTokenProvider : IAccessTokenService
 
     public AccessTokenProvider(IDateTimeService dateTimeService,
         ISecurityTokenValidatorService securityTokenValidatorService,
-        IOptions<AppSecretSettings> appSecretSettings)
+        IOptions<AppSecretSettings> appSecretOptions)
     {
         _dateTimeService = dateTimeService;
         _securityTokenValidatorService = securityTokenValidatorService;
-        _appSecretSettings = appSecretSettings.Value;
+        _appSecretSettings = appSecretOptions.Value;
 
         JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
     }

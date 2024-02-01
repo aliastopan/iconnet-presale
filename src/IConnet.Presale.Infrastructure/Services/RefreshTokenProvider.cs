@@ -10,12 +10,12 @@ internal sealed class RefreshTokenProvider : IRefreshTokenService
     private readonly IAccessTokenService _accessTokenService;
     private readonly IDateTimeService _dateTimeService;
 
-    public RefreshTokenProvider(IOptions<AppSecretSettings> appSecretSettings,
+    public RefreshTokenProvider(IOptions<AppSecretSettings> appSecretOptions,
         AppDbContextFactory dbContextFactory,
         IAccessTokenService accessTokenService,
         IDateTimeService dateTimeService)
     {
-        _appSecretSettings = appSecretSettings.Value;
+        _appSecretSettings = appSecretOptions.Value;
         _dbContextFactory = dbContextFactory;
         _accessTokenService = accessTokenService;
         _dateTimeService = dateTimeService;

@@ -8,9 +8,9 @@ internal sealed class SecurityTokenValidatorProvider : ISecurityTokenValidatorSe
 {
     private readonly AppSecretSettings _appSecretSettings;
 
-    public SecurityTokenValidatorProvider(IOptions<AppSecretSettings> appSecretSettings)
+    public SecurityTokenValidatorProvider(IOptions<AppSecretSettings> appSecretOptions)
     {
-        _appSecretSettings = appSecretSettings.Value;
+        _appSecretSettings = appSecretOptions.Value;
     }
 
     public TokenValidationParameters GetAccessTokenValidationParameters()
