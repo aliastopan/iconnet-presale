@@ -26,6 +26,11 @@ fluent-data-grid-cell{
     justify-content: center;
 }
 
+fluent-data-grid-cell fluent-button.col-sort-button::part(control){
+    background-color: rgb(240, 240, 240);
+    color: #373737;
+}
+
 .datagrid-wrapper{
     margin-top: 0.5rem;
     overflow-x: auto;
