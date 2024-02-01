@@ -1,3 +1,4 @@
+/* fix overflow-x rendering glitch */
 fluent-data-grid{
     min-width: max-content;
 }
