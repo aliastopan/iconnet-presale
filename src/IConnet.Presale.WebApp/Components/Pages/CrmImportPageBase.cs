@@ -14,12 +14,13 @@ public class CrmImportPageBase : ComponentBase
     private readonly PaginationState _pagination = new PaginationState { ItemsPerPage = _itemPerPage };
     private IQueryable<IApprovalOpportunityModel>? _importModels;
     private CrmImportMetadata _importMetadata = default!;
-    private static int _colWidthNamaPemohonPx = 200;
-    private static int _colWidthEmailPemohonPx = 200;
-    private static int _colWidthAlamatPemohonPx = 200;
-    private static int _colWidthNamaAgenPx = 200;
-    private static int _colWidthEmailAgenPx = 200;
-    private static int _colWidthMitraAgenPx = 200;
+
+    private int _colWidthNamaPemohonPx = 200;
+    private int _colWidthEmailPemohonPx = 200;
+    private int _colWidthAlamatPemohonPx = 200;
+    private int _colWidthNamaAgenPx = 200;
+    private int _colWidthEmailAgenPx = 200;
+    private int _colWidthMitraAgenPx = 200;
 
     protected PaginationState Pagination => _pagination;
     protected IQueryable<IApprovalOpportunityModel>? ImportModels => _importModels;
