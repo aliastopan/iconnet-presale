@@ -9,11 +9,15 @@ public class WorkloadPageBase : ComponentBase
     private readonly PaginationState _pagination = new PaginationState { ItemsPerPage = _itemPerPage };
 
     private IQueryable<WorkPaper>? _workPapers;
+    private readonly GridSort<WorkPaper> _sortByIdPermohonan = GridSort<WorkPaper>
+        .ByAscending(workPaper => workPaper.ApprovalOpportunity.IdPermohonan);
+
+    protected PaginationState Pagination => _pagination;
+    protected CacheFetchMode CacheFetchMode { get; set; } = CacheFetchMode.OnlyImportVerified;
+    protected virtual IQueryable<WorkPaper>? WorkPapers => _workPapers;
+    protected GridSort<WorkPaper> SortByIdPermohonan => _sortByIdPermohonan;
 
     protected string PageName { get; set; } = "Workload page (base)";
-    protected PaginationState Pagination => _pagination;
-    protected virtual IQueryable<WorkPaper>? WorkPapers => _workPapers;
-    protected CacheFetchMode CacheFetchMode { get; set; } = CacheFetchMode.OnlyImportVerified;
     protected bool IsLoading { get; set; } = false;
 
     protected override async Task OnInitializedAsync()

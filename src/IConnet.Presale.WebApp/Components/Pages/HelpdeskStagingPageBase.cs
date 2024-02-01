@@ -7,11 +7,6 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
     [Inject] public IDialogService DialogService { get; set; } = default!;
 
     private readonly string _pageName = "Helpdesk staging page";
-    private readonly GridSort<WorkPaper> _sortByIdPermohonan = GridSort<WorkPaper>
-        .ByAscending(workPaper => workPaper.ApprovalOpportunity.IdPermohonan);
-
-    // TODO: move sort to `WorkloadPageBase`
-    protected GridSort<WorkPaper> SortByIdPermohonan => _sortByIdPermohonan;
 
     protected override async Task OnInitializedAsync()
     {
