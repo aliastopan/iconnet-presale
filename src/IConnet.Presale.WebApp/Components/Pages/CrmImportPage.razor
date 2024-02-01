@@ -24,16 +24,16 @@
         Pagination="@Pagination"
         ItemSize="32"
         EmptyContent="@HtmlFragment.EmptyContent"
-        GridTemplateColumns="150px 180px 200px 150px 120px 150px 250px 250px 150px 150px 150px 150px 150px 150px 150px 150px 150px 150px 180px 180px 150px 150px 150px 150px 150px 150px;">
+        GridTemplateColumns="@GridTemplateCols">
 
         <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.IdPermohonan)" Style="width: 150px;"/>
         <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.TglPermohonan)" Style="width: 180px;"/>
         <PropertyColumn Title="DURASI TIDAK LANJUT" Property="@(crm => crm.DurasiTidakLanjut)" Style="width: 200px;"/>
-        <PropertyColumn Title="NAMA PEMOHON" Property="@(crm => crm.NamaPemohon)" Style="width: 150px;"/>
+        <PropertyColumn Title="NAMA PEMOHON" Property="@(crm => crm.NamaPemohon)" Style="@ColWidthNamaPemohonStyle"/>
         <PropertyColumn Title="ID PLN" Property="@(crm => crm.IdPln)" Style="width: 120px;"/>
         <PropertyColumn Title="LAYANAN" Property="@(crm => crm.Layanan)" Style="width: 150px;"/>
-        <PropertyColumn Title="SUMBER PERMOHONAN" Property="@(crm => crm.SumberPermohonan)" Style="width: 250px;"/>
-        <PropertyColumn Title="STATUS PERMOHONAN" Property="@(crm => crm.StatusPermohonan)" Style="width: 250px;"/>
+        <PropertyColumn Title="SUMBER PERMOHONAN" Property="@(crm => crm.SumberPermohonan)" Style="width: 200px;"/>
+        <PropertyColumn Title="STATUS PERMOHONAN" Property="@(crm => crm.StatusPermohonan)" Style="width: 200px;"/>
         <PropertyColumn Title="NAMA AGEN" Property="@(crm => crm.NamaAgen)" Style="width: 150px;"/>
         <PropertyColumn Title="EMAIL AGEN" Property="@(crm => crm.EmailAgen)" Style="width: 150px;"/>
         <PropertyColumn Title="TELEPON AGEN" Property="@(crm => crm.TeleponAgen)" Style="width: 150px;"/>
@@ -41,11 +41,11 @@
         <PropertyColumn Title="SPLITTER" Property="@(crm => crm.Splitter)" Style="width: 150px;"/>
         <PropertyColumn Title="JENIS PERMOHONAN" Property="@(crm => crm.JenisPermohonan)" Style="width: 150px;"/>
         <PropertyColumn Title="TELEPON PEMOHON" Property="@(crm => crm.TeleponPemohon)" Style="width: 150px;"/>
-        <PropertyColumn Title="EMAIL PEMOHON" Property="@(crm => crm.EmailPemohon)" Style="width: 150px;"/>
+        <PropertyColumn Title="EMAIL PEMOHON" Property="@(crm => crm.EmailPemohon)" Style="@ColWidthEmailPemohonStyle"/>
         <PropertyColumn Title="NIK PEMOHON" Property="@(crm => crm.NikPemohon)" Style="width: 150px;"/>
         <PropertyColumn Title="NPWP PEMOHON" Property="@(crm => crm.NpwpPemohon)" Style="width: 150px;"/>
         <PropertyColumn Title="KETERANGAN" Property="@(crm => crm.Keterangan)" Style="width: 150px;"/>
-        <PropertyColumn Title="ALAMAT PEMOHON" Property="@(crm => crm.AlamatPemohon)" Style="width: 150px;"/>
+        <PropertyColumn Title="ALAMAT PEMOHON" Property="@(crm => crm.AlamatPemohon)" Style="@ColWidthAlamatPemohonStyle"/>
         <PropertyColumn Title="REGIONAL" Property="@(crm => crm.Regional)" Style="width: 180px;"/>
         <PropertyColumn Title="KANTOR PERWAKILAN" Property="@(crm => crm.KantorPerwakilan)" Style="width: 180px;"/>
         <PropertyColumn Title="PROVINSI" Property="@(crm => crm.Provinsi)" Style="width: 150px;"/>
