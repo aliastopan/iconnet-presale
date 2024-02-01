@@ -19,6 +19,10 @@ fluent-data-grid-cell.column-header{
     cursor: default;
 }
 
+fluent-data-grid-cell.column-header{
+    height: 32px;
+}
+
 fluent-data-grid-cell{
     /* width: 200px; */
     display: flex;
