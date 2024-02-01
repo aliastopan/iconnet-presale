@@ -72,29 +72,3 @@
         Halaman <strong>@(Pagination.CurrentPageIndex + 1)</strong> dari <strong>@(Pagination.LastPageIndex + 1)</strong> halaman
     </PaginationTextTemplate>
 </FluentPaginator>
-
-@if (!EnableMessageBar)
-{
-    return;
-}
-
-@if (!ImportMetadata.IsValidImport)
-{
-    <FluentMessageBar Class="my-2" Title="Error" Intent="@MessageIntent.Error">
-        Proses import gagal. Jumlah kolom dan baris tidak sesuai.
-    </FluentMessageBar>
-}
-
-@if (ImportCount > 0)
-{
-    <FluentMessageBar Class="my-2" Title="Success" Intent="@MessageIntent.Success">
-        @ImportCount dari @ImportMetadata!.NumberOfRows data telah berhasil di-import.
-    </FluentMessageBar>
-}
-
-@if (ImportMetadata!.NumberOfDuplicates > 0)
-{
-    <FluentMessageBar Class="my-2" Title="Warning" Intent="@MessageIntent.Warning">
-        Terdapat @ImportMetadata!.NumberOfDuplicates duplikasi saat dalam proses copy-paste dari iCRM.
-    </FluentMessageBar>
-}

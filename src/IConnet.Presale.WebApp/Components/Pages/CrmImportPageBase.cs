@@ -17,7 +17,6 @@ public class CrmImportPageBase : ComponentBase
     protected IQueryable<IApprovalOpportunityModel>? ImportModels => _importModels;
     protected CrmImportMetadata ImportMetadata => _importMetadata;
     protected int ImportCount { get; set; }
-    protected bool EnableMessageBar => _importModels is not null && _importMetadata is not null;
     protected bool IsLoading { get; set; } = false;
 
     protected async Task CrmImportAsync()
