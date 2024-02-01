@@ -6,6 +6,9 @@ public class HelpdeskPageBase : WorkloadPageBase
 
     private readonly string _pageName = "Helpdesk page";
 
+    public bool ShowClaims { get; set; } = true;
+    public string ToggleText => ShowClaims ? "Hide" : "Show";
+
     protected override async Task OnInitializedAsync()
     {
         PageName = _pageName;

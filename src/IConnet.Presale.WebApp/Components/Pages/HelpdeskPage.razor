@@ -5,7 +5,17 @@
 <PageTitle>Helpdesk</PageTitle>
 
 <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Helpdesk</FluentLabel>
-<span class="page-description">Proses validasi permohonan</span>
+<div class="d-flex flex-column align-items-start">
+    <span class="page-description">Proses validasi permohonan</span>
+    <div style="margin-left: -5px; margin-bottom: 0.5rem;">
+        <FluentButton Class="m-1"
+            Appearance="Appearance.Lightweight"
+            IconEnd="@(ShowClaims ? new Icons.Regular.Size20.DocumentSplitHintOff() : new Icons.Regular.Size20.Document())"
+            OnClick="@(() => ShowClaims = !ShowClaims)">
+            @ToggleText
+        </FluentButton>
+    </div>
+</div>
 
 <FluentStack Orientation="Orientation.Horizontal"
     HorizontalAlignment="HorizontalAlignment.Start"
@@ -14,27 +24,28 @@
     @if (WorkPapers is not null)
     {
         <div>
-            <FluentDataGrid Items="@WorkPapers"
-            TGridItem="WorkPaper"
-            Virtualize="true"
-            ItemSize="32"
-            EmptyContent="@HtmlFragment.EmptyContent"
-            GridTemplateColumns="185px 100px">
+            @if (ShowClaims)
+            {
+                <FluentDataGrid Items="@WorkPapers"
+                TGridItem="WorkPaper"
+                Virtualize="true"
+                ItemSize="32"
+                EmptyContent="@HtmlFragment.EmptyContent"
+                GridTemplateColumns="185px 80px">
 
-            <TemplateColumn Title="ID PERMOHONAN" Style="width: 185px;">
-                <div class="">
-                    @context.ApprovalOpportunity.IdPermohonan
-                </div>
-            </TemplateColumn>
-            @* <TemplateColumn Title="STATUS KLAIM" Class="d-cell" Style="width: 130px; text-align: center"> *@
-            <TemplateColumn Title="KLAIM" Style="width: 100px;">
-                <div class="">
-                    Expired
-                </div>
-            </TemplateColumn>
-            </FluentDataGrid>
+                <TemplateColumn Title="ID PERMOHONAN" Style="width: 185px;">
+                    <div class="">
+                        @context.ApprovalOpportunity.IdPermohonan
+                    </div>
+                </TemplateColumn>
+                <TemplateColumn Title="KLAIM" Style="width: 80px;">
+                    <div class="">
+                        Expired
+                    </div>
+                </TemplateColumn>
+                </FluentDataGrid>
+            }
         </div>
-        <FluentDivider Role="DividerRole.Separator" Orientation="Orientation.Vertical"></FluentDivider>
         <div>
             Validation Column
         </div>
