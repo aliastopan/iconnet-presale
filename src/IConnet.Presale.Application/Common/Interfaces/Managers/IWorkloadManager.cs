@@ -8,4 +8,5 @@ public interface IWorkloadManager
     Task<int> CacheWorkloadAsync(List<IApprovalOpportunityModel> importModels);
     Task<List<WorkPaper>> FetchWorkloadAsync(CacheFetchMode cacheFetchMode = CacheFetchMode.All);
     Task<bool> UpdateWorkloadAsync(WorkPaper workPaper);
+    Task<bool> DeleteWorkloadAsync(WorkPaper workPaper);
 }
