@@ -18,7 +18,7 @@ fluent-data-grid-cell.column-header{
 }
 
 fluent-data-grid-cell{
-    width: 200px;
+    /* width: 200px; */
     display: flex;
     flex-direction: column;
     justify-content: center;
