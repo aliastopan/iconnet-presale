@@ -26,4 +26,12 @@ public class HelpdeskPageBase : WorkloadPageBase
     {
         return base.WorkPapers?.Where(x => x.HelpdeskInCharge.AccountIdSignature == _sessionId);
     }
+
+    protected bool IsStillInCharge(WorkPaper workPaper)
+    {
+        var now = DateTimeService.DateTimeOffsetNow.DateTime;
+        var duration = new TimeSpan(0, 5, 0);
+
+        return !workPaper.HelpdeskInCharge.IsDurationExceeded(now, duration);
+    }
 }

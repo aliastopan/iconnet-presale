@@ -38,10 +38,19 @@
                         @context.ApprovalOpportunity.IdPermohonan
                     </div>
                 </TemplateColumn>
-                <TemplateColumn Title="KLAIM" Style="width: 80px;">
-                    <div class="">
-                        Expired
-                    </div>
+                <TemplateColumn Title="PIC" Style="width: 80px;">
+                    @if (IsStillInCharge(context))
+                    {
+                        <div class="">
+                            Active
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="">
+                            Expired
+                        </div>
+                    }
                 </TemplateColumn>
                 </FluentDataGrid>
             }
