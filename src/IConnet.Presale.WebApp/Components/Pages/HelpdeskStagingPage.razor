@@ -16,14 +16,15 @@
             Pagination="@Pagination"
             ItemSize="32"
             OnRowFocus="@OnRowSelected"
-            EmptyContent="@HtmlFragment.EmptyContent">
+            EmptyContent="@HtmlFragment.EmptyContent"
+            GridTemplateColumns="185px 150px 80px 150px 150px 150px 150px 150px 150px 150px 150px 150px 150px 150px 150px;">
 
-            <TemplateColumn Title="ID PERMOHONAN" SortBy="@SortByIdPermohonan">
+            <TemplateColumn Title="ID PERMOHONAN" SortBy="@SortByIdPermohonan" Style="width: 185px;">
                 <div class="">
                     @context.ApprovalOpportunity.IdPermohonan
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="PIC CHAT/CALL">
+            <TemplateColumn Title="PIC CHAT/CALL" Style="width: 150px;">
                 <div class="">
                     @if (string.IsNullOrEmpty(context.HelpdeskInCharge.Alias))
                     {
@@ -35,67 +36,67 @@
                     }
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="SHIFT">
+            <TemplateColumn Title="SHIFT" Style="width: 80px;">
                 <div class="">
                     @context.Shift
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="TGL CHAT/CALL HELPDESK">
+            <TemplateColumn Title="TGL CHAT/CALL HELPDESK" Style="width: 150px;">
                 <div class="">
                     @context.ProsesValidasi.ChatCallMulai.TglAksi
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="NAMA PELANGGAN">
+            <TemplateColumn Title="NAMA PELANGGAN" Style="width: 150px;">
                 <div class="">
                     @context.ProsesValidasi.ParameterValidasi.NamaPelanggan
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="NOMOR TELP AKTIF">
+            <TemplateColumn Title="NOMOR TELP AKTIF" Style="width: 150px;">
                 <div class="">
                     @context.ProsesValidasi.ParameterValidasi.NomorTelepon
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="EMAIL AKTIF">
+            <TemplateColumn Title="EMAIL AKTIF" Style="width: 150px;">
                 <div class="">
                     @context.ProsesValidasi.ParameterValidasi.Email
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="ALAMAT PELANGGAN">
+            <TemplateColumn Title="ALAMAT PELANGGAN" Style="width: 150px;">
                 <div class="">
                     @context.ProsesValidasi.ParameterValidasi.AlamatPelanggan
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="ID PLAN">
+            <TemplateColumn Title="ID PLAN" Style="width: 150px;">
                 <div class="">
                     @context.ProsesValidasi.ParameterValidasi.PlnId
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="SHARE LOC">
+            <TemplateColumn Title="SHARE LOC" Style="width: 150px;">
                 <div class="">
                     @context.ProsesValidasi.ParameterValidasi.ShareLoc.LatitudeLongitude
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="TGL CHAT/CALL DIJAWAB">
+            <TemplateColumn Title="TGL CHAT/CALL DIJAWAB" Style="width: 150px;">
                 <div class="">
                     @context.ProsesValidasi.ChatCallRespons.TglAksi
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="REKAP CHAT HISTORY">
+            <TemplateColumn Title="REKAP CHAT HISTORY" Style="width: 150px;">
                 <div class="">
                     @context.ProsesValidasi.LinkRecapChatHistory
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="STATUS VALIDASI">
+            <TemplateColumn Title="STATUS VALIDASI" Style="width: 150px;">
                 <div class="">
                     @context.ProsesValidasi.StatusValidasi
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="KETERANGAN VALIDASI">
+            <TemplateColumn Title="KETERANGAN VALIDASI" Style="width: 150px;">
                 <div class="">
                     @context.ProsesValidasi.StatusValidasi
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="CONTACT WHATSAPP">
+            <TemplateColumn Title="CONTACT WHATSAPP" Style="width: 150px;">
                 <div class="">
                     @{
                         var url = $"http://{context.ApprovalOpportunity.Pemohon.WhatsApp}";
