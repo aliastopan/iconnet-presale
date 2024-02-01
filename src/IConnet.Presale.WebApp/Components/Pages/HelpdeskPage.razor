@@ -1,0 +1,47 @@
+@page "/helpdesk"
+@inherits HelpdeskPageBase
+@rendermode InteractiveServer
+
+<PageTitle>Helpdesk</PageTitle>
+
+<FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Helpdesk</FluentLabel>
+<span class="page-description">Proses validasi permohonan</span>
+
+<FluentStack Orientation="Orientation.Horizontal"
+    HorizontalAlignment="HorizontalAlignment.Start"
+    Style="margin-top: 0.5rem;">
+
+    @if (WorkPapers is not null)
+    {
+        <div>
+            <FluentDataGrid Items="@WorkPapers"
+            TGridItem="WorkPaper"
+            Virtualize="true"
+            ItemSize="32"
+            EmptyContent="@HtmlFragment.EmptyContent"
+            GridTemplateColumns="185px 100px">
+
+            <TemplateColumn Title="ID PERMOHONAN" Style="width: 185px;">
+                <div class="">
+                    @context.ApprovalOpportunity.IdPermohonan
+                </div>
+            </TemplateColumn>
+            @* <TemplateColumn Title="STATUS KLAIM" Class="d-cell" Style="width: 130px; text-align: center"> *@
+            <TemplateColumn Title="KLAIM" Style="width: 100px;">
+                <div class="">
+                    Expired
+                </div>
+            </TemplateColumn>
+            </FluentDataGrid>
+        </div>
+        <FluentDivider Role="DividerRole.Separator" Orientation="Orientation.Vertical"></FluentDivider>
+        <div>
+            Validation Column
+        </div>
+    }
+    else
+    {
+        <span>Loading...</span>
+    }
+
+</FluentStack>
