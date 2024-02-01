@@ -17,6 +17,9 @@ public class CrmImportPageBase : ComponentBase
     private static int _colWidthNamaPemohonPx = 200;
     private static int _colWidthEmailPemohonPx = 200;
     private static int _colWidthAlamatPemohonPx = 200;
+    private static int _colWidthNamaAgenPx = 200;
+    private static int _colWidthEmailAgenPx = 200;
+    private static int _colWidthMitraAgenPx = 200;
 
     protected PaginationState Pagination => _pagination;
     protected IQueryable<IApprovalOpportunityModel>? ImportModels => _importModels;
@@ -27,9 +30,18 @@ public class CrmImportPageBase : ComponentBase
     public string ColWidthNamaPemohonStyle => $"width: {_colWidthNamaPemohonPx}px;";
     public string ColWidthEmailPemohonStyle => $"width: {_colWidthEmailPemohonPx}px;";
     public string ColWidthAlamatPemohonStyle => $"width: {_colWidthAlamatPemohonPx}px;";
+    public string ColWidthNamaAgenStyle => $"width: {_colWidthNamaAgenPx}px;";
+    public string ColWidthEmailAgenStyle => $"width: {_colWidthEmailAgenPx}px;";
+    public string ColWidthMitraAgenStyle => $"width: {_colWidthMitraAgenPx}px;";
     public string GridTemplateCols
     {
-        get => $"150px 180px 200px {_colWidthNamaPemohonPx}px 120px 150px 200px 200px 150px 150px 150px 150px 150px {_colWidthEmailPemohonPx}px 150px 150px 150px {_colWidthAlamatPemohonPx}px 180px 180px 150px 150px 150px 150px 150px 150px;";
+        get => $@"150px 180px 200px
+            {_colWidthNamaPemohonPx}px 120px 150px 200px 200px
+            {_colWidthNamaAgenPx}px
+            {_colWidthEmailAgenPx}px 150px
+            {_colWidthMitraAgenPx}px 150px 200px 200px
+            {_colWidthEmailPemohonPx}px 150px 150px 150px
+            {_colWidthAlamatPemohonPx}px 180px 180px 150px 150px 150px 150px 150px 150px;";
     }
 
     protected async Task CrmImportAsync()
@@ -57,6 +69,9 @@ public class CrmImportPageBase : ComponentBase
         SetNamaPemohonColWidth();
         SetEmailPemohonColWidth();
         SetAlamatPemohonColWidth();
+        SetNamaAgenColWidth();
+        SetEmailAgenColWidth();
+        SetMitraAgenColWidth();
 
         IsLoading = false;
         ToastNotification();
@@ -102,7 +117,6 @@ public class CrmImportPageBase : ComponentBase
         _colWidthNamaPemohonPx = (contentWidth * _charWidth) + _colsWidthPadding;
 
         Log.Warning("Nama Pemohon col-width: {0}px", _colWidthNamaPemohonPx);
-
     }
 
     private void SetEmailPemohonColWidth()
@@ -129,5 +143,45 @@ public class CrmImportPageBase : ComponentBase
         _colWidthAlamatPemohonPx = (contentWidth * _charWidth) + _colsWidthPadding;
 
         Log.Warning("Alamat Pemohon col-width: {0}px", _colWidthAlamatPemohonPx);
+    }
+
+    private void SetNamaAgenColWidth()
+    {
+        if (ImportModels is null || !ImportModels.Any())
+        {
+            return;
+        }
+
+        var contentWidth = ImportModels!.Max(importModel => importModel.NamaAgen.Length);
+        _colWidthNamaAgenPx = (contentWidth * _charWidth) + _colsWidthPadding;
+
+        Log.Warning("Nama Agen col-width: {0}px", _colWidthNamaAgenPx);
+
+    }
+
+    private void SetEmailAgenColWidth()
+    {
+        if (ImportModels is null || !ImportModels.Any())
+        {
+            return;
+        }
+
+        var contentWidth = ImportModels!.Max(importModel => importModel.EmailAgen.Length);
+        _colWidthEmailAgenPx = (contentWidth * _charWidth) + _colsWidthPadding;
+
+        Log.Warning("Email Agen col-width: {0}px", _colWidthEmailAgenPx);
+    }
+
+    private void SetMitraAgenColWidth()
+    {
+        if (ImportModels is null || !ImportModels.Any())
+        {
+            return;
+        }
+
+        var contentWidth = ImportModels!.Max(importModel => importModel.MitraAgen.Length);
+        _colWidthMitraAgenPx = (contentWidth * _charWidth) + _colsWidthPadding;
+
+        Log.Warning("Mitra Agen col-width: {0}px", _colWidthMitraAgenPx);
     }
 }
