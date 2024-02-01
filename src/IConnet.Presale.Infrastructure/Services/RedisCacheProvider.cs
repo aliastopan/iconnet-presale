@@ -1,18 +1,24 @@
+using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 
 namespace IConnet.Presale.Infrastructure.Services;
 
 internal sealed class RedisCacheProvider : ICacheService
 {
-    private const int DbIndex = 3;
+    private int _dbIndex = 0;
     private readonly IConnectionMultiplexer _connectionMultiplexer;
+    private readonly AppSecretSettings _appSecretSettings;
 
-    public RedisCacheProvider(IConnectionMultiplexer connectionMultiplexer)
+    public RedisCacheProvider(IConnectionMultiplexer connectionMultiplexer,
+        IOptions<AppSecretSettings> appSecretOptions)
     {
         _connectionMultiplexer = connectionMultiplexer;
+        _appSecretSettings = appSecretOptions.Value;
+
+        _dbIndex = _appSecretSettings.RedisDbIndex;
     }
 
-    public IDatabase Redis => _connectionMultiplexer.GetDatabase(DbIndex);
+    public IDatabase Redis => _connectionMultiplexer.GetDatabase(_dbIndex);
 
     public async Task<string?> GetCacheValueAsync(string key)
     {
@@ -32,7 +38,7 @@ internal sealed class RedisCacheProvider : ICacheService
         try
         {
             var server = _connectionMultiplexer.GetServer(_connectionMultiplexer.GetEndPoints().First());
-            var keys = server.Keys(DbIndex);
+            var keys = server.Keys(_dbIndex);
             var values = new List<string?>();
 
             foreach (var key in keys)
