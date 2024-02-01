@@ -14,7 +14,7 @@ public class SignInModel : IAuthenticationModel
 
     public static string SummarizeErrorMessage(Error[] errors)
     {
-        if(errors.Length > 1)
+        if (errors.Length > 1)
         {
             return "Username and Password tidak boleh kosong.";
         }

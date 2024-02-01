@@ -6,7 +6,7 @@ public class SwaggerEndpoint : IEndpointDefinition, IEndpointService
 {
     public void DefineEndpoints(WebApplication app)
     {
-        if(app.Environment.IsProduction())
+        if (app.Environment.IsProduction())
         {
             return;
         }

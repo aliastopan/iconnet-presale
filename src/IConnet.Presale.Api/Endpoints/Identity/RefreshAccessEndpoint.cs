@@ -33,7 +33,7 @@ public class RefreshAccessEndpoint : IEndpointDefinition
     {
         var accessToken = httpContext.Request.Cookies["access-token"];
         var refreshToken = httpContext.Request.Cookies["refresh-token"];
-        if(accessToken is null || refreshToken is null)
+        if (accessToken is null || refreshToken is null)
         {
             return Results.Problem(new ProblemDetails
             {
