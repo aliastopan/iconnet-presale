@@ -9,8 +9,11 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
     private readonly string _pageName = "Helpdesk staging page";
     private static int _colWidthInChargePx = 225;
 
-    public string GridTemplateCols = $"185px {_colWidthInChargePx}px 80px 150px 150px 150px 150px 150px 150px 150px 150px 150px 150px 250px 225px;";
     public string ColWidthInChargeStyle => $"width: {_colWidthInChargePx}px;";
+    public string GridTemplateCols
+    {
+        get => $"185px {_colWidthInChargePx}px 80px 150px 150px 150px 150px 150px 150px 150px 150px 150px 150px 250px 225px;";
+    }
 
     protected override async Task OnInitializedAsync()
     {
