@@ -11,16 +11,16 @@ public class ImportModelColumnWidth : ColumnWidthBase
             return;
         }
 
-        SetColumnWidth<int>(importModels, crm => crm.NamaPemohon.Length, width => NamaPemohonPx = width);
-        SetColumnWidth<int>(importModels, crm => crm.EmailPemohon.Length, width => EmailPemohonPx = width);
-        SetColumnWidth<int>(importModels, crm => crm.AlamatPemohon.Length, width => AlamatPemohonPx = width);
-        SetColumnWidth<int>(importModels, crm => crm.NamaAgen.Length, width => NamaAgenPx = width);
-        SetColumnWidth<int>(importModels, crm => crm.EmailAgen.Length, width => EmailAgenPx = width);
-        SetColumnWidth<int>(importModels, crm => crm.MitraAgen.Length, width => MitraAgenPx = width);
+        SetColumnWidth<int>(importModels, crm => crm.NamaPemohon.Length, width => NamaPemohonPx = width, "Nama Pemohon");
+        SetColumnWidth<int>(importModels, crm => crm.EmailPemohon.Length, width => EmailPemohonPx = width, "Email Pemohon");
+        SetColumnWidth<int>(importModels, crm => crm.AlamatPemohon.Length, width => AlamatPemohonPx = width, "Alamat Pemohon");
+        SetColumnWidth<int>(importModels, crm => crm.NamaAgen.Length, width => NamaAgenPx = width, "Nama Agen");
+        SetColumnWidth<int>(importModels, crm => crm.EmailAgen.Length, width => EmailAgenPx = width, "Email Agen");
+        SetColumnWidth<int>(importModels, crm => crm.MitraAgen.Length, width => MitraAgenPx = width, "Mitra Agen");
     }
 
     private void SetColumnWidth<T>(IQueryable<IApprovalOpportunityModel> importModels, Expression<Func<IApprovalOpportunityModel, int>>
-        propertySelector, Action<int> setProperty)
+        propertySelector, Action<int> setProperty, string propertyName)
     {
         if (importModels is null || !importModels.Any())
         {
@@ -31,12 +31,6 @@ public class ImportModelColumnWidth : ColumnWidthBase
         int columnWidthPx = (contentWidth * CharWidth) + Padding;
         setProperty(columnWidthPx);
 
-        Log.Warning("content width: {0}, column width: {1}px", contentWidth, columnWidthPx);
-    }
-
-    private string GetPropertyName<T>(Expression<Func<IApprovalOpportunityModel, T>> propertySelector)
-    {
-        MemberExpression memberExpression = (MemberExpression)propertySelector.Body;
-        return memberExpression.Member.Name;
+        Log.Warning("{0} length: {1}, width: {2}px", propertyName, contentWidth, columnWidthPx);
     }
 }
