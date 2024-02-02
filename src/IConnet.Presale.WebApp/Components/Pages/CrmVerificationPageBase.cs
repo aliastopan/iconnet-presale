@@ -19,10 +19,12 @@ public class CrmVerificationPageBase : WorkloadPageBase
 
     protected async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
     {
-        if (row.Item is not null)
+        if (row.Item is null)
         {
-            await OpenDialogAsync(row.Item);
+            return;
         }
+
+        await OpenDialogAsync(row.Item);
     }
 
     protected async Task OpenDialogAsync(WorkPaper workPaper)
