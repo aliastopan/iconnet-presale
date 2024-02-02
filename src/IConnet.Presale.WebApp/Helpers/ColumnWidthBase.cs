@@ -2,15 +2,17 @@ namespace IConnet.Presale.WebApp.Helpers;
 
 public class ColumnWidthBase
 {
-    private static readonly int _charWidth = 8; //px
-    private static readonly int _padding = 20;  //px
+    private static readonly int _charWidth = 8;         //px
+    private static readonly int _padding = 32;          //px
+    private static readonly int _defaultWidth = 200;    //px
 
-    public int NamaPemohonPx { get; set; } = 200;
-    public int EmailPemohonPx { get; set; } = 200;
-    public int AlamatPemohonPx { get; set; } = 200;
-    public int NamaAgenPx { get; set; } = 200;
-    public int EmailAgenPx { get; set; } = 200;
-    public int MitraAgenPx { get; set; } = 200;
+    public static int DefaultWidth => _defaultWidth;
+    public int NamaPemohonPx { get; set; } = DefaultWidth;
+    public int EmailPemohonPx { get; set; } = DefaultWidth;
+    public int AlamatPemohonPx { get; set; } = DefaultWidth;
+    public int NamaAgenPx { get; set; } = DefaultWidth;
+    public int EmailAgenPx { get; set; } = DefaultWidth;
+    public int MitraAgenPx { get; set; } = DefaultWidth;
     // KeteranganPx
 
     protected int CharWidth => _charWidth;
