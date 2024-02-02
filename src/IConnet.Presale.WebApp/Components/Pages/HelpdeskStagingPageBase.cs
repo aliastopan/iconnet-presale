@@ -26,29 +26,31 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
 
     protected async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
     {
-        if (row.Item is not null)
+        if (row.Item is null)
         {
-            var workPaper = row.Item;
-            Log.Warning("Selected row {0}", workPaper is null ? "null" : workPaper.ApprovalOpportunity.IdPermohonan);
+            return;
+        }
 
-            var now = DateTimeService.DateTimeOffsetNow.DateTime;
-            var duration = new TimeSpan(0, 5, 0);
-            var timeRemaining = workPaper!.HelpdeskInCharge.GetDurationRemaining(now, duration);
-            var label = timeRemaining > TimeSpan.Zero ? "Active" : "Expired";
+        var workPaper = row.Item;
+        Log.Warning("Selected row {0}", workPaper is null ? "null" : workPaper.ApprovalOpportunity.IdPermohonan);
 
-            Log.Warning("Time remaining: {0} {1}", timeRemaining, label);
+        var now = DateTimeService.DateTimeOffsetNow.DateTime;
+        var duration = new TimeSpan(0, 5, 0);
+        var timeRemaining = workPaper!.HelpdeskInCharge.GetDurationRemaining(now, duration);
+        var label = timeRemaining > TimeSpan.Zero ? "Active" : "Expired";
 
-            var isExpired = workPaper!.HelpdeskInCharge.IsDurationExceeded(now, duration);
-            var isFresh = workPaper!.HelpdeskInCharge.IsEmptySignature();
+        Log.Warning("Time remaining: {0} {1}", timeRemaining, label);
 
-            if (isFresh || isExpired)
-            {
-                await OpenDialogAsync(row.Item);
-            }
-            else
-            {
-                await ToastNotificationAsync(workPaper!.HelpdeskInCharge.Alias);
-            }
+        var hasYetStaged = workPaper!.HelpdeskInCharge.IsEmptySignature();
+        var isStageExpired = workPaper!.HelpdeskInCharge.IsDurationExceeded(now, duration);
+
+        if (hasYetStaged || isStageExpired)
+        {
+            await OpenDialogAsync(row.Item);
+        }
+        else
+        {
+            await ToastNotificationAsync(workPaper!.HelpdeskInCharge.Alias);
         }
     }
 
