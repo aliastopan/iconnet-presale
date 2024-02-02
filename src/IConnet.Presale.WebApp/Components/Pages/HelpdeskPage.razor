@@ -30,6 +30,7 @@
                     TGridItem="WorkPaper"
                     Virtualize="true"
                     ItemSize="32"
+                    OnRowFocus="@OnRowSelected"
                     EmptyContent="@HtmlFragment.EmptyContent"
                     GridTemplateColumns="185px 80px">
 
@@ -56,7 +57,9 @@
             }
         </div>
         <div>
-            <WorkloadValidationForm />
+            <CascadingValue Name="CascadeWorkPaper" Value="@WorkPaper">
+                <WorkloadValidationForm />
+            </CascadingValue>
         </div>
     }
     else

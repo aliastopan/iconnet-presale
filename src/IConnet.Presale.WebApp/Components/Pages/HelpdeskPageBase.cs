@@ -12,6 +12,7 @@ public class HelpdeskPageBase : WorkloadPageBase
     public string ToggleText => ShowClaims ? "Hide" : "Show";
 
     protected override IQueryable<WorkPaper>? WorkPapers => GetMatchInCharge();
+    protected WorkPaper? WorkPaper { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -27,10 +28,35 @@ public class HelpdeskPageBase : WorkloadPageBase
         return base.WorkPapers?.Where(x => x.HelpdeskInCharge.AccountIdSignature == _sessionId);
     }
 
-    protected bool IsStillInCharge(WorkPaper workPaper)
+    protected async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
+    {
+        if (row.Item is null)
+        {
+            return;
+        }
+
+        WorkPaper = row.Item;
+
+        var isStillInCharge = IsStillInCharge(WorkPaper);
+
+        Log.Warning("Selected: {0}", WorkPaper.ApprovalOpportunity.IdPermohonan);
+
+
+
+        await Task.CompletedTask;
+    }
+
+    protected bool IsStillInCharge(WorkPaper workPaper, bool debug = false)
     {
         var now = DateTimeService.DateTimeOffsetNow.DateTime;
         var duration = new TimeSpan(0, 5, 0);
+
+        if (debug)
+        {
+            var timeRemaining = workPaper.HelpdeskInCharge.GetDurationRemaining(now, duration);
+            Log.Warning("Time remaining: {0}", timeRemaining);
+        }
+
 
         return !workPaper.HelpdeskInCharge.IsDurationExceeded(now, duration);
     }
