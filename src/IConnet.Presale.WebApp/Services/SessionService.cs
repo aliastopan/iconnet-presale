@@ -45,6 +45,17 @@ public sealed class SessionService
         };
     }
 
+    public async Task<bool> IsAliasMatch(string alias)
+    {
+        var sessionAlias = await GetSessionAliasAsync();
+        if (sessionAlias != alias)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     public async Task<string> GetSessionAliasAsync()
     {
         if (UserModel is null)
