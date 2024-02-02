@@ -196,13 +196,13 @@
 
     private async Task SaveAsync()
     {
-        VerifyCrm();
+        await VerifyCrmAsync();
         await Dialog.CloseAsync(Content);
     }
 
     private async Task DeleteAsync()
     {
-        DeleteCrm();
+        await DeleteCrmAsync();
         await Dialog.CloseAsync(Content);
     }
 
@@ -211,24 +211,24 @@
         await Dialog.CancelAsync();
     }
 
-    private void VerifyCrm()
+    private async Task VerifyCrmAsync()
     {
         Content.ApprovalOpportunity.StatusImport = ImportStatus.Verified;
         Content.ApprovalOpportunity.ImportVerifikasiSignature = new ActionSignature
         {
             AccountIdSignature = _sessionService.UserModel!.UserAccountId,
-            Alias = _sessionService.GetSessionAlias(),
+            Alias = await _sessionService.GetSessionAliasAsync(),
             TglAksi = _dateTimeService.DateTimeOffsetNow.DateTime
         };
     }
 
-    private void DeleteCrm()
+    private async Task DeleteCrmAsync()
     {
         Content.ApprovalOpportunity.StatusImport = ImportStatus.Invalid;
         Content.ApprovalOpportunity.ImportVerifikasiSignature = new ActionSignature
         {
             AccountIdSignature = _sessionService.UserModel!.UserAccountId,
-            Alias = _sessionService.GetSessionAlias(),
+            Alias = await _sessionService.GetSessionAliasAsync(),
             TglAksi = _dateTimeService.DateTimeOffsetNow.DateTime
         };
     }
