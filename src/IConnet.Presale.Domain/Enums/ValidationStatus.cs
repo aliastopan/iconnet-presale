@@ -4,6 +4,6 @@ namespace IConnet.Presale.Domain.Enums;
 public enum ValidationStatus
 {
     Default,
-    Sesuai,
-    TidakSesuai
+    TidakSesuai,
+    Sesuai
 }
