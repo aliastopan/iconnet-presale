@@ -3,7 +3,7 @@ namespace IConnet.Presale.Domain.Enums;
 [Flags]
 public enum ValidationStatus
 {
-    Unset,
+    Default,
     Sesuai,
     TidakSesuai
 }
