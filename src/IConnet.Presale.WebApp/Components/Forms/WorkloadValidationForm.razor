@@ -1,32 +1,28 @@
 @using IConnet.Presale.Domain.Common
 @using IConnet.Presale.Domain.Enums
 
-<FluentStack Orientation="Orientation.Horizontal"
-                    HorizontalAlignment="HorizontalAlignment.Start"
-                    VerticalAlignment="VerticalAlignment.Top"
-                    HorizontalGap="4">
-
-    <div class="validation-element">
-        <div class="validation-label">
-            <FluentLabel Typo="Typography.Body"> LABEL </FluentLabel>
-            <FluentSelect Items="@StatusValidasi"
-                @bind-Value="@placeholder"
-                Position="SelectPosition.Below"
-                Width="150px" />
-        </div>
-        <div class="validation-value">
-            <FluentLabel Typo="Typography.Body"> VALUE </FluentLabel>
-            <FluentTextField @bind-Value=placeholder
-                Disabled="true"
-                Placeholder="Proper value"></FluentTextField>
-        </div>
-    </div>
-
-</FluentStack>
-
-@code
+@if (WorkPaper is not null)
 {
-    IEnumerable<string> StatusValidasi => EnumHelper.GetIEnumerable<ValidationStatus>(skipFirst: true);
+    <FluentStack Orientation="Orientation.Horizontal"
+        HorizontalAlignment="HorizontalAlignment.Start"
+        VerticalAlignment="VerticalAlignment.Top"
+        HorizontalGap="4">
 
-    string? placeholder;
+        <div class="validation-element">
+            <div class="validation-label">
+                <FluentLabel Typo="Typography.Body"> LABEL </FluentLabel>
+                <FluentSelect Items="@StatusValidasi"
+                    @bind-Value="@placeholder"
+                    Position="SelectPosition.Below"
+                    Width="150px" />
+            </div>
+            <div class="validation-value">
+                <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap</FluentLabel>
+                <FluentTextField @bind-Value=placeholder
+                    Disabled="true"
+                    Placeholder="Proper value"></FluentTextField>
+            </div>
+        </div>
+
+    </FluentStack>
 }
