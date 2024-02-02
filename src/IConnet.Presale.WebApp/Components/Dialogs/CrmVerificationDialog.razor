@@ -1,13 +1,4 @@
-@using IConnet.Presale.Domain.Aggregates.Presales
-@using IConnet.Presale.Domain.Aggregates.Presales.ValueObjects
-@using IConnet.Presale.Domain.Enums
-@using IConnet.Presale.Application.Common.Interfaces.Services
-@using IConnet.Presale.WebApp.Services
-
 @implements IDialogContentComponent<WorkPaper>
-
-@inject IDateTimeService _dateTimeService
-@inject SessionService _sessionService
 
 <FluentDialogHeader ShowDismiss="true">
     <FluentStack VerticalAlignment="VerticalAlignment.Center">
@@ -21,7 +12,7 @@
 <div class="d-flex flex-row mb-3">
     <span class="px-1">Di-Import</span>
     <FluentBadge Appearance="Appearance.Accent">
-        @(_dateTimeService.GetElapsedTime(Content.ApprovalOpportunity.ImportSignature.TglAksi).AsReadableDateTimeWithSeconds())
+        @(DateTimeService.GetElapsedTime(Content.ApprovalOpportunity.ImportSignature.TglAksi).AsReadableDateTimeWithSeconds())
     </FluentBadge>
     <span class="px-1">yang lalu</span>
     <FluentBadge Appearance="Appearance.Accent">
@@ -44,7 +35,7 @@
                 </tr>
                 <tr>
                     <th style="padding-right: 1rem; width: 200px;">DURASI TIDAK LANJUT</th>
-                    <td>@_dateTimeService.GetElapsedTime(Content.ApprovalOpportunity.TglPermohonan).AsReadableDateTime()</td>
+                    <td>@DateTimeService.GetElapsedTime(Content.ApprovalOpportunity.TglPermohonan).AsReadableDateTime()</td>
                 </tr>
                 <tr>
                     <th style="padding-right: 1rem; width: 200px;">LAYANAN</th>
@@ -183,53 +174,3 @@
         <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Batal</FluentButton>
     </FluentStack>
 </FluentDialogFooter>
-
-@code
-{
-    private bool _isCrmValid = false;
-
-    [Parameter]
-    public WorkPaper Content { get; set; } = default!;
-
-    [CascadingParameter]
-    public FluentDialog Dialog { get; set; } = default!;
-
-    private async Task SaveAsync()
-    {
-        await VerifyCrmAsync();
-        await Dialog.CloseAsync(Content);
-    }
-
-    private async Task DeleteAsync()
-    {
-        await DeleteCrmAsync();
-        await Dialog.CloseAsync(Content);
-    }
-
-    private async Task CancelAsync()
-    {
-        await Dialog.CancelAsync();
-    }
-
-    private async Task VerifyCrmAsync()
-    {
-        Content.ApprovalOpportunity.StatusImport = ImportStatus.Verified;
-        Content.ApprovalOpportunity.ImportVerifikasiSignature = new ActionSignature
-        {
-            AccountIdSignature = _sessionService.UserModel!.UserAccountId,
-            Alias = await _sessionService.GetSessionAliasAsync(),
-            TglAksi = _dateTimeService.DateTimeOffsetNow.DateTime
-        };
-    }
-
-    private async Task DeleteCrmAsync()
-    {
-        Content.ApprovalOpportunity.StatusImport = ImportStatus.Invalid;
-        Content.ApprovalOpportunity.ImportVerifikasiSignature = new ActionSignature
-        {
-            AccountIdSignature = _sessionService.UserModel!.UserAccountId,
-            Alias = await _sessionService.GetSessionAliasAsync(),
-            TglAksi = _dateTimeService.DateTimeOffsetNow.DateTime
-        };
-    }
-}
