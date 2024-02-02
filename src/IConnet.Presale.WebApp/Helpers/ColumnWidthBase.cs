@@ -1,6 +1,8 @@
+using System.Linq.Expressions;
+
 namespace IConnet.Presale.WebApp.Helpers;
 
-public class ColumnWidthBase
+public abstract class ColumnWidthBase<T>
 {
     private static readonly int _charWidth = 8;         //px
     private static readonly int _padding = 32;          //px
@@ -25,4 +27,24 @@ public class ColumnWidthBase
     public string EmailAgenStyle => $"width: {EmailAgenPx}px;";
     public string MitraAgenStyle => $"width: {MitraAgenPx}px;";
     public string KeteranganStyle => $"width: {KeteranganPx}px;";
+
+    public abstract void SetColumnWidth(IQueryable<T>? models);
+
+    protected void SetColumnWidth(IQueryable<T> importModels, Expression<Func<T, int>> propertySelector, Action<int>
+        setProperty, string propertyName)
+    {
+        if (importModels is null || !importModels.Any())
+        {
+            return;
+        }
+
+        int contentWidth = importModels.Max(propertySelector.Compile());
+        int columnWidthPx = (contentWidth * CharWidth) + Padding;
+        Log.Warning("{0} length: {1}, width: {2}px", propertyName, contentWidth, columnWidthPx);
+
+        if (columnWidthPx > DefaultWidth)
+        {
+            setProperty(columnWidthPx);
+        }
+    }
 }
