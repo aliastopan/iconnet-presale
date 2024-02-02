@@ -1,3 +1,4 @@
+@using IConnet.Presale.Domain.Common
 @using IConnet.Presale.Domain.Enums
 
 <FluentStack Orientation="Orientation.Horizontal"
@@ -8,8 +9,9 @@
     <div class="validation-element">
         <div class="validation-label">
             <FluentLabel Typo="Typography.Body"> LABEL </FluentLabel>
-            <FluentCombobox Placeholder="Status Validasi"
-                Items="@statusList" @bind-Value="@placeholder"
+            <FluentSelect Items="@StatusValidasi"
+                @bind-Value="@placeholder"
+                Position="SelectPosition.Below"
                 Width="150px" />
         </div>
         <div class="validation-value">
@@ -24,12 +26,7 @@
 
 @code
 {
-    string? placeholder;
-    List<string> status = new List<string>
-    {
-        "TIDAK SESUAI",
-        "SESUAI",
-    };
+    IEnumerable<string> StatusValidasi => EnumHelper.GetIEnumerable<ValidationStatus>(skipFirst: true);
 
-    IEnumerable<string> statusList => status;
+    string? placeholder;
 }
