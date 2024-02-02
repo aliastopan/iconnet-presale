@@ -93,7 +93,7 @@ public sealed class CrmImportService
             Longitude = column[27],
             TglImport = _dateTimeService.DateTimeOffsetNow.DateTime,
             ImportAccountIdSignature = await _sessionService.GetUserAccountIdAsync(),
-            ImportAliasSignature = _sessionService.GetSessionAlias()
+            ImportAliasSignature = await _sessionService.GetSessionAliasAsync()
         };
     }
 
