@@ -11,15 +11,15 @@ public class ImportModelColumnWidth : ColumnWidthBase
             return;
         }
 
-        SetColumnWidth(importModels, crm => crm.NamaPemohon, width => NamaPemohonPx = width);
-        SetColumnWidth(importModels, crm => crm.EmailPemohon, width => EmailPemohonPx = width);
-        SetColumnWidth(importModels, crm => crm.AlamatPemohon, width => AlamatPemohonPx = width);
-        SetColumnWidth(importModels, crm => crm.NamaAgen, width => NamaAgenPx = width);
-        SetColumnWidth(importModels, crm => crm.EmailAgen, width => EmailAgenPx = width);
-        SetColumnWidth(importModels, crm => crm.MitraAgen, width => MitraAgenPx = width);
+        SetColumnWidth<int>(importModels, crm => crm.NamaPemohon.Length, width => NamaPemohonPx = width);
+        SetColumnWidth<int>(importModels, crm => crm.EmailPemohon.Length, width => EmailPemohonPx = width);
+        SetColumnWidth<int>(importModels, crm => crm.AlamatPemohon.Length, width => AlamatPemohonPx = width);
+        SetColumnWidth<int>(importModels, crm => crm.NamaAgen.Length, width => NamaAgenPx = width);
+        SetColumnWidth<int>(importModels, crm => crm.EmailAgen.Length, width => EmailAgenPx = width);
+        SetColumnWidth<int>(importModels, crm => crm.MitraAgen.Length, width => MitraAgenPx = width);
     }
 
-    private void SetColumnWidth<T>(IQueryable<IApprovalOpportunityModel> importModels, Expression<Func<IApprovalOpportunityModel, T>>
+    private void SetColumnWidth<T>(IQueryable<IApprovalOpportunityModel> importModels, Expression<Func<IApprovalOpportunityModel, int>>
         propertySelector, Action<int> setProperty)
     {
         if (importModels is null || !importModels.Any())
@@ -27,12 +27,11 @@ public class ImportModelColumnWidth : ColumnWidthBase
             return;
         }
 
-        var maxContentLength = importModels.Max(propertySelector.Compile());
-        var columnWidth = ((maxContentLength?.ToString()!.Length ?? 0) * CharWidth) + Padding;
-        setProperty(columnWidth);
+        int contentWidth = importModels.Max(propertySelector.Compile());
+        int columnWidthPx = (contentWidth * CharWidth) + Padding;
+        setProperty(columnWidthPx);
 
-        var propertyName = GetPropertyName(propertySelector);
-        Log.Warning("{0}: {1}px", propertyName, columnWidth);
+        Log.Warning("content width: {0}, column width: {1}px", contentWidth, columnWidthPx);
     }
 
     private string GetPropertyName<T>(Expression<Func<IApprovalOpportunityModel, T>> propertySelector)
