@@ -1,0 +1,14 @@
+.validation-element{
+    display: flex;
+    flex-direction: row;
+}
+
+.validation-label{
+    width: 200px;
+    color: black;
+}
+
+.validation-value{
+    width: 500px;
+    color: black;
+}
