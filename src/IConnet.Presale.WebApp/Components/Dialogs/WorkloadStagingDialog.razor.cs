@@ -1,6 +1,6 @@
 namespace IConnet.Presale.WebApp.Components.Dialogs;
 
-public partial class WorkloadStageDialog
+public partial class WorkloadStagingDialog
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
