@@ -13,7 +13,7 @@ public class ColumnWidthBase
     public int NamaAgenPx { get; set; } = DefaultWidth;
     public int EmailAgenPx { get; set; } = DefaultWidth;
     public int MitraAgenPx { get; set; } = DefaultWidth;
-    // KeteranganPx
+    public int KeteranganPx { get; set; } = DefaultWidth;
 
     protected int CharWidth => _charWidth;
     protected int Padding => _padding;
@@ -24,4 +24,5 @@ public class ColumnWidthBase
     public string NamaAgenStyle => $"width: {NamaAgenPx}px;";
     public string EmailAgenStyle => $"width: {EmailAgenPx}px;";
     public string MitraAgenStyle => $"width: {MitraAgenPx}px;";
+    public string KeteranganStyle => $"width: {KeteranganPx}px;";
 }

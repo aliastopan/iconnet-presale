@@ -17,6 +17,7 @@ public class ImportModelColumnWidth : ColumnWidthBase
         SetColumnWidth<int>(importModels, crm => crm.NamaAgen.Length, width => NamaAgenPx = width, "Nama Agen");
         SetColumnWidth<int>(importModels, crm => crm.EmailAgen.Length, width => EmailAgenPx = width, "Email Agen");
         SetColumnWidth<int>(importModels, crm => crm.MitraAgen.Length, width => MitraAgenPx = width, "Mitra Agen");
+        SetColumnWidth<int>(importModels, crm => crm.Keterangan.Length, width => KeteranganPx = width, "Keterangan");
     }
 
     private void SetColumnWidth<T>(IQueryable<IApprovalOpportunityModel> importModels, Expression<Func<IApprovalOpportunityModel, int>>
