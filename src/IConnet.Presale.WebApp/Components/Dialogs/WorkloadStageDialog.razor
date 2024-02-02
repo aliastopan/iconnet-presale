@@ -1,13 +1,4 @@
-@using IConnet.Presale.Domain.Aggregates.Presales
-@using IConnet.Presale.Domain.Aggregates.Presales.ValueObjects
-@using IConnet.Presale.Domain.Enums
-@using IConnet.Presale.Application.Common.Interfaces.Services
-@using IConnet.Presale.WebApp.Services
-
 @implements IDialogContentComponent<WorkPaper>
-
-@inject IDateTimeService _dateTimeService
-@inject SessionService _sessionService
 
 <FluentDialogHeader ShowDismiss="true">
     <FluentStack VerticalAlignment="VerticalAlignment.Center">
@@ -75,34 +66,3 @@
         <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Batal</FluentButton>
     </FluentStack>
 </FluentDialogFooter>
-
-@code
-{
-    [Parameter]
-    public WorkPaper Content { get; set; } = default!;
-
-    [CascadingParameter]
-    public FluentDialog Dialog { get; set; } = default!;
-
-    private async Task SaveAsync()
-    {
-        await StageWorkloadAsync();
-        await Dialog.CloseAsync(Content);
-    }
-
-    private async Task CancelAsync()
-    {
-        await Dialog.CancelAsync();
-    }
-
-    public async Task StageWorkloadAsync()
-    {
-        Content.Shift = (await _sessionService.GetJobShiftAsync()).ToString();
-        Content.HelpdeskInCharge = new ActionSignature
-        {
-            AccountIdSignature = await _sessionService.GetUserAccountIdAsync(),
-            Alias = await _sessionService.GetSessionAliasAsync(),
-            TglAksi = _dateTimeService.DateTimeOffsetNow.DateTime
-        };
-    }
-}

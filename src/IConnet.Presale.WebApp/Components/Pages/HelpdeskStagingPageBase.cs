@@ -66,7 +66,7 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
     {
         var parameters = new DialogParameters()
         {
-            Title = "Klaim Workload",
+            Title = "Stage Workload",
             TrapFocus = true,
             Width = "500px",
         };
