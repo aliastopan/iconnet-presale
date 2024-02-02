@@ -4,7 +4,10 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class HelpdeskStagingPageBase : WorkloadPageBase
 {
+    [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public IDialogService DialogService { get; set; } = default!;
+    [Inject] public IToastService ToastService { get; set; } = default!;
+    [Inject] public SessionService SessionService { get; set; } = default!;
 
     private readonly string _pageName = "Helpdesk staging page";
 
@@ -28,8 +31,35 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
             var workPaper = row.Item;
             Log.Warning("Selected row {0}", workPaper is null ? "null" : workPaper.ApprovalOpportunity.IdPermohonan);
 
-            await OpenDialogAsync(row.Item);
+            var now = DateTimeService.DateTimeOffsetNow.DateTime;
+            var duration = new TimeSpan(0, 5, 0);
+            var timeRemaining = workPaper!.HelpdeskInCharge.GetDurationRemaining(now, duration);
+            var label = timeRemaining > TimeSpan.Zero ? "Active" : "Expired";
+
+            Log.Warning("Time remaining: {0} {1}", timeRemaining, label);
+
+            var isExpired = workPaper!.HelpdeskInCharge.IsDurationExceeded(now, duration);
+            var isFresh = workPaper!.HelpdeskInCharge.IsEmptySignature();
+
+            if (isFresh || isExpired)
+            {
+                await OpenDialogAsync(row.Item);
+            }
+            else
+            {
+                await ToastNotificationAsync(workPaper!.HelpdeskInCharge.Alias);
+            }
         }
+    }
+
+    protected async Task ToastNotificationAsync(string inChargeAlias)
+    {
+        var intent = ToastIntent.Warning;
+        var message = await SessionService.IsAliasMatch(inChargeAlias)
+            ? "Presale telah Anda tampung."
+            : $"Presale masih diproses oleh {inChargeAlias}.";
+
+        ToastService.ShowToast(intent, message);
     }
 
     protected async Task OpenDialogAsync(WorkPaper workPaper)
