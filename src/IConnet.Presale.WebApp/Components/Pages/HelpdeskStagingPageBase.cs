@@ -7,12 +7,10 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
     [Inject] public IDialogService DialogService { get; set; } = default!;
 
     private readonly string _pageName = "Helpdesk staging page";
-    private static int _colWidthInChargePx = 225;
 
-    public string ColWidthInChargeStyle => $"width: {_colWidthInChargePx}px;";
     public string GridTemplateCols
     {
-        get => $"185px {_colWidthInChargePx}px 80px 150px 150px 150px 150px 150px 150px 150px 150px 150px 150px 250px 225px;";
+        get => $"185px 150px 120px 150px 150px 150px 150px 150px 150px 150px 150px 150px 150px 250px 225px;";
     }
 
     protected override async Task OnInitializedAsync()
@@ -21,8 +19,6 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
         CacheFetchMode = CacheFetchMode.OnlyImportVerified;
 
         await base.OnInitializedAsync();
-
-        SetHelpdeskInChargeColWidth();
     }
 
     protected async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
@@ -61,18 +57,5 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
 
         var message = $"{workPaper.HelpdeskInCharge.Alias} has claimed '{workPaper.ApprovalOpportunity.IdPermohonan}'";
         await BroadcastService.BroadcastMessageAsync(message);
-    }
-
-    private void SetHelpdeskInChargeColWidth()
-    {
-        if (WorkPapers is null || !WorkPapers.Any())
-        {
-            return;
-        }
-
-        var contentWidth = WorkPapers!.Max(workPaper => workPaper.HelpdeskInCharge.Alias.Length);
-        _colWidthInChargePx = (contentWidth * CharWidth) + ColsWidthPadding;
-
-        Log.Warning("PIC col-width: {0}px", _colWidthInChargePx);
     }
 }
