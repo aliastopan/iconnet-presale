@@ -29,6 +29,7 @@
                 <FluentDataGrid Items="@WorkPapers"
                     TGridItem="WorkPaper"
                     Virtualize="true"
+                    Pagination="@Pagination"
                     ItemSize="32"
                     OnRowFocus="@OnRowSelected"
                     EmptyContent="@HtmlFragment.EmptyContent"
@@ -54,6 +55,13 @@
                     }
                 </TemplateColumn>
                 </FluentDataGrid>
+
+                <FluentPaginator State="@Pagination">
+                    <SummaryTemplate></SummaryTemplate>
+                    <PaginationTextTemplate>
+                        Halaman <strong>@(Pagination.CurrentPageIndex + 1)</strong> dari <strong>@(Pagination.LastPageIndex + 1)</strong>
+                    </PaginationTextTemplate>
+                </FluentPaginator>
             }
         </div>
         <div>
