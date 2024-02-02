@@ -3,6 +3,7 @@ global using Microsoft.FluentUI.AspNetCore.Components;
 global using Microsoft.JSInterop;
 
 global using IConnet.Presale.Domain.Aggregates.Presales;
+global using IConnet.Presale.Domain.Aggregates.Presales.ValueObjects;
 global using IConnet.Presale.Domain.Enums;
 global using IConnet.Presale.Application.Common.Interfaces.Managers;
 global using IConnet.Presale.Application.Common.Interfaces.Managers.Options;
