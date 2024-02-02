@@ -4,6 +4,7 @@ global using Microsoft.JSInterop;
 
 global using IConnet.Presale.Domain.Aggregates.Presales;
 global using IConnet.Presale.Domain.Aggregates.Presales.ValueObjects;
+global using IConnet.Presale.Domain.Common;
 global using IConnet.Presale.Domain.Enums;
 global using IConnet.Presale.Application.Common.Interfaces.Managers;
 global using IConnet.Presale.Application.Common.Interfaces.Managers.Options;
