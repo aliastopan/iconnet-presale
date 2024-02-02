@@ -1,0 +1,35 @@
+@using IConnet.Presale.Domain.Enums
+
+<FluentStack Orientation="Orientation.Horizontal"
+                    HorizontalAlignment="HorizontalAlignment.Start"
+                    VerticalAlignment="VerticalAlignment.Top"
+                    HorizontalGap="4">
+
+    <div class="validation-element">
+        <div class="validation-label">
+            <FluentLabel Typo="Typography.Body"> LABEL </FluentLabel>
+            <FluentCombobox Placeholder="Status Validasi"
+                Items="@statusList" @bind-Value="@placeholder"
+                Width="150px" />
+        </div>
+        <div class="validation-value">
+            <FluentLabel Typo="Typography.Body"> VALUE </FluentLabel>
+            <FluentTextField @bind-Value=placeholder
+                Disabled="true"
+                Placeholder="Proper value"></FluentTextField>
+        </div>
+    </div>
+
+</FluentStack>
+
+@code
+{
+    string? placeholder;
+    List<string> status = new List<string>
+    {
+        "TIDAK SESUAI",
+        "SESUAI",
+    };
+
+    IEnumerable<string> statusList => status;
+}
