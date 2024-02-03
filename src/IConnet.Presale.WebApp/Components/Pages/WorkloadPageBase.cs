@@ -18,7 +18,7 @@ public class WorkloadPageBase : ComponentBase
     protected GridSort<WorkPaper> SortByIdPermohonan => _sortByIdPermohonan;
 
     protected string PageName { get; set; } = "Workload page (base)";
-    protected bool IsLoading { get; set; } = false;
+    protected virtual bool IsLoading { get; set; } = false;
 
     protected override async Task OnInitializedAsync()
     {
