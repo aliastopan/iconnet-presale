@@ -17,7 +17,13 @@ public class SharedWorkloadPageBase : WorkloadPageBase
 
         await base.OnInitializedAsync();
 
-        // need to called each time fetching WorkPapers
+        _columnWidth.SetColumnWidth(WorkPapers);
+    }
+
+    protected override async Task OnUpdateWorkloadAsync(string message)
+    {
+        await base.OnUpdateWorkloadAsync(message);
+
         _columnWidth.SetColumnWidth(WorkPapers);
     }
 

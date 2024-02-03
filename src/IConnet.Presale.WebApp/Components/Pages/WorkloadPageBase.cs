@@ -28,7 +28,7 @@ public class WorkloadPageBase : ComponentBase
         BroadcastService.Subscribe(OnUpdateWorkloadAsync);
     }
 
-    private async Task OnUpdateWorkloadAsync(string message)
+    protected virtual async Task OnUpdateWorkloadAsync(string message)
     {
         List<WorkPaper> workload = await WorkloadManager.FetchWorkloadAsync(CacheFetchMode);
         _workPapers = workload.AsQueryable();
