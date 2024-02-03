@@ -9,13 +9,35 @@ public abstract class ColumnWidthBase<T>
     private readonly static int _defaultWidth = 200;    //px
 
     public static int DefaultWidth => _defaultWidth;
+
+    public int IdPermohonanPx { get; set; } = 185;
+    public int TglPermohonanPx { get; set; } = DefaultWidth;
+    public int DurasiTidakLanjutPx { get; set; } = DefaultWidth;
     public int NamaPemohonPx { get; set; } = DefaultWidth;
-    public int EmailPemohonPx { get; set; } = DefaultWidth;
-    public int AlamatPemohonPx { get; set; } = DefaultWidth;
+    public int IdPlnPx { get; set; } = 120;
+    public int LayananPx { get; set; } = 150;
+    public int SumberPermohonanPx { get; set; } = 250;
+    public int StatusPermohonanPx { get; set; } = 250;
     public int NamaAgenPx { get; set; } = DefaultWidth;
     public int EmailAgenPx { get; set; } = DefaultWidth;
+    public int TelpAgenPx { get; set; } = 150;
     public int MitraAgenPx { get; set; } = DefaultWidth;
+    public int SplitterPx { get; set; } = 150;
+    public int JenisPermohonanPx { get; set; } = 180;
+    public int TelpPemohonPx { get; set; } = 150;
+    public int EmailPemohonPx { get; set; } = DefaultWidth;
+    public int NikPemohonPx { get; set; } = 150;
+    public int NpwpPemohonPx { get; set; } = 150;
     public int KeteranganPx { get; set; } = DefaultWidth;
+    public int AlamatPemohonPx { get; set; } = DefaultWidth;
+    public int RegionalPx { get; set; } = 150;
+    public int KantorPerwakilanPx { get; set; } = 180;
+    public int ProvinsiPx { get; set; } = 150;
+    public int KabupatenPx { get; set; } = 150;
+    public int KecamatanPx { get; set; } = 150;
+    public int KelurahanPx { get; set; } = 150;
+    public int LatitudePx { get; set; } = 150;
+    public int LongitudePx { get; set; } = 150;
 
     protected int CharWidth => _charWidth;
     protected int Padding => _padding;
