@@ -1,6 +1,6 @@
 namespace IConnet.Presale.WebApp.Components.Dialogs;
 
-public partial class WorkloadStagingAlertDialog
+public partial class WorkloadStagingAlertDialog : IDialogContentComponent<WorkPaper>
 {
     [Parameter]
     public WorkPaper Content { get; set; } = default!;

@@ -1,6 +1,6 @@
 namespace IConnet.Presale.WebApp.Components.Dialogs;
 
-public partial class CrmVerificationDialog
+public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
