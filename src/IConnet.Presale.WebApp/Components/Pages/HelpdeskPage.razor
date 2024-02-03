@@ -63,7 +63,9 @@
                 <FluentPaginator State="@Pagination">
                     <SummaryTemplate></SummaryTemplate>
                     <PaginationTextTemplate>
-                        Hal. <strong>@(Pagination.CurrentPageIndex + 1)</strong> dari <strong>@(Pagination.LastPageIndex + 1)</strong>
+                        <span style="padding: 0 10px;">
+                            Hal. <strong>@(Pagination.CurrentPageIndex + 1)</strong> dari <strong>@(Pagination.LastPageIndex + 1)</strong>
+                        </span>
                     </PaginationTextTemplate>
                 </FluentPaginator>
             }

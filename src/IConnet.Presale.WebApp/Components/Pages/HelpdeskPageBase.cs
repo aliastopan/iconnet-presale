@@ -15,8 +15,8 @@ public class HelpdeskPageBase : WorkloadPageBase
 
     public bool ShowClaims { get; set; } = true;
     public string ToggleText => ShowClaims ? "Hide" : "Show";
-    protected int ColumnWidthIdPermohonan { get; set; } = 180;  //px
-    protected int ColumnWidthStagingStatus { get; set; } = 80;  //px
+    protected int ColumnWidthIdPermohonan { get; set; } = 185;  //px
+    protected int ColumnWidthStagingStatus { get; set; } = 90;  //px
     protected int ColumnWidthMax => ColumnWidthIdPermohonan + ColumnWidthStagingStatus;
     protected string IdPermohonanStyle => $"width: {ColumnWidthIdPermohonan}px;";
     protected string StagingStatusStyle => $"width: {ColumnWidthStagingStatus}px;";
