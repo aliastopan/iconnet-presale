@@ -67,7 +67,7 @@ public class CrmVerificationPageBase : WorkloadPageBase
         Log.Warning("Import status after: {0}", dialogData.ApprovalOpportunity.StatusImport);
     }
 
-    protected async Task VerifyCrmAsync(WorkPaper workPaper)
+    private async Task VerifyCrmAsync(WorkPaper workPaper)
     {
         IsLoading = true;
 
@@ -79,7 +79,7 @@ public class CrmVerificationPageBase : WorkloadPageBase
         IsLoading = false;
     }
 
-    protected async Task DeleteCrmAsync(WorkPaper workPaper)
+    private async Task DeleteCrmAsync(WorkPaper workPaper)
     {
         IsLoading = true;
 

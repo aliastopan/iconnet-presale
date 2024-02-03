@@ -93,7 +93,7 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
         await StageWorkloadAsync(dialogData);
     }
 
-    protected async Task StageWorkloadAsync(WorkPaper workPaper)
+    private async Task StageWorkloadAsync(WorkPaper workPaper)
     {
         var count = await GetStageCountAsync();
         if (count > _stagingLimit)

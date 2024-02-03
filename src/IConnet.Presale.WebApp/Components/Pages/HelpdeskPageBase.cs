@@ -90,6 +90,20 @@ public class HelpdeskPageBase : WorkloadPageBase
         Log.Warning("{0} claim has been extended", dialogData.ApprovalOpportunity.IdPermohonan);
     }
 
+    protected bool IsStillInCharge(WorkPaper workPaper, bool debug = false)
+    {
+        var now = DateTimeService.DateTimeOffsetNow.DateTime;
+        var duration = new TimeSpan(0, 5, 0);
+
+        if (debug)
+        {
+            var timeRemaining = workPaper.HelpdeskInCharge.GetDurationRemaining(now, duration);
+            Log.Warning("Time remaining: {0}", timeRemaining);
+        }
+
+        return !workPaper.HelpdeskInCharge.IsDurationExceeded(now, duration);
+    }
+
     private async Task RestageWorkloadAsync(WorkPaper workPaper)
     {
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
@@ -104,19 +118,5 @@ public class HelpdeskPageBase : WorkloadPageBase
 
         var message = $"Workload '{workPaper.ApprovalOpportunity.IdPermohonan}' is no longer staged";
         await BroadcastService.BroadcastMessageAsync(message);
-    }
-
-    protected bool IsStillInCharge(WorkPaper workPaper, bool debug = false)
-    {
-        var now = DateTimeService.DateTimeOffsetNow.DateTime;
-        var duration = new TimeSpan(0, 5, 0);
-
-        if (debug)
-        {
-            var timeRemaining = workPaper.HelpdeskInCharge.GetDurationRemaining(now, duration);
-            Log.Warning("Time remaining: {0}", timeRemaining);
-        }
-
-        return !workPaper.HelpdeskInCharge.IsDurationExceeded(now, duration);
     }
 }

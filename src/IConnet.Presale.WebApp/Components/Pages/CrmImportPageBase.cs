@@ -66,7 +66,7 @@ public class CrmImportPageBase : ComponentBase
         return await JsRuntime.InvokeAsync<string>("navigator.clipboard.readText");
     }
 
-    protected void ImportResultNotification()
+    private void ImportResultNotification()
     {
         if (ImportCount > 0)
         {
