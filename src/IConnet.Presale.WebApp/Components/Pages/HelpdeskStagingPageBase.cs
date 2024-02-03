@@ -76,11 +76,13 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
         var dialog = await DialogService.ShowDialogAsync<WorkloadStagingDialog>(workPaper, parameters);
         var result = await dialog.Result;
 
-        if (!result.Cancelled && result.Data != null)
+        if (result.Cancelled || result.Data == null)
         {
-            var dialogData = (WorkPaper)result.Data;
-            await StageWorkloadAsync(dialogData);
+            return;
         }
+
+        var dialogData = (WorkPaper)result.Data;
+        await StageWorkloadAsync(dialogData);
     }
 
     protected async Task StageWorkloadAsync(WorkPaper workPaper)
