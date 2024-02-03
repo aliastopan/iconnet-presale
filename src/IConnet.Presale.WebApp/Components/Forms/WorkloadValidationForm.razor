@@ -3,6 +3,16 @@
 
 @if (WorkPaper is not null)
 {
+    <div class="d-flex flex-column">
+        <FluentLabel Typo="Typography.Subject">@WorkPaper.ApprovalOpportunity.IdPermohonan</FluentLabel>
+        <div>
+            Keterangan: <span>@WorkPaper.ApprovalOpportunity.Pemohon.Keterangan</span>
+        </div>
+        <div>
+            Contact: <span>@WorkPaper.ApprovalOpportunity.Pemohon.WhatsApp</span>
+        </div>
+    </div>
+
     <FluentStack Orientation="Orientation.Horizontal"
         HorizontalAlignment="HorizontalAlignment.Start"
         VerticalAlignment="VerticalAlignment.Top"
