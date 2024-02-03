@@ -21,7 +21,7 @@ public class CrmImportPageBase : ComponentBase
     protected int ImportCount { get; set; }
     protected bool IsLoading { get; set; } = false;
 
-    public string GridTemplateCols
+    protected string GridTemplateCols
     {
         get => $@"150px 180px 200px
             {ColumnWidth.NamaPemohonPx}px 120px 150px 200px 200px
