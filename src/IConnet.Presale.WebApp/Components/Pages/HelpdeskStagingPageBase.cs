@@ -10,6 +10,7 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
     [Inject] public SessionService SessionService { get; set; } = default!;
 
     private readonly string _pageName = "Helpdesk staging page";
+    private readonly static int _stagingLimit = 5;
 
     public string GridTemplateCols
     {
@@ -64,6 +65,13 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
         ToastService.ShowToast(intent, message);
     }
 
+    protected void StagingResultNotification()
+    {
+        var intent = ToastIntent.Error;
+        var message = $"Jumlah tampungan Kertas Kerja ({_stagingLimit}) telah melebihi batas. ";
+        ToastService.ShowToast(intent, message);
+    }
+
     protected async Task OpenDialogAsync(WorkPaper workPaper)
     {
         var parameters = new DialogParameters()
@@ -87,9 +95,37 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
 
     protected async Task StageWorkloadAsync(WorkPaper workPaper)
     {
+        var count = await GetStageCountAsync();
+        if (count > _stagingLimit)
+        {
+            workPaper.HelpdeskInCharge = RevertStagingSignature();
+            StagingResultNotification();
+
+            return;
+        }
+
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
 
         var message = $"{workPaper.HelpdeskInCharge.Alias} has staged '{workPaper.ApprovalOpportunity.IdPermohonan}'";
         await BroadcastService.BroadcastMessageAsync(message);
+    }
+
+    private async Task<int> GetStageCountAsync()
+    {
+        var alias = await SessionService.GetSessionAliasAsync();
+        var count = WorkPapers!.Where(x => x.HelpdeskInCharge.Alias == alias).Count();
+
+        Log.Warning("Current staging count {0}", count);
+        return count;
+    }
+
+    private ActionSignature RevertStagingSignature()
+    {
+        return new ActionSignature
+        {
+            AccountIdSignature = Guid.Empty,
+            Alias = string.Empty,
+            TglAksi = DateTimeService.Zero
+        };
     }
 }
