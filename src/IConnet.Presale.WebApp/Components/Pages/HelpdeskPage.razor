@@ -23,7 +23,7 @@
 
     @if (WorkPapers is not null)
     {
-        <div>
+        <div style="@MaxWidthStyle">
             @if (ShowClaims)
             {
                 <FluentDataGrid Items="@WorkPapers"
@@ -33,14 +33,16 @@
                     ItemSize="32"
                     OnRowFocus="@OnRowSelected"
                     EmptyContent="@HtmlFragment.EmptyContent"
-                    GridTemplateColumns="185px 80px">
+                    GridTemplateColumns="@GridTemplateCols">
 
-                <TemplateColumn Title="ID PERMOHONAN" Style="width: 185px;">
+                <TemplateColumn Title="ID PERMOHONAN"
+                    Style="@IdPermohonanStyle">
                     <div class="">
                         @context.ApprovalOpportunity.IdPermohonan
                     </div>
                 </TemplateColumn>
-                <TemplateColumn Title="PIC" Style="width: 80px;">
+                <TemplateColumn Title="PIC"
+                    Style="@StagingStatusStyle">
                     @if (IsStillInCharge(context))
                     {
                         <div class="">
@@ -59,7 +61,7 @@
                 <FluentPaginator State="@Pagination">
                     <SummaryTemplate></SummaryTemplate>
                     <PaginationTextTemplate>
-                        Halaman <strong>@(Pagination.CurrentPageIndex + 1)</strong> dari <strong>@(Pagination.LastPageIndex + 1)</strong>
+                        Hal. <strong>@(Pagination.CurrentPageIndex + 1)</strong> dari <strong>@(Pagination.LastPageIndex + 1)</strong>
                     </PaginationTextTemplate>
                 </FluentPaginator>
             }

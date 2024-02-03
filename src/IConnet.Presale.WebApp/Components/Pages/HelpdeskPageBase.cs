@@ -13,9 +13,20 @@ public class HelpdeskPageBase : WorkloadPageBase
 
     public bool ShowClaims { get; set; } = true;
     public string ToggleText => ShowClaims ? "Hide" : "Show";
+    protected int ColumnWidthIdPermohonan { get; set; } = 180;  //px
+    protected int ColumnWidthStagingStatus { get; set; } = 80;  //px
+    protected int ColumnWidthMax => ColumnWidthIdPermohonan + ColumnWidthStagingStatus;
+    protected string IdPermohonanStyle => $"width: {ColumnWidthIdPermohonan}px;";
+    protected string StagingStatusStyle => $"width: {ColumnWidthStagingStatus}px;";
+    protected string MaxWidthStyle => $"width: {ColumnWidthMax}px;";
 
     protected override IQueryable<WorkPaper>? WorkPapers => GetMatchInCharge();
     protected WorkPaper? WorkPaper { get; set; }
+
+    protected string GridTemplateCols
+    {
+        get => $"{ColumnWidthIdPermohonan}px {ColumnWidthStagingStatus}px";
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -65,6 +76,15 @@ public class HelpdeskPageBase : WorkloadPageBase
         {
             return;
         }
+
+        var dialogData = (WorkPaper)result.Data;
+        if (dialogData.HelpdeskInCharge.IsEmptySignature())
+        {
+            Log.Warning("{0} claim has been removed", dialogData.ApprovalOpportunity.IdPermohonan);
+            return;
+        }
+
+        Log.Warning("{0} claim has been extended", dialogData.ApprovalOpportunity.IdPermohonan);
     }
 
     protected bool IsStillInCharge(WorkPaper workPaper, bool debug = false)
