@@ -89,7 +89,7 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
     {
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
 
-        var message = $"{workPaper.HelpdeskInCharge.Alias} has claimed '{workPaper.ApprovalOpportunity.IdPermohonan}'";
+        var message = $"{workPaper.HelpdeskInCharge.Alias} has staged '{workPaper.ApprovalOpportunity.IdPermohonan}'";
         await BroadcastService.BroadcastMessageAsync(message);
     }
 }
