@@ -41,10 +41,10 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
 
         Log.Warning("Time remaining: {0} {1}", timeRemaining, label);
 
-        var hasYetStaged = workPaper!.HelpdeskInCharge.IsEmptySignature();
-        var isStageExpired = workPaper!.HelpdeskInCharge.IsDurationExceeded(now, duration);
+        var isNotStaged = workPaper!.HelpdeskInCharge.IsEmptySignature();
+        var hasStageExpired = workPaper!.HelpdeskInCharge.IsDurationExceeded(now, duration);
 
-        if (hasYetStaged || isStageExpired)
+        if (isNotStaged || hasStageExpired)
         {
             await OpenDialogAsync(row.Item);
         }
