@@ -20,7 +20,7 @@ public class HelpdeskPageBase : WorkloadPageBase
     protected int ColumnWidthMax => ColumnWidthIdPermohonan + ColumnWidthStagingStatus;
     protected string IdPermohonanStyle => $"width: {ColumnWidthIdPermohonan}px;";
     protected string StagingStatusStyle => $"width: {ColumnWidthStagingStatus}px;";
-    protected string MaxWidthStyle => $"width: {ColumnWidthMax}px;";
+    protected string MaxWidthStyle => ShowClaims ? $"width: {ColumnWidthMax}px;" : "";
 
     protected override IQueryable<WorkPaper>? WorkPapers => base.WorkPapers?
         .Where(x => x.HelpdeskInCharge.AccountIdSignature == _sessionId);
