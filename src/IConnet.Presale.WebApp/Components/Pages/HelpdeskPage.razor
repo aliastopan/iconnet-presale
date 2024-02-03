@@ -7,13 +7,8 @@
 <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Helpdesk</FluentLabel>
 <div class="d-flex flex-column align-items-start">
     <span class="page-description">Proses validasi permohonan</span>
-    <div style="margin-left: -5px; margin-bottom: 0.5rem;">
-        <FluentButton Class="m-1"
-            Appearance="Appearance.Lightweight"
-            IconEnd="@(ShowClaims ? new Icons.Regular.Size20.DocumentSplitHintOff() : new Icons.Regular.Size20.Document())"
-            OnClick="@(() => ShowClaims = !ShowClaims)">
-            @ToggleText
-        </FluentButton>
+    <div style="">
+        <FluentCheckbox @bind-Value="@ShowStagingClaims" Label="Tampilkan tampungan Kertas Kerja" />
     </div>
 </div>
 
@@ -24,7 +19,7 @@
     @if (WorkPapers is not null)
     {
         <div style="@MaxWidthStyle">
-            @if (ShowClaims)
+            @if (ShowStagingClaims)
             {
                 <FluentDataGrid Items="@WorkPapers"
                     TGridItem="WorkPaper"
