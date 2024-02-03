@@ -2,6 +2,9 @@ namespace IConnet.Presale.WebApp.Components.Dialogs;
 
 public partial class WorkloadStagingAlertDialog : IDialogContentComponent<WorkPaper>
 {
+    [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
+    [Inject] public SessionService SessionService { get; set; } = default!;
+
     [Parameter]
     public WorkPaper Content { get; set; } = default!;
 
@@ -10,11 +13,39 @@ public partial class WorkloadStagingAlertDialog : IDialogContentComponent<WorkPa
 
     private async Task SaveAsync()
     {
+        await RestageWorkloadAsync();
+        await Dialog.CloseAsync(Content);
+    }
+
+    private async Task DeleteAsync()
+    {
+        UnstageWorkload();
         await Dialog.CloseAsync(Content);
     }
 
     private async Task CancelAsync()
     {
         await Dialog.CancelAsync();
+    }
+
+    private async Task RestageWorkloadAsync()
+    {
+        Content.Shift = (await SessionService.GetJobShiftAsync()).ToString();
+        Content.HelpdeskInCharge = new ActionSignature
+        {
+            AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
+            Alias = await SessionService.GetSessionAliasAsync(),
+            TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
+        };
+    }
+
+    private void UnstageWorkload()
+    {
+        Content.HelpdeskInCharge = new ActionSignature
+        {
+            AccountIdSignature = Guid.Empty,
+            Alias = string.Empty,
+            TglAksi = DateTimeService.Zero
+        };
     }
 }
