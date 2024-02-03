@@ -1,8 +1,11 @@
+using IConnet.Presale.WebApp.Components.Dialogs;
+
 namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class HelpdeskPageBase : WorkloadPageBase
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
+    [Inject] public IDialogService DialogService { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
 
     private readonly string _pageName = "Helpdesk page";
@@ -35,15 +38,33 @@ public class HelpdeskPageBase : WorkloadPageBase
             return;
         }
 
+        if (!IsStillInCharge(row.Item))
+        {
+            await OpenDialogAsync(row.Item);
+            return;
+        }
+
         WorkPaper = row.Item;
-
-        var isStillInCharge = IsStillInCharge(WorkPaper);
-
         Log.Warning("Selected: {0}", WorkPaper.ApprovalOpportunity.IdPermohonan);
 
+    }
 
+    protected async Task OpenDialogAsync(WorkPaper workPaper)
+    {
+        var parameters = new DialogParameters()
+        {
+            Title = "Tampung Kertas Kerja",
+            TrapFocus = true,
+            Width = "500px",
+        };
 
-        await Task.CompletedTask;
+        var dialog = await DialogService.ShowDialogAsync<WorkloadStagingAlertDialog>(workPaper, parameters);
+        var result = await dialog.Result;
+
+        if (result.Cancelled || result.Data == null)
+        {
+            return;
+        }
     }
 
     protected bool IsStillInCharge(WorkPaper workPaper, bool debug = false)
@@ -56,7 +77,6 @@ public class HelpdeskPageBase : WorkloadPageBase
             var timeRemaining = workPaper.HelpdeskInCharge.GetDurationRemaining(now, duration);
             Log.Warning("Time remaining: {0}", timeRemaining);
         }
-
 
         return !workPaper.HelpdeskInCharge.IsDurationExceeded(now, duration);
     }
