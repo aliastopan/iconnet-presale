@@ -4,9 +4,9 @@ namespace IConnet.Presale.WebApp.Helpers;
 
 public abstract class ColumnWidthBase<T>
 {
-    private static readonly int _charWidth = 8;         //px
-    private static readonly int _padding = 32;          //px
-    private static readonly int _defaultWidth = 200;    //px
+    private readonly static int _charWidth = 8;         //px
+    private readonly static int _padding = 32;          //px
+    private readonly static int _defaultWidth = 200;    //px
 
     public static int DefaultWidth => _defaultWidth;
     public int NamaPemohonPx { get; set; } = DefaultWidth;
