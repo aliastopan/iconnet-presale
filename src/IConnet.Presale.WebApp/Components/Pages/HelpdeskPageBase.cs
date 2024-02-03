@@ -10,6 +10,8 @@ public class HelpdeskPageBase : WorkloadPageBase
 
     private readonly string _pageName = "Helpdesk page";
     private Guid _sessionId;
+    private readonly GridSort<WorkPaper> _sortByStagingStatus = GridSort<WorkPaper>
+        .ByAscending(workPaper => workPaper.HelpdeskInCharge.TglAksi);
 
     public bool ShowClaims { get; set; } = true;
     public string ToggleText => ShowClaims ? "Hide" : "Show";
@@ -21,6 +23,7 @@ public class HelpdeskPageBase : WorkloadPageBase
     protected string MaxWidthStyle => $"width: {ColumnWidthMax}px;";
 
     protected override IQueryable<WorkPaper>? WorkPapers => GetMatchInCharge();
+    protected GridSort<WorkPaper> SortByStagingStatus => _sortByStagingStatus;
     protected WorkPaper? WorkPaper { get; set; }
 
     protected string GridTemplateCols

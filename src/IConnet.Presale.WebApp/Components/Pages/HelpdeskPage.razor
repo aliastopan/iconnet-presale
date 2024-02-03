@@ -36,12 +36,14 @@
                     GridTemplateColumns="@GridTemplateCols">
 
                 <TemplateColumn Title="ID PERMOHONAN"
+                    SortBy="@SortByIdPermohonan"
                     Style="@IdPermohonanStyle">
                     <div class="">
                         @context.ApprovalOpportunity.IdPermohonan
                     </div>
                 </TemplateColumn>
                 <TemplateColumn Title="PIC"
+                    SortBy="@SortByStagingStatus"
                     Style="@StagingStatusStyle">
                     @if (IsStillInCharge(context))
                     {
