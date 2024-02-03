@@ -5,7 +5,7 @@ namespace IConnet.Presale.WebApp.Helpers;
 public abstract class ColumnWidthBase<T>
 {
     private readonly static int _charWidth = 8;         //px
-    private readonly static int _padding = 32;          //px
+    private readonly static int _padding = 16;          //px
     private readonly static int _defaultWidth = 200;    //px
 
     public static int DefaultWidth => _defaultWidth;
@@ -14,15 +14,15 @@ public abstract class ColumnWidthBase<T>
     public int TglPermohonanPx { get; set; } = DefaultWidth;
     public int DurasiTidakLanjutPx { get; set; } = DefaultWidth;
     public int NamaPemohonPx { get; set; } = DefaultWidth;
-    public int IdPlnPx { get; set; } = 120;
+    public int IdPlnPx { get; set; } = 135;
     public int LayananPx { get; set; } = 150;
-    public int SumberPermohonanPx { get; set; } = 250;
-    public int StatusPermohonanPx { get; set; } = 250;
+    public int SumberPermohonanPx { get; set; } = 210;
+    public int StatusPermohonanPx { get; set; } = 210;
     public int NamaAgenPx { get; set; } = DefaultWidth;
     public int EmailAgenPx { get; set; } = DefaultWidth;
     public int TelpAgenPx { get; set; } = 150;
     public int MitraAgenPx { get; set; } = DefaultWidth;
-    public int SplitterPx { get; set; } = 150;
+    public int SplitterPx { get; set; } = 165;
     public int JenisPermohonanPx { get; set; } = 180;
     public int TelpPemohonPx { get; set; } = 150;
     public int EmailPemohonPx { get; set; } = DefaultWidth;
