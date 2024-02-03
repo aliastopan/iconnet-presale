@@ -83,11 +83,30 @@ public class HelpdeskPageBase : WorkloadPageBase
         var dialogData = (WorkPaper)result.Data;
         if (dialogData.HelpdeskInCharge.IsEmptySignature())
         {
+            await UnstageWorkloadAsync(dialogData);
             Log.Warning("{0} claim has been removed", dialogData.ApprovalOpportunity.IdPermohonan);
+
             return;
         }
 
+        await RestageWorkloadAsync(dialogData);
         Log.Warning("{0} claim has been extended", dialogData.ApprovalOpportunity.IdPermohonan);
+    }
+
+    private async Task RestageWorkloadAsync(WorkPaper workPaper)
+    {
+        await WorkloadManager.UpdateWorkloadAsync(workPaper);
+
+        var message = $"Workload '{workPaper.ApprovalOpportunity.IdPermohonan}' staging claim has been extended";
+        await BroadcastService.BroadcastMessageAsync(message);
+    }
+
+    private async Task UnstageWorkloadAsync(WorkPaper workPaper)
+    {
+        await WorkloadManager.UpdateWorkloadAsync(workPaper);
+
+        var message = $"Workload '{workPaper.ApprovalOpportunity.IdPermohonan}' is no longer staged";
+        await BroadcastService.BroadcastMessageAsync(message);
     }
 
     protected bool IsStillInCharge(WorkPaper workPaper, bool debug = false)

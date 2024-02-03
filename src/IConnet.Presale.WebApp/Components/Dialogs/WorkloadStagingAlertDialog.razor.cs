@@ -30,6 +30,7 @@ public partial class WorkloadStagingAlertDialog : IDialogContentComponent<WorkPa
 
     private async Task RestageWorkloadAsync()
     {
+        Log.Warning("Re-staging");
         Content.Shift = (await SessionService.GetJobShiftAsync()).ToString();
         Content.HelpdeskInCharge = new ActionSignature
         {
@@ -41,6 +42,8 @@ public partial class WorkloadStagingAlertDialog : IDialogContentComponent<WorkPa
 
     private void UnstageWorkload()
     {
+        Log.Warning("Un-staging");
+
         Content.HelpdeskInCharge = new ActionSignature
         {
             AccountIdSignature = Guid.Empty,
