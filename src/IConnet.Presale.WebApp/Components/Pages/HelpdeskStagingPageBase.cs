@@ -50,11 +50,11 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
         }
         else
         {
-            await ToastNotificationAsync(workPaper!.HelpdeskInCharge.Alias);
+            await StagingResultNotificationAsync(workPaper!.HelpdeskInCharge.Alias);
         }
     }
 
-    protected async Task ToastNotificationAsync(string inChargeAlias)
+    protected async Task StagingResultNotificationAsync(string inChargeAlias)
     {
         var intent = ToastIntent.Warning;
         var message = await SessionService.IsAliasMatch(inChargeAlias)
