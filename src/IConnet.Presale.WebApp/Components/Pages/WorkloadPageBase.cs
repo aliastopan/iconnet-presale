@@ -42,4 +42,9 @@ public class WorkloadPageBase : ComponentBase
             Log.Warning($"Re-render '{PageName}'.");
         });
     }
+
+    protected string GetWidthStyle(int widthPx)
+    {
+        return $"width: {widthPx}px;";
+    }
 }
