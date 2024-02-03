@@ -22,7 +22,9 @@ public class HelpdeskPageBase : WorkloadPageBase
     protected string StagingStatusStyle => $"width: {ColumnWidthStagingStatus}px;";
     protected string MaxWidthStyle => $"width: {ColumnWidthMax}px;";
 
-    protected override IQueryable<WorkPaper>? WorkPapers => GetMatchInCharge();
+    protected override IQueryable<WorkPaper>? WorkPapers => base.WorkPapers?
+        .Where(x => x.HelpdeskInCharge.AccountIdSignature == _sessionId);
+
     protected GridSort<WorkPaper> SortByStagingStatus => _sortByStagingStatus;
     protected WorkPaper? WorkPaper { get; set; }
 
@@ -38,11 +40,6 @@ public class HelpdeskPageBase : WorkloadPageBase
         CacheFetchMode = CacheFetchMode.OnlyStaged;
 
         await base.OnInitializedAsync();
-    }
-
-    protected IQueryable<WorkPaper>? GetMatchInCharge()
-    {
-        return base.WorkPapers?.Where(x => x.HelpdeskInCharge.AccountIdSignature == _sessionId);
     }
 
     protected async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
