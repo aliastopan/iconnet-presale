@@ -9,4 +9,9 @@ public partial class WorkloadValidationForm
 
     public string? placeholder;
     public string? placeholderTextfield;
+    public string? placeholderTextfield1;
+    public string? placeholderTextfield2;
+    public string? placeholderTextfield3;
+    public string? placeholderTextfield4;
+
 }
