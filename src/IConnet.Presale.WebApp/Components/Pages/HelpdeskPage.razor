@@ -55,14 +55,10 @@
                 </TemplateColumn>
                 </FluentDataGrid>
 
-                <FluentPaginator State="@Pagination">
-                    <SummaryTemplate></SummaryTemplate>
-                    <PaginationTextTemplate>
-                        <span style="padding: 0 10px;">
-                            Hal. <strong>@(Pagination.CurrentPageIndex + 1)</strong> dari <strong>@(Pagination.LastPageIndex + 1)</strong>
-                        </span>
-                    </PaginationTextTemplate>
-                </FluentPaginator>
+                <div style="display: none;">
+                    <FluentPaginator State="@Pagination">
+                    </FluentPaginator>
+                </div>
             }
         </div>
         <div>
