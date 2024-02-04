@@ -25,6 +25,12 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
         await Dialog.CloseAsync(Content);
     }
 
+    private async Task ArchiveAsync()
+    {
+        await ArchiveCrmAsync();
+        await Dialog.CloseAsync(Content);
+    }
+
     private async Task CancelAsync()
     {
         await Dialog.CancelAsync();
@@ -44,6 +50,17 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
     private async Task DeleteCrmAsync()
     {
         Content.ApprovalOpportunity.StatusImport = ImportStatus.Invalid;
+        Content.ApprovalOpportunity.ImportVerifikasiSignature = new ActionSignature
+        {
+            AccountIdSignature = SessionService.UserModel!.UserAccountId,
+            Alias = await SessionService.GetSessionAliasAsync(),
+            TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
+        };
+    }
+
+    private async Task ArchiveCrmAsync()
+    {
+        Content.ApprovalOpportunity.StatusImport = ImportStatus.Verified;
         Content.ApprovalOpportunity.ImportVerifikasiSignature = new ActionSignature
         {
             AccountIdSignature = SessionService.UserModel!.UserAccountId,
