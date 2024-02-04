@@ -8,4 +8,5 @@ public partial class WorkloadValidationForm
     public IEnumerable<string> StatusValidasi => EnumHelper.GetIEnumerable<ValidationStatus>(skipFirst: true);
 
     public string? placeholder;
+    public string? placeholderTextfield;
 }
