@@ -39,7 +39,7 @@ internal sealed class WorkloadManager : IWorkloadManager
         return workloadCount;
     }
 
-    public async Task<List<WorkPaper>> FetchWorkloadAsync(CacheFetchMode cacheFetchMode = CacheFetchMode.All)
+    public async Task<IQueryable<WorkPaper>> FetchWorkloadAsync(CacheFetchMode cacheFetchMode = CacheFetchMode.All)
     {
         List<WorkPaper> workPapers = [];
         List<string?> jsonWorkPapers = await _cacheService.GetAllCacheValuesAsync();
@@ -85,7 +85,7 @@ internal sealed class WorkloadManager : IWorkloadManager
             workPapers.Add(workPaper);
         }
 
-        return workPapers;
+        return workPapers.AsQueryable();
     }
 
     public async Task<bool> UpdateWorkloadAsync(WorkPaper workPaper)

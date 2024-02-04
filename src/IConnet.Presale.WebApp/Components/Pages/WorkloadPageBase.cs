@@ -22,16 +22,14 @@ public class WorkloadPageBase : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        List<WorkPaper> workload = await WorkloadManager.FetchWorkloadAsync(CacheFetchMode);
-        _workPapers = workload.AsQueryable();
+        _workPapers = await WorkloadManager.FetchWorkloadAsync(CacheFetchMode);
 
         BroadcastService.Subscribe(OnUpdateWorkloadAsync);
     }
 
     protected virtual async Task OnUpdateWorkloadAsync(string message)
     {
-        List<WorkPaper> workload = await WorkloadManager.FetchWorkloadAsync(CacheFetchMode);
-        _workPapers = workload.AsQueryable();
+        _workPapers = await WorkloadManager.FetchWorkloadAsync(CacheFetchMode);
 
         Log.Warning(message);
 
