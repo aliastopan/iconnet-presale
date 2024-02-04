@@ -1,8 +1,4 @@
-﻿@inherits LayoutComponentBase
-
-@using System.Text.RegularExpressions
-@using IConnet.Presale.Shared.Validations
-@using IConnet.Presale.WebApp.Services
+﻿@inherits MainLayoutBase
 
 @inject AuthenticationStateProvider _authenticationStateProvider
 @inject NavigationManager _navigationManager
@@ -81,22 +77,3 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
-
-@code
-{
-    protected override async Task OnInitializedAsync()
-    {
-        await _authenticationStateProvider.GetAuthenticationStateAsync();
-    }
-
-    private void Redirect()
-    {
-        var homePage = new Regex(RegexPattern.HomePageUrl);
-        var currentUrl = _navigationManager.Uri;
-
-        if (!homePage.IsMatch(currentUrl))
-        {
-            _navigationManager.NavigateTo("/");
-        }
-    }
-}
