@@ -10,7 +10,7 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
     [Inject] public SessionService SessionService { get; set; } = default!;
 
     private readonly string _pageName = "Helpdesk staging page";
-    private readonly static int _stagingLimit = 5;
+    private readonly static int _stagingLimit = 10;
 
     public string GridTemplateCols
     {
