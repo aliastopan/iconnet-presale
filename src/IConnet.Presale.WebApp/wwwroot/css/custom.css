@@ -22,3 +22,33 @@ input:invalid::part(root) {
 .page-description{
     margin-bottom: 0.5rem;
 }
+
+.tab-nav{
+    border-bottom: 1px solid #414141;
+    height: 40px;
+    width: calc(100% - 10px);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.tab{
+    /* padding: 0 10px; */
+    margin: 0 5px;
+    height: 100%;
+    width: max-content;
+    display: flex;
+    align-items: center;
+}
+
+.tab-content{
+    cursor: pointer;
+    background-color: crimson;
+}
+
+
+.tab-close{
+    cursor: pointer;
+    background-color: rgb(161, 23, 65);
+    padding: 0 5px;
+}

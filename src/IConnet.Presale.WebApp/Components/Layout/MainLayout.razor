@@ -29,22 +29,15 @@
                 <NavMenu />
                 <FluentBodyContent>
 
-                    @if (TabNavigationManager.TabNavigations.Count > 0)
-                    {
-                        <FluentTabs ShowClose="true"
-                                    @bind-ActiveTabId="@TabNavigationManager.ActiveTabId"
-                                    OnTabChange="@TabNavigationManager.ChangeTab"
-                                    OnTabClose="@TabNavigationManager.CloseTab"
-                                    Size="TabSize.Medium">
-
+                    <div class="tab-nav">
+                        @if (TabNavigationManager.TabNavigations.Count > 0)
+                        {
                             @foreach (var tabNavigation in TabNavigationManager.TabNavigations)
                             {
-                                <FluentTab Label="@tabNavigation.Label" Id="@tabNavigation.Id">
-                                    <span>Tab Id: @tabNavigation.Id</span>
-                                </FluentTab>
+                                <TabNav Tab="@tabNavigation" />
                             }
-                        </FluentTabs>
-                    }
+                        }
+                    </div>
                     <div class="content">
                         @Body
                     </div>
