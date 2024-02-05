@@ -32,7 +32,7 @@ public sealed class CrmImportService
         bool isValid = contents.Length % NumberOfColumn == 0;
         if (!isValid)
         {
-            Log.Warning("Invalid row count of {0}", contents.Length);
+            // Log.Warning("Invalid row count of {0}", contents.Length);
             return (new List<IApprovalOpportunityModel>(), new CrmImportMetadata());
         }
 

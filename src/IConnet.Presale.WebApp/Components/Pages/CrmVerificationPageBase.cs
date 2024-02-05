@@ -29,7 +29,7 @@ public class CrmVerificationPageBase : WorkloadPageBase
 
     protected async Task OpenDialogAsync(WorkPaper workPaper)
     {
-        Log.Warning("Import status before: {0}", workPaper.ApprovalOpportunity.StatusImport);
+        // Log.Warning("Import status before: {0}", workPaper.ApprovalOpportunity.StatusImport);
         var parameters = new DialogParameters()
         {
             Title = "Verifikasi Import CRM",
@@ -64,7 +64,7 @@ public class CrmVerificationPageBase : WorkloadPageBase
                 break;
         }
 
-        Log.Warning("Import status after: {0}", dialogData.ApprovalOpportunity.StatusImport);
+        // Log.Warning("Import status after: {0}", dialogData.ApprovalOpportunity.StatusImport);
     }
 
     private async Task VerifyCrmAsync(WorkPaper workPaper)

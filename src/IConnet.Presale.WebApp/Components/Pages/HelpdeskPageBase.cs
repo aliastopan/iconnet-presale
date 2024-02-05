@@ -56,7 +56,7 @@ public class HelpdeskPageBase : WorkloadPageBase
         }
 
         WorkPaper = row.Item;
-        Log.Warning("Selected: {0}", WorkPaper.ApprovalOpportunity.IdPermohonan);
+        // Log.Warning("Selected: {0}", WorkPaper.ApprovalOpportunity.IdPermohonan);
 
     }
 
@@ -81,13 +81,13 @@ public class HelpdeskPageBase : WorkloadPageBase
         if (dialogData.HelpdeskInCharge.IsEmptySignature())
         {
             await UnstageWorkloadAsync(dialogData);
-            Log.Warning("{0} claim has been removed", dialogData.ApprovalOpportunity.IdPermohonan);
+            // Log.Warning("{0} claim has been removed", dialogData.ApprovalOpportunity.IdPermohonan);
 
             return;
         }
 
         await RestageWorkloadAsync(dialogData);
-        Log.Warning("{0} claim has been extended", dialogData.ApprovalOpportunity.IdPermohonan);
+        // Log.Warning("{0} claim has been extended", dialogData.ApprovalOpportunity.IdPermohonan);
     }
 
     protected bool IsStillInCharge(WorkPaper workPaper, bool debug = false)
@@ -98,7 +98,7 @@ public class HelpdeskPageBase : WorkloadPageBase
         if (debug)
         {
             var timeRemaining = workPaper.HelpdeskInCharge.GetDurationRemaining(now, duration);
-            Log.Warning("Time remaining: {0}", timeRemaining);
+            // Log.Warning("Time remaining: {0}", timeRemaining);
         }
 
         return !workPaper.HelpdeskInCharge.IsDurationExceeded(now, duration);

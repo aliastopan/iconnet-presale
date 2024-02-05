@@ -33,14 +33,14 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
         }
 
         var workPaper = row.Item;
-        Log.Warning("Selected row {0}", workPaper is null ? "null" : workPaper.ApprovalOpportunity.IdPermohonan);
+        // Log.Warning("Selected row {0}", workPaper is null ? "null" : workPaper.ApprovalOpportunity.IdPermohonan);
 
         var now = DateTimeService.DateTimeOffsetNow.DateTime;
         var duration = new TimeSpan(0, 5, 0);
         var timeRemaining = workPaper!.HelpdeskInCharge.GetDurationRemaining(now, duration);
         var label = timeRemaining > TimeSpan.Zero ? "Active" : "Expired";
 
-        Log.Warning("Time remaining: {0} {1}", timeRemaining, label);
+        // Log.Warning("Time remaining: {0} {1}", timeRemaining, label);
 
         var isNotStaged = workPaper!.HelpdeskInCharge.IsEmptySignature();
         var hasStageExpired = workPaper!.HelpdeskInCharge.IsDurationExceeded(now, duration);
@@ -115,7 +115,7 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
         var alias = await SessionService.GetSessionAliasAsync();
         var count = WorkPapers!.Where(x => x.HelpdeskInCharge.Alias == alias).Count();
 
-        Log.Warning("Current staging count {0}", count);
+        // Log.Warning("Current staging count {0}", count);
         return count;
     }
 

@@ -27,14 +27,14 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
 
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {
-        Log.Warning("GetAuthenticationStateAsync");
+        // Log.Warning("GetAuthenticationStateAsync");
 
         var tryGetAccessToken = await TryGetAccessTokenAsync();
         var tryGetRefreshToken = await TryGetRefreshTokenAsync();
 
         if (tryGetAccessToken.IsFailure() || tryGetRefreshToken.IsFailure())
         {
-            Log.Warning("Fail to authenticate.");
+            // Log.Warning("Fail to authenticate.");
             return UnauthenticatedState();
         }
 
@@ -44,20 +44,20 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
         var principal = _accessTokenService.GetPrincipalFromToken(accessToken);
         if (principal is null)
         {
-            Log.Warning("Fail to authenticate.");
+            // Log.Warning("Fail to authenticate.");
             return UnauthenticatedState();
         }
 
         var tryAuthenticate = _accessTokenService.TryValidateAccessToken(accessToken);
         if (tryAuthenticate.IsFailure())
         {
-            Log.Warning("Authentication failed.");
-            Log.Warning("{0}", tryAuthenticate.Errors[0].Message);
-            Log.Warning("Trying to refresh authentication.");
+            // Log.Warning("Authentication failed.");
+            // Log.Warning("{0}", tryAuthenticate.Errors[0].Message);
+            // Log.Warning("Trying to refresh authentication.");
             var httpResult = await _identityHttpClientService.RefreshAccessAsync(accessToken, refreshToken);
             if (httpResult.IsSuccessStatusCode)
             {
-                Log.Warning("Refresh authentication has successful.");
+                // Log.Warning("Refresh authentication has successful.");
                 var options = new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
@@ -76,8 +76,8 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
                 await _localStorage.DeleteAsync("access-token");
                 await _localStorage.DeleteAsync("refresh-token");
 
-                Log.Warning("Refresh token was invalid.");
-                Log.Warning("Fail to authenticate.");
+                // Log.Warning("Refresh token was invalid.");
+                // Log.Warning("Fail to authenticate.");
                 NotifyAuthenticationStateChanged(Task.FromResult(UnauthenticatedState()));
                 return UnauthenticatedState();
             }

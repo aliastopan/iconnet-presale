@@ -31,13 +31,13 @@ public class WorkloadPageBase : ComponentBase
     {
         _workPapers = await WorkloadManager.FetchWorkloadAsync(CacheFetchMode);
 
-        Log.Warning(message);
+        // Log.Warning(message);
 
         // ensure component update is handle by UI thread
         await InvokeAsync(() =>
         {
             StateHasChanged();
-            Log.Warning($"Re-render '{PageName}'.");
+            // Log.Warning($"Re-render '{PageName}'.");
         });
     }
 

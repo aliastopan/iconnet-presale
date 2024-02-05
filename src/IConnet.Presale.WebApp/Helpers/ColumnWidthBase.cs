@@ -62,7 +62,7 @@ public abstract class ColumnWidthBase<T>
 
         int contentWidth = importModels.Max(propertySelector.Compile());
         int columnWidthPx = (contentWidth * CharWidth) + Padding;
-        Log.Warning("{0} length: {1}, width: {2}px", propertyName, contentWidth, columnWidthPx);
+        // Log.Warning("{0} length: {1}, width: {2}px", propertyName, contentWidth, columnWidthPx);
 
         if (columnWidthPx > DefaultWidth)
         {
