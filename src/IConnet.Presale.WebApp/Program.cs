@@ -8,6 +8,7 @@ using IConnet.Presale.WebApp.Logging;
 using IConnet.Presale.WebApp.Security;
 using IConnet.Presale.WebApp.Services;
 using IConnet.Presale.WebApp.WebSockets;
+using IConnet.Presale.WebApp.Managers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,7 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddHttpContextAccessor();
     services.AddAccessControl();
 
+    services.AddScoped<TabNavigationManager>();
     services.AddScoped<SessionService>();
     services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
     services.AddScoped<BroadcastService>();
