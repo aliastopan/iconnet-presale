@@ -28,6 +28,21 @@ public class NavMenuBase : ComponentBase
         TabNavigationManager.SelectTab(CrmVerificationPage());
     }
 
+    public void OnWorkloadSharedPageNavigate()
+    {
+        TabNavigationManager.SelectTab(WorkloadSharedPage());
+    }
+
+    public void OnHelpdeskStagingPageNavigate()
+    {
+        TabNavigationManager.SelectTab(HelpdeskStagingPage());
+    }
+
+    public void OnHelpdeskPageNavigate()
+    {
+        TabNavigationManager.SelectTab(HelpdeskPage());
+    }
+
     public static TabNavigation HomePage()
     {
         return new TabNavigation("home", "Home", PageRoute.Home);
@@ -41,5 +56,20 @@ public class NavMenuBase : ComponentBase
     public static TabNavigation CrmVerificationPage()
     {
         return new TabNavigation("crm-verification", "Verifikasi CRM", PageRoute.CrmImportVerification);
+    }
+
+    public static TabNavigation WorkloadSharedPage()
+    {
+        return new TabNavigation("workload-shared", "Workload", PageRoute.WorkloadShared);
+    }
+
+    public static TabNavigation HelpdeskStagingPage()
+    {
+        return new TabNavigation("helpdesk-staging", "Staging", PageRoute.HelpdeskStaging);
+    }
+
+    public static TabNavigation HelpdeskPage()
+    {
+        return new TabNavigation("helpdesk", "Helpdesk", PageRoute.Helpdesk);
     }
 }

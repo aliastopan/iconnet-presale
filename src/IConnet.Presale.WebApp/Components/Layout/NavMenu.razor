@@ -29,16 +29,19 @@
                 Verifikasi CRM</FluentNavLink>
 
             <FluentNavLink Href="@PageRoute.WorkloadShared"
+                OnClick="@OnWorkloadSharedPageNavigate"
                 Icon="@(new Icons.Regular.Size20.DocumentTable())"
                 IconColor="Color.Accent">
                 Workload</FluentNavLink>
 
             <FluentNavLink Href="@PageRoute.HelpdeskStaging"
+                OnClick="@OnHelpdeskStagingPageNavigate"
                 Icon="@(new Icons.Regular.Size20.PersonDesktop())"
                 IconColor="Color.Accent">
                 Helpdesk Staging</FluentNavLink>
 
             <FluentNavLink Href="@PageRoute.Helpdesk"
+                OnClick="@OnHelpdeskPageNavigate"
                 Icon="@(new Icons.Regular.Size20.CheckboxPerson())"
                 IconColor="Color.Accent">
                 Helpdesk</FluentNavLink>
