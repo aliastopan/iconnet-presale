@@ -17,7 +17,7 @@ public class MainLayoutBase : LayoutComponentBase
         await AuthenticationStateProvider.GetAuthenticationStateAsync();
     }
 
-    protected void Redirect()
+    protected void RedirectUnauthorized()
     {
         var homePage = new Regex(RegexPattern.HomePageUrl);
         var currentUrl = NavigationManager.Uri;

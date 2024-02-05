@@ -1,10 +1,5 @@
 ﻿@inherits MainLayoutBase
 
-@inject AuthenticationStateProvider _authenticationStateProvider
-@inject NavigationManager _navigationManager
-@inject ProtectedLocalStorage _localStorage
-@inject SessionService _sessionService
-
 <AuthorizeView>
     <Authorized>
         <FluentLayout>
@@ -17,15 +12,15 @@
                 <div class="push-right">
                     <FluentButton IconEnd="@(new Icons.Regular.Size20.ArrowExit())"
                         Appearance="Appearance.Lightweight"
-                        OnClick="_sessionService.SignOutAsync">Sign-Out</FluentButton>
+                        OnClick="SessionService.SignOutAsync">Sign-Out</FluentButton>
                 </div>
                 <div class="identity">
                     <div class="alias">
-                        <span class="username">@_sessionService.UserModel!.Username</span>
-                        <span class="role">(@_sessionService.UserModel.Role)</span>
+                        <span class="username">@SessionService.UserModel!.Username</span>
+                        <span class="role">(@SessionService.UserModel.Role)</span>
                     </div>
                     <div class="job-title">
-                        @_sessionService.UserModel!.JobTitle
+                        @SessionService.UserModel!.JobTitle
                     </div>
                 </div>
             </FluentHeader>
@@ -59,7 +54,7 @@
     <NotAuthorized>
         <FluentLayout>
             @{
-                Redirect();
+                RedirectUnauthorized();
             }
             <IndexPage />
         </FluentLayout>
