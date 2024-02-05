@@ -9,6 +9,7 @@ public class MainLayoutBase : LayoutComponentBase
 {
     [Inject] public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
     [Inject] public NavigationManager NavigationManager { get; set; } = default!;
+    [Inject] public TabNavigationManager TabNavigationManager { get; set; } = default!;
     [Inject] public ProtectedLocalStorage LocalStorage { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
 

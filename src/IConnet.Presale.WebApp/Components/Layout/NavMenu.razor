@@ -10,17 +10,20 @@
             @bind-Expanded="IsExpanded">
 
             <FluentNavLink Href="@PageRoute.Home"
+                OnClick="@OnHomePageNavigate"
                 Match="NavLinkMatch.All"
                 Icon="@(new Icons.Regular.Size20.Home())"
                 IconColor="Color.Accent">
-                Home @{ OnClick(); } </FluentNavLink>
+                Home</FluentNavLink>
 
             <FluentNavLink Href="@PageRoute.CrmImport"
+                OnClick="@OnCrmImportPageNavigate"
                 Icon="@(new Icons.Regular.Size20.DocumentAdd())"
                 IconColor="Color.Accent">
                 Import CRM</FluentNavLink>
 
             <FluentNavLink Href="@PageRoute.CrmImportVerification"
+                OnClick="@OnCrmVerificationPageNavigate"
                 Icon="@(new Icons.Regular.Size20.DocumentCheckmark())"
                 IconColor="Color.Accent">
                 Verifikasi CRM</FluentNavLink>

@@ -1,5 +1,3 @@
-using IConnet.Presale.WebApp.Components.Layout;
-
 namespace IConnet.Presale.WebApp.Managers;
 
 public class TabNavigationManager
@@ -10,15 +8,10 @@ public class TabNavigationManager
     public TabNavigationManager(NavigationManager navigationManager)
     {
         _navigationManager = navigationManager;
-
-        _tabNavigations.Add(NavMenuBase.HomePage());
-        ActiveTabId = _tabNavigations.First().Id;
-
     }
 
     public List<TabNavigation> TabNavigations => _tabNavigations;
-    public string ActiveTabId { get; set; }
-
+    public string? ActiveTabId { get; set; }
 
     public void SelectTab(TabNavigation tabNavigation)
     {
@@ -28,7 +21,15 @@ public class TabNavigationManager
             _tabNavigations.Add(tabNavigation);
         }
 
-        // _navigationManager.NavigateTo(tabNavigation.PageUrl);
         ActiveTabId = tabNavigation.Id;
+        Log.Warning("Selected tab: {0}", ActiveTabId);
+    }
+
+    public void ChangeTab(FluentTab tab)
+    {
+        Log.Warning("Change tab to: {0}", tab.Id);
+
+        var tabNavigation = _tabNavigations.Find(x => x.Id == tab.Id);
+        _navigationManager.NavigateTo(tabNavigation.PageUrl);
     }
 }
