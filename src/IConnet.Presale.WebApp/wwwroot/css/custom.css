@@ -11,6 +11,10 @@ input:invalid::part(root) {
     outline: none;
 }
 
+::deep .fluent-nav-icon {
+    padding-top: 5px;
+}
+
 .invalid::part(root) {
     outline: none;
 }
