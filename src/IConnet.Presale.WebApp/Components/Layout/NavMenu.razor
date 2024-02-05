@@ -1,9 +1,10 @@
-﻿@rendermode InteractiveServer
+﻿@inherits NavMenuBase
+@rendermode InteractiveServer
 
 <div class="navmenu">
     <input type="checkbox" id="navmenu-toggle" />
     <nav class="sitenav" aria-labelledby="main-menu" onclick="document.getElementById('navmenu-toggle').click();">
-        <FluentNavMenu Id="main-menu" Collapsible="true" Width="200" Title="Navigation menu" @bind-Expanded="_expanded">
+        <FluentNavMenu Id="main-menu" Collapsible="true" Width="200" Title="Navigation menu" @bind-Expanded="IsExpanded">
             <FluentNavLink Href="@PageRoute.Home" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.Home())" IconColor="Color.Accent">Home</FluentNavLink>
             <FluentNavLink Href="@PageRoute.CrmImport" Icon="@(new Icons.Regular.Size20.DocumentAdd())" IconColor="Color.Accent">Import CRM</FluentNavLink>
             <FluentNavLink Href="@PageRoute.CrmImportVerification" Icon="@(new Icons.Regular.Size20.DocumentCheckmark())" IconColor="Color.Accent">Verifikasi CRM</FluentNavLink>
@@ -18,8 +19,3 @@
         </FluentNavMenu>
     </nav>
 </div>
-
-@code
-{
-    private bool _expanded = true;
-}
