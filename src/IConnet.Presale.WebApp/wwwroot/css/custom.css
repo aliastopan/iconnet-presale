@@ -45,6 +45,7 @@ input:invalid::part(root) {
     cursor: pointer;
     padding: 0 4px;
     /* background-color: crimson; */
+    border: none;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
