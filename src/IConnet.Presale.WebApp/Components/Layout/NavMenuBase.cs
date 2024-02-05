@@ -2,7 +2,7 @@ using IConnet.Presale.WebApp.Components.Pages;
 
 namespace IConnet.Presale.WebApp.Components.Layout;
 
-public class NavMenuBase : LayoutComponentBase
+public class NavMenuBase : ComponentBase
 {
     [Inject] public TabNavigationManager TabNavigationManager { get; set; } = default!;
 
