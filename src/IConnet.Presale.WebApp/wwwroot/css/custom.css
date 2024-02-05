@@ -43,12 +43,16 @@ input:invalid::part(root) {
 
 .tab-content{
     cursor: pointer;
-    background-color: crimson;
+    padding: 0 4px;
+    /* background-color: crimson; */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-
 
 .tab-close{
     cursor: pointer;
-    background-color: rgb(161, 23, 65);
+    /* background-color: rgb(161, 23, 65); */
     padding: 0 5px;
+    border: none;
 }
