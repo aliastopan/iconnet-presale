@@ -4,15 +4,15 @@
     <input type="checkbox" id="navmenu-toggle" />
     <nav class="sitenav" aria-labelledby="main-menu" onclick="document.getElementById('navmenu-toggle').click();">
         <FluentNavMenu Id="main-menu" Collapsible="true" Width="200" Title="Navigation menu" @bind-Expanded="_expanded">
-            <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.Home())" IconColor="Color.Accent">Home</FluentNavLink>
-            <FluentNavLink Href="crm-import" Icon="@(new Icons.Regular.Size20.DocumentAdd())" IconColor="Color.Accent">Import CRM</FluentNavLink>
-            <FluentNavLink Href="crm-verification" Icon="@(new Icons.Regular.Size20.DocumentCheckmark())" IconColor="Color.Accent">Verifikasi CRM</FluentNavLink>
-            <FluentNavLink Href="workload-shared" Icon="@(new Icons.Regular.Size20.DocumentTable())" IconColor="Color.Accent">Workload</FluentNavLink>
-            <FluentNavLink Href="helpdesk-staging" Icon="@(new Icons.Regular.Size20.PersonDesktop())" IconColor="Color.Accent">Helpdesk Staging</FluentNavLink>
-            <FluentNavLink Href="helpdesk" Icon="@(new Icons.Regular.Size20.CheckboxPerson())" IconColor="Color.Accent">Helpdesk</FluentNavLink>
+            <FluentNavLink Href="@PageRoute.Home" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.Home())" IconColor="Color.Accent">Home</FluentNavLink>
+            <FluentNavLink Href="@PageRoute.CrmImport" Icon="@(new Icons.Regular.Size20.DocumentAdd())" IconColor="Color.Accent">Import CRM</FluentNavLink>
+            <FluentNavLink Href="@PageRoute.CrmImportVerification" Icon="@(new Icons.Regular.Size20.DocumentCheckmark())" IconColor="Color.Accent">Verifikasi CRM</FluentNavLink>
+            <FluentNavLink Href="@PageRoute.WorkloadShared" Icon="@(new Icons.Regular.Size20.DocumentTable())" IconColor="Color.Accent">Workload</FluentNavLink>
+            <FluentNavLink Href="@PageRoute.HelpdeskStaging" Icon="@(new Icons.Regular.Size20.PersonDesktop())" IconColor="Color.Accent">Helpdesk Staging</FluentNavLink>
+            <FluentNavLink Href="@PageRoute.Helpdesk" Icon="@(new Icons.Regular.Size20.CheckboxPerson())" IconColor="Color.Accent">Helpdesk</FluentNavLink>
 
             <AuthorizeView Policy="@Policies.AdministratorPrivilege">
-                <FluentNavLink Href="settings" Icon="@(new Icons.Regular.Size20.Settings())" IconColor="Color.Accent">Settings</FluentNavLink>
+                <FluentNavLink Href="@PageRoute.Settings" Icon="@(new Icons.Regular.Size20.Settings())" IconColor="Color.Accent">Settings</FluentNavLink>
             </AuthorizeView>
 
         </FluentNavMenu>
