@@ -31,9 +31,10 @@
 
                     @if (TabNavigationManager.TabNavigations.Count > 0)
                     {
-                        <FluentTabs ShowClose="false"
+                        <FluentTabs ShowClose="true"
                                     @bind-ActiveTabId="@TabNavigationManager.ActiveTabId"
                                     OnTabChange="@TabNavigationManager.ChangeTab"
+                                    OnTabClose="@TabNavigationManager.CloseTab"
                                     Size="TabSize.Medium">
 
                             @foreach (var tabNavigation in TabNavigationManager.TabNavigations)
