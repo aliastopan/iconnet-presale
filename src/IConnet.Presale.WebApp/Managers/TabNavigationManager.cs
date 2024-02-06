@@ -39,14 +39,25 @@ public class TabNavigationManager
 
     public void CloseTab(TabNavigation tab)
     {
-        if (ActiveTabId == tab.Id)
+        if (_tabNavigations.Count <=  1 && ActiveTabId == tab.Id)
         {
+            Log.Warning("Cannot remove the last tab");
             return;
         }
 
-        var tabToClose = _tabNavigations.Find(x => x.Id == tab.Id);
-        _tabNavigations.Remove(tabToClose);
+        int indexTabToClose = _tabNavigations.FindIndex(x => x.Id == tab.Id);
 
+        if (ActiveTabId == tab.Id)
+        {
+            var tabToShift = indexTabToClose > 0
+                ? _tabNavigations[indexTabToClose - 1]
+                : _tabNavigations[indexTabToClose + 1];
+
+            _navigationManager.NavigateTo(tabToShift.PageUrl);
+            ActiveTabId = tabToShift.Id;
+        }
+
+        _tabNavigations.Remove(tab);
         Log.Warning("Closing tab: {0}", tab.Id);
     }
 }
