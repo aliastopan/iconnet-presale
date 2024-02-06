@@ -10,7 +10,7 @@ public class TabNavBase : ComponentBase
 
     protected void CloseTab()
     {
-        Log.Warning("Closing {0}", Tab.Id);
+        Manager.CloseTab(Tab);
     }
 
     protected void ChangeTab()
