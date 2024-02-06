@@ -71,7 +71,7 @@ input:invalid::part(root) {
 }
 
 .tab-nav{
-    border-bottom: 1px solid #414141;
+    border-bottom: 1px solid #e6e6e6;
     height: 40px;
     width: calc(100% - 10px);
     display: flex;
