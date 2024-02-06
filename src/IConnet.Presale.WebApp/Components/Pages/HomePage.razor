@@ -1,14 +1,8 @@
 ﻿@attribute [Route(PageRoute.Home)]
+@inherits HomePageBase
 @rendermode InteractiveServer
-
-@using IConnet.Presale.WebApp.Models.Identity
-@using IConnet.Presale.WebApp.Services
-
-@inject SessionService _sessionService
 
 <PageTitle>Home</PageTitle>
 
-@code
-{
-
-}
+<FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Home</FluentLabel>
+<span class="page-description">Halaman utama Presale App</span>
