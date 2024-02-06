@@ -10,6 +10,13 @@ public class SharedWorkloadPageBase : WorkloadPageBase
     protected WorkPaperColumnWidth ColumnWidth => _columnWidth;
     protected string GridTemplateCols => GetGridTemplateCols();
 
+    protected override void OnInitialized()
+    {
+        TabNavigationManager.SelectTab(WorkloadSharedPage());
+
+        base.OnInitialized();
+    }
+
     protected override async Task OnInitializedAsync()
     {
         PageName = _pageName;
@@ -56,5 +63,10 @@ public class SharedWorkloadPageBase : WorkloadPageBase
             {ColumnWidth.KelurahanPx}px
             {ColumnWidth.LatitudePx}px
             {ColumnWidth.LongitudePx}px;";
+    }
+
+    private static TabNavigation WorkloadSharedPage()
+    {
+        return new TabNavigation("workload-shared", "Workload", PageRoute.WorkloadShared);
     }
 }

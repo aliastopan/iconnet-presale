@@ -2,6 +2,7 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class WorkloadPageBase : ComponentBase
 {
+    [Inject] public TabNavigationManager TabNavigationManager { get; set; } = default!;
     [Inject] public IWorkloadManager WorkloadManager { get; init; } = default!;
     [Inject] public BroadcastService BroadcastService { get; init; } = default!;
 

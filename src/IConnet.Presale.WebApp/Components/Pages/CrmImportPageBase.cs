@@ -3,6 +3,7 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 public class CrmImportPageBase : ComponentBase
 {
     [Inject] public IJSRuntime JsRuntime { get; init; } = default!;
+    [Inject] public TabNavigationManager TabNavigationManager { get; set; } = default!;
     [Inject] public IWorkloadManager WorkloadManager { get; init; } = default!;
     [Inject] public BroadcastService BroadcastService { get; init; } = default!;
     [Inject] public CrmImportService CrmImportService { get; init; } = default!;
@@ -31,6 +32,13 @@ public class CrmImportPageBase : ComponentBase
             {ColumnWidth.EmailPemohonPx}px 150px 150px
             {ColumnWidth.KeteranganPx}px
             {ColumnWidth.AlamatPemohonPx}px 180px 180px 150px 150px 150px 150px 150px 150px;";
+    }
+
+    protected override void OnInitialized()
+    {
+        TabNavigationManager.SelectTab(CrmImportPage());
+
+        base.OnInitialized();
     }
 
     protected async Task CrmImportAsync()
@@ -88,5 +96,10 @@ public class CrmImportPageBase : ComponentBase
             var message = $"Terdapat {ImportMetadata.NumberOfDuplicates} duplikasi saat dalam proses copy-paste dari iCRM+.";
             ToastService.ShowToast(intent, message);
         }
+    }
+
+    private static TabNavigation CrmImportPage()
+    {
+        return new TabNavigation("crm-import", "Import CRM", PageRoute.CrmImport);
     }
 }

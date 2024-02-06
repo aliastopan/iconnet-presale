@@ -33,6 +33,13 @@ public class HelpdeskPageBase : WorkloadPageBase
         get => $"{ColumnWidthIdPermohonan}px {ColumnWidthStagingStatus}px";
     }
 
+    protected override void OnInitialized()
+    {
+        TabNavigationManager.SelectTab(HelpdeskPage());
+
+        base.OnInitialized();
+    }
+
     protected override async Task OnInitializedAsync()
     {
         _sessionId = await SessionService.GetUserAccountIdAsync();
@@ -118,5 +125,10 @@ public class HelpdeskPageBase : WorkloadPageBase
 
         var message = $"Workload '{workPaper.ApprovalOpportunity.IdPermohonan}' is no longer staged";
         await BroadcastService.BroadcastMessageAsync(message);
+    }
+
+    private static TabNavigation HelpdeskPage()
+    {
+        return new TabNavigation("helpdesk", "Helpdesk", PageRoute.Helpdesk);
     }
 }

@@ -9,6 +9,13 @@ public class CrmVerificationPageBase : WorkloadPageBase
 
     private readonly string _pageName = "CRM Verification page";
 
+    protected override void OnInitialized()
+    {
+        TabNavigationManager.SelectTab(CrmVerificationPage());
+
+        base.OnInitialized();
+    }
+
     protected override async Task OnInitializedAsync()
     {
         PageName = _pageName;
@@ -89,5 +96,10 @@ public class CrmVerificationPageBase : WorkloadPageBase
         await BroadcastService.BroadcastMessageAsync(message);
 
         IsLoading = false;
+    }
+
+    private static TabNavigation CrmVerificationPage()
+    {
+        return new TabNavigation("crm-verification", "Verifikasi CRM", PageRoute.CrmImportVerification);
     }
 }

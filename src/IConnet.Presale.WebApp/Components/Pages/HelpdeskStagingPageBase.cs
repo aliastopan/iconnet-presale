@@ -17,6 +17,13 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
         get => $"185px 150px 120px 150px 150px 150px 150px 150px 150px 150px 150px 150px 150px 250px 225px;";
     }
 
+    protected override void OnInitialized()
+    {
+        TabNavigationManager.SelectTab(HelpdeskStagingPage());
+
+        base.OnInitialized();
+    }
+
     protected override async Task OnInitializedAsync()
     {
         PageName = _pageName;
@@ -127,5 +134,10 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
             Alias = string.Empty,
             TglAksi = DateTimeService.Zero
         };
+    }
+
+    private static TabNavigation HelpdeskStagingPage()
+    {
+        return new TabNavigation("helpdesk-staging", "Staging", PageRoute.HelpdeskStaging);
     }
 }
