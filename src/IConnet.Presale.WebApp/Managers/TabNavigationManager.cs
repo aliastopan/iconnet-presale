@@ -25,15 +25,15 @@ public class TabNavigationManager
         Log.Warning("Selected tab: {0}", ActiveTabId);
     }
 
-    public void ChangeTab(TabNavigation Tab)
+    public void ChangeTab(TabNavigation tab)
     {
-        if (ActiveTabId == Tab.Id)
+        if (ActiveTabId == tab.Id)
         {
             return;
         }
 
-        _navigationManager.NavigateTo(Tab.PageUrl);
-        ActiveTabId = Tab.Id;
+        _navigationManager.NavigateTo(tab.PageUrl);
+        ActiveTabId = tab.Id;
         Log.Warning("Change tab: {0}", ActiveTabId);
     }
 
