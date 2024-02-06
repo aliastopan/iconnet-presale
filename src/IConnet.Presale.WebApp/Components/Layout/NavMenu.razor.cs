@@ -3,9 +3,10 @@ using IConnet.Presale.WebApp.Components.Pages;
 
 namespace IConnet.Presale.WebApp.Components.Layout;
 
-public class NavMenuBase : ComponentBase
+public partial class NavMenu
 {
-    [Inject] public TabNavigationManager TabNavigationManager { get; set; } = default!;
+    [Parameter]
+    public TabNavigationManager TabNavigationManager { get; set; } = default!;
 
     public bool IsExpanded { get; set; } = true;
 
