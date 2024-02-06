@@ -37,7 +37,7 @@ public class TabNavigationManager
         Log.Warning("Change tab: {0}", ActiveTabId);
     }
 
-    public void CloseTab(TabNavigation tab)
+    public async Task CloseTabAsync(TabNavigation tab, EventCallback onTabClose)
     {
         if (ActiveTabId == tab.Id)
         {
@@ -47,7 +47,8 @@ public class TabNavigationManager
         var tabToClose = _tabNavigations.Find(x => x.Id == tab.Id);
         _tabNavigations.Remove(tabToClose);
 
-        Log.Warning("Closing tab: {0}", tab.Id);
+        Log.Warning("(async) closing tab: {0}", tab.Id);
+        await onTabClose.InvokeAsync();
     }
 
     // public void ChangeTab(FluentTab tab)

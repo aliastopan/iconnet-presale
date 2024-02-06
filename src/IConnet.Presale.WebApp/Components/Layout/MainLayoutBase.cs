@@ -28,4 +28,10 @@ public class MainLayoutBase : LayoutComponentBase
             NavigationManager.NavigateTo("/");
         }
     }
+
+    public void RefreshTabControl()
+    {
+        StateHasChanged();
+        Log.Warning("Refreshing Tab Control");
+    }
 }

@@ -8,9 +8,12 @@ public class TabNavBase : ComponentBase
     [Parameter]
     public TabNavigationManager Manager { get; set; } = default!;
 
-    protected void CloseTab()
+    [Parameter]
+    public EventCallback OnTabClose { get; set; }
+
+    protected async Task CloseTabAsync()
     {
-        Manager.CloseTab(Tab);
+        await Manager.CloseTabAsync(Tab, OnTabClose);
     }
 
     protected void ChangeTab()

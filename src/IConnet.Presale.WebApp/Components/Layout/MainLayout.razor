@@ -34,7 +34,9 @@
                         {
                             @foreach (var tabNavigation in TabNavigationManager.TabNavigations)
                             {
-                                <TabNav Manager="@TabNavigationManager" Tab="@tabNavigation" />
+                                <TabNav Manager="@TabNavigationManager"
+                                    OnTabClose="@RefreshTabControl"
+                                    Tab="@tabNavigation"/>
                             }
                         }
                     </div>
