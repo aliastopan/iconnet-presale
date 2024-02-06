@@ -10,13 +10,13 @@ public partial class TabControl
         TabNavigationManager.ChangeTab(tab);
     }
 
-    public void SelectTab(TabNavigation tab)
+    public void CloseTab(TabNavigation tab)
     {
-        Log.Warning("Tab selected: {0}", tab.Label);
-        // RefreshTabControl()
+        TabNavigationManager.CloseTab(tab);
+        RefreshTabControl();
     }
 
-    public void RefreshTabControl()
+    private void RefreshTabControl()
     {
         StateHasChanged();
         Log.Warning("Refreshing Tab Control");

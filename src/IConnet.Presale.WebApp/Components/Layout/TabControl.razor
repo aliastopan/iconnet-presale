@@ -6,7 +6,8 @@
         @foreach (var tabNavigation in TabNavigationManager.TabNavigations)
         {
             <TabNav Tab="tabNavigation"
-                OnTabChange="ChangeTab"/>
+                OnTabChange="ChangeTab"
+                OnTabClose="CloseTab"/>
         }
     }
 </div>
