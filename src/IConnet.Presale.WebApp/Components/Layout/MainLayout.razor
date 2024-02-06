@@ -1,4 +1,4 @@
-@inherits MainLayoutBase
+﻿@inherits MainLayoutBase
 @rendermode InteractiveServer
 
 <AuthorizeView>
@@ -30,17 +30,7 @@
                 <NavMenu />
                 <FluentBodyContent>
 
-                    <div class="tab-nav">
-                        @if (TabNavigationManager.TabNavigations.Count > 0)
-                        {
-                            @foreach (var tabNavigation in TabNavigationManager.TabNavigations)
-                            {
-                                <TabNav Manager="@TabNavigationManager"
-                                    OnTabClose="@RefreshTabControl"
-                                    Tab="@tabNavigation"/>
-                            }
-                        }
-                    </div>
+                    <TabControl TabNavigationManager="@TabNavigationManager"/>
                     <div class="content">
                         @Body
                     </div>

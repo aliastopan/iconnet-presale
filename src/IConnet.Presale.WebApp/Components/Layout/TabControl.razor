@@ -1,0 +1,12 @@
+@rendermode InteractiveServer
+
+<div class="tab-nav">
+    @if (TabNavigationManager.TabNavigations.Count > 0)
+    {
+        @foreach (var tabNavigation in TabNavigationManager.TabNavigations)
+        {
+            <TabNav Tab="tabNavigation"
+                OnTabClick="SelectTab"/>
+        }
+    }
+</div>
