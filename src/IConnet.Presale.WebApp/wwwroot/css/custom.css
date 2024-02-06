@@ -23,6 +23,28 @@ input:invalid::part(root) {
     margin-bottom: 0.5rem;
 }
 
+#main-menu-expander.fluent-nav-item.expander .positioning-region:hover{
+    background-color: var(--neutral-fill-stealth-rest) !important;
+}
+
+#main-menu-expander.fluent-nav-item.expander .positioning-region:hover .fluent-nav-link .fluent-nav-icon{
+    fill: var(--accent-fill-rest) !important;
+}
+
+.fluent-nav-item .positioning-region:hover{
+    background-color: var(--accent-fill-rest) !important;
+    color: white;
+}
+
+.fluent-nav-item .positioning-region:hover .fluent-nav-link .fluent-nav-icon{
+    fill: white !important;
+}
+
+.fluent-nav-item .positioning-region:active{
+    background-color: crimson !important;
+    color: white;
+}
+
 .tab-nav{
     border-bottom: 1px solid #414141;
     height: 40px;
