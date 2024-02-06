@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Components.Web;
 using IConnet.Presale.WebApp.Components.Pages;
 
 namespace IConnet.Presale.WebApp.Components.Layout;
@@ -13,32 +14,32 @@ public class NavMenuBase : ComponentBase
         Log.Warning("OnClick");
     }
 
-    public void OnHomePageNavigate()
+    public void OnHomePageNavigate(MouseEventArgs _)
     {
         TabNavigationManager.SelectTab(HomePage());
     }
 
-    public void OnCrmImportPageNavigate()
+    public void OnCrmImportPageNavigate(MouseEventArgs _)
     {
         TabNavigationManager.SelectTab(CrmImportPage());
     }
 
-    public void OnCrmVerificationPageNavigate()
+    public void OnCrmVerificationPageNavigate(MouseEventArgs _)
     {
         TabNavigationManager.SelectTab(CrmVerificationPage());
     }
 
-    public void OnWorkloadSharedPageNavigate()
+    public void OnWorkloadSharedPageNavigate(MouseEventArgs _)
     {
         TabNavigationManager.SelectTab(WorkloadSharedPage());
     }
 
-    public void OnHelpdeskStagingPageNavigate()
+    public void OnHelpdeskStagingPageNavigate(MouseEventArgs _)
     {
         TabNavigationManager.SelectTab(HelpdeskStagingPage());
     }
 
-    public void OnHelpdeskPageNavigate()
+    public void OnHelpdeskPageNavigate(MouseEventArgs _)
     {
         TabNavigationManager.SelectTab(HelpdeskPage());
     }
