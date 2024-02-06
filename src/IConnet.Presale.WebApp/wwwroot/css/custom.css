@@ -31,6 +31,31 @@ input:invalid::part(root) {
     fill: var(--accent-fill-rest) !important;
 }
 
+/* debug elements */
+/* .fluent-nav-item .positioning-region{
+    background-color: rgb(44, 44, 44) !important;
+    color: white;
+}
+
+.fluent-nav-item .positioning-region .content-region{
+    background-color: crimson !important;
+    color: white;
+}
+
+.fluent-nav-item .positioning-region .content-region .fluent-nav-link{
+    background-color: rgb(180, 180, 180) !important;
+    color: rgb(59, 59, 59);
+} */
+
+.fluent-nav-item{
+    max-height: 32px;
+}
+
+.fluent-nav-item .positioning-region .fluent-nav-link{
+    padding-top: 6px;
+    padding-bottom: 5px;
+}
+
 .fluent-nav-item .positioning-region:hover{
     background-color: var(--accent-fill-rest) !important;
     color: white;
