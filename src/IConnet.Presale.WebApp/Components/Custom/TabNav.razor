@@ -1,7 +1,7 @@
 @inherits TabNavBase
 
 <div class="tab">
-    <button class="tab-content">@Tab.Label</button>
+    <button class="tab-content" @onclick="ChangeTab">@Tab.Label</button>
     <button class="tab-close" @onclick="CloseTab">
         <svg style="width: 12px; fill: var(--accent-fill-rest); cursor: pointer;" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
             <title>Close</title>

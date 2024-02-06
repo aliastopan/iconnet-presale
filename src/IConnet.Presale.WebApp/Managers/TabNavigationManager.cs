@@ -25,35 +25,47 @@ public class TabNavigationManager
         Log.Warning("Selected tab: {0}", ActiveTabId);
     }
 
-    public void ChangeTab(FluentTab tab)
+    public void ChangeTab(TabNavigation Tab)
     {
-        Log.Warning("Change tab to: {0}", tab.Id);
-
-        var tabNavigation = _tabNavigations.Find(x => x.Id == tab.Id);
-        _navigationManager.NavigateTo(tabNavigation.PageUrl);
-    }
-
-    public void CloseTab(FluentTab tab)
-    {
-        var tabActive = _tabNavigations.Find(x => x.Id == ActiveTabId);
-        var tabToClose = _tabNavigations.Find(x => x.Id == tab.Id);
-        int indexTabToClose = _tabNavigations.IndexOf(tabToClose);
-        int indexTabActive = _tabNavigations.IndexOf(tabActive);
-
-        if (indexTabToClose == indexTabActive)
+        if (ActiveTabId == Tab.Id)
         {
-            ActiveTabId = tabActive.Id;
-            // _navigationManager.NavigateTo(tabActive.PageUrl);
-            Log.Warning("Active tab persist");
-        }
-        else
-        {
-            _navigationManager.NavigateTo(tabToClose.PageUrl);
-            ActiveTabId = tabToClose.Id;
+            return;
         }
 
-        Log.Warning("Active tab: {0}, Close tab {1}", indexTabActive, indexTabToClose);
-
-        return;
+        _navigationManager.NavigateTo(Tab.PageUrl);
+        ActiveTabId = Tab.Id;
+        Log.Warning("Change tab: {0}", ActiveTabId);
     }
+
+    // public void ChangeTab(FluentTab tab)
+    // {
+    //     Log.Warning("Change tab to: {0}", tab.Id);
+
+    //     var tabNavigation = _tabNavigations.Find(x => x.Id == tab.Id);
+    //     _navigationManager.NavigateTo(tabNavigation.PageUrl);
+    // }
+
+    // public void CloseTab(FluentTab tab)
+    // {
+    //     var tabActive = _tabNavigations.Find(x => x.Id == ActiveTabId);
+    //     var tabToClose = _tabNavigations.Find(x => x.Id == tab.Id);
+    //     int indexTabToClose = _tabNavigations.IndexOf(tabToClose);
+    //     int indexTabActive = _tabNavigations.IndexOf(tabActive);
+
+    //     if (indexTabToClose == indexTabActive)
+    //     {
+    //         ActiveTabId = tabActive.Id;
+    //         // _navigationManager.NavigateTo(tabActive.PageUrl);
+    //         Log.Warning("Active tab persist");
+    //     }
+    //     else
+    //     {
+    //         _navigationManager.NavigateTo(tabToClose.PageUrl);
+    //         ActiveTabId = tabToClose.Id;
+    //     }
+
+    //     Log.Warning("Active tab: {0}, Close tab {1}", indexTabActive, indexTabToClose);
+
+    //     return;
+    // }
 }
