@@ -4,6 +4,7 @@ public class TabNavigationManager
 {
     private readonly NavigationManager _navigationManager;
     private readonly List<TabNavigation> _tabNavigations = [];
+    private readonly Stack<TabNavigation> _visitedTabs = [];
     private string? _activeTabId;
 
     public TabNavigationManager(NavigationManager navigationManager)
@@ -22,6 +23,8 @@ public class TabNavigationManager
         }
 
         _activeTabId = tabToSelect.Id;
+        _visitedTabs.Push(tabToSelect);
+
         Log.Warning("Selected tab: {0}", _activeTabId);
     }
 
@@ -34,6 +37,8 @@ public class TabNavigationManager
 
         _navigationManager.NavigateTo(tabToChange.PageUrl);
         _activeTabId = tabToChange.Id;
+        _visitedTabs.Push(tabToChange);
+
         Log.Warning("Change tab: {0}", _activeTabId);
     }
 
@@ -59,5 +64,22 @@ public class TabNavigationManager
 
         _tabNavigations.Remove(tabToClose);
         Log.Warning("Closing tab: {0}", tabToClose.Id);
+    }
+
+    public void NavigateBack()
+    {
+        if (_visitedTabs.Count <= 1)
+        {
+            return;
+        }
+
+        _visitedTabs.Pop();
+        var previousTab = _visitedTabs.Peek();
+
+        _navigationManager.NavigateTo(previousTab.PageUrl);
+        _visitedTabs.Pop(); // pop unintentionally stack.push from `SelectTab` after `NavigateTo`
+        _activeTabId = previousTab.Id;
+
+        Log.Warning("Previous tab: {0}", previousTab.Id);
     }
 }

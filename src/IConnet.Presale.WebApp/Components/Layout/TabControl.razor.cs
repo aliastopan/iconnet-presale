@@ -16,6 +16,11 @@ public partial class TabControl
         RefreshTabControl();
     }
 
+    public void NavigateBack()
+    {
+        TabNavigationManager.NavigateBack();
+    }
+
     private void RefreshTabControl()
     {
         StateHasChanged();
