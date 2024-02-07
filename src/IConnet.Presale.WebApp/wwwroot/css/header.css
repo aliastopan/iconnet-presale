@@ -36,7 +36,7 @@ header .header-gutters{
 }
 
 .job-title{
-    background-color: rgb(32, 100, 201);
+    background-color: var(--accent-fill-rest);
     color: white;
     font-weight: 300;
     font-size: 13px;

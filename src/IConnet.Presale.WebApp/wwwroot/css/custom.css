@@ -98,3 +98,7 @@ input:invalid::part(root) {
 .tab-close:hover svg.tab-close-icon{
     fill: white !important;
 }
+
+.tab-back{
+    margin-left: auto;
+}
