@@ -4,6 +4,7 @@ public class TabNavigationManager
 {
     private readonly NavigationManager _navigationManager;
     private readonly List<TabNavigation> _tabNavigations = [];
+    private string? _activeTabId;
 
     public TabNavigationManager(NavigationManager navigationManager)
     {
@@ -11,7 +12,6 @@ public class TabNavigationManager
     }
 
     public List<TabNavigation> TabNavigations => _tabNavigations;
-    public string? ActiveTabId { get; set; }
 
     public void SelectTab(TabNavigation tabToSelect)
     {
@@ -21,25 +21,25 @@ public class TabNavigationManager
             _tabNavigations.Add(tabToSelect);
         }
 
-        ActiveTabId = tabToSelect.Id;
-        Log.Warning("Selected tab: {0}", ActiveTabId);
+        _activeTabId = tabToSelect.Id;
+        Log.Warning("Selected tab: {0}", _activeTabId);
     }
 
     public void ChangeTab(TabNavigation tabToChange)
     {
-        if (ActiveTabId == tabToChange.Id)
+        if (_activeTabId == tabToChange.Id)
         {
             return;
         }
 
         _navigationManager.NavigateTo(tabToChange.PageUrl);
-        ActiveTabId = tabToChange.Id;
-        Log.Warning("Change tab: {0}", ActiveTabId);
+        _activeTabId = tabToChange.Id;
+        Log.Warning("Change tab: {0}", _activeTabId);
     }
 
     public void CloseTab(TabNavigation tabToClose)
     {
-        if (_tabNavigations.Count <=  1 && ActiveTabId == tabToClose.Id)
+        if (_tabNavigations.Count <=  1 && _activeTabId == tabToClose.Id)
         {
             Log.Warning("Cannot remove the last tab");
             return;
@@ -47,14 +47,14 @@ public class TabNavigationManager
 
         int indexTabToClose = _tabNavigations.FindIndex(x => x.Id == tabToClose.Id);
 
-        if (ActiveTabId == tabToClose.Id)
+        if (_activeTabId == tabToClose.Id)
         {
             var tabToShift = indexTabToClose > 0
                 ? _tabNavigations[indexTabToClose - 1]
                 : _tabNavigations[indexTabToClose + 1];
 
             _navigationManager.NavigateTo(tabToShift.PageUrl);
-            ActiveTabId = tabToShift.Id;
+            _activeTabId = tabToShift.Id;
         }
 
         _tabNavigations.Remove(tabToClose);
