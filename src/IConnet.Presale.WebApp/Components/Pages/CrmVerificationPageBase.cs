@@ -8,9 +8,10 @@ public class CrmVerificationPageBase : WorkloadPageBase
     [Inject] public IDialogService DialogService { get; set; } = default!;
 
     private readonly string _pageName = "CRM Verification page";
+    private string _filterValue = EnumerableOptions.KantorPerwakilan.First();
 
     protected string GridTemplateCols => GetGridTemplateCols();
-    protected string FilterValue { get; set; } = EnumerableOptions.KantorPerwakilan.First();
+    protected override IQueryable<WorkPaper>? WorkPapers => GetWorkPapers();
 
     protected override void OnInitialized()
     {
@@ -39,9 +40,22 @@ public class CrmVerificationPageBase : WorkloadPageBase
         await OpenDialogAsync(row.Item);
     }
 
+    protected IQueryable<WorkPaper>? GetWorkPapers()
+    {
+        var filterDefault = EnumerableOptions.KantorPerwakilan.First();
+
+        if (_filterValue == filterDefault)
+        {
+            return base.WorkPapers;
+        }
+
+        return base.WorkPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == _filterValue);
+    }
+
     protected void OnFilterSet(string filter)
     {
-        Log.Warning("Filter: {0}", filter);
+        _filterValue = filter;
+        StateHasChanged();
     }
 
     protected async Task OpenDialogAsync(WorkPaper workPaper)
