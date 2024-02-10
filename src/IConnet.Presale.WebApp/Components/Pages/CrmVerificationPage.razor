@@ -29,38 +29,153 @@
             ItemSize="32"
             OnRowFocus="@OnRowSelected"
             EmptyContent="@HtmlFragment.EmptyContent"
-            GridTemplateColumns="150px 180px 180px 200px 150px 120px 150px 250px 250px 150px 150px 150px 150px 150px 150px 150px 150px 150px 150px 180px 180px 150px 150px 150px 150px 150px 150px;">
+            GridTemplateColumns="@GridTemplateCols">
 
-            <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.IdPermohonan)" Style="width: 150px;"/>
-            <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.TglPermohonan)" Style="width: 180px;"/>
-            <PropertyColumn Title="IMPORT SIGNATURE" Property="@(crm => crm.ApprovalOpportunity.ImportSignature.Alias)" Style="width: 180px;"/>
-            <PropertyColumn Title="DURASI TIDAK LANJUT" Property="@(crm => DateTimeService.GetElapsedTime(crm.ApprovalOpportunity.TglPermohonan).AsReadableDateTime())" Style="width: 200px;"/>
-            <PropertyColumn Title="NAMA PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.NamaLengkap)" Style="width: 150px;"/>
-            <PropertyColumn Title="ID PLN" Property="@(crm => crm.ApprovalOpportunity.Pemohon.IdPln)" Style="width: 120px;"/>
-            <PropertyColumn Title="LAYANAN" Property="@(crm => crm.ApprovalOpportunity.Layanan)" Style="width: 150px;"/>
-            <PropertyColumn Title="SUMBER PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.SumberPermohonan)" Style="width: 250px;"/>
-            <PropertyColumn Title="STATUS PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.StatusPermohonan)" Style="width: 250px;"/>
-            <PropertyColumn Title="NAMA AGEN" Property="@(crm => crm.ApprovalOpportunity.Agen.NamaLengkap)" Style="width: 150px;"/>
-            <PropertyColumn Title="EMAIL AGEN" Property="@(crm => crm.ApprovalOpportunity.Agen.Email)" Style="width: 150px;"/>
-            <PropertyColumn Title="TELEPON AGEN" Property="@(crm => crm.ApprovalOpportunity.Agen.NomorTelepon)" Style="width: 150px;"/>
-            <PropertyColumn Title="MITRA AGEN" Property="@(crm => crm.ApprovalOpportunity.Agen.Mitra)" Style="width: 150px;"/>
-            <PropertyColumn Title="SPLITTER" Property="@(crm => crm.ApprovalOpportunity.Splitter)" Style="width: 150px;"/>
-            <PropertyColumn Title="JENIS PERMOHONAN" Property="@(crm => crm.ApprovalOpportunity.JenisPermohonan)" Style="width: 150px;"/>
-            <PropertyColumn Title="TELEPON PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.NomorTelepon)" Style="width: 150px;"/>
-            <PropertyColumn Title="EMAIL PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.Email)" Style="width: 150px;"/>
-            <PropertyColumn Title="NIK PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.Nik)" Style="width: 150px;"/>
-            <PropertyColumn Title="NPWP PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.Npwp)" Style="width: 150px;"/>
-            <PropertyColumn Title="KETERANGAN" Property="@(crm => crm.ApprovalOpportunity.Pemohon.Keterangan)" Style="width: 150px;"/>
-            <PropertyColumn Title="ALAMAT PEMOHON" Property="@(crm => crm.ApprovalOpportunity.Pemohon.Alamat)" Style="width: 150px;"/>
-            <PropertyColumn Title="REGIONAL" Property="@(crm => crm.ApprovalOpportunity.Regional.Bagian)" Style="width: 180px;"/>
-            <PropertyColumn Title="KANTOR PERWAKILAN" Property="@(crm => crm.ApprovalOpportunity.Regional.KantorPerwakilan)" Style="width: 180px;"/>
-            <PropertyColumn Title="PROVINSI" Property="@(crm => crm.ApprovalOpportunity.Regional.Provinsi)" Style="width: 150px;"/>
-            <PropertyColumn Title="KABUPATEN" Property="@(crm => crm.ApprovalOpportunity.Regional.Kabupaten)" Style="width: 150px;"/>
-            <PropertyColumn Title="KECAMATAN" Property="@(crm => crm.ApprovalOpportunity.Regional.Kecamatan)" Style="width: 150px;"/>
-            <PropertyColumn Title="KELURAHAN" Property="@(crm => crm.ApprovalOpportunity.Regional.Kelurahan)" Style="width: 150px;"/>
-            <PropertyColumn Title="LATITUDE" Property="@(crm => crm.ApprovalOpportunity.Regional.Koordinat.Latitude)" Style="width: 150px;"/>
-            <PropertyColumn Title="LONGITUDE" Property="@(crm => crm.ApprovalOpportunity.Regional.Koordinat.Longitude)" Style="width: 150px;"/>
-
+            <TemplateColumn Title="ID PERMOHONAN" SortBy="@SortByIdPermohonan" Style="@GetWidthStyle(ColumnWidth.IdPermohonanPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.IdPermohonan
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="TGL PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.TglPermohonanPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.TglPermohonan
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="PAC IMPORT" Style="@GetWidthStyle(ColumnWidth.ImportSignaturePx)">
+                <div class="">
+                    @context.ApprovalOpportunity.ImportSignature.Alias
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="DURASI TIDAK LANJUT" Style="@GetWidthStyle(ColumnWidth.DurasiTidakLanjutPx)">
+                <div class="">
+                    @DateTimeService.GetElapsedTime(context.ApprovalOpportunity.TglPermohonan)
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="NAMA PEMOHON" Style="@GetWidthStyle(ColumnWidth.NamaPemohonPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Pemohon.NamaLengkap
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="ID PLN" Style="@GetWidthStyle(ColumnWidth.IdPlnPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Pemohon.IdPln
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="LAYANAN" Style="@GetWidthStyle(ColumnWidth.LayananPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Layanan
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="SUMBER PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.SumberPermohonanPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.SumberPermohonan
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="STATUS PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.StatusPermohonanPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.StatusPermohonan
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="NAMA AGEN" Style="@GetWidthStyle(ColumnWidth.NamaAgenPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Agen.NamaLengkap
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="EMAIL AGEN" Style="@GetWidthStyle(ColumnWidth.EmailAgenPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Agen.Email
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="TELP. AGEN" Style="@GetWidthStyle(ColumnWidth.TelpAgenPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Agen.NomorTelepon
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="MITRA AGEN" Style="@GetWidthStyle(ColumnWidth.MitraAgenPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Agen.Mitra
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="SPLITTER" Style="@GetWidthStyle(ColumnWidth.SplitterPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Splitter
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="JENIS PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.JenisPermohonanPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.JenisPermohonan
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="TELP. PEMOHON" Style="@GetWidthStyle(ColumnWidth.TelpPemohonPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Pemohon.NomorTelepon
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="EMAIL PEMOHON" Style="@GetWidthStyle(ColumnWidth.EmailPemohonPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Pemohon.Email
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="NIK PEMOHON" Style="@GetWidthStyle(ColumnWidth.NikPemohonPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Pemohon.Nik
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="NPWP PEMOHON" Style="@GetWidthStyle(ColumnWidth.NpwpPemohonPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Pemohon.Npwp
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="KETERANGAN" Style="@GetWidthStyle(ColumnWidth.KeteranganPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Pemohon.Keterangan
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="ALAMAT PEMOHON" Style="@GetWidthStyle(ColumnWidth.AlamatPemohonPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Pemohon.Alamat
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="REGIONAL" Style="@GetWidthStyle(ColumnWidth.RegionalPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Regional.Bagian
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="KANTOR PERWAKILAN" Style="@GetWidthStyle(ColumnWidth.KantorPerwakilanPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Regional.KantorPerwakilan
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="PROVINSI" Style="@GetWidthStyle(ColumnWidth.ProvinsiPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Regional.Provinsi
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="KABUPATEN" Style="@GetWidthStyle(ColumnWidth.KabupatenPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Regional.Kabupaten
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="KECAMATAN" Style="@GetWidthStyle(ColumnWidth.KecamatanPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Regional.Kecamatan
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="KELURAHAN" Style="@GetWidthStyle(ColumnWidth.KelurahanPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Regional.Kelurahan
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="LATITUDE" Style="@GetWidthStyle(ColumnWidth.LatitudePx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Regional.Koordinat.Latitude
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="LONGITUDE" Style="@GetWidthStyle(ColumnWidth.LongitudePx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Regional.Koordinat.Longitude
+                </div>
+            </TemplateColumn>
         </FluentDataGrid>
     }
     else

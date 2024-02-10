@@ -39,9 +39,12 @@ public abstract class ColumnWidthBase<T>
     public int LatitudePx { get; set; } = 150;
     public int LongitudePx { get; set; } = 150;
 
+    public int ImportSignaturePx { get; set; } = DefaultWidth;
+
     protected int CharWidth => _charWidth;
     protected int Padding => _padding;
 
+    // TODO: to be deleted
     public string NamaPemohonStyle => $"width: {NamaPemohonPx}px;";
     public string EmailPemohonStyle => $"width: {EmailPemohonPx}px;";
     public string AlamatPemohonStyle => $"width: {AlamatPemohonPx}px;";
@@ -63,7 +66,7 @@ public abstract class ColumnWidthBase<T>
         int contentWidth = importModels.Max(propertySelector.Compile());
         int charWidth = isCapitalized ? CharWidth + (int)(CharWidth * 0.25f) : CharWidth;
         int columnWidthPx = (contentWidth * charWidth) + Padding;
-        // Log.Warning("{0} length: {1}, width: {2}px", propertyName, contentWidth, columnWidthPx);
+        Log.Warning("{0} length: {1}, width: {2}px", propertyName, contentWidth, columnWidthPx);
 
         if (columnWidthPx > DefaultWidth)
         {

@@ -9,6 +9,8 @@ public class CrmVerificationPageBase : WorkloadPageBase
 
     private readonly string _pageName = "CRM Verification page";
 
+    protected string GridTemplateCols => GetGridTemplateCols();
+
     protected override void OnInitialized()
     {
         TabNavigationManager.SelectTab(CrmVerificationPage());
@@ -22,6 +24,8 @@ public class CrmVerificationPageBase : WorkloadPageBase
         CacheFetchMode = CacheFetchMode.OnlyImportUnverified;
 
         await base.OnInitializedAsync();
+
+        ColumnWidth.SetColumnWidth(WorkPapers);
     }
 
     protected async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
@@ -96,6 +100,40 @@ public class CrmVerificationPageBase : WorkloadPageBase
         await BroadcastService.BroadcastMessageAsync(message);
 
         IsLoading = false;
+    }
+
+    private string GetGridTemplateCols()
+    {
+        return $@"
+            {ColumnWidth.IdPermohonanPx}px
+            {ColumnWidth.TglPermohonanPx}px
+            {ColumnWidth.ImportSignaturePx}px
+            {ColumnWidth.DurasiTidakLanjutPx}px
+            {ColumnWidth.NamaPemohonPx}px
+            {ColumnWidth.IdPlnPx}px
+            {ColumnWidth.LayananPx}px
+            {ColumnWidth.SumberPermohonanPx}px
+            {ColumnWidth.StatusPermohonanPx}px
+            {ColumnWidth.NamaAgenPx}px
+            {ColumnWidth.EmailAgenPx}px
+            {ColumnWidth.TelpAgenPx}px
+            {ColumnWidth.MitraAgenPx}px
+            {ColumnWidth.SplitterPx}px
+            {ColumnWidth.JenisPermohonanPx}px
+            {ColumnWidth.TelpPemohonPx}px
+            {ColumnWidth.EmailPemohonPx}px
+            {ColumnWidth.NikPemohonPx}px
+            {ColumnWidth.NpwpPemohonPx}px
+            {ColumnWidth.KeteranganPx}px
+            {ColumnWidth.AlamatPemohonPx}px
+            {ColumnWidth.RegionalPx}px
+            {ColumnWidth.KantorPerwakilanPx}px
+            {ColumnWidth.ProvinsiPx}px
+            {ColumnWidth.KabupatenPx}px
+            {ColumnWidth.KecamatanPx}px
+            {ColumnWidth.KelurahanPx}px
+            {ColumnWidth.LatitudePx}px
+            {ColumnWidth.LongitudePx}px;";
     }
 
     private static TabNavigation CrmVerificationPage()
