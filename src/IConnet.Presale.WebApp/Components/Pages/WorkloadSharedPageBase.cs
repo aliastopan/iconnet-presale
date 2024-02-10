@@ -5,9 +5,9 @@ public class WorkloadSharedPageBase : WorkloadPageBase
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
 
     private readonly string _pageName = "Workload (shared) page";
-    private readonly WorkPaperColumnWidth _columnWidth = new();
+    private readonly WorkloadColumnWidth _columnWidth = new();
 
-    protected WorkPaperColumnWidth ColumnWidth => _columnWidth;
+    protected WorkloadColumnWidth ColumnWidth => _columnWidth;
     protected string GridTemplateCols => GetGridTemplateCols();
 
     protected override void OnInitialized()

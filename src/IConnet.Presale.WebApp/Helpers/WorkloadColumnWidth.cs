@@ -1,6 +1,6 @@
 namespace IConnet.Presale.WebApp.Helpers;
 
-public class WorkPaperColumnWidth : ColumnWidthBase<WorkPaper>
+public class WorkloadColumnWidth : ColumnWidthBase<WorkPaper>
 {
     public override void SetColumnWidth(IQueryable<WorkPaper>? workPaper)
     {
