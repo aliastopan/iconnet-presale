@@ -59,7 +59,7 @@
             </TemplateColumn>
             <TemplateColumn Title="DURASI TIDAK LANJUT" Style="@GetWidthStyle(ColumnWidth.DurasiTidakLanjutPx)">
                 <div class="">
-                    @DateTimeService.GetElapsedTime(context.ApprovalOpportunity.TglPermohonan)
+                    @DateTimeService.GetElapsedTime(context.ApprovalOpportunity.TglPermohonan).AsReadableDateTime()
                 </div>
             </TemplateColumn>
             <TemplateColumn Title="NAMA PEMOHON" Style="@GetWidthStyle(ColumnWidth.NamaPemohonPx)">
