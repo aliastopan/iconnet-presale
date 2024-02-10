@@ -46,6 +46,7 @@ public class WorkloadSharedPageBase : WorkloadPageBase
             {ColumnWidth.NamaAgenPx}px
             {ColumnWidth.EmailAgenPx}px
             {ColumnWidth.TelpAgenPx}px
+            {ColumnWidth.MitraAgenPx}px
             {ColumnWidth.SplitterPx}px
             {ColumnWidth.TelpPemohonPx}px
             {ColumnWidth.EmailPemohonPx}px
