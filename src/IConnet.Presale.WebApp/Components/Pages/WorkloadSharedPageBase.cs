@@ -1,6 +1,6 @@
 namespace IConnet.Presale.WebApp.Components.Pages;
 
-public class SharedWorkloadPageBase : WorkloadPageBase
+public class WorkloadSharedPageBase : WorkloadPageBase
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
 
