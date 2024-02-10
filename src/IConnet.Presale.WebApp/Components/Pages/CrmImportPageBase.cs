@@ -22,17 +22,7 @@ public class CrmImportPageBase : ComponentBase
     protected int ImportCount { get; set; }
     protected bool IsLoading { get; set; } = false;
 
-    protected string GridTemplateCols
-    {
-        get => $@"150px 180px 200px
-            {ColumnWidth.NamaPemohonPx}px 120px 150px 200px 200px
-            {ColumnWidth.NamaAgenPx}px
-            {ColumnWidth.EmailAgenPx}px 150px
-            {ColumnWidth.MitraAgenPx}px 150px 200px 200px
-            {ColumnWidth.EmailPemohonPx}px 150px 150px
-            {ColumnWidth.KeteranganPx}px
-            {ColumnWidth.AlamatPemohonPx}px 180px 180px 150px 150px 150px 150px 150px 150px;";
-    }
+    protected string GridTemplateCols => GetGridTemplateCols();
 
     protected override void OnInitialized()
     {
@@ -96,6 +86,45 @@ public class CrmImportPageBase : ComponentBase
             var message = $"Terdapat {ImportMetadata.NumberOfDuplicates} duplikasi saat dalam proses copy-paste dari iCRM+.";
             ToastService.ShowToast(intent, message);
         }
+    }
+
+    protected string GetWidthStyle(int widthPx)
+    {
+        return $"width: {widthPx}px;";
+    }
+
+    private string GetGridTemplateCols()
+    {
+        return $@"
+            {ColumnWidth.IdPermohonanPx}px
+            {ColumnWidth.TglPermohonanPx}px
+            {ColumnWidth.ImportSignaturePx}px
+            {ColumnWidth.DurasiTidakLanjutPx}px
+            {ColumnWidth.NamaPemohonPx}px
+            {ColumnWidth.IdPlnPx}px
+            {ColumnWidth.LayananPx}px
+            {ColumnWidth.SumberPermohonanPx}px
+            {ColumnWidth.StatusPermohonanPx}px
+            {ColumnWidth.NamaAgenPx}px
+            {ColumnWidth.EmailAgenPx}px
+            {ColumnWidth.TelpAgenPx}px
+            {ColumnWidth.MitraAgenPx}px
+            {ColumnWidth.SplitterPx}px
+            {ColumnWidth.JenisPermohonanPx}px
+            {ColumnWidth.TelpPemohonPx}px
+            {ColumnWidth.EmailPemohonPx}px
+            {ColumnWidth.NikPemohonPx}px
+            {ColumnWidth.NpwpPemohonPx}px
+            {ColumnWidth.KeteranganPx}px
+            {ColumnWidth.AlamatPemohonPx}px
+            {ColumnWidth.RegionalPx}px
+            {ColumnWidth.KantorPerwakilanPx}px
+            {ColumnWidth.ProvinsiPx}px
+            {ColumnWidth.KabupatenPx}px
+            {ColumnWidth.KecamatanPx}px
+            {ColumnWidth.KelurahanPx}px
+            {ColumnWidth.LatitudePx}px
+            {ColumnWidth.LongitudePx}px;";
     }
 
     private static TabNavigation CrmImportPage()
