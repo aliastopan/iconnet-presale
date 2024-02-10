@@ -1,5 +1,3 @@
-using System.Linq.Expressions;
-
 namespace IConnet.Presale.WebApp.Helpers;
 
 public class ImportModelColumnWidth : ColumnWidthBase<IApprovalOpportunityModel>
