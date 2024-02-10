@@ -10,6 +10,7 @@ public class CrmVerificationPageBase : WorkloadPageBase
     private readonly string _pageName = "CRM Verification page";
 
     protected string GridTemplateCols => GetGridTemplateCols();
+    protected string FilterValue { get; set; } = EnumerableOptions.KantorPerwakilan.First();
 
     protected override void OnInitialized()
     {
@@ -36,6 +37,11 @@ public class CrmVerificationPageBase : WorkloadPageBase
         }
 
         await OpenDialogAsync(row.Item);
+    }
+
+    protected void OnFilterSet(string filter)
+    {
+        Log.Warning("Filter: {0}", filter);
     }
 
     protected async Task OpenDialogAsync(WorkPaper workPaper)

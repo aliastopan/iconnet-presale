@@ -102,3 +102,18 @@ input:invalid::part(root) {
 .tab-back{
     margin-left: auto;
 }
+
+.filter-toggle{
+    margin-left: auto;
+}
+
+.filter-section{
+    border-top: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+    margin: 1rem 0;
+    padding: 1rem 0.5rem;
+}
+
+.filter-section-disabled{
+    display: none;
+}

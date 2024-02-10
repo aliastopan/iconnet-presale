@@ -4,7 +4,12 @@
 
 <PageTitle>Verifikasi CRM</PageTitle>
 
-<FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Verifikasi CRM</FluentLabel>
+<div class="d-flex flex-row align-items-center">
+    <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Verifikasi CRM</FluentLabel>
+    <div class="filter-toggle">
+        <FluentButton Appearance="Appearance.Lightweight">Filter</FluentButton>
+    </div>
+</div>
 <div>
     @if (!IsLoading)
     {
@@ -18,7 +23,13 @@
         </div>
     }
 </div>
-
+<div class="filter-section">
+    <FluentSelect TOption="string"
+        Label="Kantor Perwakilan"
+        Items="@EnumerableOptions.KantorPerwakilan"
+        Value="@FilterValue"
+        ValueChanged="@OnFilterSet"/>
+</div>
 <div class="datagrid-wrapper">
     @if (WorkPapers is not null)
     {
