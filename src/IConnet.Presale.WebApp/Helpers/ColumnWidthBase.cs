@@ -44,15 +44,6 @@ public abstract class ColumnWidthBase<T>
     protected int CharWidth => _charWidth;
     protected int Padding => _padding;
 
-    // TODO: to be deleted
-    public string NamaPemohonStyle => $"width: {NamaPemohonPx}px;";
-    public string EmailPemohonStyle => $"width: {EmailPemohonPx}px;";
-    public string AlamatPemohonStyle => $"width: {AlamatPemohonPx}px;";
-    public string NamaAgenStyle => $"width: {NamaAgenPx}px;";
-    public string EmailAgenStyle => $"width: {EmailAgenPx}px;";
-    public string MitraAgenStyle => $"width: {MitraAgenPx}px;";
-    public string KeteranganStyle => $"width: {KeteranganPx}px;";
-
     public abstract void SetColumnWidth(IQueryable<T>? models);
 
     protected void SetColumnWidth(IQueryable<T> importModels, Expression<Func<T, int>> propertySelector, Action<int>
