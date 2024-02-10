@@ -24,6 +24,6 @@ public partial class TabControl
     private void RefreshTabControl()
     {
         StateHasChanged();
-        Log.Warning("Refreshing Tab Control");
+        // Log.Warning("Refreshing Tab Control");
     }
 }
