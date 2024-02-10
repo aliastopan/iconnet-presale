@@ -5,9 +5,7 @@ public class WorkloadSharedPageBase : WorkloadPageBase
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
 
     private readonly string _pageName = "Workload (shared) page";
-    private readonly WorkloadColumnWidth _columnWidth = new();
 
-    protected WorkloadColumnWidth ColumnWidth => _columnWidth;
     protected string GridTemplateCols => GetGridTemplateCols();
 
     protected override void OnInitialized()
@@ -24,14 +22,14 @@ public class WorkloadSharedPageBase : WorkloadPageBase
 
         await base.OnInitializedAsync();
 
-        _columnWidth.SetColumnWidth(WorkPapers);
+        ColumnWidth.SetColumnWidth(WorkPapers);
     }
 
     protected override async Task OnUpdateWorkloadAsync(string message)
     {
         await base.OnUpdateWorkloadAsync(message);
 
-        _columnWidth.SetColumnWidth(WorkPapers);
+        ColumnWidth.SetColumnWidth(WorkPapers);
     }
 
     private string GetGridTemplateCols()

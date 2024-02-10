@@ -8,12 +8,14 @@ public class WorkloadPageBase : ComponentBase
 
     private const int _itemPerPage = 10;
     private readonly PaginationState _pagination = new PaginationState { ItemsPerPage = _itemPerPage };
+    private readonly WorkloadColumnWidth _columnWidth = new WorkloadColumnWidth();
 
     private IQueryable<WorkPaper>? _workPapers;
     private readonly GridSort<WorkPaper> _sortByIdPermohonan = GridSort<WorkPaper>
         .ByAscending(workPaper => workPaper.ApprovalOpportunity.IdPermohonan);
 
     protected PaginationState Pagination => _pagination;
+    protected WorkloadColumnWidth ColumnWidth => _columnWidth;
     protected CacheFetchMode CacheFetchMode { get; set; } = CacheFetchMode.OnlyImportVerified;
     protected virtual IQueryable<WorkPaper>? WorkPapers => _workPapers;
     protected GridSort<WorkPaper> SortByIdPermohonan => _sortByIdPermohonan;
