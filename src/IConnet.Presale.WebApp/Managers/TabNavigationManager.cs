@@ -25,7 +25,7 @@ public class TabNavigationManager
         _activeTabId = tabToSelect.Id;
         _visitedTabs.Push(tabToSelect);
 
-        Log.Warning("Selected tab: {0}", _activeTabId);
+        // Log.Warning("Selected tab: {0}", _activeTabId);
     }
 
     public void ChangeTab(TabNavigation tabToChange)
@@ -39,14 +39,14 @@ public class TabNavigationManager
         _activeTabId = tabToChange.Id;
         _visitedTabs.Push(tabToChange);
 
-        Log.Warning("Change tab: {0}", _activeTabId);
+        // Log.Warning("Change tab: {0}", _activeTabId);
     }
 
     public void CloseTab(TabNavigation tabToClose)
     {
         if (_tabNavigations.Count <=  1 && _activeTabId == tabToClose.Id)
         {
-            Log.Warning("Cannot remove the last tab");
+            // Log.Warning("Cannot remove the last tab");
             return;
         }
 
@@ -63,7 +63,7 @@ public class TabNavigationManager
         }
 
         _tabNavigations.Remove(tabToClose);
-        Log.Warning("Closing tab: {0}", tabToClose.Id);
+        // Log.Warning("Closing tab: {0}", tabToClose.Id);
     }
 
     public void NavigateBack()
@@ -80,6 +80,6 @@ public class TabNavigationManager
         _visitedTabs.Pop(); // pop unintentionally stack.push from `SelectTab` after `NavigateTo`
         _activeTabId = previousTab.Id;
 
-        Log.Warning("Previous tab: {0}", previousTab.Id);
+        // Log.Warning("Previous tab: {0}", previousTab.Id);
     }
 }
