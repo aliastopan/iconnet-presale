@@ -48,4 +48,10 @@ public partial class WorkloadFilterForm
         Log.Warning("Filter by Office");
         return workPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == FilterByOffice);
     }
+
+    public void ResetFilter()
+    {
+        _filterOffice = _filterOfficeDefault;
+        _filterSearch = string.Empty;
+    }
 }
