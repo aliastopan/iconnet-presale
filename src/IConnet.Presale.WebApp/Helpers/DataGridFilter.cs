@@ -12,4 +12,12 @@ public class DataGridFilter
             IdPermohonanFilter = value;
         }
     }
+
+    public void IdPermohonanFilterClear()
+    {
+        if (IdPermohonanFilter.IsNullOrWhiteSpace())
+        {
+            IdPermohonanFilter = string.Empty;
+        }
+    }
 }

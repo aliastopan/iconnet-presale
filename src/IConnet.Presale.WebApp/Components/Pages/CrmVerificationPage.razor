@@ -47,6 +47,7 @@
                             type="search"
                             @bind-Value=DataGridFilter.IdPermohonanFilter
                             @oninput="@DataGridFilter.IdPermohonanFilterHandler"
+                            @bind-Value:after="DataGridFilter.IdPermohonanFilterClear"
                             Placeholder="Id Permohonan"/>
                     </div>
                 </ColumnOptions>
