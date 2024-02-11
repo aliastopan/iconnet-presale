@@ -50,6 +50,13 @@ public class CrmVerificationPageBase : WorkloadPageBase
             return base.WorkPapers;
         }
 
+        if (DataGridFilter.IdPermohonanFilter.HasValue())
+        {
+            Log.Warning("Filter: {0}", DataGridFilter.IdPermohonanFilter);
+            return base.WorkPapers?.Where(x => x.ApprovalOpportunity.IdPermohonan
+                .Contains(DataGridFilter.IdPermohonanFilter!));
+        }
+
         return FilterComponent.FilterWorkPapers(base.WorkPapers);
     }
 
