@@ -49,25 +49,7 @@ public class CrmVerificationPageBase : WorkloadPageBase
             return base.WorkPapers;
         }
 
-        if (!FilterComponent.IsFilterSet)
-        {
-            var filterSearch = FilterComponent.FilterSearch;
-            Log.Warning("ID {0}", filterSearch);
-
-            if (FilterComponent.FilterSearch.HasValue())
-            {
-                Log.Warning("Filter by Search");
-                return base.WorkPapers?.Where(x => x.ApprovalOpportunity.IdPermohonan == filterSearch);
-            }
-            else
-            {
-                return base.WorkPapers;
-            }
-        }
-
-        Log.Warning("Filter by Office");
-        var filterOffice = FilterComponent.FilterByOffice;
-        return base.WorkPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == filterOffice);
+        return FilterComponent.FilterWorkPapers(base.WorkPapers);
     }
 
     protected async Task OpenDialogAsync(WorkPaper workPaper)

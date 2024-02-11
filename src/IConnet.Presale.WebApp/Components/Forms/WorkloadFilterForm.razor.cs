@@ -29,4 +29,23 @@ public partial class WorkloadFilterForm
 
         await OnFilter.InvokeAsync();
     }
+
+    public IQueryable<WorkPaper>? FilterWorkPapers(IQueryable<WorkPaper>? workPapers)
+    {
+        if (!IsFilterSet)
+        {
+            if (FilterSearch.HasValue())
+            {
+                Log.Warning("Filter by Search");
+                return workPapers?.Where(x => x.ApprovalOpportunity.IdPermohonan == FilterSearch);
+            }
+            else
+            {
+                return workPapers;
+            }
+        }
+
+        Log.Warning("Filter by Office");
+        return workPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == FilterByOffice);
+    }
 }
