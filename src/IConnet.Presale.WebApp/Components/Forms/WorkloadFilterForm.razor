@@ -7,7 +7,7 @@
             <FluentSelect TOption="string"
                 Label="Kantor Perwakilan"
                 Items="@EnumerableOptions.KantorPerwakilan"
-                Value="@_filterOffice"
+                Value="@Filter.FilterOffice"
                 ValueChanged="FilterByOfficeAsync"/>
         </div>
 
@@ -20,7 +20,7 @@
                 Width="165px"/>
 
             <FluentTextField style="width: 200px;"
-                Value="@_filterSearch"
+                Value="@Filter.FilterSearch"
                 ValueChanged="FilterBySearchAsync"></FluentTextField>
         </div>
 

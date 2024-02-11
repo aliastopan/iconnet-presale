@@ -4,19 +4,14 @@ public partial class WorkloadFilterForm
 {
     [Parameter] public EventCallback OnFilter { get; set; }
 
-    private static string _filterOfficeDefault = EnumerableOptions.KantorPerwakilan.First();
-    private string _filterOffice = _filterOfficeDefault;
-    private string? _filterSearch;
-
-    public bool IsFilterSet => FilterByOffice != _filterOfficeDefault;
-    public string FilterByOffice => _filterOffice;
-    public string? FilterSearch => _filterSearch;
+    private readonly WorkloadFilter _filter = new WorkloadFilter();
+    public WorkloadFilter Filter => _filter;
 
     public async Task FilterByOfficeAsync(string filterOffice)
     {
         Log.Warning("Filter {0}", filterOffice);
-        _filterOffice = filterOffice;
-        _filterSearch = string.Empty;
+        Filter.FilterOffice = filterOffice;
+        Filter.FilterSearch = string.Empty;
 
         await OnFilter.InvokeAsync();
     }
@@ -24,20 +19,20 @@ public partial class WorkloadFilterForm
     public async Task FilterBySearchAsync(string filterSearch)
     {
         Log.Warning("Filter Search {0}", filterSearch);
-        _filterSearch = filterSearch;
-        _filterOffice = _filterOfficeDefault;
+        Filter.FilterSearch = filterSearch;
+        Filter.FilterOffice = Filter.FilterOfficeDefault;
 
         await OnFilter.InvokeAsync();
     }
 
     public IQueryable<WorkPaper>? FilterWorkPapers(IQueryable<WorkPaper>? workPapers)
     {
-        if (!IsFilterSet)
+        if (!Filter.IsFilterOfficeSpecified)
         {
-            if (FilterSearch.HasValue())
+            if (Filter.FilterSearch.HasValue())
             {
                 Log.Warning("Filter by Search");
-                return workPapers?.Where(x => x.ApprovalOpportunity.IdPermohonan == FilterSearch);
+                return workPapers?.Where(x => x.ApprovalOpportunity.IdPermohonan == Filter.FilterSearch);
             }
             else
             {
@@ -46,12 +41,6 @@ public partial class WorkloadFilterForm
         }
 
         Log.Warning("Filter by Office");
-        return workPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == FilterByOffice);
-    }
-
-    public void ResetFilter()
-    {
-        _filterOffice = _filterOfficeDefault;
-        _filterSearch = string.Empty;
+        return workPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == Filter.FilterOffice);
     }
 }
