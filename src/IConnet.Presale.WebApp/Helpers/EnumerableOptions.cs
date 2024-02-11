@@ -11,5 +11,11 @@ public static class EnumerableOptions
         "MALANG"
     ];
 
+    private static List<string> _filterSearchType =
+    [
+        "ID PERMOHONAN",
+    ];
+
     public static IEnumerable<string> KantorPerwakilan => _kantorPerwakilan;
+    public static IEnumerable<string> Filter => _filterSearchType;
 }

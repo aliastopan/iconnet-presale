@@ -117,3 +117,7 @@ input:invalid::part(root) {
 .filter-section-disabled{
     display: none;
 }
+
+.filter-search{
+    white-space: nowrap;
+}

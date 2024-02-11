@@ -1,6 +1,28 @@
 <div class="filter-section">
-    <FluentSelect TOption="string"
-        Label="Kantor Perwakilan"
-        Items="@EnumerableOptions.KantorPerwakilan"
-        ValueChanged="SetFilterAsync"/>
+    <FluentStack Orientation="Orientation.Horizontal"
+    HorizontalAlignment="HorizontalAlignment.Start"
+    VerticalAlignment="VerticalAlignment.Center">
+
+        <div class="filter-office">
+            <FluentSelect TOption="string"
+                Label="Kantor Perwakilan"
+                Items="@EnumerableOptions.KantorPerwakilan"
+                Value="@_filterOffice"
+                ValueChanged="FilterByOfficeAsync"/>
+        </div>
+
+        <FluentSpacer Width="50" />
+
+        <div class="filter-search">
+            <FluentSelect TOption="string"
+                Label="Pencarian"
+                Items="@EnumerableOptions.Filter"
+                Width="165px"/>
+
+            <FluentTextField style="width: 200px;"
+                Value="@_filterSearch"
+                ValueChanged="FilterBySearchAsync"></FluentTextField>
+        </div>
+
+    </FluentStack>
 </div>
