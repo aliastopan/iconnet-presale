@@ -40,9 +40,20 @@
             GridTemplateColumns="@GridTemplateCols">
 
             <TemplateColumn Title="ID PERMOHONAN" SortBy="@SortByIdPermohonan" Style="@GetWidthStyle(ColumnWidth.IdPermohonanPx)">
-                <div class="">
-                    @context.ApprovalOpportunity.IdPermohonan
-                </div>
+                <ColumnOptions>
+                    <div class="search-box">
+                        <FluentSearch Autofocus=true
+                            style="width: 200px;"
+                            type="search"
+                            @bind-Value=DataGridFilter.IdPermohonanFilter
+                            Placeholder="Id Permohonan"/>
+                    </div>
+                </ColumnOptions>
+                <ChildContent>
+                    <div class="">
+                        @context.ApprovalOpportunity.IdPermohonan
+                    </div>
+                </ChildContent>
             </TemplateColumn>
             <TemplateColumn Title="TGL PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.TglPermohonanPx)">
                 <div class="">

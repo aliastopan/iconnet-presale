@@ -9,8 +9,10 @@ public class CrmVerificationPageBase : WorkloadPageBase
     [Inject] public IDialogService DialogService { get; set; } = default!;
 
     private readonly string _pageName = "CRM Verification page";
+    private readonly DataGridFilter _dataGridFilter = new DataGridFilter();
 
     protected WorkloadFilterForm FilterComponent { get; set; } = default!;
+    protected DataGridFilter DataGridFilter => _dataGridFilter;
     protected string GridTemplateCols => GetGridTemplateCols();
     protected override IQueryable<WorkPaper>? WorkPapers => GetWorkPapers();
 

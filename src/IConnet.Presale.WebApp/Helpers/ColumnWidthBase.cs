@@ -10,7 +10,7 @@ public abstract class ColumnWidthBase<T>
 
     public static int DefaultWidth => _defaultWidth;
 
-    public int IdPermohonanPx { get; set; } = 185;
+    public int IdPermohonanPx { get; set; } = 215;
     public int TglPermohonanPx { get; set; } = DefaultWidth;
     public int DurasiTidakLanjutPx { get; set; } = DefaultWidth;
     public int NamaPemohonPx { get; set; } = DefaultWidth;
