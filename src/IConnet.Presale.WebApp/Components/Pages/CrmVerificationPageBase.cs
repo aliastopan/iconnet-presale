@@ -1,5 +1,6 @@
 using IConnet.Presale.WebApp.Components.Dialogs;
 using IConnet.Presale.WebApp.Components.Forms;
+using IConnet.Presale.WebApp.Extensions;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
 
@@ -43,13 +44,30 @@ public class CrmVerificationPageBase : WorkloadPageBase
 
     protected IQueryable<WorkPaper>? GetWorkPapers()
     {
-        if (FilterComponent is null || !FilterComponent.IsFilterSet)
+        if (FilterComponent is null)
         {
             return base.WorkPapers;
         }
 
-        var filter = FilterComponent.KantorPerwakilanFilter;
-        return base.WorkPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == filter);
+        if (!FilterComponent.IsFilterSet)
+        {
+            var filterSearch = FilterComponent.FilterSearch;
+            Log.Warning("ID {0}", filterSearch);
+
+            if (FilterComponent.FilterSearch.HasValue())
+            {
+                Log.Warning("Filter by Search");
+                return base.WorkPapers?.Where(x => x.ApprovalOpportunity.IdPermohonan == filterSearch);
+            }
+            else
+            {
+                return base.WorkPapers;
+            }
+        }
+
+        Log.Warning("Filter by Office");
+        var filterOffice = FilterComponent.FilterByOffice;
+        return base.WorkPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == filterOffice);
     }
 
     protected async Task OpenDialogAsync(WorkPaper workPaper)
