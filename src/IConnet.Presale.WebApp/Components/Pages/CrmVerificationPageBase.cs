@@ -1,4 +1,5 @@
 using IConnet.Presale.WebApp.Components.Dialogs;
+using IConnet.Presale.WebApp.Components.Forms;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
 
@@ -8,8 +9,8 @@ public class CrmVerificationPageBase : WorkloadPageBase
     [Inject] public IDialogService DialogService { get; set; } = default!;
 
     private readonly string _pageName = "CRM Verification page";
-    private string _filterValue = EnumerableOptions.KantorPerwakilan.First();
 
+    protected WorkloadFilterForm FilterComponent { get; set; } = default!;
     protected string GridTemplateCols => GetGridTemplateCols();
     protected override IQueryable<WorkPaper>? WorkPapers => GetWorkPapers();
 
@@ -42,20 +43,13 @@ public class CrmVerificationPageBase : WorkloadPageBase
 
     protected IQueryable<WorkPaper>? GetWorkPapers()
     {
-        var filterDefault = EnumerableOptions.KantorPerwakilan.First();
-
-        if (_filterValue == filterDefault)
+        if (FilterComponent is null || !FilterComponent.IsFilterSet)
         {
             return base.WorkPapers;
         }
 
-        return base.WorkPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == _filterValue);
-    }
-
-    protected void OnFilterSet(string filter)
-    {
-        _filterValue = filter;
-        StateHasChanged();
+        var filter = FilterComponent.KantorPerwakilanFilter;
+        return base.WorkPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == filter);
     }
 
     protected async Task OpenDialogAsync(WorkPaper workPaper)

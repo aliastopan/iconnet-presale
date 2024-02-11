@@ -23,11 +23,9 @@
         </div>
     }
 </div>
-<div class="filter-section">
-    <FluentSelect TOption="string"
-        Label="Kantor Perwakilan"
-        Items="@EnumerableOptions.KantorPerwakilan"
-        ValueChanged="@OnFilterSet"/>
+<div>
+    <WorkloadFilterForm @ref="FilterComponent"
+        OnFilter="@(this.StateHasChanged)" />
 </div>
 <div class="datagrid-wrapper">
     @if (WorkPapers is not null)
