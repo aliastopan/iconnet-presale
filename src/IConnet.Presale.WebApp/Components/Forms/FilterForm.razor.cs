@@ -9,38 +9,50 @@ public partial class FilterForm
 
     public async Task FilterByOfficeAsync(string filterOffice)
     {
-        Log.Warning("Filter {0}", filterOffice);
-        Filter.FilterOffice = filterOffice;
         Filter.FilterSearch = string.Empty;
+        Filter.FilterOffice = filterOffice;
 
         await OnFilter.InvokeAsync();
     }
 
     public async Task FilterBySearchAsync(string filterSearch)
     {
-        Log.Warning("Filter Search {0}", filterSearch);
-        Filter.FilterSearch = filterSearch;
+        Filter.ResetColumnFilters();
         Filter.FilterOffice = Filter.FilterOfficeDefault;
+        Filter.FilterSearch = filterSearch;
 
         await OnFilter.InvokeAsync();
     }
 
-    public IQueryable<WorkPaper>? FilterWorkPapers(IQueryable<WorkPaper>? workPapers)
+    public IQueryable<WorkPaper>? BaseFilter(IQueryable<WorkPaper>? workPapers)
     {
-        if (!Filter.IsFilterOfficeSpecified)
+        // prioritize filter search
+        if (Filter.FilterSearch.HasValue())
         {
-            if (Filter.FilterSearch.HasValue())
+            Log.Warning("Filter by Search");
+            return workPapers?.Where(x => x.ApprovalOpportunity.IdPermohonan == Filter.FilterSearch);
+        }
+        else
+        {
+            if (Filter.IsFilterOfficeSpecified)
             {
-                Log.Warning("Filter by Search");
-                return workPapers?.Where(x => x.ApprovalOpportunity.IdPermohonan == Filter.FilterSearch);
+                Log.Warning("Filter by Office");
+                return workPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == Filter.FilterOffice);
             }
             else
             {
                 return workPapers;
             }
         }
+    }
 
-        Log.Warning("Filter by Office");
-        return workPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == Filter.FilterOffice);
+    public IQueryable<WorkPaper>? FilterWorkPapers(IQueryable<WorkPaper>? workPapers)
+    {
+        workPapers = BaseFilter(workPapers);
+
+        return workPapers?
+            .Where(x => !Filter.IdPermohonan.HasValue() || x.ApprovalOpportunity.IdPermohonan
+                .Contains(Filter.IdPermohonan, StringComparison.CurrentCultureIgnoreCase));
+
     }
 }

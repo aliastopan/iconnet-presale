@@ -48,13 +48,6 @@ public class CrmVerificationPageBase : WorkloadPageBase
             return base.WorkPapers;
         }
 
-        if (FilterComponent.Filter.IdPermohonan.HasValue())
-        {
-            Log.Warning("Filter: {0}", FilterComponent.Filter.IdPermohonan);
-            return base.WorkPapers?.Where(x => x.ApprovalOpportunity.IdPermohonan
-                .Contains(FilterComponent.Filter.IdPermohonan!));
-        }
-
         return FilterComponent.FilterWorkPapers(base.WorkPapers);
     }
 
