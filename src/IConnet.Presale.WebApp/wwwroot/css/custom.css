@@ -121,3 +121,8 @@ input:invalid::part(root) {
 .filter-search{
     white-space: nowrap;
 }
+
+.search-box{
+    display: flex;
+    flex-direction: column;
+}

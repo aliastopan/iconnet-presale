@@ -20,7 +20,25 @@ fluent-data-grid-cell.column-header{
 }
 
 fluent-data-grid-cell.column-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+fluent-data-grid-row.header,
+fluent-data-grid-cell.column-header{
     height: 32px;
+}
+
+fluent-data-grid-cell.column-header fluent-button.col-options-button{
+    align-items: center;
+}
+
+fluent-data-grid-cell.column-header fluent-button.col-options-button::part(control){
+    margin-left: 4px;
+    height: 24px;
+    background-color: rgb(240, 240, 240);
+    /* background-color: crimson; */
 }
 
 fluent-data-grid-cell{
