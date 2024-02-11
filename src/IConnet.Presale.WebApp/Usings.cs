@@ -10,6 +10,7 @@ global using IConnet.Presale.Application.Common.Interfaces.Managers;
 global using IConnet.Presale.Application.Common.Interfaces.Managers.Options;
 global using IConnet.Presale.Application.Common.Interfaces.Services;
 global using IConnet.Presale.Shared.Interfaces.Models.Presales;
+global using IConnet.Presale.WebApp.Extensions;
 global using IConnet.Presale.WebApp.Helpers;
 global using IConnet.Presale.WebApp.Managers;
 global using IConnet.Presale.WebApp.Models.Common;
