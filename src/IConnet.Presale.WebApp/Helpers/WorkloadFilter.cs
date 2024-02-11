@@ -9,22 +9,22 @@ public class WorkloadFilter
     public string FilterOffice { get; set; } = _filterOfficeDefault;
     public string FilterSearch { get; set; } = string.Empty;
 
-    public string IdPermohonanFilter { get; set; } = string.Empty;
+    public string IdPermohonan { get; set; } = string.Empty;
 
     public void IdPermohonanFilterHandler(ChangeEventArgs args)
     {
         Log.Warning("ChangeEventArgs");
         if (args.Value is string value)
         {
-            IdPermohonanFilter = value;
+            IdPermohonan = value;
         }
     }
 
     public void IdPermohonanFilterClear()
     {
-        if (IdPermohonanFilter.IsNullOrWhiteSpace())
+        if (IdPermohonan.IsNullOrWhiteSpace())
         {
-            IdPermohonanFilter = string.Empty;
+            IdPermohonan = string.Empty;
         }
     }
 }

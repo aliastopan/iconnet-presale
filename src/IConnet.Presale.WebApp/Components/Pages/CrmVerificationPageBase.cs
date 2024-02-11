@@ -9,10 +9,8 @@ public class CrmVerificationPageBase : WorkloadPageBase
     [Inject] public IDialogService DialogService { get; set; } = default!;
 
     private readonly string _pageName = "CRM Verification page";
-    private readonly WorkloadFilter _workloadFilter = new WorkloadFilter();
 
     protected WorkloadFilterForm FilterComponent { get; set; } = default!;
-    protected WorkloadFilter WorkloadFilter => _workloadFilter;
     protected string GridTemplateCols => GetGridTemplateCols();
     protected override IQueryable<WorkPaper>? WorkPapers => GetWorkPapers();
 
@@ -50,11 +48,11 @@ public class CrmVerificationPageBase : WorkloadPageBase
             return base.WorkPapers;
         }
 
-        if (WorkloadFilter.IdPermohonanFilter.HasValue())
+        if (FilterComponent.Filter.IdPermohonan.HasValue())
         {
-            Log.Warning("Filter: {0}", WorkloadFilter.IdPermohonanFilter);
+            Log.Warning("Filter: {0}", FilterComponent.Filter.IdPermohonan);
             return base.WorkPapers?.Where(x => x.ApprovalOpportunity.IdPermohonan
-                .Contains(WorkloadFilter.IdPermohonanFilter!));
+                .Contains(FilterComponent.Filter.IdPermohonan!));
         }
 
         return FilterComponent.FilterWorkPapers(base.WorkPapers);

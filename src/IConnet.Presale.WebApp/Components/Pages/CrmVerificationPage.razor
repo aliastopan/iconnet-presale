@@ -42,13 +42,16 @@
             <TemplateColumn Title="ID PERMOHONAN" SortBy="@SortByIdPermohonan" Style="@GetWidthStyle(ColumnWidth.IdPermohonanPx)">
                 <ColumnOptions>
                     <div class="search-box">
-                        <FluentSearch Autofocus=true
-                            style="width: 200px;"
-                            type="search"
-                            @bind-Value=WorkloadFilter.IdPermohonanFilter
-                            @oninput="@WorkloadFilter.IdPermohonanFilterHandler"
-                            @bind-Value:after="WorkloadFilter.IdPermohonanFilterClear"
-                            Placeholder="Id Permohonan"/>
+                        @if (FilterComponent is not null)
+                        {
+                            <FluentSearch Autofocus=true
+                                style="width: 200px;"
+                                type="search"
+                                @bind-Value=FilterComponent.Filter.IdPermohonan
+                                @oninput="FilterComponent.Filter.IdPermohonanFilterHandler"
+                                @bind-Value:after="FilterComponent.Filter.IdPermohonanFilterClear"
+                                Placeholder="Id Permohonan"/>
+                        }
                     </div>
                 </ColumnOptions>
                 <ChildContent>
