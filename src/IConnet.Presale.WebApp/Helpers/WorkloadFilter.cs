@@ -1,6 +1,6 @@
 namespace IConnet.Presale.WebApp.Helpers;
 
-public class DataGridFilter
+public class WorkloadFilter
 {
     public string IdPermohonanFilter { get; set; } = string.Empty;
 

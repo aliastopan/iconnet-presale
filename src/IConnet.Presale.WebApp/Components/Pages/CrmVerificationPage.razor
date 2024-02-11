@@ -45,9 +45,9 @@
                         <FluentSearch Autofocus=true
                             style="width: 200px;"
                             type="search"
-                            @bind-Value=DataGridFilter.IdPermohonanFilter
-                            @oninput="@DataGridFilter.IdPermohonanFilterHandler"
-                            @bind-Value:after="DataGridFilter.IdPermohonanFilterClear"
+                            @bind-Value=WorkloadFilter.IdPermohonanFilter
+                            @oninput="@WorkloadFilter.IdPermohonanFilterHandler"
+                            @bind-Value:after="WorkloadFilter.IdPermohonanFilterClear"
                             Placeholder="Id Permohonan"/>
                     </div>
                 </ColumnOptions>
