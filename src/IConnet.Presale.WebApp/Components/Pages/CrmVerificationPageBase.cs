@@ -1,6 +1,5 @@
 using IConnet.Presale.WebApp.Components.Dialogs;
 using IConnet.Presale.WebApp.Components.Forms;
-using IConnet.Presale.WebApp.Extensions;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
 
