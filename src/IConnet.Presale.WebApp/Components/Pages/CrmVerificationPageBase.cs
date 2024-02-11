@@ -10,7 +10,7 @@ public class CrmVerificationPageBase : WorkloadPageBase
 
     private readonly string _pageName = "CRM Verification page";
 
-    protected WorkloadFilterForm FilterComponent { get; set; } = default!;
+    protected FilterForm FilterComponent { get; set; } = default!;
     protected string GridTemplateCols => GetGridTemplateCols();
     protected override IQueryable<WorkPaper>? WorkPapers => GetWorkPapers();
 

@@ -1,6 +1,6 @@
 namespace IConnet.Presale.WebApp.Components.Forms;
 
-public partial class WorkloadFilterForm
+public partial class FilterForm
 {
     [Parameter] public EventCallback OnFilter { get; set; }
 
