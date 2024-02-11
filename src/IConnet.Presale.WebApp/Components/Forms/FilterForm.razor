@@ -18,10 +18,9 @@
                 Label="Pencarian"
                 Items="@EnumerableOptions.Filter"
                 Width="165px"/>
-
-            <FluentTextField style="width: 200px;"
+            <FluentSearch style="width: 250px;"
                 Value="@Filter.FilterSearch"
-                ValueChanged="FilterBySearchAsync"></FluentTextField>
+                ValueChanged="FilterBySearchAsync"/>
         </div>
 
     </FluentStack>
