@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using Microsoft.AspNetCore.Mvc;
 using IConnet.Presale.Shared.Contracts.Identity.Authentication;
 using IConnet.Presale.WebApp.Models.Identity;
 
@@ -34,9 +35,13 @@ public partial class SignInForm
         await SignInAsync();
     }
 
-    public async Task<string> SignInAsync()
+    public async Task SignInAsync()
     {
         IsLoading = true;
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
 
         var httpResult = await IdentityHttpClientService.SignInAsync(
             _signInForm.Username,
@@ -44,10 +49,6 @@ public partial class SignInForm
 
         if (httpResult.IsSuccessStatusCode)
         {
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
             var response = JsonSerializer.Deserialize<SignInResponse>(httpResult.Content, options);
             var accessToken = response!.AccessToken;
             var refreshToken = response!.RefreshTokenStr;
@@ -63,10 +64,12 @@ public partial class SignInForm
             }
 
             IsLoading = false;
-            return accessToken!;
         }
 
+        var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
+        var extension = problemDetails.GetExtension();
+        ErrorMessage = extension.Errors.First().Message;
+
         IsLoading = false;
-        return httpResult.Content;
     }
 }
