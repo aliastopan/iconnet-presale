@@ -107,6 +107,10 @@ input:invalid::part(root) {
     margin-left: auto;
 }
 
+.filter-section-disable{
+    display: none;
+}
+
 .filter-section{
     border-top: 1px solid #e6e6e6;
     border-bottom: 1px solid #e6e6e6;

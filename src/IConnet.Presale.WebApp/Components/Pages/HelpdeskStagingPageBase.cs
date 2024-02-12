@@ -13,7 +13,6 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
     private readonly string _pageName = "Helpdesk staging page";
     private readonly static int _stagingLimit = 10;
 
-    protected bool ShowFilters { get; set; } = false;
     protected string GridTemplateCols => GetGridTemplateCols();
     protected FilterForm FilterComponent { get; set; } = default!;
     protected override IQueryable<WorkPaper>? WorkPapers => GetWorkPapers();

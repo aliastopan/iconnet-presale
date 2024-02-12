@@ -8,19 +8,16 @@
     <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Helpdesk Staging</FluentLabel>
     <div class="filter-toggle">
         <FluentButton Appearance="Appearance.Lightweight"
-            OnClick="@(() => ShowFilters = !ShowFilters)">
+            OnClick="@SessionService.FilterPreference.ToggleFilters">
             Filter</FluentButton>
     </div>
 </div>
 <span class="page-description">Tampung permohonan</span>
 
-@if (ShowFilters)
-{
-    <div>
-        <FilterForm @ref="FilterComponent"
-            OnFilter="@(this.StateHasChanged)"/>
-    </div>
-}
+<div class="@_filterSection">
+    <FilterForm @ref="FilterComponent"
+        OnFilter="@(this.StateHasChanged)"/>
+</div>
 
 <div class="datagrid-wrapper">
     @if (WorkPapers is not null)
@@ -147,3 +144,8 @@
         Hal. <strong>@(Pagination.CurrentPageIndex + 1)</strong> dari <strong>@(Pagination.LastPageIndex + 1)</strong> halaman
     </PaginationTextTemplate>
 </FluentPaginator>
+
+@code
+{
+    private string _filterSection => SessionService.FilterPreference.ShowFilters ? "enable" : "filter-section-disable";
+}
