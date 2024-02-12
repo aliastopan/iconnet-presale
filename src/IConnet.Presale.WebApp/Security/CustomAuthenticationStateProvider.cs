@@ -3,7 +3,6 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using IConnet.Presale.Shared.Contracts.Identity.Authentication;
-using IConnet.Presale.WebApp.Services;
 
 namespace IConnet.Presale.WebApp.Security;
 
@@ -27,14 +26,14 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
 
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {
-        // Log.Warning("GetAuthenticationStateAsync");
+        Logger.Debug("Authenticating...");
 
         var tryGetAccessToken = await TryGetAccessTokenAsync();
         var tryGetRefreshToken = await TryGetRefreshTokenAsync();
 
         if (tryGetAccessToken.IsFailure() || tryGetRefreshToken.IsFailure())
         {
-            // Log.Warning("Fail to authenticate.");
+            // Logger.Debug("Fail to authenticate.");
             return UnauthenticatedState();
         }
 
@@ -44,20 +43,19 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
         var principal = _accessTokenService.GetPrincipalFromToken(accessToken);
         if (principal is null)
         {
-            // Log.Warning("Fail to authenticate.");
+            Logger.Debug("Authentication has failed.");
             return UnauthenticatedState();
         }
 
         var tryAuthenticate = _accessTokenService.TryValidateAccessToken(accessToken);
         if (tryAuthenticate.IsFailure())
         {
-            // Log.Warning("Authentication failed.");
-            // Log.Warning("{0}", tryAuthenticate.Errors[0].Message);
-            // Log.Warning("Trying to refresh authentication.");
+            // Logger.Debug("Authentication has failed.");
+            // Logger.Debug("{0}", tryAuthenticate.Errors[0].Message);
+            // Logger.Debug("Trying to refresh authentication.");
             var httpResult = await _identityHttpClientService.RefreshAccessAsync(accessToken, refreshToken);
             if (httpResult.IsSuccessStatusCode)
             {
-                // Log.Warning("Refresh authentication has successful.");
                 var options = new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
@@ -68,7 +66,7 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
                 await _localStorage.SetAsync("access-token", accessToken);
                 await _localStorage.SetAsync("refresh-token", refreshToken);
 
-                Log.Information("Authentication success.");
+                Logger.Debug("Authentication has successful.");
 
             }
             else
@@ -76,8 +74,7 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
                 await _localStorage.DeleteAsync("access-token");
                 await _localStorage.DeleteAsync("refresh-token");
 
-                // Log.Warning("Refresh token was invalid.");
-                // Log.Warning("Fail to authenticate.");
+                Logger.Debug("Authentication has failed (invalid refresh token).");
                 NotifyAuthenticationStateChanged(Task.FromResult(UnauthenticatedState()));
                 return UnauthenticatedState();
             }
