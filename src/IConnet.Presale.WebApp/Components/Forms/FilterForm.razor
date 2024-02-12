@@ -13,7 +13,25 @@
 
         <FluentSpacer Width="50" />
 
-        <div class="filter-search">
+        <div class="filter-date">
+            <div class="date-picker">
+                <FluentDatePicker Autofocus=true
+                    style="width: 200px;"
+                    Label="Tanggal Permohonan"
+                    Value="@Filter.FilterDateTimeStart"/>
+            </div>
+            <div class="date-until">
+                <span>s/d</span>
+            </div>
+            <div class="date-picker">
+                <FluentDatePicker Autofocus=true
+                    style="width: 200px;"
+                    Label="@FilterDateTimeRangeLabel"
+                    Value="@Filter.FilterDateTimeEnd"/>
+            </div>
+        </div>
+
+        @* <div class="filter-search">
             <FluentSelect TOption="string"
                 Label="Pencarian"
                 Items="@EnumerableOptions.Filter"
@@ -21,7 +39,7 @@
             <FluentSearch style="width: 250px;"
                 Value="@Filter.FilterSearch"
                 ValueChanged="FilterBySearchAsync"/>
-        </div>
+        </div> *@
 
     </FluentStack>
 </div>

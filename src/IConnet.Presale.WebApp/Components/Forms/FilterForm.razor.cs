@@ -3,11 +3,19 @@ namespace IConnet.Presale.WebApp.Components.Forms;
 public partial class FilterForm
 {
     [Inject] public SessionService SessionService { get; set; } = default!;
+    [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
 
     [Parameter] public EventCallback OnFilter { get; set; }
 
     private readonly WorkloadFilter _filter = new WorkloadFilter();
     public WorkloadFilter Filter => _filter;
+    public string FilterDateTimeRangeLabel => $"Rentang {Filter.FilterDateTimeDifference.Days} Hari";
+
+    protected override void OnInitialized()
+    {
+        var today = DateTimeService.DateTimeOffsetNow.DateTime;
+        Filter.SetFilterDateTime(today);
+    }
 
     protected override async Task OnInitializedAsync()
     {

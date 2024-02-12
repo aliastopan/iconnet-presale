@@ -122,8 +122,31 @@ input:invalid::part(root) {
     display: none;
 }
 
+.filter-office,
+.filter-date,
 .filter-search{
     white-space: nowrap;
+}
+
+
+fluent-text-field.fluent-datepicker,
+.fluent-datepicker::part(root){
+    width: 140px !important;
+}
+
+.filter-date{
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+}
+
+.date-picker{
+    display: flex;
+    flex-direction: column;
+}
+
+.date-until{
+    padding: 6px;
 }
 
 .search-box{

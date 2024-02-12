@@ -9,6 +9,9 @@ public class WorkloadFilter
     public string FilterOfficeDefault => _filterOfficeDefault;
     public string FilterOffice { get; set; } = _filterOfficeDefault;
     public string FilterSearch { get; set; } = string.Empty;
+    public DateTime FilterDateTimeStart { get; set; }
+    public DateTime FilterDateTimeEnd { get; set; }
+    public TimeSpan FilterDateTimeDifference => FilterDateTimeEnd - FilterDateTimeStart;
 
     // column filters
     public string IdPermohonan { get; set; } = string.Empty;
@@ -32,5 +35,11 @@ public class WorkloadFilter
     public void ResetColumnFilters()
     {
         IdPermohonan = string.Empty;
+    }
+
+    public void SetFilterDateTime(DateTime today)
+    {
+        FilterDateTimeStart = today.AddDays(-30);
+        FilterDateTimeEnd = today;
     }
 }
