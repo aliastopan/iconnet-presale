@@ -12,10 +12,7 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
     private readonly string _pageName = "Helpdesk staging page";
     private readonly static int _stagingLimit = 10;
 
-    public string GridTemplateCols
-    {
-        get => $"185px 150px 120px 150px 150px 150px 150px 150px 150px 150px 150px 150px 150px 250px 225px;";
-    }
+    protected string GridTemplateCols => GetGridTemplateCols();
 
     protected override void OnInitialized()
     {
@@ -30,6 +27,8 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
         CacheFetchMode = CacheFetchMode.OnlyImportVerified;
 
         await base.OnInitializedAsync();
+
+        ColumnWidth.SetColumnWidth(WorkPapers);
     }
 
     protected async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
@@ -134,6 +133,28 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
             Alias = string.Empty,
             TglAksi = DateTimeService.Zero
         };
+    }
+
+    private string GetGridTemplateCols()
+    {
+        return $@"
+            {ColumnWidth.IdPermohonanPx}px
+            {ColumnWidth.TglPermohonanPx}px
+            {ColumnWidth.HelpdeskInChargePx}px
+            {ColumnWidth.ShiftPx}px
+            {ColumnWidth.TglChatCallMulaiPx}px
+            {ColumnWidth.ValidasiNamaPelangganPx}px
+            {ColumnWidth.ValidasiNomorTelpPx}px
+            {ColumnWidth.ValidasiEmailPx}px
+            {ColumnWidth.ValidasiAlamatPx}px
+            {ColumnWidth.ValidasiIdPlnPx}px
+            {ColumnWidth.ValidasiShareLocPx}px
+            {ColumnWidth.TglChatCallResponsPx}px
+            {ColumnWidth.LinkRekapChatHistoryPx}px
+            {ColumnWidth.StatusValidasiPx}px
+            {ColumnWidth.KeteranganValidasiPx}px
+            {ColumnWidth.ContactWhatsAppPx}px
+            {ColumnWidth.KantorPerwakilanPx}px";
     }
 
     private static TabNavigation HelpdeskStagingPage()
