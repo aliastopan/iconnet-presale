@@ -1,12 +1,3 @@
-@using IConnet.Presale.WebApp.Services
-@using IConnet.Presale.Shared.Contracts.Identity.Authentication
-@using IConnet.Presale.WebApp.Models.Identity
-@using AnnotatedResult
-
-@inject AuthenticationStateProvider _authenticationStateProvider
-@inject ProtectedLocalStorage _localStorage
-@inject IIdentityHttpClientService _identityHttpClientService
-
 <FluentStack Orientation="Orientation.Vertical"
     HorizontalAlignment="HorizontalAlignment.Center"
     VerticalAlignment="VerticalAlignment.Center">
@@ -24,14 +15,14 @@
     <FluentButton Class="sign-in-button-guest"
         Appearance="Appearance.Lightweight"
         IconStart="@(new Icons.Regular.Size16.Guest())"
-        OnClick="Callback">
+        OnClick="ToggleGuestMode">
         Sign as Guest</FluentButton>
 
-@if (!string.IsNullOrEmpty(_errorMessage))
+@if (ErrorMessage.HasValue())
 {
     <div class="error-warning-container">
         <FluentIcon Value="@(new Icons.Regular.Size20.ErrorCircle())" />
-        <span class="px-1">@_errorMessage</span>
+        <span class="px-1">@ErrorMessage</span>
     </div>
 }
 else
@@ -41,70 +32,9 @@ else
 
 </FluentStack>
 
-<FluentOverlay @bind-Visible=@_isLoading
+<FluentOverlay @bind-Visible=@IsLoading
     Opacity="0.4"
     Alignment="@Align.Center"
     Justification="@JustifyContent.Center">
     <FluentProgressRing />
 </FluentOverlay>
-
-@code
-{
-    private readonly SignInModel _signInForm = new();
-
-    private bool _isLoading = false;
-    private string _errorMessage = "";
-
-    [Parameter]
-    public EventCallback Callback { get; set; }
-
-    private async Task SubmitAsync()
-    {
-        _errorMessage = "";
-
-        var isValid = _signInForm.TryValidate(out Error[] errors);
-        if (!isValid)
-        {
-            _errorMessage = SignInModel.SummarizeErrorMessage(errors);
-            return;
-        }
-
-        await SignInAsync();
-    }
-
-    public async Task<string> SignInAsync()
-    {
-        _isLoading = true;
-
-        var httpResult = await _identityHttpClientService.SignInAsync(
-            _signInForm.Username,
-            _signInForm.Password);
-
-        if (httpResult.IsSuccessStatusCode)
-        {
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
-            var response = JsonSerializer.Deserialize<SignInResponse>(httpResult.Content, options);
-            var accessToken = response!.AccessToken;
-            var refreshToken = response!.RefreshTokenStr;
-
-            await _localStorage.SetAsync("access-token", accessToken);
-            await _localStorage.SetAsync("refresh-token", refreshToken);
-
-            var authenticationState = await _authenticationStateProvider.GetAuthenticationStateAsync();
-
-            if (authenticationState.User.Identity!.IsAuthenticated)
-            {
-                Log.Warning("Redirecting...");
-            }
-
-            _isLoading = false;
-            return accessToken;
-        }
-
-        _isLoading = false;
-        return httpResult.Content;
-    }
-}
