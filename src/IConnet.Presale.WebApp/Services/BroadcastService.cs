@@ -31,7 +31,7 @@ public sealed class BroadcastService : IAsyncDisposable
         switch (_hubConnection.State)
         {
             case HubConnectionState.Connected:
-                Log.Warning("WebSocket connection established.");
+                Log.Information("WebSocket connection established.");
                 break;
 
             default:
