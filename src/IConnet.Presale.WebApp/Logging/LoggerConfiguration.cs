@@ -1,6 +1,8 @@
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
+using Serilog.Formatting.Display;
+using Serilog.Sinks.SystemConsole.Themes;
 
 namespace IConnet.Presale.WebApp.Logging;
 
@@ -16,7 +18,7 @@ public static class LoggerConfiguration
             .MinimumLevel.ControlledBy(LevelSwitch)
             .ReadFrom.Configuration(builder.Configuration)
             .Enrich.FromLogContext()
-            .WriteTo.Console()
+            .WriteTo.Console(theme: CustomConsoleThemes.LiteratePlus)
             .CreateLogger();
 
         builder.Logging.ClearProviders();
