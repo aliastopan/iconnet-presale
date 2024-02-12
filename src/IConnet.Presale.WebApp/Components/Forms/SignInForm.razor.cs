@@ -62,13 +62,13 @@ public partial class SignInForm
             {
                 Log.Information("Redirecting...");
             }
-
-            IsLoading = false;
         }
-
-        var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
-        var extension = problemDetails.GetExtension();
-        ErrorMessage = extension.Errors.First().Message;
+        else
+        {
+            var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
+            var extension = problemDetails.GetExtension();
+            ErrorMessage = extension.Errors.First().Message;
+        }
 
         IsLoading = false;
     }
