@@ -10,6 +10,7 @@ public sealed class SessionService
 {
     private readonly ProtectedLocalStorage _localStorage;
     private readonly NavigationManager _navigationManager;
+    private readonly FilterPreference _filterPreference = new FilterPreference();
 
     public SessionService(ProtectedLocalStorage localStorage,
         NavigationManager navigationManager)
@@ -20,6 +21,7 @@ public sealed class SessionService
 
     public UserModel? UserModel { get; private set; }
     public bool HasUser => UserModel is not null;
+    public FilterPreference FilterPreference => _filterPreference;
 
     public void SetSession(ClaimsPrincipal principal)
     {
