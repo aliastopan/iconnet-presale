@@ -39,14 +39,14 @@ public partial class FilterForm
         // prioritize filter search
         if (Filter.FilterSearch.HasValue())
         {
-            Log.Warning("Filter by Search");
+            // Log.Warning("Filter by Search");
             return workPapers?.Where(x => x.ApprovalOpportunity.IdPermohonan == Filter.FilterSearch);
         }
         else
         {
             if (Filter.IsFilterOfficeSpecified)
             {
-                Log.Warning("Filter by Office");
+                // Log.Warning("Filter by Office");
                 return workPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == Filter.FilterOffice);
             }
             else
