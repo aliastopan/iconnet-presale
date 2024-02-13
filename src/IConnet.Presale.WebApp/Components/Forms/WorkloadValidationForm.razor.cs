@@ -1,6 +1,6 @@
 namespace IConnet.Presale.WebApp.Components.Forms;
 
-public partial class WorkloadValidationForm
+public partial class WorkloadValidationForm : ComponentBase
 {
     [CascadingParameter(Name = "CascadeWorkPaper")]
     public WorkPaper? WorkPaper { get; set; }

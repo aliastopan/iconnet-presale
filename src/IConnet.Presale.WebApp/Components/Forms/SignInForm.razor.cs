@@ -7,7 +7,7 @@ using IConnet.Presale.WebApp.Models.Identity;
 
 namespace IConnet.Presale.WebApp.Components.Forms;
 
-public partial class SignInForm
+public partial class SignInForm : ComponentBase
 {
     [Inject] public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
     [Inject] public ProtectedLocalStorage LocalStorage { get; set; } = default!;
