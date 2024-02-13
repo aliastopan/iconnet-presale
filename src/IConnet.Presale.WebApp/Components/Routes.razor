@@ -1,15 +1,11 @@
 ﻿@rendermode InteractiveServer
 
-@using IConnet.Presale.WebApp.Services
-
-@inject IHttpContextAccessor _httpContextAccessor
-@inject BroadcastService _broadcastService
-
-@if (isPreRender)
+@if (IsPreRender)
 {
     <Splash />
     return;
 }
+
 <CascadingAuthenticationState>
     <Router AppAssembly="@typeof(Program).Assembly">
         <Found Context="routeData">
@@ -18,16 +14,3 @@
         </Found>
     </Router>
 </CascadingAuthenticationState>
-
-@code
-{
-    private bool isPreRender;
-
-    protected override async Task OnInitializedAsync()
-    {
-        isPreRender = !(_httpContextAccessor.HttpContext is not null
-            && _httpContextAccessor.HttpContext.Response.HasStarted);
-
-        await _broadcastService.StartConnectionAsync();
-    }
-}
