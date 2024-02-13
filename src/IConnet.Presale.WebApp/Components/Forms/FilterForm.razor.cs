@@ -15,11 +15,18 @@ public partial class FilterForm : ComponentBase
     {
         var today = DateTimeService.DateTimeOffsetNow.DateTime;
         Filter.SetFilterDateTime(today);
+
+        var dateTimeMin = Filter.FilterDateTimeStart;
+        var dateTimeMax = Filter.FilterDateTimeEnd;
+        SessionService.FilterPreference.SetFilterTglPermohonanDefault(dateTimeMin, dateTimeMax);
     }
 
     protected override async Task OnInitializedAsync()
     {
         _filter.FilterOffice = SessionService.FilterPreference.KantorPerwakilan;
+        _filter.NullableFilterDateTimeStart = SessionService.FilterPreference.TglPermohonanMin;
+        _filter.NullableFilterDateTimeEnd = SessionService.FilterPreference.TglPermohonanMax;
+
         await OnFilter.InvokeAsync();
     }
 
@@ -59,6 +66,7 @@ public partial class FilterForm : ComponentBase
         }
 
         Filter.NullableFilterDateTimeStart = dateTime;
+        SessionService.FilterPreference.TglPermohonanMin = dateTime;
 
         await OnFilter.InvokeAsync();
     }
@@ -80,6 +88,7 @@ public partial class FilterForm : ComponentBase
         }
 
         Filter.NullableFilterDateTimeEnd = dateTime;
+        SessionService.FilterPreference.TglPermohonanMax = dateTime;
 
         await OnFilter.InvokeAsync();
     }
