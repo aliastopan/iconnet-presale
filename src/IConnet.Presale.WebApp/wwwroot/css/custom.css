@@ -139,6 +139,7 @@ input:invalid::part(root) {
     align-items: end;
 }
 
+.filter-office,
 .date-picker{
     display: flex;
     flex-direction: column;
@@ -151,4 +152,8 @@ input:invalid::part(root) {
 .search-box{
     display: flex;
     flex-direction: column;
+}
+
+.filter-reset{
+    margin-left: auto;
 }
