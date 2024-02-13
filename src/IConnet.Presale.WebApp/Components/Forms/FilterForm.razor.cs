@@ -9,7 +9,7 @@ public partial class FilterForm : ComponentBase
 
     private readonly WorkloadFilter _filter = new WorkloadFilter();
     public WorkloadFilter Filter => _filter;
-    public string FilterDateTimeRangeLabel => $"Rentang {Filter.FilterDateTimeDifference.Days} Hari";
+    public string FilterDateTimeRangeLabel => GetDaysRangeLabel();
 
     protected override void OnInitialized()
     {
@@ -114,5 +114,14 @@ public partial class FilterForm : ComponentBase
             .Where(x => !Filter.IdPermohonan.HasValue() || x.ApprovalOpportunity.IdPermohonan
                 .Contains(Filter.IdPermohonan, StringComparison.CurrentCultureIgnoreCase));
 
+    }
+
+    private string GetDaysRangeLabel()
+    {
+        var currentDate = DateTime.Today;
+        var isToday = Filter.FilterDateTimeEnd.Date == currentDate;
+        var denote = isToday ? "Terakhir" : "";
+
+        return $"Rentang {Filter.FilterDateTimeDifference.Days} Hari {denote}";
     }
 }
