@@ -1,6 +1,6 @@
 @attribute [Route(PageRoute.CrmImport)]
 @inherits CrmImportPageBase
-@rendermode InteractiveServer
+@rendermode @(InteractiveServer.DisablePreRender())
 
 <PageTitle>Import CRM</PageTitle>
 

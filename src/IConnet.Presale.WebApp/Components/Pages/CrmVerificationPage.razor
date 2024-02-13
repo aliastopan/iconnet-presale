@@ -1,6 +1,6 @@
 @attribute [Route(PageRoute.CrmImportVerification)]
 @inherits CrmVerificationPageBase
-@rendermode InteractiveServer
+@rendermode @(InteractiveServer.DisablePreRender())
 
 <PageTitle>Verifikasi CRM</PageTitle>
 

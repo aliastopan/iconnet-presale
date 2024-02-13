@@ -1,6 +1,6 @@
 @attribute [Route(PageRoute.HelpdeskStaging)]
 @inherits HelpdeskStagingPageBase
-@rendermode InteractiveServer
+@rendermode @(InteractiveServer.DisablePreRender())
 
 <PageTitle>Helpdesk Staging</PageTitle>
 

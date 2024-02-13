@@ -1,6 +1,6 @@
 ﻿@attribute [Route(PageRoute.Home)]
 @inherits HomePageBase
-@rendermode InteractiveServer
+@rendermode @(InteractiveServer.DisablePreRender())
 
 <PageTitle>Home</PageTitle>
 
