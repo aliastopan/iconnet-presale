@@ -1,8 +1,9 @@
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using Microsoft.AspNetCore.Components.Web;
 using IConnet.Presale.Shared.Validations;
+using IConnet.Presale.WebApp.Components.Custom;
+using System.Diagnostics;
 
 namespace IConnet.Presale.WebApp.Components.Layout;
 
@@ -14,11 +15,15 @@ public class MainLayoutBase : LayoutComponentBase
     [Inject] public ProtectedLocalStorage LocalStorage { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
 
-    public ErrorBoundary? ErrorBoundary { get; set; }
+    public CustomErrorBoundary? ErrorBoundary { get; set; }
 
     protected override void OnParametersSet()
     {
-        ErrorBoundary?.Recover();
+        if (ErrorBoundary?.CurrentException is not null)
+        {
+            LogSwitch.Debug("Recovering from {exception}", ErrorBoundary.CurrentException.GetType().Name);
+            ErrorBoundary?.Recover();
+        }
     }
 
     protected override async Task OnInitializedAsync()
