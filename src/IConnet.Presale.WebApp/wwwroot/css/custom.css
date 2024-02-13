@@ -130,7 +130,7 @@ input:invalid::part(root) {
 
 /* fluent-text-field.fluent-datepicker, */
 .fluent-datepicker::part(root){
-    width: 140px !important;
+    width: 165px !important;
 }
 
 .filter-date{
