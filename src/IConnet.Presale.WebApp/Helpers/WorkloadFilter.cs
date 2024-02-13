@@ -3,6 +3,7 @@ namespace IConnet.Presale.WebApp.Helpers;
 public class WorkloadFilter
 {
     private static readonly string _filterOfficeDefault = EnumerableOptions.KantorPerwakilan.First();
+    private static readonly int _filterDaysRangeDefault = 30;
 
     // base filters
     public bool IsFilterOfficeSpecified => FilterOffice != _filterOfficeDefault;
@@ -41,7 +42,7 @@ public class WorkloadFilter
 
     public void SetFilterDateTime(DateTime today)
     {
-        NullableFilterDateTimeStart = today.AddDays(-30);
+        NullableFilterDateTimeStart = today.AddDays(-_filterDaysRangeDefault);
         NullableFilterDateTimeEnd = today;
     }
 }
