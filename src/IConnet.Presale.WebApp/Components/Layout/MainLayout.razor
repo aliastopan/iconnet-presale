@@ -32,7 +32,7 @@
 
                     <TabControl TabNavigationManager="@TabNavigationManager"/>
                     <div class="content">
-                        <ErrorBoundary Context="Exception">
+                        <ErrorBoundary Context="Exception" @ref="ErrorBoundary">
                             <ChildContent>
                                 @Body
                             </ChildContent>
