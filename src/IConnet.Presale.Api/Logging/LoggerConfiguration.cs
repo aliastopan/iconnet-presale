@@ -1,5 +1,6 @@
 using Microsoft.IdentityModel.Tokens;
 using Serilog.Events;
+using IConnet.Presale.Application.Common.Logging;
 
 namespace IConnet.Presale.Api.Logging;
 
@@ -7,7 +8,10 @@ public static class LoggerConfiguration
 {
     public static WebApplicationBuilder ConfigureLogging(this WebApplicationBuilder builder)
     {
+        LogSwitch.LevelSwitch.MinimumLevel = LogEventLevel.Information;
+
         Log.Logger = new Serilog.LoggerConfiguration()
+            .MinimumLevel.ControlledBy(LogSwitch.LevelSwitch)
             .ReadFrom.Configuration(builder.Configuration)
             .Enrich.FromLogContext()
             .WriteTo.Console()

@@ -8,7 +8,7 @@ public static class ConfigureServices
     {
         if (scope is ServiceScope.API_ONLY_SERVICE)
         {
-            Log.Warning("Application:API-ONLY SERVICE");
+            LogSwitch.Debug("Application:API-ONLY SERVICE");
             services.AddMediator(options =>
             {
                 options.Namespace = "IConnet.Presale.SourceGeneration.Mediator";
@@ -18,7 +18,7 @@ public static class ConfigureServices
 
         if (scope is ServiceScope.WEBAPP_ONLY_SERVICE)
         {
-            Log.Warning("Application:WEBAPP-ONLY SERVICE");
+            LogSwitch.Debug("Application:WEBAPP-ONLY SERVICE");
         }
 
         return services;

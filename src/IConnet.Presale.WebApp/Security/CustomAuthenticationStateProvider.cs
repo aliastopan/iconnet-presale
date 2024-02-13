@@ -26,14 +26,14 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
 
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {
-        Logger.Debug("Authenticating...");
+        LogSwitch.Debug("Authenticating...");
 
         var tryGetAccessToken = await TryGetAccessTokenAsync();
         var tryGetRefreshToken = await TryGetRefreshTokenAsync();
 
         if (tryGetAccessToken.IsFailure() || tryGetRefreshToken.IsFailure())
         {
-            // Logger.Debug("Fail to authenticate.");
+            // LogSwitch.Debug("Fail to authenticate.");
             return UnauthenticatedState();
         }
 
@@ -43,16 +43,16 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
         var principal = _accessTokenService.GetPrincipalFromToken(accessToken);
         if (principal is null)
         {
-            Logger.Debug("Authentication has failed.");
+            LogSwitch.Debug("Authentication has failed.");
             return UnauthenticatedState();
         }
 
         var tryAuthenticate = _accessTokenService.TryValidateAccessToken(accessToken);
         if (tryAuthenticate.IsFailure())
         {
-            // Logger.Debug("Authentication has failed.");
-            // Logger.Debug("{0}", tryAuthenticate.Errors[0].Message);
-            // Logger.Debug("Trying to refresh authentication.");
+            // LogSwitch.Debug("Authentication has failed.");
+            // LogSwitch.Debug("{0}", tryAuthenticate.Errors[0].Message);
+            // LogSwitch.Debug("Trying to refresh authentication.");
             var httpResult = await _identityHttpClientService.RefreshAccessAsync(accessToken, refreshToken);
             if (httpResult.IsSuccessStatusCode)
             {
@@ -66,7 +66,7 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
                 await _localStorage.SetAsync("access-token", accessToken);
                 await _localStorage.SetAsync("refresh-token", refreshToken);
 
-                Logger.Debug("Authentication has successful.");
+                LogSwitch.Debug("Authentication has successful.");
 
             }
             else
@@ -74,7 +74,7 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
                 await _localStorage.DeleteAsync("access-token");
                 await _localStorage.DeleteAsync("refresh-token");
 
-                Logger.Debug("Authentication has failed (invalid refresh token).");
+                LogSwitch.Debug("Authentication has failed (invalid refresh token).");
                 NotifyAuthenticationStateChanged(Task.FromResult(UnauthenticatedState()));
                 return UnauthenticatedState();
             }

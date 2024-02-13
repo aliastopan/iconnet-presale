@@ -14,17 +14,17 @@ public static class ConfigureServices
     {
         if (scope is ServiceScope.API_ONLY_SERVICE)
         {
-            Log.Warning("Infrastructure:API-ONLY SERVICE");
+            LogSwitch.Debug("Infrastructure:API-ONLY SERVICE");
             services.ConfigureApiServices(context.Configuration, context.HostingEnvironment);
         }
 
         if (scope is ServiceScope.WEBAPP_ONLY_SERVICE)
         {
-            Log.Warning("Infrastructure:WEBAPP-ONLY SERVICE");
+            LogSwitch.Debug("Infrastructure:WEBAPP-ONLY SERVICE");
             services.ConfigureWebAppServices(context.Configuration);
         }
 
-        Log.Warning("Infrastructure:COMMON SERVICE");
+        LogSwitch.Debug("Infrastructure:COMMON SERVICE");
         services.Configure<AppSecretSettings>(context.Configuration.GetSection(AppSecretSettings.SectionName));
 
         services.AddSingleton<ISecurityTokenValidatorService, SecurityTokenValidatorProvider>();
