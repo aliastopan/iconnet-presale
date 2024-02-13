@@ -26,7 +26,7 @@ public partial class FilterForm : ComponentBase
         await OnFilter.InvokeAsync();
     }
 
-    public async Task FilterByOfficeAsync(string filterOffice)
+    protected async Task FilterByOfficeAsync(string filterOffice)
     {
         Filter.FilterSearch = string.Empty;
         Filter.FilterOffice = filterOffice;
@@ -35,7 +35,7 @@ public partial class FilterForm : ComponentBase
         await OnFilter.InvokeAsync();
     }
 
-    public async Task FilterBySearchAsync(string filterSearch)
+    protected async Task FilterBySearchAsync(string filterSearch)
     {
         Filter.ResetColumnFilters();
         Filter.FilterOffice = Filter.FilterOfficeDefault;
@@ -45,7 +45,7 @@ public partial class FilterForm : ComponentBase
         await OnFilter.InvokeAsync();
     }
 
-    public async Task SetFilterDateTimeStartAsync(DateTime? nullableDateTime)
+    protected async Task SetFilterDateTimeStartAsync(DateTime? nullableDateTime)
     {
         // LogSwitch.Debug("DateTime Start {0}", nullableDateTime!);
         if (nullableDateTime is null)
@@ -66,7 +66,7 @@ public partial class FilterForm : ComponentBase
         await OnFilter.InvokeAsync();
     }
 
-    public async Task SetFilterDateTimeEndAsync(DateTime? nullableDateTime)
+    protected async Task SetFilterDateTimeEndAsync(DateTime? nullableDateTime)
     {
         // LogSwitch.Debug("DateTime End {0}", nullableDateTime!);
         if (nullableDateTime is null)
