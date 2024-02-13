@@ -32,7 +32,14 @@
 
                     <TabControl TabNavigationManager="@TabNavigationManager"/>
                     <div class="content">
-                        @Body
+                        <ErrorBoundary Context="Exception">
+                            <ChildContent>
+                                @Body
+                            </ChildContent>
+                            <ErrorContent>
+                                <p class="fw-bold text-danger">@Exception.Message</p>
+                            </ErrorContent>
+                        </ErrorBoundary>
                     </div>
 
                     <FluentDialogProvider />
