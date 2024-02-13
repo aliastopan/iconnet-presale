@@ -47,8 +47,7 @@ public partial class FilterForm : ComponentBase
 
     public async Task SetFilterDateTimeStartAsync(DateTime? nullableDateTime)
     {
-        LogSwitch.Debug("DateTime Start {0}", nullableDateTime!);
-
+        // LogSwitch.Debug("DateTime Start {0}", nullableDateTime!);
         if (nullableDateTime is null)
         {
             return;
@@ -57,7 +56,7 @@ public partial class FilterForm : ComponentBase
         var dateTime = nullableDateTime.Value;
         if (dateTime > Filter.NullableFilterDateTimeMax)
         {
-            LogSwitch.Debug("DateTime Start cannot be more than DateTime End");
+            // LogSwitch.Debug("DateTime Start cannot be more than DateTime End");
             dateTime = Filter.FilterDateTimeMax.AddDays(-1);
         }
 
@@ -69,8 +68,7 @@ public partial class FilterForm : ComponentBase
 
     public async Task SetFilterDateTimeEndAsync(DateTime? nullableDateTime)
     {
-        LogSwitch.Debug("DateTime End {0}", nullableDateTime!);
-
+        // LogSwitch.Debug("DateTime End {0}", nullableDateTime!);
         if (nullableDateTime is null)
         {
             return;
@@ -79,7 +77,7 @@ public partial class FilterForm : ComponentBase
         var dateTime = nullableDateTime.Value;
         if (dateTime < Filter.NullableFilterDateTimeMin)
         {
-            LogSwitch.Debug("DateTime End cannot be less than DateTime Start");
+            // LogSwitch.Debug("DateTime End cannot be less than DateTime Start");
             dateTime = Filter.FilterDateTimeMin.AddDays(1);
         }
 
@@ -105,7 +103,7 @@ public partial class FilterForm : ComponentBase
                 workPapers = workPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == Filter.FilterOffice);
             }
 
-            LogSwitch.Debug("Filtering DateTime");
+            // LogSwitch.Debug("Filtering DateTime");
             return workPapers?.Where(x => x.ApprovalOpportunity.TglPermohonan >= Filter.FilterDateTimeMin
                         && x.ApprovalOpportunity.TglPermohonan <= Filter.FilterDateTimeMax);
         }
