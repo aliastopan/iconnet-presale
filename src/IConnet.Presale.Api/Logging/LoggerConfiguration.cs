@@ -14,7 +14,7 @@ public static class LoggerConfiguration
             .MinimumLevel.ControlledBy(LogSwitch.LevelSwitch)
             .ReadFrom.Configuration(builder.Configuration)
             .Enrich.FromLogContext()
-            .WriteTo.Console()
+            .WriteTo.Console(theme: CustomConsoleThemes.LiteratePlus)
             .Filter.ByExcluding(logEvent =>
                 logEvent.Exception is SecurityTokenExpiredException &&
                 logEvent.Level == LogEventLevel.Information)
