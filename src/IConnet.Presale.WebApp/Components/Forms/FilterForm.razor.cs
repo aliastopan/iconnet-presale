@@ -52,14 +52,13 @@ public partial class FilterForm : ComponentBase
         }
 
         var dateTime = nullableDateTime.Value;
-        if (dateTime > Filter.FilterDateTimeEnd)
+        if (dateTime > Filter.NullableFilterDateTimeEnd)
         {
             LogSwitch.Debug("DateTime Start cannot be more than DateTime End");
-            var dateTimeEnd = Filter.FilterDateTimeEnd.Value;
-            dateTime = dateTimeEnd.AddDays(-1);
+            dateTime = Filter.FilterDateTimeEnd.AddDays(-1);
         }
 
-        Filter.FilterDateTimeStart = dateTime;
+        Filter.NullableFilterDateTimeStart = dateTime;
 
         await OnFilter.InvokeAsync();
     }
@@ -74,14 +73,13 @@ public partial class FilterForm : ComponentBase
         }
 
         var dateTime = nullableDateTime.Value;
-        if (dateTime < Filter.FilterDateTimeStart)
+        if (dateTime < Filter.NullableFilterDateTimeStart)
         {
             LogSwitch.Debug("DateTime End cannot be less than DateTime Start");
-            var dateTimeStart = Filter.FilterDateTimeStart.Value;
-            dateTime = dateTimeStart.AddDays(1);
+            dateTime = Filter.FilterDateTimeStart.AddDays(1);
         }
 
-        Filter.FilterDateTimeEnd = dateTime;
+        Filter.NullableFilterDateTimeEnd = dateTime;
 
         await OnFilter.InvokeAsync();
     }

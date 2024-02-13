@@ -18,7 +18,7 @@
                 <FluentDatePicker Autofocus=true
                     style="width: 140px;"
                     Label="Tanggal Permohonan"
-                    Value="@Filter.FilterDateTimeStart"
+                    Value="@Filter.NullableFilterDateTimeStart"
                     ValueChanged="SetFilterDateTimeStartAsync"/>
             </div>
             <div class="date-until">
@@ -28,7 +28,7 @@
                 <FluentDatePicker Autofocus=true
                     style="width: 140px;"
                     Label="@FilterDateTimeRangeLabel"
-                    Value="@Filter.FilterDateTimeEnd"
+                    Value="@Filter.NullableFilterDateTimeEnd"
                     ValueChanged="SetFilterDateTimeEndAsync"/>
             </div>
         </div>
