@@ -14,11 +14,7 @@ public partial class FilterForm : ComponentBase
     protected override void OnInitialized()
     {
         var today = DateTimeService.DateTimeOffsetNow.DateTime;
-        Filter.SetFilterDateTime(today);
-
-        var dateTimeMin = Filter.FilterDateTimeMin;
-        var dateTimeMax = Filter.FilterDateTimeMax;
-        SessionService.FilterPreference.SetFilterTglPermohonanDefault(dateTimeMin, dateTimeMax);
+        Filter.SetFilterDateTimeDefault(today, SessionService.FilterPreference);
     }
 
     protected override async Task OnInitializedAsync()

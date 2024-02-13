@@ -40,9 +40,11 @@ public class WorkloadFilter
         IdPermohonan = string.Empty;
     }
 
-    public void SetFilterDateTime(DateTime today)
+    public void SetFilterDateTimeDefault(DateTime today, FilterPreference filterPreference)
     {
         NullableFilterDateTimeMin = today.AddDays(-_filterDaysRangeDefault);
         NullableFilterDateTimeMax = today;
+
+        filterPreference.SetFilterTglPermohonanDefault(FilterDateTimeMin, FilterDateTimeMax);
     }
 }
