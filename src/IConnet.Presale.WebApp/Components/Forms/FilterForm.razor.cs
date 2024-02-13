@@ -97,12 +97,12 @@ public partial class FilterForm : ComponentBase
             if (Filter.IsFilterOfficeSpecified)
             {
                 // LogSwitch.Debug("Filter by Office");
-                return workPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == Filter.FilterOffice);
+                workPapers = workPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == Filter.FilterOffice);
             }
-            else
-            {
-                return workPapers;
-            }
+
+            LogSwitch.Debug("Filtering DateTime");
+            return workPapers?.Where(x => x.ApprovalOpportunity.TglPermohonan >= Filter.FilterDateTimeStart
+                        && x.ApprovalOpportunity.TglPermohonan <= Filter.FilterDateTimeEnd);
         }
     }
 
