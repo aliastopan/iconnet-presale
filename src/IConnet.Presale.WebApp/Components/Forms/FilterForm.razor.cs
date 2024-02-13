@@ -16,16 +16,16 @@ public partial class FilterForm : ComponentBase
         var today = DateTimeService.DateTimeOffsetNow.DateTime;
         Filter.SetFilterDateTime(today);
 
-        var dateTimeMin = Filter.FilterDateTimeStart;
-        var dateTimeMax = Filter.FilterDateTimeEnd;
+        var dateTimeMin = Filter.FilterDateTimeMin;
+        var dateTimeMax = Filter.FilterDateTimeMax;
         SessionService.FilterPreference.SetFilterTglPermohonanDefault(dateTimeMin, dateTimeMax);
     }
 
     protected override async Task OnInitializedAsync()
     {
         _filter.FilterOffice = SessionService.FilterPreference.KantorPerwakilan;
-        _filter.NullableFilterDateTimeStart = SessionService.FilterPreference.TglPermohonanMin;
-        _filter.NullableFilterDateTimeEnd = SessionService.FilterPreference.TglPermohonanMax;
+        _filter.NullableFilterDateTimeMin = SessionService.FilterPreference.TglPermohonanMin;
+        _filter.NullableFilterDateTimeMax = SessionService.FilterPreference.TglPermohonanMax;
 
         await OnFilter.InvokeAsync();
     }
@@ -59,13 +59,13 @@ public partial class FilterForm : ComponentBase
         }
 
         var dateTime = nullableDateTime.Value;
-        if (dateTime > Filter.NullableFilterDateTimeEnd)
+        if (dateTime > Filter.NullableFilterDateTimeMax)
         {
             LogSwitch.Debug("DateTime Start cannot be more than DateTime End");
-            dateTime = Filter.FilterDateTimeEnd.AddDays(-1);
+            dateTime = Filter.FilterDateTimeMax.AddDays(-1);
         }
 
-        Filter.NullableFilterDateTimeStart = dateTime;
+        Filter.NullableFilterDateTimeMin = dateTime;
         SessionService.FilterPreference.TglPermohonanMin = dateTime;
 
         await OnFilter.InvokeAsync();
@@ -81,13 +81,13 @@ public partial class FilterForm : ComponentBase
         }
 
         var dateTime = nullableDateTime.Value;
-        if (dateTime < Filter.NullableFilterDateTimeStart)
+        if (dateTime < Filter.NullableFilterDateTimeMin)
         {
             LogSwitch.Debug("DateTime End cannot be less than DateTime Start");
-            dateTime = Filter.FilterDateTimeStart.AddDays(1);
+            dateTime = Filter.FilterDateTimeMin.AddDays(1);
         }
 
-        Filter.NullableFilterDateTimeEnd = dateTime;
+        Filter.NullableFilterDateTimeMax = dateTime;
         SessionService.FilterPreference.TglPermohonanMax = dateTime;
 
         await OnFilter.InvokeAsync();
@@ -110,8 +110,8 @@ public partial class FilterForm : ComponentBase
             }
 
             LogSwitch.Debug("Filtering DateTime");
-            return workPapers?.Where(x => x.ApprovalOpportunity.TglPermohonan >= Filter.FilterDateTimeStart
-                        && x.ApprovalOpportunity.TglPermohonan <= Filter.FilterDateTimeEnd);
+            return workPapers?.Where(x => x.ApprovalOpportunity.TglPermohonan >= Filter.FilterDateTimeMin
+                        && x.ApprovalOpportunity.TglPermohonan <= Filter.FilterDateTimeMax);
         }
     }
 
@@ -128,7 +128,7 @@ public partial class FilterForm : ComponentBase
     private string GetDaysRangeLabel()
     {
         var currentDate = DateTime.Today;
-        var isToday = Filter.FilterDateTimeEnd.Date == currentDate;
+        var isToday = Filter.FilterDateTimeMax.Date == currentDate;
         var denote = isToday ? "Terakhir" : "";
 
         return $"Rentang {Filter.FilterDateTimeDifference.Days} Hari {denote}";
