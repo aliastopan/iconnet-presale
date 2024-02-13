@@ -40,6 +40,20 @@ public class WorkloadFilter
         IdPermohonan = string.Empty;
     }
 
+    public void ResetFilters(DateTime today, FilterPreference filterPreference)
+    {
+        FilterOffice = _filterOfficeDefault;
+        FilterSearch = string.Empty;
+        NullableFilterDateTimeMin = today.AddDays(-_filterDaysRangeDefault);
+        NullableFilterDateTimeMax = today;
+
+        filterPreference.KantorPerwakilan = _filterOfficeDefault;
+        filterPreference.TglPermohonanMin = FilterDateTimeMin;
+        filterPreference.TglPermohonanMax = FilterDateTimeMax;
+
+        IdPermohonan = string.Empty;
+    }
+
     public void SetFilterDateTimeDefault(DateTime today, FilterPreference filterPreference)
     {
         NullableFilterDateTimeMin = today.AddDays(-_filterDaysRangeDefault);

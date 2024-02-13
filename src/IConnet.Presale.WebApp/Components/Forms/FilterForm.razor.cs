@@ -87,6 +87,16 @@ public partial class FilterForm : ComponentBase
         await OnFilter.InvokeAsync();
     }
 
+    protected async Task ResetFilterAsync()
+    {
+        LogSwitch.Debug("Resetting filters");
+
+        var today = DateTimeService.DateTimeOffsetNow.DateTime;
+        Filter.ResetFilters(today, SessionService.FilterPreference);
+
+        await OnFilter.InvokeAsync();
+    }
+
     public IQueryable<WorkPaper>? BaseFilter(IQueryable<WorkPaper>? workPapers)
     {
         // prioritize filter search
