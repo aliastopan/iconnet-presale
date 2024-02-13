@@ -37,7 +37,7 @@
                                 @Body
                             </ChildContent>
                             <ErrorContent>
-                                <p class="fw-bold text-danger">@Exception.Message</p>
+                                <ErrorContext Exception="@Exception"/>
                             </ErrorContent>
                         </ErrorBoundary>
                     </div>
