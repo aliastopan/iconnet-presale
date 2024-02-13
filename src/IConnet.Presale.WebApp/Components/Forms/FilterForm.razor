@@ -1,7 +1,7 @@
 <div class="filter-section">
     <FluentStack Orientation="Orientation.Horizontal"
     HorizontalAlignment="HorizontalAlignment.Start"
-    VerticalAlignment="VerticalAlignment.Center">
+    VerticalAlignment="VerticalAlignment.Bottom">
 
         <div class="filter-office">
             <FluentSelect TOption="string"
@@ -31,6 +31,11 @@
             </div>
         </div>
 
+        <div class="filter-reset">
+            <FluentButton BackgroundColor="crimson"
+                Color="white">
+                Reset Filter</FluentButton>
+        </div>
         @* <div class="filter-search">
             <FluentSelect TOption="string"
                 Label="Pencarian"
