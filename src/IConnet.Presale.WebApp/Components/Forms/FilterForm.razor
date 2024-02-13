@@ -16,18 +16,20 @@
         <div class="filter-date">
             <div class="date-picker">
                 <FluentDatePicker Autofocus=true
-                    style="width: 200px;"
+                    style="width: 140px;"
                     Label="Tanggal Permohonan"
-                    Value="@Filter.FilterDateTimeStart"/>
+                    Value="@Filter.FilterDateTimeStart"
+                    ValueChanged="SetFilterDateTimeStartAsync"/>
             </div>
             <div class="date-until">
                 <span>s/d</span>
             </div>
             <div class="date-picker">
                 <FluentDatePicker Autofocus=true
-                    style="width: 200px;"
+                    style="width: 140px;"
                     Label="@FilterDateTimeRangeLabel"
-                    Value="@Filter.FilterDateTimeEnd"/>
+                    Value="@Filter.FilterDateTimeEnd"
+                    ValueChanged="SetFilterDateTimeEndAsync"/>
             </div>
         </div>
 

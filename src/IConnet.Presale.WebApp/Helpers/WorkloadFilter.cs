@@ -9,9 +9,9 @@ public class WorkloadFilter
     public string FilterOfficeDefault => _filterOfficeDefault;
     public string FilterOffice { get; set; } = _filterOfficeDefault;
     public string FilterSearch { get; set; } = string.Empty;
-    public DateTime FilterDateTimeStart { get; set; }
-    public DateTime FilterDateTimeEnd { get; set; }
-    public TimeSpan FilterDateTimeDifference => FilterDateTimeEnd - FilterDateTimeStart;
+    public DateTime? FilterDateTimeStart { get; set; } = DateTime.MinValue;
+    public DateTime? FilterDateTimeEnd { get; set; } = DateTime.MinValue;
+    public TimeSpan FilterDateTimeDifference => FilterDateTimeEnd!.Value - FilterDateTimeStart!.Value;
 
     // column filters
     public string IdPermohonan { get; set; } = string.Empty;

@@ -42,19 +42,63 @@ public partial class FilterForm : ComponentBase
         await OnFilter.InvokeAsync();
     }
 
+    public async Task SetFilterDateTimeStartAsync(DateTime? nullableDateTime)
+    {
+        LogSwitch.Debug("DateTime Start {0}", nullableDateTime!);
+
+        if (nullableDateTime is null)
+        {
+            return;
+        }
+
+        var dateTime = nullableDateTime.Value;
+        if (dateTime > Filter.FilterDateTimeEnd)
+        {
+            LogSwitch.Debug("DateTime Start cannot be more than DateTime End");
+            var dateTimeEnd = Filter.FilterDateTimeEnd.Value;
+            dateTime = dateTimeEnd.AddDays(-1);
+        }
+
+        Filter.FilterDateTimeStart = dateTime;
+
+        await OnFilter.InvokeAsync();
+    }
+
+    public async Task SetFilterDateTimeEndAsync(DateTime? nullableDateTime)
+    {
+        LogSwitch.Debug("DateTime End {0}", nullableDateTime!);
+
+        if (nullableDateTime is null)
+        {
+            return;
+        }
+
+        var dateTime = nullableDateTime.Value;
+        if (dateTime < Filter.FilterDateTimeStart)
+        {
+            LogSwitch.Debug("DateTime End cannot be less than DateTime Start");
+            var dateTimeStart = Filter.FilterDateTimeStart.Value;
+            dateTime = dateTimeStart.AddDays(1);
+        }
+
+        Filter.FilterDateTimeEnd = dateTime;
+
+        await OnFilter.InvokeAsync();
+    }
+
     public IQueryable<WorkPaper>? BaseFilter(IQueryable<WorkPaper>? workPapers)
     {
         // prioritize filter search
         if (Filter.FilterSearch.HasValue())
         {
-            // Log.Warning("Filter by Search");
+            // LogSwitch.Debug("Filter by Search");
             return workPapers?.Where(x => x.ApprovalOpportunity.IdPermohonan == Filter.FilterSearch);
         }
         else
         {
             if (Filter.IsFilterOfficeSpecified)
             {
-                // Log.Warning("Filter by Office");
+                // LogSwitch.Debug("Filter by Office");
                 return workPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == Filter.FilterOffice);
             }
             else
