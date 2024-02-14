@@ -105,6 +105,7 @@ input:invalid::part(root) {
 
 .navigate-back{
     padding: 10px;
+    margin-right: 5px;
 }
 
 .navigate-back button{
@@ -152,6 +153,7 @@ input:invalid::part(root) {
     border-bottom: 1px solid #e6e6e6;
     margin: 10px 0;
     padding: 10px;
+    padding-right: 0;
 }
 
 .filter-section-disabled{

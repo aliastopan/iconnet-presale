@@ -1,51 +1,61 @@
 <div class="filter-section">
-    <FluentStack Orientation="Orientation.Horizontal"
-    HorizontalAlignment="HorizontalAlignment.Start"
-    VerticalAlignment="VerticalAlignment.Bottom">
 
-        <div class="filter-office">
-            <FluentSelect TOption="string"
-                Label="Kantor Perwakilan"
-                Items="@EnumerableOptions.KantorPerwakilan"
-                Value="@Filter.FilterOffice"
-                ValueChanged="FilterByOfficeAsync"/>
-        </div>
+    <FluentStack Orientation="Orientation.Vertical">
 
-        <FluentSpacer Width="50" />
+       <FluentStack Orientation="Orientation.Horizontal"
+            HorizontalAlignment="HorizontalAlignment.Start"
+            VerticalAlignment="VerticalAlignment.Bottom">
 
-        <div class="filter-date">
-            <div class="date-picker">
-                <FluentDatePicker style="width: 165px;"
-                    Label="Tanggal Permohonan"
-                    Value="@Filter.NullableFilterDateTimeMin"
-                    ValueChanged="SetFilterDateTimeStartAsync"/>
+            <div class="filter-office">
+                <FluentSelect TOption="string"
+                    Label="Kantor Perwakilan"
+                    Items="@EnumerableOptions.KantorPerwakilan"
+                    Width="300px"
+                    Value="@Filter.FilterOffice"
+                    ValueChanged="FilterByOfficeAsync"/>
             </div>
-            <div class="date-until">
-                <span>s.d.</span>
+            <FluentSpacer />
+            <div class="filter-search">
+                <FluentSelect TOption="string"
+                    Label="Pencarian"
+                    Items="@EnumerableOptions.Filter"
+                    Width="185px"/>
+                <FluentSearch style="width: 265px;"
+                    Value="@Filter.FilterSearch"
+                    ValueChanged="FilterBySearchAsync"/>
             </div>
-            <div class="date-picker">
-                <FluentDatePicker style="width: 140px;"
-                    Label="@FilterDateTimeRangeLabel"
-                    Value="@Filter.NullableFilterDateTimeMax"
-                    ValueChanged="SetFilterDateTimeEndAsync"/>
+            <FluentSpacer />
+            <div class="filter-reset">
+                <FluentButton BackgroundColor="crimson"
+                    Color="white"
+                    OnClick="@ResetFilterAsync">
+                    Reset Filter</FluentButton>
             </div>
-        </div>
+        </FluentStack>
 
-        <div class="filter-reset">
-            <FluentButton BackgroundColor="crimson"
-                Color="white"
-                OnClick="@ResetFilterAsync">
-                Reset Filter</FluentButton>
-        </div>
-        @* <div class="filter-search">
-            <FluentSelect TOption="string"
-                Label="Pencarian"
-                Items="@EnumerableOptions.Filter"
-                Width="165px"/>
-            <FluentSearch style="width: 250px;"
-                Value="@Filter.FilterSearch"
-                ValueChanged="FilterBySearchAsync"/>
-        </div> *@
+        <FluentStack Orientation="Orientation.Horizontal"
+            HorizontalAlignment="HorizontalAlignment.Start"
+            VerticalAlignment="VerticalAlignment.Bottom">
+
+            <div class="filter-date">
+                <div class="date-picker">
+                    <FluentDatePicker style="width: 135px;"
+                        Label="Tgl. Permohonan"
+                        Value="@Filter.NullableFilterDateTimeMin"
+                        ValueChanged="SetFilterDateTimeStartAsync"/>
+                </div>
+                <div class="date-until">
+                    <span>s.d</span>
+                </div>
+                <div class="date-picker">
+                    <FluentDatePicker style="width: 135px;"
+                        Label="@FilterDateTimeRangeLabel"
+                        Value="@Filter.NullableFilterDateTimeMax"
+                        ValueChanged="SetFilterDateTimeEndAsync"/>
+                </div>
+            </div>
+
+        </FluentStack>
 
     </FluentStack>
 </div>
