@@ -53,6 +53,11 @@ fluent-data-grid-cell fluent-button.col-sort-button::part(control){
     color: #373737;
 }
 
+fluent-data-grid-cell.column-header fluent-button.col-sort-button .col-title-text,
+fluent-data-grid-cell.column-header .col-title .col-title-text{
+    font-weight: 700;
+}
+
 .datagrid-wrapper{
     margin-top: 0.5rem;
     overflow-x: auto;
