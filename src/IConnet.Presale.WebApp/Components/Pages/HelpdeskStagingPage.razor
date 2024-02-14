@@ -7,9 +7,9 @@
 <div class="d-flex flex-row align-items-center">
     <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Helpdesk Staging</FluentLabel>
     <div class="filter-toggle">
-        <FluentButton Appearance="Appearance.Lightweight"
-            OnClick="@SessionService.FilterPreference.ToggleFilters">
-            Filter</FluentButton>
+        <FluentButton IconEnd="@(new Icons.Filled.Size20.Filter())"
+            OnClick="@SessionService.FilterPreference.ToggleFilters"/>
+
     </div>
 </div>
 <span class="page-description">Tampung permohonan</span>
