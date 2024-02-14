@@ -133,8 +133,10 @@ public partial class FilterForm : ComponentBase
     {
         var currentDate = DateTime.Today;
         var isToday = Filter.FilterDateTimeMax.Date == currentDate;
-        var denote = isToday ? "Terakhir" : "";
 
-        return $"Rentang {Filter.FilterDateTimeDifference.Days} Hari {denote}";
+        return isToday
+            ? $"{Filter.FilterDateTimeDifference.Days} Hari Terakhir"
+            : $"Rentang {Filter.FilterDateTimeDifference.Days} Hari";
     }
+
 }
