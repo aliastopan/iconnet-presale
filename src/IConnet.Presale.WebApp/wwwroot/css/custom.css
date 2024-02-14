@@ -165,9 +165,9 @@ input:invalid::part(root) {
 }
 
 /* fluent-text-field.fluent-datepicker, */
-.fluent-datepicker::part(root){
-    width: 165px !important;
-}
+/* .fluent-datepicker::part(root){
+    width: 150px !important;
+} */
 
 .filter-date{
     display: flex;
@@ -181,6 +181,7 @@ input:invalid::part(root) {
     flex-direction: column;
 }
 
+.filter-search label.fluent-input-label,
 .filter-office label.fluent-input-label,
 .date-picker label.fluent-input-label{
     font-weight: 600;
