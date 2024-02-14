@@ -114,8 +114,8 @@ input:invalid::part(root) {
 .filter-section{
     border-top: 1px solid #e6e6e6;
     border-bottom: 1px solid #e6e6e6;
-    margin: 1rem 0;
-    padding: 1rem 0.5rem;
+    margin: 10px 0;
+    padding: 10px;
 }
 
 .filter-section-disabled{
@@ -143,6 +143,11 @@ input:invalid::part(root) {
 .date-picker{
     display: flex;
     flex-direction: column;
+}
+
+.filter-office label.fluent-input-label,
+.date-picker label.fluent-input-label{
+    font-weight: 600;
 }
 
 .date-until{
