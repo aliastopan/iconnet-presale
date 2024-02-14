@@ -59,6 +59,12 @@ fluent-data-grid-cell.column-header .col-title .col-title-text{
     color: #5e5f5f;
 }
 
+fluent-data-grid-cell.column-header .col-options{
+    padding: 8px;
+    left: 1px;
+    box-shadow: none;
+}
+
 .datagrid-wrapper{
     margin-top: 0.5rem;
     overflow-x: auto;

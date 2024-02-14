@@ -32,9 +32,24 @@
             GridTemplateColumns="@GridTemplateCols">
 
             <TemplateColumn Title="ID PERMOHONAN" SortBy="@SortByIdPermohonan" Style="GetWidthStyle(ColumnWidth.IdPermohonanPx)">
-                <div class="">
-                    @context.ApprovalOpportunity.IdPermohonan
-                </div>
+                <ColumnOptions>
+                    <div class="">
+                        @if (FilterComponent is not null)
+                        {
+                            <FluentSearch Autofocus=true
+                                style="width: 200px;"
+                                type="search"
+                                @bind-Value=FilterComponent.Filter.IdPermohonan
+                                @oninput="FilterComponent.Filter.IdPermohonanFilterHandler"
+                                Placeholder="Id Permohonan"/>
+                        }
+                    </div>
+                </ColumnOptions>
+                <ChildContent>
+                    <div class="">
+                        @context.ApprovalOpportunity.IdPermohonan
+                    </div>
+                </ChildContent>
             </TemplateColumn>
             <TemplateColumn Title="TGL PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.TglPermohonanPx)">
                 <div class="">
