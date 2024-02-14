@@ -5,6 +5,11 @@ public partial class TabControl : ComponentBase
     [Parameter]
     public TabNavigationManager TabNavigationManager { get; set; } = default!;
 
+    protected override void OnParametersSet()
+    {
+        TabNavigationManager.StateHasChanged(this.StateHasChanged);
+    }
+
     public void ChangeTab(TabNavigation tab)
     {
         TabNavigationManager.ChangeTab(tab);
@@ -13,17 +18,11 @@ public partial class TabControl : ComponentBase
     public void CloseTab(TabNavigation tab)
     {
         TabNavigationManager.CloseTab(tab);
-        RefreshTabControl();
+        this.StateHasChanged();
     }
 
     public void NavigateBack()
     {
         TabNavigationManager.NavigateBack();
-    }
-
-    private void RefreshTabControl()
-    {
-        StateHasChanged();
-        // Log.Warning("Refreshing Tab Control");
     }
 }

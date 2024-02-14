@@ -6,6 +6,7 @@ public class TabNavigationManager
     private readonly List<TabNavigation> _tabNavigations = [];
     private readonly Stack<TabNavigation> _visitedTabs = [];
     private string? _activeTabId;
+    public Action _stateHasChanged = default!;
 
     public TabNavigationManager(NavigationManager navigationManager)
     {
@@ -13,6 +14,11 @@ public class TabNavigationManager
     }
 
     public List<TabNavigation> TabNavigations => _tabNavigations;
+
+    public void StateHasChanged(Action stateHasChanged)
+    {
+        _stateHasChanged = stateHasChanged;
+    }
 
     public void SelectTab(TabNavigation tabToSelect)
     {
@@ -25,7 +31,7 @@ public class TabNavigationManager
         _activeTabId = tabToSelect.Id;
         _visitedTabs.Push(tabToSelect);
 
-        // Log.Warning("Selected tab: {0}", _activeTabId);
+        _stateHasChanged();
     }
 
     public void ChangeTab(TabNavigation tabToChange)
