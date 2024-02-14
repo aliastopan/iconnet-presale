@@ -7,6 +7,7 @@ public class CrmVerificationPageBase : WorkloadPageBase
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public IDialogService DialogService { get; set; } = default!;
+    [Inject] public SessionService SessionService { get; set; } = default!;
 
     private readonly string _pageName = "CRM Verification page";
 
