@@ -103,6 +103,42 @@ input:invalid::part(root) {
     margin-left: auto;
 }
 
+.navigate-back{
+    padding: 10px;
+}
+
+.navigate-back button{
+    height: 32px;
+    background-color: white;
+    border: none;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+.navigate-back button svg{
+    width: 20px;
+    fill: var(--accent-fill-rest);
+}
+
+.navigate-back button:hover{
+    background-color: var(--accent-fill-rest);
+}
+
+.navigate-back button:hover svg{
+    fill: white;
+}
+
+.navigate-back button:active{
+    background-color: white !important;
+}
+
+.navigate-back button:active svg{
+    fill: var(--accent-fill-rest) !important;
+}
+
 .filter-toggle{
     margin-left: auto;
 }
