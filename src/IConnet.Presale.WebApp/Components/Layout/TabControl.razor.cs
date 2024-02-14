@@ -1,6 +1,6 @@
 namespace IConnet.Presale.WebApp.Components.Layout;
 
-public partial class TabControl
+public partial class TabControl : ComponentBase
 {
     [Parameter]
     public TabNavigationManager TabNavigationManager { get; set; } = default!;
