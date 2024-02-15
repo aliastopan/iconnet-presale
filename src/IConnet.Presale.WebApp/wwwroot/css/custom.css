@@ -64,25 +64,29 @@ input:invalid::part(root) {
 }
 
 .tab-content{
+    border-radius: 3px;
+    /* border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px; */
     cursor: pointer;
     padding: 0 4px;
-    /* background-color: crimson; */
     border: none;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
+.tab-active{
+    background-color: var(--accent-fill-rest) !important;
+    color: #e6e6e6;
+}
+
 .tab-close{
     border-radius: 3px;
+    /* border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px; */
     cursor: pointer;
-    /*background-color: rgb(161, 23, 65);
-    */padding: 0 5px;
+    padding: 0 5px;
     border: none;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
 }
 
 .tab-close-icon{

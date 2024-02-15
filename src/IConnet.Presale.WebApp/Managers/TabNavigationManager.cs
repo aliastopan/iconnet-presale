@@ -14,6 +14,7 @@ public class TabNavigationManager
     }
 
     public List<TabNavigation> TabNavigations => _tabNavigations;
+    public string? ActiveTabId => _activeTabId;
 
     public void StateHasChanged(Action stateHasChanged)
     {
