@@ -1,20 +1,26 @@
 /* fix overflow-x rendering glitch */
 fluent-data-grid{
     min-width: max-content;
+    border: 1px solid #F0F0F0;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
 }
 
 fluent-data-grid-row:not(.header):hover {
-    background-color: rgb(240, 240, 240);
+    background-color: #F0F0F0;
     cursor: default;
 }
 
 fluent-data-grid-cell:not(.column-header):hover + fluent-data-grid-row{
-    background-color: rgb(240, 240, 240);
+    background-color: #F0F0F0;
 }
 
 fluent-data-grid-row.header,
 fluent-data-grid-cell.column-header{
-    background-color: rgb(240, 240, 240);
+    background-color: #F0F0F0;
     color: #373737;
     cursor: default;
 }
@@ -37,7 +43,7 @@ fluent-data-grid-cell.column-header fluent-button.col-options-button{
 fluent-data-grid-cell.column-header fluent-button.col-options-button::part(control){
     margin-left: 4px;
     height: 24px;
-    background-color: rgb(240, 240, 240);
+    background-color: #F0F0F0;
     /* background-color: crimson; */
 }
 
@@ -49,7 +55,7 @@ fluent-data-grid-cell{
 }
 
 fluent-data-grid-cell fluent-button.col-sort-button::part(control){
-    background-color: rgb(240, 240, 240);
+    background-color: #F0F0F0;
     color: #373737;
 }
 
@@ -65,6 +71,29 @@ fluent-data-grid-cell.column-header .col-options{
     box-shadow: none;
 }
 
+fluent-data-grid-cell.column-header{
+    border-radius: 0;
+    border-right: 1px solid #e2e2e2;
+    border-left: 1px solid #e2e2e2;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+}
+
+fluent-data-grid-cell.column-header:first-child{
+    border-left: none;
+}
+
+fluent-data-grid-cell.column-header:last-child{
+    border-right: none;
+}
+
+/* fluent-data-grid-cell.column-header .col-title{
+    border-right: 1px solid #373737;
+    border-left: 1px solid #373737;
+} */
+
 .datagrid-wrapper{
     margin-top: 0.5rem;
     overflow-x: auto;
@@ -76,7 +105,7 @@ fluent-data-grid-cell.column-header .col-options{
 
 }
 .datagrid-wrapper::-webkit-scrollbar-track{
-    background-color: rgb(209, 207, 207);
+    background-color: #cccccc;
 }
 
 .datagrid-wrapper::-webkit-scrollbar-thumb{
