@@ -10,7 +10,7 @@ public abstract class ColumnWidthBase<T>
 
     public static int DefaultWidth => _defaultWidth;
 
-    public int IdPermohonanPx { get; set; } = 215;
+    public int IdPermohonanPx { get; set; } = 225;
     public int TglPermohonanPx { get; set; } = DefaultWidth;
     public int DurasiTidakLanjutPx { get; set; } = DefaultWidth;
     public int NamaPemohonPx { get; set; } = DefaultWidth;
@@ -42,7 +42,7 @@ public abstract class ColumnWidthBase<T>
     public int ImportSignaturePx { get; set; } = DefaultWidth;
 
     public int HelpdeskInChargePx { get; set; } = DefaultWidth;
-    public int ShiftPx { get; set; } = DefaultWidth;
+    public int ShiftPx { get; set; } = 100;
     public int TglChatCallMulaiPx { get; set; } = 225;
     public int ValidasiNamaPelangganPx { get; set; } = DefaultWidth;
     public int ValidasiNomorTelpPx { get; set; } = DefaultWidth;
@@ -62,7 +62,7 @@ public abstract class ColumnWidthBase<T>
     public abstract void SetColumnWidth(IQueryable<T>? models);
 
     protected void SetColumnWidth(IQueryable<T> importModels, Expression<Func<T, int>> propertySelector, Action<int>
-        setProperty, string propertyName, bool isCapitalized = false)
+        setProperty, string propertyName, bool isCapitalized = false, bool forceValue = false)
     {
         if (importModels is null || !importModels.Any())
         {
@@ -72,11 +72,13 @@ public abstract class ColumnWidthBase<T>
         int contentWidth = importModels.Max(propertySelector.Compile());
         int charWidth = isCapitalized ? CharWidth + (int)(CharWidth * 0.25f) : CharWidth;
         int columnWidthPx = (contentWidth * charWidth) + Padding;
-        // Log.Warning("{0} length: {1}, width: {2}px", propertyName, contentWidth, columnWidthPx);
 
-        if (columnWidthPx > DefaultWidth)
+        if (!forceValue && columnWidthPx <= DefaultWidth)
         {
-            setProperty(columnWidthPx);
+            return;
         }
+
+        setProperty(columnWidthPx);
+        // LogSwitch.Debug("{0} length: {1}, width: {2}px", propertyName, contentWidth, columnWidthPx);
     }
 }
