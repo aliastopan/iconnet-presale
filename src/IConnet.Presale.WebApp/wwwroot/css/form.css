@@ -1,14 +1,38 @@
 .validation-element{
     display: flex;
     flex-direction: row;
+    align-items: end;
 }
 
 .validation-label{
+    display: flex;
+    flex-direction: column;
     width: 180px;
-    color: black;
 }
 
 .validation-value{
+    display: flex;
+    flex-direction: column;
     width: 500px;
-    color: black;
+}
+
+.validation-label .fluent-typography,
+.validation-value .fluent-typography{
+    padding: 4px;
+}
+
+.validation-label .fluent-typography{
+    font-weight: 700 !important;
+    color: #373737 !important;
+}
+
+.validation-value .fluent-typography{
+    max-width: fit-content;
+    font-weight: 700 !important;
+    color: #373737 !important;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
 }

@@ -5,7 +5,7 @@ public partial class WorkloadValidationForm : ComponentBase
     [CascadingParameter(Name = "CascadeWorkPaper")]
     public WorkPaper? WorkPaper { get; set; }
 
-    public IEnumerable<string> StatusValidasi => EnumHelper.GetIEnumerable<ValidationStatus>(skipFirst: true);
+    public IEnumerable<string> StatusValidasi => EnumHelper.GetIEnumerable<ValidationStatus>();
 
     public string? placeholder;
     public string? placeholderTextfield;
