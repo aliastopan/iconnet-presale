@@ -74,7 +74,7 @@ public abstract class ColumnWidthBase<T>
         int charWidth = isCapitalized ? CharWidth + extraPx : CharWidth;
         int columnWidthPx = (contentWidth * charWidth) + Padding;
 
-        LogSwitch.Debug("{0} length: {1}, width: {2}px", propertyName, contentWidth, columnWidthPx);
+        // LogSwitch.Debug("{0} length: {1}, width: {2}px", propertyName, contentWidth, columnWidthPx);
         setProperty(columnWidthPx);
 
         if (columnWidthPx <= DefaultWidth)
