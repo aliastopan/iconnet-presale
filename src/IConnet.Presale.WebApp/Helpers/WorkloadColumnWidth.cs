@@ -17,6 +17,6 @@ public class WorkloadColumnWidth : ColumnWidthBase<WorkPaper>
         SetColumnWidth(workPaper, crm => crm.ApprovalOpportunity.Agen.Mitra.Length, width => MitraAgenPx = width, "Mitra Agen");
         SetColumnWidth(workPaper, crm => crm.ApprovalOpportunity.Pemohon.Keterangan.Length, width => KeteranganPx = width, "Keterangan");
 
-        SetColumnWidth(workPaper, crm => crm.Shift.Length, width => KeteranganPx = width, "Shift", forceValue: true);
+        SetColumnWidth(workPaper, crm => crm.Shift.Length, width => KeteranganPx = width, "Shift");
     }
 }

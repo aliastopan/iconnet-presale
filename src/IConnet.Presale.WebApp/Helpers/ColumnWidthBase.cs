@@ -5,7 +5,7 @@ namespace IConnet.Presale.WebApp.Helpers;
 public abstract class ColumnWidthBase<T>
 {
     private readonly static int _charWidth = 8;         //px
-    private readonly static int _padding = 8;          //px
+    private readonly static int _padding = 16;          //px
     private readonly static int _defaultWidth = 200;    //px
 
     public static int DefaultWidth => _defaultWidth;
@@ -26,8 +26,8 @@ public abstract class ColumnWidthBase<T>
     public int JenisPermohonanPx { get; set; } = 180;
     public int TelpPemohonPx { get; set; } = 150;
     public int EmailPemohonPx { get; set; } = DefaultWidth;
-    public int NikPemohonPx { get; set; } = 150;
-    public int NpwpPemohonPx { get; set; } = 150;
+    public int NikPemohonPx { get; set; } = 180;
+    public int NpwpPemohonPx { get; set; } = 180;
     public int KeteranganPx { get; set; } = DefaultWidth;
     public int AlamatPemohonPx { get; set; } = DefaultWidth;
     public int RegionalPx { get; set; } = 150;
@@ -62,7 +62,7 @@ public abstract class ColumnWidthBase<T>
     public abstract void SetColumnWidth(IQueryable<T>? models);
 
     protected void SetColumnWidth(IQueryable<T> importModels, Expression<Func<T, int>> propertySelector, Action<int>
-        setProperty, string propertyName, bool isCapitalized = false, bool forceValue = false)
+        setProperty, string propertyName, bool isCapitalized = false)
     {
         if (importModels is null || !importModels.Any())
         {
@@ -73,12 +73,12 @@ public abstract class ColumnWidthBase<T>
         int charWidth = isCapitalized ? CharWidth + (int)(CharWidth * 0.25f) : CharWidth;
         int columnWidthPx = (contentWidth * charWidth) + Padding;
 
-        if (!forceValue && columnWidthPx <= DefaultWidth)
-        {
-            return;
-        }
-
+        LogSwitch.Debug("{0} length: {1}, width: {2}px", propertyName, contentWidth, columnWidthPx);
         setProperty(columnWidthPx);
-        // LogSwitch.Debug("{0} length: {1}, width: {2}px", propertyName, contentWidth, columnWidthPx);
+
+        if (columnWidthPx <= DefaultWidth)
+        {
+            setProperty(DefaultWidth);
+        }
     }
 }
