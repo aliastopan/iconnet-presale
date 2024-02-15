@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server.Circuits;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.FluentUI.AspNetCore.Components;
 using IConnet.Presale.Application;
@@ -16,6 +17,8 @@ builder.ConfigureLogging();
 
 builder.Host.ConfigureServices((context, services) =>
 {
+    services.AddSingleton<CircuitHandler, CustomCircuitHandler>();
+
     services.AddApplicationServices(ServiceScope.WEBAPP_ONLY_SERVICE);
     services.AddInfrastructureServices(ServiceScope.WEBAPP_ONLY_SERVICE, context);
     services.AddHttpContextAccessor();
