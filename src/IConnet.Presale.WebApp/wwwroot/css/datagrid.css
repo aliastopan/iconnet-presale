@@ -94,6 +94,10 @@ fluent-data-grid-cell.column-header:last-child{
     border-left: 1px solid #373737;
 } */
 
+fluent-data-grid-row fluent-data-grid-cell.grid-cell-placeholder:after{
+    text-align: center;
+}
+
 .datagrid-wrapper{
     margin-top: 0.5rem;
     overflow-x: auto;
@@ -115,4 +119,8 @@ fluent-data-grid-cell.column-header:last-child{
     -moz-border-radius: 3px;
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
+}
+
+.column-adjusted{
+    margin-left: 32px;
 }
