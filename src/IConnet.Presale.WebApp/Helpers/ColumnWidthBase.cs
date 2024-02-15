@@ -69,8 +69,9 @@ public abstract class ColumnWidthBase<T>
             return;
         }
 
+        int extraPx = 1;
         int contentWidth = importModels.Max(propertySelector.Compile());
-        int charWidth = isCapitalized ? CharWidth + (int)(CharWidth * 0.25f) : CharWidth;
+        int charWidth = isCapitalized ? CharWidth + extraPx : CharWidth;
         int columnWidthPx = (contentWidth * charWidth) + Padding;
 
         LogSwitch.Debug("{0} length: {1}, width: {2}px", propertyName, contentWidth, columnWidthPx);
