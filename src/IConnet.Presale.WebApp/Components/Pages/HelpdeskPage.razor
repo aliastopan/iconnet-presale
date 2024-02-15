@@ -4,13 +4,14 @@
 
 <PageTitle>Helpdesk</PageTitle>
 
-<FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Helpdesk</FluentLabel>
-<div class="d-flex flex-column align-items-start">
-    <span class="page-description">Proses validasi permohonan</span>
-    <div style="">
-        <FluentCheckbox @bind-Value="@ShowStagingClaims" Label="Tampilkan tampungan Kertas Kerja" />
+<div class="d-flex flex-row align-items-center">
+    <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Helpdesk</FluentLabel>
+    <div class="staging-table-toggle">
+        <FluentButton IconEnd="@(new Icons.Regular.Size20.Grid())"
+            OnClick="@(() => ShowStagingClaims = !ShowStagingClaims)"/>
     </div>
 </div>
+<span class="page-description">Proses validasi permohonan</span>
 
 <FluentStack Orientation="Orientation.Horizontal"
     HorizontalAlignment="HorizontalAlignment.Start"
@@ -18,7 +19,12 @@
 
     @if (WorkPapers is not null)
     {
-        <div style="@MaxWidthStyle">
+        <div>
+            <CascadingValue Name="CascadeWorkPaper" Value="@WorkPaper">
+                <WorkloadValidationForm />
+            </CascadingValue>
+        </div>
+        <div class="staging-table" style="@MaxWidthStyle">
             @if (ShowStagingClaims)
             {
                 <FluentDataGrid Items="@WorkPapers"
@@ -60,11 +66,6 @@
                     </FluentPaginator>
                 </div>
             }
-        </div>
-        <div>
-            <CascadingValue Name="CascadeWorkPaper" Value="@WorkPaper">
-                <WorkloadValidationForm />
-            </CascadingValue>
         </div>
     }
     else

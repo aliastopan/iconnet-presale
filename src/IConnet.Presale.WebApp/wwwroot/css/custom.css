@@ -205,3 +205,11 @@ input:invalid::part(root) {
 .filter-reset{
     margin-left: auto;
 }
+
+.staging-table-toggle{
+    margin-left: auto;
+}
+
+.staging-table{
+    margin-left: auto;
+}
