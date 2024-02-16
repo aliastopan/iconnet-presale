@@ -35,7 +35,7 @@
             <div class="validation-value">
                 <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap</FluentLabel>
                 <FluentTextField @bind-Value=@placeholderTextfield
-                    style="width: 250px"
+                    style="width: 300px"
                     Disabled="false"
                     Placeholder="Pembetulan Nama Lengkap"></FluentTextField>
             </div>
@@ -51,7 +51,7 @@
             <div class="validation-value">
                 <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon</FluentLabel>
                 <FluentTextField @bind-Value=@placeholderTextfield1
-                    style="width: 250px"
+                    style="width: 300px"
                     Disabled="false"
                     Placeholder="Pembetulan No. Telepon"></FluentTextField>
             </div>
@@ -67,7 +67,7 @@
             <div class="validation-value">
                 <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.Email</FluentLabel>
                 <FluentTextField @bind-Value=@placeholderTextfield2
-                    style="width: 250px"
+                    style="width: 300px"
                     Disabled="false"
                     Placeholder="Pembetulan Email"></FluentTextField>
             </div>
@@ -83,25 +83,33 @@
             <div class="validation-value">
                 <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.IdPln</FluentLabel>
                 <FluentTextField @bind-Value=@placeholderTextfield3
-                    style="width: 250px"
+                    style="width: 300px"
                     Disabled="false"
                     Placeholder="Pembetulan Id PLN"></FluentTextField>
             </div>
         </div>
-        <div class="validation-element">
-            <div class="validation-label">
-                <FluentLabel Typo="Typography.Body">ALAMAT PELANGGAN</FluentLabel>
-                <FluentSelect Items="@StatusValidasi"
-                    @bind-Value="@placeholder"
-                    Position="SelectPosition.Below"
-                    Width="150px" />
+        <div class="validation-element-arrange">
+            <div class="arrange-end">
+                <div class="validation-label">
+                    <FluentLabel Typo="Typography.Body">ALAMAT PELANGGAN</FluentLabel>
+                </div>
+                <div class="validation-value">
+                    <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.Alamat</FluentLabel>
+                </div>
             </div>
-            <div class="validation-value">
-                <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.Alamat</FluentLabel>
-                <FluentTextField @bind-Value=@placeholderTextfield4
-                    style="width: 250px"
-                    Disabled="false"
-                    Placeholder="Pembetulan Alamat Pelanggan"></FluentTextField>
+            <div class="arrange-start">
+                <div class="validation-label">
+                    <FluentSelect Items="@StatusValidasi"
+                        @bind-Value="@placeholder"
+                        Position="SelectPosition.Below"
+                        Width="150px" />
+                </div>
+                <div class="validation-value">
+                    <FluentTextArea  @bind-Value=@placeholderTextfield4
+                        style="width: 300px"
+                        Disabled="false"
+                        Placeholder="Pembetulan Alamat Pelanggan"></FluentTextArea>
+                </div>
             </div>
         </div>
     </FluentStack>
