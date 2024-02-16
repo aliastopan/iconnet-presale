@@ -16,8 +16,14 @@ public class EnumHelper
         return enumNames.Select(EnumToDisplayString).Skip(1);
     }
 
-    private static string EnumToDisplayString(string enumValue)
+    public static string EnumToDisplayString(string enumValue)
     {
         return Regex.Replace(enumValue, "([a-z])([A-Z])", "$1 $2");
+    }
+
+    public static string EnumToDisplayString<T>(T enumValue) where T : Enum
+    {
+        string enumString = enumValue.ToString();
+        return Regex.Replace(enumString, "([a-z])([A-Z])", "$1 $2");
     }
 }
