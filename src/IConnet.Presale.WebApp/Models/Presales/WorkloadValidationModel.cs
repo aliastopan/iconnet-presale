@@ -2,13 +2,21 @@ namespace IConnet.Presale.WebApp.Models.Presales;
 
 public class WorkloadValidationModel
 {
-    public WorkloadValidationModel()
+    public WorkloadValidationModel(WorkPaper workPaper)
     {
-        PembetulanIdPln = IdPln;
-        PembetulanNamaPelanggan = NamaPelanggan;
-        PembetulanNomorTelepon = NomorTelepon;
-        PembetulanEmail = Email;
-        PembetulanAlamatPelanggan = AlamatPelanggan;
+        IdPermohonan = workPaper.ApprovalOpportunity.IdPermohonan;
+        IdPln = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiIdPln);
+        NamaPelanggan = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiNama);
+        NomorTelepon = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiNomorTelepon);
+        Email = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiEmail);
+        AlamatPelanggan = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiAlamat);
+        CrmKoordinat = workPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude;
+
+        // PembetulanIdPln = IdPln;
+        // PembetulanNamaPelanggan = NamaPelanggan;
+        // PembetulanNomorTelepon = NomorTelepon;
+        // PembetulanEmail = Email;
+        // PembetulanAlamatPelanggan = AlamatPelanggan;
     }
 
     public string IdPermohonan { get; set; } = string.Empty;

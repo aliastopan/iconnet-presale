@@ -60,16 +60,7 @@ public class HelpdeskPageBase : WorkloadPageBase
 
         foreach (var workPaper in WorkPapers)
         {
-            _validationModels.Add(new WorkloadValidationModel
-            {
-                IdPermohonan = workPaper.ApprovalOpportunity.IdPermohonan,
-                IdPln = workPaper.ApprovalOpportunity.Pemohon.IdPln,
-                NamaPelanggan = workPaper.ApprovalOpportunity.Pemohon.NamaLengkap,
-                NomorTelepon = workPaper.ApprovalOpportunity.Pemohon.NomorTelepon,
-                Email = workPaper.ApprovalOpportunity.Pemohon.Email,
-                AlamatPelanggan = workPaper.ApprovalOpportunity.Pemohon.Alamat,
-                CrmKoordinat = workPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude
-            });
+            _validationModels.Add(new WorkloadValidationModel(workPaper));
         }
 
         LogSwitch.Debug("Validation Models {count}", _validationModels.Count);
