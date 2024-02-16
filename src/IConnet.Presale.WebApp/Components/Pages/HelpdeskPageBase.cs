@@ -13,6 +13,7 @@ public class HelpdeskPageBase : WorkloadPageBase
     private readonly GridSort<WorkPaper> _sortByStagingStatus = GridSort<WorkPaper>
         .ByAscending(workPaper => workPaper.HelpdeskInCharge.TglAksi);
 
+    // TODO: create helper class
     public bool ShowStagingClaims { get; set; } = true;
     public string ToggleText => ShowStagingClaims ? "Hide" : "Show";
     protected int ColumnWidthIdPermohonan { get; set; } = 185;  //px
