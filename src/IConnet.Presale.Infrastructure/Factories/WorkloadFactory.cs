@@ -117,7 +117,7 @@ internal sealed class WorkloadFactory
                 LinkRecapChatHistory = string.Empty,
                 ParameterValidasi = new ValidationParameter
                 {
-                    PlnId = ValidationStatus.Default,
+                    IdPln = ValidationStatus.Default,
                     NamaPelanggan = ValidationStatus.Default,
                     NomorTelepon = ValidationStatus.Default,
                     Email = ValidationStatus.Default,
