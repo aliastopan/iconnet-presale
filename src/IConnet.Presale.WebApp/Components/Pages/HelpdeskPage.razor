@@ -21,7 +21,9 @@
     {
         <div>
             <CascadingValue Name="CascadeWorkPaper" Value="@WorkPaper">
-                <WorkloadValidationForm />
+                <CascadingValue Name="CascadeValidationModel" Value="@ValidationModel">
+                    <WorkloadValidationForm />
+                </CascadingValue>
             </CascadingValue>
         </div>
         <div class="staging-table" style="@MaxWidthStyle">

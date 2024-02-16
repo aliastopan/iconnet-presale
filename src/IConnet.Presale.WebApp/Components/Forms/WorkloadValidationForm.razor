@@ -1,7 +1,7 @@
 @using IConnet.Presale.Domain.Common
 @using IConnet.Presale.Domain.Enums
 
-@if (WorkPaper is not null)
+@if (WorkPaper is not null && ValidationModel is not null)
 {
     <div class="d-flex flex-column">
         <FluentLabel Typo="Typography.Subject">@WorkPaper.ApprovalOpportunity.IdPermohonan</FluentLabel>
@@ -28,7 +28,7 @@
             <div class="validation-label">
                 <FluentLabel Typo="Typography.Body">NAMA PELANGGAN</FluentLabel>
                 <FluentSelect Items="@StatusValidasi"
-                    @bind-Value="@placeholder"
+                    @bind-Value="@ValidationModel.NamaPelanggan"
                     Position="SelectPosition.Below"
                     Width="150px" />
             </div>
@@ -44,7 +44,7 @@
             <div class="validation-label">
                 <FluentLabel Typo="Typography.Body">NO. TELEPON</FluentLabel>
                 <FluentSelect Items="@StatusValidasi"
-                    @bind-Value="@placeholder"
+                    @bind-Value="@ValidationModel.NomorTelepon"
                     Position="SelectPosition.Below"
                     Width="150px" />
             </div>
@@ -60,7 +60,7 @@
             <div class="validation-label">
                 <FluentLabel Typo="Typography.Body">EMAIL</FluentLabel>
                 <FluentSelect Items="@StatusValidasi"
-                    @bind-Value="@placeholder"
+                    @bind-Value="@ValidationModel.Email"
                     Position="SelectPosition.Below"
                     Width="150px" />
             </div>
@@ -76,7 +76,7 @@
             <div class="validation-label">
                 <FluentLabel Typo="Typography.Body">ID PLN</FluentLabel>
                 <FluentSelect Items="@StatusValidasi"
-                    @bind-Value="@placeholder"
+                    @bind-Value="@ValidationModel.IdPln"
                     Position="SelectPosition.Below"
                     Width="150px" />
             </div>
@@ -100,7 +100,7 @@
             <div class="arrange-start">
                 <div class="validation-label">
                     <FluentSelect Items="@StatusValidasi"
-                        @bind-Value="@placeholder"
+                        @bind-Value="@ValidationModel.AlamatPelanggan"
                         Position="SelectPosition.Below"
                         Width="150px" />
                 </div>

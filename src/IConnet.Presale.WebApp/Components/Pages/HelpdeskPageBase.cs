@@ -1,4 +1,5 @@
 using IConnet.Presale.WebApp.Components.Dialogs;
+using IConnet.Presale.WebApp.Models.Presales;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
 
@@ -10,6 +11,7 @@ public class HelpdeskPageBase : WorkloadPageBase
 
     private readonly string _pageName = "Helpdesk page";
     private Guid _sessionId;
+    private readonly List<WorkloadValidationModel> _validationModels = new List<WorkloadValidationModel>();
     private readonly GridSort<WorkPaper> _sortByStagingStatus = GridSort<WorkPaper>
         .ByAscending(workPaper => workPaper.HelpdeskInCharge.TglAksi);
 
@@ -28,6 +30,8 @@ public class HelpdeskPageBase : WorkloadPageBase
 
     protected GridSort<WorkPaper> SortByStagingStatus => _sortByStagingStatus;
     protected WorkPaper? WorkPaper { get; set; }
+    protected WorkloadValidationModel? ValidationModel => _validationModels
+        .FirstOrDefault(x => x.IdPermohonan == WorkPaper?.ApprovalOpportunity.IdPermohonan);
 
     protected string GridTemplateCols
     {
@@ -48,6 +52,27 @@ public class HelpdeskPageBase : WorkloadPageBase
         CacheFetchMode = CacheFetchMode.OnlyStaged;
 
         await base.OnInitializedAsync();
+
+        if (WorkPapers is null)
+        {
+            return;
+        }
+
+        foreach (var workPaper in WorkPapers)
+        {
+            _validationModels.Add(new WorkloadValidationModel
+            {
+                IdPermohonan = workPaper.ApprovalOpportunity.IdPermohonan,
+                IdPln = workPaper.ApprovalOpportunity.Pemohon.IdPln,
+                NamaPelanggan = workPaper.ApprovalOpportunity.Pemohon.NamaLengkap,
+                NomorTelepon = workPaper.ApprovalOpportunity.Pemohon.NomorTelepon,
+                Email = workPaper.ApprovalOpportunity.Pemohon.Email,
+                AlamatPelanggan = workPaper.ApprovalOpportunity.Pemohon.Alamat,
+                CrmKoordinat = workPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude
+            });
+        }
+
+        LogSwitch.Debug("Validation Models {count}", _validationModels.Count);
     }
 
     protected async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
