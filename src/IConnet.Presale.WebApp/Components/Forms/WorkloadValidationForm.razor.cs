@@ -10,14 +10,37 @@ public partial class WorkloadValidationForm : ComponentBase
     [CascadingParameter(Name = "CascadeValidationModel")]
     public WorkloadValidationModel? ValidationModel { get; set; }
 
-    public IEnumerable<string> StatusValidasi => EnumHelper.GetIEnumerable<ValidationStatus>();
+    private Icon _question = new Icons.Filled.Size20.QuestionCircle().WithColor("var(--info)");
+    private Icon _error = new Icons.Filled.Size20.ErrorCircle().WithColor("var(--error)");
+    private Icon _checkmark = new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success)");
 
-    public string TidakSesuai => StatusValidasi.Skip(1).First();
+    protected IEnumerable<string> StatusValidasi => EnumHelper.GetIEnumerable<ValidationStatus>();
+
+    protected string MenungguValidasi => StatusValidasi.First();
+    protected string TidakSesuai => StatusValidasi.Skip(1).First();
+    protected string Sesuai => StatusValidasi.Last();
+
+    protected Icon LabelIconNamaPelanggan => GetIcon(ValidationModel?.NamaPelanggan);
+    protected Icon LabelIconNoTelepon => GetIcon(ValidationModel?.NomorTelepon);
+    protected Icon LabelIconEmail => GetIcon(ValidationModel?.Email);
+    protected Icon LabelIconIdPln => GetIcon(ValidationModel?.IdPln);
+    protected Icon LabelIconAlamat => GetIcon(ValidationModel?.AlamatPelanggan);
+
     public bool DisableNamaPelanggan => ValidationModel?.NamaPelanggan != TidakSesuai;
     public bool DisableNoTelepon => ValidationModel?.NomorTelepon != TidakSesuai;
     public bool DisableEmail => ValidationModel?.Email != TidakSesuai;
     public bool DisableIdPln => ValidationModel?.IdPln != TidakSesuai;
     public bool DisableAlamatPelanggan => ValidationModel?.AlamatPelanggan != TidakSesuai;
+
+    private Icon GetIcon(string? section)
+    {
+        return section switch
+        {
+            string status when status == TidakSesuai => _error,
+            string status when status == Sesuai => _checkmark,
+            _ => _question,
+        };
+    }
 
     public string? placeholder;
     public string? placeholderTextfield;
