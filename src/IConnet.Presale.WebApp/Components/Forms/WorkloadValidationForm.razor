@@ -36,7 +36,7 @@
                 <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap</FluentLabel>
                 <FluentTextField @bind-Value=@placeholderTextfield
                     style="width: 300px"
-                    Disabled="false"
+                    Disabled="@DisableNamaPelanggan"
                     Placeholder="Pembetulan Nama Lengkap"></FluentTextField>
             </div>
         </div>
@@ -52,7 +52,7 @@
                 <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon</FluentLabel>
                 <FluentTextField @bind-Value=@placeholderTextfield1
                     style="width: 300px"
-                    Disabled="false"
+                    Disabled="@DisableNoTelepon"
                     Placeholder="Pembetulan No. Telepon"></FluentTextField>
             </div>
         </div>
@@ -68,7 +68,7 @@
                 <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.Email</FluentLabel>
                 <FluentTextField @bind-Value=@placeholderTextfield2
                     style="width: 300px"
-                    Disabled="false"
+                    Disabled="@DisableEmail"
                     Placeholder="Pembetulan Email"></FluentTextField>
             </div>
         </div>
@@ -84,7 +84,7 @@
                 <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.IdPln</FluentLabel>
                 <FluentTextField @bind-Value=@placeholderTextfield3
                     style="width: 300px"
-                    Disabled="false"
+                    Disabled="@DisableIdPln"
                     Placeholder="Pembetulan Id PLN"></FluentTextField>
             </div>
         </div>
@@ -107,7 +107,7 @@
                 <div class="validation-value">
                     <FluentTextArea  @bind-Value=@placeholderTextfield4
                         style="width: 300px"
-                        Disabled="false"
+                        Disabled="@DisableAlamatPelanggan"
                         Placeholder="Pembetulan Alamat Pelanggan"></FluentTextArea>
                 </div>
             </div>

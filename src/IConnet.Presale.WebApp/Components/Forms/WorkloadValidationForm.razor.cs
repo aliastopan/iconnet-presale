@@ -12,6 +12,13 @@ public partial class WorkloadValidationForm : ComponentBase
 
     public IEnumerable<string> StatusValidasi => EnumHelper.GetIEnumerable<ValidationStatus>();
 
+    public string TidakSesuai => StatusValidasi.Skip(1).First();
+    public bool DisableNamaPelanggan => ValidationModel?.NamaPelanggan != TidakSesuai;
+    public bool DisableNoTelepon => ValidationModel?.NomorTelepon != TidakSesuai;
+    public bool DisableEmail => ValidationModel?.Email != TidakSesuai;
+    public bool DisableIdPln => ValidationModel?.IdPln != TidakSesuai;
+    public bool DisableAlamatPelanggan => ValidationModel?.AlamatPelanggan != TidakSesuai;
+
     public string? placeholder;
     public string? placeholderTextfield;
     public string? placeholderTextfield1;
