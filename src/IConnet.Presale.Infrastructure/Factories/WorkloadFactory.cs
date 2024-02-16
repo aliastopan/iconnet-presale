@@ -117,11 +117,11 @@ internal sealed class WorkloadFactory
                 LinkRecapChatHistory = string.Empty,
                 ParameterValidasi = new ValidationParameter
                 {
-                    IdPln = ValidationStatus.MenungguValidasi,
-                    NamaPelanggan = ValidationStatus.MenungguValidasi,
-                    NomorTelepon = ValidationStatus.MenungguValidasi,
-                    Email = ValidationStatus.MenungguValidasi,
-                    AlamatPelanggan = ValidationStatus.MenungguValidasi,
+                    ValidasiIdPln = ValidationStatus.MenungguValidasi,
+                    ValidasiNama = ValidationStatus.MenungguValidasi,
+                    ValidasiNomorTelepon = ValidationStatus.MenungguValidasi,
+                    ValidasiEmail = ValidationStatus.MenungguValidasi,
+                    ValidasiAlamat = ValidationStatus.MenungguValidasi,
                     ShareLoc = new Coordinate
                     {
                         Latitude = string.Empty,
