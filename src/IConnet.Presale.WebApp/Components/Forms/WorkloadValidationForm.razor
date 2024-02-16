@@ -32,7 +32,7 @@
                 </div>
                 <FluentSelect Items="@StatusValidasi"
                     @bind-Value="@ValidationModel.NamaPelanggan"
-                    OptionDisabled="@(x => x == MenungguValidasi)"
+                    OptionDisabled="@OptionDisableNamaPelanggan"
                     Position="SelectPosition.Below"
                     Width="165px" />
             </div>
@@ -54,7 +54,7 @@
                 </div>
                 <FluentSelect Items="@StatusValidasi"
                     @bind-Value="@ValidationModel.NomorTelepon"
-                    OptionDisabled="@(x => x == MenungguValidasi)"
+                    OptionDisabled="@OptionDisableNoTelepon"
                     Position="SelectPosition.Below"
                     Width="165px" />
             </div>
@@ -74,7 +74,7 @@
                 </div>
                 <FluentSelect Items="@StatusValidasi"
                     @bind-Value="@ValidationModel.Email"
-                    OptionDisabled="@(x => x == MenungguValidasi)"
+                    OptionDisabled="@OptionDisableEmail"
                     Position="SelectPosition.Below"
                     Width="165px" />
             </div>
@@ -94,7 +94,7 @@
                 </div>
                 <FluentSelect Items="@StatusValidasi"
                     @bind-Value="@ValidationModel.IdPln"
-                    OptionDisabled="@(x => x == MenungguValidasi)"
+                    OptionDisabled="@OptionDisableIdPln"
                     Position="SelectPosition.Below"
                     Width="165px" />
             </div>
@@ -122,7 +122,7 @@
                 <div class="validation-label">
                     <FluentSelect Items="@StatusValidasi"
                         @bind-Value="@ValidationModel.AlamatPelanggan"
-                        OptionDisabled="@(x => x == MenungguValidasi)"
+                        OptionDisabled="@OptionDisableAlamat"
                         Position="SelectPosition.Below"
                         Width="165px" />
                 </div>

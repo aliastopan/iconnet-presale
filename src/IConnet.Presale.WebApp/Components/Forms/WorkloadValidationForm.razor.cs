@@ -20,6 +20,12 @@ public partial class WorkloadValidationForm : ComponentBase
     protected string TidakSesuai => StatusValidasi.Skip(1).First();
     protected string Sesuai => StatusValidasi.Last();
 
+    protected Func<string, bool> OptionDisableNamaPelanggan => x => x == MenungguValidasi && ValidationModel?.NamaPelanggan != MenungguValidasi;
+    protected Func<string, bool> OptionDisableNoTelepon => x => x == MenungguValidasi && ValidationModel?.NomorTelepon != MenungguValidasi;
+    protected Func<string, bool> OptionDisableEmail => x => x == MenungguValidasi && ValidationModel?.Email != MenungguValidasi;
+    protected Func<string, bool> OptionDisableIdPln => x => x == MenungguValidasi && ValidationModel?.IdPln != MenungguValidasi;
+    protected Func<string, bool> OptionDisableAlamat => x => x == MenungguValidasi && ValidationModel?.AlamatPelanggan != MenungguValidasi;
+
     protected Icon LabelIconNamaPelanggan => GetIcon(ValidationModel?.NamaPelanggan);
     protected Icon LabelIconNoTelepon => GetIcon(ValidationModel?.NomorTelepon);
     protected Icon LabelIconEmail => GetIcon(ValidationModel?.Email);
