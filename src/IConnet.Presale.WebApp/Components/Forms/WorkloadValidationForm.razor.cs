@@ -10,9 +10,9 @@ public partial class WorkloadValidationForm : ComponentBase
     [CascadingParameter(Name = "CascadeValidationModel")]
     public WorkloadValidationModel? ValidationModel { get; set; }
 
-    private Icon _question = new Icons.Filled.Size20.QuestionCircle().WithColor("var(--info)");
-    private Icon _error = new Icons.Filled.Size20.ErrorCircle().WithColor("var(--error)");
-    private Icon _checkmark = new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success)");
+    private readonly Icon _question = new Icons.Filled.Size20.QuestionCircle().WithColor("var(--info)");
+    private readonly Icon _error = new Icons.Filled.Size20.ErrorCircle().WithColor("var(--error)");
+    private readonly Icon _checkmark = new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success)");
 
     protected IEnumerable<string> StatusValidasi => EnumHelper.GetIEnumerable<ValidationStatus>();
 
