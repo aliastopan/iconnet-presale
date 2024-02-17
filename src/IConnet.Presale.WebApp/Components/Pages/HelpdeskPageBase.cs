@@ -130,6 +130,7 @@ public class HelpdeskPageBase : WorkloadPageBase
 
     private async Task RestageWorkloadAsync(WorkPaper workPaper)
     {
+        ActiveWorkPaper = workPaper;
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
 
         var message = $"Workload '{workPaper.ApprovalOpportunity.IdPermohonan}' staging claim has been extended";
