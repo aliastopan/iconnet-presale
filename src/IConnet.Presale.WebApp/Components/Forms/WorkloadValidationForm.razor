@@ -19,120 +19,155 @@
         </div>
     </div>
 
-    <FluentStack Orientation="Orientation.Vertical"
+    <FluentStack Orientation="Orientation.Horizontal"
         HorizontalAlignment="HorizontalAlignment.Start"
         VerticalAlignment="VerticalAlignment.Top"
-        HorizontalGap="4">
+        HorizontalGap="1">
 
-        <div class="validation-element">
-            <div class="validation-label">
-                <div style="display: flex;">
-                    <FluentLabel Typo="Typography.Body">NAMA LENGKAP</FluentLabel>
-                    <FluentIcon Value="@LabelIconNamaPelanggan" />
-                </div>
-                <FluentSelect Items="@StatusValidasi"
-                    @bind-Value="@ValidationModel.ValidasiNama"
-                    OptionDisabled="@OptionDisableNamaPelanggan"
-                    Position="SelectPosition.Below"
-                    Width="165px" />
-            </div>
-            <div class="validation-value">
-                <div>
-                    <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap</FluentLabel>
-                </div>
-                <FluentTextField @bind-Value=@ValidationModel.PembetulanNama
-                    style="width: 300px"
-                    Disabled="@DisableTextFieldNamaPelanggan"
-                    Placeholder="Pembetulan Nama Pelanggan"></FluentTextField>
-            </div>
-        </div>
-        <div class="validation-element">
-            <div class="validation-label">
-                <div style="display: flex;">
-                    <FluentLabel Typo="Typography.Body">NO. TELEPON</FluentLabel>
-                    <FluentIcon Value="@LabelIconNoTelepon" />
-                </div>
-                <FluentSelect Items="@StatusValidasi"
-                    @bind-Value="@ValidationModel.ValidasiNomorTelepon"
-                    OptionDisabled="@OptionDisableNoTelepon"
-                    Position="SelectPosition.Below"
-                    Width="165px" />
-            </div>
-            <div class="validation-value">
-                <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon</FluentLabel>
-                <FluentTextField @bind-Value=@ValidationModel.PembetulanNomorTelepon
-                    style="width: 300px"
-                    Disabled="@DisableTextFieldNoTelepon"
-                    Placeholder="Pembetulan No. Telepon Aktif"></FluentTextField>
-            </div>
-        </div>
-        <div class="validation-element">
-            <div class="validation-label">
-                <div style="display: flex;">
-                    <FluentLabel Typo="Typography.Body">EMAIL</FluentLabel>
-                    <FluentIcon Value="@LabelIconEmail" />
-                </div>
-                <FluentSelect Items="@StatusValidasi"
-                    @bind-Value="@ValidationModel.ValidasiEmail"
-                    OptionDisabled="@OptionDisableEmail"
-                    Position="SelectPosition.Below"
-                    Width="165px" />
-            </div>
-            <div class="validation-value">
-                <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.Email</FluentLabel>
-                <FluentTextField @bind-Value=@ValidationModel.PembetulanEmail
-                    style="width: 300px"
-                    Disabled="@DisableTextFieldEmail"
-                    Placeholder="Pembetulan Email Aktif"></FluentTextField>
-            </div>
-        </div>
-        <div class="validation-element">
-            <div class="validation-label">
-                <div style="display: flex;">
-                    <FluentLabel Typo="Typography.Body">ID PLN</FluentLabel>
-                    <FluentIcon Value="@LabelIconIdPln" />
-                </div>
-                <FluentSelect Items="@StatusValidasi"
-                    @bind-Value="@ValidationModel.ValidasiIdPln"
-                    OptionDisabled="@OptionDisableIdPln"
-                    Position="SelectPosition.Below"
-                    Width="165px" />
-            </div>
-            <div class="validation-value">
-                <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.IdPln</FluentLabel>
-                <FluentTextField @bind-Value=@ValidationModel.PembetulanIdPln
-                    style="width: 300px"
-                    Disabled="@DisableTextFieldIdPln"
-                    Placeholder="Pembetulan Id PLN"></FluentTextField>
-            </div>
-        </div>
-        <div class="validation-element-arrange">
-            <div class="arrange-end">
+        <FluentStack Orientation="Orientation.Vertical"
+            HorizontalAlignment="HorizontalAlignment.Start"
+            VerticalAlignment="VerticalAlignment.Top"
+            HorizontalGap="4">
+
+            <div class="validation-element">
                 <div class="validation-label">
                     <div style="display: flex;">
-                        <FluentLabel Typo="Typography.Body">ALAMAT</FluentLabel>
-                        <FluentIcon Value="@LabelIconAlamat" />
+                        <FluentLabel Typo="Typography.Body">NAMA LENGKAP</FluentLabel>
+                        <FluentIcon Value="@LabelIconNamaPelanggan" />
                     </div>
-                </div>
-                <div class="validation-value">
-                    <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.Alamat</FluentLabel>
-                </div>
-            </div>
-            <div class="arrange-start">
-                <div class="validation-label">
                     <FluentSelect Items="@StatusValidasi"
-                        @bind-Value="@ValidationModel.ValidasiAlamat"
-                        OptionDisabled="@OptionDisableAlamat"
+                        @bind-Value="@ValidationModel.ValidasiNama"
+                        OptionDisabled="@OptionDisableNamaPelanggan"
                         Position="SelectPosition.Below"
                         Width="165px" />
                 </div>
                 <div class="validation-value">
-                    <FluentTextArea  @bind-Value=@ValidationModel.PembetulanAlamat
+                    <div>
+                        <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap</FluentLabel>
+                    </div>
+                    <FluentTextField @bind-Value=@ValidationModel.PembetulanNama
                         style="width: 300px"
-                        Disabled="@DisableTextAreaAlamatPelanggan"
-                        Placeholder="Pembetulan Alamat Pelanggan"></FluentTextArea>
+                        Disabled="@DisableTextFieldNamaPelanggan"
+                        Placeholder="Pembetulan Nama Pelanggan"></FluentTextField>
                 </div>
             </div>
-        </div>
+            <div class="validation-element">
+                <div class="validation-label">
+                    <div style="display: flex;">
+                        <FluentLabel Typo="Typography.Body">NO. TELEPON</FluentLabel>
+                        <FluentIcon Value="@LabelIconNoTelepon" />
+                    </div>
+                    <FluentSelect Items="@StatusValidasi"
+                        @bind-Value="@ValidationModel.ValidasiNomorTelepon"
+                        OptionDisabled="@OptionDisableNoTelepon"
+                        Position="SelectPosition.Below"
+                        Width="165px" />
+                </div>
+                <div class="validation-value">
+                    <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon</FluentLabel>
+                    <FluentTextField @bind-Value=@ValidationModel.PembetulanNomorTelepon
+                        style="width: 300px"
+                        Disabled="@DisableTextFieldNoTelepon"
+                        Placeholder="Pembetulan No. Telepon Aktif"></FluentTextField>
+                </div>
+            </div>
+            <div class="validation-element">
+                <div class="validation-label">
+                    <div style="display: flex;">
+                        <FluentLabel Typo="Typography.Body">EMAIL</FluentLabel>
+                        <FluentIcon Value="@LabelIconEmail" />
+                    </div>
+                    <FluentSelect Items="@StatusValidasi"
+                        @bind-Value="@ValidationModel.ValidasiEmail"
+                        OptionDisabled="@OptionDisableEmail"
+                        Position="SelectPosition.Below"
+                        Width="165px" />
+                </div>
+                <div class="validation-value">
+                    <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.Email</FluentLabel>
+                    <FluentTextField @bind-Value=@ValidationModel.PembetulanEmail
+                        style="width: 300px"
+                        Disabled="@DisableTextFieldEmail"
+                        Placeholder="Pembetulan Email Aktif"></FluentTextField>
+                </div>
+            </div>
+            <div class="validation-element">
+                <div class="validation-label">
+                    <div style="display: flex;">
+                        <FluentLabel Typo="Typography.Body">ID PLN</FluentLabel>
+                        <FluentIcon Value="@LabelIconIdPln" />
+                    </div>
+                    <FluentSelect Items="@StatusValidasi"
+                        @bind-Value="@ValidationModel.ValidasiIdPln"
+                        OptionDisabled="@OptionDisableIdPln"
+                        Position="SelectPosition.Below"
+                        Width="165px" />
+                </div>
+                <div class="validation-value">
+                    <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.IdPln</FluentLabel>
+                    <FluentTextField @bind-Value=@ValidationModel.PembetulanIdPln
+                        style="width: 300px"
+                        Disabled="@DisableTextFieldIdPln"
+                        Placeholder="Pembetulan Id PLN"></FluentTextField>
+                </div>
+            </div>
+            <div class="validation-element-arrange">
+                <div class="arrange-end">
+                    <div class="validation-label">
+                        <div style="display: flex;">
+                            <FluentLabel Typo="Typography.Body">ALAMAT</FluentLabel>
+                            <FluentIcon Value="@LabelIconAlamat" />
+                        </div>
+                    </div>
+                    <div class="validation-value">
+                        <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.Alamat</FluentLabel>
+                    </div>
+                </div>
+                <div class="arrange-start">
+                    <div class="validation-label">
+                        <FluentSelect Items="@StatusValidasi"
+                            @bind-Value="@ValidationModel.ValidasiAlamat"
+                            OptionDisabled="@OptionDisableAlamat"
+                            Position="SelectPosition.Below"
+                            Width="165px" />
+                    </div>
+                    <div class="validation-value">
+                        <FluentTextArea  @bind-Value=@ValidationModel.PembetulanAlamat
+                            style="width: 300px"
+                            Disabled="@DisableTextAreaAlamatPelanggan"
+                            Placeholder="Pembetulan Alamat Pelanggan"></FluentTextArea>
+                    </div>
+                </div>
+            </div>
+        </FluentStack>
+
+        <FluentStack Orientation="Orientation.Vertical"
+            HorizontalAlignment="HorizontalAlignment.Start"
+            VerticalAlignment="VerticalAlignment.Top"
+            HorizontalGap="4">
+
+            <div class="validation-element">
+                <div class="validation-label">
+                    <div style="display: flex;">
+                        <FluentLabel Typo="Typography.Body">iCRM+ KOORDINAT</FluentLabel>
+                    </div>
+                    <div style="display: flex;">
+                        <FluentLabel Typo="Typography.Body">SHARE LOC</FluentLabel>
+                    </div>
+                </div>
+                <div class="validation-value">
+                    <div>
+                        <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude</FluentLabel>
+                    </div>
+                    <FluentTextField style="width: 300px"
+                        Placeholder="Konfirmasi Share Loc"
+                        Value="@ValidationModel.ShareLoc"
+                        ValueChanged="OnShareLoc"></FluentTextField>
+                </div>
+            </div>
+
+        </FluentStack>
+
     </FluentStack>
+
 }

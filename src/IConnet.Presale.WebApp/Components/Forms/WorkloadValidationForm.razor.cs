@@ -31,12 +31,26 @@ public partial class WorkloadValidationForm : ComponentBase
     protected Icon LabelIconEmail => GetIcon(ValidationModel?.ValidasiEmail);
     protected Icon LabelIconIdPln => GetIcon(ValidationModel?.ValidasiIdPln);
     protected Icon LabelIconAlamat => GetIcon(ValidationModel?.ValidasiAlamat);
+    protected Icon LabelIconShareLoc=> GetIcon(ValidationModel?.ValidasiCrmKoordinat);
 
     protected bool DisableTextFieldNamaPelanggan => ValidationModel?.ValidasiNama != TidakSesuai;
     protected bool DisableTextFieldNoTelepon => ValidationModel?.ValidasiNomorTelepon != TidakSesuai;
     protected bool DisableTextFieldEmail => ValidationModel?.ValidasiEmail != TidakSesuai;
     protected bool DisableTextFieldIdPln => ValidationModel?.ValidasiIdPln != TidakSesuai;
     protected bool DisableTextAreaAlamatPelanggan => ValidationModel?.ValidasiAlamat != TidakSesuai;
+
+    protected void OnShareLoc(string shareLoc)
+    {
+        if (ValidationModel is null)
+        {
+            return;
+        }
+
+        ValidationModel.ShareLoc = shareLoc;
+        ValidationModel.ValidasiCrmKoordinat = ValidationModel!.ShareLoc == WorkPaper!.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude
+            ? Sesuai
+            : TidakSesuai;
+    }
 
     private Icon GetIcon(string? section)
     {

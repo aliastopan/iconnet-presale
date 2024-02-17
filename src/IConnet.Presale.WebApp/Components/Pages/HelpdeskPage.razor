@@ -19,13 +19,6 @@
 
     @if (WorkPapers is not null)
     {
-        <div>
-            <CascadingValue Name="CascadeWorkPaper" Value="@ActiveWorkPaper">
-                <CascadingValue Name="CascadeValidationModel" Value="@ActiveValidationModel">
-                    <WorkloadValidationForm />
-                </CascadingValue>
-            </CascadingValue>
-        </div>
         <div class="staging-table" style="@MaxWidthStyle">
             @if (ShowStagingClaims)
             {
@@ -76,3 +69,15 @@
     }
 
 </FluentStack>
+
+
+@if (WorkPapers is not null)
+{
+    <div>
+        <CascadingValue Name="CascadeWorkPaper" Value="@ActiveWorkPaper">
+            <CascadingValue Name="CascadeValidationModel" Value="@ActiveValidationModel">
+                <WorkloadValidationForm />
+            </CascadingValue>
+        </CascadingValue>
+    </div>
+}

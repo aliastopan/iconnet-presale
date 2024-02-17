@@ -10,7 +10,7 @@ public class WorkloadValidationModel
         ValidasiNomorTelepon = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiNomorTelepon);
         ValidasiEmail = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiEmail);
         ValidasiAlamat = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiAlamat);
-        CrmKoordinat = workPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude;
+        ValidasiCrmKoordinat = EnumHelper.EnumToDisplayString(ValidationStatus.MenungguValidasi);
     }
 
     public string IdPermohonan { get; set; } = string.Empty;
@@ -19,7 +19,7 @@ public class WorkloadValidationModel
     public string ValidasiNomorTelepon { get; set; } = string.Empty;
     public string ValidasiEmail { get; set; } = string.Empty;
     public string ValidasiAlamat { get; set; } = string.Empty;
-    public string CrmKoordinat { get; set; } = string.Empty;
+    public string ValidasiCrmKoordinat { get; set; } = string.Empty;
     public string ShareLoc { get; set; } = string.Empty;
 
     public string PembetulanIdPln { get; set; } = string.Empty;
