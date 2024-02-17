@@ -47,7 +47,7 @@ public partial class WorkloadValidationForm : ComponentBase
         }
 
         ValidationModel.ShareLoc = shareLoc;
-        ValidationModel.ValidasiCrmKoordinat = ValidationModel!.ShareLoc == WorkPaper!.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude
+        ValidationModel.ValidasiCrmKoordinat = ValidationModel!.ShareLoc.Equals(WorkPaper!.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude)
             ? Sesuai
             : TidakSesuai;
     }
