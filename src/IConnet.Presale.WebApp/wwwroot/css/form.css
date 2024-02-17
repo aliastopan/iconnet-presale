@@ -24,13 +24,15 @@
 .validation-label{
     display: flex;
     flex-direction: column;
-    width: 180px;
+    width: 165px;
+    background-color: aquamarine;
+    margin-right: 10px;
 }
 
 .validation-value{
     display: flex;
     flex-direction: column;
-    width: 500px;
+    width: 300px;
 }
 
 .validation-label .fluent-typography,
