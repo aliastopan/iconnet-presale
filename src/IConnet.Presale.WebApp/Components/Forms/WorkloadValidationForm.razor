@@ -31,7 +31,7 @@
                     <FluentIcon Value="@LabelIconNamaPelanggan" />
                 </div>
                 <FluentSelect Items="@StatusValidasi"
-                    @bind-Value="@ValidationModel.NamaPelanggan"
+                    @bind-Value="@ValidationModel.ValidasiNama"
                     OptionDisabled="@OptionDisableNamaPelanggan"
                     Position="SelectPosition.Below"
                     Width="165px" />
@@ -40,10 +40,10 @@
                 <div>
                     <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap</FluentLabel>
                 </div>
-                <FluentTextField @bind-Value=@placeholderTextfield
+                <FluentTextField @bind-Value=@ValidationModel.PembetulanNama
                     style="width: 300px"
                     Disabled="@DisableTextFieldNamaPelanggan"
-                    Placeholder="Pembetulan Nama Lengkap"></FluentTextField>
+                    Placeholder="Pembetulan Nama Pelanggan"></FluentTextField>
             </div>
         </div>
         <div class="validation-element">
@@ -53,17 +53,17 @@
                     <FluentIcon Value="@LabelIconNoTelepon" />
                 </div>
                 <FluentSelect Items="@StatusValidasi"
-                    @bind-Value="@ValidationModel.NomorTelepon"
+                    @bind-Value="@ValidationModel.ValidasiNomorTelepon"
                     OptionDisabled="@OptionDisableNoTelepon"
                     Position="SelectPosition.Below"
                     Width="165px" />
             </div>
             <div class="validation-value">
                 <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon</FluentLabel>
-                <FluentTextField @bind-Value=@placeholderTextfield1
+                <FluentTextField @bind-Value=@ValidationModel.PembetulanNomorTelepon
                     style="width: 300px"
                     Disabled="@DisableTextFieldNoTelepon"
-                    Placeholder="Pembetulan No. Telepon"></FluentTextField>
+                    Placeholder="Pembetulan No. Telepon Aktif"></FluentTextField>
             </div>
         </div>
         <div class="validation-element">
@@ -73,17 +73,17 @@
                     <FluentIcon Value="@LabelIconEmail" />
                 </div>
                 <FluentSelect Items="@StatusValidasi"
-                    @bind-Value="@ValidationModel.Email"
+                    @bind-Value="@ValidationModel.ValidasiEmail"
                     OptionDisabled="@OptionDisableEmail"
                     Position="SelectPosition.Below"
                     Width="165px" />
             </div>
             <div class="validation-value">
                 <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.Email</FluentLabel>
-                <FluentTextField @bind-Value=@placeholderTextfield2
+                <FluentTextField @bind-Value=@ValidationModel.PembetulanEmail
                     style="width: 300px"
                     Disabled="@DisableTextFieldEmail"
-                    Placeholder="Pembetulan Email"></FluentTextField>
+                    Placeholder="Pembetulan Email Aktif"></FluentTextField>
             </div>
         </div>
         <div class="validation-element">
@@ -93,14 +93,14 @@
                     <FluentIcon Value="@LabelIconIdPln" />
                 </div>
                 <FluentSelect Items="@StatusValidasi"
-                    @bind-Value="@ValidationModel.IdPln"
+                    @bind-Value="@ValidationModel.ValidasiIdPln"
                     OptionDisabled="@OptionDisableIdPln"
                     Position="SelectPosition.Below"
                     Width="165px" />
             </div>
             <div class="validation-value">
                 <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.IdPln</FluentLabel>
-                <FluentTextField @bind-Value=@placeholderTextfield3
+                <FluentTextField @bind-Value=@ValidationModel.PembetulanIdPln
                     style="width: 300px"
                     Disabled="@DisableTextFieldIdPln"
                     Placeholder="Pembetulan Id PLN"></FluentTextField>
@@ -121,13 +121,13 @@
             <div class="arrange-start">
                 <div class="validation-label">
                     <FluentSelect Items="@StatusValidasi"
-                        @bind-Value="@ValidationModel.AlamatPelanggan"
+                        @bind-Value="@ValidationModel.ValidasiAlamat"
                         OptionDisabled="@OptionDisableAlamat"
                         Position="SelectPosition.Below"
                         Width="165px" />
                 </div>
                 <div class="validation-value">
-                    <FluentTextArea  @bind-Value=@placeholderTextfield4
+                    <FluentTextArea  @bind-Value=@ValidationModel.PembetulanAlamat
                         style="width: 300px"
                         Disabled="@DisableTextAreaAlamatPelanggan"
                         Placeholder="Pembetulan Alamat Pelanggan"></FluentTextArea>

@@ -5,32 +5,26 @@ public class WorkloadValidationModel
     public WorkloadValidationModel(WorkPaper workPaper)
     {
         IdPermohonan = workPaper.ApprovalOpportunity.IdPermohonan;
-        IdPln = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiIdPln);
-        NamaPelanggan = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiNama);
-        NomorTelepon = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiNomorTelepon);
-        Email = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiEmail);
-        AlamatPelanggan = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiAlamat);
+        ValidasiIdPln = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiIdPln);
+        ValidasiNama = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiNama);
+        ValidasiNomorTelepon = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiNomorTelepon);
+        ValidasiEmail = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiEmail);
+        ValidasiAlamat = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiAlamat);
         CrmKoordinat = workPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude;
-
-        // PembetulanIdPln = IdPln;
-        // PembetulanNamaPelanggan = NamaPelanggan;
-        // PembetulanNomorTelepon = NomorTelepon;
-        // PembetulanEmail = Email;
-        // PembetulanAlamatPelanggan = AlamatPelanggan;
     }
 
     public string IdPermohonan { get; set; } = string.Empty;
-    public string IdPln { get; set; } = string.Empty;
-    public string NamaPelanggan { get; set; } = string.Empty;
-    public string NomorTelepon { get; set; } = string.Empty;
-    public string Email { get; set; } = string.Empty;
-    public string AlamatPelanggan { get; set; } = string.Empty;
+    public string ValidasiIdPln { get; set; } = string.Empty;
+    public string ValidasiNama { get; set; } = string.Empty;
+    public string ValidasiNomorTelepon { get; set; } = string.Empty;
+    public string ValidasiEmail { get; set; } = string.Empty;
+    public string ValidasiAlamat { get; set; } = string.Empty;
     public string CrmKoordinat { get; set; } = string.Empty;
     public string ShareLoc { get; set; } = string.Empty;
 
     public string PembetulanIdPln { get; set; } = string.Empty;
-    public string PembetulanNamaPelanggan { get; set; } = string.Empty;
+    public string PembetulanNama { get; set; } = string.Empty;
     public string PembetulanNomorTelepon { get; set; } = string.Empty;
     public string PembetulanEmail { get; set; } = string.Empty;
-    public string PembetulanAlamatPelanggan { get; set; } = string.Empty;
+    public string PembetulanAlamat { get; set; } = string.Empty;
 }

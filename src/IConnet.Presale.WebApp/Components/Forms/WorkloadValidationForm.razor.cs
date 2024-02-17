@@ -20,23 +20,23 @@ public partial class WorkloadValidationForm : ComponentBase
     protected string TidakSesuai => StatusValidasi.Skip(1).First();
     protected string Sesuai => StatusValidasi.Last();
 
-    protected Func<string, bool> OptionDisableNamaPelanggan => x => x == MenungguValidasi && ValidationModel?.NamaPelanggan != MenungguValidasi;
-    protected Func<string, bool> OptionDisableNoTelepon => x => x == MenungguValidasi && ValidationModel?.NomorTelepon != MenungguValidasi;
-    protected Func<string, bool> OptionDisableEmail => x => x == MenungguValidasi && ValidationModel?.Email != MenungguValidasi;
-    protected Func<string, bool> OptionDisableIdPln => x => x == MenungguValidasi && ValidationModel?.IdPln != MenungguValidasi;
-    protected Func<string, bool> OptionDisableAlamat => x => x == MenungguValidasi && ValidationModel?.AlamatPelanggan != MenungguValidasi;
+    protected Func<string, bool> OptionDisableNamaPelanggan => x => x == MenungguValidasi && ValidationModel?.ValidasiNama != MenungguValidasi;
+    protected Func<string, bool> OptionDisableNoTelepon => x => x == MenungguValidasi && ValidationModel?.ValidasiNomorTelepon != MenungguValidasi;
+    protected Func<string, bool> OptionDisableEmail => x => x == MenungguValidasi && ValidationModel?.ValidasiEmail != MenungguValidasi;
+    protected Func<string, bool> OptionDisableIdPln => x => x == MenungguValidasi && ValidationModel?.ValidasiIdPln != MenungguValidasi;
+    protected Func<string, bool> OptionDisableAlamat => x => x == MenungguValidasi && ValidationModel?.ValidasiAlamat != MenungguValidasi;
 
-    protected Icon LabelIconNamaPelanggan => GetIcon(ValidationModel?.NamaPelanggan);
-    protected Icon LabelIconNoTelepon => GetIcon(ValidationModel?.NomorTelepon);
-    protected Icon LabelIconEmail => GetIcon(ValidationModel?.Email);
-    protected Icon LabelIconIdPln => GetIcon(ValidationModel?.IdPln);
-    protected Icon LabelIconAlamat => GetIcon(ValidationModel?.AlamatPelanggan);
+    protected Icon LabelIconNamaPelanggan => GetIcon(ValidationModel?.ValidasiNama);
+    protected Icon LabelIconNoTelepon => GetIcon(ValidationModel?.ValidasiNomorTelepon);
+    protected Icon LabelIconEmail => GetIcon(ValidationModel?.ValidasiEmail);
+    protected Icon LabelIconIdPln => GetIcon(ValidationModel?.ValidasiIdPln);
+    protected Icon LabelIconAlamat => GetIcon(ValidationModel?.ValidasiAlamat);
 
-    protected bool DisableTextFieldNamaPelanggan => ValidationModel?.NamaPelanggan != TidakSesuai;
-    protected bool DisableTextFieldNoTelepon => ValidationModel?.NomorTelepon != TidakSesuai;
-    protected bool DisableTextFieldEmail => ValidationModel?.Email != TidakSesuai;
-    protected bool DisableTextFieldIdPln => ValidationModel?.IdPln != TidakSesuai;
-    protected bool DisableTextAreaAlamatPelanggan => ValidationModel?.AlamatPelanggan != TidakSesuai;
+    protected bool DisableTextFieldNamaPelanggan => ValidationModel?.ValidasiNama != TidakSesuai;
+    protected bool DisableTextFieldNoTelepon => ValidationModel?.ValidasiNomorTelepon != TidakSesuai;
+    protected bool DisableTextFieldEmail => ValidationModel?.ValidasiEmail != TidakSesuai;
+    protected bool DisableTextFieldIdPln => ValidationModel?.ValidasiIdPln != TidakSesuai;
+    protected bool DisableTextAreaAlamatPelanggan => ValidationModel?.ValidasiAlamat != TidakSesuai;
 
     private Icon GetIcon(string? section)
     {
