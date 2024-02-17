@@ -32,11 +32,11 @@ public partial class WorkloadValidationForm : ComponentBase
     protected Icon LabelIconIdPln => GetIcon(ValidationModel?.IdPln);
     protected Icon LabelIconAlamat => GetIcon(ValidationModel?.AlamatPelanggan);
 
-    protected bool DisableNamaPelanggan => ValidationModel?.NamaPelanggan != TidakSesuai;
-    protected bool DisableNoTelepon => ValidationModel?.NomorTelepon != TidakSesuai;
-    protected bool DisableEmail => ValidationModel?.Email != TidakSesuai;
-    protected bool DisableIdPln => ValidationModel?.IdPln != TidakSesuai;
-    protected bool DisableAlamatPelanggan => ValidationModel?.AlamatPelanggan != TidakSesuai;
+    protected bool DisableTextFieldNamaPelanggan => ValidationModel?.NamaPelanggan != TidakSesuai;
+    protected bool DisableTextFieldNoTelepon => ValidationModel?.NomorTelepon != TidakSesuai;
+    protected bool DisableTextFieldEmail => ValidationModel?.Email != TidakSesuai;
+    protected bool DisableTextFieldIdPln => ValidationModel?.IdPln != TidakSesuai;
+    protected bool DisableTextAreaAlamatPelanggan => ValidationModel?.AlamatPelanggan != TidakSesuai;
 
     private Icon GetIcon(string? section)
     {
