@@ -90,7 +90,7 @@ public sealed class CrmImportService
             Kecamatan = column[24],
             Kelurahan = column[25],
             Latitude = column[26],
-            Longitude = column[27],
+            Longitude = column[27].RemoveNewlines(),
             TglImport = _dateTimeService.DateTimeOffsetNow.DateTime,
             ImportAccountIdSignature = await _sessionService.GetUserAccountIdAsync(),
             ImportAliasSignature = await _sessionService.GetSessionAliasAsync()

@@ -11,4 +11,14 @@ public static class StringExtensions
     {
         return string.IsNullOrWhiteSpace(str);
     }
+
+    public static string RemoveNewlines(this string str)
+    {
+        if (str.Contains("\n") || str.Contains("\r"))
+        {
+            str = str.Replace("\n", "").Replace("\r", "");
+        }
+
+        return str;
+    }
 }
