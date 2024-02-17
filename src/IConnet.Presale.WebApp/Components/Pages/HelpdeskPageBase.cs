@@ -29,9 +29,9 @@ public class HelpdeskPageBase : WorkloadPageBase
         .Where(x => x.HelpdeskInCharge.AccountIdSignature == _sessionId);
 
     protected GridSort<WorkPaper> SortByStagingStatus => _sortByStagingStatus;
-    protected WorkPaper? WorkPaper { get; set; }
-    protected WorkloadValidationModel? ValidationModel => _validationModels
-        .FirstOrDefault(x => x.IdPermohonan == WorkPaper?.ApprovalOpportunity.IdPermohonan);
+    protected WorkPaper? ActiveWorkPaper { get; set; }
+    protected WorkloadValidationModel? ActiveValidationModel => _validationModels
+        .FirstOrDefault(x => x.IdPermohonan == ActiveWorkPaper?.ApprovalOpportunity.IdPermohonan);
 
     protected string GridTemplateCols
     {
@@ -79,7 +79,7 @@ public class HelpdeskPageBase : WorkloadPageBase
             return;
         }
 
-        WorkPaper = row.Item;
+        ActiveWorkPaper = row.Item;
         // Log.Warning("Selected: {0}", WorkPaper.ApprovalOpportunity.IdPermohonan);
 
     }

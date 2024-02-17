@@ -20,8 +20,8 @@
     @if (WorkPapers is not null)
     {
         <div>
-            <CascadingValue Name="CascadeWorkPaper" Value="@WorkPaper">
-                <CascadingValue Name="CascadeValidationModel" Value="@ValidationModel">
+            <CascadingValue Name="CascadeWorkPaper" Value="@ActiveWorkPaper">
+                <CascadingValue Name="CascadeValidationModel" Value="@ActiveValidationModel">
                     <WorkloadValidationForm />
                 </CascadingValue>
             </CascadingValue>
