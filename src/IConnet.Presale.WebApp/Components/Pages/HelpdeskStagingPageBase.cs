@@ -162,8 +162,8 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
             {ColumnWidth.ValidasiNamaPelangganPx}px
             {ColumnWidth.ValidasiNomorTelpPx}px
             {ColumnWidth.ValidasiEmailPx}px
-            {ColumnWidth.ValidasiAlamatPx}px
             {ColumnWidth.ValidasiIdPlnPx}px
+            {ColumnWidth.ValidasiAlamatPx}px
             {ColumnWidth.ValidasiShareLocPx}px
             {ColumnWidth.TglChatCallResponsPx}px
             {ColumnWidth.LinkRekapChatHistoryPx}px
