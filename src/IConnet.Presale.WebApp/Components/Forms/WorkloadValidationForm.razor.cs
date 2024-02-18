@@ -52,6 +52,11 @@ public partial class WorkloadValidationForm : ComponentBase
             : TidakSesuai;
     }
 
+    protected void OpenDialog()
+    {
+        LogSwitch.Debug("Chat Template Dialog");
+    }
+
     private Icon GetIcon(string? section)
     {
         return section switch

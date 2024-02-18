@@ -3,17 +3,22 @@
 
 @if (WorkPaper is not null && ValidationModel is not null)
 {
-    <div class="d-flex flex-column">
-        <FluentLabel Typo="Typography.Subject">@WorkPaper.ApprovalOpportunity.IdPermohonan</FluentLabel>
+    <div class="d-flex flex-column validation-header">
+        <div class="validation-id">
+            <FluentLabel Typo="Typography.Header">@WorkPaper.ApprovalOpportunity.IdPermohonan</FluentLabel>
+        </div>
         <div>
-            Keterangan: <span>@WorkPaper.ApprovalOpportunity.Pemohon.Keterangan</span>
+            <span class="validation-info">Keterangan:</span>
+            <span>@WorkPaper.ApprovalOpportunity.Pemohon.Keterangan</span>
         </div>
         <div class="d-flex flex-row align-items-center">
             @{
                 var url = $"http://{WorkPaper.ApprovalOpportunity.Pemohon.WhatsApp}";
             }
             <WhatsAppContact WhatsApp="@WorkPaper.ApprovalOpportunity.Pemohon.WhatsApp"/>
-            <FluentButton Appearance="Appearance.Outline">
+            <FluentButton Appearance="Appearance.Outline"
+                style="margin-left: 10px"
+                OnClick="OpenDialog">
                 Chat Template</FluentButton>
         </div>
     </div>
