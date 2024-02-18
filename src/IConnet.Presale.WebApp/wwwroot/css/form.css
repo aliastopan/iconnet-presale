@@ -1,3 +1,15 @@
+.validation-header{
+    margin-bottom: 10px;
+}
+.validation-info{
+    padding-right: 6px;
+    font-weight: 400 !important;
+}
+
+.validation-id .fluent-typography{
+    font-weight: 500 !important;
+}
+
 .validation-element{
     display: flex;
     flex-direction: row;
