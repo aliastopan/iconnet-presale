@@ -80,6 +80,8 @@ public class HelpdeskPageBase : WorkloadPageBase
         }
 
         ActiveWorkPaper = row.Item;
+        ActiveValidationModel!.NullableTanggalRespons = DateTimeService.DateTimeOffsetNow.DateTime;
+        ActiveValidationModel!.NullableWaktuRespons = DateTimeService.DateTimeOffsetNow.DateTime;
         // Log.Warning("Selected: {0}", WorkPaper.ApprovalOpportunity.IdPermohonan);
 
     }

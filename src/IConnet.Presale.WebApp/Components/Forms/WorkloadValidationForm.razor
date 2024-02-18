@@ -168,7 +168,21 @@
                         ValueChanged="OnShareLoc"></FluentTextField>
                 </div>
             </div>
-
+            <div class="validation-element">
+                <div class="validation-label">
+                    <div style="display: flex;">
+                        <FluentLabel Typo="Typography.Body">TANGGAL RESPONS</FluentLabel>
+                    </div>
+                </div>
+                <div class="validation-value">
+                    <div style="display: flex;">
+                        <FluentTimePicker style="width: 100px;"
+                            Value="@ValidationModel.NullableWaktuRespons"/>
+                        <FluentDatePicker style="width: 200px; padding-left: 8px;"
+                            Value="@ValidationModel.NullableTanggalRespons"/>
+                    </div>
+                </div>
+            </div>
         </FluentStack>
 
     </FluentStack>

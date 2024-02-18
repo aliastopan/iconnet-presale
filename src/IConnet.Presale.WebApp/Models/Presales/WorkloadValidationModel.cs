@@ -22,6 +22,9 @@ public class WorkloadValidationModel
     public string ValidasiCrmKoordinat { get; set; } = string.Empty;
     public string ShareLoc { get; set; } = string.Empty;
 
+    public DateTime? NullableWaktuRespons { get; set; } = DateTime.Today;
+    public DateTime? NullableTanggalRespons { get; set; } = DateTime.Today;
+
     public string PembetulanIdPln { get; set; } = string.Empty;
     public string PembetulanNama { get; set; } = string.Empty;
     public string PembetulanNomorTelepon { get; set; } = string.Empty;
