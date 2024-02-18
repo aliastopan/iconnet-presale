@@ -1,9 +1,12 @@
+using IConnet.Presale.WebApp.Components.Dialogs;
 using IConnet.Presale.WebApp.Models.Presales;
 
 namespace IConnet.Presale.WebApp.Components.Forms;
 
 public partial class WorkloadValidationForm : ComponentBase
 {
+    [Inject] public IDialogService DialogService { get; set; } = default!;
+
     [CascadingParameter(Name = "CascadeWorkPaper")]
     public WorkPaper? WorkPaper { get; set; }
 
@@ -55,6 +58,31 @@ public partial class WorkloadValidationForm : ComponentBase
     protected void OpenDialog()
     {
         LogSwitch.Debug("Chat Template Dialog");
+    }
+
+    protected async Task OpenDialogAsync()
+    {
+        if (WorkPaper is null)
+        {
+            return;
+        }
+
+        LogSwitch.Debug("Chat Template Dialog");
+
+        var parameters = new DialogParameters()
+        {
+            Title = "Chat Template",
+            TrapFocus = true,
+            Width = "500px",
+        };
+
+        var dialog = await DialogService.ShowDialogAsync<ChatTemplateDialog>(WorkPaper, parameters);
+        var result = await dialog.Result;
+
+        if (result.Cancelled || result.Data == null)
+        {
+            return;
+        }
     }
 
     private Icon GetIcon(string? section)
