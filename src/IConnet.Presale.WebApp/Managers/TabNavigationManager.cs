@@ -44,7 +44,6 @@ public class TabNavigationManager
 
         _navigationManager.NavigateTo(tabToChange.PageUrl);
         _activeTabId = tabToChange.Id;
-        _visitedTabs.Push(tabToChange);
 
         // Log.Warning("Change tab: {0}", _activeTabId);
     }
