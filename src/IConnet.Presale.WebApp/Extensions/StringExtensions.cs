@@ -21,4 +21,9 @@ public static class StringExtensions
 
         return str;
     }
+
+    public static string FormatHtmlBreak(this string input)
+    {
+        return input.Replace("\n", "<br />");
+    }
 }
