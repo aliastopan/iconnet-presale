@@ -12,10 +12,9 @@
             @{
                 var url = $"http://{WorkPaper.ApprovalOpportunity.Pemohon.WhatsApp}";
             }
-            <span>Contact:</span>
-            <FluentAnchor Href="@url" Target="_blank" Appearance="Appearance.Lightweight">
-                @WorkPaper.ApprovalOpportunity.Pemohon.WhatsApp
-            </FluentAnchor>
+            <WhatsAppContact WhatsApp="@WorkPaper.ApprovalOpportunity.Pemohon.WhatsApp"/>
+            <FluentButton Appearance="Appearance.Outline">
+                Chat Template</FluentButton>
         </div>
     </div>
 
