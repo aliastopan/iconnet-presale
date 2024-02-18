@@ -71,7 +71,7 @@ fluent-data-grid-cell.column-header .col-options{
     box-shadow: none;
 }
 
-fluent-data-grid-cell.column-header {
+/* fluent-data-grid-cell.column-header {
     position: relative;
 }
 
@@ -87,16 +87,19 @@ fluent-data-grid-cell.column-header::before {
 
 fluent-data-grid-cell.column-header:last-of-type::before{
     border-right: none;
-}
+} */
 
-/* fluent-data-grid-cell.column-header{
-    border-radius: 0;
+fluent-data-grid-cell.column-header{
+    border-right: 2px solid;
+    border-image: linear-gradient(to bottom, #f0f0f0 0%, #e2e2e2 20%, #e2e2e2 50%, #e2e2e2 80%, #f0f0f0 100%);
+    border-image-slice: 1;
+    /* border-radius: 0;
     border-right: 1px solid #e2e2e2;
     border-left: 1px solid #e2e2e2;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     -ms-border-radius: 0;
-    -o-border-radius: 0;
+    -o-border-radius: 0; */
 }
 
 fluent-data-grid-cell.column-header:first-child{
@@ -105,7 +108,7 @@ fluent-data-grid-cell.column-header:first-child{
 
 fluent-data-grid-cell.column-header:last-child{
     border-right: none;
-} */
+}
 
 /* fluent-data-grid-cell.column-header .col-title{
     border-right: 1px solid #373737;
