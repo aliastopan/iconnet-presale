@@ -50,8 +50,8 @@ public partial class SignInForm : ComponentBase
         if (httpResult.IsSuccessStatusCode)
         {
             var response = JsonSerializer.Deserialize<SignInResponse>(httpResult.Content, options);
-            var accessToken = response!.AccessToken;
-            var refreshToken = response!.RefreshTokenStr;
+            string? accessToken = response!.AccessToken;
+            string? refreshToken = response!.RefreshTokenStr;
 
             await LocalStorage.SetAsync("access-token", accessToken);
             await LocalStorage.SetAsync("refresh-token", refreshToken);

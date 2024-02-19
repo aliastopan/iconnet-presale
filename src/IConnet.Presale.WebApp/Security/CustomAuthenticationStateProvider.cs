@@ -37,8 +37,8 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
             return UnauthenticatedState();
         }
 
-        var accessToken = tryGetAccessToken.Value;
-        var refreshToken = tryGetRefreshToken.Value;
+        string? accessToken = tryGetAccessToken.Value;
+        string? refreshToken = tryGetRefreshToken.Value;
 
         var principal = _accessTokenService.GetPrincipalFromToken(accessToken);
         if (principal is null)
