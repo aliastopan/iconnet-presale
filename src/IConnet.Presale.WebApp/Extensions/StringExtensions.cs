@@ -38,4 +38,10 @@ public static class StringExtensions
     {
         return Regex.Replace(input, @"_(\w+)_", "<i>$1</i>");
     }
+
+    public static string ReplacePlaceholder(this string input, string placeholder, string value)
+    {
+        // LogSwitch.Debug("Replacing {placeholder} with {value}", placeholder, value);
+        return input.Replace(placeholder, value);
+    }
 }
