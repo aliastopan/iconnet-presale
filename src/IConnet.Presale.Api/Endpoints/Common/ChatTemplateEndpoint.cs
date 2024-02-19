@@ -1,8 +1,7 @@
-using IConnet.Presale.Shared.Contracts.ChatTemplate;
 using IConnet.Presale.Application.ChatTemplates.Queries;
 using IConnet.Presale.Application.Common.Logging;
 
-namespace IConnet.Presale.Api.Endpoints.ChatTemplates;
+namespace IConnet.Presale.Api.Endpoints.Common;
 
 public class ChatTemplateEndpoint : IEndpointDefinition
 {

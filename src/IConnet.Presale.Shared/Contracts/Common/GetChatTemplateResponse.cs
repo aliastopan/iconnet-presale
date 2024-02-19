@@ -1,6 +1,6 @@
 #nullable disable
 
-namespace IConnet.Presale.Shared.Contracts.ChatTemplate;
+namespace IConnet.Presale.Shared.Contracts.Common;
 
 public record GetChatTemplateResponse(ICollection<ChatTemplateDto> ChatTemplates);
 

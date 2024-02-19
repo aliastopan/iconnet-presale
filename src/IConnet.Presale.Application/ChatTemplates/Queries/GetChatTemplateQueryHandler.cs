@@ -1,4 +1,4 @@
-using IConnet.Presale.Shared.Contracts.ChatTemplate;
+using IConnet.Presale.Shared.Contracts.Common;
 
 namespace IConnet.Presale.Application.ChatTemplates.Queries;
 
