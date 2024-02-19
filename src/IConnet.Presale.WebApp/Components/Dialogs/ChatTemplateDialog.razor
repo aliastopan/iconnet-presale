@@ -8,11 +8,11 @@
 </FluentDialogHeader>
 
 <div class="chat-box">
-    @foreach (var chat in ChatTemplateService.ChatTemplates)
+    @foreach (var chatTemplate in ChatTemplateService.HtmlChatTemplates)
     {
         <div class="chat-bubble">
             <p>
-                @((MarkupString)chat.FormatHtmlBreak())
+                @chatTemplate
             </p>
         </div>
     }
