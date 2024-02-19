@@ -35,6 +35,7 @@ builder.Host.ConfigureServices((context, services) =>
             .AddInteractiveServerComponents();
     services.AddFluentUIComponents();
 
+    services.AddHostedService<StartupService>();
     services.AddSignalR(options =>
     {
         options.EnableDetailedErrors = true;
