@@ -6,3 +6,21 @@
         </FluentLabel>
     </FluentStack>
 </FluentDialogHeader>
+
+<div class="chat-box">
+    <div class="chat-bubble">
+        <p>
+            Selamat pagi kak, kami dari Helpdesk ICONNET ingin mengkorfimasi pemasangan baru 😊
+        </p>
+    </div>
+    <div class="chat-bubble">
+        <p>
+            @((MarkupString)text.FormatHtmlBreak())
+        </p>
+    </div>
+</div>
+
+@code
+{
+    string text = "First line.\n Second line.";
+}

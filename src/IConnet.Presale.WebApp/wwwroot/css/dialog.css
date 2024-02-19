@@ -19,3 +19,26 @@
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
 }
+
+.chat-box{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.chat-bubble{
+    background-color: aquamarine;
+    margin-left: auto;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+    border-bottom-right-radius: 3px !important;
+}
+
+.chat-bubble p{
+    margin: 0;
+    padding: 8px 16px;
+}
