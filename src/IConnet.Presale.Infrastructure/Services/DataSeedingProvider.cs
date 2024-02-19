@@ -2,6 +2,7 @@ using Microsoft.Extensions.Configuration;
 using IConnet.Presale.Domain.Aggregates.Identity;
 using IConnet.Presale.Domain.Enums;
 using IConnet.Presale.Domain.Entities;
+using IConnet.Presale.Shared.Common;
 
 [assembly: InternalsVisibleTo("IConnet.Presale.Tests")]
 namespace IConnet.Presale.Infrastructure.Services;
@@ -126,11 +127,11 @@ internal sealed class DataSeedingProvider : IDataSeedingService
         string templateName = "default";
         string greeting = "Selamat pagi kak, kami dari Helpdesk *ICONNET* ingin mengkorfimasi pemasangan baru 😊";
         string question = "Konfirmasi Data Calon Pelanggan\n\n" +
-                "Apakah benar nomor telpon aktif terdaftar [$NOMORTELEPON]?\n\n" +
-                "Apakah benar Nama Pelanggan terdaftar atas nama [$NAMAPELANGGAN]?\n\n" +
-                "Apakah benar alamat email aktif terdaftar [$EMAIL]?\n\n" +
-                "Apakah benar alamat lokasi pemasangan [$ALAMAT]?\n\n" +
-                "Apakah benar ID PLN terdaftar adalah [$IDPLN]?";
+                $"Apakah benar nomor telpon aktif terdaftar [{PlaceholderText.NomorTelepon}]?\n\n" +
+                $"Apakah benar Nama Pelanggan terdaftar atas nama [{PlaceholderText.NamaPelanggan}]?\n\n" +
+                $"Apakah benar alamat email aktif terdaftar [{PlaceholderText.AlamatEmail}]?\n\n" +
+                $"Apakah benar alamat lokasi pemasangan [{PlaceholderText.AlamatPemasangan}]?\n\n" +
+                $"Apakah benar ID PLN terdaftar adalah [{PlaceholderText.IdPln}]?";
         string confirmation = "Konfirmasi Pendaftaran\n\n" +
                 "1. Apakah sebelumnya sudah pernah berlangganan *ICONNET* di alamat terdaftar?\n\n" +
                 "2. Mohon bisa share location dari WhatsApp agar mempermudah tim teknis saat pemasangan Wi-Fi.";
