@@ -9,4 +9,12 @@ public partial class ChatTemplateDialog : IDialogContentComponent<WorkPaper>
 
     [CascadingParameter]
     public FluentDialog Dialog { get; set; } = default!;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        ChatTemplateService.ActiveWorkPaper = Content;
+        // LogSwitch.Debug("WorkPaper {0}", Content.ApprovalOpportunity.IdPermohonan);
+    }
 }

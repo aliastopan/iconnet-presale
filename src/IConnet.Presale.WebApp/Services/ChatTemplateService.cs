@@ -7,6 +7,7 @@ public class ChatTemplateService
     private readonly List<string> _chatTemplates = new List<string>();
     private readonly List<MarkupString> _htmlChatTemplates = new List<MarkupString>();
 
+    public WorkPaper? ActiveWorkPaper { get; set; }
     public IReadOnlyCollection<MarkupString> HtmlChatTemplates => _htmlChatTemplates.AsReadOnly();
 
     public void InitializeChatTemplate(ICollection<ChatTemplateDto> chatTemplateDtos)
