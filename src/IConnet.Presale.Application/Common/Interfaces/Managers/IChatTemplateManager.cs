@@ -4,5 +4,5 @@ namespace IConnet.Presale.Application.Common.Interfaces.Managers;
 
 public interface IChatTemplateManager
 {
-    Task<Result<ICollection<ChatTemplate>>> GetChatTemplateAsync(string templateName);
+    Task<Result<ICollection<ChatTemplate>>> TryGetChatTemplatesAsync(string templateName);
 }

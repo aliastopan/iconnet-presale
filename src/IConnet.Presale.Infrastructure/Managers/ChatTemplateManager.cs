@@ -11,7 +11,7 @@ internal sealed class ChatTemplateManager : IChatTemplateManager
         _dbContextFactory = dbContextFactory;
     }
 
-    public async Task<Result<ICollection<ChatTemplate>>> GetChatTemplateAsync(string templateName)
+    public async Task<Result<ICollection<ChatTemplate>>> TryGetChatTemplatesAsync(string templateName)
     {
         using var dbContext = _dbContextFactory.CreateDbContext();
 
