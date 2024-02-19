@@ -14,7 +14,7 @@ public static class StringExtensions
 
     public static string RemoveNewlines(this string str)
     {
-        if (str.Contains("\n") || str.Contains("\r"))
+        if (str.Contains('\n') || str.Contains('\r'))
         {
             str = str.Replace("\n", "").Replace("\r", "");
         }
