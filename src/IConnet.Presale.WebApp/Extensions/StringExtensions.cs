@@ -36,6 +36,6 @@ public static class StringExtensions
 
     public static string FormatHtmlItalic(this string input)
     {
-        return Regex.Replace(input, @"_(.*?)_", "<i>$1</i>");
+        return Regex.Replace(input, @"_(\w+)_", "<i>$1</i>");
     }
 }
