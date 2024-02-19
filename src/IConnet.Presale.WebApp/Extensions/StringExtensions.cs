@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace IConnet.Presale.WebApp.Extensions;
 
 public static class StringExtensions
@@ -25,5 +27,15 @@ public static class StringExtensions
     public static string FormatHtmlBreak(this string input)
     {
         return input.Replace("\n", "<br />");
+    }
+
+    public static string FormatHtmlBold(this string input)
+    {
+        return Regex.Replace(input, @"\*(.*?)\*", "<b>$1</b>");
+    }
+
+    public static string FormatHtmlItalic(this string input)
+    {
+        return Regex.Replace(input, @"_(.*?)_", "<i>$1</i>");
     }
 }
