@@ -1,10 +1,8 @@
 using System.Text;
 using System.Text.Json;
-using System.Net;
-using System.Net.Http;
 using IConnet.Presale.Shared.Contracts.Identity.Authentication;
 
-namespace IConnet.Presale.Infrastructure.Services;
+namespace IConnet.Presale.Infrastructure.Services.Http;
 
 internal sealed class IdentityHttpClientProvider : HttpClientBase, IIdentityHttpClientService
 {
@@ -37,7 +35,6 @@ internal sealed class IdentityHttpClientProvider : HttpClientBase, IIdentityHttp
             Headers = responseMessage.Headers,
             Content = await responseMessage.Content.ReadAsStringAsync()
         };
-
     }
 
     public async Task<HttpResult> RefreshAccessAsync(string accessToken, string refreshTokenStr)
@@ -64,5 +61,4 @@ internal sealed class IdentityHttpClientProvider : HttpClientBase, IIdentityHttp
             Content = await responseMessage.Content.ReadAsStringAsync()
         };
     }
-
 }

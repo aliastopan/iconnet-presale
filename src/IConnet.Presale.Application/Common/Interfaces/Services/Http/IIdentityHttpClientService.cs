@@ -1,4 +1,4 @@
-namespace IConnet.Presale.Application.Common.Interfaces.Services;
+namespace IConnet.Presale.Application.Common.Interfaces.Services.Http;
 
 public interface IIdentityHttpClientService : IHttpClientBase
 {
