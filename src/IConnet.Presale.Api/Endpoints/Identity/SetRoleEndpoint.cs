@@ -7,7 +7,7 @@ public class SetRoleEndpoint : IEndpointDefinition
 {
     public void DefineEndpoints(WebApplication app)
     {
-        app.MapPost(ApiEndpoint.Identity.SetRole, SetRole)
+        app.MapPost(RouteEndpoint.Identity.SetRole, SetRole)
             .RequireAuthorization(Policies.AdministratorPrivilege);
     }
 

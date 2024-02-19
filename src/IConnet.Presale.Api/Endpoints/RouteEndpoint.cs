@@ -1,6 +1,6 @@
 namespace IConnet.Presale.Api.Endpoints;
 
-public static class ApiEndpoint
+public static class RouteEndpoint
 {
     public static class Identity
     {

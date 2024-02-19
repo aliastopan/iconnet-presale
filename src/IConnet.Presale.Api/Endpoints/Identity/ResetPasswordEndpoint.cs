@@ -7,7 +7,7 @@ public class ResetPasswordEndpoint : IEndpointDefinition
 {
     public void DefineEndpoints(WebApplication app)
     {
-        app.MapPost(ApiEndpoint.Identity.ResetPassword, ResetPassword);
+        app.MapPost(RouteEndpoint.Identity.ResetPassword, ResetPassword);
     }
 
     internal async Task<IResult> ResetPassword([FromServices] ISender sender,
