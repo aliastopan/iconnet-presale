@@ -126,19 +126,33 @@ internal sealed class DataSeedingProvider : IDataSeedingService
         string templateName = "default";
         string greeting = "Selamat pagi kak, kami dari Helpdesk *ICONNET* ingin mengkorfimasi pemasangan baru 😊";
         string question = "Konfirmasi Data Calon Pelanggan\n\n" +
-                 "Apakah benar nomor telpon aktif terdaftar [$$NOMORTELEPON]?\n\n" +
-                 "Apakah benar Nama Pelanggan terdaftar atas nama [$$NAMAPELANGGAN]?\n\n" +
-                 "Apakah benar alamat email aktif terdaftar [$$EMAIL]?\n\n" +
-                 "Apakah benar alamat lokasi pemasangan [$$ALAMAT]?\n\n" +
-                 "Apakah benar ID PLN terdaftar adalah [$$IDPLN]?";
+                "Apakah benar nomor telpon aktif terdaftar [$NOMORTELEPON]?\n\n" +
+                "Apakah benar Nama Pelanggan terdaftar atas nama [$NAMAPELANGGAN]?\n\n" +
+                "Apakah benar alamat email aktif terdaftar [$EMAIL]?\n\n" +
+                "Apakah benar alamat lokasi pemasangan [$ALAMAT]?\n\n" +
+                "Apakah benar ID PLN terdaftar adalah [$IDPLN]?";
+        string confirmation = "Konfirmasi Pendaftaran\n\n" +
+                "1. Apakah sebelumnya sudah pernah berlangganan ICONNET di alamat terdaftar?\n\n" +
+                "2. Mohon bisa share location dari WhatsApp agar mempermudah tim teknis saat pemasangan Wi-Fi.";
+        string request = "Mohon pertanyaan diatas dikonfirmasi dan dijawab yah, Kak. Serta pastikan jawaban tidak ada manipulasi dari pihak-pihak lain, karena akan berpengaruh dengan layanan kakak yang terpasang kedepannya.";
+        string closing = "Baik, Terimah Kasih telah menjawab pertanyaannya Kak. Saya mohon ijin pamit dan tutup chat-nya.";
+        string note = "Mohon jangan lupa install aplikasi *MyICON+* yah kak agar memudahkan pembayaran billing & laporan gangguan 😊";
 
         var chatGreeting = new ChatTemplate(templateName, 0, greeting);
         var chatQuestion = new ChatTemplate(templateName, 1, question);
+        var chatConfirmation = new ChatTemplate(templateName, 2, confirmation);
+        var chatRequest = new ChatTemplate(templateName, 3, request);
+        var chatClosing = new ChatTemplate(templateName, 4, closing);
+        var chatNote = new ChatTemplate(templateName, 4, note);
 
         using var dbContext = _dbContextFactory.CreateDbContext();
 
         dbContext.ChatTemplates.Add(chatGreeting);
         dbContext.ChatTemplates.Add(chatQuestion);
+        dbContext.ChatTemplates.Add(chatConfirmation);
+        dbContext.ChatTemplates.Add(chatRequest);
+        dbContext.ChatTemplates.Add(chatClosing);
+        dbContext.ChatTemplates.Add(chatNote);
 
         return await dbContext.SaveChangesAsync();
 
