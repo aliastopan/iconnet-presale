@@ -7,6 +7,8 @@ internal static class ChatTemplateExtensions
 {
     public static async Task<List<ChatTemplate>> GetChatTemplateAsync(this AppDbContext context, string templateName)
     {
-        return await context.ChatTemplates.Where(x => x.TemplateName == templateName).ToListAsync();
+        return await context.ChatTemplates.Where(x => x.TemplateName == templateName)
+            .OrderBy(x => x.Sequence)
+            .ToListAsync();
     }
 }
