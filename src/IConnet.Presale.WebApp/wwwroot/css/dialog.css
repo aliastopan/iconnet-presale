@@ -39,6 +39,7 @@
 }
 
 .chat-bubble p{
+    font-family: "Roboto";
     margin: 0;
     padding: 8px 16px;
 }
