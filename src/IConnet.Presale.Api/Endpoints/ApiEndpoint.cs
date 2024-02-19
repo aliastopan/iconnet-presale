@@ -14,4 +14,9 @@ public static class ApiEndpoint
         public const string RevokePrivilege = "/api/identity/revoke-privilege";
         public const string GetUsers = "/api/identity/get-range";
     }
+
+    public static class ChatTemplate
+    {
+        public const string GetChatTemplate = "/api/chat-template/get-{templateName}";
+    }
 }
