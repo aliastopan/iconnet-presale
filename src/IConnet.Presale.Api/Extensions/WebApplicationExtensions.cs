@@ -13,7 +13,10 @@ public static class WebApplicationExtensions
         }
 
         using var scope = app.Services.CreateScope();
-        var task = scope.ServiceProvider.GetRequiredService<IDataSeedingService>().GenerateUsersAsync();
-        task.GetAwaiter().GetResult();
+        var generateUserTask = scope.ServiceProvider.GetRequiredService<IDataSeedingService>().GenerateUsersAsync();
+        generateUserTask.GetAwaiter().GetResult();
+
+        var generateChatTemplateTask = scope.ServiceProvider.GetRequiredService<IDataSeedingService>().GenerateChatTemplateAsync();
+        generateChatTemplateTask.GetAwaiter().GetResult();
     }
 }

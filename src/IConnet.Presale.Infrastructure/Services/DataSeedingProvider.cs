@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using IConnet.Presale.Domain.Aggregates.Identity;
 using IConnet.Presale.Domain.Enums;
+using IConnet.Presale.Domain.Entities;
 
 [assembly: InternalsVisibleTo("IConnet.Presale.Tests")]
 namespace IConnet.Presale.Infrastructure.Services;
@@ -118,5 +119,28 @@ internal sealed class DataSeedingProvider : IDataSeedingService
         dbContext.UserAccounts.Add(pac01);
 
         return await dbContext.SaveChangesAsync();
+    }
+
+    public async Task<int> GenerateChatTemplateAsync()
+    {
+        string templateName = "default";
+        string greeting = "Selamat pagi kak, kami dari Helpdesk *ICONNET* ingin mengkorfimasi pemasangan baru 😊";
+        string question = "Konfirmasi Data Calon Pelanggan\n\n" +
+                 "Apakah benar nomor telpon aktif terdaftar [$$NOMORTELEPON]?\n\n" +
+                 "Apakah benar Nama Pelanggan terdaftar atas nama [$$NAMAPELANGGAN]?\n\n" +
+                 "Apakah benar alamat email aktif terdaftar [$$EMAIL]?\n\n" +
+                 "Apakah benar alamat lokasi pemasangan [$$ALAMAT]?\n\n" +
+                 "Apakah benar ID PLN terdaftar adalah [$$IDPLN]?";
+
+        var chatGreeting = new ChatTemplate(templateName, 0, greeting);
+        var chatQuestion = new ChatTemplate(templateName, 1, question);
+
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        dbContext.ChatTemplates.Add(chatGreeting);
+        dbContext.ChatTemplates.Add(chatQuestion);
+
+        return await dbContext.SaveChangesAsync();
+
     }
 }
