@@ -1,5 +1,4 @@
 using IConnet.Presale.Application.ChatTemplates.Queries;
-using IConnet.Presale.Application.Common.Logging;
 
 namespace IConnet.Presale.Api.Endpoints.Common;
 
