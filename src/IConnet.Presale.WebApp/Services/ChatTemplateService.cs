@@ -25,15 +25,15 @@ public class ChatTemplateService
         LogSwitch.Debug("Chat template has been initialized ({length} sequences)", _chatTemplates.Count);
     }
 
-    public MarkupString ReplacePlaceholder(MarkupString chatTemplate)
+    public MarkupString ReplacePlaceholder(int sequence)
     {
-       if (ActiveWorkPaper is null)
+        if (ActiveWorkPaper is null)
         {
             LogSwitch.Debug("WorkPaper is null");
-            return chatTemplate;
+            return HtmlChatTemplates.ElementAt(sequence);
         }
 
-        return chatTemplate
+        return HtmlChatTemplates.ElementAt(sequence)
             .ReplacePlaceholder(PlaceholderText.IdPln, ActiveWorkPaper.ApprovalOpportunity.Pemohon.IdPln)
             .ReplacePlaceholder(PlaceholderText.NamaPelanggan, ActiveWorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap)
             .ReplacePlaceholder(PlaceholderText.NomorTelepon, ActiveWorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon)
