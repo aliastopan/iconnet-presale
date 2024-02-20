@@ -37,17 +37,33 @@
 }
 
 .chat-bubble{
+    position: relative;
     background-color: #dcf8c6;
     color: #2c2c2c;
     width: fit-content;
     margin-left: auto;
     margin-bottom: 12px;
+    margin-right: 12px;
     border-radius: 12px;
+    border-top-right-radius: 0 !important;
     -webkit-border-radius: 12px;
     -moz-border-radius: 12px;
     -ms-border-radius: 12px;
     -o-border-radius: 12px;
-    border-bottom-right-radius: 3px !important;
+}
+
+.chat-bubble::after{
+    content: '';
+    position: absolute;
+    display: block;
+    width: 0;
+    z-index: 1;
+    border-style: solid;
+    border-width: 20px 16px 0 0;
+    border-color: #dcf8c6 transparent transparent transparent;
+    top: 10px;
+    right: -16px;
+    margin-top: -10px;
 }
 
 .chat-header{
@@ -74,4 +90,5 @@
 
 .chat-timestamp{
     color: #a5a5a5;
+    font-size: 12px;
 }
