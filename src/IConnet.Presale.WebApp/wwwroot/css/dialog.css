@@ -50,6 +50,7 @@
     -moz-border-radius: 12px;
     -ms-border-radius: 12px;
     -o-border-radius: 12px;
+    cursor: pointer;
 }
 
 .chat-bubble::after{
@@ -71,9 +72,25 @@
     padding: 8px 16px;
 }
 
+.chat-bubble:hover{
+    background-color: #f5ffed;
+}
+
+.chat-bubble:hover::after{
+    border-color: #f5ffed transparent transparent transparent;
+}
+
 .chat-sender-alias{
     color: #34b7f1;
     font-weight: 600;
+}
+
+.chat-bubble:active{
+    background-color: #dcf8c6 !important;
+}
+
+.chat-bubble:active::after{
+    border-color: #dcf8c6 transparent transparent transparent !important;
 }
 
 .chat-text{
