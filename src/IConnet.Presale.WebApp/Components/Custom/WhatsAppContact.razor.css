@@ -4,7 +4,7 @@
     justify-content: center;
     cursor: pointer;
     margin: 5px 0;
-    background-color: #25D366;
+    background-color: #25d366;
     border: 1px solid #8f8f8f;
     border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -23,11 +23,11 @@
 }
 
 .whatsapp-button:hover svg{
-    fill: #25D366;
+    fill: #25d366;
 }
 
 .whatsapp-button:active{
-    background-color: #25D366 !important;
+    background-color: #25d366 !important;
     border: 1px solid #8f8f8f !important;
 }
 
