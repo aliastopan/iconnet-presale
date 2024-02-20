@@ -40,9 +40,9 @@ public sealed class SessionService
     {
         return UserModel switch
         {
-            { Role: UserRole.Helpdesk } => $"{UserModel!.Username} {GetRoleString("PH")}",
-            { Role: UserRole.PlanningAssetCoverage } => $"{UserModel!.Username} {GetRoleString("PAC")}",
-            { Role: UserRole.Administrator } => $"{UserModel!.Username} {GetRoleString("ADMIN")}",
+            { Role: UserRole.Helpdesk } => $"{UserModel!.Username} {SetRoleString("PH")}",
+            { Role: UserRole.PlanningAssetCoverage } => $"{UserModel!.Username} {SetRoleString("PAC")}",
+            { Role: UserRole.Administrator } => $"{UserModel!.Username} {SetRoleString("ADMIN")}",
             _ => $"{UserModel!.Username} (GUEST)"
         };
     }
@@ -67,9 +67,9 @@ public sealed class SessionService
 
         return UserModel switch
         {
-            { Role: UserRole.Helpdesk } => $"{UserModel!.Username} {GetRoleString("PH")}",
-            { Role: UserRole.PlanningAssetCoverage } => $"{UserModel!.Username} {GetRoleString("PAC")}",
-            { Role: UserRole.Administrator } => $"{UserModel!.Username} {GetRoleString("ADMIN")}",
+            { Role: UserRole.Helpdesk } => $"{UserModel!.Username} {SetRoleString("PH")}",
+            { Role: UserRole.PlanningAssetCoverage } => $"{UserModel!.Username} {SetRoleString("PAC")}",
+            { Role: UserRole.Administrator } => $"{UserModel!.Username} {SetRoleString("ADMIN")}",
             _ => $"{UserModel!.Username} (GUEST)"
         };
     }
@@ -94,7 +94,7 @@ public sealed class SessionService
         return UserModel!.JobShift.ToString();
     }
 
-    private string GetRoleString(string role)
+    private string SetRoleString(string role)
     {
         if (UserModel!.EmploymentStatus == EmploymentStatus.Intern)
         {
