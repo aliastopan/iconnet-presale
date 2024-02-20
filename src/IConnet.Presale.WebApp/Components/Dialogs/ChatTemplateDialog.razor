@@ -11,7 +11,7 @@
     @foreach (var chatTemplate in ChatTemplateService.HtmlChatTemplates)
     {
         <div class="chat-bubble">
-            <p>
+            <p class="chat-text">
                 @ChatTemplateService.ReplacePlaceholder(chatTemplate)
             </p>
         </div>

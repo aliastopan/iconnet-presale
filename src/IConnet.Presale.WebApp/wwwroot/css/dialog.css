@@ -24,10 +24,22 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 100%;
+    padding: 10px;
+    background-color: #cccccc;
+    background-image: url('/images/chat-background.png');
+    border: 1px solid #373737;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
 }
 
 .chat-bubble{
-    background-color: aquamarine;
+    background-color: #dcf8c6;
+    color: #2c2c2c;
+    width: fit-content;
     margin-left: auto;
     margin-bottom: 8px;
     border-radius: 12px;
@@ -38,7 +50,7 @@
     border-bottom-right-radius: 3px !important;
 }
 
-.chat-bubble p{
+.chat-text{
     font-family: "Roboto";
     margin: 0;
     padding: 8px 16px;
