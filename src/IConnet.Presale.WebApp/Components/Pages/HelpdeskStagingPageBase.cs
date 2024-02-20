@@ -41,9 +41,9 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
             return base.WorkPapers;
         }
 
-        var workPapers = FilterComponent.FilterWorkPapers(base.WorkPapers);
-        ColumnWidth.SetColumnWidth(workPapers);
+        IQueryable<WorkPaper>? workPapers = FilterComponent.FilterWorkPapers(base.WorkPapers);
 
+        ColumnWidth.SetColumnWidth(workPapers);
         return workPapers;
     }
 
