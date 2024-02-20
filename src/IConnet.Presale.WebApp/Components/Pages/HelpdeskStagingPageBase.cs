@@ -15,7 +15,7 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
 
     protected string GridTemplateCols => GetGridTemplateCols();
     protected FilterForm FilterComponent { get; set; } = default!;
-    protected override IQueryable<WorkPaper>? WorkPapers => GetWorkPapers();
+    protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
 
     protected override void OnInitialized()
     {
@@ -34,7 +34,7 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
         ColumnWidth.SetColumnWidth(WorkPapers);
     }
 
-    protected IQueryable<WorkPaper>? GetWorkPapers()
+    protected IQueryable<WorkPaper>? FilterWorkPapers()
     {
         if (FilterComponent is null)
         {
