@@ -8,6 +8,7 @@ public class HelpdeskPageBase : WorkloadPageBase
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public IDialogService DialogService { get; set; } = default!;
+    [Inject] public IJSRuntime JsRuntime { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
 
     private readonly string _pageName = "Helpdesk page";
@@ -95,6 +96,7 @@ public class HelpdeskPageBase : WorkloadPageBase
         ActiveValidationModel!.NullableWaktuRespons = DateTimeService.DateTimeOffsetNow.DateTime;
         // Log.Warning("Selected: {0}", WorkPaper.ApprovalOpportunity.IdPermohonan);
 
+        await ScrollToValidationForm();
     }
 
     protected async Task OpenDialogAsync(WorkPaper workPaper)
@@ -144,6 +146,8 @@ public class HelpdeskPageBase : WorkloadPageBase
     private async Task RestageWorkloadAsync(WorkPaper workPaper)
     {
         ActiveWorkPaper = workPaper;
+        await ScrollToValidationForm();
+
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
 
         var message = $"Workload '{workPaper.ApprovalOpportunity.IdPermohonan}' staging claim has been extended";
@@ -156,6 +160,12 @@ public class HelpdeskPageBase : WorkloadPageBase
 
         var message = $"Workload '{workPaper.ApprovalOpportunity.IdPermohonan}' is no longer staged";
         await BroadcastService.BroadcastMessageAsync(message);
+    }
+
+    private async Task ScrollToValidationForm()
+    {
+        var elementId = "validation-id";
+        await JsRuntime.InvokeVoidAsync("scrollToElement", elementId);
     }
 
     private string GetGridTemplateCols()
