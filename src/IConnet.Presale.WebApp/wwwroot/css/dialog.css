@@ -41,7 +41,7 @@
     color: #2c2c2c;
     width: fit-content;
     margin-left: auto;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     border-radius: 12px;
     -webkit-border-radius: 12px;
     -moz-border-radius: 12px;
@@ -50,8 +50,28 @@
     border-bottom-right-radius: 3px !important;
 }
 
+.chat-header{
+    width: fit-content;
+    padding: 8px 16px;
+}
+
+.chat-sender-alias{
+    color: #34b7f1;
+    font-weight: 600;
+}
+
 .chat-text{
     font-family: "Roboto";
     margin: 0;
+    padding: 0 16px;
+}
+
+.chat-footer{
+    width: fit-content;
+    margin-left: auto;
     padding: 8px 16px;
+}
+
+.chat-timestamp{
+    color: #a5a5a5;
 }
