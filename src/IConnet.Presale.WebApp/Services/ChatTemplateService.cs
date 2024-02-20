@@ -5,24 +5,27 @@ namespace IConnet.Presale.WebApp.Services;
 
 public class ChatTemplateService
 {
-    private readonly List<string> _chatTemplates = new List<string>();
-    private readonly List<MarkupString> _htmlChatTemplates = new List<MarkupString>();
+    private readonly List<ChatTemplateModel> _chatTemplateModels = new List<ChatTemplateModel>();
 
     public WorkPaper? ActiveWorkPaper { get; set; }
-    public IReadOnlyCollection<MarkupString> HtmlChatTemplates => _htmlChatTemplates.AsReadOnly();
+    public IReadOnlyCollection<ChatTemplateModel> ChatTemplateModels => _chatTemplateModels.AsReadOnly();
 
     public void InitializeChatTemplate(ICollection<ChatTemplateDto> chatTemplateDtos)
     {
         foreach (var chatTemplate in chatTemplateDtos)
         {
-            _chatTemplates.Add(chatTemplate.Content);
-            _htmlChatTemplates.Add((MarkupString)chatTemplate.Content
-                .FormatHtmlBreak()
-                .FormatHtmlBold()
-                .FormatHtmlItalic());
+            _chatTemplateModels.Add(new ChatTemplateModel
+            {
+                Sequence = chatTemplate.Sequence,
+                Content = chatTemplate.Content,
+                HtmlContent = (MarkupString)chatTemplate.Content
+                    .FormatHtmlBreak()
+                    .FormatHtmlBold()
+                    .FormatHtmlItalic()
+            });
         }
 
-        LogSwitch.Debug("Chat template has been initialized ({length} sequences)", _chatTemplates.Count);
+        LogSwitch.Debug("Chat template has been initialized ({length} sequences)", _chatTemplateModels.Count);
     }
 
     public MarkupString ReplacePlaceholder(int sequence)
@@ -30,10 +33,10 @@ public class ChatTemplateService
         if (ActiveWorkPaper is null)
         {
             LogSwitch.Debug("WorkPaper is null");
-            return HtmlChatTemplates.ElementAt(sequence);
+            return _chatTemplateModels.ElementAt(sequence).HtmlContent;
         }
 
-        return HtmlChatTemplates.ElementAt(sequence)
+        return _chatTemplateModels.ElementAt(sequence).HtmlContent
             .ReplacePlaceholder(PlaceholderText.IdPln, ActiveWorkPaper.ApprovalOpportunity.Pemohon.IdPln)
             .ReplacePlaceholder(PlaceholderText.NamaPelanggan, ActiveWorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap)
             .ReplacePlaceholder(PlaceholderText.NomorTelepon, ActiveWorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon)
