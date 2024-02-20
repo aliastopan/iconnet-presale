@@ -6,6 +6,11 @@ internal sealed class DateTimeProvider : IDateTimeService
     public DateTimeOffset DateTimeOffsetNow => DateTimeOffset.Now;
     public DateTime Zero => DateTime.MinValue;
 
+    public string GetClockTime()
+    {
+        return DateTimeOffset.Now.ToString("HH:mm");
+    }
+
     public string GetFormat()
     {
         return "yyyy-MM-dd HH:mm";
