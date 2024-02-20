@@ -144,7 +144,7 @@ internal sealed class DataSeedingProvider : IDataSeedingService
         var chatConfirmation = new ChatTemplate(templateName, 2, confirmation);
         var chatRequest = new ChatTemplate(templateName, 3, request);
         var chatClosing = new ChatTemplate(templateName, 4, closing);
-        var chatNote = new ChatTemplate(templateName, 4, note);
+        var chatNote = new ChatTemplate(templateName, 5, note);
 
         using var dbContext = _dbContextFactory.CreateDbContext();
 
