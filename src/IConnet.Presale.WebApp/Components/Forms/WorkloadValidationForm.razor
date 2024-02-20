@@ -127,7 +127,7 @@
                         <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.Alamat</FluentLabel>
                     </div>
                 </div>
-                <div class="arrange-start">
+                <div class="arrange-start validation-bottom-margin">
                     <div class="validation-label">
                         <FluentSelect Items="@StatusValidasi"
                             @bind-Value="@ValidationModel.ValidasiAlamat"
@@ -137,7 +137,7 @@
                     </div>
                     <div class="validation-value">
                         <FluentTextArea  @bind-Value=@ValidationModel.PembetulanAlamat
-                            style="width: 300px"
+                            style="width: 300px;"
                             Disabled="@DisableTextAreaAlamatPelanggan"
                             Placeholder="Pembetulan Alamat Pelanggan"></FluentTextArea>
                     </div>
