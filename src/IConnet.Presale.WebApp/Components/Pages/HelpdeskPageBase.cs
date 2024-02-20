@@ -1,4 +1,5 @@
 using IConnet.Presale.WebApp.Components.Dialogs;
+using IConnet.Presale.WebApp.Components.Forms;
 using IConnet.Presale.WebApp.Models.Presales;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
@@ -25,18 +26,14 @@ public class HelpdeskPageBase : WorkloadPageBase
     protected string StagingStatusStyle => $"width: {ColumnWidthStagingStatus}px;";
     protected string MaxWidthStyle => ShowStagingClaims ? $"width: {ColumnWidthMax}px;" : "";
 
-    protected override IQueryable<WorkPaper>? WorkPapers => base.WorkPapers?
-        .Where(x => x.HelpdeskInCharge.AccountIdSignature == _sessionId);
+    protected string GridTemplateCols => GetGridTemplateCols();
+    protected FilterForm FilterComponent { get; set; } = default!;
+    protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
 
     protected GridSort<WorkPaper> SortByStagingStatus => _sortByStagingStatus;
     protected WorkPaper? ActiveWorkPaper { get; set; }
     protected WorkloadValidationModel? ActiveValidationModel => _validationModels
         .FirstOrDefault(x => x.IdPermohonan == ActiveWorkPaper?.ApprovalOpportunity.IdPermohonan);
-
-    protected string GridTemplateCols
-    {
-        get => $"{ColumnWidthIdPermohonan}px {ColumnWidthStagingStatus}px";
-    }
 
     protected override void OnInitialized()
     {
@@ -64,6 +61,20 @@ public class HelpdeskPageBase : WorkloadPageBase
         }
 
         LogSwitch.Debug("Validation Models {count}", _validationModels.Count);
+    }
+
+    protected IQueryable<WorkPaper>? FilterWorkPapers()
+    {
+        if (FilterComponent is null)
+        {
+            return base.WorkPapers;
+        }
+
+        IQueryable<WorkPaper>? workPapers = FilterComponent.FilterWorkPapers(base.WorkPapers)?
+            .Where(x => x.HelpdeskInCharge.AccountIdSignature == _sessionId);
+
+        ColumnWidth.SetColumnWidth(workPapers);
+        return workPapers;
     }
 
     protected async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
@@ -145,6 +156,29 @@ public class HelpdeskPageBase : WorkloadPageBase
 
         var message = $"Workload '{workPaper.ApprovalOpportunity.IdPermohonan}' is no longer staged";
         await BroadcastService.BroadcastMessageAsync(message);
+    }
+
+    private string GetGridTemplateCols()
+    {
+        return $@"
+            {ColumnWidth.IdPermohonanPx}px
+            {ColumnWidth.TglPermohonanPx}px
+            {ColumnWidth.StagingStatusPx}px
+            {ColumnWidth.HelpdeskInChargePx}px
+            {ColumnWidth.ShiftPx}px
+            {ColumnWidth.TglChatCallMulaiPx}px
+            {ColumnWidth.ValidasiNamaPelangganPx}px
+            {ColumnWidth.ValidasiNomorTelpPx}px
+            {ColumnWidth.ValidasiEmailPx}px
+            {ColumnWidth.ValidasiIdPlnPx}px
+            {ColumnWidth.ValidasiAlamatPx}px
+            {ColumnWidth.ValidasiShareLocPx}px
+            {ColumnWidth.TglChatCallResponsPx}px
+            {ColumnWidth.LinkRekapChatHistoryPx}px
+            {ColumnWidth.StatusValidasiPx}px
+            {ColumnWidth.KeteranganValidasiPx}px
+            {ColumnWidth.ContactWhatsAppPx}px
+            {ColumnWidth.KantorPerwakilanPx}px";
     }
 
     private static TabNavigation HelpdeskPage()
