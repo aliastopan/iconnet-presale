@@ -8,18 +8,11 @@
 </FluentDialogHeader>
 
 <div class="chat-box">
-    @for(int sequence = 0; sequence < ChatTemplateService.ChatTemplateModels.Count; sequence++)
+    @foreach (var chatTemplate in ChatTemplateService.ChatTemplateModels)
     {
-        <div class="chat-bubble">
-            <div class="chat-header">
-                <span class="chat-sender-alias">@SessionService.UserModel!.Username</span>
-            </div>
-            <p class="chat-text">
-                @ChatTemplate(sequence)
-            </p>
-            <div class="chat-footer">
-                <span class="chat-timestamp">@DateTimeService.GetClockTime()</span>
-            </div>
-        </div>
+        <ChatBubble ActiveWorkPaper="@ChatTemplateService.ActiveWorkPaper"
+            ChatTemplate="@chatTemplate"
+            Sender="@SessionService.UserModel!.Username"
+            Timestamp="@DateTimeService.GetClockTime()"/>
     }
 </div>
