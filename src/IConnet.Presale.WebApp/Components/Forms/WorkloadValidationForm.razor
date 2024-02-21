@@ -39,7 +39,7 @@
                         <FluentLabel Typo="Typography.Body">NAMA LENGKAP</FluentLabel>
                         <FluentIcon Value="@LabelIconNamaPelanggan" />
                     </div>
-                    <FluentSelect Items="@StatusValidasi"
+                    <FluentSelect Items="@StatusValidasiOptions"
                         @bind-Value="@ValidationModel.ValidasiNama"
                         OptionDisabled="@OptionDisableNamaPelanggan"
                         Position="SelectPosition.Below"
@@ -61,7 +61,7 @@
                         <FluentLabel Typo="Typography.Body">NO. TELEPON</FluentLabel>
                         <FluentIcon Value="@LabelIconNoTelepon" />
                     </div>
-                    <FluentSelect Items="@StatusValidasi"
+                    <FluentSelect Items="@StatusValidasiOptions"
                         @bind-Value="@ValidationModel.ValidasiNomorTelepon"
                         OptionDisabled="@OptionDisableNoTelepon"
                         Position="SelectPosition.Below"
@@ -81,7 +81,7 @@
                         <FluentLabel Typo="Typography.Body">EMAIL</FluentLabel>
                         <FluentIcon Value="@LabelIconEmail" />
                     </div>
-                    <FluentSelect Items="@StatusValidasi"
+                    <FluentSelect Items="@StatusValidasiOptions"
                         @bind-Value="@ValidationModel.ValidasiEmail"
                         OptionDisabled="@OptionDisableEmail"
                         Position="SelectPosition.Below"
@@ -101,7 +101,7 @@
                         <FluentLabel Typo="Typography.Body">ID PLN</FluentLabel>
                         <FluentIcon Value="@LabelIconIdPln" />
                     </div>
-                    <FluentSelect Items="@StatusValidasi"
+                    <FluentSelect Items="@StatusValidasiOptions"
                         @bind-Value="@ValidationModel.ValidasiIdPln"
                         OptionDisabled="@OptionDisableIdPln"
                         Position="SelectPosition.Below"
@@ -129,7 +129,7 @@
                 </div>
                 <div class="arrange-start validation-bottom-margin">
                     <div class="validation-label">
-                        <FluentSelect Items="@StatusValidasi"
+                        <FluentSelect Items="@StatusValidasiOptions"
                             @bind-Value="@ValidationModel.ValidasiAlamat"
                             OptionDisabled="@OptionDisableAlamat"
                             Position="SelectPosition.Below"
