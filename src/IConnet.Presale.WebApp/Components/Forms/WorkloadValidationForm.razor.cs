@@ -6,6 +6,8 @@ namespace IConnet.Presale.WebApp.Components.Forms;
 public partial class WorkloadValidationForm : ComponentBase
 {
     [Inject] public IDialogService DialogService { get; set; } = default!;
+    [Inject] public IWorkloadManager WorkloadManager { get; init; } = default!;
+    [Inject] public BroadcastService BroadcastService { get; init; } = default!;
 
     [CascadingParameter(Name = "CascadeWorkPaper")]
     public WorkPaper? WorkPaper { get; set; }
@@ -83,6 +85,32 @@ public partial class WorkloadValidationForm : ComponentBase
         {
             return;
         }
+    }
+
+    protected async Task OnValidateNamaPelanggan(string statusValidasi)
+    {
+        if (WorkPaper is null|| ValidationModel is null)
+        {
+            return;
+        }
+
+        ValidationModel.ValidasiNama = statusValidasi;
+
+        var validasiNama = EnumProcessor.StringToEnum<ValidationStatus>(statusValidasi);
+        var parameterValidasi = WorkPaper.ProsesValidasi.ParameterValidasi.WithValidasiNama(validasiNama);
+        var prosesValidasi =  WorkPaper.ProsesValidasi.WithParameterValidasi(parameterValidasi);
+
+        WorkPaper.ProsesValidasi = prosesValidasi;
+        LogSwitch.Debug("Validasi Name: {statusValidasi}", validasiNama);
+
+        await UpdateProsesValidasi(WorkPaper, $"[NamaPelanggan:{WorkPaper.ProsesValidasi.ParameterValidasi.ValidasiNama}]");
+    }
+
+    private async Task UpdateProsesValidasi(WorkPaper workPaper, string message)
+    {
+        await WorkloadManager.UpdateWorkloadAsync(workPaper);
+        await BroadcastService.BroadcastMessageAsync($"Validating '{message}'");
+        LogSwitch.Debug("Broadcast validation {message}", message);
     }
 
     private Icon GetIcon(string? section)

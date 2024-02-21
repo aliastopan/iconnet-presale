@@ -40,7 +40,8 @@
                         <FluentIcon Value="@LabelIconNamaPelanggan" />
                     </div>
                     <FluentSelect Items="@StatusValidasiOptions"
-                        @bind-Value="@ValidationModel.ValidasiNama"
+                        Value="@ValidationModel.ValidasiNama"
+                        ValueChanged="OnValidateNamaPelanggan"
                         OptionDisabled="@OptionDisableNamaPelanggan"
                         Position="SelectPosition.Below"
                         Width="165px" />
