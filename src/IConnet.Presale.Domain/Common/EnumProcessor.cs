@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace IConnet.Presale.Domain.Common;
 
-public class EnumHelper
+public class EnumProcessor
 {
     public static IEnumerable<string> GetIEnumerable<T>(bool skipFirst = false) where T : Enum
     {

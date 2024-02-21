@@ -17,7 +17,7 @@ public partial class WorkloadValidationForm : ComponentBase
     private readonly Icon _error = new Icons.Filled.Size20.ErrorCircle().WithColor("var(--error)");
     private readonly Icon _checkmark = new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success)");
 
-    protected IEnumerable<string> StatusValidasi => EnumHelper.GetIEnumerable<ValidationStatus>();
+    protected IEnumerable<string> StatusValidasi => EnumProcessor.GetIEnumerable<ValidationStatus>();
 
     protected string MenungguValidasi => StatusValidasi.First();
     protected string TidakSesuai => StatusValidasi.Skip(1).First();

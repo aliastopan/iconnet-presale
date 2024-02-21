@@ -5,12 +5,12 @@ public class WorkloadValidationModel
     public WorkloadValidationModel(WorkPaper workPaper)
     {
         IdPermohonan = workPaper.ApprovalOpportunity.IdPermohonan;
-        ValidasiIdPln = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiIdPln);
-        ValidasiNama = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiNama);
-        ValidasiNomorTelepon = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiNomorTelepon);
-        ValidasiEmail = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiEmail);
-        ValidasiAlamat = EnumHelper.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiAlamat);
-        ValidasiCrmKoordinat = EnumHelper.EnumToDisplayString(ValidationStatus.MenungguValidasi);
+        ValidasiIdPln = EnumProcessor.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiIdPln);
+        ValidasiNama = EnumProcessor.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiNama);
+        ValidasiNomorTelepon = EnumProcessor.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiNomorTelepon);
+        ValidasiEmail = EnumProcessor.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiEmail);
+        ValidasiAlamat = EnumProcessor.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiAlamat);
+        ValidasiCrmKoordinat = EnumProcessor.EnumToDisplayString(ValidationStatus.MenungguValidasi);
     }
 
     public string IdPermohonan { get; set; } = string.Empty;
