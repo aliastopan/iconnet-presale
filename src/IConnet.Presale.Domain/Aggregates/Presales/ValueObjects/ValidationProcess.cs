@@ -29,6 +29,20 @@ public class ValidationProcess : ValueObject
     public ValidationStatus StatusValidasi { get; init; } = default;
     public string Keterangan { get; init; }  = string.Empty;
 
+    public ValidationProcess WithParameterValidasi(ValidationParameter parameterValidasi)
+    {
+        return new ValidationProcess
+        {
+            ChatCallMulai = this.ChatCallMulai,
+            ChatCallRespons = this.ChatCallRespons,
+            LinkRecapChatHistory = this.LinkRecapChatHistory,
+            ParameterValidasi = parameterValidasi,
+            PembetulanValidasi = this.PembetulanValidasi,
+            StatusValidasi = this.StatusValidasi,
+            Keterangan = this.Keterangan
+        };
+    }
+
     protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return ChatCallMulai;
