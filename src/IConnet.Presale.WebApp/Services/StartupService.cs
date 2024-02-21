@@ -24,22 +24,30 @@ public class StartupService : IHostedService
             PropertyNameCaseInsensitive = true
         };
 
-        var templateName = "default";
-        var httpResult = await _chatTemplateHttpClientService.GetChatTemplateAsync(templateName);
-
-        if (httpResult.IsSuccessStatusCode)
+        try
         {
-            var response = JsonSerializer.Deserialize<GetChatTemplateResponse>(httpResult.Content, options);
-            ICollection<ChatTemplateDto> chatTemplateDtos = response!.ChatTemplateDtos;
+            var templateName = "default";
+            var httpResult = await _chatTemplateHttpClientService.GetChatTemplateAsync(templateName);
 
-            _chatTemplateService.InitializeChatTemplate(chatTemplateDtos);
+            if (httpResult.IsSuccessStatusCode)
+            {
+                var response = JsonSerializer.Deserialize<GetChatTemplateResponse>(httpResult.Content, options);
+                ICollection<ChatTemplateDto> chatTemplateDtos = response!.ChatTemplateDtos;
+
+                _chatTemplateService.InitializeChatTemplate(chatTemplateDtos);
+            }
+            else
+            {
+                var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
+                var extension = problemDetails.GetExtension();
+
+                LogSwitch.Debug("Error {message}: ", extension.Errors.First().Message);
+            }
         }
-        else
+        catch (Exception exception)
         {
-            var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
-            var extension = problemDetails.GetExtension();
-
-            LogSwitch.Debug("Error {message}: ", extension.Errors.First().Message);
+            Log.Fatal("Fatal error occurred: {message}", exception.Message);
+            Environment.Exit(1);
         }
 
         await Task.CompletedTask;
