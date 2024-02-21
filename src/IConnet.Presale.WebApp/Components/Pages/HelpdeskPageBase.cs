@@ -94,7 +94,7 @@ public class HelpdeskPageBase : WorkloadPageBase
         ActiveWorkPaper = row.Item;
         ActiveValidationModel!.NullableTanggalRespons = DateTimeService.DateTimeOffsetNow.DateTime;
         ActiveValidationModel!.NullableWaktuRespons = DateTimeService.DateTimeOffsetNow.DateTime;
-        // Log.Warning("Selected: {0}", WorkPaper.ApprovalOpportunity.IdPermohonan);
+        // LogSwitch.Debug("Selected: {0}", WorkPaper.ApprovalOpportunity.IdPermohonan);
 
         await ScrollToValidationForm();
     }
@@ -120,13 +120,14 @@ public class HelpdeskPageBase : WorkloadPageBase
         if (dialogData.HelpdeskInCharge.IsEmptySignature())
         {
             await UnstageWorkloadAsync(dialogData);
-            // Log.Warning("{0} claim has been removed", dialogData.ApprovalOpportunity.IdPermohonan);
+            // LogSwitch.Debug("{0} claim has been removed", dialogData.ApprovalOpportunity.IdPermohonan);
 
             return;
         }
 
         await RestageWorkloadAsync(dialogData);
-        // Log.Warning("{0} claim has been extended", dialogData.ApprovalOpportunity.IdPermohonan);
+        // await ScrollToValidationForm();
+        // LogSwitch.Debug("{0} claim has been extended", dialogData.ApprovalOpportunity.IdPermohonan);
     }
 
     protected bool IsStillInCharge(WorkPaper workPaper, bool debug = false)
@@ -137,7 +138,7 @@ public class HelpdeskPageBase : WorkloadPageBase
         if (debug)
         {
             var timeRemaining = workPaper.HelpdeskInCharge.GetDurationRemaining(now, duration);
-            // Log.Warning("Time remaining: {0}", timeRemaining);
+            // LogSwitch.Debug("Time remaining: {0}", timeRemaining);
         }
 
         return !workPaper.HelpdeskInCharge.IsDurationExceeded(now, duration);
@@ -146,7 +147,6 @@ public class HelpdeskPageBase : WorkloadPageBase
     private async Task RestageWorkloadAsync(WorkPaper workPaper)
     {
         ActiveWorkPaper = workPaper;
-        await ScrollToValidationForm();
 
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
 
@@ -166,6 +166,8 @@ public class HelpdeskPageBase : WorkloadPageBase
     {
         var elementId = "validation-id";
         await JsRuntime.InvokeVoidAsync("scrollToElement", elementId);
+
+        LogSwitch.Debug("Scrolling...");
     }
 
     private string GetGridTemplateCols()
