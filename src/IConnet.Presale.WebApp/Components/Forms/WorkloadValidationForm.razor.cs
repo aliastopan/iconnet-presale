@@ -36,13 +36,14 @@ public partial class WorkloadValidationForm : ComponentBase
     protected Icon LabelIconEmail => GetIcon(ValidationModel?.ValidasiEmail);
     protected Icon LabelIconIdPln => GetIcon(ValidationModel?.ValidasiIdPln);
     protected Icon LabelIconAlamat => GetIcon(ValidationModel?.ValidasiAlamat);
-    protected Icon LabelIconShareLoc=> GetIcon(ValidationModel?.ValidasiCrmKoordinat, errorIconColor: "var(--warning)");
+    protected Icon LabelIconCrmKoordinat => GetIcon(ValidationModel?.ValidasiCrmKoordinat, errorIconColor: "var(--warning)");
 
     protected string BgColorNamaPelanggan => GetBackgroundColor(ValidationModel?.ValidasiNama);
     protected string BgColorNoTelepon => GetBackgroundColor(ValidationModel?.ValidasiNomorTelepon);
     protected string BgColorEmail => GetBackgroundColor(ValidationModel?.ValidasiEmail);
     protected string BgColorIdPln => GetBackgroundColor(ValidationModel?.ValidasiIdPln);
     protected string BgColorAlamat => GetBackgroundColor(ValidationModel?.ValidasiAlamat);
+    protected string BgColorCrmKoordinat => GetBackgroundColor(ValidationModel?.ValidasiCrmKoordinat, invalid: "validation-value-bg-warning");
 
     protected bool DisableTextFieldNamaPelanggan => ValidationModel?.ValidasiNama != TidakSesuai;
     protected bool DisableTextFieldNoTelepon => ValidationModel?.ValidasiNomorTelepon != TidakSesuai;
@@ -132,13 +133,16 @@ public partial class WorkloadValidationForm : ComponentBase
         };
     }
 
-    private string GetBackgroundColor(string? section)
+    private string GetBackgroundColor(string? section,
+        string waiting = "validation-value-bg-waiting",
+        string invalid = "validation-value-bg-invalid",
+        string valid = "validation-value-bg-valid")
     {
         return section switch
         {
-            string status when status == TidakSesuai => "validation-value-bg-invalid",
-            string status when status == Sesuai => "validation-value-bg-valid",
-            _ => "validation-value-bg-waiting",
+            string status when status == TidakSesuai => invalid,
+            string status when status == Sesuai => valid,
+            _ => waiting,
         };
     }
 }

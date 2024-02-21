@@ -63,7 +63,7 @@
 .validation-label-bg{
     background-color: #f3f2f2;
     border-radius: 5px;
-    padding: 0 5px;
+    padding: 0 8px;
 }
 
 .validation-value .fluent-typography{
@@ -97,6 +97,15 @@
 
 .validation-value-bg-valid{
     background-color: var(--success);
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.validation-value-bg-warning{
+    background-color: var(--warning);
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;

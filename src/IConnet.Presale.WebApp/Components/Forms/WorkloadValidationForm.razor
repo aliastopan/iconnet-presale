@@ -48,7 +48,7 @@
                 </div>
                 <div class="validation-value">
                     <div class="@BgColorNamaPelanggan">
-                        <FluentLabel Typo="Typography.Body" style="margin: 0 6px;">
+                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px;">
                             @WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap
                         </FluentLabel>
                     </div>
@@ -72,7 +72,7 @@
                 </div>
                 <div class="validation-value">
                     <div class="@BgColorNoTelepon">
-                        <FluentLabel Typo="Typography.Body" style="margin: 0 6px;">
+                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px;">
                             @WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon
                         </FluentLabel>
                     </div>
@@ -96,7 +96,7 @@
                 </div>
                 <div class="validation-value">
                     <div class="@BgColorEmail">
-                        <FluentLabel Typo="Typography.Body" style="margin: 0 6px;">
+                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px;">
                             @WorkPaper.ApprovalOpportunity.Pemohon.Email
                         </FluentLabel>
                     </div>
@@ -120,7 +120,7 @@
                 </div>
                 <div class="validation-value">
                     <div class="@BgColorIdPln">
-                        <FluentLabel Typo="Typography.Body" style="margin: 0 6px;">
+                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px;">
                             @WorkPaper.ApprovalOpportunity.Pemohon.IdPln
                         </FluentLabel>
                     </div>
@@ -140,7 +140,7 @@
                     </div>
                     <div class="validation-value">
                         <div class="@BgColorAlamat">
-                            <FluentLabel Typo="Typography.Body" style="margin: 0 6px;">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px;">
                                 @WorkPaper.ApprovalOpportunity.Pemohon.Alamat
                             </FluentLabel>
                         </div>
@@ -171,18 +171,20 @@
 
             <div class="validation-element">
                 <div class="validation-label">
-                    <div style="display: flex;">
-                        <FluentLabel Typo="Typography.Body">iCRM+ KOORDINAT</FluentLabel>
-                        <FluentIcon Value="@LabelIconShareLoc" />
+                    <div class="validation-label-bg" style="display: flex;">
+                        <FluentLabel Typo="Typography.Body">iCRM KOORDINAT</FluentLabel>
+                        <FluentIcon Value="@LabelIconCrmKoordinat" />
                     </div>
-                    <div style="display: flex;">
+                    <div style="display: flex; margin: 0 8px;">
                         <FluentLabel Typo="Typography.Body">SHARE LOC</FluentLabel>
                     </div>
                 </div>
                 <div class="validation-value">
-                    <FluentLabel Typo="Typography.Body" style="margin-left: 6px;">
-                        @WorkPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude
-                    </FluentLabel>
+                    <div class="@BgColorCrmKoordinat">
+                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px;">
+                            @WorkPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude
+                        </FluentLabel>
+                    </div>
                     <FluentTextField style="width: 300px"
                         Placeholder="Konfirmasi Share Loc"
                         Value="@ValidationModel.ShareLoc"
@@ -191,7 +193,7 @@
             </div>
             <div class="validation-element">
                 <div class="validation-label">
-                    <div style="display: flex;">
+                    <div style="display: flex; margin: 0 8px;">
                         <FluentLabel Typo="Typography.Body">TANGGAL RESPONS</FluentLabel>
                     </div>
                 </div>
