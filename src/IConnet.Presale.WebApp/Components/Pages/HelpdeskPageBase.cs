@@ -17,16 +17,6 @@ public class HelpdeskPageBase : WorkloadPageBase
     private readonly GridSort<WorkPaper> _sortByStagingStatus = GridSort<WorkPaper>
         .ByAscending(workPaper => workPaper.HelpdeskInCharge.TglAksi);
 
-    // TODO: create helper class
-    public bool ShowStagingClaims { get; set; } = true;
-    public string ToggleText => ShowStagingClaims ? "Hide" : "Show";
-    protected int ColumnWidthIdPermohonan { get; set; } = 185;  //px
-    protected int ColumnWidthStagingStatus { get; set; } = 90;  //px
-    protected int ColumnWidthMax => ColumnWidthIdPermohonan + ColumnWidthStagingStatus;
-    protected string IdPermohonanStyle => $"width: {ColumnWidthIdPermohonan}px;";
-    protected string StagingStatusStyle => $"width: {ColumnWidthStagingStatus}px;";
-    protected string MaxWidthStyle => ShowStagingClaims ? $"width: {ColumnWidthMax}px;" : "";
-
     protected string GridTemplateCols => GetGridTemplateCols();
     protected FilterForm FilterComponent { get; set; } = default!;
     protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
