@@ -15,9 +15,9 @@ public partial class WorkloadValidationForm : ComponentBase
     [CascadingParameter(Name = "CascadeValidationModel")]
     public WorkloadValidationModel? ValidationModel { get; set; }
 
-    private readonly Icon _question = new Icons.Filled.Size20.QuestionCircle().WithColor("var(--info)");
-    private readonly Icon _error = new Icons.Filled.Size20.ErrorCircle().WithColor("var(--error)");
-    private readonly Icon _checkmark = new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success)");
+    private readonly Icon _questionIcon = new Icons.Filled.Size20.QuestionCircle();
+    private readonly Icon _errorIcon = new Icons.Filled.Size20.ErrorCircle();
+    private readonly Icon _checkmarkIcon = new Icons.Filled.Size20.CheckmarkCircle();
 
     protected IEnumerable<string> StatusValidasiOptions => EnumProcessor.GetStringOptions<ValidationStatus>();
 
@@ -36,7 +36,7 @@ public partial class WorkloadValidationForm : ComponentBase
     protected Icon LabelIconEmail => GetIcon(ValidationModel?.ValidasiEmail);
     protected Icon LabelIconIdPln => GetIcon(ValidationModel?.ValidasiIdPln);
     protected Icon LabelIconAlamat => GetIcon(ValidationModel?.ValidasiAlamat);
-    protected Icon LabelIconShareLoc=> GetIcon(ValidationModel?.ValidasiCrmKoordinat);
+    protected Icon LabelIconShareLoc=> GetIcon(ValidationModel?.ValidasiCrmKoordinat, errorIconColor: "var(--warning)");
 
     protected bool DisableTextFieldNamaPelanggan => ValidationModel?.ValidasiNama != TidakSesuai;
     protected bool DisableTextFieldNoTelepon => ValidationModel?.ValidasiNomorTelepon != TidakSesuai;
@@ -113,13 +113,16 @@ public partial class WorkloadValidationForm : ComponentBase
         LogSwitch.Debug("Broadcast validation {message}", message);
     }
 
-    private Icon GetIcon(string? section)
+    private Icon GetIcon(string? section,
+        string questionIconColor = "var(--info)",
+        string errorIconColor = "var(--error)",
+        string checkmarkIconColor = "var(--success)")
     {
         return section switch
         {
-            string status when status == TidakSesuai => _error,
-            string status when status == Sesuai => _checkmark,
-            _ => _question,
+            string status when status == TidakSesuai => _errorIcon.WithColor(errorIconColor),
+            string status when status == Sesuai => _checkmarkIcon.WithColor(checkmarkIconColor),
+            _ => _questionIcon.WithColor(questionIconColor),
         };
     }
 }
