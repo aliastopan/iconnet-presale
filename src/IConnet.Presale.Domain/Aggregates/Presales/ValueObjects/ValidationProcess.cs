@@ -16,7 +16,7 @@ public class ValidationProcess : ValueObject
         ChatCallRespons = chatCallRespons;
         LinkRecapChatHistory = linkRecapChatHistory;
         ParameterValidasi = parameterValidasi;
-        KoreksiValidasi = koreksiValidasi;
+        PembetulanValidasi = koreksiValidasi;
         StatusValidasi = statusValidasi;
         Keterangan = keterangan;
     }
@@ -25,7 +25,7 @@ public class ValidationProcess : ValueObject
     public ActionSignature ChatCallRespons { get; init;} = new();
     public string LinkRecapChatHistory { get; init; } = string.Empty;
     public ValidationParameter ParameterValidasi { get; init; } = new();
-    public ValidationCorrection KoreksiValidasi { get; set; } = new();
+    public ValidationCorrection PembetulanValidasi { get; set; } = new();
     public ValidationStatus StatusValidasi { get; init; } = default;
     public string Keterangan { get; init; }  = string.Empty;
 
@@ -35,7 +35,7 @@ public class ValidationProcess : ValueObject
         yield return ChatCallRespons;
         yield return LinkRecapChatHistory;
         yield return ParameterValidasi;
-        yield return KoreksiValidasi;
+        yield return PembetulanValidasi;
         yield return StatusValidasi;
         yield return Keterangan;
     }
