@@ -39,7 +39,7 @@ public partial class WorkloadValidationForm : ComponentBase
     protected Icon LabelIconCrmKoordinat => GetIcon(ValidationModel?.ValidasiCrmKoordinat, errorIconColor: "var(--warning)");
 
     protected string BgColorNamaPelanggan => GetBackgroundColor(ValidationModel?.ValidasiNama);
-    protected string BgColorNoTelepon => GetBackgroundColor(ValidationModel?.ValidasiNomorTelepon);
+    protected string BgColorNomorTelepon => GetBackgroundColor(ValidationModel?.ValidasiNomorTelepon);
     protected string BgColorEmail => GetBackgroundColor(ValidationModel?.ValidasiEmail);
     protected string BgColorIdPln => GetBackgroundColor(ValidationModel?.ValidasiIdPln);
     protected string BgColorAlamat => GetBackgroundColor(ValidationModel?.ValidasiAlamat);
