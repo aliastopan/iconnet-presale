@@ -14,7 +14,7 @@
     display: flex;
     flex-direction: row;
     align-items: start;
-    background-color: cornflowerblue;
+    /* background-color: cornflowerblue; */
 }
 
 .validation-element-arrange{
@@ -38,7 +38,7 @@
     display: flex;
     flex-direction: column;
     width: 165px;
-    background-color: aquamarine;
+    /* background-color: #036ac4; */
     margin-right: 10px;
 }
 
@@ -46,7 +46,7 @@
     display: flex;
     flex-direction: column;
     width: 300px;
-    background-color: #97afdb
+    /* background-color: #97afdb */
 }
 
 .validation-label .fluent-typography,
@@ -60,6 +60,12 @@
     color: #373737 !important;
 }
 
+.validation-label-bg{
+    background-color: #f3f2f2;
+    border-radius: 5px;
+    padding: 0 5px;
+}
+
 .validation-value .fluent-typography{
     max-width: fit-content;
     font-weight: 600 !important;
@@ -70,6 +76,43 @@
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
 }
+
+.validation-value-bg-waiting{
+    background-color: #f3f2f2;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.validation-value-bg-invalid{
+    background-color: var(--error);
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.validation-value-bg-valid{
+    background-color: var(--success);
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+/* .validation-value-bg-waiting p.fluent-typography, */
+.validation-value-bg-invalid p.fluent-typography,
+.validation-value-bg-valid p.fluent-typography{
+    color: white !important;
+}
+
+/* .validation-value-bg-valid p.fluent-typography{
+    color: white !important;
+} */
 
 .validation-shareloc{
     background-color: crimson;

@@ -35,7 +35,7 @@
 
             <div class="validation-element">
                 <div class="validation-label">
-                    <div style="display: flex;">
+                    <div class="validation-label-bg" style="display: flex;">
                         <FluentLabel Typo="Typography.Body">NAMA LENGKAP</FluentLabel>
                         <FluentIcon Value="@LabelIconNamaPelanggan" />
                     </div>
@@ -47,8 +47,10 @@
                         Width="165px" />
                 </div>
                 <div class="validation-value">
-                    <div>
-                        <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap</FluentLabel>
+                    <div class="@BgColorNamaPelanggan">
+                        <FluentLabel Typo="Typography.Body" style="margin: 0 6px;">
+                            @WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap
+                        </FluentLabel>
                     </div>
                     <FluentTextField @bind-Value=@ValidationModel.PembetulanNama
                         style="width: 300px"
@@ -58,7 +60,7 @@
             </div>
             <div class="validation-element">
                 <div class="validation-label">
-                    <div style="display: flex;">
+                    <div class="validation-label-bg" style="display: flex;">
                         <FluentLabel Typo="Typography.Body">NO. TELEPON</FluentLabel>
                         <FluentIcon Value="@LabelIconNoTelepon" />
                     </div>
@@ -69,7 +71,11 @@
                         Width="165px" />
                 </div>
                 <div class="validation-value">
-                    <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon</FluentLabel>
+                    <div class="@BgColorNoTelepon">
+                        <FluentLabel Typo="Typography.Body" style="margin: 0 6px;">
+                            @WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon
+                        </FluentLabel>
+                    </div>
                     <FluentTextField @bind-Value=@ValidationModel.PembetulanNomorTelepon
                         style="width: 300px"
                         Disabled="@DisableTextFieldNoTelepon"
@@ -78,7 +84,7 @@
             </div>
             <div class="validation-element">
                 <div class="validation-label">
-                    <div style="display: flex;">
+                    <div class="validation-label-bg" style="display: flex;">
                         <FluentLabel Typo="Typography.Body">EMAIL</FluentLabel>
                         <FluentIcon Value="@LabelIconEmail" />
                     </div>
@@ -89,7 +95,11 @@
                         Width="165px" />
                 </div>
                 <div class="validation-value">
-                    <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.Email</FluentLabel>
+                    <div class="@BgColorEmail">
+                        <FluentLabel Typo="Typography.Body" style="margin: 0 6px;">
+                            @WorkPaper.ApprovalOpportunity.Pemohon.Email
+                        </FluentLabel>
+                    </div>
                     <FluentTextField @bind-Value=@ValidationModel.PembetulanEmail
                         style="width: 300px"
                         Disabled="@DisableTextFieldEmail"
@@ -98,7 +108,7 @@
             </div>
             <div class="validation-element">
                 <div class="validation-label">
-                    <div style="display: flex;">
+                    <div class="validation-label-bg" style="display: flex;">
                         <FluentLabel Typo="Typography.Body">ID PLN</FluentLabel>
                         <FluentIcon Value="@LabelIconIdPln" />
                     </div>
@@ -109,7 +119,11 @@
                         Width="165px" />
                 </div>
                 <div class="validation-value">
-                    <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.IdPln</FluentLabel>
+                    <div class="@BgColorIdPln">
+                        <FluentLabel Typo="Typography.Body" style="margin: 0 6px;">
+                            @WorkPaper.ApprovalOpportunity.Pemohon.IdPln
+                        </FluentLabel>
+                    </div>
                     <FluentTextField @bind-Value=@ValidationModel.PembetulanIdPln
                         style="width: 300px"
                         Disabled="@DisableTextFieldIdPln"
@@ -119,13 +133,17 @@
             <div class="validation-element-arrange">
                 <div class="arrange-end">
                     <div class="validation-label">
-                        <div style="display: flex;">
+                        <div class="validation-label-bg" style="display: flex;">
                             <FluentLabel Typo="Typography.Body">ALAMAT</FluentLabel>
                             <FluentIcon Value="@LabelIconAlamat" />
                         </div>
                     </div>
                     <div class="validation-value">
-                        <FluentLabel Typo="Typography.Body">@WorkPaper.ApprovalOpportunity.Pemohon.Alamat</FluentLabel>
+                        <div class="@BgColorAlamat">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 6px;">
+                                @WorkPaper.ApprovalOpportunity.Pemohon.Alamat
+                            </FluentLabel>
+                        </div>
                     </div>
                 </div>
                 <div class="arrange-start validation-bottom-margin">
@@ -162,11 +180,9 @@
                     </div>
                 </div>
                 <div class="validation-value">
-                    <div>
-                        <FluentLabel Typo="Typography.Body" style="margin-left: 6px;">
-                            @WorkPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude
-                        </FluentLabel>
-                    </div>
+                    <FluentLabel Typo="Typography.Body" style="margin-left: 6px;">
+                        @WorkPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude
+                    </FluentLabel>
                     <FluentTextField style="width: 300px"
                         Placeholder="Konfirmasi Share Loc"
                         Value="@ValidationModel.ShareLoc"

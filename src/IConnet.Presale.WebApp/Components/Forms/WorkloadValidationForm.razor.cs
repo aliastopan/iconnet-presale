@@ -38,6 +38,12 @@ public partial class WorkloadValidationForm : ComponentBase
     protected Icon LabelIconAlamat => GetIcon(ValidationModel?.ValidasiAlamat);
     protected Icon LabelIconShareLoc=> GetIcon(ValidationModel?.ValidasiCrmKoordinat, errorIconColor: "var(--warning)");
 
+    protected string BgColorNamaPelanggan => GetBackgroundColor(ValidationModel?.ValidasiNama);
+    protected string BgColorNoTelepon => GetBackgroundColor(ValidationModel?.ValidasiNomorTelepon);
+    protected string BgColorEmail => GetBackgroundColor(ValidationModel?.ValidasiEmail);
+    protected string BgColorIdPln => GetBackgroundColor(ValidationModel?.ValidasiIdPln);
+    protected string BgColorAlamat => GetBackgroundColor(ValidationModel?.ValidasiAlamat);
+
     protected bool DisableTextFieldNamaPelanggan => ValidationModel?.ValidasiNama != TidakSesuai;
     protected bool DisableTextFieldNoTelepon => ValidationModel?.ValidasiNomorTelepon != TidakSesuai;
     protected bool DisableTextFieldEmail => ValidationModel?.ValidasiEmail != TidakSesuai;
@@ -123,6 +129,16 @@ public partial class WorkloadValidationForm : ComponentBase
             string status when status == TidakSesuai => _errorIcon.WithColor(errorIconColor),
             string status when status == Sesuai => _checkmarkIcon.WithColor(checkmarkIconColor),
             _ => _questionIcon.WithColor(questionIconColor),
+        };
+    }
+
+    private string GetBackgroundColor(string? section)
+    {
+        return section switch
+        {
+            string status when status == TidakSesuai => "validation-value-bg-invalid",
+            string status when status == Sesuai => "validation-value-bg-valid",
+            _ => "validation-value-bg-waiting",
         };
     }
 }
