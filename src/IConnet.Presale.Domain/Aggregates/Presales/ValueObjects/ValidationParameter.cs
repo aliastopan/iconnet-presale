@@ -27,6 +27,48 @@ public class ValidationParameter : ValueObject
     public ValidationStatus ValidasiAlamat { get; init; } = default;
     public Coordinate ShareLoc { get; init; } = new();
 
+    public ValidationParameter Validate(string propertyName, ValidationStatus validationStatus)
+    {
+        var methodMap = new Dictionary<string, Func<ValidationStatus, ValidationParameter>>
+        {
+            { ValidationParameterPropertyNames.ValidasiIdPln, WithValidasiIdPln },
+            { ValidationParameterPropertyNames.ValidasiNama, WithValidasiNama },
+            { ValidationParameterPropertyNames.ValidasiNomorTelepon, WithValidasiNomorTelepon },
+            { ValidationParameterPropertyNames.ValidasiEmail, WithValidasiEmail },
+            { ValidationParameterPropertyNames.ValidasiAlamat, WithValidasiAlamat },
+        };
+
+        if (methodMap.TryGetValue(propertyName, out var validateProperty))
+        {
+            return validateProperty(validationStatus);
+        }
+        else
+        {
+            throw new ArgumentException($"Invalid field name: {propertyName}");
+        }
+    }
+
+    public ValidationStatus GetValidationStatus(string propertyName)
+    {
+        var propertyMap = new Dictionary<string, Func<ValidationStatus>>
+        {
+            { ValidationParameterPropertyNames.ValidasiIdPln, () => ValidasiIdPln },
+            { ValidationParameterPropertyNames.ValidasiNama, () => ValidasiNama },
+            { ValidationParameterPropertyNames.ValidasiNomorTelepon, () => ValidasiNomorTelepon },
+            { ValidationParameterPropertyNames.ValidasiEmail, () => ValidasiEmail },
+            { ValidationParameterPropertyNames.ValidasiAlamat, () => ValidasiAlamat },
+        };
+
+        if (propertyMap.TryGetValue(propertyName, out var validationStatus))
+        {
+            return validationStatus();
+        }
+        else
+        {
+            throw new ArgumentException($"Invalid field name: {propertyName}");
+        }
+    }
+
     public ValidationParameter WithValidasiIdPln(ValidationStatus validasiIdPln)
     {
         return new ValidationParameter
@@ -117,4 +159,13 @@ public class ValidationParameter : ValueObject
         yield return ValidasiAlamat;
         yield return ShareLoc;
     }
+}
+
+public static class ValidationParameterPropertyNames
+{
+    public static string ValidasiIdPln => nameof(ValidationParameter.ValidasiIdPln);
+    public static string ValidasiNama => nameof(ValidationParameter.ValidasiNama);
+    public static string ValidasiNomorTelepon => nameof(ValidationParameter.ValidasiNomorTelepon);
+    public static string ValidasiEmail => nameof(ValidationParameter.ValidasiEmail);
+    public static string ValidasiAlamat => nameof(ValidationParameter.ValidasiAlamat);
 }
