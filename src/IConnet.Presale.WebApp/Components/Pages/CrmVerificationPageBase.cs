@@ -13,7 +13,7 @@ public class CrmVerificationPageBase : WorkloadPageBase
 
     protected FilterForm FilterComponent { get; set; } = default!;
     protected string GridTemplateCols => GetGridTemplateCols();
-    protected override IQueryable<WorkPaper>? WorkPapers => GetWorkPapers();
+    protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
 
     protected override void OnInitialized()
     {
@@ -42,14 +42,17 @@ public class CrmVerificationPageBase : WorkloadPageBase
         await OpenDialogAsync(row.Item);
     }
 
-    protected IQueryable<WorkPaper>? GetWorkPapers()
+    protected IQueryable<WorkPaper>? FilterWorkPapers()
     {
         if (FilterComponent is null)
         {
             return base.WorkPapers;
         }
 
-        return FilterComponent.FilterWorkPapers(base.WorkPapers);
+        IQueryable<WorkPaper>? workPapers = FilterComponent.FilterWorkPapers(base.WorkPapers);
+
+        ColumnWidth.SetColumnWidth(workPapers);
+        return workPapers;
     }
 
     protected async Task OpenDialogAsync(WorkPaper workPaper)
