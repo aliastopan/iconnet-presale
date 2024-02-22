@@ -109,7 +109,8 @@ public partial class WorkloadValidationForm : ComponentBase
         WorkPaper.ProsesValidasi = prosesValidasi;
         LogSwitch.Debug($"Validasi {propertyName}: {statusValidasi}");
 
-        await UpdateProsesValidasi(WorkPaper, $"[{propertyName}:{WorkPaper.ProsesValidasi.ParameterValidasi.GetValidationStatus(propertyName)}]");
+        var broadcastMessage = $"[{propertyName}:{WorkPaper.ProsesValidasi.ParameterValidasi.GetValidationStatus(propertyName)}]";
+        await UpdateProsesValidasi(WorkPaper, broadcastMessage);
     }
 
     protected async Task OnValidateNamaPelanggan(string statusValidasi)
@@ -152,11 +153,11 @@ public partial class WorkloadValidationForm : ComponentBase
         await ValidasiProperty(alamat, statusValidasi);
     }
 
-    private async Task UpdateProsesValidasi(WorkPaper workPaper, string message)
+    private async Task UpdateProsesValidasi(WorkPaper workPaper, string broadcastMessage)
     {
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
-        await BroadcastService.BroadcastMessageAsync($"Validating '{message}'");
-        LogSwitch.Debug("Broadcast validation {message}", message);
+        await BroadcastService.BroadcastMessageAsync($"Validating '{broadcastMessage}'");
+        LogSwitch.Debug("Broadcast validation {message}", broadcastMessage);
     }
 
     private Icon GetIcon(string? section,
