@@ -107,7 +107,7 @@ public partial class WorkloadValidationForm : ComponentBase
         var prosesValidasi = WorkPaper.ProsesValidasi.WithParameterValidasi(parameterValidasi);
 
         WorkPaper.ProsesValidasi = prosesValidasi;
-        LogSwitch.Debug($"Validasi {propertyName}: {{statusValidasi}}", validationStatus);
+        LogSwitch.Debug($"Validasi {propertyName}: {statusValidasi}");
 
         await UpdateProsesValidasi(WorkPaper, $"[{propertyName}:{WorkPaper.ProsesValidasi.ParameterValidasi.GetValidationStatus(propertyName)}]");
     }
