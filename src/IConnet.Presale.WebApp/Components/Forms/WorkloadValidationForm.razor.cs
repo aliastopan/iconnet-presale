@@ -6,9 +6,11 @@ namespace IConnet.Presale.WebApp.Components.Forms;
 
 public partial class WorkloadValidationForm : ComponentBase
 {
+    [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public IDialogService DialogService { get; set; } = default!;
     [Inject] public IWorkloadManager WorkloadManager { get; init; } = default!;
     [Inject] public BroadcastService BroadcastService { get; init; } = default!;
+    [Inject] public SessionService SessionService { get; set; } = default!;
 
     [CascadingParameter(Name = "CascadeWorkPaper")]
     public WorkPaper? WorkPaper { get; set; }
@@ -93,6 +95,28 @@ public partial class WorkloadValidationForm : ComponentBase
         {
             return;
         }
+    }
+
+    protected async Task UpdateChatCallMulaiSignature()
+    {
+        if (WorkPaper is null || ValidationModel is null)
+        {
+            return;
+        }
+
+        var chatCallMulai = new ActionSignature
+        {
+            AccountIdSignature = SessionService.UserModel!.UserAccountId,
+            Alias = await SessionService.GetSessionAliasAsync(),
+            TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
+        };
+
+        var prosesValidasi = WorkPaper.ProsesValidasi.WithChatCallMulai(chatCallMulai);
+
+        WorkPaper.ProsesValidasi = prosesValidasi;
+
+        var message = $"{chatCallMulai.Alias} has began chat/call to {WorkPaper.ApprovalOpportunity.IdPermohonan}";
+        await UpdateProsesValidasi(WorkPaper, message);
     }
 
     protected async Task ValidasiProperty(string propertyName, string statusValidasi)

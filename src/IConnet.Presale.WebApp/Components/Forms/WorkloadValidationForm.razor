@@ -15,7 +15,8 @@
             @{
                 var url = $"http://{WorkPaper.ApprovalOpportunity.Pemohon.WhatsApp}";
             }
-            <WhatsAppNav Contact="@WorkPaper.ApprovalOpportunity.Pemohon.WhatsApp"/>
+            <WhatsAppNav Contact="@WorkPaper.ApprovalOpportunity.Pemohon.WhatsApp"
+                ChatCallMulai="UpdateChatCallMulaiSignature"/>
             <FluentButton Appearance="Appearance.Outline"
                 style="margin-left: 10px"
                 OnClick="OpenDialogAsync">
