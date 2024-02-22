@@ -23,8 +23,7 @@ public class HelpdeskPageBase : WorkloadPageBase
 
     protected GridSort<WorkPaper> SortByStagingStatus => _sortByStagingStatus;
     protected WorkPaper? ActiveWorkPaper { get; set; }
-    protected WorkloadValidationModel? ActiveValidationModel => _validationModels
-        .FirstOrDefault(x => x.IdPermohonan == ActiveWorkPaper?.ApprovalOpportunity.IdPermohonan);
+    protected WorkloadValidationModel? ActiveValidationModel { get; set; }
 
     protected override void OnInitialized()
     {
@@ -82,6 +81,9 @@ public class HelpdeskPageBase : WorkloadPageBase
         }
 
         ActiveWorkPaper = row.Item;
+        ActiveValidationModel = _validationModels
+            .FirstOrDefault(x => x.IdPermohonan == row.Item.ApprovalOpportunity.IdPermohonan);
+
         ActiveValidationModel!.NullableTanggalRespons = DateTimeService.DateTimeOffsetNow.DateTime;
         ActiveValidationModel!.NullableWaktuRespons = DateTimeService.DateTimeOffsetNow.DateTime;
         // LogSwitch.Debug("Selected: {0}", WorkPaper.ApprovalOpportunity.IdPermohonan);

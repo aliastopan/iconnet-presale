@@ -115,30 +115,40 @@ public partial class WorkloadValidationForm : ComponentBase
     protected async Task OnValidateNamaPelanggan(string statusValidasi)
     {
         string namaPelanggan = ValidationParameterPropertyNames.ValidasiNama;
+        ValidationModel!.ValidasiNama = statusValidasi;
+
         await ValidasiProperty(namaPelanggan, statusValidasi);
     }
 
     protected async Task OnValidateNomorTelepon(string statusValidasi)
     {
         string nomorTelepon = ValidationParameterPropertyNames.ValidasiNomorTelepon;
+        ValidationModel!.ValidasiNomorTelepon = statusValidasi;
+
         await ValidasiProperty(nomorTelepon, statusValidasi);
     }
 
     protected async Task OnValidateEmail(string statusValidasi)
     {
         string email = ValidationParameterPropertyNames.ValidasiEmail;
+        ValidationModel!.ValidasiEmail = statusValidasi;
+
         await ValidasiProperty(email, statusValidasi);
     }
 
     protected async Task OnValidateIdPln(string statusValidasi)
     {
         string idPln = ValidationParameterPropertyNames.ValidasiIdPln;
+        ValidationModel!.ValidasiIdPln = statusValidasi;
+
         await ValidasiProperty(idPln, statusValidasi);
     }
 
     protected async Task OnValidateAlamat(string statusValidasi)
     {
         string alamat = ValidationParameterPropertyNames.ValidasiAlamat;
+        ValidationModel!.ValidasiAlamat = statusValidasi;
+
         await ValidasiProperty(alamat, statusValidasi);
     }
 
