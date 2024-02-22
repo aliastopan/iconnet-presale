@@ -65,7 +65,8 @@
                         <FluentIcon Value="@LabelIconNoTelepon" />
                     </div>
                     <FluentSelect Items="@StatusValidasiOptions"
-                        @bind-Value="@ValidationModel.ValidasiNomorTelepon"
+                        Value="@ValidationModel.ValidasiNomorTelepon"
+                        ValueChanged="OnValidateNomorTelepon"
                         OptionDisabled="@OptionDisableNoTelepon"
                         Position="SelectPosition.Below"
                         Width="165px" />
@@ -89,7 +90,8 @@
                         <FluentIcon Value="@LabelIconEmail" />
                     </div>
                     <FluentSelect Items="@StatusValidasiOptions"
-                        @bind-Value="@ValidationModel.ValidasiEmail"
+                        Value="@ValidationModel.ValidasiEmail"
+                        ValueChanged="OnValidateEmail"
                         OptionDisabled="@OptionDisableEmail"
                         Position="SelectPosition.Below"
                         Width="165px" />
@@ -113,7 +115,8 @@
                         <FluentIcon Value="@LabelIconIdPln" />
                     </div>
                     <FluentSelect Items="@StatusValidasiOptions"
-                        @bind-Value="@ValidationModel.ValidasiIdPln"
+                        Value="@ValidationModel.ValidasiIdPln"
+                        ValueChanged="OnValidateIdPln"
                         OptionDisabled="@OptionDisableIdPln"
                         Position="SelectPosition.Below"
                         Width="165px" />
@@ -149,7 +152,8 @@
                 <div class="arrange-start validation-bottom-margin">
                     <div class="validation-label">
                         <FluentSelect Items="@StatusValidasiOptions"
-                            @bind-Value="@ValidationModel.ValidasiAlamat"
+                            Value="@ValidationModel.ValidasiAlamat"
+                            ValueChanged="OnValidateAlamat"
                             OptionDisabled="@OptionDisableAlamat"
                             Position="SelectPosition.Below"
                             Width="165px" />

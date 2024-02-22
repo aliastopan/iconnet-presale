@@ -108,9 +108,85 @@ public partial class WorkloadValidationForm : ComponentBase
         var prosesValidasi =  WorkPaper.ProsesValidasi.WithParameterValidasi(parameterValidasi);
 
         WorkPaper.ProsesValidasi = prosesValidasi;
-        LogSwitch.Debug("Validasi Name: {statusValidasi}", validasiNama);
+        LogSwitch.Debug("Validasi NamaPelanggan: {statusValidasi}", validasiNama);
 
         await UpdateProsesValidasi(WorkPaper, $"[NamaPelanggan:{WorkPaper.ProsesValidasi.ParameterValidasi.ValidasiNama}]");
+    }
+
+    protected async Task OnValidateNomorTelepon(string statusValidasi)
+    {
+        if (WorkPaper is null|| ValidationModel is null)
+        {
+            return;
+        }
+
+        ValidationModel.ValidasiNomorTelepon = statusValidasi;
+
+        var validasiNomorTelepon = EnumProcessor.StringToEnum<ValidationStatus>(statusValidasi);
+        var parameterValidasi = WorkPaper.ProsesValidasi.ParameterValidasi.WithValidasiNomorTelepon(validasiNomorTelepon);
+        var prosesValidasi =  WorkPaper.ProsesValidasi.WithParameterValidasi(parameterValidasi);
+
+        WorkPaper.ProsesValidasi = prosesValidasi;
+        LogSwitch.Debug("Validasi NomorTelepon: {statusValidasi}", validasiNomorTelepon);
+
+        await UpdateProsesValidasi(WorkPaper, $"[NomorTelepon:{WorkPaper.ProsesValidasi.ParameterValidasi.ValidasiNomorTelepon}]");
+    }
+
+    protected async Task OnValidateEmail(string statusValidasi)
+    {
+        if (WorkPaper is null|| ValidationModel is null)
+        {
+            return;
+        }
+
+        ValidationModel.ValidasiEmail = statusValidasi;
+
+        var validasiNomorEmail = EnumProcessor.StringToEnum<ValidationStatus>(statusValidasi);
+        var parameterValidasi = WorkPaper.ProsesValidasi.ParameterValidasi.WithValidasiEmail(validasiNomorEmail);
+        var prosesValidasi =  WorkPaper.ProsesValidasi.WithParameterValidasi(parameterValidasi);
+
+        WorkPaper.ProsesValidasi = prosesValidasi;
+        LogSwitch.Debug("Validasi Email: {statusValidasi}", validasiNomorEmail);
+
+        await UpdateProsesValidasi(WorkPaper, $"[Email:{WorkPaper.ProsesValidasi.ParameterValidasi.ValidasiEmail}]");
+    }
+
+    protected async Task OnValidateIdPln(string statusValidasi)
+    {
+        if (WorkPaper is null|| ValidationModel is null)
+        {
+            return;
+        }
+
+        ValidationModel.ValidasiIdPln = statusValidasi;
+
+        var validasiIdPln = EnumProcessor.StringToEnum<ValidationStatus>(statusValidasi);
+        var parameterValidasi = WorkPaper.ProsesValidasi.ParameterValidasi.WithValidasiIdPln(validasiIdPln);
+        var prosesValidasi =  WorkPaper.ProsesValidasi.WithParameterValidasi(parameterValidasi);
+
+        WorkPaper.ProsesValidasi = prosesValidasi;
+        LogSwitch.Debug("Validasi IdPln: {statusValidasi}", validasiIdPln);
+
+        await UpdateProsesValidasi(WorkPaper, $"[IdPln:{WorkPaper.ProsesValidasi.ParameterValidasi.ValidasiEmail}]");
+    }
+
+    protected async Task OnValidateAlamat(string statusValidasi)
+    {
+        if (WorkPaper is null|| ValidationModel is null)
+        {
+            return;
+        }
+
+        ValidationModel.ValidasiAlamat = statusValidasi;
+
+        var validasiAlamat = EnumProcessor.StringToEnum<ValidationStatus>(statusValidasi);
+        var parameterValidasi = WorkPaper.ProsesValidasi.ParameterValidasi.WithValidasiAlamat(validasiAlamat);
+        var prosesValidasi =  WorkPaper.ProsesValidasi.WithParameterValidasi(parameterValidasi);
+
+        WorkPaper.ProsesValidasi = prosesValidasi;
+        LogSwitch.Debug("Validasi Alamat: {statusValidasi}", validasiAlamat);
+
+        await UpdateProsesValidasi(WorkPaper, $"[Alamat:{WorkPaper.ProsesValidasi.ParameterValidasi.ValidasiAlamat}]");
     }
 
     private async Task UpdateProsesValidasi(WorkPaper workPaper, string message)
