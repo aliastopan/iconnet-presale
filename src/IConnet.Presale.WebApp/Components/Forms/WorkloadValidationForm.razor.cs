@@ -67,6 +67,16 @@ public partial class WorkloadValidationForm : ComponentBase
             : TidakSesuai;
     }
 
+    protected void OnLinkChatHistory(string linkChatHistory)
+    {
+        if (ValidationModel is null)
+        {
+            return;
+        }
+
+        ValidationModel.LinkChatHistory = linkChatHistory;
+    }
+
     protected void OpenDialog()
     {
         LogSwitch.Debug("Chat Template Dialog");

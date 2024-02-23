@@ -21,6 +21,7 @@ public class WorkloadValidationModel
     public string ValidasiAlamat { get; set; } = string.Empty;
     public string ValidasiCrmKoordinat { get; set; } = string.Empty;
     public string ShareLoc { get; set; } = string.Empty;
+    public string LinkChatHistory { get; set; } = string.Empty;
 
     public DateTime? NullableWaktuRespons { get; set; } = DateTime.Today;
     public DateTime? NullableTanggalRespons { get; set; } = DateTime.Today;

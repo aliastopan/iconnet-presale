@@ -177,10 +177,10 @@
             <div class="validation-element">
                 <div class="validation-label">
                     <div class="validation-label-bg" style="display: flex;">
-                        <FluentLabel Typo="Typography.Body">iCRM KOORDINAT</FluentLabel>
+                        <FluentLabel Typo="Typography.Body">CRM KOORDINAT</FluentLabel>
                         <FluentIcon Value="@LabelIconCrmKoordinat" />
                     </div>
-                    <div style="display: flex; margin: 0 8px;">
+                    <div style="display: flex; margin: 0 8px; margin-top: 2px;">
                         <FluentLabel Typo="Typography.Body">SHARE LOC</FluentLabel>
                     </div>
                 </div>
@@ -198,7 +198,7 @@
             </div>
             <div class="validation-element">
                 <div class="validation-label">
-                    <div style="display: flex; margin: 0 8px;">
+                    <div style="display: flex; margin: 0 8px; margin-top: 2px;">
                         <FluentLabel Typo="Typography.Body">TANGGAL RESPONS</FluentLabel>
                     </div>
                 </div>
@@ -208,6 +208,21 @@
                             Value="@ValidationModel.NullableWaktuRespons"/>
                         <FluentDatePicker style="width: 200px; padding-left: 8px;"
                             Value="@ValidationModel.NullableTanggalRespons"/>
+                    </div>
+                </div>
+            </div>
+            <div class="validation-element validation-element-push">
+                <div class="validation-label">
+                    <div style="display: flex; margin: 0 8px; margin-top: 2px;">
+                        <FluentLabel Typo="Typography.Body">HISTORY CHAT</FluentLabel>
+                    </div>
+                </div>
+                <div class="validation-value">
+                    <div style="display: flex;">
+                        <FluentTextField style="width: 300px"
+                            Value=@ValidationModel.LinkChatHistory
+                            ValueChanged="OnLinkChatHistory"
+                            Placeholder="https://drive.google.com/chat-history"></FluentTextField>
                     </div>
                 </div>
             </div>
