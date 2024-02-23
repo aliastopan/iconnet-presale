@@ -54,29 +54,6 @@ public partial class WorkloadValidationForm : ComponentBase
     protected bool DisableTextFieldIdPln => ValidationModel?.ValidasiIdPln != TidakSesuai;
     protected bool DisableTextAreaAlamatPelanggan => ValidationModel?.ValidasiAlamat != TidakSesuai;
 
-    protected void OnShareLoc(string shareLoc)
-    {
-        if (ValidationModel is null)
-        {
-            return;
-        }
-
-        ValidationModel.ShareLoc = shareLoc;
-        ValidationModel.ValidasiCrmKoordinat = ValidationModel!.ShareLoc.Equals(WorkPaper!.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude)
-            ? Sesuai
-            : TidakSesuai;
-    }
-
-    protected void OnLinkChatHistory(string linkChatHistory)
-    {
-        if (ValidationModel is null)
-        {
-            return;
-        }
-
-        ValidationModel.LinkChatHistory = linkChatHistory;
-    }
-
     protected void OpenDialog()
     {
         LogSwitch.Debug("Chat Template Dialog");
@@ -185,6 +162,65 @@ public partial class WorkloadValidationForm : ComponentBase
         ValidationModel!.ValidasiAlamat = statusValidasi;
 
         await ValidasiProperty(alamat, statusValidasi);
+    }
+
+    protected void OnShareLoc(string shareLoc)
+    {
+        if (ValidationModel is null)
+        {
+            return;
+        }
+
+        ValidationModel.ShareLoc = shareLoc;
+        ValidationModel.ValidasiCrmKoordinat = ValidationModel!.ShareLoc.Equals(WorkPaper!.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude)
+            ? Sesuai
+            : TidakSesuai;
+
+        LogSwitch.Debug("Share loc: {0}", shareLoc);
+    }
+
+    protected void OnWaktuRespons(DateTime? waktuRespons)
+    {
+        if (ValidationModel is null)
+        {
+            return;
+        }
+
+        ValidationModel.NullableWaktuRespons = waktuRespons;
+        LogSwitch.Debug("Waktu respons: {0}", waktuRespons!.Value.TimeOfDay);
+    }
+
+    protected void OnTanggalRespons(DateTime? tanggalRespons)
+    {
+        if (ValidationModel is null)
+        {
+            return;
+        }
+
+        ValidationModel.NullableTanggalRespons = tanggalRespons;
+        LogSwitch.Debug("Tanggal respons: {0}", tanggalRespons!.Value.Date);
+    }
+
+    protected void OnLinkChatHistory(string linkChatHistory)
+    {
+        if (ValidationModel is null)
+        {
+            return;
+        }
+
+        ValidationModel.LinkChatHistory = linkChatHistory;
+        LogSwitch.Debug("Link chat history: {0}", linkChatHistory);
+    }
+
+    protected void OnKeterangan(string keterangan)
+    {
+        if (ValidationModel is null)
+        {
+            return;
+        }
+
+        ValidationModel.Keterangan = keterangan;
+        LogSwitch.Debug("Keterangan: {0}", keterangan);
     }
 
     private async Task UpdateProsesValidasi(WorkPaper workPaper, string broadcastMessage)

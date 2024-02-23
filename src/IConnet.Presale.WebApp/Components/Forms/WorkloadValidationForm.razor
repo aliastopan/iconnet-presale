@@ -218,9 +218,11 @@
                 <div class="validation-value">
                     <div style="display: flex; margin-top: 2px;">
                         <FluentTimePicker style="width: 100px;"
-                            Value="@ValidationModel.NullableWaktuRespons"/>
+                            Value="@ValidationModel.NullableWaktuRespons"
+                            ValueChanged="OnWaktuRespons"/>
                         <FluentDatePicker style="width: 200px; padding-left: 8px;"
-                            Value="@ValidationModel.NullableTanggalRespons"/>
+                            Value="@ValidationModel.NullableTanggalRespons"
+                            ValueChanged="OnTanggalRespons"/>
                     </div>
                 </div>
             </div>
@@ -255,6 +257,7 @@
                 <div class="validation-value">
                     <FluentTextArea class="validation-textarea" style="width: 300px; margin-top: 2px;"
                         Value=@ValidationModel.Keterangan
+                        ValueChanged="OnKeterangan"
                         Placeholder="Keterangan"></FluentTextArea>
                 </div>
             </div>
