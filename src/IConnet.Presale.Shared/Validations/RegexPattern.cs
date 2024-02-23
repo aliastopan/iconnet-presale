@@ -7,4 +7,5 @@ public static class RegexPattern
     public const string StrongPassword = @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$";
 
     public const string HomePageUrl = @"^https?:\/\/[^\/]+:[0-9]+\/$";
+    public const string LatitudeLongitude = @"^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$";
 }
