@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+using IConnet.Presale.Shared.Validations;
 using IConnet.Presale.WebApp.Components.Dialogs;
 using IConnet.Presale.WebApp.Models.Presales;
 
@@ -173,6 +175,15 @@ public partial class WorkloadValidationForm : ComponentBase
             return;
         }
 
+
+        if (!LatitudeLongitude().IsMatch(shareLoc))
+        {
+            ValidationModel.ShareLoc = ValidationModel.ShareLoc;
+            LogSwitch.Debug("Invalid share loc format: {0}", shareLoc);
+
+            return;
+        }
+
         ValidationModel.ShareLoc = shareLoc;
         ValidationModel.ValidasiCrmKoordinat = ValidationModel!.ShareLoc.Equals(WorkPaper!.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude)
             ? OptionSelect.StatusValidasi.Sesuai
@@ -257,4 +268,7 @@ public partial class WorkloadValidationForm : ComponentBase
             _ => waiting,
         };
     }
+
+    [GeneratedRegex(RegexPattern.LatitudeLongitude)]
+    private static partial Regex LatitudeLongitude();
 }
