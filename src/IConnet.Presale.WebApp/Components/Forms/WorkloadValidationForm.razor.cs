@@ -21,6 +21,8 @@ public partial class WorkloadValidationForm : ComponentBase
     private readonly Icon _errorIcon = new Icons.Filled.Size20.ErrorCircle();
     private readonly Icon _checkmarkIcon = new Icons.Filled.Size20.CheckmarkCircle();
 
+    protected bool DisableOnBeforeContact => !(ValidationModel?.IsChatCallMulai ?? false);
+
     protected Func<string, bool> OptionDisableNamaPelanggan => option => option == OptionSelect.StatusValidasi.MenungguValidasi
         && ValidationModel?.ValidasiNama != OptionSelect.StatusValidasi.MenungguValidasi;
     protected Func<string, bool> OptionDisableNoTelepon => option => option == OptionSelect.StatusValidasi.MenungguValidasi
@@ -102,6 +104,8 @@ public partial class WorkloadValidationForm : ComponentBase
 
         var message = $"{chatCallMulai.Alias} has began chat/call to {WorkPaper.ApprovalOpportunity.IdPermohonan}";
         await UpdateProsesValidasi(WorkPaper, message);
+
+        ValidationModel.MulaiChatCall();
     }
 
     protected async Task ValidasiProperty(string propertyName, string statusValidasi)
