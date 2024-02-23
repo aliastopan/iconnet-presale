@@ -193,9 +193,6 @@
                             </FluentLabel>
                             <FluentIcon Value="@LabelIconCrmKoordinat" />
                         </div>
-                        @* <div class="validation-label-bg" style="display: flex; margin-top: 4px;">
-                            <FluentLabel Typo="Typography.Body">SHARE LOC</FluentLabel>
-                        </div> *@
                     </div>
                 </div>
                 <div class="validation-value">
@@ -254,12 +251,11 @@
                     <FluentButton class="validation-submit"
                         Appearance="Appearance.Accent">
                         Simpan</FluentButton>
-
                 </div>
                 <div class="validation-value">
-                        <FluentTextArea class="validation-textarea" style="width: 300px; margin-top: 2px;"
-                            Value=@ValidationModel.Keterangan
-                            Placeholder="Keterangan"></FluentTextArea>
+                    <FluentTextArea class="validation-textarea" style="width: 300px; margin-top: 2px;"
+                        Value=@ValidationModel.Keterangan
+                        Placeholder="Keterangan"></FluentTextArea>
                 </div>
             </div>
         </FluentStack>
