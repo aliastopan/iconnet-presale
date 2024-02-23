@@ -1,4 +1,3 @@
-using IConnet.Presale.Domain.Aggregates.Presales.ValueObjects;
 using IConnet.Presale.WebApp.Components.Dialogs;
 using IConnet.Presale.WebApp.Models.Presales;
 
