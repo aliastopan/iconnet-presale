@@ -42,7 +42,7 @@
                     </div>
                     <FluentSelect Items="@StatusValidasiOptions"
                         Value="@ValidationModel.ValidasiNama"
-                        ValueChanged="OnValidateNamaPelanggan"
+                        ValueChanged="OnValidateNamaPelangganAsync"
                         OptionDisabled="@OptionDisableNamaPelanggan"
                         Position="SelectPosition.Below"
                         Width="165px" />
@@ -67,7 +67,7 @@
                     </div>
                     <FluentSelect Items="@StatusValidasiOptions"
                         Value="@ValidationModel.ValidasiNomorTelepon"
-                        ValueChanged="OnValidateNomorTelepon"
+                        ValueChanged="OnValidateNomorTeleponAsync"
                         OptionDisabled="@OptionDisableNoTelepon"
                         Position="SelectPosition.Below"
                         Width="165px" />
@@ -92,7 +92,7 @@
                     </div>
                     <FluentSelect Items="@StatusValidasiOptions"
                         Value="@ValidationModel.ValidasiEmail"
-                        ValueChanged="OnValidateEmail"
+                        ValueChanged="OnValidateEmailAsync"
                         OptionDisabled="@OptionDisableEmail"
                         Position="SelectPosition.Below"
                         Width="165px" />
@@ -117,7 +117,7 @@
                     </div>
                     <FluentSelect Items="@StatusValidasiOptions"
                         Value="@ValidationModel.ValidasiIdPln"
-                        ValueChanged="OnValidateIdPln"
+                        ValueChanged="OnValidateIdPlnAsync"
                         OptionDisabled="@OptionDisableIdPln"
                         Position="SelectPosition.Below"
                         Width="165px" />
@@ -154,7 +154,7 @@
                     <div class="validation-label">
                         <FluentSelect Items="@StatusValidasiOptions"
                             Value="@ValidationModel.ValidasiAlamat"
-                            ValueChanged="OnValidateAlamat"
+                            ValueChanged="OnValidateAlamatAsync"
                             OptionDisabled="@OptionDisableAlamat"
                             Position="SelectPosition.Below"
                             Width="165px" />

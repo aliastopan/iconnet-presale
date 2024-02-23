@@ -137,7 +137,7 @@ public partial class WorkloadValidationForm : ComponentBase
         await UpdateProsesValidasi(WorkPaper, broadcastMessage);
     }
 
-    protected async Task OnValidateNamaPelanggan(string statusValidasi)
+    protected async Task OnValidateNamaPelangganAsync(string statusValidasi)
     {
         string namaPelanggan = ValidationParameterPropertyNames.ValidasiNama;
         ValidationModel!.ValidasiNama = statusValidasi;
@@ -145,7 +145,7 @@ public partial class WorkloadValidationForm : ComponentBase
         await ValidasiProperty(namaPelanggan, statusValidasi);
     }
 
-    protected async Task OnValidateNomorTelepon(string statusValidasi)
+    protected async Task OnValidateNomorTeleponAsync(string statusValidasi)
     {
         string nomorTelepon = ValidationParameterPropertyNames.ValidasiNomorTelepon;
         ValidationModel!.ValidasiNomorTelepon = statusValidasi;
@@ -153,7 +153,7 @@ public partial class WorkloadValidationForm : ComponentBase
         await ValidasiProperty(nomorTelepon, statusValidasi);
     }
 
-    protected async Task OnValidateEmail(string statusValidasi)
+    protected async Task OnValidateEmailAsync(string statusValidasi)
     {
         string email = ValidationParameterPropertyNames.ValidasiEmail;
         ValidationModel!.ValidasiEmail = statusValidasi;
@@ -161,7 +161,7 @@ public partial class WorkloadValidationForm : ComponentBase
         await ValidasiProperty(email, statusValidasi);
     }
 
-    protected async Task OnValidateIdPln(string statusValidasi)
+    protected async Task OnValidateIdPlnAsync(string statusValidasi)
     {
         string idPln = ValidationParameterPropertyNames.ValidasiIdPln;
         ValidationModel!.ValidasiIdPln = statusValidasi;
@@ -169,7 +169,7 @@ public partial class WorkloadValidationForm : ComponentBase
         await ValidasiProperty(idPln, statusValidasi);
     }
 
-    protected async Task OnValidateAlamat(string statusValidasi)
+    protected async Task OnValidateAlamatAsync(string statusValidasi)
     {
         string alamat = ValidationParameterPropertyNames.ValidasiAlamat;
         ValidationModel!.ValidasiAlamat = statusValidasi;
