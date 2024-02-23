@@ -22,17 +22,16 @@ public partial class WorkloadValidationForm : ComponentBase
     private readonly Icon _errorIcon = new Icons.Filled.Size20.ErrorCircle();
     private readonly Icon _checkmarkIcon = new Icons.Filled.Size20.CheckmarkCircle();
 
-    protected IEnumerable<string> StatusValidasiOptions => EnumProcessor.GetStringOptions<ValidationStatus>();
-
-    protected string MenungguValidasi => StatusValidasiOptions.First();
-    protected string TidakSesuai => StatusValidasiOptions.Skip(1).First();
-    protected string Sesuai => StatusValidasiOptions.Last();
-
-    protected Func<string, bool> OptionDisableNamaPelanggan => x => x == MenungguValidasi && ValidationModel?.ValidasiNama != MenungguValidasi;
-    protected Func<string, bool> OptionDisableNoTelepon => x => x == MenungguValidasi && ValidationModel?.ValidasiNomorTelepon != MenungguValidasi;
-    protected Func<string, bool> OptionDisableEmail => x => x == MenungguValidasi && ValidationModel?.ValidasiEmail != MenungguValidasi;
-    protected Func<string, bool> OptionDisableIdPln => x => x == MenungguValidasi && ValidationModel?.ValidasiIdPln != MenungguValidasi;
-    protected Func<string, bool> OptionDisableAlamat => x => x == MenungguValidasi && ValidationModel?.ValidasiAlamat != MenungguValidasi;
+    protected Func<string, bool> OptionDisableNamaPelanggan => option => option == OptionSelect.StatusValidasi.MenungguValidasi
+        && ValidationModel?.ValidasiNama != OptionSelect.StatusValidasi.MenungguValidasi;
+    protected Func<string, bool> OptionDisableNoTelepon => option => option == OptionSelect.StatusValidasi.MenungguValidasi
+        && ValidationModel?.ValidasiNomorTelepon != OptionSelect.StatusValidasi.MenungguValidasi;
+    protected Func<string, bool> OptionDisableEmail => option => option == OptionSelect.StatusValidasi.MenungguValidasi
+        && ValidationModel?.ValidasiEmail != OptionSelect.StatusValidasi.MenungguValidasi;
+    protected Func<string, bool> OptionDisableIdPln => x => x == OptionSelect.StatusValidasi.MenungguValidasi
+        && ValidationModel?.ValidasiIdPln != OptionSelect.StatusValidasi.MenungguValidasi;
+    protected Func<string, bool> OptionDisableAlamat => x => x == OptionSelect.StatusValidasi.MenungguValidasi
+        && ValidationModel?.ValidasiAlamat != OptionSelect.StatusValidasi.MenungguValidasi;
 
     protected Icon LabelIconNamaPelanggan => GetIcon(ValidationModel?.ValidasiNama);
     protected Icon LabelIconNoTelepon => GetIcon(ValidationModel?.ValidasiNomorTelepon);
@@ -48,11 +47,11 @@ public partial class WorkloadValidationForm : ComponentBase
     protected string BgColorAlamat => GetBackgroundColor(ValidationModel?.ValidasiAlamat);
     protected string BgColorCrmKoordinat => GetBackgroundColor(ValidationModel?.ValidasiCrmKoordinat, invalid: "validation-value-bg-warning");
 
-    protected bool DisableTextFieldNamaPelanggan => ValidationModel?.ValidasiNama != TidakSesuai;
-    protected bool DisableTextFieldNoTelepon => ValidationModel?.ValidasiNomorTelepon != TidakSesuai;
-    protected bool DisableTextFieldEmail => ValidationModel?.ValidasiEmail != TidakSesuai;
-    protected bool DisableTextFieldIdPln => ValidationModel?.ValidasiIdPln != TidakSesuai;
-    protected bool DisableTextAreaAlamatPelanggan => ValidationModel?.ValidasiAlamat != TidakSesuai;
+    protected bool DisableTextFieldNamaPelanggan => ValidationModel?.ValidasiNama != OptionSelect.StatusValidasi.TidakSesuai;
+    protected bool DisableTextFieldNoTelepon => ValidationModel?.ValidasiNomorTelepon != OptionSelect.StatusValidasi.TidakSesuai;
+    protected bool DisableTextFieldEmail => ValidationModel?.ValidasiEmail != OptionSelect.StatusValidasi.TidakSesuai;
+    protected bool DisableTextFieldIdPln => ValidationModel?.ValidasiIdPln != OptionSelect.StatusValidasi.TidakSesuai;
+    protected bool DisableTextAreaAlamatPelanggan => ValidationModel?.ValidasiAlamat != OptionSelect.StatusValidasi.TidakSesuai;
 
     protected void OpenDialog()
     {
@@ -173,8 +172,8 @@ public partial class WorkloadValidationForm : ComponentBase
 
         ValidationModel.ShareLoc = shareLoc;
         ValidationModel.ValidasiCrmKoordinat = ValidationModel!.ShareLoc.Equals(WorkPaper!.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude)
-            ? Sesuai
-            : TidakSesuai;
+            ? OptionSelect.StatusValidasi.Sesuai
+            : OptionSelect.StatusValidasi.TidakSesuai;
 
         LogSwitch.Debug("Share loc: {0}", shareLoc);
     }
@@ -237,21 +236,21 @@ public partial class WorkloadValidationForm : ComponentBase
     {
         return section switch
         {
-            string status when status == TidakSesuai => _errorIcon.WithColor(errorIconColor),
-            string status when status == Sesuai => _checkmarkIcon.WithColor(checkmarkIconColor),
+            string status when status == OptionSelect.StatusValidasi.TidakSesuai => _errorIcon.WithColor(errorIconColor),
+            string status when status == OptionSelect.StatusValidasi.Sesuai => _checkmarkIcon.WithColor(checkmarkIconColor),
             _ => _questionIcon.WithColor(questionIconColor),
         };
     }
 
-    private string GetBackgroundColor(string? section,
+    private static string GetBackgroundColor(string? section,
         string waiting = "validation-value-bg-waiting",
         string invalid = "validation-value-bg-invalid",
         string valid = "validation-value-bg-valid")
     {
         return section switch
         {
-            string status when status == TidakSesuai => invalid,
-            string status when status == Sesuai => valid,
+            string status when status == OptionSelect.StatusValidasi.TidakSesuai => invalid,
+            string status when status == OptionSelect.StatusValidasi.Sesuai => valid,
             _ => waiting,
         };
     }

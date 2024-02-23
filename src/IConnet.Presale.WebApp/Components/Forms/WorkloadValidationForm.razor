@@ -42,7 +42,7 @@
                         </FluentLabel>
                         <FluentIcon Value="@LabelIconNamaPelanggan" />
                     </div>
-                    <FluentSelect Items="@StatusValidasiOptions"
+                    <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
                         Value="@ValidationModel.ValidasiNama"
                         ValueChanged="OnValidateNamaPelangganAsync"
                         OptionDisabled="@OptionDisableNamaPelanggan"
@@ -69,7 +69,7 @@
                         </FluentLabel>
                         <FluentIcon Value="@LabelIconNoTelepon" />
                     </div>
-                    <FluentSelect Items="@StatusValidasiOptions"
+                    <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
                         Value="@ValidationModel.ValidasiNomorTelepon"
                         ValueChanged="OnValidateNomorTeleponAsync"
                         OptionDisabled="@OptionDisableNoTelepon"
@@ -96,7 +96,7 @@
                         </FluentLabel>
                         <FluentIcon Value="@LabelIconEmail" />
                     </div>
-                    <FluentSelect Items="@StatusValidasiOptions"
+                    <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
                         Value="@ValidationModel.ValidasiEmail"
                         ValueChanged="OnValidateEmailAsync"
                         OptionDisabled="@OptionDisableEmail"
@@ -123,7 +123,7 @@
                         </FluentLabel>
                         <FluentIcon Value="@LabelIconIdPln" />
                     </div>
-                    <FluentSelect Items="@StatusValidasiOptions"
+                    <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
                         Value="@ValidationModel.ValidasiIdPln"
                         ValueChanged="OnValidateIdPlnAsync"
                         OptionDisabled="@OptionDisableIdPln"
@@ -162,7 +162,7 @@
                 </div>
                 <div class="arrange-start validation-bottom-margin">
                     <div class="validation-label">
-                        <FluentSelect Items="@StatusValidasiOptions"
+                        <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
                             Value="@ValidationModel.ValidasiAlamat"
                             ValueChanged="OnValidateAlamatAsync"
                             OptionDisabled="@OptionDisableAlamat"
