@@ -37,7 +37,9 @@
             <div class="validation-element">
                 <div class="validation-label">
                     <div class="validation-label-bg" style="display: flex;">
-                        <FluentLabel Typo="Typography.Body">NAMA LENGKAP</FluentLabel>
+                        <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                            NAMA LENGKAP
+                        </FluentLabel>
                         <FluentIcon Value="@LabelIconNamaPelanggan" />
                     </div>
                     <FluentSelect Items="@StatusValidasiOptions"
@@ -49,7 +51,7 @@
                 </div>
                 <div class="validation-value">
                     <div class="@BgColorNamaPelanggan">
-                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px;">
+                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                             @WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap
                         </FluentLabel>
                     </div>
@@ -62,7 +64,9 @@
             <div class="validation-element">
                 <div class="validation-label">
                     <div class="validation-label-bg" style="display: flex;">
-                        <FluentLabel Typo="Typography.Body">NO. TELEPON</FluentLabel>
+                        <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                            NO. TELEPON
+                        </FluentLabel>
                         <FluentIcon Value="@LabelIconNoTelepon" />
                     </div>
                     <FluentSelect Items="@StatusValidasiOptions"
@@ -74,7 +78,7 @@
                 </div>
                 <div class="validation-value">
                     <div class="@BgColorNomorTelepon">
-                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px;">
+                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                             @WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon
                         </FluentLabel>
                     </div>
@@ -87,7 +91,9 @@
             <div class="validation-element">
                 <div class="validation-label">
                     <div class="validation-label-bg" style="display: flex;">
-                        <FluentLabel Typo="Typography.Body">EMAIL</FluentLabel>
+                        <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                            EMAIL
+                        </FluentLabel>
                         <FluentIcon Value="@LabelIconEmail" />
                     </div>
                     <FluentSelect Items="@StatusValidasiOptions"
@@ -99,7 +105,7 @@
                 </div>
                 <div class="validation-value">
                     <div class="@BgColorEmail">
-                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px;">
+                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                             @WorkPaper.ApprovalOpportunity.Pemohon.Email
                         </FluentLabel>
                     </div>
@@ -112,7 +118,9 @@
             <div class="validation-element">
                 <div class="validation-label">
                     <div class="validation-label-bg" style="display: flex;">
-                        <FluentLabel Typo="Typography.Body">ID PLN</FluentLabel>
+                        <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                            ID PLN
+                        </FluentLabel>
                         <FluentIcon Value="@LabelIconIdPln" />
                     </div>
                     <FluentSelect Items="@StatusValidasiOptions"
@@ -124,7 +132,7 @@
                 </div>
                 <div class="validation-value">
                     <div class="@BgColorIdPln">
-                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px;">
+                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                             @WorkPaper.ApprovalOpportunity.Pemohon.IdPln
                         </FluentLabel>
                     </div>
@@ -138,13 +146,15 @@
                 <div class="arrange-end">
                     <div class="validation-label">
                         <div class="validation-label-bg" style="display: flex;">
-                            <FluentLabel Typo="Typography.Body">ALAMAT</FluentLabel>
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                ALAMAT
+                            </FluentLabel>
                             <FluentIcon Value="@LabelIconAlamat" />
                         </div>
                     </div>
                     <div class="validation-value">
                         <div class="@BgColorAlamat">
-                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px;">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                                 @WorkPaper.ApprovalOpportunity.Pemohon.Alamat
                             </FluentLabel>
                         </div>
@@ -160,8 +170,8 @@
                             Width="165px" />
                     </div>
                     <div class="validation-value">
-                        <FluentTextArea  @bind-Value=@ValidationModel.PembetulanAlamat
-                            style="width: 300px;"
+                        <FluentTextArea style="width: 300px;" class="validation-textarea"
+                            @bind-Value=@ValidationModel.PembetulanAlamat
                             Disabled="@DisableTextAreaAlamatPelanggan"
                             Placeholder="Pembetulan Alamat Pelanggan"></FluentTextArea>
                     </div>
@@ -176,17 +186,21 @@
 
             <div class="validation-element">
                 <div class="validation-label">
-                    <div class="validation-label-bg" style="display: flex;">
-                        <FluentLabel Typo="Typography.Body">CRM KOORDINAT</FluentLabel>
-                        <FluentIcon Value="@LabelIconCrmKoordinat" />
-                    </div>
-                    <div style="display: flex; margin: 0 8px; margin-top: 2px;">
-                        <FluentLabel Typo="Typography.Body">SHARE LOC</FluentLabel>
+                    <div class="validation-label-wrap">
+                        <div class="validation-label-bg" style="display: flex;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                CRM KOORDINAT
+                            </FluentLabel>
+                            <FluentIcon Value="@LabelIconCrmKoordinat" />
+                        </div>
+                        @* <div class="validation-label-bg" style="display: flex; margin-top: 4px;">
+                            <FluentLabel Typo="Typography.Body">SHARE LOC</FluentLabel>
+                        </div> *@
                     </div>
                 </div>
                 <div class="validation-value">
                     <div class="@BgColorCrmKoordinat">
-                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px;">
+                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                             @WorkPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude
                         </FluentLabel>
                     </div>
@@ -196,14 +210,16 @@
                         ValueChanged="OnShareLoc"></FluentTextField>
                 </div>
             </div>
-            <div class="validation-element">
+            <div class="validation-element" style="margin-top: -2px;">
                 <div class="validation-label">
-                    <div style="display: flex; margin: 0 8px; margin-top: 2px;">
-                        <FluentLabel Typo="Typography.Body">TANGGAL RESPONS</FluentLabel>
+                    <div class="validation-label-bg" style="display: flex; margin-top: 2px;">
+                        <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                            TGL RESPONS
+                        </FluentLabel>
                     </div>
                 </div>
                 <div class="validation-value">
-                    <div style="display: flex;">
+                    <div style="display: flex; margin-top: 2px;">
                         <FluentTimePicker style="width: 100px;"
                             Value="@ValidationModel.NullableWaktuRespons"/>
                         <FluentDatePicker style="width: 200px; padding-left: 8px;"
@@ -213,17 +229,37 @@
             </div>
             <div class="validation-element validation-element-push">
                 <div class="validation-label">
-                    <div style="display: flex; margin: 0 8px; margin-top: 2px;">
-                        <FluentLabel Typo="Typography.Body">HISTORY CHAT</FluentLabel>
+                    <div class="validation-label-bg" style="display: flex; margin-top: 2px;">
+                        <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                            HISTORY CHAT
+                        </FluentLabel>
                     </div>
                 </div>
                 <div class="validation-value">
-                    <div style="display: flex;">
+                    <div style="display: flex; margin-top: 2px;">
                         <FluentTextField style="width: 300px"
                             Value=@ValidationModel.LinkChatHistory
                             ValueChanged="OnLinkChatHistory"
                             Placeholder="https://drive.google.com/chat-history"></FluentTextField>
                     </div>
+                </div>
+            </div>
+            <div class="validation-element validation-element-push">
+                <div class="validation-label">
+                    <div class="validation-label-bg" style="display: flex; margin-top: 2px;">
+                        <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                            KETERANGAN
+                        </FluentLabel>
+                    </div>
+                    <FluentButton class="validation-submit"
+                        Appearance="Appearance.Accent">
+                        Simpan</FluentButton>
+
+                </div>
+                <div class="validation-value">
+                        <FluentTextArea class="validation-textarea" style="width: 300px; margin-top: 2px;"
+                            Value=@ValidationModel.Keterangan
+                            Placeholder="Keterangan"></FluentTextArea>
                 </div>
             </div>
         </FluentStack>
