@@ -87,8 +87,6 @@ public class HelpdeskPageBase : WorkloadPageBase
         ActiveValidationModel!.NullableTanggalRespons = DateTimeService.DateTimeOffsetNow.DateTime;
         ActiveValidationModel!.NullableWaktuRespons = DateTimeService.DateTimeOffsetNow.DateTime;
         // LogSwitch.Debug("Selected: {0}", WorkPaper.ApprovalOpportunity.IdPermohonan);
-
-        await ScrollToValidationForm();
     }
 
     protected async Task OpenDialogAsync(WorkPaper workPaper)
@@ -122,6 +120,14 @@ public class HelpdeskPageBase : WorkloadPageBase
         // LogSwitch.Debug("{0} claim has been extended", dialogData.ApprovalOpportunity.IdPermohonan);
     }
 
+    protected async Task ScrollToValidationForm()
+    {
+        var elementId = "validation-id";
+        await JsRuntime.InvokeVoidAsync("scrollToElement", elementId);
+
+        LogSwitch.Debug("Scrolling...");
+    }
+
     protected bool IsStillInCharge(WorkPaper workPaper, bool debug = false)
     {
         var now = DateTimeService.DateTimeOffsetNow.DateTime;
@@ -152,14 +158,6 @@ public class HelpdeskPageBase : WorkloadPageBase
 
         var message = $"Workload '{workPaper.ApprovalOpportunity.IdPermohonan}' is no longer staged";
         await BroadcastService.BroadcastMessageAsync(message);
-    }
-
-    private async Task ScrollToValidationForm()
-    {
-        var elementId = "validation-id";
-        await JsRuntime.InvokeVoidAsync("scrollToElement", elementId);
-
-        LogSwitch.Debug("Scrolling...");
     }
 
     private string GetGridTemplateCols()

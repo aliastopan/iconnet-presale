@@ -213,3 +213,16 @@ input:invalid::part(root) {
 .staging-table{
     margin-left: auto;
 } */
+
+.staging-active{
+    background-color: var(--success);
+    text-align: center;
+    color: white;
+    padding: 0 10px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    z-index: 999;
+}
