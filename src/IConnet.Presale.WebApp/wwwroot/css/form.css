@@ -123,6 +123,7 @@
 
 .validation-value-bg-warning{
     background-color: var(--warning);
+    min-height: 32px;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
