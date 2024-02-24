@@ -13,6 +13,12 @@ public class WorkloadValidationModel
         ValidasiEmail = EnumProcessor.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiEmail);
         ValidasiAlamat = EnumProcessor.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiAlamat);
         ValidasiCrmKoordinat = EnumProcessor.EnumToDisplayString(ValidationStatus.MenungguValidasi);
+
+        PembetulanIdPln = workPaper.ProsesValidasi.PembetulanValidasi.IdPln;
+        PembetulanNama = workPaper.ProsesValidasi.PembetulanValidasi.NamaLengkap;
+        PembetulanNomorTelepon = workPaper.ProsesValidasi.PembetulanValidasi.NomorTelepon;
+        PembetulanEmail = workPaper.ProsesValidasi.PembetulanValidasi.Email;
+        PembetulanAlamat = workPaper.ProsesValidasi.PembetulanValidasi.Alamat;
     }
 
     public bool IsChatCallMulai { get; private set; }

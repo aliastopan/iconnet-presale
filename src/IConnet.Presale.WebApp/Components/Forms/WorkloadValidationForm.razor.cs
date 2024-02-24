@@ -236,6 +236,61 @@ public partial class WorkloadValidationForm : ComponentBase
         LogSwitch.Debug("Keterangan: {0}", keterangan);
     }
 
+    protected void OnPembetulanNama(string pembetulanNama)
+    {
+        if (ValidationModel is null)
+        {
+            return;
+        }
+
+        ValidationModel.PembetulanNama = pembetulanNama;
+        LogSwitch.Debug("Pembetulan Nama: {0}", pembetulanNama);
+    }
+
+    protected void OnPembetulanNomorTelepon(string pembetulanNomorTelepon)
+    {
+        if (ValidationModel is null)
+        {
+            return;
+        }
+
+        ValidationModel.PembetulanNomorTelepon = pembetulanNomorTelepon;
+        LogSwitch.Debug("Pembetulan Nomor Telepon: {0}", pembetulanNomorTelepon);
+    }
+
+    protected void OnPembetulanEmail(string pembetulanEmail)
+    {
+        if (ValidationModel is null)
+        {
+            return;
+        }
+
+        ValidationModel.PembetulanEmail = pembetulanEmail;
+        LogSwitch.Debug("Pembetulan Email: {0}", pembetulanEmail);
+    }
+
+    protected void OnPembetulanIdPln(string pembetulanIdPln)
+    {
+        if (ValidationModel is null)
+        {
+            return;
+        }
+
+        ValidationModel.PembetulanIdPln = pembetulanIdPln;
+        LogSwitch.Debug("Pembetulan Id PLN: {0}", pembetulanIdPln);
+    }
+
+    protected void OnPembetulanAlamat(string pembetulanAlamat)
+    {
+        if (ValidationModel is null)
+        {
+            return;
+        }
+
+        ValidationModel.PembetulanAlamat = pembetulanAlamat;
+        LogSwitch.Debug("Pembetulan Alamat: {0}", pembetulanAlamat);
+    }
+
     private async Task UpdateProsesValidasi(WorkPaper workPaper, string broadcastMessage)
     {
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
