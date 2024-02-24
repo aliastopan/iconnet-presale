@@ -1,4 +1,5 @@
 #nullable disable
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IConnet.Presale.Domain.Aggregates.Presales.ValueObjects;
 
@@ -28,6 +29,9 @@ public class ValidationProcess : ValueObject
     public ValidationParameter ParameterValidasi { get; init; } = new();
     public ValidationCorrection PembetulanValidasi { get; init; } = new();
     public string Keterangan { get; init; }  = string.Empty;
+
+    [NotMapped]
+    public bool IsOnGoing => ChatCallRespons.IsEmptySignature();
 
     public ValidationProcess WithChatCallMulai(ActionSignature chatCallMulai)
     {

@@ -61,7 +61,8 @@ public class HelpdeskPageBase : WorkloadPageBase
         }
 
         IQueryable<WorkPaper>? workPapers = FilterComponent.FilterWorkPapers(base.WorkPapers)?
-            .Where(x => x.HelpdeskInCharge.AccountIdSignature == _sessionId);
+            .Where(x => x.HelpdeskInCharge.AccountIdSignature == _sessionId
+                && x.ProsesValidasi.IsOnGoing);
 
         ColumnWidth.SetColumnWidth(workPapers);
         return workPapers;
