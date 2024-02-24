@@ -59,6 +59,35 @@ public partial class WorkloadValidationForm : ComponentBase
     protected bool DisableTextAreaAlamatPelanggan => ValidationModel?.ValidasiAlamat != OptionSelect.StatusValidasi.TidakSesuai;
     protected bool DisableCommit => !EnableCommitButton();
 
+    protected async Task OnCommitAsync()
+    {
+        if (WorkPaper is null || ValidationModel is null)
+        {
+            return;
+        }
+
+        var coordinateShareLoc = new Coordinate(ValidationModel.ShareLoc);
+        var chatCallRespons = new ActionSignature
+        {
+            AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
+            Alias = await SessionService.GetSessionAliasAsync(),
+            TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
+        };
+
+        var parameterValidasi = WorkPaper.ProsesValidasi.ParameterValidasi.WithShareLoc(coordinateShareLoc);
+        var prosesValidasi = WorkPaper.ProsesValidasi
+            .WithParameterValidasi(parameterValidasi)
+            .WithChatCallRespons(chatCallRespons)
+            .WithWaktuTanggalRespons(ValidationModel.GetWaktuTanggalRespons())
+            .WithLinkRekapChatHistory(ValidationModel.LinkRekapChatHistory)
+            .WithKeterangan(ValidationModel.Keterangan);
+
+        WorkPaper.ProsesValidasi = prosesValidasi;
+
+        var message = $"{chatCallRespons.Alias} has commit chat/call validation to {WorkPaper.ApprovalOpportunity.IdPermohonan}";
+        await UpdateProsesValidasi(WorkPaper, message);
+    }
+
     protected async Task OnClipboardNamaPelangganAsync()
     {
         if (WorkPaper is null)
@@ -322,14 +351,14 @@ public partial class WorkloadValidationForm : ComponentBase
         LogSwitch.Debug("Tanggal respons: {0}", tanggalRespons!.Value.Date);
     }
 
-    protected void OnLinkChatHistory(string linkChatHistory)
+    protected void OnLinkRekapChatHistory(string linkChatHistory)
     {
         if (ValidationModel is null)
         {
             return;
         }
 
-        ValidationModel.LinkChatHistory = linkChatHistory;
+        ValidationModel.LinkRekapChatHistory = linkChatHistory;
         LogSwitch.Debug("Link chat history: {0}", linkChatHistory);
     }
 

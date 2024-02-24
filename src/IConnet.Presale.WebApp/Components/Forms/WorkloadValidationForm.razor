@@ -249,7 +249,7 @@
                     <div style="display: flex; margin-top: 2px;">
                         <FluentTextField style="width: 300px"
                             Value=@ValidationModel.LinkChatHistory
-                            ValueChanged="OnLinkChatHistory"
+                            ValueChanged="OnLinkRekapChatHistory"
                             Placeholder="https://drive.google.com/chat-history"
                             Disabled="DisableOnBeforeContact"></FluentTextField>
                     </div>
@@ -264,7 +264,8 @@
                     </div>
                     <FluentButton class="validation-submit"
                         Appearance="Appearance.Accent"
-                        Disabled="DisableCommit">
+                        Disabled="DisableCommit"
+                        OnClick="OnCommitAsync">
                         Simpan</FluentButton>
                 </div>
                 <div class="validation-value">
