@@ -10,21 +10,21 @@ public class ValidationProcess : ValueObject
     }
 
     public ValidationProcess(ActionSignature chatCallMulai, ActionSignature chatCallRespons, DateTime waktuTanggalRespons,
-        string linkRecapChatHistory, ValidationParameter parameterValidasi, ValidationCorrection koreksiValidasi, string keterangan)
+        string linkRekapChatHistory, ValidationParameter parameterValidasi, ValidationCorrection pembetulanValidasi, string keterangan)
     {
         ChatCallMulai = chatCallMulai;
         ChatCallRespons = chatCallRespons;
         WaktuTanggalRespons = waktuTanggalRespons;
-        LinkRecapChatHistory = linkRecapChatHistory;
+        LinkRekapChatHistory = linkRekapChatHistory;
         ParameterValidasi = parameterValidasi;
-        PembetulanValidasi = koreksiValidasi;
+        PembetulanValidasi = pembetulanValidasi;
         Keterangan = keterangan;
     }
 
     public ActionSignature ChatCallMulai { get; init;} = new();
     public ActionSignature ChatCallRespons { get; init;} = new();
     public DateTime WaktuTanggalRespons { get; init; } = DateTime.MinValue;
-    public string LinkRecapChatHistory { get; init; } = string.Empty;
+    public string LinkRekapChatHistory { get; init; } = string.Empty;
     public ValidationParameter ParameterValidasi { get; init; } = new();
     public ValidationCorrection PembetulanValidasi { get; init; } = new();
     public string Keterangan { get; init; }  = string.Empty;
@@ -36,7 +36,7 @@ public class ValidationProcess : ValueObject
             ChatCallMulai = chatCallMulai,
             ChatCallRespons = this.ChatCallRespons,
             WaktuTanggalRespons = this.WaktuTanggalRespons,
-            LinkRecapChatHistory = this.LinkRecapChatHistory,
+            LinkRekapChatHistory = this.LinkRekapChatHistory,
             ParameterValidasi = this.ParameterValidasi,
             PembetulanValidasi = this.PembetulanValidasi,
             Keterangan = this.Keterangan
@@ -50,7 +50,7 @@ public class ValidationProcess : ValueObject
             ChatCallMulai = this.ChatCallMulai,
             ChatCallRespons = chatCallRespons,
             WaktuTanggalRespons = this.WaktuTanggalRespons,
-            LinkRecapChatHistory = this.LinkRecapChatHistory,
+            LinkRekapChatHistory = this.LinkRekapChatHistory,
             ParameterValidasi = this.ParameterValidasi,
             PembetulanValidasi = this.PembetulanValidasi,
             Keterangan = this.Keterangan
@@ -64,7 +64,21 @@ public class ValidationProcess : ValueObject
             ChatCallMulai = this.ChatCallMulai,
             ChatCallRespons = this.ChatCallRespons,
             WaktuTanggalRespons = waktuTanggalRespons,
-            LinkRecapChatHistory = this.LinkRecapChatHistory,
+            LinkRekapChatHistory = this.LinkRekapChatHistory,
+            ParameterValidasi = this.ParameterValidasi,
+            PembetulanValidasi = this.PembetulanValidasi,
+            Keterangan = this.Keterangan
+        };
+    }
+
+    public ValidationProcess WithLinkRekapChatHistory(string linkRecapChatHistory)
+    {
+       return new ValidationProcess
+        {
+            ChatCallMulai = this.ChatCallMulai,
+            ChatCallRespons = this.ChatCallRespons,
+            WaktuTanggalRespons = this.WaktuTanggalRespons,
+            LinkRekapChatHistory = this.LinkRekapChatHistory,
             ParameterValidasi = this.ParameterValidasi,
             PembetulanValidasi = this.PembetulanValidasi,
             Keterangan = this.Keterangan
@@ -78,7 +92,7 @@ public class ValidationProcess : ValueObject
             ChatCallMulai = this.ChatCallMulai,
             ChatCallRespons = this.ChatCallRespons,
             WaktuTanggalRespons = this.WaktuTanggalRespons,
-            LinkRecapChatHistory = this.LinkRecapChatHistory,
+            LinkRekapChatHistory = this.LinkRekapChatHistory,
             ParameterValidasi = parameterValidasi,
             PembetulanValidasi = this.PembetulanValidasi,
             Keterangan = this.Keterangan
@@ -92,7 +106,7 @@ public class ValidationProcess : ValueObject
             ChatCallMulai = this.ChatCallMulai,
             ChatCallRespons = this.ChatCallRespons,
             WaktuTanggalRespons = this.WaktuTanggalRespons,
-            LinkRecapChatHistory = this.LinkRecapChatHistory,
+            LinkRekapChatHistory = this.LinkRekapChatHistory,
             ParameterValidasi = this.ParameterValidasi,
             PembetulanValidasi = pembetulanValidasi,
             Keterangan = this.Keterangan
@@ -106,7 +120,7 @@ public class ValidationProcess : ValueObject
             ChatCallMulai = this.ChatCallMulai,
             ChatCallRespons = this.ChatCallRespons,
             WaktuTanggalRespons = this.WaktuTanggalRespons,
-            LinkRecapChatHistory = this.LinkRecapChatHistory,
+            LinkRekapChatHistory = this.LinkRekapChatHistory,
             ParameterValidasi = this.ParameterValidasi,
             PembetulanValidasi = this.PembetulanValidasi,
             Keterangan = keterangan
@@ -118,7 +132,7 @@ public class ValidationProcess : ValueObject
         yield return ChatCallMulai;
         yield return ChatCallRespons;
         yield return WaktuTanggalRespons;
-        yield return LinkRecapChatHistory;
+        yield return LinkRekapChatHistory;
         yield return ParameterValidasi;
         yield return PembetulanValidasi;
         yield return Keterangan;

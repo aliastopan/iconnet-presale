@@ -115,7 +115,7 @@ internal sealed class WorkloadFactory
                     TglAksi = _dateTimeService.Zero
                 },
                 WaktuTanggalRespons = _dateTimeService.Zero,
-                LinkRecapChatHistory = string.Empty,
+                LinkRekapChatHistory = string.Empty,
                 ParameterValidasi = new ValidationParameter
                 {
                     ValidasiIdPln = ValidationStatus.MenungguValidasi,
