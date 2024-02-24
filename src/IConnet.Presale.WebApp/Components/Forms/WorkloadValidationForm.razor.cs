@@ -57,6 +57,7 @@ public partial class WorkloadValidationForm : ComponentBase
     protected bool DisableTextFieldEmail => ValidationModel?.ValidasiEmail != OptionSelect.StatusValidasi.TidakSesuai;
     protected bool DisableTextFieldIdPln => ValidationModel?.ValidasiIdPln != OptionSelect.StatusValidasi.TidakSesuai;
     protected bool DisableTextAreaAlamatPelanggan => ValidationModel?.ValidasiAlamat != OptionSelect.StatusValidasi.TidakSesuai;
+    protected bool DisableCommit => !EnableCommitButton();
 
     protected async Task OnClipboardNamaPelangganAsync()
     {
@@ -425,6 +426,16 @@ public partial class WorkloadValidationForm : ComponentBase
         var timeout = 2500; // milliseconds
 
         ToastService.ShowToast(intent, message, timeout: timeout);
+    }
+
+    private bool EnableCommitButton()
+    {
+        return ValidationModel?.ValidasiNama != OptionSelect.StatusValidasi.MenungguValidasi
+            && ValidationModel?.ValidasiNomorTelepon != OptionSelect.StatusValidasi.MenungguValidasi
+            && ValidationModel?.ValidasiEmail != OptionSelect.StatusValidasi.MenungguValidasi
+            && ValidationModel?.ValidasiIdPln != OptionSelect.StatusValidasi.MenungguValidasi
+            && ValidationModel?.ValidasiAlamat != OptionSelect.StatusValidasi.MenungguValidasi
+            && ValidationModel?.ShareLoc != string.Empty;
     }
 
     [GeneratedRegex(RegexPattern.LatitudeLongitude)]
