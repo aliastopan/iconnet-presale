@@ -43,6 +43,20 @@ public class ValidationProcess : ValueObject
         };
     }
 
+    public ValidationProcess WithChatCallRespons(ActionSignature chatCallRespons)
+    {
+       return new ValidationProcess
+        {
+            ChatCallMulai = this.ChatCallMulai,
+            ChatCallRespons = chatCallRespons,
+            LinkRecapChatHistory = this.LinkRecapChatHistory,
+            ParameterValidasi = this.ParameterValidasi,
+            PembetulanValidasi = this.PembetulanValidasi,
+            StatusValidasi = this.StatusValidasi,
+            Keterangan = this.Keterangan
+        };
+    }
+
     public ValidationProcess WithParameterValidasi(ValidationParameter parameterValidasi)
     {
         return new ValidationProcess
@@ -68,6 +82,20 @@ public class ValidationProcess : ValueObject
             PembetulanValidasi = pembetulanValidasi,
             StatusValidasi = this.StatusValidasi,
             Keterangan = this.Keterangan
+        };
+    }
+
+    public ValidationProcess WithKeterangan(string keterangan)
+    {
+        return new ValidationProcess
+        {
+            ChatCallMulai = this.ChatCallMulai,
+            ChatCallRespons = this.ChatCallRespons,
+            LinkRecapChatHistory = this.LinkRecapChatHistory,
+            ParameterValidasi = this.ParameterValidasi,
+            PembetulanValidasi = this.PembetulanValidasi,
+            StatusValidasi = this.StatusValidasi,
+            Keterangan = keterangan
         };
     }
 
