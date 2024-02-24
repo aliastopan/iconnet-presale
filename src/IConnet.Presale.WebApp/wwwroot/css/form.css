@@ -76,6 +76,7 @@
 }
 
 .validation-value .fluent-typography{
+    cursor: pointer !important;
     max-width: fit-content;
     font-weight: 600 !important;
     color: #373737 !important;
@@ -135,6 +136,10 @@
 /* .validation-value-bg-valid p.fluent-typography{
     color: white !important;
 } */
+
+.validation-value-clipboard{
+    cursor: pointer;
+}
 
 .validation-shareloc{
     background-color: crimson;

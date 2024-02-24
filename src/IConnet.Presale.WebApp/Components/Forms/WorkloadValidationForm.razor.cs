@@ -9,6 +9,7 @@ public partial class WorkloadValidationForm : ComponentBase
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public IDialogService DialogService { get; set; } = default!;
+    [Inject] public IJSRuntime JsRuntime { get; set; } = default!;
     [Inject] public IWorkloadManager WorkloadManager { get; init; } = default!;
     [Inject] public BroadcastService BroadcastService { get; init; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
@@ -55,6 +56,72 @@ public partial class WorkloadValidationForm : ComponentBase
     protected bool DisableTextFieldEmail => ValidationModel?.ValidasiEmail != OptionSelect.StatusValidasi.TidakSesuai;
     protected bool DisableTextFieldIdPln => ValidationModel?.ValidasiIdPln != OptionSelect.StatusValidasi.TidakSesuai;
     protected bool DisableTextAreaAlamatPelanggan => ValidationModel?.ValidasiAlamat != OptionSelect.StatusValidasi.TidakSesuai;
+
+    protected async Task OnClipboardNamaPelangganAsync()
+    {
+        if (WorkPaper is null)
+        {
+            return;
+        }
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap);
+        LogSwitch.Debug("Copying {0}", WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap);
+    }
+
+    protected async Task OnClipboardNomorTeleponAsync()
+    {
+        if (WorkPaper is null)
+        {
+            return;
+        }
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon);
+        LogSwitch.Debug("Copying {0}", WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon);
+    }
+
+    protected async Task OnClipboardEmailAsync()
+    {
+        if (WorkPaper is null)
+        {
+            return;
+        }
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", WorkPaper.ApprovalOpportunity.Pemohon.Email);
+        LogSwitch.Debug("Copying {0}", WorkPaper.ApprovalOpportunity.Pemohon.Email);
+    }
+
+    protected async Task OnClipboardIdPlnAsync()
+    {
+        if (WorkPaper is null)
+        {
+            return;
+        }
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", WorkPaper.ApprovalOpportunity.Pemohon.IdPln);
+        LogSwitch.Debug("Copying {0}", WorkPaper.ApprovalOpportunity.Pemohon.IdPln);
+    }
+
+    protected async Task OnClipboardAlamatAsync()
+    {
+        if (WorkPaper is null)
+        {
+            return;
+        }
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", WorkPaper.ApprovalOpportunity.Pemohon.Alamat);
+        LogSwitch.Debug("Copying {0}", WorkPaper.ApprovalOpportunity.Pemohon.Alamat);
+    }
+
+    protected async Task OnClipboardShareLocAsync()
+    {
+        if (WorkPaper is null)
+        {
+            return;
+        }
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", WorkPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude);
+        LogSwitch.Debug("Copying {0}", WorkPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude);
+    }
 
     protected void OpenDialog()
     {
@@ -316,12 +383,14 @@ public partial class WorkloadValidationForm : ComponentBase
         string invalid = "validation-value-bg-invalid",
         string valid = "validation-value-bg-valid")
     {
-        return section switch
+        var css = section switch
         {
             string status when status == OptionSelect.StatusValidasi.TidakSesuai => invalid,
             string status when status == OptionSelect.StatusValidasi.Sesuai => valid,
             _ => waiting,
         };
+
+        return $"{css} validation-value-clipboard";
     }
 
     [GeneratedRegex(RegexPattern.LatitudeLongitude)]

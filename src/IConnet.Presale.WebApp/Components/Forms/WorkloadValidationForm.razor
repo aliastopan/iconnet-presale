@@ -51,7 +51,7 @@
                         Width="165px" />
                 </div>
                 <div class="validation-value">
-                    <div class="@BgColorNamaPelanggan">
+                    <div class="@BgColorNamaPelanggan" @onclick="OnClipboardNamaPelangganAsync">
                         <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                             @WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap
                         </FluentLabel>
@@ -80,7 +80,7 @@
                         Width="165px" />
                 </div>
                 <div class="validation-value">
-                    <div class="@BgColorNomorTelepon">
+                    <div class="@BgColorNomorTelepon" @onclick="OnClipboardNomorTeleponAsync">
                         <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                             @WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon
                         </FluentLabel>
@@ -109,7 +109,7 @@
                         Width="165px" />
                 </div>
                 <div class="validation-value">
-                    <div class="@BgColorEmail">
+                    <div class="@BgColorEmail" @onclick="OnClipboardEmailAsync">
                         <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                             @WorkPaper.ApprovalOpportunity.Pemohon.Email
                         </FluentLabel>
@@ -138,7 +138,7 @@
                         Width="165px" />
                 </div>
                 <div class="validation-value">
-                    <div class="@BgColorIdPln">
+                    <div class="@BgColorIdPln" @onclick="OnClipboardIdPlnAsync">
                         <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                             @WorkPaper.ApprovalOpportunity.Pemohon.IdPln
                         </FluentLabel>
@@ -161,7 +161,7 @@
                         </div>
                     </div>
                     <div class="validation-value">
-                        <div class="@BgColorAlamat">
+                        <div class="@BgColorAlamat" @onclick="OnClipboardAlamatAsync">
                             <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                                 @WorkPaper.ApprovalOpportunity.Pemohon.Alamat
                             </FluentLabel>
@@ -204,7 +204,7 @@
                     </div>
                 </div>
                 <div class="validation-value">
-                    <div class="@BgColorCrmKoordinat">
+                    <div class="@BgColorCrmKoordinat" @onclick="OnClipboardShareLocAsync">
                         <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                             @WorkPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude
                         </FluentLabel>
