@@ -46,4 +46,19 @@ public class WorkloadValidationModel
     {
         IsChatCallMulai = true;
     }
+
+    public DateTime GetWaktuTanggalRespons()
+    {
+        if (!NullableWaktuRespons.HasValue || !NullableTanggalRespons.HasValue)
+        {
+            throw new InvalidOperationException("Both NullableWaktuRespons and NullableTanggalRespons must have values.");
+        }
+
+        return new DateTime(NullableTanggalRespons.Value.Year,
+            NullableTanggalRespons.Value.Month,
+            NullableTanggalRespons.Value.Day,
+            NullableWaktuRespons.Value.Hour,
+            NullableWaktuRespons.Value.Minute,
+            NullableWaktuRespons.Value.Second);
+    }
 }
