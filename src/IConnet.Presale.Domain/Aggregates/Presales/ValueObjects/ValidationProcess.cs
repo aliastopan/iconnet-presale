@@ -71,14 +71,14 @@ public class ValidationProcess : ValueObject
         };
     }
 
-    public ValidationProcess WithLinkRekapChatHistory(string linkRecapChatHistory)
+    public ValidationProcess WithLinkRekapChatHistory(string linkRekapChatHistory)
     {
        return new ValidationProcess
         {
             ChatCallMulai = this.ChatCallMulai,
             ChatCallRespons = this.ChatCallRespons,
             WaktuTanggalRespons = this.WaktuTanggalRespons,
-            LinkRekapChatHistory = this.LinkRekapChatHistory,
+            LinkRekapChatHistory = linkRekapChatHistory,
             ParameterValidasi = this.ParameterValidasi,
             PembetulanValidasi = this.PembetulanValidasi,
             Keterangan = this.Keterangan
