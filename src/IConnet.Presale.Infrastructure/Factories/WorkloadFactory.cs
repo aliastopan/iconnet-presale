@@ -114,6 +114,7 @@ internal sealed class WorkloadFactory
                     Alias = string.Empty,
                     TglAksi = _dateTimeService.Zero
                 },
+                WaktuTanggalRespons = _dateTimeService.Zero,
                 LinkRecapChatHistory = string.Empty,
                 ParameterValidasi = new ValidationParameter
                 {
@@ -128,7 +129,6 @@ internal sealed class WorkloadFactory
                         Longitude = string.Empty
                     }
                 },
-                StatusValidasi = ValidationStatus.MenungguValidasi,
                 Keterangan = string.Empty
             },
             ProsesApproval = new ApprovalProcess
