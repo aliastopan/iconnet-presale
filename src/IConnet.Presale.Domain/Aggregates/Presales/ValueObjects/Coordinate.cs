@@ -10,6 +10,20 @@ public class Coordinate : ValueObject
 
     }
 
+    public Coordinate(string latitudeLongitude)
+    {
+        var coordinates = latitudeLongitude.Split(',');
+        if (coordinates.Length ==  2)
+        {
+            Latitude = coordinates[0].Trim();
+            Longitude = coordinates[1].Trim();
+        }
+        else
+        {
+            throw new ArgumentException("Invalid latitude and longitude format.", nameof(latitudeLongitude));
+        }
+    }
+
     public Coordinate(string latitude, string longitude)
     {
         Latitude = latitude;
