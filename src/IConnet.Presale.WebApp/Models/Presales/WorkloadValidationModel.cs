@@ -14,11 +14,11 @@ public class WorkloadValidationModel
         ValidasiAlamat = EnumProcessor.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiAlamat);
         ValidasiCrmKoordinat = EnumProcessor.EnumToDisplayString(ValidationStatus.MenungguValidasi);
 
-        PembetulanIdPln = workPaper.ProsesValidasi.PembetulanValidasi.IdPln;
-        PembetulanNama = workPaper.ProsesValidasi.PembetulanValidasi.NamaLengkap;
-        PembetulanNomorTelepon = workPaper.ProsesValidasi.PembetulanValidasi.NomorTelepon;
-        PembetulanEmail = workPaper.ProsesValidasi.PembetulanValidasi.Email;
-        PembetulanAlamat = workPaper.ProsesValidasi.PembetulanValidasi.Alamat;
+        PembetulanIdPln = workPaper.ProsesValidasi.PembetulanValidasi.PembetulanIdPln;
+        PembetulanNama = workPaper.ProsesValidasi.PembetulanValidasi.PembetulanNama;
+        PembetulanNomorTelepon = workPaper.ProsesValidasi.PembetulanValidasi.PembetulanNomorTelepon;
+        PembetulanEmail = workPaper.ProsesValidasi.PembetulanValidasi.PembetulanEmail;
+        PembetulanAlamat = workPaper.ProsesValidasi.PembetulanValidasi.PembetulanAlamat;
     }
 
     public bool IsChatCallMulai { get; private set; }

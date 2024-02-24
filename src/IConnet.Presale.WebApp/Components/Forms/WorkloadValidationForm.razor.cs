@@ -122,9 +122,8 @@ public partial class WorkloadValidationForm : ComponentBase
         var prosesValidasi = WorkPaper.ProsesValidasi.WithParameterValidasi(parameterValidasi);
 
         WorkPaper.ProsesValidasi = prosesValidasi;
-        LogSwitch.Debug($"Validasi {propertyName}: {statusValidasi}");
 
-        var broadcastMessage = $"[{propertyName}:{WorkPaper.ProsesValidasi.ParameterValidasi.GetValidationStatus(propertyName)}]";
+        var broadcastMessage = $"Validating: [{propertyName}:{WorkPaper.ProsesValidasi.ParameterValidasi.GetValidationStatus(propertyName)}]";
         await UpdateProsesValidasi(WorkPaper, broadcastMessage);
     }
 
@@ -238,7 +237,7 @@ public partial class WorkloadValidationForm : ComponentBase
 
     protected void OnPembetulanNama(string pembetulanNama)
     {
-        if (ValidationModel is null)
+        if (WorkPaper is null || ValidationModel is null)
         {
             return;
         }
@@ -249,7 +248,7 @@ public partial class WorkloadValidationForm : ComponentBase
 
     protected void OnPembetulanNomorTelepon(string pembetulanNomorTelepon)
     {
-        if (ValidationModel is null)
+        if (WorkPaper is null || ValidationModel is null)
         {
             return;
         }
@@ -260,7 +259,7 @@ public partial class WorkloadValidationForm : ComponentBase
 
     protected void OnPembetulanEmail(string pembetulanEmail)
     {
-        if (ValidationModel is null)
+        if (WorkPaper is null || ValidationModel is null)
         {
             return;
         }
@@ -271,7 +270,7 @@ public partial class WorkloadValidationForm : ComponentBase
 
     protected void OnPembetulanIdPln(string pembetulanIdPln)
     {
-        if (ValidationModel is null)
+        if (WorkPaper is null || ValidationModel is null)
         {
             return;
         }
@@ -282,7 +281,7 @@ public partial class WorkloadValidationForm : ComponentBase
 
     protected void OnPembetulanAlamat(string pembetulanAlamat)
     {
-        if (ValidationModel is null)
+        if (WorkPaper is null || ValidationModel is null)
         {
             return;
         }
@@ -294,7 +293,7 @@ public partial class WorkloadValidationForm : ComponentBase
     private async Task UpdateProsesValidasi(WorkPaper workPaper, string broadcastMessage)
     {
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
-        await BroadcastService.BroadcastMessageAsync($"Validating '{broadcastMessage}'");
+        await BroadcastService.BroadcastMessageAsync(broadcastMessage);
         LogSwitch.Debug("Broadcast validation {message}", broadcastMessage);
     }
 

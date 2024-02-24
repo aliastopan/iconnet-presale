@@ -25,7 +25,7 @@ public class ValidationProcess : ValueObject
     public ActionSignature ChatCallRespons { get; init;} = new();
     public string LinkRecapChatHistory { get; init; } = string.Empty;
     public ValidationParameter ParameterValidasi { get; init; } = new();
-    public ValidationCorrection PembetulanValidasi { get; set; } = new();
+    public ValidationCorrection PembetulanValidasi { get; init; } = new();
     public ValidationStatus StatusValidasi { get; init; } = default;
     public string Keterangan { get; init; }  = string.Empty;
 
@@ -52,6 +52,20 @@ public class ValidationProcess : ValueObject
             LinkRecapChatHistory = this.LinkRecapChatHistory,
             ParameterValidasi = parameterValidasi,
             PembetulanValidasi = this.PembetulanValidasi,
+            StatusValidasi = this.StatusValidasi,
+            Keterangan = this.Keterangan
+        };
+    }
+
+    public ValidationProcess WithPembetulanValidasi(ValidationCorrection pembetulanValidasi)
+    {
+        return new ValidationProcess
+        {
+            ChatCallMulai = this.ChatCallMulai,
+            ChatCallRespons = this.ChatCallRespons,
+            LinkRecapChatHistory = this.LinkRecapChatHistory,
+            ParameterValidasi = this.ParameterValidasi,
+            PembetulanValidasi = pembetulanValidasi,
             StatusValidasi = this.StatusValidasi,
             Keterangan = this.Keterangan
         };
