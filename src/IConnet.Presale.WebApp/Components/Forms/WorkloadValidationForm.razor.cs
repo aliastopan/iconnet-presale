@@ -188,7 +188,7 @@ public partial class WorkloadValidationForm : ComponentBase
 
         var chatCallMulai = new ActionSignature
         {
-            AccountIdSignature = SessionService.UserModel!.UserAccountId,
+            AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
             Alias = await SessionService.GetSessionAliasAsync(),
             TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
         };

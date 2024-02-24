@@ -41,7 +41,7 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
         Content.ApprovalOpportunity.StatusImport = ImportStatus.Verified;
         Content.ApprovalOpportunity.ImportVerifikasiSignature = new ActionSignature
         {
-            AccountIdSignature = SessionService.UserModel!.UserAccountId,
+            AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
             Alias = await SessionService.GetSessionAliasAsync(),
             TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
         };
@@ -52,7 +52,7 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
         Content.ApprovalOpportunity.StatusImport = ImportStatus.Invalid;
         Content.ApprovalOpportunity.ImportVerifikasiSignature = new ActionSignature
         {
-            AccountIdSignature = SessionService.UserModel!.UserAccountId,
+            AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
             Alias = await SessionService.GetSessionAliasAsync(),
             TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
         };
@@ -63,7 +63,7 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
         Content.ApprovalOpportunity.StatusImport = ImportStatus.Verified;
         Content.ApprovalOpportunity.ImportVerifikasiSignature = new ActionSignature
         {
-            AccountIdSignature = SessionService.UserModel!.UserAccountId,
+            AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
             Alias = await SessionService.GetSessionAliasAsync(),
             TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
         };
