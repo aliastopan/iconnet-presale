@@ -118,7 +118,7 @@ public partial class WorkloadValidationForm : ComponentBase
         }
 
         var validationStatus = EnumProcessor.StringToEnum<ValidationStatus>(statusValidasi);
-        var parameterValidasi = WorkPaper.ProsesValidasi.ParameterValidasi.Validate(propertyName, validationStatus);
+        var parameterValidasi = WorkPaper.ProsesValidasi.ParameterValidasi.Validasi(propertyName, validationStatus);
         var prosesValidasi = WorkPaper.ProsesValidasi.WithParameterValidasi(parameterValidasi);
 
         WorkPaper.ProsesValidasi = prosesValidasi;

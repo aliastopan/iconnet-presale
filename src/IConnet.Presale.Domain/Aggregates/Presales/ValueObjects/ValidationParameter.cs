@@ -27,7 +27,7 @@ public class ValidationParameter : ValueObject
     public ValidationStatus ValidasiAlamat { get; init; } = default;
     public Coordinate ShareLoc { get; init; } = new();
 
-    public ValidationParameter Validate(string propertyName, ValidationStatus validationStatus)
+    public ValidationParameter Validasi(string propertyName, ValidationStatus validationStatus)
     {
         var methodMap = new Dictionary<string, Func<ValidationStatus, ValidationParameter>>
         {
@@ -38,9 +38,9 @@ public class ValidationParameter : ValueObject
             { ValidationParameterPropertyNames.ValidasiAlamat, WithValidasiAlamat },
         };
 
-        if (methodMap.TryGetValue(propertyName, out var validateProperty))
+        if (methodMap.TryGetValue(propertyName, out var setProperty))
         {
-            return validateProperty(validationStatus);
+            return setProperty(validationStatus);
         }
         else
         {
