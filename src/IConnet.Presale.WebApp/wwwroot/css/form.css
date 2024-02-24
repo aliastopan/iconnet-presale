@@ -75,11 +75,6 @@
     margin-top: 2px;
 }
 
-/* .validation-label-wrap{
-    background-color: #dddddd;
-    border-radius: 5px;
-} */
-
 .validation-value .fluent-typography{
     max-width: fit-content;
     font-weight: 600 !important;
