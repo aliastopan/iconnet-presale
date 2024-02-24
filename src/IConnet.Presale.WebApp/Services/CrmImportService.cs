@@ -1,5 +1,3 @@
-using IConnet.Presale.Shared.Interfaces.Models.Presales;
-using IConnet.Presale.WebApp.Helpers;
 using IConnet.Presale.WebApp.Models.Presales;
 
 namespace IConnet.Presale.WebApp.Services;
@@ -26,6 +24,8 @@ public sealed class CrmImportService
 
     public async Task<(List<IApprovalOpportunityModel>, CrmImportMetadata)> ImportAsync(string input)
     {
+        _importModels.Clear();
+
         string[] contents = SplitBySpecialCharacters(input);
         var importMetadata = GetImportMetadata(input, contents);
 
