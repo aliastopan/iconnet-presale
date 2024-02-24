@@ -42,7 +42,7 @@ public class CrmImportPageBase : ComponentBase
 
         _importModels = CrmImportService.GetApprovalOpportunities();;
 
-        ImportCount = await WorkloadManager.CacheWorkloadAsync(result.importModels);
+        ImportCount = await WorkloadManager.InsertWorkloadAsync(result.importModels);
         _importMetadata = result.importMetadata;
 
         _importMetadata.NumberOfDuplicates = _importMetadata.NumberOfRows - ImportCount;

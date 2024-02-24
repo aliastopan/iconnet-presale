@@ -17,7 +17,7 @@ internal sealed class WorkloadManager : IWorkloadManager
         _cacheService = cacheService;
     }
 
-    public async Task<int> CacheWorkloadAsync(List<IApprovalOpportunityModel> importModels)
+    public async Task<int> InsertWorkloadAsync(List<IApprovalOpportunityModel> importModels)
     {
         int workloadCount = 0;
 

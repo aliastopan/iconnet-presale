@@ -5,7 +5,7 @@ namespace IConnet.Presale.Application.Common.Interfaces.Managers;
 
 public interface IWorkloadManager
 {
-    Task<int> CacheWorkloadAsync(List<IApprovalOpportunityModel> importModels);
+    Task<int> InsertWorkloadAsync(List<IApprovalOpportunityModel> importModels);
     Task<IQueryable<WorkPaper>> FetchWorkloadAsync(CacheFetchMode cacheFetchMode = CacheFetchMode.All);
     Task<bool> UpdateWorkloadAsync(WorkPaper workPaper);
     Task<bool> DeleteWorkloadAsync(WorkPaper workPaper);
