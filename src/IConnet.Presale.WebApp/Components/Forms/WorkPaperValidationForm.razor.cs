@@ -5,7 +5,7 @@ using IConnet.Presale.WebApp.Models.Presales;
 
 namespace IConnet.Presale.WebApp.Components.Forms;
 
-public partial class WorkloadValidationForm : ComponentBase
+public partial class WorkPaperValidationForm : ComponentBase
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public IDialogService DialogService { get; set; } = default!;
@@ -19,7 +19,7 @@ public partial class WorkloadValidationForm : ComponentBase
     public WorkPaper? WorkPaper { get; set; }
 
     [CascadingParameter(Name = "CascadeValidationModel")]
-    public WorkloadValidationModel? ValidationModel { get; set; }
+    public WorkPaperValidationModel? ValidationModel { get; set; }
 
     private readonly Icon _questionIcon = new Icons.Filled.Size20.QuestionCircle();
     private readonly Icon _errorIcon = new Icons.Filled.Size20.ErrorCircle();

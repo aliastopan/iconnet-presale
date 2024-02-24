@@ -1,8 +1,8 @@
 namespace IConnet.Presale.WebApp.Models.Presales;
 
-public class WorkloadValidationModel
+public class WorkPaperValidationModel
 {
-    public WorkloadValidationModel(WorkPaper workPaper)
+    public WorkPaperValidationModel(WorkPaper workPaper)
     {
         IsChatCallMulai = !workPaper.ProsesValidasi.ChatCallMulai.IsEmptySignature();
 

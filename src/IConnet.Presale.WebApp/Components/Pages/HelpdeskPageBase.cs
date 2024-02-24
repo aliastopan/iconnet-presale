@@ -13,7 +13,7 @@ public class HelpdeskPageBase : WorkloadPageBase
 
     private readonly string _pageName = "Helpdesk page";
     private Guid _sessionId;
-    private readonly List<WorkloadValidationModel> _validationModels = new List<WorkloadValidationModel>();
+    private readonly List<WorkPaperValidationModel> _validationModels = new List<WorkPaperValidationModel>();
     private readonly GridSort<WorkPaper> _sortByStagingStatus = GridSort<WorkPaper>
         .ByAscending(workPaper => workPaper.HelpdeskInCharge.TglAksi);
 
@@ -23,7 +23,7 @@ public class HelpdeskPageBase : WorkloadPageBase
 
     protected GridSort<WorkPaper> SortByStagingStatus => _sortByStagingStatus;
     protected WorkPaper? ActiveWorkPaper { get; set; }
-    protected WorkloadValidationModel? ActiveValidationModel { get; set; }
+    protected WorkPaperValidationModel? ActiveValidationModel { get; set; }
 
     protected override void OnInitialized()
     {
@@ -47,7 +47,7 @@ public class HelpdeskPageBase : WorkloadPageBase
 
         foreach (var workPaper in WorkPapers)
         {
-            _validationModels.Add(new WorkloadValidationModel(workPaper));
+            _validationModels.Add(new WorkPaperValidationModel(workPaper));
         }
 
         LogSwitch.Debug("Validation Models {count}", _validationModels.Count);
@@ -110,13 +110,13 @@ public class HelpdeskPageBase : WorkloadPageBase
         var dialogData = (WorkPaper)result.Data;
         if (dialogData.HelpdeskInCharge.IsEmptySignature())
         {
-            await UnstageWorkloadAsync(dialogData);
+            await UnstageWorkPaperAsync(dialogData);
             // LogSwitch.Debug("{0} claim has been removed", dialogData.ApprovalOpportunity.IdPermohonan);
 
             return;
         }
 
-        await RestageWorkloadAsync(dialogData);
+        await RestageWorkPaperAsync(dialogData);
         // await ScrollToValidationForm();
         // LogSwitch.Debug("{0} claim has been extended", dialogData.ApprovalOpportunity.IdPermohonan);
     }
@@ -143,7 +143,7 @@ public class HelpdeskPageBase : WorkloadPageBase
         return !workPaper.HelpdeskInCharge.IsDurationExceeded(now, duration);
     }
 
-    private async Task RestageWorkloadAsync(WorkPaper workPaper)
+    private async Task RestageWorkPaperAsync(WorkPaper workPaper)
     {
         ActiveWorkPaper = workPaper;
 
@@ -153,7 +153,7 @@ public class HelpdeskPageBase : WorkloadPageBase
         await BroadcastService.BroadcastMessageAsync(message);
     }
 
-    private async Task UnstageWorkloadAsync(WorkPaper workPaper)
+    private async Task UnstageWorkPaperAsync(WorkPaper workPaper)
     {
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
 
