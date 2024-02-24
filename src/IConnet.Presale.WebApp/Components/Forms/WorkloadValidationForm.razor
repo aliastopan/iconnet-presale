@@ -58,7 +58,7 @@
                     </div>
                     <FluentTextField style="width: 300px"
                         Value=@ValidationModel.PembetulanNama
-                        ValueChanged="OnPembetulanNama"
+                        ValueChanged="OnPembetulanNamaAsync"
                         Disabled="@DisableTextFieldNamaPelanggan"
                         Placeholder="Pembetulan Nama Pelanggan"></FluentTextField>
                 </div>
@@ -87,7 +87,7 @@
                     </div>
                     <FluentTextField style="width: 300px"
                         Value=@ValidationModel.PembetulanNomorTelepon
-                        ValueChanged="OnPembetulanNomorTelepon"
+                        ValueChanged="OnPembetulanNomorTeleponAsync"
                         Disabled="@DisableTextFieldNoTelepon"
                         Placeholder="Pembetulan No. Telepon Aktif"></FluentTextField>
                 </div>
@@ -116,7 +116,7 @@
                     </div>
                     <FluentTextField style="width: 300px"
                         Value=@ValidationModel.PembetulanEmail
-                        ValueChanged="OnPembetulanEmail"
+                        ValueChanged="OnPembetulanEmailAsync"
                         Disabled="@DisableTextFieldEmail"
                         Placeholder="Pembetulan Email Aktif"></FluentTextField>
                 </div>
@@ -145,7 +145,7 @@
                     </div>
                     <FluentTextField style="width: 300px"
                         Value=@ValidationModel.PembetulanIdPln
-                        ValueChanged="OnPembetulanIdPln"
+                        ValueChanged="OnPembetulanIdPlnAsync"
                         Disabled="@DisableTextFieldIdPln"
                         Placeholder="Pembetulan Id PLN"></FluentTextField>
                 </div>
@@ -181,7 +181,7 @@
                     <div class="validation-value">
                         <FluentTextArea style="width: 300px;" class="validation-textarea"
                             Value=@ValidationModel.PembetulanAlamat
-                            ValueChanged="OnPembetulanAlamat"
+                            ValueChanged="OnPembetulanAlamatAsync"
                             Disabled="@DisableTextAreaAlamatPelanggan"
                             Placeholder="Pembetulan Alamat Pelanggan"></FluentTextArea>
                     </div>

@@ -46,6 +46,27 @@ public class ValidationCorrection : ValueObject
         }
     }
 
+    public string GetPembetulan(string propertyName)
+    {
+        var propertyMap = new Dictionary<string, Func<string>>
+        {
+            { ValidationCorrectionPropertyNames.PembetulanIdPln, () => PembetulanIdPln },
+            { ValidationCorrectionPropertyNames.PembetulanNama, () => PembetulanNama },
+            { ValidationCorrectionPropertyNames.PembetulanNomorTelepon, () => PembetulanNomorTelepon },
+            { ValidationCorrectionPropertyNames.PembetulanEmail, () => PembetulanEmail },
+            { ValidationCorrectionPropertyNames.PembetulanAlamat, () => PembetulanAlamat }
+        };
+
+        if (propertyMap.TryGetValue(propertyName, out var pembetulan))
+        {
+            return pembetulan();
+        }
+        else
+        {
+            throw new ArgumentException($"Invalid field name: {propertyName}");
+        }
+    }
+
     public ValidationCorrection WithPembetulanIdPln(string pembetulanIdPln)
     {
         return new ValidationCorrection

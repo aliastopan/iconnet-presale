@@ -127,6 +127,22 @@ public partial class WorkloadValidationForm : ComponentBase
         await UpdateProsesValidasi(WorkPaper, broadcastMessage);
     }
 
+    protected async Task PembetulanProperty(string propertyName, string pembetulan)
+    {
+        if (WorkPaper is null || ValidationModel is null)
+        {
+            return;
+        }
+
+        var pembetulanValidasi = WorkPaper.ProsesValidasi.PembetulanValidasi.Pembetulan(propertyName, pembetulan);
+        var prosesValidasi = WorkPaper.ProsesValidasi.WithPembetulanValidasi(pembetulanValidasi);
+
+        WorkPaper.ProsesValidasi = prosesValidasi;
+
+        var broadcastMessage = $"Correction: [{propertyName}:{WorkPaper.ProsesValidasi.PembetulanValidasi.GetPembetulan(propertyName)}]";
+        await UpdateProsesValidasi(WorkPaper, broadcastMessage);
+    }
+
     protected async Task OnValidateNamaPelangganAsync(string statusValidasi)
     {
         string namaPelanggan = ValidationParameterPropertyNames.ValidasiNama;
@@ -235,59 +251,44 @@ public partial class WorkloadValidationForm : ComponentBase
         LogSwitch.Debug("Keterangan: {0}", keterangan);
     }
 
-    protected void OnPembetulanNama(string pembetulanNama)
+    protected async Task OnPembetulanNamaAsync(string pembetulanNama)
     {
-        if (WorkPaper is null || ValidationModel is null)
-        {
-            return;
-        }
+        string namaPelanggan = ValidationCorrectionPropertyNames.PembetulanNama;
+        ValidationModel!.PembetulanNama = pembetulanNama;
 
-        ValidationModel.PembetulanNama = pembetulanNama;
-        LogSwitch.Debug("Pembetulan Nama: {0}", pembetulanNama);
+        await PembetulanProperty(namaPelanggan, pembetulanNama);
     }
 
-    protected void OnPembetulanNomorTelepon(string pembetulanNomorTelepon)
+    protected async Task OnPembetulanNomorTeleponAsync(string pembetulanNomorTelepon)
     {
-        if (WorkPaper is null || ValidationModel is null)
-        {
-            return;
-        }
+        string nomorTelepon = ValidationCorrectionPropertyNames.PembetulanNomorTelepon;
+        ValidationModel!.PembetulanNomorTelepon = pembetulanNomorTelepon;
 
-        ValidationModel.PembetulanNomorTelepon = pembetulanNomorTelepon;
-        LogSwitch.Debug("Pembetulan Nomor Telepon: {0}", pembetulanNomorTelepon);
+        await PembetulanProperty(nomorTelepon, pembetulanNomorTelepon);
     }
 
-    protected void OnPembetulanEmail(string pembetulanEmail)
+    protected async Task OnPembetulanEmailAsync(string pembetulanEmail)
     {
-        if (WorkPaper is null || ValidationModel is null)
-        {
-            return;
-        }
+        string email = ValidationCorrectionPropertyNames.PembetulanEmail;
+        ValidationModel!.PembetulanEmail = pembetulanEmail;
 
-        ValidationModel.PembetulanEmail = pembetulanEmail;
-        LogSwitch.Debug("Pembetulan Email: {0}", pembetulanEmail);
+        await PembetulanProperty(email, pembetulanEmail);
     }
 
-    protected void OnPembetulanIdPln(string pembetulanIdPln)
+    protected async Task OnPembetulanIdPlnAsync(string pembetulanIdPln)
     {
-        if (WorkPaper is null || ValidationModel is null)
-        {
-            return;
-        }
+        string idPln = ValidationCorrectionPropertyNames.PembetulanIdPln;
+        ValidationModel!.PembetulanIdPln = pembetulanIdPln;
 
-        ValidationModel.PembetulanIdPln = pembetulanIdPln;
-        LogSwitch.Debug("Pembetulan Id PLN: {0}", pembetulanIdPln);
+        await PembetulanProperty(idPln, pembetulanIdPln);
     }
 
-    protected void OnPembetulanAlamat(string pembetulanAlamat)
+    protected async Task OnPembetulanAlamatAsync(string pembetulanAlamat)
     {
-        if (WorkPaper is null || ValidationModel is null)
-        {
-            return;
-        }
+        string alamat = ValidationCorrectionPropertyNames.PembetulanAlamat;
+        ValidationModel!.PembetulanAlamat = pembetulanAlamat;
 
-        ValidationModel.PembetulanAlamat = pembetulanAlamat;
-        LogSwitch.Debug("Pembetulan Alamat: {0}", pembetulanAlamat);
+        await PembetulanProperty(alamat, pembetulanAlamat);
     }
 
     private async Task UpdateProsesValidasi(WorkPaper workPaper, string broadcastMessage)
