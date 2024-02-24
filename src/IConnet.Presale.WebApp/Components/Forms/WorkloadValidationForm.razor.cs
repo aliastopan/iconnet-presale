@@ -13,6 +13,7 @@ public partial class WorkloadValidationForm : ComponentBase
     [Inject] public IWorkloadManager WorkloadManager { get; init; } = default!;
     [Inject] public BroadcastService BroadcastService { get; init; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
+    [Inject] public IToastService ToastService { get; set; } = default!;
 
     [CascadingParameter(Name = "CascadeWorkPaper")]
     public WorkPaper? WorkPaper { get; set; }
@@ -64,8 +65,12 @@ public partial class WorkloadValidationForm : ComponentBase
             return;
         }
 
-        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap);
-        LogSwitch.Debug("Copying {0}", WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap);
+        var namaPelanggan = WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap;
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", namaPelanggan);
+        ClipboardToast(namaPelanggan);
+
+        LogSwitch.Debug("Copying {0}", namaPelanggan);
     }
 
     protected async Task OnClipboardNomorTeleponAsync()
@@ -75,8 +80,12 @@ public partial class WorkloadValidationForm : ComponentBase
             return;
         }
 
-        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon);
-        LogSwitch.Debug("Copying {0}", WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon);
+        var nomorTelepon = WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon;
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", nomorTelepon);
+        ClipboardToast(nomorTelepon);
+
+        LogSwitch.Debug("Copying {0}", nomorTelepon);
     }
 
     protected async Task OnClipboardEmailAsync()
@@ -86,8 +95,12 @@ public partial class WorkloadValidationForm : ComponentBase
             return;
         }
 
-        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", WorkPaper.ApprovalOpportunity.Pemohon.Email);
-        LogSwitch.Debug("Copying {0}", WorkPaper.ApprovalOpportunity.Pemohon.Email);
+        var email = WorkPaper.ApprovalOpportunity.Pemohon.Email;
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", email);
+        ClipboardToast(email);
+
+        LogSwitch.Debug("Copying {0}", email);
     }
 
     protected async Task OnClipboardIdPlnAsync()
@@ -97,8 +110,12 @@ public partial class WorkloadValidationForm : ComponentBase
             return;
         }
 
-        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", WorkPaper.ApprovalOpportunity.Pemohon.IdPln);
-        LogSwitch.Debug("Copying {0}", WorkPaper.ApprovalOpportunity.Pemohon.IdPln);
+        var idPln = WorkPaper.ApprovalOpportunity.Pemohon.IdPln;
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", idPln);
+        ClipboardToast(idPln);
+
+        LogSwitch.Debug("Copying {0}", idPln);
     }
 
     protected async Task OnClipboardAlamatAsync()
@@ -108,8 +125,12 @@ public partial class WorkloadValidationForm : ComponentBase
             return;
         }
 
-        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", WorkPaper.ApprovalOpportunity.Pemohon.Alamat);
-        LogSwitch.Debug("Copying {0}", WorkPaper.ApprovalOpportunity.Pemohon.Alamat);
+        var alamat = WorkPaper.ApprovalOpportunity.Pemohon.Alamat;
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", alamat);
+        ClipboardToast(alamat);
+
+        LogSwitch.Debug("Copying {0}", alamat);
     }
 
     protected async Task OnClipboardShareLocAsync()
@@ -119,8 +140,12 @@ public partial class WorkloadValidationForm : ComponentBase
             return;
         }
 
-        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", WorkPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude);
-        LogSwitch.Debug("Copying {0}", WorkPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude);
+        var latitudeLongitude = WorkPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude;
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", latitudeLongitude);
+        ClipboardToast(latitudeLongitude);
+
+        LogSwitch.Debug("Copying {0}", latitudeLongitude);
     }
 
     protected void OpenDialog()
@@ -391,6 +416,15 @@ public partial class WorkloadValidationForm : ComponentBase
         };
 
         return $"{css} validation-value-clipboard";
+    }
+
+    private void ClipboardToast(string clipboard)
+    {
+        var intent = ToastIntent.Info;
+        var message = $"Copy: {clipboard}";
+        var timeout = 2500; // milliseconds
+
+        ToastService.ShowToast(intent, message, timeout: timeout);
     }
 
     [GeneratedRegex(RegexPattern.LatitudeLongitude)]
