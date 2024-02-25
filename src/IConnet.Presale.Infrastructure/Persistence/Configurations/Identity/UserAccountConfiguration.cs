@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using IConnet.Presale.Domain.Aggregates.Identity;
+using IConnet.Presale.Domain.Aggregates.Identity.ValueObjects;
+using IConnet.Presale.Domain.Enums;
 
 namespace IConnet.Presale.Infrastructure.Persistence.Configurations.Identity;
 
@@ -18,6 +21,51 @@ internal sealed class UserAccountConfiguration : IEntityTypeConfiguration<UserAc
             .HasColumnName("user_account_id")
             .HasMaxLength(36)
             .IsRequired();
+
+
+        builder.OwnsOne(u => u.User,
+            user =>
+            {
+                user.Property(u => u.Username)
+                    .HasColumnName("username")
+                    .HasMaxLength(32)
+                    .IsRequired();
+
+                user.Property(u => u.EmailAddress)
+                    .HasColumnName("email_address")
+                    .HasMaxLength(255)
+                    .IsRequired();
+
+                user.Property(u => u.EmploymentStatus)
+                    .HasColumnName("employment_status")
+                    .IsRequired();
+
+                user.Property(u => u.UserRole)
+                    .HasColumnName("user_role")
+                    .IsRequired();
+
+                user.Property(u => u.UserPrivileges)
+                    .HasColumnName("user_privileges")
+                    .HasConversion(
+                        x => string.Join(',', x.Select(privilege => privilege.ToString())),
+                        x => x.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                .Select(privilegeStr => Enum.Parse<UserPrivilege>(privilegeStr))
+                                .ToList(),
+                        new ValueComparer<IReadOnlyCollection<UserPrivilege>>(
+                            (c1, c2) => c1!.SequenceEqual(c2!),
+                            c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+                            c => c.ToList()))
+                    .IsRequired();
+
+                user.Property(u => u.JobTitle)
+                    .HasColumnName("job_title")
+                    .IsRequired();
+
+                user.Property(u => u.JobShift)
+                    .HasColumnName("job_shift")
+                    .HasMaxLength(32)
+                    .IsRequired();
+            });
 
         builder.Property(u => u.PasswordHash)
             .HasColumnName("password_hash")
@@ -38,20 +86,11 @@ internal sealed class UserAccountConfiguration : IEntityTypeConfiguration<UserAc
             .IsRequired();
 
         // foreign key
-        builder.Property(u => u.FkUserId)
-            .HasColumnName("fk_user_id")
-            .IsRequired();
-
         builder.Property(u => u.FkUserProfileId)
             .HasColumnName("fk_user_profile_id")
             .IsRequired();
 
         // configure relationships
-        builder.HasOne(u => u.User)
-            .WithOne()
-            .HasForeignKey<User>(u => u.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
-
         builder.HasOne(u => u.UserProfile)
             .WithOne()
             .HasForeignKey<UserProfile>(u => u.UserProfileId)

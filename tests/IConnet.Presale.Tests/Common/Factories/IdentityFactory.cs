@@ -1,4 +1,5 @@
 using IConnet.Presale.Domain.Aggregates.Identity;
+using IConnet.Presale.Domain.Aggregates.Identity.ValueObjects;
 using IConnet.Presale.Domain.Enums;
 
 namespace IConnet.Presale.Tests.Common.Factories;

@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using IConnet.Presale.Domain.Aggregates.Identity;
+using IConnet.Presale.Domain.Aggregates.Identity.ValueObjects;
 using IConnet.Presale.Domain.Enums;
 using IConnet.Presale.Domain.Entities;
 using IConnet.Presale.Shared.Common;
