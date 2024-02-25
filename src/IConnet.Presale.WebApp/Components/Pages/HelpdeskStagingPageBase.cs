@@ -66,13 +66,20 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
 
         var isNotStaged = workPaper!.HelpdeskInCharge.IsEmptySignature();
         var hasStageExpired = workPaper!.HelpdeskInCharge.IsDurationExceeded(now, duration);
+        var isOnGoingValidation = workPaper!.ProsesValidasi.IsOnGoing;
 
-        if (isNotStaged || hasStageExpired)
+        if ((isNotStaged || hasStageExpired) && isOnGoingValidation)
         {
             await OpenStagingDialogAsync(row.Item);
         }
         else
         {
+            if (!isOnGoingValidation)
+            {
+                DoneProcessingToast();
+                return;
+            }
+
             await OnGoingValidationToastAsync(workPaper!.HelpdeskInCharge.Alias);
         }
     }
@@ -90,7 +97,14 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
     protected void StagingReachLimitToast()
     {
         var intent = ToastIntent.Error;
-        var message = $"Jumlah tampungan Kertas Kerja ({_stagingLimit}) telah melebihi batas. ";
+        var message = $"Jumlah tampungan Kertas Kerja ({_stagingLimit}) telah melebihi batas.";
+        ToastService.ShowToast(intent, message);
+    }
+
+    protected void DoneProcessingToast()
+    {
+        var intent = ToastIntent.Info;
+        var message = $"Kertas Kerja telah selesai diproses.";
         ToastService.ShowToast(intent, message);
     }
 
