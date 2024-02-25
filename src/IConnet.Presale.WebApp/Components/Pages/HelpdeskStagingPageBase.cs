@@ -73,11 +73,11 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
         }
         else
         {
-            await StagingResultNotificationAsync(workPaper!.HelpdeskInCharge.Alias);
+            await OnGoingValidationToastAsync(workPaper!.HelpdeskInCharge.Alias);
         }
     }
 
-    protected async Task StagingResultNotificationAsync(string inChargeAlias)
+    protected async Task OnGoingValidationToastAsync(string inChargeAlias)
     {
         var intent = ToastIntent.Warning;
         var message = await SessionService.IsAliasMatch(inChargeAlias)
@@ -87,7 +87,7 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
         ToastService.ShowToast(intent, message);
     }
 
-    protected void StagingResultNotification()
+    protected void StagingReachLimitToast()
     {
         var intent = ToastIntent.Error;
         var message = $"Jumlah tampungan Kertas Kerja ({_stagingLimit}) telah melebihi batas. ";
@@ -121,7 +121,7 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
         if (count > _stagingLimit)
         {
             workPaper.HelpdeskInCharge = RevertStagingSignature();
-            StagingResultNotification();
+            StagingReachLimitToast();
 
             return;
         }

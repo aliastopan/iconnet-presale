@@ -56,7 +56,7 @@ public class CrmImportPageBase : ComponentBase
         _columnWidth.SetColumnWidth(ImportModels);
 
         IsLoading = false;
-        ImportResultNotification();
+        ImportResultToast();
     }
 
     protected async Task<string> PasteClipboardAsync()
@@ -64,7 +64,7 @@ public class CrmImportPageBase : ComponentBase
         return await JsRuntime.InvokeAsync<string>("navigator.clipboard.readText");
     }
 
-    private void ImportResultNotification()
+    private void ImportResultToast()
     {
         if (ImportCount > 0)
         {
