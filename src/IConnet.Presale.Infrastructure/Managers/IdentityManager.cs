@@ -22,9 +22,21 @@ internal sealed class IdentityManager : IIdentityManager
             return Result<UserAccount>.Inherit(result: TryValidateAvailability);
         }
 
-        var employmentStatus = (EmploymentStatus)Enum.Parse(typeof(EmploymentStatus), employment);
-        var jobShift = (JobShift)Enum.Parse(typeof(JobShift), shift);
-        var userRole = (UserRole)Enum.Parse(typeof(UserRole), role);
+        EmploymentStatus employmentStatus;
+        UserRole userRole;
+        JobShift jobShift;
+
+        try
+        {
+            employmentStatus = (EmploymentStatus)Enum.Parse(typeof(EmploymentStatus), employment);
+            userRole = (UserRole)Enum.Parse(typeof(UserRole), role);
+            jobShift = (JobShift)Enum.Parse(typeof(JobShift), shift);
+        }
+        catch (Exception exception)
+        {
+            var error = new Error(exception.Message, ErrorSeverity.Error);
+            return Result<UserAccount>.Error(error);
+        }
 
         var userAccount = await _identityAggregateHandler.CreateUserAccountAsync(username, firstName, lastName,
             dateOfBirth, emailAddress, password,
@@ -57,11 +69,21 @@ internal sealed class IdentityManager : IIdentityManager
             return Result.Inherit(result: tryGetUserAccount);
         }
 
-        var userAccount = tryGetUserAccount.Value;
+        UserPrivilege userPrivilege;
 
-        // TODO: add redundancy parsing guard to return error
-        var userPrivilege = (UserPrivilege)Enum.Parse(typeof(UserPrivilege), privilege);
+        try
+        {
+            userPrivilege = (UserPrivilege)Enum.Parse(typeof(UserPrivilege), privilege);
+        }
+        catch (Exception exception)
+        {
+            var error = new Error(exception.Message, ErrorSeverity.Error);
+            return Result<UserAccount>.Error(error);
+        }
+
+        var userAccount = tryGetUserAccount.Value;
         var hasDuplicatePrivilege = userAccount.User.UserPrivileges.Contains(userPrivilege);
+
         if (hasDuplicatePrivilege)
         {
             var error = new Error("Cannot have duplicate privilege.", ErrorSeverity.Warning);
@@ -81,8 +103,19 @@ internal sealed class IdentityManager : IIdentityManager
             return Result.Inherit(result: tryGetUserAccount);
         }
 
+        UserPrivilege userPrivilege;
+
+        try
+        {
+            userPrivilege = (UserPrivilege)Enum.Parse(typeof(UserPrivilege), privilege);
+        }
+        catch (Exception exception)
+        {
+            var error = new Error(exception.Message, ErrorSeverity.Error);
+            return Result<UserAccount>.Error(error);
+        }
+
         var userAccount = tryGetUserAccount.Value;
-        var userPrivilege = (UserPrivilege)Enum.Parse(typeof(UserPrivilege), privilege);
         var hasMissingPrivilege = !userAccount.User.UserPrivileges.Contains(userPrivilege);
         if (hasMissingPrivilege)
         {
