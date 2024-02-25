@@ -4,75 +4,86 @@
 
 <PageTitle>Import CRM</PageTitle>
 
-<FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Import CRM</FluentLabel>
-<div class="d-flex flex-column align-items-start">
-    <span class="page-description">Import iCRM+ data ke aplikasi Presale</span>
-    <div style="margin-left: -5px; margin-bottom: 0.5rem;">
-        <FluentButton Class="m-1"
-            Appearance="Appearance.Accent"
-            IconStart="@(new Icons.Regular.Size20.ArrowImport())"
-            OnClick="@CrmImportAsync">
-            Import
-        </FluentButton>
-    </div>
-</div>
+<AuthorizeView Policy="@Policies.RolePlanningAssetCoverage"
+    Context="AuthenticationContext">
 
-<div class="datagrid-wrapper">
-    @if (ImportModels is not null)
-    {
-        <FluentDataGrid Items="@ImportModels"
-            TGridItem="IApprovalOpportunityModel"
-            Virtualize="true"
-            Pagination="@Pagination"
-            ItemSize="32"
-            EmptyContent="@HtmlFragment.EmptyContent"
-            GridTemplateColumns="@GridTemplateCols">
+    <Authorized>
+        <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Import CRM</FluentLabel>
+        <div class="d-flex flex-column align-items-start">
+            <span class="page-description">Import iCRM+ data ke aplikasi Presale</span>
+            <div style="margin-left: -5px; margin-bottom: 0.5rem;">
+                <FluentButton Class="m-1"
+                    Appearance="Appearance.Accent"
+                    IconStart="@(new Icons.Regular.Size20.ArrowImport())"
+                    OnClick="@CrmImportAsync">
+                    Import
+                </FluentButton>
+            </div>
+        </div>
 
-            <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.IdPermohonan)" Style="@GetWidthStyle(ColumnWidth.IdPermohonanPx)"/>
-            <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.TglPermohonan)" Style="@GetWidthStyle(ColumnWidth.TglPermohonanPx)"/>
-            <PropertyColumn Title="DURASI TIDAK LANJUT" Property="@(crm => crm.DurasiTidakLanjut)" Style="@GetWidthStyle(ColumnWidth.DurasiTidakLanjutPx)"/>
-            <PropertyColumn Title="NAMA PEMOHON" Property="@(crm => crm.NamaPemohon)" Style="@GetWidthStyle(ColumnWidth.NamaPemohonPx)"/>
-            <PropertyColumn Title="ID PLN" Property="@(crm => crm.IdPln)" Style="@GetWidthStyle(ColumnWidth.IdPlnPx)"/>
-            <PropertyColumn Title="LAYANAN" Property="@(crm => crm.Layanan)" Style="@GetWidthStyle(ColumnWidth.LayananPx)"/>
-            <PropertyColumn Title="SUMBER PERMOHONAN" Property="@(crm => crm.SumberPermohonan)" Style="@GetWidthStyle(ColumnWidth.SumberPermohonanPx)"/>
-            <PropertyColumn Title="STATUS PERMOHONAN" Property="@(crm => crm.StatusPermohonan)" Style="@GetWidthStyle(ColumnWidth.StatusPermohonanPx)"/>
-            <PropertyColumn Title="NAMA AGEN" Property="@(crm => crm.NamaAgen)" Style="@GetWidthStyle(ColumnWidth.NamaAgenPx)"/>
-            <PropertyColumn Title="EMAIL AGEN" Property="@(crm => crm.EmailAgen)" Style="@GetWidthStyle(ColumnWidth.EmailAgenPx)"/>
-            <PropertyColumn Title="TELEPON AGEN" Property="@(crm => crm.TeleponAgen)" Style="@GetWidthStyle(ColumnWidth.TelpAgenPx)"/>
-            <PropertyColumn Title="MITRA AGEN" Property="@(crm => crm.MitraAgen)" Style="@GetWidthStyle(ColumnWidth.MitraAgenPx)"/>
-            <PropertyColumn Title="SPLITTER" Property="@(crm => crm.Splitter)" Style="@GetWidthStyle(ColumnWidth.SplitterPx)"/>
-            <PropertyColumn Title="JENIS PERMOHONAN" Property="@(crm => crm.JenisPermohonan)" Style="@GetWidthStyle(ColumnWidth.JenisPermohonanPx)"/>
-            <PropertyColumn Title="TELEPON PEMOHON" Property="@(crm => crm.TeleponPemohon)" Style="@GetWidthStyle(ColumnWidth.TelpPemohonPx)"/>
-            <PropertyColumn Title="EMAIL PEMOHON" Property="@(crm => crm.EmailPemohon)" Style="@GetWidthStyle(ColumnWidth.EmailPemohonPx)"/>
-            <PropertyColumn Title="NIK PEMOHON" Property="@(crm => crm.NikPemohon)" Style="@GetWidthStyle(ColumnWidth.NikPemohonPx)"/>
-            <PropertyColumn Title="NPWP PEMOHON" Property="@(crm => crm.NpwpPemohon)" Style="@GetWidthStyle(ColumnWidth.NpwpPemohonPx)"/>
-            <PropertyColumn Title="KETERANGAN" Property="@(crm => crm.Keterangan)" Style="@GetWidthStyle(ColumnWidth.KeteranganPx)"/>
-            <PropertyColumn Title="ALAMAT PEMOHON" Property="@(crm => crm.AlamatPemohon)" Style="@GetWidthStyle(ColumnWidth.AlamatPemohonPx)"/>
-            <PropertyColumn Title="REGIONAL" Property="@(crm => crm.Regional)" Style="@GetWidthStyle(ColumnWidth.RegionalPx)"/>
-            <PropertyColumn Title="KANTOR PERWAKILAN" Property="@(crm => crm.KantorPerwakilan)" Style="@GetWidthStyle(ColumnWidth.KantorPerwakilanPx)"/>
-            <PropertyColumn Title="PROVINSI" Property="@(crm => crm.Provinsi)" Style="@GetWidthStyle(ColumnWidth.ProvinsiPx)"/>
-            <PropertyColumn Title="KABUPATEN" Property="@(crm => crm.Kabupaten)" Style="@GetWidthStyle(ColumnWidth.KabupatenPx)"/>
-            <PropertyColumn Title="KECAMATAN" Property="@(crm => crm.Kecamatan)" Style="@GetWidthStyle(ColumnWidth.KecamatanPx)"/>
-            <PropertyColumn Title="KELURAHAN" Property="@(crm => crm.Kelurahan)" Style="@GetWidthStyle(ColumnWidth.KelurahanPx)"/>
-            <PropertyColumn Title="LATITUDE" Property="@(crm => crm.Latitude)" Style="@GetWidthStyle(ColumnWidth.LatitudePx)"/>
-            <PropertyColumn Title="LONGITUDE" Property="@(crm => crm.Longitude)" Style="@GetWidthStyle(ColumnWidth.LongitudePx)"/>
+        <div class="datagrid-wrapper">
+            @if (ImportModels is not null)
+            {
+                <FluentDataGrid Items="@ImportModels"
+                    TGridItem="IApprovalOpportunityModel"
+                    Virtualize="true"
+                    Pagination="@Pagination"
+                    ItemSize="32"
+                    EmptyContent="@HtmlFragment.EmptyContent"
+                    GridTemplateColumns="@GridTemplateCols">
 
-        </FluentDataGrid>
-    }
+                    <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.IdPermohonan)" Style="@GetWidthStyle(ColumnWidth.IdPermohonanPx)"/>
+                    <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.TglPermohonan)" Style="@GetWidthStyle(ColumnWidth.TglPermohonanPx)"/>
+                    <PropertyColumn Title="DURASI TIDAK LANJUT" Property="@(crm => crm.DurasiTidakLanjut)" Style="@GetWidthStyle(ColumnWidth.DurasiTidakLanjutPx)"/>
+                    <PropertyColumn Title="NAMA PEMOHON" Property="@(crm => crm.NamaPemohon)" Style="@GetWidthStyle(ColumnWidth.NamaPemohonPx)"/>
+                    <PropertyColumn Title="ID PLN" Property="@(crm => crm.IdPln)" Style="@GetWidthStyle(ColumnWidth.IdPlnPx)"/>
+                    <PropertyColumn Title="LAYANAN" Property="@(crm => crm.Layanan)" Style="@GetWidthStyle(ColumnWidth.LayananPx)"/>
+                    <PropertyColumn Title="SUMBER PERMOHONAN" Property="@(crm => crm.SumberPermohonan)" Style="@GetWidthStyle(ColumnWidth.SumberPermohonanPx)"/>
+                    <PropertyColumn Title="STATUS PERMOHONAN" Property="@(crm => crm.StatusPermohonan)" Style="@GetWidthStyle(ColumnWidth.StatusPermohonanPx)"/>
+                    <PropertyColumn Title="NAMA AGEN" Property="@(crm => crm.NamaAgen)" Style="@GetWidthStyle(ColumnWidth.NamaAgenPx)"/>
+                    <PropertyColumn Title="EMAIL AGEN" Property="@(crm => crm.EmailAgen)" Style="@GetWidthStyle(ColumnWidth.EmailAgenPx)"/>
+                    <PropertyColumn Title="TELEPON AGEN" Property="@(crm => crm.TeleponAgen)" Style="@GetWidthStyle(ColumnWidth.TelpAgenPx)"/>
+                    <PropertyColumn Title="MITRA AGEN" Property="@(crm => crm.MitraAgen)" Style="@GetWidthStyle(ColumnWidth.MitraAgenPx)"/>
+                    <PropertyColumn Title="SPLITTER" Property="@(crm => crm.Splitter)" Style="@GetWidthStyle(ColumnWidth.SplitterPx)"/>
+                    <PropertyColumn Title="JENIS PERMOHONAN" Property="@(crm => crm.JenisPermohonan)" Style="@GetWidthStyle(ColumnWidth.JenisPermohonanPx)"/>
+                    <PropertyColumn Title="TELEPON PEMOHON" Property="@(crm => crm.TeleponPemohon)" Style="@GetWidthStyle(ColumnWidth.TelpPemohonPx)"/>
+                    <PropertyColumn Title="EMAIL PEMOHON" Property="@(crm => crm.EmailPemohon)" Style="@GetWidthStyle(ColumnWidth.EmailPemohonPx)"/>
+                    <PropertyColumn Title="NIK PEMOHON" Property="@(crm => crm.NikPemohon)" Style="@GetWidthStyle(ColumnWidth.NikPemohonPx)"/>
+                    <PropertyColumn Title="NPWP PEMOHON" Property="@(crm => crm.NpwpPemohon)" Style="@GetWidthStyle(ColumnWidth.NpwpPemohonPx)"/>
+                    <PropertyColumn Title="KETERANGAN" Property="@(crm => crm.Keterangan)" Style="@GetWidthStyle(ColumnWidth.KeteranganPx)"/>
+                    <PropertyColumn Title="ALAMAT PEMOHON" Property="@(crm => crm.AlamatPemohon)" Style="@GetWidthStyle(ColumnWidth.AlamatPemohonPx)"/>
+                    <PropertyColumn Title="REGIONAL" Property="@(crm => crm.Regional)" Style="@GetWidthStyle(ColumnWidth.RegionalPx)"/>
+                    <PropertyColumn Title="KANTOR PERWAKILAN" Property="@(crm => crm.KantorPerwakilan)" Style="@GetWidthStyle(ColumnWidth.KantorPerwakilanPx)"/>
+                    <PropertyColumn Title="PROVINSI" Property="@(crm => crm.Provinsi)" Style="@GetWidthStyle(ColumnWidth.ProvinsiPx)"/>
+                    <PropertyColumn Title="KABUPATEN" Property="@(crm => crm.Kabupaten)" Style="@GetWidthStyle(ColumnWidth.KabupatenPx)"/>
+                    <PropertyColumn Title="KECAMATAN" Property="@(crm => crm.Kecamatan)" Style="@GetWidthStyle(ColumnWidth.KecamatanPx)"/>
+                    <PropertyColumn Title="KELURAHAN" Property="@(crm => crm.Kelurahan)" Style="@GetWidthStyle(ColumnWidth.KelurahanPx)"/>
+                    <PropertyColumn Title="LATITUDE" Property="@(crm => crm.Latitude)" Style="@GetWidthStyle(ColumnWidth.LatitudePx)"/>
+                    <PropertyColumn Title="LONGITUDE" Property="@(crm => crm.Longitude)" Style="@GetWidthStyle(ColumnWidth.LongitudePx)"/>
 
-    <FluentOverlay @bind-Visible=@IsLoading
-        Opacity="0.4"
-        Alignment="@Align.Center"
-        Justification="@JustifyContent.Center">
-        <FluentProgressRing />
-    </FluentOverlay>
-</div>
+                </FluentDataGrid>
+            }
 
-<FluentPaginator State="@Pagination">
-    <SummaryTemplate>
-        Terdapat <strong>@(Pagination.TotalItemCount ?? 0)</strong> baris
-    </SummaryTemplate>
-    <PaginationTextTemplate>
-        Hal. <strong>@(Pagination.CurrentPageIndex + 1)</strong> dari <strong>@(Pagination.LastPageIndex + 1)</strong> halaman
-    </PaginationTextTemplate>
-</FluentPaginator>
+            <FluentOverlay @bind-Visible=@IsLoading
+                Opacity="0.4"
+                Alignment="@Align.Center"
+                Justification="@JustifyContent.Center">
+                <FluentProgressRing />
+            </FluentOverlay>
+        </div>
+
+        <FluentPaginator State="@Pagination">
+            <SummaryTemplate>
+                Terdapat <strong>@(Pagination.TotalItemCount ?? 0)</strong> baris
+            </SummaryTemplate>
+            <PaginationTextTemplate>
+                Hal. <strong>@(Pagination.CurrentPageIndex + 1)</strong> dari <strong>@(Pagination.LastPageIndex + 1)</strong> halaman
+            </PaginationTextTemplate>
+        </FluentPaginator>
+    </Authorized>
+
+    <NotAuthorized>
+        <AccessDenied />
+    </NotAuthorized>
+
+</AuthorizeView>
