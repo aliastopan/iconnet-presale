@@ -44,14 +44,14 @@ public abstract class ColumnWidthBase<T>
 
     public int HelpdeskInChargePx { get; set; } = DefaultWidth;
     public int ShiftPx { get; set; } = 100;
-    public int TglChatCallMulaiPx { get; set; } = 225;
+    public int TglChatCallMulaiPx { get; set; } = DefaultWidth;
+    public int TglChatCallResponsPx { get; set; } = DefaultWidth;
     public int ValidasiNamaPelangganPx { get; set; } = DefaultWidth;
     public int ValidasiNomorTelpPx { get; set; } = DefaultWidth;
     public int ValidasiEmailPx { get; set; } = DefaultWidth;
     public int ValidasiAlamatPx { get; set; } = DefaultWidth;
     public int ValidasiIdPlnPx { get; set; } = DefaultWidth;
     public int ValidasiShareLocPx { get; set; } = DefaultWidth;
-    public int TglChatCallResponsPx { get; set; } = 225;
     public int LinkRekapChatHistoryPx { get; set; } = 250;
     public int StatusValidasiPx { get; set; } = DefaultWidth;
     public int KeteranganValidasiPx { get; set; } = DefaultWidth;
