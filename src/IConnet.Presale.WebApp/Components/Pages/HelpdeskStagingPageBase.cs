@@ -69,7 +69,7 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
 
         if (isNotStaged || hasStageExpired)
         {
-            await OpenDialogAsync(row.Item);
+            await OpenStagingDialogAsync(row.Item);
         }
         else
         {
@@ -94,7 +94,7 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
         ToastService.ShowToast(intent, message);
     }
 
-    protected async Task OpenDialogAsync(WorkPaper workPaper)
+    protected async Task OpenStagingDialogAsync(WorkPaper workPaper)
     {
         var parameters = new DialogParameters()
         {
