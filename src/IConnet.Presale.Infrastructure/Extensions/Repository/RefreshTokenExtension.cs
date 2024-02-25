@@ -13,8 +13,6 @@ internal static class RefreshTokenExtensions
     public static RefreshToken? GetRefreshToken(this AppDbContext context, string token)
     {
         return context.RefreshTokens
-            .Include(x => x.UserAccount)
-                .ThenInclude(x => x.UserProfile)
             .SingleOrDefault(x => x.Token == token);
     }
 }

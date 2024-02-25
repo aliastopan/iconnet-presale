@@ -31,7 +31,6 @@ public class UserAccount : IAggregateRoot
 
         UserProfile = new UserProfile
         {
-            UserProfileId = Guid.NewGuid(),
             FirstName = firstName,
             LastName = lastName,
             DateOfBirth = dateOfBirth
@@ -46,13 +45,11 @@ public class UserAccount : IAggregateRoot
 
     public Guid UserAccountId { get; init; }
     public User User { get; set; }
+    public UserProfile UserProfile { get; init; }
     public string PasswordHash { get; set; }
     public string PasswordSalt { get; set; }
     public DateTimeOffset CreationDate { get; init; }
     public DateTimeOffset LastSignedIn { get; set; }
 
-    public Guid FkUserProfileId { get; init; }
-
-    public virtual UserProfile UserProfile { get; init; }
     public virtual ICollection<RefreshToken> RefreshTokens { get; init; }
 }

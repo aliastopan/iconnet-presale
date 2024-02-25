@@ -67,6 +67,21 @@ internal sealed class UserAccountConfiguration : IEntityTypeConfiguration<UserAc
                     .IsRequired();
             });
 
+        builder.OwnsOne(u => u.UserProfile,
+            userProfile =>
+            {
+                userProfile.Property(u => u.FirstName)
+                    .HasColumnName("first_name")
+                    .HasMaxLength(64);
+
+                userProfile.Property(u => u.LastName)
+                    .HasColumnName("last_name")
+                    .HasMaxLength(64);
+
+                userProfile.Property(u => u.DateOfBirth)
+                    .HasColumnName("date_of_birth");
+            });
+
         builder.Property(u => u.PasswordHash)
             .HasColumnName("password_hash")
             .HasMaxLength(96) // SHA384 (48-byte)
@@ -85,17 +100,7 @@ internal sealed class UserAccountConfiguration : IEntityTypeConfiguration<UserAc
             .HasColumnName("last_signed_in")
             .IsRequired();
 
-        // foreign key
-        builder.Property(u => u.FkUserProfileId)
-            .HasColumnName("fk_user_profile_id")
-            .IsRequired();
-
         // configure relationships
-        builder.HasOne(u => u.UserProfile)
-            .WithOne()
-            .HasForeignKey<UserProfile>(u => u.UserProfileId)
-            .OnDelete(DeleteBehavior.Cascade);
-
         builder.HasMany(u => u.RefreshTokens)
             .WithOne(rt => rt.UserAccount)
             .HasForeignKey(rt => rt.FkUserAccountId)
