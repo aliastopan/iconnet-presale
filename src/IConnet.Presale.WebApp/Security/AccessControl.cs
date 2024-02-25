@@ -17,12 +17,20 @@ public static class AccessControl
             options.AddPolicy(Policies.RoleHelpdesk, policy =>
             {
                 policy.RequireAuthenticatedUser();
-                policy.RequireClaim(JwtClaimTypes.Role, UserRole.Helpdesk.ToString());
+                policy.RequireAssertion(context =>
+                {
+                    return context.User.HasClaim(c => c.Type == JwtClaimTypes.Role && c.Value == UserRole.Helpdesk.ToString())
+                        || context.User.HasClaim(c => c.Type == JwtClaimTypes.Privileges && c.Value == UserPrivilege.Administrator.ToString());
+                });
             });
             options.AddPolicy(Policies.RolePlanningAssetCoverage, policy =>
             {
                 policy.RequireAuthenticatedUser();
-                policy.RequireClaim(JwtClaimTypes.Role, UserRole.PlanningAssetCoverage.ToString());
+                policy.RequireAssertion(context =>
+                {
+                    return context.User.HasClaim(c => c.Type == JwtClaimTypes.Role && c.Value == UserRole.PlanningAssetCoverage.ToString())
+                        || context.User.HasClaim(c => c.Type == JwtClaimTypes.Privileges && c.Value == UserPrivilege.Administrator.ToString());
+                });
             });
         });
 
