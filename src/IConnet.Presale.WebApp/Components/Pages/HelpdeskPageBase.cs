@@ -90,6 +90,14 @@ public class HelpdeskPageBase : WorkloadPageBase
         // LogSwitch.Debug("Selected: {0}", WorkPaper.ApprovalOpportunity.IdPermohonan);
     }
 
+    public void DeselectWorkPaper()
+    {
+        LogSwitch.Debug("Deselected: {0}", ActiveWorkPaper!.ApprovalOpportunity.IdPermohonan);
+
+        ActiveWorkPaper = null;
+        ActiveValidationModel = null;
+    }
+
     protected async Task OpenDialogAsync(WorkPaper workPaper)
     {
         var parameters = new DialogParameters()

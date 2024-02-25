@@ -15,6 +15,9 @@ public partial class WorkPaperValidationForm : ComponentBase
     [Inject] public SessionService SessionService { get; set; } = default!;
     [Inject] public IToastService ToastService { get; set; } = default!;
 
+    [Parameter]
+    public EventCallback UnstageWorkPaper { get; set; }
+
     [CascadingParameter(Name = "CascadeWorkPaper")]
     public WorkPaper? WorkPaper { get; set; }
 
@@ -86,6 +89,8 @@ public partial class WorkPaperValidationForm : ComponentBase
 
         var message = $"{chatCallRespons.Alias} has commit chat/call validation to {WorkPaper.ApprovalOpportunity.IdPermohonan}";
         await UpdateProsesValidasi(WorkPaper, message);
+
+        await UnstageWorkPaper.InvokeAsync();
     }
 
     protected async Task OnClipboardNamaPelangganAsync()
