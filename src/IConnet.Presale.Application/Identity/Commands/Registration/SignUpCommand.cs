@@ -4,7 +4,9 @@ using IConnet.Presale.Shared.Interfaces.Models.Identity;
 
 namespace IConnet.Presale.Application.Identity.Commands.Registration;
 
-public class SignUpCommand(string username, string firstName, string lastName, DateOnly dateOfBirth, string emailAddress, string password)
+public class SignUpCommand(string username, string firstName, string lastName,
+    DateOnly dateOfBirth, string emailAddress, string password,
+    string employmentStatus, string userRole, string jobTitle, string jobShift)
     : IRegistrationModel, IRequest<Result<SignUpResponse>>
 {
     [Required]
@@ -30,4 +32,16 @@ public class SignUpCommand(string username, string firstName, string lastName, D
     [Required]
     [RegularExpression(RegexPattern.StrongPassword)]
     public string Password { get; } = password;
+
+    [Required]
+    public string UserRole { get; } = userRole;
+
+    [Required]
+    public string EmploymentStatus { get; } = employmentStatus;
+
+    [Required]
+    public string JobTitle { get; } = jobTitle;
+
+    [Required]
+    public string JobShift { get; } = jobShift;
 }

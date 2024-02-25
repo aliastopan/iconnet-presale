@@ -13,7 +13,8 @@ internal sealed class IdentityManager : IIdentityManager
     }
 
     public async Task<Result<UserAccount>> TrySignUpAsync(string username, string firstName, string lastName,
-        DateOnly dateOfBirth, string emailAddress, string password)
+        DateOnly dateOfBirth, string emailAddress, string password,
+        string employment, string role, string jobTitle, string shift)
     {
         var TryValidateAvailability = await _identityAggregateHandler.TryValidateAvailabilityAsync(username, emailAddress);
         if (TryValidateAvailability.IsFailure())
@@ -21,11 +22,16 @@ internal sealed class IdentityManager : IIdentityManager
             return Result<UserAccount>.Inherit(result: TryValidateAvailability);
         }
 
-        var userAccount = await _identityAggregateHandler.CreateUserAccountAsync(username, firstName, lastName, dateOfBirth, emailAddress, password);
+        var employmentStatus = (EmploymentStatus)Enum.Parse(typeof(EmploymentStatus), employment);
+        var jobShift = (JobShift)Enum.Parse(typeof(JobShift), shift);
+        var userRole = (UserRole)Enum.Parse(typeof(UserRole), role);
+
+        var userAccount = await _identityAggregateHandler.CreateUserAccountAsync(username, firstName, lastName,
+            dateOfBirth, emailAddress, password,
+            employmentStatus, userRole, jobTitle, jobShift);
 
         return Result<UserAccount>.Ok(userAccount);
     }
-
 
     public async Task<Result> TrySetRoleAsync(Guid userAccountId, string role)
     {

@@ -18,7 +18,11 @@ public class RegistrationEndpoint : IEndpointDefinition
             request.LastName,
             request.DateOfBirth,
             request.EmailAddress,
-            request.Password)
+            request.Password,
+            request.EmploymentStatus,
+            request.UserRole,
+            request.JobTitle,
+            request.JobShift)
         );
 
         return result.Match(

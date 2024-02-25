@@ -19,12 +19,15 @@ internal sealed class IdentityAggregateHandler : IIdentityAggregateHandler
     }
 
     public async Task<UserAccount> CreateUserAccountAsync(string username, string firstName, string lastName,
-        DateOnly dateOfBirth, string emailAddress, string password)
+        DateOnly dateOfBirth, string emailAddress, string password,
+        EmploymentStatus employmentStatus, UserRole userRole, string jobTitle, JobShift jobShift)
     {
         var passwordHash = _passwordService.HashPassword(password, out string passwordSalt);
         var creationDate = _dateTimeService.DateTimeOffsetNow;
         var userAccount = new UserAccount(username, firstName, lastName,
-            dateOfBirth, emailAddress, passwordHash, passwordSalt, creationDate);
+            dateOfBirth, emailAddress, passwordHash, passwordSalt,
+            employmentStatus, userRole,jobTitle, jobShift,
+            creationDate);
 
         using var dbContext = _dbContextFactory.CreateDbContext();
 

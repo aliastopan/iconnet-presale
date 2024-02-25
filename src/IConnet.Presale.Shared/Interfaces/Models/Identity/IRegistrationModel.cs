@@ -8,4 +8,8 @@ public interface IRegistrationModel
    DateOnly DateOfBirth { get; }
    string EmailAddress { get; }
    string Password { get; }
+   string EmploymentStatus { get; }
+   string UserRole { get; }
+   string JobTitle { get; }
+   string JobShift { get; }
 }

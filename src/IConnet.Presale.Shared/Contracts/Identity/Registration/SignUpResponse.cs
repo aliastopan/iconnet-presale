@@ -5,4 +5,8 @@ public record SignUpResponse(Guid UserAccountId,
     string FullName,
     DateOnly DateOfBirth,
     string EmailAddress,
-    List<string> UserPrivileges);
+    string EmploymentStatus,
+    string UserRole,
+    List<string> UserPrivileges,
+    string JobTitle,
+    string JobShift);

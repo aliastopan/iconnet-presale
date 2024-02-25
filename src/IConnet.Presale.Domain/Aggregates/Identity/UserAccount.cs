@@ -12,17 +12,21 @@ public class UserAccount : IAggregateRoot
 
     public UserAccount(string username, string firstName, string lastName,
         DateOnly dateOfBirth, string emailAddress, string passwordHash, string passwordSalt,
+        EmploymentStatus employmentStatus, UserRole userRole, string jobTitle, JobShift jobShift,
         DateTimeOffset creationDate)
     {
         User = new User
         {
             Username = username,
             EmailAddress = emailAddress,
-            UserRole = UserRole.Guest,
+            EmploymentStatus = employmentStatus,
+            UserRole = userRole,
             UserPrivileges = new List<UserPrivilege>()
             {
                 UserPrivilege.Viewer
-            }
+            },
+            JobTitle = jobTitle,
+            JobShift = jobShift
         };
 
         UserProfile = new UserProfile

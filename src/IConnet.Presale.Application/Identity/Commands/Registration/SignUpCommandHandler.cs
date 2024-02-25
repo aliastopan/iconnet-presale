@@ -27,7 +27,11 @@ public class SignUpCommandHandler : IRequestHandler<SignUpCommand, Result<SignUp
             request.LastName,
             request.DateOfBirth,
             request.EmailAddress,
-            request.Password);
+            request.Password,
+            request.EmploymentStatus,
+            request.UserRole,
+            request.JobTitle,
+            request.JobShift);
 
         if (trySignUp.IsFailure())
         {
@@ -40,7 +44,11 @@ public class SignUpCommandHandler : IRequestHandler<SignUpCommand, Result<SignUp
             userAccount.UserProfile.FullName,
             userAccount.UserProfile.DateOfBirth,
             userAccount.User.EmailAddress,
-            userAccount.User.UserPrivileges.Select(privilege => privilege.ToString()).ToList());
+            userAccount.User.EmploymentStatus.ToString(),
+            userAccount.User.UserRole.ToString(),
+            userAccount.User.UserPrivileges.Select(privilege => privilege.ToString()).ToList(),
+            userAccount.User.JobTitle,
+            userAccount.User.JobShift.ToString());
 
         return Result<SignUpResponse>.Ok(response);
     }
