@@ -8,7 +8,7 @@ internal sealed class ChatTemplateHttpClient : HttpClientBase, IChatTemplateHttp
 
     }
 
-    public async Task<HttpResult> GetChatTemplateAsync(string templateName)
+    public async Task<HttpResult> GetChatTemplatesAsync(string templateName)
     {
         var isResponding = await IsHostRespondingAsync();
         if (!isResponding)

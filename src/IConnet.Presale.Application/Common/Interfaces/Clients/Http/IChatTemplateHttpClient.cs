@@ -2,5 +2,5 @@ namespace IConnet.Presale.Application.Common.Interfaces.Clients.Http;
 
 public interface IChatTemplateHttpClient : IHttpClientBase
 {
-    Task<HttpResult> GetChatTemplateAsync(string templateName);
+    Task<HttpResult> GetChatTemplatesAsync(string templateName);
 }

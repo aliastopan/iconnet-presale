@@ -27,7 +27,7 @@ public class StartupService : IHostedService
         try
         {
             var templateName = "default";
-            var httpResult = await _chatTemplateHttpClient.GetChatTemplateAsync(templateName);
+            var httpResult = await _chatTemplateHttpClient.GetChatTemplatesAsync(templateName);
 
             if (httpResult.IsSuccessStatusCode)
             {
