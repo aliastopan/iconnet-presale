@@ -11,11 +11,11 @@ internal sealed class ChatTemplateManager : IChatTemplateManager
         _dbContextFactory = dbContextFactory;
     }
 
-    public async Task<Result<ICollection<ChatTemplate>>> TryGetChatTemplatesAsync(string templateName)
+    public Result<ICollection<ChatTemplate>> TryGetChatTemplates(string templateName)
     {
         using var dbContext = _dbContextFactory.CreateDbContext();
 
-        var chatTemplates = await dbContext.GetChatTemplateAsync(templateName);
+        var chatTemplates = dbContext.GetChatTemplates(templateName);
         if (chatTemplates is null)
         {
             var error = new Error($"Template '{templateName}' not found.", ErrorSeverity.Warning);

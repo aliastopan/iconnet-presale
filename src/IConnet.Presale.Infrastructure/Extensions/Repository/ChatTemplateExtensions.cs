@@ -5,10 +5,10 @@ namespace IConnet.Presale.Infrastructure.Extensions.Repository;
 
 internal static class ChatTemplateExtensions
 {
-    public static async Task<List<ChatTemplate>> GetChatTemplateAsync(this AppDbContext context, string templateName)
+    public static List<ChatTemplate> GetChatTemplates(this AppDbContext context, string templateName)
     {
-        return await context.ChatTemplates.Where(x => x.TemplateName == templateName)
+        return context.ChatTemplates.Where(x => x.TemplateName == templateName)
             .OrderBy(x => x.Sequence)
-            .ToListAsync();
+            .ToList();
     }
 }

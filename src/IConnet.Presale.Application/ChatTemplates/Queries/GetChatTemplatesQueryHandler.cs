@@ -11,21 +11,25 @@ public class GetChatTemplatesQueryHandler : IRequestHandler<GetChatTemplatesQuer
         _chatTemplateManager = chatTemplateManager;
     }
 
-    public async ValueTask<Result<GetChatTemplatesResponse>> Handle(GetChatTemplatesQuery request,
+    public ValueTask<Result<GetChatTemplatesResponse>> Handle(GetChatTemplatesQuery request,
         CancellationToken cancellationToken)
     {
+        Result<GetChatTemplatesResponse> result;
+
         // data annotation validations
         var isInvalid = !request.TryValidate(out var errors);
         if (isInvalid)
         {
-            return Result<GetChatTemplatesResponse>.Invalid(errors);
+            result = Result<GetChatTemplatesResponse>.Invalid(errors);
+            return ValueTask.FromResult(result);
         }
 
         // chat template
-        var tryGetChatTemplates = await _chatTemplateManager.TryGetChatTemplatesAsync(request.TemplateName);
+        var tryGetChatTemplates = _chatTemplateManager.TryGetChatTemplates(request.TemplateName);
         if (tryGetChatTemplates.IsFailure())
         {
-            return Result<GetChatTemplatesResponse>.Inherit(result: tryGetChatTemplates);
+            result = Result<GetChatTemplatesResponse>.Inherit(result: tryGetChatTemplates);
+            return ValueTask.FromResult(result);
         }
 
         var chatTemplates = tryGetChatTemplates.Value;
@@ -42,6 +46,8 @@ public class GetChatTemplatesQueryHandler : IRequestHandler<GetChatTemplatesQuer
         }
 
         var response = new GetChatTemplatesResponse(chatTemplateDtos);
-        return Result<GetChatTemplatesResponse>.Ok(response);
+        result = Result<GetChatTemplatesResponse>.Ok(response);
+
+        return ValueTask.FromResult(result);
     }
 }
