@@ -177,4 +177,25 @@ internal sealed class DataSeedingProvider : IDataSeedingService
 
         return await dbContext.SaveChangesAsync();
     }
+
+    public async Task<int> GenerateRootCausesAsync()
+    {
+        var rootCauses = new List<RootCause>
+        {
+            new RootCause(0, "AKTIVASI TIDAK STANDARD"),
+            new RootCause(1, "BATAL PASANG"),
+            new RootCause(2, "DOUBLE INPUTAN"),
+            new RootCause(3, "KESALAHAN DATA DARI USER"),
+            new RootCause(4, "USER TIDAK ADA RESPONS"),
+            new RootCause(4, "TIDAK TERCOVER FAT PENUH"),
+            new RootCause(5, "TIDAK TERCOVER GPON PENUH"),
+            new RootCause(7, "TIDAK TERCOVER JARAK"),
+        };
+
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        dbContext.RootCauses.AddRange(rootCauses);
+
+        return await dbContext.SaveChangesAsync();
+    }
 }
