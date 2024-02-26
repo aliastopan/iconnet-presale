@@ -13,6 +13,8 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddEndpointDefinitions(Assembly.GetExecutingAssembly());
     services.AddSecurityTokenAuthentication();
     services.AddSecurityTokenAuthorization();
+
+    services.AddHostedService<RefreshTokenCollectorService>();
 });
 
 var app = builder.Build();
