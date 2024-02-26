@@ -6,10 +6,10 @@ public record GetUserAccountsQueryResponse(List<UserAccountDto> UserAccountDtos)
 
 public record UserAccountDto
 {
-    public Guid UserAccountId { get; set; }
-    public string Username { get; set; }
-    public string EmailAddress { get; set; }
-    public string UserRole { get; set; }
-    public List<string> UserPrivileges { get; set; }
-    public DateTime LastLoggedIn { get; set; }
+    public Guid UserAccountId { get; init; }
+    public string Username { get; init; }
+    public string EmailAddress { get; init; }
+    public string UserRole { get; init; }
+    public List<string> UserPrivileges { get; init; }
+    public DateTime LastLoggedIn { get; init; }
 }
