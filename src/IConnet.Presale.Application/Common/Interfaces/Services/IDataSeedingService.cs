@@ -4,4 +4,5 @@ public interface IDataSeedingService
 {
     Task<int> GenerateUsersAsync();
     Task<int> GenerateChatTemplatesAsync();
+    Task<int> GenerateRepresentativeOfficesAsync();
 }

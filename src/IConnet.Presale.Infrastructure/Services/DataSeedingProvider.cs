@@ -157,6 +157,23 @@ internal sealed class DataSeedingProvider : IDataSeedingService
         dbContext.ChatTemplates.Add(chatNote);
 
         return await dbContext.SaveChangesAsync();
+    }
 
+    public async Task<int> GenerateRepresentativeOfficesAsync()
+    {
+        var kantorPerwakilan = new List<RepresentativeOffice>
+        {
+            new RepresentativeOffice(0, "SEMUA KANTOR PERWAKILAN"),
+            new RepresentativeOffice(1, "SURABAYA"),
+            new RepresentativeOffice(2, "JEMBER"),
+            new RepresentativeOffice(3, "MADIUN"),
+            new RepresentativeOffice(4, "MALANG")
+        };
+
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        dbContext.RepresentativeOffices.AddRange(kantorPerwakilan);
+
+        return await dbContext.SaveChangesAsync();
     }
 }

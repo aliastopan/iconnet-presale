@@ -18,5 +18,8 @@ public static class WebApplicationExtensions
 
         var generateChatTemplatesTask = scope.ServiceProvider.GetRequiredService<IDataSeedingService>().GenerateChatTemplatesAsync();
         generateChatTemplatesTask.GetAwaiter().GetResult();
+
+        var generateRepresentativeOfficesTask = scope.ServiceProvider.GetRequiredService<IDataSeedingService>().GenerateRepresentativeOfficesAsync();
+        generateRepresentativeOfficesTask.GetAwaiter().GetResult();
     }
 }
