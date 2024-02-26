@@ -167,7 +167,8 @@ internal sealed class DataSeedingProvider : IDataSeedingService
             new RepresentativeOffice(1, "SURABAYA"),
             new RepresentativeOffice(2, "JEMBER"),
             new RepresentativeOffice(3, "MADIUN"),
-            new RepresentativeOffice(4, "MALANG")
+            new RepresentativeOffice(4, "MALANG"),
+            new RepresentativeOffice(5, "BANYUWANGI")
         };
 
         using var dbContext = _dbContextFactory.CreateDbContext();
