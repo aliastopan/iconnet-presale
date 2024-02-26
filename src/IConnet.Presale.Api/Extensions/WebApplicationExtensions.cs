@@ -13,17 +13,16 @@ public static class WebApplicationExtensions
         }
 
         using var scope = app.Services.CreateScope();
+        var dataSeedingService = scope.ServiceProvider.GetRequiredService<IDataSeedingService>();
 
-        var generateUserTask = scope.ServiceProvider.GetRequiredService<IDataSeedingService>().GenerateUsersAsync();
-        generateUserTask.GetAwaiter().GetResult();
+        Task[] seedingTasks =
+        [
+            dataSeedingService.GenerateUsersAsync(),
+            dataSeedingService.GenerateChatTemplatesAsync(),
+            dataSeedingService.GenerateRepresentativeOfficesAsync(),
+            dataSeedingService.GenerateRootCausesAsync()
+        ];
 
-        var generateChatTemplatesTask = scope.ServiceProvider.GetRequiredService<IDataSeedingService>().GenerateChatTemplatesAsync();
-        generateChatTemplatesTask.GetAwaiter().GetResult();
-
-        var generateRepresentativeOfficesTask = scope.ServiceProvider.GetRequiredService<IDataSeedingService>().GenerateRepresentativeOfficesAsync();
-        generateRepresentativeOfficesTask.GetAwaiter().GetResult();
-
-        var generateRootCausesTask = scope.ServiceProvider.GetRequiredService<IDataSeedingService>().GenerateRootCausesAsync();
-        generateRootCausesTask.GetAwaiter().GetResult();
+        Task.WaitAll(seedingTasks);
     }
 }
