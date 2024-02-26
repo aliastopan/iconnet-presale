@@ -10,14 +10,14 @@ public partial class TabControl : ComponentBase
         TabNavigationManager.StateHasChanged(this.StateHasChanged);
     }
 
-    public void ChangeTab(TabNavigation tab)
+    public void ChangeTab(TabNavigationModel tabNavigation)
     {
-        TabNavigationManager.ChangeTab(tab);
+        TabNavigationManager.ChangeTab(tabNavigation);
     }
 
-    public void CloseTab(TabNavigation tab)
+    public void CloseTab(TabNavigationModel tabNavigation)
     {
-        TabNavigationManager.CloseTab(tab);
+        TabNavigationManager.CloseTab(tabNavigation);
         this.StateHasChanged();
     }
 

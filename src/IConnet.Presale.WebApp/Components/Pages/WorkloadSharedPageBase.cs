@@ -64,8 +64,8 @@ public class WorkloadSharedPageBase : WorkloadPageBase
             {ColumnWidth.LongitudePx}px;";
     }
 
-    private static TabNavigation WorkloadSharedPage()
+    private static TabNavigationModel WorkloadSharedPage()
     {
-        return new TabNavigation("workload-shared", "Workload", PageRoute.WorkloadShared);
+        return new TabNavigationModel("workload-shared", "Workload", PageRoute.WorkloadShared);
     }
 }

@@ -11,8 +11,8 @@ public class HomePageBase : ComponentBase
         base.OnInitialized();
     }
 
-    private static TabNavigation HomePage()
+    private static TabNavigationModel HomePage()
     {
-        return new TabNavigation("home", "Home", PageRoute.Home);
+        return new TabNavigationModel("home", "Home", PageRoute.Home);
     }
 }

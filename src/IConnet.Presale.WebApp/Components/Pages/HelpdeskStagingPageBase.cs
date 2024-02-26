@@ -186,8 +186,8 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
             {ColumnWidth.KantorPerwakilanPx}px";
     }
 
-    private static TabNavigation HelpdeskStagingPage()
+    private static TabNavigationModel HelpdeskStagingPage()
     {
-        return new TabNavigation("helpdesk-staging", "Staging", PageRoute.HelpdeskStaging);
+        return new TabNavigationModel("helpdesk-staging", "Staging", PageRoute.HelpdeskStaging);
     }
 }

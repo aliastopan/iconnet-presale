@@ -127,8 +127,8 @@ public class CrmImportPageBase : ComponentBase
             {ColumnWidth.LongitudePx}px;";
     }
 
-    private static TabNavigation CrmImportPage()
+    private static TabNavigationModel CrmImportPage()
     {
-        return new TabNavigation("crm-import", "Import CRM", PageRoute.CrmImport);
+        return new TabNavigationModel("crm-import", "Import CRM", PageRoute.CrmImport);
     }
 }

@@ -153,8 +153,8 @@ public class CrmVerificationPageBase : WorkloadPageBase
             {ColumnWidth.LongitudePx}px;";
     }
 
-    private static TabNavigation CrmVerificationPage()
+    private static TabNavigationModel CrmVerificationPage()
     {
-        return new TabNavigation("crm-verification", "Verifikasi CRM", PageRoute.CrmImportVerification);
+        return new TabNavigationModel("crm-verification", "Verifikasi CRM", PageRoute.CrmImportVerification);
     }
 }

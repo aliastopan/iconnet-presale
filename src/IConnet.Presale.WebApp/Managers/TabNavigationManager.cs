@@ -3,8 +3,8 @@ namespace IConnet.Presale.WebApp.Managers;
 public class TabNavigationManager
 {
     private readonly NavigationManager _navigationManager;
-    private readonly List<TabNavigation> _tabNavigations = [];
-    private readonly Stack<TabNavigation> _visitedTabs = [];
+    private readonly List<TabNavigationModel> _tabNavigations = [];
+    private readonly Stack<TabNavigationModel> _visitedTabs = [];
     private string? _activeTabId;
     public Action _stateHasChanged = default!;
 
@@ -13,7 +13,7 @@ public class TabNavigationManager
         _navigationManager = navigationManager;
     }
 
-    public List<TabNavigation> TabNavigations => _tabNavigations;
+    public List<TabNavigationModel> TabNavigations => _tabNavigations;
     public string? ActiveTabId => _activeTabId;
 
     public void StateHasChanged(Action stateHasChanged)
@@ -21,7 +21,7 @@ public class TabNavigationManager
         _stateHasChanged = stateHasChanged;
     }
 
-    public void SelectTab(TabNavigation tabToSelect)
+    public void SelectTab(TabNavigationModel tabToSelect)
     {
         var notListed = !_tabNavigations.Any(x => x.Id == tabToSelect.Id);
         if (notListed)
@@ -36,7 +36,7 @@ public class TabNavigationManager
         _stateHasChanged();
     }
 
-    public void ChangeTab(TabNavigation tabToChange)
+    public void ChangeTab(TabNavigationModel tabToChange)
     {
         if (_activeTabId == tabToChange.Id)
         {
@@ -49,7 +49,7 @@ public class TabNavigationManager
         // LogSwitch.Debug("Change tab: {0}", _activeTabId);
     }
 
-    public void CloseTab(TabNavigation tabToClose)
+    public void CloseTab(TabNavigationModel tabToClose)
     {
         if (_tabNavigations.Count <=  1 && _activeTabId == tabToClose.Id)
         {
