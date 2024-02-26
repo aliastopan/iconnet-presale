@@ -2,8 +2,16 @@
     HorizontalAlignment="HorizontalAlignment.Center"
     VerticalAlignment="VerticalAlignment.Center">
 
-    <FluentTextField @bind-Value=_signInForm.Username Immediate="true" Placeholder="Username" Class="username-textfield" ></FluentTextField>
-    <FluentTextField @bind-Value=_signInForm.Password Immediate="true" Placeholder="Password" TextFieldType="TextFieldType.Password" Class="password-textfield"></FluentTextField>
+    <FluentTextField @bind-Value=SignInModel.Username
+        Immediate="true"
+        Placeholder="Username"
+        Class="username-textfield"></FluentTextField>
+
+    <FluentTextField @bind-Value=SignInModel.Password
+        Immediate="true"
+        Placeholder="Password"
+        TextFieldType="TextFieldType.Password"
+        Class="password-textfield"></FluentTextField>
 
     <FluentButton Class="sign-in-button"
         Type="ButtonType.Submit"

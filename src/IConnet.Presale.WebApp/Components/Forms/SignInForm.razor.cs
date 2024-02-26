@@ -20,15 +20,16 @@ public partial class SignInForm : ComponentBase
 
     public bool IsLoading { get; set; } = false;
     public string ErrorMessage { get; set; } = string.Empty;
+    public SignInModel SignInModel => _signInForm;
 
-    private async Task SubmitAsync()
+    protected async Task SubmitAsync()
     {
         ErrorMessage = string.Empty;
 
-        var isValid = _signInForm.TryValidate(out Error[] errors);
+        var isValid = SignInModel.TryValidate(out Error[] errors);
         if (!isValid)
         {
-            ErrorMessage = SignInModel.SummarizeErrorMessage(errors);
+            ErrorMessage = SummarizeErrorMessage(errors);
             return;
         }
 
@@ -44,8 +45,8 @@ public partial class SignInForm : ComponentBase
         };
 
         var httpResult = await IdentityHttpClient.SignInAsync(
-            _signInForm.Username,
-            _signInForm.Password);
+            SignInModel.Username,
+            SignInModel.Password);
 
         if (httpResult.IsSuccessStatusCode)
         {
@@ -71,5 +72,15 @@ public partial class SignInForm : ComponentBase
         }
 
         IsLoading = false;
+    }
+
+    private static string SummarizeErrorMessage(Error[] errors)
+    {
+        if (errors.Length > 1)
+        {
+            return "Username and Password tidak boleh kosong.";
+        }
+
+        return errors.First().Message;
     }
 }
