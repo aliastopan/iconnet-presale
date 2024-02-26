@@ -9,7 +9,7 @@
             <div class="filter-office">
                 <FluentSelect TOption="string"
                     Label="Kantor Perwakilan"
-                    Items="@EnumerableOptions.KantorPerwakilan"
+                    Items="@OptionService.KantorPerwakilanOptions"
                     Width="300px"
                     Value="@Filter.FilterOffice"
                     ValueChanged="FilterByOfficeAsync"/>

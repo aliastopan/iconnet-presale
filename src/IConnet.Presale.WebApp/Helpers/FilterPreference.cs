@@ -2,7 +2,12 @@ namespace IConnet.Presale.WebApp.Helpers;
 
 public class FilterPreference
 {
-    public string KantorPerwakilan { get; set; } = EnumerableOptions.KantorPerwakilan.First();
+    public FilterPreference(ICollection<string> kantorPerwakilanOptions)
+    {
+        KantorPerwakilan = kantorPerwakilanOptions.First();
+    }
+
+    public string KantorPerwakilan { get; set; } = string.Empty;
     public DateTime TglPermohonanMin { get; set; } = DateTime.MinValue;
     public DateTime TglPermohonanMax { get; set; } = DateTime.MinValue;
     public bool ShowFilters { get; set; } = true;

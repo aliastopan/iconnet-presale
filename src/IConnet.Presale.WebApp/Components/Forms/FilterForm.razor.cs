@@ -2,6 +2,7 @@ namespace IConnet.Presale.WebApp.Components.Forms;
 
 public partial class FilterForm : ComponentBase
 {
+    [Inject] public OptionService OptionService { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
 

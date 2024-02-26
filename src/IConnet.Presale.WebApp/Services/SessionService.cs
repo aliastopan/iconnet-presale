@@ -10,13 +10,17 @@ public sealed class SessionService
 {
     private readonly ProtectedLocalStorage _localStorage;
     private readonly NavigationManager _navigationManager;
-    private readonly FilterPreference _filterPreference = new FilterPreference();
+    private readonly OptionService _optionService;
+    private readonly FilterPreference _filterPreference;
 
     public SessionService(ProtectedLocalStorage localStorage,
-        NavigationManager navigationManager)
+        NavigationManager navigationManager,
+        OptionService optionService)
     {
         _localStorage = localStorage;
         _navigationManager = navigationManager;
+        _optionService = optionService;
+        _filterPreference = new FilterPreference(optionService.KantorPerwakilanOptions);
     }
 
     public UserModel? UserModel { get; private set; }
