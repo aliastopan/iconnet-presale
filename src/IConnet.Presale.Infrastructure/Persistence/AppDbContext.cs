@@ -2,6 +2,7 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using IConnet.Presale.Domain.Aggregates.Identity;
 using IConnet.Presale.Domain.Entities;
+using System.Dynamic;
 
 [assembly: InternalsVisibleTo("IConnet.Presale.Tests")]
 namespace IConnet.Presale.Infrastructure.Persistence;
@@ -21,6 +22,7 @@ internal sealed class AppDbContext : DbContext
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
     public DbSet<ChatTemplate> ChatTemplates => Set<ChatTemplate>();
     public DbSet<RepresentativeOffice> RepresentativeOffices => Set<RepresentativeOffice>();
+    public DbSet<RootCause> RootCauses => Set<RootCause>();
 
     public override int SaveChanges()
     {
