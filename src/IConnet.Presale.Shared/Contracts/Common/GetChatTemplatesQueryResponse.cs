@@ -2,7 +2,7 @@
 
 namespace IConnet.Presale.Shared.Contracts.Common;
 
-public record GetChatTemplatesResponse(ICollection<ChatTemplateDto> ChatTemplateDtos);
+public record GetChatTemplatesQueryResponse(ICollection<ChatTemplateDto> ChatTemplateDtos);
 
 public record ChatTemplateDto
 {

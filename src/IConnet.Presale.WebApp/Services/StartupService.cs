@@ -31,7 +31,7 @@ public class StartupService : IHostedService
 
             if (httpResult.IsSuccessStatusCode)
             {
-                var response = JsonSerializer.Deserialize<GetChatTemplatesResponse>(httpResult.Content, options);
+                var response = JsonSerializer.Deserialize<GetChatTemplatesQueryResponse>(httpResult.Content, options);
                 ICollection<ChatTemplateDto> chatTemplateDtos = response!.ChatTemplateDtos;
 
                 _chatTemplateService.InitializeChatTemplate(chatTemplateDtos);

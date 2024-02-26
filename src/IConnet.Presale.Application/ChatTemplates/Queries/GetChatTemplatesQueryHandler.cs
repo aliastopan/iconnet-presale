@@ -2,7 +2,7 @@ using IConnet.Presale.Shared.Contracts.Common;
 
 namespace IConnet.Presale.Application.ChatTemplates.Queries;
 
-public class GetChatTemplatesQueryHandler : IRequestHandler<GetChatTemplatesQuery, Result<GetChatTemplatesResponse>>
+public class GetChatTemplatesQueryHandler : IRequestHandler<GetChatTemplatesQuery, Result<GetChatTemplatesQueryResponse>>
 {
     private readonly IChatTemplateManager _chatTemplateManager;
 
@@ -11,16 +11,16 @@ public class GetChatTemplatesQueryHandler : IRequestHandler<GetChatTemplatesQuer
         _chatTemplateManager = chatTemplateManager;
     }
 
-    public ValueTask<Result<GetChatTemplatesResponse>> Handle(GetChatTemplatesQuery request,
+    public ValueTask<Result<GetChatTemplatesQueryResponse>> Handle(GetChatTemplatesQuery request,
         CancellationToken cancellationToken)
     {
-        Result<GetChatTemplatesResponse> result;
+        Result<GetChatTemplatesQueryResponse> result;
 
         // data annotation validations
         var isInvalid = !request.TryValidate(out var errors);
         if (isInvalid)
         {
-            result = Result<GetChatTemplatesResponse>.Invalid(errors);
+            result = Result<GetChatTemplatesQueryResponse>.Invalid(errors);
             return ValueTask.FromResult(result);
         }
 
@@ -28,7 +28,7 @@ public class GetChatTemplatesQueryHandler : IRequestHandler<GetChatTemplatesQuer
         var tryGetChatTemplates = _chatTemplateManager.TryGetChatTemplates(request.TemplateName);
         if (tryGetChatTemplates.IsFailure())
         {
-            result = Result<GetChatTemplatesResponse>.Inherit(result: tryGetChatTemplates);
+            result = Result<GetChatTemplatesQueryResponse>.Inherit(result: tryGetChatTemplates);
             return ValueTask.FromResult(result);
         }
 
@@ -45,8 +45,8 @@ public class GetChatTemplatesQueryHandler : IRequestHandler<GetChatTemplatesQuer
             });
         }
 
-        var response = new GetChatTemplatesResponse(chatTemplateDtos);
-        result = Result<GetChatTemplatesResponse>.Ok(response);
+        var response = new GetChatTemplatesQueryResponse(chatTemplateDtos);
+        result = Result<GetChatTemplatesQueryResponse>.Ok(response);
 
         return ValueTask.FromResult(result);
     }
