@@ -18,7 +18,7 @@
             <div class="filter-search">
                 <FluentSelect TOption="string"
                     Label="Pencarian"
-                    Items="@EnumerableOptions.Filter"
+                    Items="@OptionService.SearchFilterOptions"
                     Width="185px"/>
                 <FluentSearch style="width: 265px;"
                     Value="@FilterModel.FilterSearch"
