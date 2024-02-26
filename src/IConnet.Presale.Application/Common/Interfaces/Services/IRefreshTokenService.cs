@@ -6,4 +6,5 @@ public interface IRefreshTokenService
 {
     Result<RefreshToken> TryGenerateRefreshToken(string accessToken, UserAccount user);
     Result<RefreshToken> TryValidateSecurityToken(string accessToken, string refreshTokenStr);
+    Task<int> DeleteUsedRefreshTokensAsync(int daysBefore = 3);
 }

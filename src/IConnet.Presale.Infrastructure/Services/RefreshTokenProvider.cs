@@ -93,4 +93,16 @@ internal sealed class RefreshTokenProvider : IRefreshTokenService
         currentRefreshToken.IsUsed = true;
         return Result<RefreshToken>.Ok(currentRefreshToken);
     }
+
+   public async Task<int> DeleteUsedRefreshTokensAsync(int daysBefore = 3)
+    {
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        var dateTimeBefore = _dateTimeService.DateTimeOffsetNow.AddDays(-daysBefore);
+        var usedRefreshTokens =  dbContext.GetRefreshTokensBeforeDate(dateTimeBefore);
+
+        dbContext.RefreshTokens.RemoveRange(usedRefreshTokens);
+
+        return await dbContext.SaveChangesAsync();
+    }
 }

@@ -15,4 +15,11 @@ internal static class RefreshTokenExtensions
         return context.RefreshTokens
             .SingleOrDefault(x => x.Token == token);
     }
+
+    public static List<RefreshToken> GetRefreshTokensBeforeDate(this AppDbContext context, DateTimeOffset beforeDateTime)
+    {
+        return context.RefreshTokens
+            .Where(x => x.CreationDate < beforeDateTime)
+            .ToList();
+    }
 }
