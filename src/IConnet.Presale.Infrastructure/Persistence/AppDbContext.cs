@@ -20,6 +20,7 @@ internal sealed class AppDbContext : DbContext
     // entities
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
     public DbSet<ChatTemplate> ChatTemplates => Set<ChatTemplate>();
+    public DbSet<RepresentativeOffice> RepresentativeOffices => Set<RepresentativeOffice>();
 
     public override int SaveChanges()
     {
