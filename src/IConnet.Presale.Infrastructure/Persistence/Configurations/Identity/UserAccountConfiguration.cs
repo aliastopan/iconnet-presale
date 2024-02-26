@@ -22,7 +22,6 @@ internal sealed class UserAccountConfiguration : IEntityTypeConfiguration<UserAc
             .HasMaxLength(36)
             .IsRequired();
 
-
         builder.OwnsOne(u => u.User,
             user =>
             {
