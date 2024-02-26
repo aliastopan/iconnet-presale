@@ -11,7 +11,7 @@ public partial class SignInForm : ComponentBase
 {
     [Inject] public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
     [Inject] public ProtectedLocalStorage LocalStorage { get; set; } = default!;
-    [Inject] public IIdentityHttpClientService IdentityHttpClientService { get; set; } = default!;
+    [Inject] public IIdentityHttpClient IdentityHttpClient { get; set; } = default!;
 
     [Parameter]
     public EventCallback ToggleGuestMode { get; set; }
@@ -43,7 +43,7 @@ public partial class SignInForm : ComponentBase
             PropertyNameCaseInsensitive = true
         };
 
-        var httpResult = await IdentityHttpClientService.SignInAsync(
+        var httpResult = await IdentityHttpClient.SignInAsync(
             _signInForm.Username,
             _signInForm.Password);
 

@@ -111,12 +111,12 @@ public static class ConfigureServices
     internal static IServiceCollection ConfigureHttpClient(this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddHttpClient<IIdentityHttpClientService, IdentityHttpClientProvider>((_, httpClient) =>
+        services.AddHttpClient<IIdentityHttpClient, IdentityHttpClient>((_, httpClient) =>
         {
             httpClient.BaseAddress = new Uri(configuration["HttpClient:BaseAddress"]!);
         });
 
-        services.AddHttpClient<IChatTemplateHttpClientService, ChatTemplateHttpClientProvider>((_, httpClient) =>
+        services.AddHttpClient<IChatTemplateHttpClient, ChatTemplateHttpClient>((_, httpClient) =>
         {
             httpClient.BaseAddress = new Uri(configuration["HttpClient:BaseAddress"]!);
         });

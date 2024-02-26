@@ -1,8 +1,8 @@
-namespace IConnet.Presale.Infrastructure.Services.Http;
+namespace IConnet.Presale.Infrastructure.Clients.Http;
 
-internal sealed class ChatTemplateHttpClientProvider : HttpClientBase, IChatTemplateHttpClientService
+internal sealed class ChatTemplateHttpClient : HttpClientBase, IChatTemplateHttpClient
 {
-    public ChatTemplateHttpClientProvider(HttpClient httpClient)
+    public ChatTemplateHttpClient(HttpClient httpClient)
         : base(httpClient)
     {
 

@@ -6,13 +6,13 @@ namespace IConnet.Presale.WebApp.Services;
 
 public class StartupService : IHostedService
 {
-    private readonly IChatTemplateHttpClientService _chatTemplateHttpClientService;
+    private readonly IChatTemplateHttpClient _chatTemplateHttpClient;
     private readonly ChatTemplateService _chatTemplateService;
 
-    public StartupService(IChatTemplateHttpClientService chatTemplateHttpClientService,
+    public StartupService(IChatTemplateHttpClient chatTemplateHttpClient,
         ChatTemplateService chatTemplateService)
     {
-        _chatTemplateHttpClientService = chatTemplateHttpClientService;
+        _chatTemplateHttpClient = chatTemplateHttpClient;
         _chatTemplateService = chatTemplateService;
     }
 
@@ -27,7 +27,7 @@ public class StartupService : IHostedService
         try
         {
             var templateName = "default";
-            var httpResult = await _chatTemplateHttpClientService.GetChatTemplateAsync(templateName);
+            var httpResult = await _chatTemplateHttpClient.GetChatTemplateAsync(templateName);
 
             if (httpResult.IsSuccessStatusCode)
             {

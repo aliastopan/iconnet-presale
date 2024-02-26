@@ -2,11 +2,11 @@ using System.Text;
 using System.Text.Json;
 using IConnet.Presale.Shared.Contracts.Identity.Authentication;
 
-namespace IConnet.Presale.Infrastructure.Services.Http;
+namespace IConnet.Presale.Infrastructure.Clients.Http;
 
-internal sealed class IdentityHttpClientProvider : HttpClientBase, IIdentityHttpClientService
+internal sealed class IdentityHttpClient : HttpClientBase, IIdentityHttpClient
 {
-    public IdentityHttpClientProvider(HttpClient httpClient)
+    public IdentityHttpClient(HttpClient httpClient)
         : base(httpClient)
     {
 
