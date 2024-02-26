@@ -11,7 +11,7 @@
                     Label="Kantor Perwakilan"
                     Items="@OptionService.KantorPerwakilanOptions"
                     Width="300px"
-                    Value="@Filter.FilterOffice"
+                    Value="@FilterModel.FilterOffice"
                     ValueChanged="FilterByOfficeAsync"/>
             </div>
             <FluentSpacer />
@@ -21,7 +21,7 @@
                     Items="@EnumerableOptions.Filter"
                     Width="185px"/>
                 <FluentSearch style="width: 265px;"
-                    Value="@Filter.FilterSearch"
+                    Value="@FilterModel.FilterSearch"
                     ValueChanged="FilterBySearchAsync"/>
             </div>
             <FluentSpacer />
@@ -41,7 +41,7 @@
                 <div class="date-picker">
                     <FluentDatePicker style="width: 135px;"
                         Label="Tgl. Permohonan"
-                        Value="@Filter.NullableFilterDateTimeMin"
+                        Value="@FilterModel.NullableFilterDateTimeMin"
                         ValueChanged="SetFilterDateTimeStartAsync"/>
                 </div>
                 <div class="date-until">
@@ -50,7 +50,7 @@
                 <div class="date-picker">
                     <FluentDatePicker style="width: 135px;"
                         Label="@FilterDateTimeRangeLabel"
-                        Value="@Filter.NullableFilterDateTimeMax"
+                        Value="@FilterModel.NullableFilterDateTimeMax"
                         ValueChanged="SetFilterDateTimeEndAsync"/>
                 </div>
             </div>

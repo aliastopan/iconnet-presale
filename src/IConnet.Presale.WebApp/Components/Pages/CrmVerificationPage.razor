@@ -54,9 +54,9 @@
                                     <FluentSearch Autofocus=true
                                         style="width: 200px;"
                                         type="search"
-                                        @bind-Value=FilterComponent.Filter.IdPermohonan
-                                        @oninput="FilterComponent.Filter.IdPermohonanFilterHandler"
-                                        @bind-Value:after="FilterComponent.Filter.IdPermohonanFilterClear"
+                                        @bind-Value=FilterComponent.FilterModel.IdPermohonan
+                                        @oninput="FilterComponent.FilterModel.IdPermohonanFilterHandler"
+                                        @bind-Value:after="FilterComponent.FilterModel.IdPermohonanFilterClear"
                                         Placeholder="Id Permohonan"/>
                                 }
                             </div>

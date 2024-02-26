@@ -8,29 +8,33 @@ public partial class FilterForm : ComponentBase
 
     [Parameter] public EventCallback OnFilter { get; set; }
 
-    private readonly WorkloadFilter _filter = new WorkloadFilter();
-    public WorkloadFilter Filter => _filter;
+    private FilterModel _filterModel = default!;
+
+    public FilterModel FilterModel => _filterModel;
     public string FilterDateTimeRangeLabel => GetDaysRangeLabel();
 
     protected override void OnInitialized()
     {
         var today = DateTimeService.DateTimeOffsetNow.DateTime;
-        Filter.SetFilterDateTimeDefault(today, SessionService.FilterPreference);
+        var filterPreference = SessionService.FilterPreference;
+        var kantorPerwakilanOptions = OptionService.KantorPerwakilanOptions;
+
+        _filterModel = new FilterModel(today, filterPreference, kantorPerwakilanOptions);
     }
 
     protected override async Task OnInitializedAsync()
     {
-        _filter.FilterOffice = SessionService.FilterPreference.KantorPerwakilan;
-        _filter.NullableFilterDateTimeMin = SessionService.FilterPreference.TglPermohonanMin;
-        _filter.NullableFilterDateTimeMax = SessionService.FilterPreference.TglPermohonanMax;
+        FilterModel.FilterOffice = SessionService.FilterPreference.KantorPerwakilan;
+        FilterModel.NullableFilterDateTimeMin = SessionService.FilterPreference.TglPermohonanMin;
+        FilterModel.NullableFilterDateTimeMax = SessionService.FilterPreference.TglPermohonanMax;
 
         await OnFilter.InvokeAsync();
     }
 
     protected async Task FilterByOfficeAsync(string filterOffice)
     {
-        Filter.FilterSearch = string.Empty;
-        Filter.FilterOffice = filterOffice;
+        FilterModel.FilterSearch = string.Empty;
+        FilterModel.FilterOffice = filterOffice;
         SessionService.FilterPreference.KantorPerwakilan = filterOffice;
 
         await OnFilter.InvokeAsync();
@@ -38,10 +42,10 @@ public partial class FilterForm : ComponentBase
 
     protected async Task FilterBySearchAsync(string filterSearch)
     {
-        Filter.ResetColumnFilters();
-        Filter.FilterOffice = Filter.FilterOfficeDefault;
-        SessionService.FilterPreference.KantorPerwakilan = Filter.FilterOffice;
-        Filter.FilterSearch = filterSearch;
+        FilterModel.ResetColumnFilters();
+        FilterModel.FilterOffice = FilterModel.FilterOfficeDefault;
+        SessionService.FilterPreference.KantorPerwakilan = FilterModel.FilterOffice;
+        FilterModel.FilterSearch = filterSearch;
 
         await OnFilter.InvokeAsync();
     }
@@ -55,13 +59,13 @@ public partial class FilterForm : ComponentBase
         }
 
         var dateTime = nullableDateTime.Value;
-        if (dateTime > Filter.NullableFilterDateTimeMax)
+        if (dateTime > FilterModel.NullableFilterDateTimeMax)
         {
             // LogSwitch.Debug("DateTime Start cannot be more than DateTime End");
-            dateTime = Filter.FilterDateTimeMax.AddDays(-1);
+            dateTime = FilterModel.FilterDateTimeMax.AddDays(-1);
         }
 
-        Filter.NullableFilterDateTimeMin = dateTime;
+        FilterModel.NullableFilterDateTimeMin = dateTime;
         SessionService.FilterPreference.TglPermohonanMin = dateTime;
 
         await OnFilter.InvokeAsync();
@@ -76,13 +80,13 @@ public partial class FilterForm : ComponentBase
         }
 
         var dateTime = nullableDateTime.Value;
-        if (dateTime < Filter.NullableFilterDateTimeMin)
+        if (dateTime < FilterModel.NullableFilterDateTimeMin)
         {
             // LogSwitch.Debug("DateTime End cannot be less than DateTime Start");
-            dateTime = Filter.FilterDateTimeMin.AddDays(1);
+            dateTime = FilterModel.FilterDateTimeMin.AddDays(1);
         }
 
-        Filter.NullableFilterDateTimeMax = dateTime;
+        FilterModel.NullableFilterDateTimeMax = dateTime;
         SessionService.FilterPreference.TglPermohonanMax = dateTime;
 
         await OnFilter.InvokeAsync();
@@ -93,7 +97,7 @@ public partial class FilterForm : ComponentBase
         LogSwitch.Debug("Resetting filters");
 
         var today = DateTimeService.DateTimeOffsetNow.DateTime;
-        Filter.ResetFilters(today, SessionService.FilterPreference);
+        FilterModel.ResetFilters(today, SessionService.FilterPreference);
 
         await OnFilter.InvokeAsync();
     }
@@ -101,22 +105,22 @@ public partial class FilterForm : ComponentBase
     public IQueryable<WorkPaper>? BaseFilter(IQueryable<WorkPaper>? workPapers)
     {
         // prioritize filter search
-        if (Filter.FilterSearch.HasValue())
+        if (FilterModel.FilterSearch.HasValue())
         {
             // LogSwitch.Debug("Filter by Search");
-            return workPapers?.Where(x => x.ApprovalOpportunity.IdPermohonan == Filter.FilterSearch);
+            return workPapers?.Where(x => x.ApprovalOpportunity.IdPermohonan == FilterModel.FilterSearch);
         }
         else
         {
-            if (Filter.IsFilterOfficeSpecified)
+            if (FilterModel.IsFilterOfficeSpecified)
             {
                 // LogSwitch.Debug("Filter by Office");
-                workPapers = workPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == Filter.FilterOffice);
+                workPapers = workPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == FilterModel.FilterOffice);
             }
 
             // LogSwitch.Debug("Filtering DateTime");
-            return workPapers?.Where(x => x.ApprovalOpportunity.TglPermohonan >= Filter.FilterDateTimeMin
-                        && x.ApprovalOpportunity.TglPermohonan <= Filter.FilterDateTimeMax);
+            return workPapers?.Where(x => x.ApprovalOpportunity.TglPermohonan >= FilterModel.FilterDateTimeMin
+                        && x.ApprovalOpportunity.TglPermohonan <= FilterModel.FilterDateTimeMax);
         }
     }
 
@@ -125,19 +129,19 @@ public partial class FilterForm : ComponentBase
         workPapers = BaseFilter(workPapers);
 
         return workPapers?
-            .Where(x => !Filter.IdPermohonan.HasValue() || x.ApprovalOpportunity.IdPermohonan
-                .Contains(Filter.IdPermohonan, StringComparison.CurrentCultureIgnoreCase));
+            .Where(x => !FilterModel.IdPermohonan.HasValue() || x.ApprovalOpportunity.IdPermohonan
+                .Contains(FilterModel.IdPermohonan, StringComparison.CurrentCultureIgnoreCase));
 
     }
 
     private string GetDaysRangeLabel()
     {
         var currentDate = DateTime.Today;
-        var isToday = Filter.FilterDateTimeMax.Date == currentDate;
+        var isToday = FilterModel.FilterDateTimeMax.Date == currentDate;
 
         return isToday
-            ? $"{Filter.FilterDateTimeDifference.Days} Hari Terakhir"
-            : $"Rentang {Filter.FilterDateTimeDifference.Days} Hari";
+            ? $"{FilterModel.FilterDateTimeDifference.Days} Hari Terakhir"
+            : $"Rentang {FilterModel.FilterDateTimeDifference.Days} Hari";
     }
 
 }
