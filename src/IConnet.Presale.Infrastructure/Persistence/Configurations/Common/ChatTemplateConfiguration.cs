@@ -4,7 +4,7 @@ using IConnet.Presale.Domain.Entities;
 
 namespace IConnet.Presale.Infrastructure.Persistence.Configurations.Common;
 
-internal sealed class ChatTemplateConfiguration
+internal sealed class ChatTemplateConfiguration : IEntityTypeConfiguration<ChatTemplate>
 {
     public void Configure(EntityTypeBuilder<ChatTemplate> builder)
     {
