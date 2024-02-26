@@ -19,7 +19,7 @@ internal sealed class ChatTemplateHttpClient : HttpClientBase, IChatTemplateHttp
             };
         }
 
-        using var responseMessage = await HttpClient.GetAsync($"/api/chat-template/get-{templateName}");
+        using var responseMessage = await HttpClient.GetAsync($"/api/chat-templates/get-{templateName}");
 
         return new HttpResult
         {
