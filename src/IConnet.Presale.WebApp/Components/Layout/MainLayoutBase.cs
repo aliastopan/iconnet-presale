@@ -17,7 +17,7 @@ public class MainLayoutBase : LayoutComponentBase
 
     public CustomErrorBoundary? ErrorBoundary { get; set; }
 
-    protected override void OnParametersSet()
+    protected override void OnInitialized()
     {
         if (ErrorBoundary?.CurrentException is not null)
         {

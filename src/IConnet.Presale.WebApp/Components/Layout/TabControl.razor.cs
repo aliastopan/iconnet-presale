@@ -5,7 +5,7 @@ public partial class TabControl : ComponentBase
     [Parameter]
     public TabNavigationManager TabNavigationManager { get; set; } = default!;
 
-    protected override void OnParametersSet()
+    protected override void OnInitialized()
     {
         TabNavigationManager.StateHasChanged(this.StateHasChanged);
     }
