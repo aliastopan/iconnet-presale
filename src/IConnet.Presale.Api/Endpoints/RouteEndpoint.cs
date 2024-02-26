@@ -19,4 +19,9 @@ public static class RouteEndpoint
     {
         public const string GetChatTemplates = "/api/chat-templates/get-{templateName}";
     }
+
+    public static class RepresentativeOffice
+    {
+        public const string GetRepresentativeOffices = "/api/representative-offices/get";
+    }
 }

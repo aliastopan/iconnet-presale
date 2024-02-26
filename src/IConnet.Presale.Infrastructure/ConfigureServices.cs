@@ -47,6 +47,7 @@ public static class ConfigureServices
         services.AddScoped<IIdentityManager, IdentityManager>();
         services.AddScoped<IAuthenticationManager, AuthenticationManager>();
         services.AddScoped<IChatTemplateManager, ChatTemplateManager>();
+        services.AddScoped<IRepresentativeOfficeManager, RepresentativeOfficeManager>();
         services.AddScoped<IRefreshTokenService, RefreshTokenProvider>();
 
         return services;

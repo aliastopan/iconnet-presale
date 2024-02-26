@@ -6,7 +6,7 @@ public class RepresentativeOffice
 {
     public RepresentativeOffice()
     {
-
+        KantorPerwakilanId = Guid.NewGuid();
     }
 
     public RepresentativeOffice(int order, string perwakilan)
