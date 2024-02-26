@@ -2,7 +2,7 @@
 
 namespace IConnet.Presale.Shared.Contracts.Common;
 
-public record GetRepresentativeOfficesQueryResponse(ICollection<RepresentativeOfficeDto> RepresentativeOfficeDto);
+public record GetRepresentativeOfficesQueryResponse(ICollection<RepresentativeOfficeDto> RepresentativeOfficeDtos);
 
 public record RepresentativeOfficeDto
 {
