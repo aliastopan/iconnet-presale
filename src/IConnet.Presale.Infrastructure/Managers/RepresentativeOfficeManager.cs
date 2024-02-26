@@ -11,7 +11,7 @@ internal sealed class RepresentativeOfficeManager : IRepresentativeOfficeManager
         _dbContextFactory = dbContextFactory;
     }
 
-    public Result<ICollection<RepresentativeOffice>> TryGetRepresentativeOfficeAsync()
+    public Result<ICollection<RepresentativeOffice>> TryGetRepresentativesOfficeAsync()
     {
         using var dbContext = _dbContextFactory.CreateDbContext();
 
