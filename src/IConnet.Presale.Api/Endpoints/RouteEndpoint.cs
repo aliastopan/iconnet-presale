@@ -17,6 +17,6 @@ public static class RouteEndpoint
 
     public static class ChatTemplate
     {
-        public const string GetChatTemplate = "/api/chat-template/get-{templateName}";
+        public const string GetChatTemplates = "/api/chat-templates/get-{templateName}";
     }
 }

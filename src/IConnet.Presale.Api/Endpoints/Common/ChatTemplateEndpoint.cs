@@ -6,7 +6,7 @@ public class ChatTemplateEndpoint : IEndpointDefinition
 {
     public void DefineEndpoints(WebApplication app)
     {
-        app.MapGet(RouteEndpoint.ChatTemplate.GetChatTemplate, GetChatTemplates).AllowAnonymous();
+        app.MapGet(RouteEndpoint.ChatTemplate.GetChatTemplates, GetChatTemplates).AllowAnonymous();
     }
 
     internal async Task<IResult> GetChatTemplates([FromServices] ISender sender,
@@ -23,8 +23,8 @@ public class ChatTemplateEndpoint : IEndpointDefinition
             },
             fault => fault.AsProblem(new ProblemDetails
             {
-                Type = "https://localhost:7244/errors/chat-template",
-                Title = "Chat Template Query Failed",
+                Type = "https://localhost:7244/errors/chat-templates",
+                Title = "Chat Templates Query Failed",
                 Instance = httpContext.Request.Path
             },
             context: httpContext));;
