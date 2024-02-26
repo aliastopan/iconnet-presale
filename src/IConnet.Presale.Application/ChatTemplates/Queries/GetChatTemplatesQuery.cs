@@ -3,7 +3,7 @@ using IConnet.Presale.Shared.Contracts.Common;
 
 namespace IConnet.Presale.Application.ChatTemplates.Queries;
 
-public class GetChatTemplateQuery(string templateName) : IRequest<Result<GetChatTemplateResponse>>
+public class GetChatTemplatesQuery(string templateName) : IRequest<Result<GetChatTemplatesResponse>>
 {
     [Required]
     public string TemplateName { get; } = templateName;

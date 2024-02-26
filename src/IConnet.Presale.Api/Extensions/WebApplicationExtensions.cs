@@ -16,7 +16,7 @@ public static class WebApplicationExtensions
         var generateUserTask = scope.ServiceProvider.GetRequiredService<IDataSeedingService>().GenerateUsersAsync();
         generateUserTask.GetAwaiter().GetResult();
 
-        var generateChatTemplateTask = scope.ServiceProvider.GetRequiredService<IDataSeedingService>().GenerateChatTemplateAsync();
-        generateChatTemplateTask.GetAwaiter().GetResult();
+        var generateChatTemplatesTask = scope.ServiceProvider.GetRequiredService<IDataSeedingService>().GenerateChatTemplatesAsync();
+        generateChatTemplatesTask.GetAwaiter().GetResult();
     }
 }

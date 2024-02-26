@@ -2,30 +2,30 @@ using IConnet.Presale.Shared.Contracts.Common;
 
 namespace IConnet.Presale.Application.ChatTemplates.Queries;
 
-public class GetChatTemplateQueryHandler : IRequestHandler<GetChatTemplateQuery, Result<GetChatTemplateResponse>>
+public class GetChatTemplatesQueryHandler : IRequestHandler<GetChatTemplatesQuery, Result<GetChatTemplatesResponse>>
 {
     private readonly IChatTemplateManager _chatTemplateManager;
 
-    public GetChatTemplateQueryHandler(IChatTemplateManager chatTemplateManager)
+    public GetChatTemplatesQueryHandler(IChatTemplateManager chatTemplateManager)
     {
         _chatTemplateManager = chatTemplateManager;
     }
 
-    public async ValueTask<Result<GetChatTemplateResponse>> Handle(GetChatTemplateQuery request,
+    public async ValueTask<Result<GetChatTemplatesResponse>> Handle(GetChatTemplatesQuery request,
         CancellationToken cancellationToken)
     {
         // data annotation validations
         var isInvalid = !request.TryValidate(out var errors);
         if (isInvalid)
         {
-            return Result<GetChatTemplateResponse>.Invalid(errors);
+            return Result<GetChatTemplatesResponse>.Invalid(errors);
         }
 
         // chat template
         var tryGetChatTemplates = await _chatTemplateManager.TryGetChatTemplatesAsync(request.TemplateName);
         if (tryGetChatTemplates.IsFailure())
         {
-            return Result<GetChatTemplateResponse>.Inherit(result: tryGetChatTemplates);
+            return Result<GetChatTemplatesResponse>.Inherit(result: tryGetChatTemplates);
         }
 
         var chatTemplates = tryGetChatTemplates.Value;
@@ -41,7 +41,7 @@ public class GetChatTemplateQueryHandler : IRequestHandler<GetChatTemplateQuery,
             });
         }
 
-        var response = new GetChatTemplateResponse(chatTemplateDtos);
-        return Result<GetChatTemplateResponse>.Ok(response);
+        var response = new GetChatTemplatesResponse(chatTemplateDtos);
+        return Result<GetChatTemplatesResponse>.Ok(response);
     }
 }

@@ -13,7 +13,7 @@ public class ChatTemplateEndpoint : IEndpointDefinition
         [FromRoute] string templateName, HttpContext httpContext)
     {
         // LogSwitch.Debug("Request {0}", templateName);
-        var query = new GetChatTemplateQuery(templateName);
+        var query = new GetChatTemplatesQuery(templateName);
         var result = await sender.Send(query);
 
         return result.Match(

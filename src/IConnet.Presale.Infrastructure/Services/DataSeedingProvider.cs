@@ -123,7 +123,7 @@ internal sealed class DataSeedingProvider : IDataSeedingService
         return await dbContext.SaveChangesAsync();
     }
 
-    public async Task<int> GenerateChatTemplateAsync()
+    public async Task<int> GenerateChatTemplatesAsync()
     {
         string templateName = "default";
         string greeting = "Selamat pagi kak, kami dari Helpdesk *ICONNET* ingin mengkorfimasi pemasangan baru 😊";
