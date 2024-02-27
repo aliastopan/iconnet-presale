@@ -18,8 +18,8 @@ internal sealed class RepresentativeOfficeManager : IRepresentativeOfficeManager
         var representativeOffice = dbContext.GetRepresentativeOffices();
         if (representativeOffice is null || representativeOffice.Count == 0)
         {
-                var error = new Error($" Not found.", ErrorSeverity.Error);
-                return Result<ICollection<RepresentativeOffice>>.NotFound(error);
+            var error = new Error($" Not found.", ErrorSeverity.Error);
+            return Result<ICollection<RepresentativeOffice>>.NotFound(error);
         }
 
         return Result<ICollection<RepresentativeOffice>>.Ok(representativeOffice);
