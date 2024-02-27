@@ -169,7 +169,7 @@
         <FluentCheckbox @bind-Value="@_isCrmValid" Label="Data CRM telah sesuai" />
         <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync" Disabled="@(!_isCrmValid)" IconStart="@(new Icons.Regular.Size16.Save())">Simpan</FluentButton>
         <FluentButton BackgroundColor="crimson" Color="white" OnClick="@DeleteAsync" Disabled="@(_isCrmValid)">Hapus</FluentButton>
-        <FluentButton BackgroundColor="crimson" Color="white" OnClick="@ArchiveAsync" Disabled="@(_isCrmValid)">Archive</FluentButton>
+        @* <FluentButton BackgroundColor="crimson" Color="white" OnClick="@ArchiveAsync" Disabled="@(_isCrmValid)">Archive</FluentButton> *@
         <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Batal</FluentButton>
     </FluentStack>
 </FluentDialogFooter>
