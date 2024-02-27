@@ -7,10 +7,10 @@ namespace IConnet.Presale.Infrastructure.Managers;
 
 internal sealed class WorkloadManager : IWorkloadManager
 {
-    private readonly WorkloadFactory _workloadFactory;
+    private readonly WorkPaperFactory _workloadFactory;
     private readonly ICacheService _cacheService;
 
-    public WorkloadManager(WorkloadFactory workloadFactory,
+    public WorkloadManager(WorkPaperFactory workloadFactory,
         ICacheService cacheService)
     {
         _workloadFactory = workloadFactory;

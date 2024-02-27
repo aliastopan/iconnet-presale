@@ -5,11 +5,11 @@ using IConnet.Presale.Shared.Interfaces.Models.Presales;
 
 namespace IConnet.Presale.Infrastructure.Factories;
 
-internal sealed class WorkloadFactory
+internal sealed class WorkPaperFactory
 {
     private readonly IDateTimeService _dateTimeService;
 
-    public WorkloadFactory(IDateTimeService dateTimeService)
+    public WorkPaperFactory(IDateTimeService dateTimeService)
     {
         _dateTimeService = dateTimeService;
     }
