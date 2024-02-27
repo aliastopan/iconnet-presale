@@ -14,6 +14,7 @@ global using IConnet.Presale.Infrastructure.Managers;
 global using IConnet.Presale.Infrastructure.Persistence;
 global using IConnet.Presale.Infrastructure.Security;
 global using IConnet.Presale.Infrastructure.Services;
+global using IConnet.Presale.Infrastructure.Utilities;
 
 global using System.Runtime.CompilerServices;
 
