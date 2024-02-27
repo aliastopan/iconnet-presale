@@ -3,8 +3,11 @@ namespace IConnet.Presale.Application.Common.Interfaces.Managers.Options;
 public enum CacheFetchMode
 {
     All,
-    OnlyImportVerified,
     OnlyImportUnverified,
+    OnlyImportVerified,
+    OnlyImportInvalid,
     OnlyImportArchived,
-    OnlyValidationStaged
+    OnlyValidating,
+    OnlyWaitingApproval,
+    OnlyDoneProcessing,
 }

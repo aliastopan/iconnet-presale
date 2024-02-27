@@ -73,7 +73,7 @@ internal sealed class WorkloadManager : IWorkloadManager
                         continue;
                     }
                     break;
-                case CacheFetchMode.OnlyValidationStaged:
+                case CacheFetchMode.OnlyValidating:
                     if (workPaper.ApprovalOpportunity.StatusImport != ImportStatus.Verified
                         && workPaper.HelpdeskInCharge.IsEmptySignature())
                     {

@@ -36,7 +36,7 @@ public class HelpdeskPageBase : WorkloadPageBase
     {
         _sessionId = await SessionService.GetUserAccountIdAsync();
         PageName = _pageName;
-        CacheFetchMode = CacheFetchMode.OnlyValidationStaged;
+        CacheFetchMode = CacheFetchMode.OnlyValidating;
 
         await base.OnInitializedAsync();
 
