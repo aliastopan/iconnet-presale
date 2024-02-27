@@ -24,4 +24,9 @@ public static class RouteEndpoint
     {
         public const string GetRepresentativeOffices = "/api/representative-offices/get";
     }
+
+    public static class RootCauses
+    {
+        public const string GetRootCauses = "/api/root-causes/get";
+    }
 }
