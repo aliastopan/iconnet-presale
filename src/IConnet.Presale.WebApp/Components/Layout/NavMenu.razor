@@ -43,6 +43,18 @@
                     Helpdesk</FluentNavLink>
             </AuthorizeView>
 
+            <AuthorizeView Policy="@Policies.RolePlanningAssetCoverage">
+                <FluentNavLink Href="@PageRoute.ApprovalStaging"
+                    Icon="@(new Icons.Regular.Size20.DocumentAdd())"
+                    IconColor="Color.Accent">
+                    Approval Staging</FluentNavLink>
+
+                <FluentNavLink Href="@PageRoute.Approval"
+                    Icon="@(new Icons.Regular.Size20.DocumentCheckmark())"
+                    IconColor="Color.Accent">
+                    Approval</FluentNavLink>
+            </AuthorizeView>
+
             <AuthorizeView Policy="@Policies.AdministratorPrivilege">
                 <FluentNavLink Href="@PageRoute.Settings" Icon="@(new Icons.Regular.Size20.Settings())" IconColor="Color.Accent">Settings</FluentNavLink>
             </AuthorizeView>
