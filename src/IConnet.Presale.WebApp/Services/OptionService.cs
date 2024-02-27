@@ -12,8 +12,9 @@ public class OptionService
         ];
     }
 
-    public ICollection<string> KantorPerwakilanOptions { get; init; } = [];
     public ICollection<string> SearchFilterOptions { get ; init; } = [];
+    public ICollection<string> KantorPerwakilanOptions { get; init; } = [];
+    public ICollection<string> RootCauseOptions { get; init; } = [];
 
     public void PopulateKantorPerwakilan(ICollection<RepresentativeOfficeDto> representativeOfficeDtos)
     {
@@ -23,5 +24,15 @@ public class OptionService
         }
 
         LogSwitch.Debug("Representative Office {count}: ", KantorPerwakilanOptions.Count);
+    }
+
+    public void PopulateRootCause(ICollection<RootCausesDto> rootCauseDto)
+    {
+        foreach (var dto in rootCauseDto)
+        {
+            RootCauseOptions.Add(dto.Cause);
+        }
+
+        LogSwitch.Debug("Root Cause {count}: ", RootCauseOptions.Count);
     }
 }

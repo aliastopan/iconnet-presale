@@ -7,16 +7,19 @@ namespace IConnet.Presale.WebApp.Services;
 public class StartupService : IHostedService
 {
     private readonly IRepresentativeOfficeHttpClient _representativeOfficeHttpClient;
+    private readonly IRootCauseHttpClient _rootCauseHttpClient;
     private readonly OptionService _optionService;
     private readonly IChatTemplateHttpClient _chatTemplateHttpClient;
     private readonly ChatTemplateService _chatTemplateService;
 
     public StartupService(IRepresentativeOfficeHttpClient representativeOfficeHttpClient,
+        IRootCauseHttpClient rootCauseHttpClient,
         OptionService optionService,
         IChatTemplateHttpClient chatTemplateHttpClient,
         ChatTemplateService chatTemplateService)
     {
         _representativeOfficeHttpClient = representativeOfficeHttpClient;
+        _rootCauseHttpClient = rootCauseHttpClient;
         _optionService = optionService;
         _chatTemplateHttpClient = chatTemplateHttpClient;
         _chatTemplateService = chatTemplateService;
@@ -26,8 +29,9 @@ public class StartupService : IHostedService
     {
         LogSwitch.Debug("Starting application");
 
-        await GetChatTemplatesAsync();
         await GetRepresentativeOfficesAsync();
+        await GetChatTemplatesAsync();
+        await GetRootCausesAsync();
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
@@ -54,6 +58,39 @@ public class StartupService : IHostedService
                 ICollection<RepresentativeOfficeDto> representativeOfficeDtos = response!.RepresentativeOfficeDtos;
 
                 _optionService.PopulateKantorPerwakilan(representativeOfficeDtos);
+            }
+            else
+            {
+                var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
+                var extension = problemDetails.GetExtension();
+
+                LogSwitch.Debug("Error {message}: ", extension.Errors.First().Message);
+            }
+        }
+        catch (Exception exception)
+        {
+            Log.Fatal("Fatal error occurred: {message}", exception.Message);
+            Environment.Exit(1);
+        }
+    }
+
+    private async Task GetRootCausesAsync()
+    {
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+
+        try
+        {
+            var httpResult = await _rootCauseHttpClient.GetRootCausesAsync();
+
+            if (httpResult.IsSuccessStatusCode)
+            {
+                var response = JsonSerializer.Deserialize<GetRootCausesQueryResponse>(httpResult.Content, options);
+                ICollection<RootCausesDto> rootCauseDtos = response!.RootCausesDtos;
+
+                _optionService.PopulateRootCause(rootCauseDtos);
             }
             else
             {
