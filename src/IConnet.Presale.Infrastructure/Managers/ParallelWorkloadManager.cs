@@ -34,20 +34,22 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
         var stopwatch = new Stopwatch();
         stopwatch.Start();
 
-        var tasks = importModels.Select(async importModel =>
-        {
-            var workPaper = _workloadFactory.CreateWorkPaper(importModel);
-            var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
-            var key = workPaper.ApprovalOpportunity.IdPermohonan;
+        // check existing keys in a single batch operation
+        var keysToCheck = importModels.Select(importModel => importModel.IdPermohonan).ToList();
+        var existingKeys = await _cacheService.GetExistingKeysAsync(keysToCheck);
 
-            var isKeyExists = await _cacheService.IsKeyExistsAsync(key);
-            if (!isKeyExists)
+        var tasks = importModels
+            .Where(importModel => !existingKeys.Contains(importModel.IdPermohonan))
+            .Select(async importModel =>
             {
+                var workPaper = _workloadFactory.CreateWorkPaper(importModel);
+                var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
+                var key = workPaper.ApprovalOpportunity.IdPermohonan;
+
                 await _cacheService.SetCacheValueAsync(key, jsonWorkPaper);
                 Interlocked.Increment(ref count);
-            }
-        })
-        .ToList();
+            })
+            .ToList();
 
         await Task.WhenAll(tasks);
 
