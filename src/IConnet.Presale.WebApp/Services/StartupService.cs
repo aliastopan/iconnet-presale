@@ -29,9 +29,14 @@ public class StartupService : IHostedService
     {
         LogSwitch.Debug("Starting application");
 
-        await GetRepresentativeOfficesAsync();
-        await GetChatTemplatesAsync();
-        await GetRootCausesAsync();
+        Task[] tasks =
+        [
+            GetRepresentativeOfficesAsync(),
+            GetChatTemplatesAsync(),
+            GetRootCausesAsync()
+        ];
+
+        await Task.WhenAll(tasks);
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
