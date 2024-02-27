@@ -24,6 +24,6 @@ public class ChatTemplateService
             });
         }
 
-        LogSwitch.Debug("Chat template has been initialized ({length} sequences)", _chatTemplateModels.Count);
+        // LogSwitch.Debug("Chat template has been initialized ({length} sequences)", _chatTemplateModels.Count);
     }
 }
