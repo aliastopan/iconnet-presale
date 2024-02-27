@@ -107,7 +107,12 @@ internal sealed class RedisCacheProvider : ICacheService
     {
         try
         {
-            return await Redis.KeyExistsAsync(key);
+            // Lua script to check if keys exist
+            string luaScript = "return redis.call('EXISTS', KEYS[1]) ==  1";
+
+            var result = await Redis.ScriptEvaluateAsync(luaScript, [(RedisKey)key]);
+
+            return (bool)result;
         }
         catch (TimeoutException exception)
         {
