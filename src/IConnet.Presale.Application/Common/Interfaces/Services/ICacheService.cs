@@ -2,11 +2,11 @@ namespace IConnet.Presale.Application.Common.Interfaces.Services;
 
 public interface ICacheService
 {
-    Task<string?> GetCacheValueAsync(string key);
-    Task<List<string?>> GetAllCacheValuesAsync();
-    Task SetCacheValueAsync(string key, string value, TimeSpan? expiry = null);
-    Task<bool> UpdateCacheValueAsync(string key, string value, TimeSpan? expiry = null);
-    Task<bool> DeleteCacheValueAsync(string key);
+    Task<string?> GetValueAsync(string key);
+    Task<List<string?>> GetAllValuesAsync();
+    Task SetValueAsync(string key, string value, TimeSpan? expiry = null);
+    Task<bool> UpdateValueAsync(string key, string value, TimeSpan? expiry = null);
+    Task<bool> DeleteValueAsync(string key);
     Task<bool> IsKeyExistsAsync(string key);
     Task<List<string>> GetExistingKeysAsync(List<string> keysToCheck);
 }

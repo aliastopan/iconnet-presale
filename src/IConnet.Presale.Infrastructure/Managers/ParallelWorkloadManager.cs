@@ -46,7 +46,7 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
                 var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
                 var key = workPaper.ApprovalOpportunity.IdPermohonan;
 
-                await _cacheService.SetCacheValueAsync(key, jsonWorkPaper);
+                await _cacheService.SetValueAsync(key, jsonWorkPaper);
                 Interlocked.Increment(ref count);
             })
             .ToList();
@@ -76,7 +76,7 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
         }
 
         var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
-        await _cacheService.SetCacheValueAsync(cacheKey, jsonWorkPaper);
+        await _cacheService.SetValueAsync(cacheKey, jsonWorkPaper);
 
         return true;
     }
@@ -90,6 +90,6 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
             return false;
         }
 
-        return await _cacheService.DeleteCacheValueAsync(cacheKey);
+        return await _cacheService.DeleteValueAsync(cacheKey);
     }
 }

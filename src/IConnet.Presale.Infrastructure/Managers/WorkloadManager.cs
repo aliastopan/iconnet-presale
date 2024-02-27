@@ -31,7 +31,7 @@ internal sealed class WorkloadManager : IWorkloadManager
             var isKeyExists = await _cacheService.IsKeyExistsAsync(key);
             if (!isKeyExists)
             {
-                await _cacheService.SetCacheValueAsync(key, jsonWorkPaper);
+                await _cacheService.SetValueAsync(key, jsonWorkPaper);
                 workloadCount++;
             }
         }
@@ -42,7 +42,7 @@ internal sealed class WorkloadManager : IWorkloadManager
     public async Task<IQueryable<WorkPaper>> FetchWorkloadAsync(CacheFetchMode cacheFetchMode = CacheFetchMode.All)
     {
         List<WorkPaper> workPapers = [];
-        List<string?> jsonWorkPapers = await _cacheService.GetAllCacheValuesAsync();
+        List<string?> jsonWorkPapers = await _cacheService.GetAllValuesAsync();
 
         foreach (var json in jsonWorkPapers)
         {
@@ -98,7 +98,7 @@ internal sealed class WorkloadManager : IWorkloadManager
         }
 
         var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
-        await _cacheService.SetCacheValueAsync(cacheKey, jsonWorkPaper);
+        await _cacheService.SetValueAsync(cacheKey, jsonWorkPaper);
 
         return true;
     }
@@ -112,6 +112,6 @@ internal sealed class WorkloadManager : IWorkloadManager
             return false;
         }
 
-        return await _cacheService.DeleteCacheValueAsync(cacheKey);
+        return await _cacheService.DeleteValueAsync(cacheKey);
     }
 }

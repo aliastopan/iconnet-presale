@@ -20,7 +20,7 @@ internal sealed class RedisCacheProvider : ICacheService
 
     public IDatabase Redis => _connectionMultiplexer.GetDatabase(_dbIndex);
 
-    public async Task<string?> GetCacheValueAsync(string key)
+    public async Task<string?> GetValueAsync(string key)
     {
         try
         {
@@ -33,7 +33,7 @@ internal sealed class RedisCacheProvider : ICacheService
         }
     }
 
-    public async Task<List<string?>> GetAllCacheValuesAsync()
+    public async Task<List<string?>> GetAllValuesAsync()
     {
         try
         {
@@ -57,7 +57,7 @@ internal sealed class RedisCacheProvider : ICacheService
 
     }
 
-    public async Task SetCacheValueAsync(string key, string value, TimeSpan? expiry = null)
+    public async Task SetValueAsync(string key, string value, TimeSpan? expiry = null)
     {
         try
         {
@@ -70,7 +70,7 @@ internal sealed class RedisCacheProvider : ICacheService
         }
     }
 
-    public async Task<bool> UpdateCacheValueAsync(string key, string value, TimeSpan? expiry = null)
+    public async Task<bool> UpdateValueAsync(string key, string value, TimeSpan? expiry = null)
     {
         try
         {
@@ -90,7 +90,7 @@ internal sealed class RedisCacheProvider : ICacheService
         }
     }
 
-    public async Task<bool> DeleteCacheValueAsync(string key)
+    public async Task<bool> DeleteValueAsync(string key)
     {
         try
         {
