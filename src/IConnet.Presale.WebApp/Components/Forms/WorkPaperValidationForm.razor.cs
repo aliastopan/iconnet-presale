@@ -86,6 +86,7 @@ public partial class WorkPaperValidationForm : ComponentBase
             .WithKeterangan(ValidationModel.Keterangan);
 
         WorkPaper.ProsesValidasi = prosesValidasi;
+        WorkPaper.WorkPaperLevel = WorkPaperLevel.WaitingApproval;
 
         var message = $"{chatCallRespons.Alias} has commit chat/call validation to {WorkPaper.ApprovalOpportunity.IdPermohonan}";
         await UpdateProsesValidasi(WorkPaper, message);
