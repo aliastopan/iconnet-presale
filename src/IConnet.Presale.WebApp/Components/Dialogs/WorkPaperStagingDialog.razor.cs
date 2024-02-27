@@ -1,6 +1,6 @@
 namespace IConnet.Presale.WebApp.Components.Dialogs;
 
-public partial class WorkloadStagingAlertDialog : IDialogContentComponent<WorkPaper>
+public partial class WorkPaperStagingDialog : IDialogContentComponent<WorkPaper>
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
@@ -13,13 +13,7 @@ public partial class WorkloadStagingAlertDialog : IDialogContentComponent<WorkPa
 
     private async Task SaveAsync()
     {
-        await RestageWorkloadAsync();
-        await Dialog.CloseAsync(Content);
-    }
-
-    private async Task DeleteAsync()
-    {
-        UnstageWorkload();
+        await StageWorkloadAsync();
         await Dialog.CloseAsync(Content);
     }
 
@@ -28,27 +22,15 @@ public partial class WorkloadStagingAlertDialog : IDialogContentComponent<WorkPa
         await Dialog.CancelAsync();
     }
 
-    private async Task RestageWorkloadAsync()
+    private async Task StageWorkloadAsync()
     {
-        // Log.Warning("Re-staging");
+        Content.WorkPaperLevel = WorkPaperLevel.Validating;
         Content.Shift = (await SessionService.GetJobShiftAsync()).ToString();
         Content.HelpdeskInCharge = new ActionSignature
         {
             AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
             Alias = await SessionService.GetSessionAliasAsync(),
             TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
-        };
-    }
-
-    private void UnstageWorkload()
-    {
-        // Log.Warning("Un-staging");
-
-        Content.HelpdeskInCharge = new ActionSignature
-        {
-            AccountIdSignature = Guid.Empty,
-            Alias = string.Empty,
-            TglAksi = DateTimeService.Zero
         };
     }
 }
