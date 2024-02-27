@@ -18,6 +18,7 @@ internal sealed class WorkloadFactory
     {
         return new ApprovalOpportunity
         {
+            ApprovalOpportunityId = Guid.NewGuid(),
             IdPermohonan = importModel.IdPermohonan,
             TglPermohonan = _dateTimeService.ParseExact(importModel.TglPermohonan),
             SumberPermohonan = importModel.SumberPermohonan,
@@ -80,6 +81,7 @@ internal sealed class WorkloadFactory
 
         return new WorkPaper
         {
+            WorkPaperId = Guid.NewGuid(),
             FkApprovalOpportunityId = approvalOpportunity.ApprovalOpportunityId,
             ApprovalOpportunity = approvalOpportunity,
             Shift = string.Empty,
