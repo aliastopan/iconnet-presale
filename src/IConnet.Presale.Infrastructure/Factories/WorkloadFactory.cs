@@ -82,6 +82,7 @@ internal sealed class WorkloadFactory
         return new WorkPaper
         {
             WorkPaperId = Guid.NewGuid(),
+            WorkPaperLevel = WorkPaperLevel.ImportUnverified,
             FkApprovalOpportunityId = approvalOpportunity.ApprovalOpportunityId,
             ApprovalOpportunity = approvalOpportunity,
             Shift = string.Empty,
