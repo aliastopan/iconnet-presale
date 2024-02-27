@@ -18,7 +18,7 @@ public class GetRepresentativeOfficesQueryHandler
         Result<GetRepresentativeOfficesQueryResponse> result;
 
         // representative office
-        var tryGetRepresentativeOffices = _representativeOfficeManager.TryGetRepresentativesOfficeAsync();
+        var tryGetRepresentativeOffices = _representativeOfficeManager.TryGetRepresentativesOffice();
         if (tryGetRepresentativeOffices.IsFailure())
         {
             result = Result<GetRepresentativeOfficesQueryResponse>.Inherit(result: tryGetRepresentativeOffices);

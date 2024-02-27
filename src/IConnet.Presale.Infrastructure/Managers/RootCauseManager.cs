@@ -11,7 +11,7 @@ internal class RootCauseManager : IRootCauseManager
         _dbContextFactory = dbContextFactory;
     }
 
-    public Result<ICollection<RootCause>> TryRootCausesAsync()
+    public Result<ICollection<RootCause>> TryGetRootCauses()
     {
         using var dbContext = _dbContextFactory.CreateDbContext();
 
