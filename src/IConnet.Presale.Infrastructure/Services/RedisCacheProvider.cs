@@ -115,4 +115,33 @@ internal sealed class RedisCacheProvider : ICacheService
             throw;
         }
     }
+
+    public async Task<List<string>> GetExistingKeysAsync(List<string> keysToCheck)
+    {
+        try
+        {
+            // Lua script to check if keys exist
+            string luaScript = @"
+                local result = {}
+                for i, key in ipairs(KEYS) do
+                    if redis.call('EXISTS', key) ==  1 then
+                        table.insert(result, key)
+                    end
+                end
+                return result
+            ";
+
+            var redisKeys = keysToCheck.Select(key => (RedisKey)key).ToArray();
+            var result = await Redis.ScriptEvaluateAsync(luaScript, redisKeys);
+
+            var existingKeys = result.ToString().Split(',').Select(key => key.Trim()).ToList();
+
+            return existingKeys;
+        }
+        catch (TimeoutException exception)
+        {
+            Log.Fatal($"Redis operation timed out: {exception.Message}");
+            throw;
+        }
+    }
 }
