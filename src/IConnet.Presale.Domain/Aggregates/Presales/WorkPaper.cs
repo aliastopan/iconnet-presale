@@ -13,7 +13,7 @@ public class WorkPaper : IAggregateRoot
         ApprovalOpportunity = new ApprovalOpportunity();
     }
 
-    public Guid WorkPaperId { get; set; }
+    public Guid WorkPaperId { get; init; }
     public WorkPaperLevel WorkPaperLevel { get; set; }
     public string Shift { get; set; }
     public PersonInCharge PersonInCharge { get; set; }

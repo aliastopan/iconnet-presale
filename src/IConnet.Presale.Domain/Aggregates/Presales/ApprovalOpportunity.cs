@@ -14,7 +14,7 @@ public class ApprovalOpportunity
         Regional = new Regional();
     }
 
-    public Guid ApprovalOpportunityId { get; set; }
+    public Guid ApprovalOpportunityId { get; init; }
     public string IdPermohonan { get; set; }
     public DateTime TglPermohonan { get; set; }
     public string StatusPermohonan { get; set; }
