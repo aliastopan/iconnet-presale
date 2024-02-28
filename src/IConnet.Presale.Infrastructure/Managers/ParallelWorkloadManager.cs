@@ -62,8 +62,41 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
 
     public async Task<IQueryable<WorkPaper>> FetchWorkloadAsync(CacheFetchMode cacheFetchMode = CacheFetchMode.All)
     {
-        await Task.CompletedTask;
-        throw new NotImplementedException();
+        var stopwatch = new Stopwatch();
+        stopwatch.Start();
+
+        var jsonWorkPapers = await _cacheService.GetAllValuesAsync();
+
+        jsonWorkPapers = jsonWorkPapers
+            .Where(json => json != null && JsonWorkPaperProcessor.ShouldOnlyInclude(json, cacheFetchMode))
+            .ToList();
+
+        var tasks = jsonWorkPapers.Select(json => Task.Run(() =>
+        {
+            try
+            {
+                if (json is null)
+                {
+                    throw new JsonException();
+                }
+
+                return JsonSerializer.Deserialize<WorkPaper>(json);
+            }
+            catch (JsonException exception)
+            {
+                Log.Fatal("Error deserializing JSON: {message}", exception.Message);
+                return null;
+            }
+        }))
+        .ToList();
+
+        var workPapers = await Task.WhenAll(tasks);
+
+        stopwatch.Stop();
+        double seconds = stopwatch.ElapsedMilliseconds / 1000.0;
+        LogSwitch.Debug($"Parallel fetch workload execution took {seconds:F2} seconds.");
+
+        return workPapers.AsQueryable()!;
     }
 
     public async Task<bool> UpdateWorkloadAsync(WorkPaper workPaper)
