@@ -1,10 +1,90 @@
+using System.Collections.Concurrent;
 using System.Text.Json;
 using IConnet.Presale.Domain.Enums;
+using IConnet.Presale.Domain.Aggregates.Presales;
 
 namespace IConnet.Presale.Infrastructure.Utilities;
 
 internal static class JsonWorkPaperProcessor
 {
+    internal static IEnumerable<string> FilterJsonWorkPapers(IEnumerable<string> jsonWorkPapers, CacheFetchMode cacheFetchMode,
+        ParallelOptions parallelOptions, int parallelThreshold = 100)
+    {
+        var concurrentQueue = new ConcurrentQueue<string>();
+
+        if (jsonWorkPapers.Count() > parallelThreshold)
+        {
+            Parallel.ForEach(jsonWorkPapers, parallelOptions, json =>
+            {
+                if (json != null && ShouldOnlyInclude(json, cacheFetchMode))
+                {
+                    concurrentQueue.Enqueue(json);
+                }
+            });
+        }
+        else
+        {
+            foreach (var json in jsonWorkPapers)
+            {
+                if (json != null && ShouldOnlyInclude(json, cacheFetchMode))
+                {
+                    concurrentQueue.Enqueue(json);
+                }
+            }
+        }
+
+        return concurrentQueue.ToList();
+    }
+
+    internal static IEnumerable<WorkPaper> DeserializeJsonWorkPapers(IEnumerable<string> jsonWorkPapers,
+        ParallelOptions parallelOptions, int parallelThreshold = 100)
+    {
+        var concurrentBag = new ConcurrentBag<WorkPaper>();
+
+        if (jsonWorkPapers.Count() > parallelThreshold)
+        {
+            Parallel.ForEach(jsonWorkPapers, parallelOptions, json =>
+            {
+                try
+                {
+                    if (json is null)
+                    {
+                        throw new JsonException();
+                    }
+
+                    var workPaper = JsonSerializer.Deserialize<WorkPaper>(json);
+                    concurrentBag.Add(workPaper!);
+                }
+                catch (JsonException exception)
+                {
+                    Log.Fatal("Error deserializing JSON: {message}", exception.Message);
+                }
+            });
+        }
+        else
+        {
+            foreach (var json in jsonWorkPapers)
+            {
+                try
+                {
+                    if (json is null)
+                    {
+                        throw new JsonException();
+                    }
+
+                    var workPaper = JsonSerializer.Deserialize<WorkPaper>(json);
+                    concurrentBag.Add(workPaper!);
+                }
+                catch (JsonException exception)
+                {
+                    Log.Fatal("Error deserializing JSON: {message}", exception.Message);
+                }
+            }
+        }
+
+        return concurrentBag.ToList();
+    }
+
     internal static bool ShouldOnlyInclude(string json, CacheFetchMode cacheFetchMode)
     {
         var workPaperLevel = ExtractWorkPaperLevelFromJson(json);
