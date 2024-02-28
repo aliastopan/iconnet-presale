@@ -1,22 +1,22 @@
-@attribute [Route(PageRoute.HelpdeskStaging)]
-@inherits HelpdeskStagingPageBase
+@attribute [Route(PageRoute.Validation)]
+@inherits ValidationPageBase
 @rendermode @(InteractiveServer.DisablePreRender())
 
-<PageTitle>Helpdesk Staging</PageTitle>
+<PageTitle>Helpdesk</PageTitle>
 
 <AuthorizeView Policy="@Policies.RolePlanningAssetCoverage"
     Context="AuthenticationContext">
 
     <Authorized>
         <div class="d-flex flex-row align-items-center">
-            <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Helpdesk Staging</FluentLabel>
+            <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Helpdesk</FluentLabel>
             <div class="filter-toggle">
                 <FluentButton IconEnd="@(new Icons.Filled.Size20.Grid())"
-                    OnClick="@SessionService.FilterPreference.ToggleFilters"/>
+                    OnClick="SessionService.FilterPreference.ToggleFilters"/>
 
             </div>
         </div>
-        <span class="page-description">Tampung permohonan</span>
+        <span class="page-description">Proses validasi permohonan</span>
 
         <div class="@_filterSection">
             <FilterForm @ref="FilterComponent"
@@ -59,6 +59,22 @@
                         <div class="">
                             @context.ApprovalOpportunity.TglPermohonan
                         </div>
+                    </TemplateColumn>
+                    <TemplateColumn Title="STATUS TAMPUNG"
+                        SortBy="@SortByStagingStatus"
+                        Style="@GetWidthStyle(ColumnWidth.StagingStatusPx)">
+                        @if (IsStillInCharge(context))
+                        {
+                            <divs class="staging-active" @onclick="@ScrollToValidationForm">
+                                Active
+                            </divs>
+                        }
+                        else
+                        {
+                            <div class="">
+                                Expired
+                            </div>
+                        }
                     </TemplateColumn>
                     <TemplateColumn Title="PIC CHAT/CALL" Style="@GetWidthStyle(ColumnWidth.HelpdeskInChargePx)">
                         <div class="">
@@ -158,6 +174,17 @@
                 Hal. <strong>@(Pagination.CurrentPageIndex + 1)</strong> dari <strong>@(Pagination.LastPageIndex + 1)</strong> halaman
             </PaginationTextTemplate>
         </FluentPaginator>
+
+        @if (WorkPapers is not null)
+        {
+            <div>
+                <CascadingValue Name="CascadeWorkPaper" Value="@ActiveWorkPaper">
+                    <CascadingValue Name="CascadeValidationModel" Value="@ActiveValidationModel">
+                        <WorkPaperValidationForm UnstageWorkPaper="DeselectWorkPaper"/>
+                    </CascadingValue>
+                </CascadingValue>
+            </div>
+        }
     </Authorized>
 
     <NotAuthorized>
@@ -165,6 +192,7 @@
     </NotAuthorized>
 
 </AuthorizeView>
+
 
 @code
 {

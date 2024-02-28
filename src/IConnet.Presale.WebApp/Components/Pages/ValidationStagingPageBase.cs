@@ -3,7 +3,7 @@ using IConnet.Presale.WebApp.Components.Forms;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
 
-public class HelpdeskStagingPageBase : WorkloadPageBase
+public class ValidationStagingPageBase : WorkloadPageBase
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public IDialogService DialogService { get; set; } = default!;
@@ -19,7 +19,7 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
 
     protected override void OnInitialized()
     {
-        TabNavigationManager.SelectTab(HelpdeskStagingPage());
+        TabNavigationManager.SelectTab(ValidationStagingPage());
 
         base.OnInitialized();
     }
@@ -186,8 +186,8 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
             {ColumnWidth.KantorPerwakilanPx}px";
     }
 
-    private static TabNavigationModel HelpdeskStagingPage()
+    private static TabNavigationModel ValidationStagingPage()
     {
-        return new TabNavigationModel("helpdesk-staging", "Staging", PageRoute.HelpdeskStaging);
+        return new TabNavigationModel("validation-staging", "Tampung Validasi", PageRoute.ValidationStaging);
     }
 }

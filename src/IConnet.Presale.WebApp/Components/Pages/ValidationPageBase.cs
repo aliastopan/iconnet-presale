@@ -4,7 +4,7 @@ using IConnet.Presale.WebApp.Models.Presales;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
 
-public class HelpdeskPageBase : WorkloadPageBase
+public class ValidationPageBase : WorkloadPageBase
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public IDialogService DialogService { get; set; } = default!;
@@ -27,7 +27,7 @@ public class HelpdeskPageBase : WorkloadPageBase
 
     protected override void OnInitialized()
     {
-        TabNavigationManager.SelectTab(HelpdeskPage());
+        TabNavigationManager.SelectTab(ValidationPage());
 
         base.OnInitialized();
     }
@@ -191,8 +191,8 @@ public class HelpdeskPageBase : WorkloadPageBase
             {ColumnWidth.KantorPerwakilanPx}px";
     }
 
-    private static TabNavigationModel HelpdeskPage()
+    private static TabNavigationModel ValidationPage()
     {
-        return new TabNavigationModel("helpdesk", "Helpdesk", PageRoute.Helpdesk);
+        return new TabNavigationModel("validation", "Validasi", PageRoute.Validation);
     }
 }
