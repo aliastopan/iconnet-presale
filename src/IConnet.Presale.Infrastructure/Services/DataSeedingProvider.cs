@@ -46,12 +46,6 @@ internal sealed class DataSeedingProvider : IDataSeedingService
                 JobShift = JobShift.Siang,
                 JobTitle = "Developer"
             },
-            UserProfile = new UserProfile
-            {
-                FirstName = "Taufan",
-                LastName = "Augusta",
-                DateOfBirth = new DateOnly(year: 1996, month: 8, day: 19)
-            },
             PasswordHash = _passwordService.HashPassword(_configuration["Credentials:Administrator"]!, out var salt),
             PasswordSalt = salt,
             CreationDate = _dateTimeService.DateTimeOffsetNow,
@@ -74,12 +68,6 @@ internal sealed class DataSeedingProvider : IDataSeedingService
                 JobShift = JobShift.Siang,
                 JobTitle = "Helpdesk"
             },
-            UserProfile = new UserProfile
-            {
-                FirstName = "Andy",
-                LastName = "Wijaya",
-                DateOfBirth = new DateOnly(year: 1997, month: 5, day: 10)
-            },
             PasswordHash = _passwordService.HashPassword("pwd", out salt),
             PasswordSalt = salt,
             CreationDate = _dateTimeService.DateTimeOffsetNow,
@@ -101,12 +89,6 @@ internal sealed class DataSeedingProvider : IDataSeedingService
                 },
                 JobShift = JobShift.Siang,
                 JobTitle = "Planning Asset Coverage"
-            },
-            UserProfile = new UserProfile
-            {
-                FirstName = "Rizky",
-                LastName = "Moneter",
-                DateOfBirth = new DateOnly(year: 1998, month: 11, day: 7)
             },
             PasswordHash = _passwordService.HashPassword("pwd", out salt),
             PasswordSalt = salt,

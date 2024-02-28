@@ -12,8 +12,7 @@ internal sealed class IdentityManager : IIdentityManager
         _identityAggregateHandler = identityAggregateHandler;
     }
 
-    public async Task<Result<UserAccount>> TrySignUpAsync(string username, string firstName, string lastName,
-        DateOnly dateOfBirth, string emailAddress, string password,
+    public async Task<Result<UserAccount>> TrySignUpAsync(string username, string emailAddress, string password,
         string employment, string role, string jobTitle, string shift,
         bool autoPrivilege = false)
     {
@@ -39,8 +38,7 @@ internal sealed class IdentityManager : IIdentityManager
             return Result<UserAccount>.Error(error);
         }
 
-        var userAccount = await _identityAggregateHandler.CreateUserAccountAsync(username, firstName, lastName,
-            dateOfBirth, emailAddress, password,
+        var userAccount = await _identityAggregateHandler.CreateUserAccountAsync(username, emailAddress, password,
             employmentStatus, userRole, jobTitle, jobShift,
             autoPrivilege);
 

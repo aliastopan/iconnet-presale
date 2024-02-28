@@ -10,8 +10,7 @@ public class UserAccount : IAggregateRoot
 
     }
 
-    public UserAccount(string username, string firstName, string lastName,
-        DateOnly dateOfBirth, string emailAddress, string passwordHash, string passwordSalt,
+    public UserAccount(string username, string emailAddress, string passwordHash, string passwordSalt,
         EmploymentStatus employmentStatus, UserRole userRole, string jobTitle, JobShift jobShift,
         DateTimeOffset creationDate)
     {
@@ -29,13 +28,6 @@ public class UserAccount : IAggregateRoot
             JobShift = jobShift
         };
 
-        UserProfile = new UserProfile
-        {
-            FirstName = firstName,
-            LastName = lastName,
-            DateOfBirth = dateOfBirth
-        };
-
         UserAccountId = Guid.NewGuid();
         PasswordHash = passwordHash;
         PasswordSalt = passwordSalt;
@@ -45,7 +37,6 @@ public class UserAccount : IAggregateRoot
 
     public Guid UserAccountId { get; init; }
     public User User { get; set; }
-    public UserProfile UserProfile { get; init; }
     public string PasswordHash { get; set; }
     public string PasswordSalt { get; set; }
     public DateTimeOffset CreationDate { get; init; }

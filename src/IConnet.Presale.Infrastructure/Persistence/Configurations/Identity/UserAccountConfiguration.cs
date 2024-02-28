@@ -66,21 +66,6 @@ internal sealed class UserAccountConfiguration : IEntityTypeConfiguration<UserAc
                     .IsRequired();
             });
 
-        builder.OwnsOne(u => u.UserProfile,
-            userProfile =>
-            {
-                userProfile.Property(u => u.FirstName)
-                    .HasColumnName("first_name")
-                    .HasMaxLength(64);
-
-                userProfile.Property(u => u.LastName)
-                    .HasColumnName("last_name")
-                    .HasMaxLength(64);
-
-                userProfile.Property(u => u.DateOfBirth)
-                    .HasColumnName("date_of_birth");
-            });
-
         builder.Property(u => u.PasswordHash)
             .HasColumnName("password_hash")
             .HasMaxLength(96) // SHA384 (48-byte)

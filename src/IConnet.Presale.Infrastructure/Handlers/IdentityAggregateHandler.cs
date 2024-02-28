@@ -18,15 +18,13 @@ internal sealed class IdentityAggregateHandler : IIdentityAggregateHandler
         _dateTimeService = dateTimeService;
     }
 
-    public async Task<UserAccount> CreateUserAccountAsync(string username, string firstName, string lastName,
-        DateOnly dateOfBirth, string emailAddress, string password,
+    public async Task<UserAccount> CreateUserAccountAsync(string username, string emailAddress, string password,
         EmploymentStatus employmentStatus, UserRole userRole, string jobTitle, JobShift jobShift,
         bool autoPrivilege = false)
     {
         var passwordHash = _passwordService.HashPassword(password, out string passwordSalt);
         var creationDate = _dateTimeService.DateTimeOffsetNow;
-        var userAccount = new UserAccount(username, firstName, lastName,
-            dateOfBirth, emailAddress, passwordHash, passwordSalt,
+        var userAccount = new UserAccount(username, emailAddress, passwordHash, passwordSalt,
             employmentStatus, userRole,jobTitle, jobShift,
             creationDate);
 

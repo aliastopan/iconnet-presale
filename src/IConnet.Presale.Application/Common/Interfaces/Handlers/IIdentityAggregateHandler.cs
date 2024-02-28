@@ -6,8 +6,7 @@ namespace IConnet.Presale.Application.Common.Interfaces.Handlers;
 public interface IIdentityAggregateHandler
 {
     // user account
-    Task<UserAccount> CreateUserAccountAsync(string username, string firstName, string lastName,
-        DateOnly dateOfBirth, string emailAddress, string password,
+    Task<UserAccount> CreateUserAccountAsync(string username, string emailAddress, string password,
         EmploymentStatus employmentStatus, UserRole userRole, string jobTitle, JobShift jobShift,
         bool autoPrivilege = false);
     Task SignUserAsync(UserAccount userAccount, RefreshToken refreshToken);
