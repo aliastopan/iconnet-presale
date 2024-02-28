@@ -16,3 +16,9 @@
             Timestamp="@DateTimeService.GetClockTime()"/>
     }
 </div>
+
+<FluentDialogFooter>
+    <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.End">
+        <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Tutup</FluentButton>
+    </FluentStack>
+</FluentDialogFooter>

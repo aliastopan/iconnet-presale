@@ -19,4 +19,9 @@ public partial class ChatTemplateDialog : IDialogContentComponent<WorkPaper>
         ChatTemplateService.ActiveWorkPaper = Content;
         // LogSwitch.Debug("WorkPaper {0}", Content.ApprovalOpportunity.IdPermohonan);
     }
+
+    private async Task CancelAsync()
+    {
+        await Dialog.CancelAsync();
+    }
 }
