@@ -107,7 +107,7 @@ public class HelpdeskPageBase : WorkloadPageBase
             Width = "500px",
         };
 
-        var dialog = await DialogService.ShowDialogAsync<WorkPaperStagingAlertDialog>(workPaper, parameters);
+        var dialog = await DialogService.ShowDialogAsync<ValidationStagingAlertDialog>(workPaper, parameters);
         var result = await dialog.Result;
 
         if (result.Cancelled || result.Data == null)

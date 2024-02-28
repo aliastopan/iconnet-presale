@@ -1,6 +1,6 @@
 namespace IConnet.Presale.WebApp.Components.Dialogs;
 
-public partial class WorkPaperStagingAlertDialog : IDialogContentComponent<WorkPaper>
+public partial class ValidationStagingAlertDialog : IDialogContentComponent<WorkPaper>
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
