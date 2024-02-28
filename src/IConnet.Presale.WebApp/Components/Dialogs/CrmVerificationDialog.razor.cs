@@ -5,8 +5,6 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
 
-    private bool _isCrmValid = false;
-
     [Parameter]
     public WorkPaper Content { get; set; } = default!;
 
