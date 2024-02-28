@@ -1,4 +1,4 @@
-@rendermode @(InteractiveServer.DisablePreRender())
+﻿@rendermode @(InteractiveServer.DisablePreRender())
 
 <div class="navmenu">
     <input type="checkbox" id="navmenu-toggle" />
@@ -20,37 +20,37 @@
                     IconColor="Color.Accent">
                     @PageNavName.CrmImport</FluentNavLink>
 
-                <FluentNavLink Href="@PageRoute.CrmImportVerification"
+                <FluentNavLink Href="@PageRoute.CrmVerification"
                     Icon="@(new Icons.Regular.Size20.DocumentCheckmark())"
                     IconColor="Color.Accent">
                     @PageNavName.CrmVerification</FluentNavLink>
             </AuthorizeView>
 
             <FluentNavLink Href="@PageRoute.WorkloadShared"
-                Icon="@(new Icons.Regular.Size20.DocumentTable())"
+                Icon="@(new Icons.Regular.Size20.DocumentDatabase())"
                 IconColor="Color.Accent">
                 @PageNavName.WorkloadShared</FluentNavLink>
 
             <AuthorizeView Policy="@Policies.RoleHelpdesk">
                 <FluentNavLink Href="@PageRoute.ValidationStaging"
-                    Icon="@(new Icons.Regular.Size20.PersonDesktop())"
+                    Icon="@(new Icons.Regular.Size20.Document())"
                     IconColor="Color.Accent">
                     @PageNavName.ValidationStaging</FluentNavLink>
 
                 <FluentNavLink Href="@PageRoute.Validation"
-                    Icon="@(new Icons.Regular.Size20.CheckboxPerson())"
+                    Icon="@(new Icons.Regular.Size20.DocumentEdit())"
                     IconColor="Color.Accent">
                     @PageNavName.Validation</FluentNavLink>
             </AuthorizeView>
 
             <AuthorizeView Policy="@Policies.RolePlanningAssetCoverage">
                 <FluentNavLink Href="@PageRoute.ApprovalStaging"
-                    Icon="@(new Icons.Regular.Size20.DocumentAdd())"
+                    Icon="@(new Icons.Regular.Size20.Document())"
                     IconColor="Color.Accent">
                     @PageNavName.ApprovalStaging</FluentNavLink>
 
                 <FluentNavLink Href="@PageRoute.Approval"
-                    Icon="@(new Icons.Regular.Size20.DocumentCheckmark())"
+                    Icon="@(new Icons.Regular.Size20.DocumentEdit())"
                     IconColor="Color.Accent">
                     @PageNavName.Approval</FluentNavLink>
             </AuthorizeView>
