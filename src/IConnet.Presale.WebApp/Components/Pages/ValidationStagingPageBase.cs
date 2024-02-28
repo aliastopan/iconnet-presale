@@ -126,10 +126,10 @@ public class ValidationStagingPageBase : WorkloadPageBase
         }
 
         var dialogData = (WorkPaper)result.Data;
-        await StageWorkloadAsync(dialogData);
+        await StageWorkPaperAsync(dialogData);
     }
 
-    private async Task StageWorkloadAsync(WorkPaper workPaper)
+    private async Task StageWorkPaperAsync(WorkPaper workPaper)
     {
         var count = await GetStageCountAsync();
         if (count > _stagingLimit)
