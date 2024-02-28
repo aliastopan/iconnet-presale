@@ -100,7 +100,7 @@ public sealed class SessionService
 
     private string SetRoleString(string role)
     {
-        if (UserModel!.EmploymentStatus == EmploymentStatus.Intern)
+        if (UserModel!.EmploymentStatus == EmploymentStatus.Magang)
         {
             return $"({role}/MAGANG)";
         }
