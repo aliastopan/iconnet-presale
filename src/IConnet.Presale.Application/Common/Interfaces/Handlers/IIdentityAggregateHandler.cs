@@ -8,7 +8,8 @@ public interface IIdentityAggregateHandler
     // user account
     Task<UserAccount> CreateUserAccountAsync(string username, string firstName, string lastName,
         DateOnly dateOfBirth, string emailAddress, string password,
-        EmploymentStatus employmentStatus, UserRole userRole, string jobTitle, JobShift jobShift);
+        EmploymentStatus employmentStatus, UserRole userRole, string jobTitle, JobShift jobShift,
+        bool autoPrivilege = false);
     Task SignUserAsync(UserAccount userAccount, RefreshToken refreshToken);
     Task<Result<UserAccount>> TryGetUserAccountAsync(Guid userAccountId);
     Task<Result<UserAccount>> TryGetUserAccountAsync(string username);

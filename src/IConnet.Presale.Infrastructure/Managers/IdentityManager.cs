@@ -14,7 +14,8 @@ internal sealed class IdentityManager : IIdentityManager
 
     public async Task<Result<UserAccount>> TrySignUpAsync(string username, string firstName, string lastName,
         DateOnly dateOfBirth, string emailAddress, string password,
-        string employment, string role, string jobTitle, string shift)
+        string employment, string role, string jobTitle, string shift,
+        bool autoPrivilege = false)
     {
         var TryValidateAvailability = await _identityAggregateHandler.TryValidateAvailabilityAsync(username, emailAddress);
         if (TryValidateAvailability.IsFailure())
@@ -40,7 +41,8 @@ internal sealed class IdentityManager : IIdentityManager
 
         var userAccount = await _identityAggregateHandler.CreateUserAccountAsync(username, firstName, lastName,
             dateOfBirth, emailAddress, password,
-            employmentStatus, userRole, jobTitle, jobShift);
+            employmentStatus, userRole, jobTitle, jobShift,
+            autoPrivilege);
 
         return Result<UserAccount>.Ok(userAccount);
     }

@@ -20,7 +20,8 @@ internal sealed class IdentityAggregateHandler : IIdentityAggregateHandler
 
     public async Task<UserAccount> CreateUserAccountAsync(string username, string firstName, string lastName,
         DateOnly dateOfBirth, string emailAddress, string password,
-        EmploymentStatus employmentStatus, UserRole userRole, string jobTitle, JobShift jobShift)
+        EmploymentStatus employmentStatus, UserRole userRole, string jobTitle, JobShift jobShift,
+        bool autoPrivilege = false)
     {
         var passwordHash = _passwordService.HashPassword(password, out string passwordSalt);
         var creationDate = _dateTimeService.DateTimeOffsetNow;
@@ -28,6 +29,11 @@ internal sealed class IdentityAggregateHandler : IIdentityAggregateHandler
             dateOfBirth, emailAddress, passwordHash, passwordSalt,
             employmentStatus, userRole,jobTitle, jobShift,
             creationDate);
+
+        if (autoPrivilege)
+        {
+            AssignAutoPrivilege(userAccount);
+        }
 
         using var dbContext = _dbContextFactory.CreateDbContext();
 
@@ -207,5 +213,29 @@ internal sealed class IdentityAggregateHandler : IIdentityAggregateHandler
         dbContext.RefreshTokens.Add(current);
 
         await dbContext.SaveChangesAsync();
+    }
+
+    private static UserAccount AssignAutoPrivilege(UserAccount userAccount)
+    {
+        switch (userAccount.User.UserRole)
+        {
+            case UserRole.Administrator:
+                userAccount.User = userAccount.User.AddPrivilege(new List<UserPrivilege>
+                {
+                    UserPrivilege.Viewer,
+                    UserPrivilege.Editor,
+                    UserPrivilege.Administrator
+                });
+                break;
+            default:
+                userAccount.User = userAccount.User.AddPrivilege(new List<UserPrivilege>
+                {
+                    UserPrivilege.Viewer,
+                    UserPrivilege.Editor
+                });
+                break;
+        }
+
+        return userAccount;
     }
 }
