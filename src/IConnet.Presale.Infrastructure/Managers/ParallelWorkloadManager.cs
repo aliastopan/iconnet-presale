@@ -64,7 +64,7 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
     public async Task<IQueryable<WorkPaper>> FetchWorkloadAsync(CacheFetchMode cacheFetchMode = CacheFetchMode.All)
     {
         var stopwatch = new Stopwatch();
-        double seconds = stopwatch.ElapsedMilliseconds / 1000.0;
+        double seconds;
 
         stopwatch.Start();
 
