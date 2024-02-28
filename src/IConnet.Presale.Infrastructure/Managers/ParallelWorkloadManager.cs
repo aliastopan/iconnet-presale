@@ -66,69 +66,24 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
         var stopwatch = new Stopwatch();
         double seconds;
 
-        stopwatch.Start();
-
+        // fetch
         // TODO: add in-memory caching to reduce execution time
+        stopwatch.Start();
         var jsonWorkPapers = await _cacheService.GetAllValuesAsync();
-        var concurrentQueue = new ConcurrentQueue<string>();
-        int parallelThreshold = 100;
-
         stopwatch.Stop();
         seconds = stopwatch.ElapsedMilliseconds / 1000.0;
         LogSwitch.Debug($"Fetching cache execution took {seconds:F2} seconds.");
 
+        // filter
         stopwatch.Restart();
-
-        if (jsonWorkPapers.Count > parallelThreshold)
-        {
-            Parallel.ForEach(jsonWorkPapers, _parallelOptions, json =>
-            {
-                if (json != null && JsonWorkPaperProcessor.ShouldOnlyInclude(json, cacheFetchMode))
-                {
-                    concurrentQueue.Enqueue(json);
-                }
-            });
-        }
-        else
-        {
-            foreach (var json in jsonWorkPapers)
-            {
-                if (json != null && JsonWorkPaperProcessor.ShouldOnlyInclude(json, cacheFetchMode))
-                {
-                    concurrentQueue.Enqueue(json);
-                }
-            }
-        }
-
-        jsonWorkPapers = concurrentQueue.ToList()!;
-
+        jsonWorkPapers = JsonWorkPaperProcessor.FilterJsonWorkPapers(jsonWorkPapers!, cacheFetchMode, _parallelOptions).ToList()!;
         stopwatch.Stop();
         seconds = stopwatch.ElapsedMilliseconds / 1000.0;
         LogSwitch.Debug($"Parallel filter workload execution took {seconds:F2} seconds.");
 
+        // deserialize
         stopwatch.Restart();
-
-        var tasks = jsonWorkPapers.Select(json => Task.Run(() =>
-        {
-            try
-            {
-                if (json is null)
-                {
-                    throw new JsonException();
-                }
-
-                return JsonSerializer.Deserialize<WorkPaper>(json);
-            }
-            catch (JsonException exception)
-            {
-                Log.Fatal("Error deserializing JSON: {message}", exception.Message);
-                return null;
-            }
-        }))
-        .ToList();
-
-        var workPapers = await Task.WhenAll(tasks);
-
+        var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapers(jsonWorkPapers!, _parallelOptions);
         stopwatch.Stop();
         seconds = stopwatch.ElapsedMilliseconds / 1000.0;
         LogSwitch.Debug($"Parallel deserializing workload execution took {seconds:F2} seconds.");
