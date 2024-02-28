@@ -68,9 +68,16 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
 
         stopwatch.Start();
 
+        // TODO: add in-memory caching to reduce execution time
         var jsonWorkPapers = await _cacheService.GetAllValuesAsync();
         var concurrentQueue = new ConcurrentQueue<string>();
         int parallelThreshold = 100;
+
+        stopwatch.Stop();
+        seconds = stopwatch.ElapsedMilliseconds / 1000.0;
+        LogSwitch.Debug($"Fetching cache execution took {seconds:F2} seconds.");
+
+        stopwatch.Restart();
 
         if (jsonWorkPapers.Count > parallelThreshold)
         {
