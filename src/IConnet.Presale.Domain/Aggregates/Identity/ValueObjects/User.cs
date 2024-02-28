@@ -59,6 +59,30 @@ public class User : ValueObject
         };
     }
 
+    public User AddPrivilege(List<UserPrivilege> userPrivileges)
+    {
+        var privileges = new List<UserPrivilege>(this.UserPrivileges);
+
+        foreach (var privilege in userPrivileges)
+        {
+            if (!privileges.Contains(privilege))
+            {
+                privileges.Add(privilege);
+            }
+        }
+
+        return new User
+        {
+            Username = this.Username,
+            EmailAddress = this.EmailAddress,
+            EmploymentStatus = this.EmploymentStatus,
+            UserRole = this.UserRole,
+            UserPrivileges = privileges,
+            JobTitle = this.JobTitle,
+            JobShift = this.JobShift
+        };
+    }
+
     public User RemovePrivilege(UserPrivilege privilege)
     {
         var privileges = new List<UserPrivilege>(this.UserPrivileges);
