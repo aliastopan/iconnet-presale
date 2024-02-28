@@ -31,7 +31,8 @@ public class SignUpCommandHandler : IRequestHandler<SignUpCommand, Result<SignUp
             request.EmploymentStatus,
             request.UserRole,
             request.JobTitle,
-            request.JobShift);
+            request.JobShift,
+            request.IsManagedByAdministrator);
 
         if (trySignUp.IsFailure())
         {

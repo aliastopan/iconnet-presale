@@ -22,7 +22,8 @@ public class RegistrationEndpoint : IEndpointDefinition
             request.EmploymentStatus,
             request.UserRole,
             request.JobTitle,
-            request.JobShift)
+            request.JobShift,
+            request.IsManagedByAdministrator)
         );
 
         return result.Match(

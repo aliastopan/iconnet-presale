@@ -6,7 +6,8 @@ namespace IConnet.Presale.Application.Identity.Commands.Registration;
 
 public class SignUpCommand(string username, string firstName, string lastName,
     DateOnly dateOfBirth, string emailAddress, string password,
-    string employmentStatus, string userRole, string jobTitle, string jobShift)
+    string employmentStatus, string userRole, string jobTitle, string jobShift,
+    bool isManagedByAdministrator)
     : IRegistrationModel, IRequest<Result<SignUpResponse>>
 {
     [Required]
@@ -44,4 +45,7 @@ public class SignUpCommand(string username, string firstName, string lastName,
 
     [Required]
     public string JobShift { get; } = jobShift;
+
+    [Required]
+    public bool IsManagedByAdministrator { get; } = isManagedByAdministrator;
 }

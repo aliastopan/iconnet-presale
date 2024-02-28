@@ -12,4 +12,5 @@ public interface IRegistrationModel
    string UserRole { get; }
    string JobTitle { get; }
    string JobShift { get; }
+   bool IsManagedByAdministrator { get; }
 }
