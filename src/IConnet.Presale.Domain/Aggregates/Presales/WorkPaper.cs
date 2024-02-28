@@ -24,4 +24,14 @@ public class WorkPaper : IAggregateRoot
 
     public Guid FkApprovalOpportunityId { get; init; }
     public virtual ApprovalOpportunity ApprovalOpportunity { get; init; }
+
+    public void SetHelpdeskInCharge(ActionSignature signatureHelpdeskInCharge)
+    {
+        SignatureHelpdeskInCharge = signatureHelpdeskInCharge;
+    }
+
+   public void SetPlanningAssetCoverageInCharge(ActionSignature signaturePlanningAssetCoverageInCharge)
+    {
+        SignaturePlanningAssetCoverageInCharge = signaturePlanningAssetCoverageInCharge;
+    }
 }
