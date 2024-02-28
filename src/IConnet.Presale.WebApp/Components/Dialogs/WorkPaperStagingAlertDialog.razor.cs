@@ -13,13 +13,13 @@ public partial class WorkPaperStagingAlertDialog : IDialogContentComponent<WorkP
 
     private async Task SaveAsync()
     {
-        await RestageWorkloadAsync();
+        await RestageWorkPaperAsync();
         await Dialog.CloseAsync(Content);
     }
 
     private async Task DeleteAsync()
     {
-        UnstageWorkload();
+        UnstageWorkPaper();
         await Dialog.CloseAsync(Content);
     }
 
@@ -28,7 +28,7 @@ public partial class WorkPaperStagingAlertDialog : IDialogContentComponent<WorkP
         await Dialog.CancelAsync();
     }
 
-    private async Task RestageWorkloadAsync()
+    private async Task RestageWorkPaperAsync()
     {
         // Log.Warning("Re-staging");
         Content.Shift = (await SessionService.GetJobShiftAsync()).ToString();
@@ -40,7 +40,7 @@ public partial class WorkPaperStagingAlertDialog : IDialogContentComponent<WorkP
         };
     }
 
-    private void UnstageWorkload()
+    private void UnstageWorkPaper()
     {
         // Log.Warning("Un-staging");
 

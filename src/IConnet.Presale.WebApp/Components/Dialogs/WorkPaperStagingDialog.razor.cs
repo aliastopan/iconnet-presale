@@ -13,7 +13,7 @@ public partial class WorkPaperStagingDialog : IDialogContentComponent<WorkPaper>
 
     private async Task SaveAsync()
     {
-        await StageWorkloadAsync();
+        await StageWorkPaperAsync();
         await Dialog.CloseAsync(Content);
     }
 
@@ -22,7 +22,7 @@ public partial class WorkPaperStagingDialog : IDialogContentComponent<WorkPaper>
         await Dialog.CancelAsync();
     }
 
-    private async Task StageWorkloadAsync()
+    private async Task StageWorkPaperAsync()
     {
         Content.WorkPaperLevel = WorkPaperLevel.Validating;
         Content.Shift = (await SessionService.GetJobShiftAsync()).ToString();
