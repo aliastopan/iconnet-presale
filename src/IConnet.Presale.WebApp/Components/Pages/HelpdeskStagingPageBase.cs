@@ -27,7 +27,7 @@ public class HelpdeskStagingPageBase : WorkloadPageBase
     protected override async Task OnInitializedAsync()
     {
         PageName = _pageName;
-        CacheFetchMode = CacheFetchMode.OnlyImportVerified;
+        CacheFetchMode = CacheFetchMode.OnlyValidating;
 
         await base.OnInitializedAsync();
 
