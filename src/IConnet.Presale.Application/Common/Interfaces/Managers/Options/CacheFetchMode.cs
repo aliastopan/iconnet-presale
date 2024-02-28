@@ -4,9 +4,9 @@ public enum CacheFetchMode
 {
     All,
     OnlyImportUnverified,
-    OnlyImportVerified,
     OnlyImportInvalid,
     OnlyImportArchived,
+    OnlyImportVerified,
     OnlyValidating,
     OnlyWaitingApproval,
     OnlyDoneProcessing,

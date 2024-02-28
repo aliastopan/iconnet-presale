@@ -12,8 +12,9 @@ internal static class JsonWorkPaperProcessor
         return cacheFetchMode switch
         {
             CacheFetchMode.OnlyImportUnverified => workPaperLevel == WorkPaperLevel.ImportUnverified,
-            CacheFetchMode.OnlyImportVerified => workPaperLevel == WorkPaperLevel.ImportVerified,
+            CacheFetchMode.OnlyImportInvalid => workPaperLevel == WorkPaperLevel.ImportInvalid,
             CacheFetchMode.OnlyImportArchived => workPaperLevel == WorkPaperLevel.ImportArchived,
+            CacheFetchMode.OnlyImportVerified => workPaperLevel == WorkPaperLevel.ImportVerified,
             CacheFetchMode.OnlyValidating => (workPaperLevel & (WorkPaperLevel.Validating | WorkPaperLevel.ImportVerified)) != 0,
             CacheFetchMode.OnlyWaitingApproval => workPaperLevel == WorkPaperLevel.WaitingApproval,
             CacheFetchMode.OnlyDoneProcessing => workPaperLevel == WorkPaperLevel.DoneProcessing,
