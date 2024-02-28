@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Text.Json;
 using IConnet.Presale.Domain.Aggregates.Presales;
@@ -66,10 +67,17 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
         stopwatch.Start();
 
         var jsonWorkPapers = await _cacheService.GetAllValuesAsync();
+        var concurrentBag = new ConcurrentBag<string>();
 
-        jsonWorkPapers = jsonWorkPapers
-            .Where(json => json != null && JsonWorkPaperProcessor.ShouldOnlyInclude(json, cacheFetchMode))
-            .ToList();
+        Parallel.ForEach(source: jsonWorkPapers, _parallelOptions, json =>
+        {
+            if (json != null && JsonWorkPaperProcessor.ShouldOnlyInclude(json, cacheFetchMode))
+            {
+                concurrentBag.Add(json);
+            }
+        });
+
+        jsonWorkPapers = concurrentBag.ToList()!;
 
         var tasks = jsonWorkPapers.Select(json => Task.Run(() =>
         {
