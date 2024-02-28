@@ -1,0 +1,21 @@
+@attribute [Route(PageRoute.UserManager)]
+@inherits UserManagerPageBase
+@rendermode @(InteractiveServer.DisablePreRender())
+
+<PageTitle>User Manager</PageTitle>
+
+<AuthorizeView Policy="@Policies.RolePlanningAssetCoverage"
+    Context="AuthenticationContext">
+
+    <Authorized>
+        <div class="d-flex flex-row align-items-center">
+            <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">User Manager</FluentLabel>
+        </div>
+        <span class="page-description">Olah User Account</span>
+    </Authorized>
+
+    <NotAuthorized>
+        <AccessDenied />
+    </NotAuthorized>
+
+</AuthorizeView>
