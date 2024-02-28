@@ -6,6 +6,7 @@ public class WorkloadPageBase : ComponentBase
     [Inject] public IWorkloadManager WorkloadManager { get; init; } = default!;
     [Inject] public BroadcastService BroadcastService { get; init; } = default!;
 
+    private bool _isInitialized = false;
     private const int _itemPerPage = 10;
     private readonly PaginationState _pagination = new PaginationState { ItemsPerPage = _itemPerPage };
     private readonly WorkloadColumnWidth _columnWidth = new WorkloadColumnWidth();
@@ -25,9 +26,13 @@ public class WorkloadPageBase : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        _workPapers = await WorkloadManager.FetchWorkloadAsync(CacheFetchMode);
+        if (!_isInitialized)
+        {
+            _workPapers = await WorkloadManager.FetchWorkloadAsync(CacheFetchMode);
+            BroadcastService.Subscribe(OnUpdateWorkloadAsync);
 
-        BroadcastService.Subscribe(OnUpdateWorkloadAsync);
+            _isInitialized = true;
+        }
     }
 
     protected virtual async Task OnUpdateWorkloadAsync(string message)
