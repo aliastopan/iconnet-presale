@@ -134,7 +134,7 @@ public class ValidationStagingPageBase : WorkloadPageBase
         var count = await GetStageCountAsync();
         if (count > _stagingLimit)
         {
-            workPaper.SignatureHelpdeskInCharge = RevertStagingSignature();
+            workPaper.SetHelpdeskInCharge(RevertStagingSignature());
             StagingReachLimitToast();
 
             return;

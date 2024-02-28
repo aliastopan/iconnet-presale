@@ -26,11 +26,11 @@ public partial class ValidationStagingDialog : IDialogContentComponent<WorkPaper
     {
         Content.WorkPaperLevel = WorkPaperLevel.Validating;
         Content.Shift = (await SessionService.GetJobShiftAsync()).ToString();
-        Content.SignatureHelpdeskInCharge = new ActionSignature
+        Content.SetHelpdeskInCharge(new ActionSignature
         {
             AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
             Alias = await SessionService.GetSessionAliasAsync(),
             TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
-        };
+        });
     }
 }

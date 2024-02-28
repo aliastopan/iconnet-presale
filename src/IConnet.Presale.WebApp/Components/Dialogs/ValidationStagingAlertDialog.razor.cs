@@ -30,25 +30,22 @@ public partial class ValidationStagingAlertDialog : IDialogContentComponent<Work
 
     private async Task RestageWorkPaperAsync()
     {
-        // Log.Warning("Re-staging");
         Content.Shift = (await SessionService.GetJobShiftAsync()).ToString();
-        Content.SignatureHelpdeskInCharge = new ActionSignature
+        Content.SetHelpdeskInCharge(new ActionSignature
         {
             AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
             Alias = await SessionService.GetSessionAliasAsync(),
             TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
-        };
+        });
     }
 
     private void UnstageWorkPaper()
     {
-        // Log.Warning("Un-staging");
-
-        Content.SignatureHelpdeskInCharge = new ActionSignature
+        Content.SetHelpdeskInCharge(new ActionSignature
         {
             AccountIdSignature = Guid.Empty,
             Alias = string.Empty,
             TglAksi = DateTimeService.Zero
-        };
+        });
     }
 }
