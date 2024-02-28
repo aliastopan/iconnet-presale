@@ -36,7 +36,7 @@ internal sealed class DataSeedingProvider : IDataSeedingService
                 Username = "erasmus",
                 EmailAddress = "erasmus@proton.me",
                 EmploymentStatus = EmploymentStatus.Permanent,
-                UserRole = UserRole.Administrator,
+                UserRole = UserRole.SuperUser,
                 UserPrivileges = new List<UserPrivilege>()
                 {
                     UserPrivilege.Viewer,

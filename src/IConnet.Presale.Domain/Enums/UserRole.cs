@@ -6,5 +6,6 @@ public enum UserRole
     Guest = 0,
     Helpdesk = 1,
     PlanningAssetCoverage = 2,
-    Administrator = 64
+    Administrator = 4,
+    SuperUser = 64
 }
