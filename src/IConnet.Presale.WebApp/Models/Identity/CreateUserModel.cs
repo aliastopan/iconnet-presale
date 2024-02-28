@@ -5,17 +5,23 @@ using IConnet.Presale.Shared.Validations;
 
 namespace IConnet.Presale.WebApp.Models.Identity;
 
-public class SignUpModel : IRegistrationModel
+public class CreateUserModel : IRegistrationModel
 {
     [Required(ErrorMessage = "Username tidak boleh kosong.")]
     [RegularExpression(RegexPattern.Username)]
     public string Username { get; set; }
 
     [EmailAddress]
+    [Required(ErrorMessage = "Email tidak boleh kosong.")]
     public string EmailAddress { get; set; }
 
+    [Required(ErrorMessage = "Password tidak boleh kosong.")]
     [RegularExpression(RegexPattern.StrongPassword)]
     public string Password { get; set; }
+
+    [Required]
+    [Compare(nameof(Password), ErrorMessage = "Password tidak sesuai.")]
+    public string ConfirmPassword { get; set; }
 
     [Required]
     public string EmploymentStatus { get; set; }

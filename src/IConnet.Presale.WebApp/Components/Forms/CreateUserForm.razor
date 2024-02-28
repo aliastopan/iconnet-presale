@@ -1,0 +1,24 @@
+<FluentStack Orientation="Orientation.Horizontal"
+    HorizontalAlignment="HorizontalAlignment.Start"
+    VerticalAlignment="VerticalAlignment.Top"
+    HorizontalGap="1">
+
+    <FluentTextField style="width: 250px"
+        @bind-Value=@CreateUserModel.Username
+        Placeholder="Username"></FluentTextField>
+
+    <FluentTextField style="width: 250px"
+        @bind-Value=@CreateUserModel.EmailAddress
+        Placeholder="Email"></FluentTextField>
+
+    <FluentTextField style="width: 250px"
+        @bind-Value=@CreateUserModel.Username
+        TextFieldType="TextFieldType.Password"
+        Placeholder="Password"></FluentTextField>
+
+    <FluentTextField style="width: 250px"
+        @bind-Value=@CreateUserModel.Username
+        TextFieldType="TextFieldType.ConfirmPassword"
+        Placeholder="Confirm Password"></FluentTextField>
+
+</FluentStack>
