@@ -9,4 +9,20 @@ public static class OptionSelect
         public static string TidakSesuai => StatusValidasiOptions.Skip(1).First();
         public static string Sesuai => StatusValidasiOptions.Last();
     }
+
+    public static class StatusKepegawaian
+    {
+        public static IEnumerable<string> StatusKepegawaianOptions => EnumProcessor.GetStringOptions<EmploymentStatus>();
+    }
+
+    public static class Role
+    {
+        public static IEnumerable<string> RoleOptions => EnumProcessor.GetStringOptions<UserRole>(skipFirst: true);
+        public static string SuperUser => RoleOptions.Last();
+    }
+
+    public static class Shift
+    {
+        public static IEnumerable<string> ShiftOptions => EnumProcessor.GetStringOptions<JobShift>();
+    }
 }
