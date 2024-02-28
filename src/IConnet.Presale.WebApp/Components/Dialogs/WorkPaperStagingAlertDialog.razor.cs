@@ -32,7 +32,7 @@ public partial class WorkPaperStagingAlertDialog : IDialogContentComponent<WorkP
     {
         // Log.Warning("Re-staging");
         Content.Shift = (await SessionService.GetJobShiftAsync()).ToString();
-        Content.HelpdeskInCharge = new ActionSignature
+        Content.SignatureHelpdeskInCharge = new ActionSignature
         {
             AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
             Alias = await SessionService.GetSessionAliasAsync(),
@@ -44,7 +44,7 @@ public partial class WorkPaperStagingAlertDialog : IDialogContentComponent<WorkP
     {
         // Log.Warning("Un-staging");
 
-        Content.HelpdeskInCharge = new ActionSignature
+        Content.SignatureHelpdeskInCharge = new ActionSignature
         {
             AccountIdSignature = Guid.Empty,
             Alias = string.Empty,

@@ -58,13 +58,13 @@ public class ApprovalStagingPageBase : WorkloadPageBase
 
         var now = DateTimeService.DateTimeOffsetNow.DateTime;
         var duration = new TimeSpan(0, 5, 0);
-        var timeRemaining = workPaper!.HelpdeskInCharge.GetDurationRemaining(now, duration);
+        var timeRemaining = workPaper!.SignatureHelpdeskInCharge.GetDurationRemaining(now, duration);
         var label = timeRemaining > TimeSpan.Zero ? "Active" : "Expired";
 
         // Log.Warning("Time remaining: {0} {1}", timeRemaining, label);
 
-        var isNotStaged = workPaper!.HelpdeskInCharge.IsEmptySignature();
-        var hasStageExpired = workPaper!.HelpdeskInCharge.IsDurationExceeded(now, duration);
+        var isNotStaged = workPaper!.SignatureHelpdeskInCharge.IsEmptySignature();
+        var hasStageExpired = workPaper!.SignatureHelpdeskInCharge.IsDurationExceeded(now, duration);
         var isOnGoingValidation = workPaper!.ProsesValidasi.IsOnGoing;
 
         await Task.CompletedTask;

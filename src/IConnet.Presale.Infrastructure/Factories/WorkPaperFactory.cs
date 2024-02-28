@@ -91,13 +91,13 @@ internal sealed class WorkPaperFactory
                 Helpdesk = string.Empty,
                 PlanningAssetCoverage = string.Empty
             },
-            HelpdeskInCharge = new ActionSignature
+            SignatureHelpdeskInCharge = new ActionSignature
             {
                 AccountIdSignature = Guid.Empty,
                 Alias = string.Empty,
                 TglAksi = _dateTimeService.Zero
             },
-            PlanningAssetCoverageInCharge = new ActionSignature
+            SignaturePlanningAssetCoverageInCharge = new ActionSignature
             {
                 AccountIdSignature = Guid.Empty,
                 Alias = string.Empty,

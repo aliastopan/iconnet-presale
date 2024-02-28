@@ -15,7 +15,7 @@ public class HelpdeskPageBase : WorkloadPageBase
     private Guid _sessionId;
     private readonly List<WorkPaperValidationModel> _validationModels = new List<WorkPaperValidationModel>();
     private readonly GridSort<WorkPaper> _sortByStagingStatus = GridSort<WorkPaper>
-        .ByAscending(workPaper => workPaper.HelpdeskInCharge.TglAksi);
+        .ByAscending(workPaper => workPaper.SignatureHelpdeskInCharge.TglAksi);
 
     protected string GridTemplateCols => GetGridTemplateCols();
     protected FilterForm FilterComponent { get; set; } = default!;
@@ -61,7 +61,7 @@ public class HelpdeskPageBase : WorkloadPageBase
         }
 
         IQueryable<WorkPaper>? workPapers = FilterComponent.FilterWorkPapers(base.WorkPapers)?
-            .Where(x => x.HelpdeskInCharge.AccountIdSignature == _sessionId
+            .Where(x => x.SignatureHelpdeskInCharge.AccountIdSignature == _sessionId
                 && x.ProsesValidasi.IsOnGoing);
 
         ColumnWidth.SetColumnWidth(workPapers);
@@ -116,7 +116,7 @@ public class HelpdeskPageBase : WorkloadPageBase
         }
 
         var dialogData = (WorkPaper)result.Data;
-        if (dialogData.HelpdeskInCharge.IsEmptySignature())
+        if (dialogData.SignatureHelpdeskInCharge.IsEmptySignature())
         {
             await UnstageWorkPaperAsync(dialogData);
             // LogSwitch.Debug("{0} claim has been removed", dialogData.ApprovalOpportunity.IdPermohonan);
@@ -144,11 +144,11 @@ public class HelpdeskPageBase : WorkloadPageBase
 
         if (debug)
         {
-            var timeRemaining = workPaper.HelpdeskInCharge.GetDurationRemaining(now, duration);
+            var timeRemaining = workPaper.SignatureHelpdeskInCharge.GetDurationRemaining(now, duration);
             // LogSwitch.Debug("Time remaining: {0}", timeRemaining);
         }
 
-        return !workPaper.HelpdeskInCharge.IsDurationExceeded(now, duration);
+        return !workPaper.SignatureHelpdeskInCharge.IsDurationExceeded(now, duration);
     }
 
     private async Task RestageWorkPaperAsync(WorkPaper workPaper)

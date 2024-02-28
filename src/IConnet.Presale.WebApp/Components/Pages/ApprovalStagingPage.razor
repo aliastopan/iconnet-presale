@@ -62,13 +62,13 @@
                     </TemplateColumn>
                     <TemplateColumn Title="PIC CHAT/CALL" Style="@GetWidthStyle(ColumnWidth.HelpdeskInChargePx)">
                         <div class="">
-                            @if (string.IsNullOrEmpty(context.HelpdeskInCharge.Alias))
+                            @if (string.IsNullOrEmpty(context.SignatureHelpdeskInCharge.Alias))
                             {
                                 <span>Menunggu Tampung</span>
                             }
                             else
                             {
-                                @context.HelpdeskInCharge.Alias
+                                @context.SignatureHelpdeskInCharge.Alias
                             }
                         </div>
                     </TemplateColumn>
