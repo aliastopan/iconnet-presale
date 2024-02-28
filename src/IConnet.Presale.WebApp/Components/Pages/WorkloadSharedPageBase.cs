@@ -66,6 +66,6 @@ public class WorkloadSharedPageBase : WorkloadPageBase
 
     private static TabNavigationModel WorkloadSharedPage()
     {
-        return new TabNavigationModel("workload-shared", "Workload", PageRoute.WorkloadShared);
+        return new TabNavigationModel("workload-shared", PageNavName.WorkloadShared, PageRoute.WorkloadShared);
     }
 }

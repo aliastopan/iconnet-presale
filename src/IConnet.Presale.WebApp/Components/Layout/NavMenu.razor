@@ -1,4 +1,4 @@
-﻿@rendermode @(InteractiveServer.DisablePreRender())
+@rendermode @(InteractiveServer.DisablePreRender())
 
 <div class="navmenu">
     <input type="checkbox" id="navmenu-toggle" />
@@ -12,51 +12,54 @@
                 Match="NavLinkMatch.All"
                 Icon="@(new Icons.Regular.Size20.Home())"
                 IconColor="Color.Accent">
-                Home</FluentNavLink>
+                @PageNavName.Home</FluentNavLink>
 
             <AuthorizeView Policy="@Policies.RolePlanningAssetCoverage">
                 <FluentNavLink Href="@PageRoute.CrmImport"
                     Icon="@(new Icons.Regular.Size20.DocumentAdd())"
                     IconColor="Color.Accent">
-                    Import CRM</FluentNavLink>
+                    @PageNavName.CrmImport</FluentNavLink>
 
                 <FluentNavLink Href="@PageRoute.CrmImportVerification"
                     Icon="@(new Icons.Regular.Size20.DocumentCheckmark())"
                     IconColor="Color.Accent">
-                    Verifikasi CRM</FluentNavLink>
+                    @PageNavName.CrmVerification</FluentNavLink>
             </AuthorizeView>
 
             <FluentNavLink Href="@PageRoute.WorkloadShared"
                 Icon="@(new Icons.Regular.Size20.DocumentTable())"
                 IconColor="Color.Accent">
-                Workload</FluentNavLink>
+                @PageNavName.WorkloadShared</FluentNavLink>
 
             <AuthorizeView Policy="@Policies.RoleHelpdesk">
                 <FluentNavLink Href="@PageRoute.ValidationStaging"
                     Icon="@(new Icons.Regular.Size20.PersonDesktop())"
                     IconColor="Color.Accent">
-                    Helpdesk Staging</FluentNavLink>
+                    @PageNavName.ValidationStaging</FluentNavLink>
 
                 <FluentNavLink Href="@PageRoute.Validation"
                     Icon="@(new Icons.Regular.Size20.CheckboxPerson())"
                     IconColor="Color.Accent">
-                    Helpdesk</FluentNavLink>
+                    @PageNavName.Validation</FluentNavLink>
             </AuthorizeView>
 
             <AuthorizeView Policy="@Policies.RolePlanningAssetCoverage">
                 <FluentNavLink Href="@PageRoute.ApprovalStaging"
                     Icon="@(new Icons.Regular.Size20.DocumentAdd())"
                     IconColor="Color.Accent">
-                    Approval Staging</FluentNavLink>
+                    @PageNavName.ApprovalStaging</FluentNavLink>
 
                 <FluentNavLink Href="@PageRoute.Approval"
                     Icon="@(new Icons.Regular.Size20.DocumentCheckmark())"
                     IconColor="Color.Accent">
-                    Approval</FluentNavLink>
+                    @PageNavName.Approval</FluentNavLink>
             </AuthorizeView>
 
             <AuthorizeView Policy="@Policies.AdministratorPrivilege">
-                <FluentNavLink Href="@PageRoute.Settings" Icon="@(new Icons.Regular.Size20.Settings())" IconColor="Color.Accent">Settings</FluentNavLink>
+                <FluentNavLink Href="@PageRoute.Settings"
+                    Icon="@(new Icons.Regular.Size20.Settings())"
+                    IconColor="Color.Accent">
+                    @PageNavName.Settings</FluentNavLink>
             </AuthorizeView>
 
         </FluentNavMenu>

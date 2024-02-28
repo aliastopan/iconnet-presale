@@ -93,6 +93,6 @@ public class ApprovalStagingPageBase : WorkloadPageBase
 
     private static TabNavigationModel ApprovalStagingPage()
     {
-        return new TabNavigationModel("approval-staging", "Tampungan Approval", PageRoute.ApprovalStaging);
+        return new TabNavigationModel("approval-staging", PageNavName.ApprovalStaging, PageRoute.ApprovalStaging);
     }
 }

@@ -155,6 +155,6 @@ public class CrmVerificationPageBase : WorkloadPageBase
 
     private static TabNavigationModel CrmVerificationPage()
     {
-        return new TabNavigationModel("crm-verification", "Verifikasi CRM", PageRoute.CrmVerification);
+        return new TabNavigationModel("crm-verification", PageNavName.CrmVerification, PageRoute.CrmVerification);
     }
 }

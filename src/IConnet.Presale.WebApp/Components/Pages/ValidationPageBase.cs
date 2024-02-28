@@ -193,6 +193,6 @@ public class ValidationPageBase : WorkloadPageBase
 
     private static TabNavigationModel ValidationPage()
     {
-        return new TabNavigationModel("validation", "Validasi", PageRoute.Validation);
+        return new TabNavigationModel("validation", PageNavName.Validation, PageRoute.Validation);
     }
 }

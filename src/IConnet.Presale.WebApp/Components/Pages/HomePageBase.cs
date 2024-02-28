@@ -13,6 +13,6 @@ public class HomePageBase : ComponentBase
 
     private static TabNavigationModel HomePage()
     {
-        return new TabNavigationModel("home", "Home", PageRoute.Home);
+        return new TabNavigationModel("home", PageNavName.Home, PageRoute.Home);
     }
 }

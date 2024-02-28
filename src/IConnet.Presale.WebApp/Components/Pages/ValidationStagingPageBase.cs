@@ -188,6 +188,6 @@ public class ValidationStagingPageBase : WorkloadPageBase
 
     private static TabNavigationModel ValidationStagingPage()
     {
-        return new TabNavigationModel("validation-staging", "Tampung Validasi", PageRoute.ValidationStaging);
+        return new TabNavigationModel("validation-staging", PageNavName.ValidationStaging, PageRoute.ValidationStaging);
     }
 }
