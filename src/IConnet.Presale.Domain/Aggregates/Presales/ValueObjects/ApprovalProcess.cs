@@ -1,4 +1,5 @@
 #nullable disable
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IConnet.Presale.Domain.Aggregates.Presales.ValueObjects;
 
@@ -20,6 +21,7 @@ public class ApprovalProcess : ValueObject
         VaTerbit = vaTerbit;
     }
 
+    public ActionSignature SignatureApproval { get; init;} = new();
     public string StatusApproval { get; init; } = string.Empty;
     public string RootCause { get; init; } = string.Empty;
     public string Keterangan { get; init; } = string.Empty;
@@ -27,8 +29,12 @@ public class ApprovalProcess : ValueObject
     public string JarakICrmPlus { get; init; } = string.Empty;
     public DateTime VaTerbit { get; init; } = default;
 
+    [NotMapped]
+    public bool IsOnGoing => SignatureApproval.IsEmptySignature();
+
     protected override IEnumerable<object> GetEqualityComponents()
     {
+        yield return SignatureApproval;
         yield return StatusApproval;
         yield return RootCause;
         yield return Keterangan;
