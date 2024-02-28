@@ -105,13 +105,13 @@ internal sealed class WorkPaperFactory
             },
             ProsesValidasi = new ValidationProcess
             {
-                ChatCallMulai = new ActionSignature
+                SignatureChatCallMulai = new ActionSignature
                 {
                     AccountIdSignature = Guid.Empty,
                     Alias = string.Empty,
                     TglAksi = _dateTimeService.Zero
                 },
-                ChatCallRespons = new ActionSignature
+                SignatureChatCallRespons = new ActionSignature
                 {
                     AccountIdSignature = Guid.Empty,
                     Alias = string.Empty,

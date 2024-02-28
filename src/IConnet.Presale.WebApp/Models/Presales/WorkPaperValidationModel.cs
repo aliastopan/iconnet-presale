@@ -4,7 +4,7 @@ public class WorkPaperValidationModel
 {
     public WorkPaperValidationModel(WorkPaper workPaper)
     {
-        IsChatCallMulai = !workPaper.ProsesValidasi.ChatCallMulai.IsEmptySignature();
+        IsChatCallMulai = !workPaper.ProsesValidasi.SignatureChatCallMulai.IsEmptySignature();
 
         IdPermohonan = workPaper.ApprovalOpportunity.IdPermohonan;
         ValidasiIdPln = EnumProcessor.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiIdPln);

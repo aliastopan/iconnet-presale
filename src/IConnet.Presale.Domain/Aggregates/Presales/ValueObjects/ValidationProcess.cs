@@ -10,11 +10,11 @@ public class ValidationProcess : ValueObject
 
     }
 
-    public ValidationProcess(ActionSignature chatCallMulai, ActionSignature chatCallRespons, DateTime waktuTanggalRespons,
+    public ValidationProcess(ActionSignature signatureChatCallMulai, ActionSignature signatureChatCallRespons, DateTime waktuTanggalRespons,
         string linkRekapChatHistory, ValidationParameter parameterValidasi, ValidationCorrection pembetulanValidasi, string keterangan)
     {
-        ChatCallMulai = chatCallMulai;
-        ChatCallRespons = chatCallRespons;
+        SignatureChatCallMulai = signatureChatCallMulai;
+        SignatureChatCallRespons = signatureChatCallRespons;
         WaktuTanggalRespons = waktuTanggalRespons;
         LinkRekapChatHistory = linkRekapChatHistory;
         ParameterValidasi = parameterValidasi;
@@ -22,8 +22,8 @@ public class ValidationProcess : ValueObject
         Keterangan = keterangan;
     }
 
-    public ActionSignature ChatCallMulai { get; init;} = new();
-    public ActionSignature ChatCallRespons { get; init;} = new();
+    public ActionSignature SignatureChatCallMulai { get; init;} = new();
+    public ActionSignature SignatureChatCallRespons { get; init;} = new();
     public DateTime WaktuTanggalRespons { get; init; } = DateTime.MinValue;
     public string LinkRekapChatHistory { get; init; } = string.Empty;
     public ValidationParameter ParameterValidasi { get; init; } = new();
@@ -31,14 +31,14 @@ public class ValidationProcess : ValueObject
     public string Keterangan { get; init; }  = string.Empty;
 
     [NotMapped]
-    public bool IsOnGoing => ChatCallRespons.IsEmptySignature();
+    public bool IsOnGoing => SignatureChatCallRespons.IsEmptySignature();
 
-    public ValidationProcess WithChatCallMulai(ActionSignature chatCallMulai)
+    public ValidationProcess WithChatCallMulai(ActionSignature signatureChatCallMulai)
     {
        return new ValidationProcess
         {
-            ChatCallMulai = chatCallMulai,
-            ChatCallRespons = this.ChatCallRespons,
+            SignatureChatCallMulai = signatureChatCallMulai,
+            SignatureChatCallRespons = this.SignatureChatCallRespons,
             WaktuTanggalRespons = this.WaktuTanggalRespons,
             LinkRekapChatHistory = this.LinkRekapChatHistory,
             ParameterValidasi = this.ParameterValidasi,
@@ -47,12 +47,12 @@ public class ValidationProcess : ValueObject
         };
     }
 
-    public ValidationProcess WithChatCallRespons(ActionSignature chatCallRespons)
+    public ValidationProcess WithChatCallRespons(ActionSignature signatureChatCallRespons)
     {
        return new ValidationProcess
         {
-            ChatCallMulai = this.ChatCallMulai,
-            ChatCallRespons = chatCallRespons,
+            SignatureChatCallMulai = this.SignatureChatCallMulai,
+            SignatureChatCallRespons = signatureChatCallRespons,
             WaktuTanggalRespons = this.WaktuTanggalRespons,
             LinkRekapChatHistory = this.LinkRekapChatHistory,
             ParameterValidasi = this.ParameterValidasi,
@@ -65,8 +65,8 @@ public class ValidationProcess : ValueObject
     {
        return new ValidationProcess
         {
-            ChatCallMulai = this.ChatCallMulai,
-            ChatCallRespons = this.ChatCallRespons,
+            SignatureChatCallMulai = this.SignatureChatCallMulai,
+            SignatureChatCallRespons = this.SignatureChatCallRespons,
             WaktuTanggalRespons = waktuTanggalRespons,
             LinkRekapChatHistory = this.LinkRekapChatHistory,
             ParameterValidasi = this.ParameterValidasi,
@@ -79,8 +79,8 @@ public class ValidationProcess : ValueObject
     {
        return new ValidationProcess
         {
-            ChatCallMulai = this.ChatCallMulai,
-            ChatCallRespons = this.ChatCallRespons,
+            SignatureChatCallMulai = this.SignatureChatCallMulai,
+            SignatureChatCallRespons = this.SignatureChatCallRespons,
             WaktuTanggalRespons = this.WaktuTanggalRespons,
             LinkRekapChatHistory = linkRekapChatHistory,
             ParameterValidasi = this.ParameterValidasi,
@@ -93,8 +93,8 @@ public class ValidationProcess : ValueObject
     {
         return new ValidationProcess
         {
-            ChatCallMulai = this.ChatCallMulai,
-            ChatCallRespons = this.ChatCallRespons,
+            SignatureChatCallMulai = this.SignatureChatCallMulai,
+            SignatureChatCallRespons = this.SignatureChatCallRespons,
             WaktuTanggalRespons = this.WaktuTanggalRespons,
             LinkRekapChatHistory = this.LinkRekapChatHistory,
             ParameterValidasi = parameterValidasi,
@@ -107,8 +107,8 @@ public class ValidationProcess : ValueObject
     {
         return new ValidationProcess
         {
-            ChatCallMulai = this.ChatCallMulai,
-            ChatCallRespons = this.ChatCallRespons,
+            SignatureChatCallMulai = this.SignatureChatCallMulai,
+            SignatureChatCallRespons = this.SignatureChatCallRespons,
             WaktuTanggalRespons = this.WaktuTanggalRespons,
             LinkRekapChatHistory = this.LinkRekapChatHistory,
             ParameterValidasi = this.ParameterValidasi,
@@ -121,8 +121,8 @@ public class ValidationProcess : ValueObject
     {
         return new ValidationProcess
         {
-            ChatCallMulai = this.ChatCallMulai,
-            ChatCallRespons = this.ChatCallRespons,
+            SignatureChatCallMulai = this.SignatureChatCallMulai,
+            SignatureChatCallRespons = this.SignatureChatCallRespons,
             WaktuTanggalRespons = this.WaktuTanggalRespons,
             LinkRekapChatHistory = this.LinkRekapChatHistory,
             ParameterValidasi = this.ParameterValidasi,
@@ -133,8 +133,8 @@ public class ValidationProcess : ValueObject
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
-        yield return ChatCallMulai;
-        yield return ChatCallRespons;
+        yield return SignatureChatCallMulai;
+        yield return SignatureChatCallRespons;
         yield return WaktuTanggalRespons;
         yield return LinkRekapChatHistory;
         yield return ParameterValidasi;
