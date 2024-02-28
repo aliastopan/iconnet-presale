@@ -54,20 +54,109 @@ public class ApprovalStagingPageBase : WorkloadPageBase
         }
 
         var workPaper = row.Item;
-        // Log.Warning("Selected row {0}", workPaper is null ? "null" : workPaper.ApprovalOpportunity.IdPermohonan);
 
         var now = DateTimeService.DateTimeOffsetNow.DateTime;
-        var duration = new TimeSpan(0, 5, 0);
-        var timeRemaining = workPaper!.SignatureHelpdeskInCharge.GetDurationRemaining(now, duration);
-        var label = timeRemaining > TimeSpan.Zero ? "Active" : "Expired";
+        var duration = new TimeSpan(0, 10, 0);
+        var timeRemaining = workPaper!.SignaturePlanningAssetCoverageInCharge.GetDurationRemaining(now, duration);
 
-        // Log.Warning("Time remaining: {0} {1}", timeRemaining, label);
+        var isNotStaged = workPaper!.SignaturePlanningAssetCoverageInCharge.IsEmptySignature();
+        var hasStageExpired = workPaper!.SignaturePlanningAssetCoverageInCharge.IsDurationExceeded(now, duration);
+        var isOnGoingApproval = workPaper!.ProsesApproval.IsOnGoing;
 
-        var isNotStaged = workPaper!.SignatureHelpdeskInCharge.IsEmptySignature();
-        var hasStageExpired = workPaper!.SignatureHelpdeskInCharge.IsDurationExceeded(now, duration);
-        var isOnGoingValidation = workPaper!.ProsesValidasi.IsOnGoing;
+        if ((isNotStaged || hasStageExpired) && isOnGoingApproval)
+        {
+            await OpenStagingDialogAsync(row.Item);
+        }
+        else
+        {
+            if (!isOnGoingApproval)
+            {
+                DoneProcessingToast();
+                return;
+            }
 
-        await Task.CompletedTask;
+            await OnGoingApprovalToastAsync(workPaper!.SignaturePlanningAssetCoverageInCharge.Alias);
+        }
+    }
+
+    protected async Task OnGoingApprovalToastAsync(string inChargeAlias)
+    {
+        var intent = ToastIntent.Warning;
+        var message = await SessionService.IsAliasMatch(inChargeAlias)
+            ? "Presale telah Anda tampung."
+            : $"Presale masih diproses oleh {inChargeAlias}.";
+
+        ToastService.ShowToast(intent, message);
+    }
+
+    protected void StagingReachLimitToast()
+    {
+        var intent = ToastIntent.Error;
+        var message = $"Jumlah tampungan Kertas Kerja ({_stagingLimit}) telah melebihi batas.";
+        ToastService.ShowToast(intent, message);
+    }
+
+    protected void DoneProcessingToast()
+    {
+        var intent = ToastIntent.Info;
+        var message = $"Kertas Kerja telah selesai diproses.";
+        ToastService.ShowToast(intent, message);
+    }
+
+    protected async Task OpenStagingDialogAsync(WorkPaper workPaper)
+    {
+        var parameters = new DialogParameters()
+        {
+            Title = "Tampung Kertas Kerja",
+            TrapFocus = true,
+            Width = "500px",
+        };
+
+        var dialog = await DialogService.ShowDialogAsync<ApprovalStagingDialog>(workPaper, parameters);
+        var result = await dialog.Result;
+
+        if (result.Cancelled || result.Data == null)
+        {
+            return;
+        }
+
+        var dialogData = (WorkPaper)result.Data;
+        await StageWorkPaperAsync(dialogData);
+    }
+
+    protected async Task StageWorkPaperAsync(WorkPaper workPaper)
+    {
+        var count = await GetStageCountAsync();
+        if (count > _stagingLimit)
+        {
+            workPaper.SetPlanningAssetCoverageInCharge(RevertStagingSignature());
+            StagingReachLimitToast();
+
+            return;
+        }
+
+        await WorkloadManager.UpdateWorkloadAsync(workPaper);
+
+        var message = $"PAC {workPaper.SignaturePlanningAssetCoverageInCharge.Alias} has staged '{workPaper.ApprovalOpportunity.IdPermohonan}'";
+        await BroadcastService.BroadcastMessageAsync(message);
+    }
+
+    private async Task<int> GetStageCountAsync()
+    {
+        var alias = await SessionService.GetSessionAliasAsync();
+        var count = WorkPapers!.Where(x => x.SignaturePlanningAssetCoverageInCharge.Alias == alias).Count();
+
+        return count;
+    }
+
+    private ActionSignature RevertStagingSignature()
+    {
+        return new ActionSignature
+        {
+            AccountIdSignature = Guid.Empty,
+            Alias = string.Empty,
+            TglAksi = DateTimeService.Zero
+        };
     }
 
     private string GetGridTemplateCols()
