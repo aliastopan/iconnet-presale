@@ -69,17 +69,31 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
         stopwatch.Start();
 
         var jsonWorkPapers = await _cacheService.GetAllValuesAsync();
-        var concurrentBag = new ConcurrentBag<string>();
+        var concurrentQueue = new ConcurrentQueue<string>();
+        int parallelThreshold = 100;
 
-        Parallel.ForEach(source: jsonWorkPapers, _parallelOptions, json =>
+        if (jsonWorkPapers.Count > parallelThreshold)
         {
-            if (json != null && JsonWorkPaperProcessor.ShouldOnlyInclude(json, cacheFetchMode))
+            Parallel.ForEach(jsonWorkPapers, _parallelOptions, json =>
             {
-                concurrentBag.Add(json);
+                if (json != null && JsonWorkPaperProcessor.ShouldOnlyInclude(json, cacheFetchMode))
+                {
+                    concurrentQueue.Enqueue(json);
+                }
+            });
+        }
+        else
+        {
+            foreach (var json in jsonWorkPapers)
+            {
+                if (json != null && JsonWorkPaperProcessor.ShouldOnlyInclude(json, cacheFetchMode))
+                {
+                    concurrentQueue.Enqueue(json);
+                }
             }
-        });
+        }
 
-        jsonWorkPapers = concurrentBag.ToList()!;
+        jsonWorkPapers = concurrentQueue.ToList()!;
 
         stopwatch.Stop();
         seconds = stopwatch.ElapsedMilliseconds / 1000.0;
