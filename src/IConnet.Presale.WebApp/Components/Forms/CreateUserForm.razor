@@ -1,60 +1,82 @@
-<FluentCard>
-    <FluentStack Orientation="Orientation.Vertical"
+<FluentCard AreaRestricted="false" Width="fit-content">
+    <FluentStack Orientation="Orientation.Horizontal"
         HorizontalAlignment="HorizontalAlignment.Start"
         VerticalAlignment="VerticalAlignment.Top"
         HorizontalGap="1">
 
-        <div class="input-form">
-            <FluentTextField style="width: 250px"
-                @bind-Value=@CreateUserModel.Username
-                Placeholder="Username"
-                Label="Username"></FluentTextField>
-        </div>
-        <div class="input-form">
-            <FluentTextField style="width: 250px"
-                @bind-Value=@CreateUserModel.Password
-                TextFieldType="TextFieldType.Password"
-                Placeholder="Password"
-                Label="Password"></FluentTextField>
-        </div>
-        <div class="input-form">
-            <FluentTextField style="width: 250px"
-                @bind-Value=@CreateUserModel.Username
-                TextFieldType="TextFieldType.Password"
-                Placeholder="Konfirmasi Password"
-                Label="Konfirmasi Password"></FluentTextField>
-        </div>
-        <div class="input-form">
-            <FluentSelect Width="250px"
-                TOption="string"
-                @bind-Value=@CreateUserModel.EmploymentStatus
-                Items="@OptionSelect.StatusKepegawaian.StatusKepegawaianOptions"
-                Position="SelectPosition.Below"
-                Label="Kepegawaian"/>
-        </div>
-        <div class="input-form">
-            <FluentSelect Width="250px"
-                TOption="string"
-                @bind-Value=@CreateUserModel.UserRole
-                OptionDisabled="@OptionDisableSuperUser"
-                Items="@OptionSelect.Role.RoleOptions"
-                Position="SelectPosition.Below"
-                Label="Role"/>
-        </div>
-        <div class="input-form">
-            <FluentSelect Width="250px"
-                TOption="string"
-                @bind-Value=@CreateUserModel.JobShift
-                Items="@OptionSelect.Shift.ShiftOptions"
-                Position="SelectPosition.Below"
-                Label="Shift Kerja"/>
-        </div>
-        <div class="input-form">
-            <FluentTextField style="width: 250px"
-                @bind-Value=@CreateUserModel.JobTitle
-                Placeholder="Job Title"
-                Label="Jabatan"></FluentTextField>
-        </div>
+        <FluentStack Orientation="Orientation.Vertical"
+            HorizontalAlignment="HorizontalAlignment.Start"
+            VerticalAlignment="VerticalAlignment.Top"
+            HorizontalGap="1">
+
+            <div class="input-form">
+                <FluentTextField style="width: 250px"
+                    @bind-Value=@CreateUserModel.Username
+                    Placeholder="Username"
+                    Label="Username"></FluentTextField>
+            </div>
+            <div class="input-form">
+                <FluentTextField style="width: 250px"
+                    @bind-Value=@CreateUserModel.Password
+                    TextFieldType="TextFieldType.Password"
+                    Placeholder="Password"
+                    Label="Password"></FluentTextField>
+            </div>
+            <div class="input-form">
+                <FluentTextField style="width: 250px"
+                    @bind-Value=@CreateUserModel.Username
+                    TextFieldType="TextFieldType.Password"
+                    Placeholder="Konfirmasi Password"
+                    Label="Konfirmasi Password"></FluentTextField>
+            </div>
+           <div class="input-form">
+                <FluentSelect Width="250px"
+                    TOption="string"
+                    @bind-Value=@CreateUserModel.JobShift
+                    Items="@OptionSelect.Shift.ShiftOptions"
+                    Position="SelectPosition.Below"
+                    Label="Shift Kerja"/>
+            </div>
+
+        </FluentStack>
+
+        <FluentSpacer Width="32" />
+
+        <FluentStack Orientation="Orientation.Vertical"
+            HorizontalAlignment="HorizontalAlignment.Start"
+            VerticalAlignment="VerticalAlignment.Top"
+            HorizontalGap="1">
+
+            <div class="input-form">
+                <FluentSelect Width="250px"
+                    TOption="string"
+                    @bind-Value=@CreateUserModel.UserRole
+                    OptionDisabled="@OptionDisableSuperUser"
+                    Items="@OptionSelect.Role.RoleOptions"
+                    Position="SelectPosition.Below"
+                    Label="Hak Akses"/>
+            </div>
+            <div class="input-form">
+                <FluentSelect Width="250px"
+                    TOption="string"
+                    @bind-Value=@CreateUserModel.EmploymentStatus
+                    Items="@OptionSelect.StatusKepegawaian.StatusKepegawaianOptions"
+                    Position="SelectPosition.Below"
+                    Label="Status Kepegawaian"/>
+            </div>
+            <div class="input-form">
+                <FluentTextField style="width: 250px"
+                    @bind-Value=@CreateUserModel.JobTitle
+                    Placeholder="Job Title"
+                    Label="Jabatan"></FluentTextField>
+            </div>
+            <div class="input-form" style="margin-top: 24px"
+                <FluentButton style="width: 250px"
+                    Appearance="Appearance.Accent">
+                    Submit</FluentButton>
+            </div>
+
+        </FluentStack>
 
     </FluentStack>
 </FluentCard>
