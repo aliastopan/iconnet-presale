@@ -1,82 +1,117 @@
-<FluentCard AreaRestricted="false" Width="fit-content">
+<FluentCard AreaRestricted="false" Width="@_formWidth">
     <FluentStack Orientation="Orientation.Horizontal"
         HorizontalAlignment="HorizontalAlignment.Start"
         VerticalAlignment="VerticalAlignment.Top"
         HorizontalGap="1">
 
-        <FluentStack Orientation="Orientation.Vertical"
-            HorizontalAlignment="HorizontalAlignment.Start"
-            VerticalAlignment="VerticalAlignment.Top"
-            HorizontalGap="1">
+        <div style="width: 250px">
+            <FluentStack Orientation="Orientation.Vertical"
+                HorizontalAlignment="HorizontalAlignment.Start"
+                VerticalAlignment="VerticalAlignment.Top"
+                HorizontalGap="1">
 
+                <div class="input-form">
+                    <FluentTextField style="width: 250px"
+                        @bind-Value=@CreateUserModel.Username
+                        Placeholder="Username"
+                        Label="Username"></FluentTextField>
+                </div>
+                <div class="input-form">
+                    <FluentTextField style="width: 250px"
+                        @bind-Value=@CreateUserModel.Password
+                        TextFieldType="TextFieldType.Password"
+                        Placeholder="Password"
+                        Label="Password"></FluentTextField>
+                </div>
+                <div class="input-form">
+                    <FluentTextField style="width: 250px"
+                        @bind-Value=@CreateUserModel.ConfirmPassword
+                        TextFieldType="TextFieldType.Password"
+                        Placeholder="Konfirmasi Password"
+                        Label="Konfirmasi Password"></FluentTextField>
+                </div>
             <div class="input-form">
-                <FluentTextField style="width: 250px"
-                    @bind-Value=@CreateUserModel.Username
-                    Placeholder="Username"
-                    Label="Username"></FluentTextField>
-            </div>
-            <div class="input-form">
-                <FluentTextField style="width: 250px"
-                    @bind-Value=@CreateUserModel.Password
-                    TextFieldType="TextFieldType.Password"
-                    Placeholder="Password"
-                    Label="Password"></FluentTextField>
-            </div>
-            <div class="input-form">
-                <FluentTextField style="width: 250px"
-                    @bind-Value=@CreateUserModel.ConfirmPassword
-                    TextFieldType="TextFieldType.Password"
-                    Placeholder="Konfirmasi Password"
-                    Label="Konfirmasi Password"></FluentTextField>
-            </div>
-           <div class="input-form">
-                <FluentSelect Width="250px"
-                    TOption="string"
-                    @bind-Value=@CreateUserModel.JobShift
-                    Items="@OptionSelect.Shift.ShiftOptions"
-                    Position="SelectPosition.Below"
-                    Label="Shift Kerja"/>
-            </div>
+                    <FluentSelect Width="250px"
+                        TOption="string"
+                        @bind-Value=@CreateUserModel.JobShift
+                        Items="@OptionSelect.Shift.ShiftOptions"
+                        Position="SelectPosition.Below"
+                        Label="Shift Kerja"/>
+                </div>
+            </FluentStack>
 
-        </FluentStack>
+        </div>
 
         <FluentSpacer Width="32" />
 
-        <FluentStack Orientation="Orientation.Vertical"
-            HorizontalAlignment="HorizontalAlignment.Start"
-            VerticalAlignment="VerticalAlignment.Top"
-            HorizontalGap="1">
+        <div style="width: 250px;">
+            <FluentStack Orientation="Orientation.Vertical"
+                HorizontalAlignment="HorizontalAlignment.Start"
+                VerticalAlignment="VerticalAlignment.Top"
+                HorizontalGap="1">
 
-            <div class="input-form">
-                <FluentSelect Width="250px"
-                    TOption="string"
-                    @bind-Value=@CreateUserModel.UserRole
-                    OptionDisabled="@OptionDisableSuperUser"
-                    Items="@OptionSelect.Role.RoleOptions"
-                    Position="SelectPosition.Below"
-                    Label="Hak Akses"/>
-            </div>
-            <div class="input-form">
-                <FluentSelect Width="250px"
-                    TOption="string"
-                    @bind-Value=@CreateUserModel.EmploymentStatus
-                    Items="@OptionSelect.StatusKepegawaian.StatusKepegawaianOptions"
-                    Position="SelectPosition.Below"
-                    Label="Status Kepegawaian"/>
-            </div>
-            <div class="input-form">
-                <FluentTextField style="width: 250px"
-                    @bind-Value=@CreateUserModel.JobTitle
-                    Placeholder="Job Title"
-                    Label="Jabatan"></FluentTextField>
-            </div>
-            <div class="input-form" style="margin-top: 24px"
-                <FluentButton style="width: 250px"
-                    Appearance="Appearance.Accent">
-                    Submit</FluentButton>
-            </div>
+                <div class="input-form">
+                    <FluentSelect Width="250px"
+                        TOption="string"
+                        @bind-Value=@CreateUserModel.UserRole
+                        OptionDisabled="@OptionDisableSuperUser"
+                        Items="@OptionSelect.Role.RoleOptions"
+                        Position="SelectPosition.Below"
+                        Label="Hak Akses"/>
+                </div>
+                <div class="input-form">
+                    <FluentSelect Width="250px"
+                        TOption="string"
+                        @bind-Value=@CreateUserModel.EmploymentStatus
+                        Items="@OptionSelect.StatusKepegawaian.StatusKepegawaianOptions"
+                        Position="SelectPosition.Below"
+                        Label="Status Kepegawaian"/>
+                </div>
+                <div class="input-form">
+                    <FluentTextField style="width: 250px"
+                        @bind-Value=@CreateUserModel.JobTitle
+                        Placeholder="Job Title"
+                        Label="Jabatan"></FluentTextField>
+                </div>
+                <div class="input-form" style="margin-top: 24px"
+                    <FluentButton style="width: 250px"
+                        Appearance="Appearance.Accent"
+                        OnClick="OnCreateUserAsync">
+                        Submit</FluentButton>
+                </div>
+            </FluentStack>
+        </div>
 
-        </FluentStack>
+        @if (_showErrorMessages)
+        {
+            <FluentSpacer Width="32" />
 
+            <div class="create-user-error-section" style="width: 250px;">
+                <FluentStack Orientation="Orientation.Vertical"
+                    HorizontalAlignment="HorizontalAlignment.Start"
+                    VerticalAlignment="VerticalAlignment.Top"
+                    HorizontalGap="1">
+
+                    <div style="display: flex;">
+                        <FluentIcon Value="@(new Icons.Filled.Size20.ErrorCircle())" Color="@Color.Error" />
+                        <label for="create-user-form-errors"
+                            style="padding-left: 4px; font-weight: 700;">
+                            Keterdapat Kesalahan</label>
+                    </div>
+                    <ul id="create-user-form-errors">
+                        @foreach(var error in Errors)
+                        {
+                            <li>@error.Message</li>
+                        }
+                    </ul>
+                </FluentStack>
+            </div>
+        }
     </FluentStack>
 </FluentCard>
+
+@code
+{
+    private bool _showErrorMessages => Errors.Count > 0;
+    private string _formWidth => !_showErrorMessages ? "575px" : "825px";
+}
