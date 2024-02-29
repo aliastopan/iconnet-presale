@@ -156,3 +156,8 @@
 .validation-submit{
     margin-top: 45px;
 }
+
+.input-form{
+    display: flex;
+    flex-direction: column;
+}
