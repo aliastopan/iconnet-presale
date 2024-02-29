@@ -21,6 +21,11 @@ public class EnumProcessor
         return Regex.Replace(enumString, "([a-z])([A-Z])", "$1 $2");
     }
 
+    public static string DisplayStringToEnumString(string displayString)
+    {
+        return Regex.Replace(displayString, " ", "");
+    }
+
     public static T StringToEnum<T>(string displayString) where T : Enum
     {
         string enumString = Regex.Replace(displayString, " ", "");
