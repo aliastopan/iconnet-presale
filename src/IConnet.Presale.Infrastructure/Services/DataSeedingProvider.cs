@@ -34,7 +34,6 @@ internal sealed class DataSeedingProvider : IDataSeedingService
             User = new User
             {
                 Username = "erasmus",
-                EmailAddress = "erasmus@proton.me",
                 EmploymentStatus = EmploymentStatus.PegawaiTetap,
                 UserRole = UserRole.SuperUser,
                 UserPrivileges = new List<UserPrivilege>()
@@ -58,7 +57,6 @@ internal sealed class DataSeedingProvider : IDataSeedingService
             User = new User
             {
                 Username = "helpdesk",
-                EmailAddress = "helpdesk.first@mail.me",
                 UserRole = UserRole.Helpdesk,
                 UserPrivileges = new List<UserPrivilege>()
                 {
@@ -80,7 +78,6 @@ internal sealed class DataSeedingProvider : IDataSeedingService
             User = new User
             {
                 Username = "pac",
-                EmailAddress = "pac.first@mail.me",
                 UserRole = UserRole.PlanningAssetCoverage,
                 UserPrivileges = new List<UserPrivilege>()
                 {

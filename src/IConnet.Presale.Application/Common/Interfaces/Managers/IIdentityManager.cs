@@ -4,7 +4,7 @@ namespace IConnet.Presale.Application.Common.Interfaces.Managers;
 
 public interface IIdentityManager
 {
-    Task<Result<UserAccount>> TrySignUpAsync(string username, string emailAddress, string password,
+    Task<Result<UserAccount>> TrySignUpAsync(string username, string password,
         string employment, string role, string jobTitle, string shift,
         bool autoPrivilege = false);
     Task<Result> TrySetRoleAsync(Guid userAccountId, string role);

@@ -6,14 +6,14 @@ namespace IConnet.Presale.Application.Common.Interfaces.Handlers;
 public interface IIdentityAggregateHandler
 {
     // user account
-    Task<UserAccount> CreateUserAccountAsync(string username, string emailAddress, string password,
+    Task<UserAccount> CreateUserAccountAsync(string username, string password,
         EmploymentStatus employmentStatus, UserRole userRole, string jobTitle, JobShift jobShift,
         bool autoPrivilege = false);
     Task SignUserAsync(UserAccount userAccount, RefreshToken refreshToken);
     Task<Result<UserAccount>> TryGetUserAccountAsync(Guid userAccountId);
     Task<Result<UserAccount>> TryGetUserAccountAsync(string username);
     Task<Result<List<UserAccount>>> TryGetRangeUserAccountsAsync(int range = 0);
-    Task<Result> TryValidateAvailabilityAsync(string username, string emailAddress);
+    Task<Result> TryValidateAvailabilityAsync(string username);
 
     // user role
     Task UpdateUserRoleAsync(UserAccount userAccount, UserRole userRole);

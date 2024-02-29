@@ -14,7 +14,6 @@ public class RegistrationEndpoint : IEndpointDefinition
         SignUpRequest request, HttpContext httpContext)
     {
         var result = await sender.Send(new SignUpCommand(request.Username,
-            request.EmailAddress,
             request.Password,
             request.EmploymentStatus,
             request.UserRole,

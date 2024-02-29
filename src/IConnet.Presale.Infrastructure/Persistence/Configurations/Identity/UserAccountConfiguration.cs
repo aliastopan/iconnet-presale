@@ -30,11 +30,6 @@ internal sealed class UserAccountConfiguration : IEntityTypeConfiguration<UserAc
                     .HasMaxLength(32)
                     .IsRequired();
 
-                user.Property(u => u.EmailAddress)
-                    .HasColumnName("email_address")
-                    .HasMaxLength(255)
-                    .IsRequired();
-
                 user.Property(u => u.EmploymentStatus)
                     .HasColumnName("employment_status")
                     .IsRequired();

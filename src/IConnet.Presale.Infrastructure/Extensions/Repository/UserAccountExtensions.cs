@@ -17,12 +17,6 @@ internal static class UserAccountExtensions
             .FirstOrDefaultAsync(x => x.User.Username == username);
     }
 
-    public static async Task<UserAccount?> GetUserAccountByEmailAddressAsync(this AppDbContext context, string emailAddress)
-    {
-        return await context.UserAccounts
-            .FirstOrDefaultAsync(x => x.User.EmailAddress == emailAddress);
-    }
-
     public static async Task<List<UserAccount>> GetUserAccountAsync(this AppDbContext context)
     {
         return await context.UserAccounts

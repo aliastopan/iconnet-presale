@@ -23,7 +23,6 @@ public class SignUpCommandHandler : IRequestHandler<SignUpCommand, Result<SignUp
 
         // registration
         var trySignUp = await _identityManager.TrySignUpAsync(request.Username,
-            request.EmailAddress,
             request.Password,
             request.EmploymentStatus,
             request.UserRole,
@@ -39,7 +38,6 @@ public class SignUpCommandHandler : IRequestHandler<SignUpCommand, Result<SignUp
         var userAccount = trySignUp.Value;
         var response = new SignUpResponse(userAccount.UserAccountId,
             userAccount.User.Username,
-            userAccount.User.EmailAddress,
             userAccount.User.EmploymentStatus.ToString(),
             userAccount.User.UserRole.ToString(),
             userAccount.User.UserPrivileges.Select(privilege => privilege.ToString()).ToList(),

@@ -12,11 +12,11 @@ internal sealed class IdentityManager : IIdentityManager
         _identityAggregateHandler = identityAggregateHandler;
     }
 
-    public async Task<Result<UserAccount>> TrySignUpAsync(string username, string emailAddress, string password,
+    public async Task<Result<UserAccount>> TrySignUpAsync(string username, string password,
         string employment, string role, string jobTitle, string shift,
         bool autoPrivilege = false)
     {
-        var TryValidateAvailability = await _identityAggregateHandler.TryValidateAvailabilityAsync(username, emailAddress);
+        var TryValidateAvailability = await _identityAggregateHandler.TryValidateAvailabilityAsync(username);
         if (TryValidateAvailability.IsFailure())
         {
             return Result<UserAccount>.Inherit(result: TryValidateAvailability);
@@ -38,7 +38,7 @@ internal sealed class IdentityManager : IIdentityManager
             return Result<UserAccount>.Error(error);
         }
 
-        var userAccount = await _identityAggregateHandler.CreateUserAccountAsync(username, emailAddress, password,
+        var userAccount = await _identityAggregateHandler.CreateUserAccountAsync(username, password,
             employmentStatus, userRole, jobTitle, jobShift,
             autoPrivilege);
 

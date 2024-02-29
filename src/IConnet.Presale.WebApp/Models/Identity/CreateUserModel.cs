@@ -11,10 +11,6 @@ public class CreateUserModel : IRegistrationModel
     [RegularExpression(RegexPattern.Username)]
     public string Username { get; set; }
 
-    [EmailAddress]
-    [Required(ErrorMessage = "Email tidak boleh kosong.")]
-    public string EmailAddress { get; set; }
-
     [Required(ErrorMessage = "Password tidak boleh kosong.")]
     [RegularExpression(RegexPattern.StrongPassword)]
     public string Password { get; set; }

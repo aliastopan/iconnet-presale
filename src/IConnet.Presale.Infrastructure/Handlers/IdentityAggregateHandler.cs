@@ -18,13 +18,13 @@ internal sealed class IdentityAggregateHandler : IIdentityAggregateHandler
         _dateTimeService = dateTimeService;
     }
 
-    public async Task<UserAccount> CreateUserAccountAsync(string username, string emailAddress, string password,
+    public async Task<UserAccount> CreateUserAccountAsync(string username, string password,
         EmploymentStatus employmentStatus, UserRole userRole, string jobTitle, JobShift jobShift,
         bool autoPrivilege = false)
     {
         var passwordHash = _passwordService.HashPassword(password, out string passwordSalt);
         var creationDate = _dateTimeService.DateTimeOffsetNow;
-        var userAccount = new UserAccount(username, emailAddress, passwordHash, passwordSalt,
+        var userAccount = new UserAccount(username, passwordHash, passwordSalt,
             employmentStatus, userRole,jobTitle, jobShift,
             creationDate);
 
@@ -89,29 +89,16 @@ internal sealed class IdentityAggregateHandler : IIdentityAggregateHandler
         return Result<List<UserAccount>>.Ok(userAccounts);
     }
 
-    public async Task<Result> TryValidateAvailabilityAsync(string username, string emailAddress)
+    public async Task<Result> TryValidateAvailabilityAsync(string username)
     {
         using var dbContext = _dbContextFactory.CreateDbContext();
 
         var isUsernameAvailable = (await dbContext.GetUserAccountByUsernameAsync(username)) is null;
-        var isEmailAvailable = (await dbContext.GetUserAccountByUsernameAsync(username)) is null;
 
-        var errors = Array.Empty<Error>();
         if (!isUsernameAvailable)
         {
-            var usernameTaken = new Error("Username is already taken.", ErrorSeverity.Warning);
-            errors = [.. errors, usernameTaken];
-        }
-
-        if (!isEmailAvailable)
-        {
-            var emailInUse = new Error("Email address is already in use.", ErrorSeverity.Warning);
-            errors = [.. errors, emailInUse];
-        }
-
-        if (errors.Length > 0)
-        {
-            return Result.Conflict(errors);
+            var error = new Error("Username is already taken.", ErrorSeverity.Warning);
+            return Result.Conflict(error);
         }
 
         return Result.Ok();

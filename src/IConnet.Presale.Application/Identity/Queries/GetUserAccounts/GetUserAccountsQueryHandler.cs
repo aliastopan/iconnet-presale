@@ -29,7 +29,6 @@ public class GetUserAccountsQueryHandler : IRequestHandler<GetUserAccountsQuery,
             {
                 UserAccountId = userAccount.UserAccountId,
                 Username = userAccount.User.Username,
-                EmailAddress = userAccount.User.EmailAddress,
                 UserRole = userAccount.User.UserRole.ToString(),
                 UserPrivileges = userAccount.User.UserPrivileges.Select(privilege => privilege.ToString()).ToList(),
                 LastLoggedIn = userAccount.LastSignedIn.DateTime.ToLocalTime()
