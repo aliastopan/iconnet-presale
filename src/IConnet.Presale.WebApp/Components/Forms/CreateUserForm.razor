@@ -76,7 +76,7 @@
                 <div class="input-form" style="margin-top: 24px"
                     <FluentButton style="width: 250px"
                         Appearance="Appearance.Accent"
-                        OnClick="OnCreateUserAsync">
+                        OnClick="SubmitAsync">
                         Submit</FluentButton>
                 </div>
             </FluentStack>
@@ -108,6 +108,13 @@
             </div>
         }
     </FluentStack>
+
+    <FluentOverlay @bind-Visible=@IsLoading
+        Opacity="0.4"
+        Alignment="@Align.Center"
+        Justification="@JustifyContent.Center">
+        <FluentProgressRing />
+    </FluentOverlay>
 </FluentCard>
 
 @code
