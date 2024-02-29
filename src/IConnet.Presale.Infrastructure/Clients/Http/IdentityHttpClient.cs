@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.Json;
 using IConnet.Presale.Shared.Contracts.Identity.Authentication;
+using IConnet.Presale.Shared.Contracts.Identity.Registration;
 
 namespace IConnet.Presale.Infrastructure.Clients.Http;
 
@@ -10,6 +11,27 @@ internal sealed class IdentityHttpClient : HttpClientBase, IIdentityHttpClient
         : base(httpClient)
     {
 
+    }
+
+
+    public async Task<HttpResult> SignUpAsync(string username, string password,
+        string statusEmployment, string userRole, string jobTitle, string jobShift,
+        bool isManagedByAdministrator)
+    {
+        var isResponding = await IsHostRespondingAsync();
+        if (!isResponding)
+        {
+            return new HttpResult
+            {
+                IsSuccessStatusCode = false
+            };
+        }
+
+        var request = new SignUpRequest(username, password,
+            statusEmployment, userRole, jobTitle, jobShift,
+            isManagedByAdministrator);
+
+        throw new NotImplementedException();
     }
 
     public async Task<HttpResult> SignInAsync(string username, string password)
