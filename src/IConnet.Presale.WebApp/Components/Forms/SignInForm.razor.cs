@@ -67,7 +67,7 @@ public partial class SignInForm : ComponentBase
         else
         {
             var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
-            var extension = problemDetails.GetExtension();
+            var extension = problemDetails.GetProblemDetailsExtension();
             ErrorMessage = extension.Errors.First().Message;
         }
 

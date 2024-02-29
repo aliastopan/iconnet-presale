@@ -67,7 +67,7 @@ public class StartupService : IHostedService
             else
             {
                 var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
-                var extension = problemDetails.GetExtension();
+                var extension = problemDetails.GetProblemDetailsExtension();
 
                 LogSwitch.Debug("Error {message}: ", extension.Errors.First().Message);
             }
@@ -100,7 +100,7 @@ public class StartupService : IHostedService
             else
             {
                 var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
-                var extension = problemDetails.GetExtension();
+                var extension = problemDetails.GetProblemDetailsExtension();
 
                 LogSwitch.Debug("Error {message}: ", extension.Errors.First().Message);
             }
@@ -134,7 +134,7 @@ public class StartupService : IHostedService
             else
             {
                 var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
-                var extension = problemDetails.GetExtension();
+                var extension = problemDetails.GetProblemDetailsExtension();
 
                 LogSwitch.Debug("Error {message}: ", extension.Errors.First().Message);
             }
