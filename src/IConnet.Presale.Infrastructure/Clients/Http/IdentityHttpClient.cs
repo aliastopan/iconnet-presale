@@ -31,7 +31,17 @@ internal sealed class IdentityHttpClient : HttpClientBase, IIdentityHttpClient
             statusEmployment, userRole, jobTitle, jobShift,
             isManagedByAdministrator);
 
-        throw new NotImplementedException();
+        var jsonBody = JsonSerializer.Serialize(request);
+        var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+
+        using var responseMessage = await HttpClient.PostAsync("api/sign-up", content);
+
+        return new HttpResult
+        {
+            IsSuccessStatusCode = responseMessage.IsSuccessStatusCode,
+            Headers = responseMessage.Headers,
+            Content = await responseMessage.Content.ReadAsStringAsync()
+        };
     }
 
     public async Task<HttpResult> SignInAsync(string username, string password)
