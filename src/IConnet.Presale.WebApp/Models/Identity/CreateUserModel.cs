@@ -33,4 +33,12 @@ public class CreateUserModel : IRegistrationModel
 
     [Required]
     public bool IsManagedByAdministrator { get; set; } = false;
+
+    public void Reset()
+    {
+        Username = null;
+        Password = null;
+        ConfirmPassword = null;
+        JobTitle = null;
+    }
 }
