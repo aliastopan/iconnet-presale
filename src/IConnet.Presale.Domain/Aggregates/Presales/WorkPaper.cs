@@ -16,7 +16,6 @@ public class WorkPaper : IAggregateRoot
     public Guid WorkPaperId { get; init; }
     public WorkPaperLevel WorkPaperLevel { get; set; }
     public string Shift { get; set; }
-    public PersonInCharge PersonInCharge { get; set; }
     public ActionSignature SignatureHelpdeskInCharge { get; set; }
     public ActionSignature SignaturePlanningAssetCoverageInCharge { get; set; }
     public ValidationProcess ProsesValidasi { get; set; }

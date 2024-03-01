@@ -86,11 +86,6 @@ internal sealed class WorkPaperFactory
             FkApprovalOpportunityId = approvalOpportunity.ApprovalOpportunityId,
             ApprovalOpportunity = approvalOpportunity,
             Shift = string.Empty,
-            PersonInCharge = new PersonInCharge
-            {
-                Helpdesk = string.Empty,
-                PlanningAssetCoverage = string.Empty
-            },
             SignatureHelpdeskInCharge = new ActionSignature
             {
                 AccountIdSignature = Guid.Empty,
