@@ -17,7 +17,7 @@ public class ApprovalPageBase : WorkloadPageBase, IPageNavigation
 
     protected string GridTemplateCols => GetGridTemplateCols();
     protected FilterForm FilterComponent { get; set; } = default!;
-    // protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
+    protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
 
     protected GridSort<WorkPaper> SortByStagingStatus => _sortByStagingStatus;
     protected WorkPaper? ActiveWorkPaper { get; set; }
