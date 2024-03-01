@@ -10,6 +10,15 @@ public static class OptionSelect
         public static string Sesuai => StatusValidasiOptions.Last();
     }
 
+    public static class StatusApproval
+    {
+        public static IEnumerable<string> StatusApprovalOptions => EnumProcessor.GetStringOptions<ApprovalStatus>();
+        public static string OnProgress => StatusApprovalOptions.First();
+        public static string ClosedLost => StatusApprovalOptions.Skip(1).First();
+        public static string Reject => StatusApprovalOptions.Skip(2).First();
+        public static string Approve => StatusApprovalOptions.Last();
+    }
+
     public static class StatusKepegawaian
     {
         public static IEnumerable<string> StatusKepegawaianOptions => EnumProcessor.GetStringOptions<EmploymentStatus>();
