@@ -31,7 +31,7 @@ public class ApprovalPageBase : WorkloadPageBase, IPageNavigation
     protected override void OnInitialized()
     {
         PageName = PageNavName.Approval;
-        CacheFetchMode = CacheFetchMode.OnlyWaitingApproval;
+        WorkloadFilter = WorkloadFilter.OnlyWaitingApproval;
 
         TabNavigationManager.SelectTab(this);
 

@@ -17,7 +17,7 @@ public class WorkloadPageBase : ComponentBase
 
     protected PaginationState Pagination => _pagination;
     protected WorkloadColumnWidth ColumnWidth => _columnWidth;
-    protected CacheFetchMode CacheFetchMode { get; set; } = CacheFetchMode.OnlyImportVerified;
+    protected WorkloadFilter WorkloadFilter { get; set; } = WorkloadFilter.OnlyImportVerified;
     protected virtual IQueryable<WorkPaper>? WorkPapers => _workPapers;
     protected GridSort<WorkPaper> SortByIdPermohonan => _sortByIdPermohonan;
 
@@ -28,7 +28,7 @@ public class WorkloadPageBase : ComponentBase
     {
         if (!_isInitialized)
         {
-            _workPapers = await WorkloadManager.FetchWorkloadAsync(CacheFetchMode);
+            _workPapers = await WorkloadManager.FetchWorkloadAsync(WorkloadFilter);
             BroadcastService.Subscribe(OnUpdateWorkloadAsync);
 
             _isInitialized = true;
@@ -37,7 +37,7 @@ public class WorkloadPageBase : ComponentBase
 
     protected virtual async Task OnUpdateWorkloadAsync(string message)
     {
-        _workPapers = await WorkloadManager.FetchWorkloadAsync(CacheFetchMode);
+        _workPapers = await WorkloadManager.FetchWorkloadAsync(WorkloadFilter);
 
         // Log.Warning(message);
 

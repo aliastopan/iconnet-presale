@@ -32,7 +32,7 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
     protected override void OnInitialized()
     {
         PageName = PageNavName.Validation;
-        CacheFetchMode = CacheFetchMode.OnlyValidating;
+        WorkloadFilter = WorkloadFilter.OnlyValidating;
 
         TabNavigationManager.SelectTab(this);
 

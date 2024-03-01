@@ -23,7 +23,7 @@ public class ApprovalStagingPageBase : WorkloadPageBase, IPageNavigation
     protected override void OnInitialized()
     {
         PageName = PageNavName.ApprovalStaging;
-        CacheFetchMode = CacheFetchMode.OnlyWaitingApproval;
+        WorkloadFilter = WorkloadFilter.OnlyWaitingApproval;
 
         TabNavigationManager.SelectTab(this);
 

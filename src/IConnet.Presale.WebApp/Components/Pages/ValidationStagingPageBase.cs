@@ -24,7 +24,7 @@ public class ValidationStagingPageBase : WorkloadPageBase, IPageNavigation
     protected override void OnInitialized()
     {
         PageName = PageNavName.ValidationStaging;
-        CacheFetchMode = CacheFetchMode.OnlyValidating;
+        WorkloadFilter = WorkloadFilter.OnlyValidating;
 
         TabNavigationManager.SelectTab(this);
 

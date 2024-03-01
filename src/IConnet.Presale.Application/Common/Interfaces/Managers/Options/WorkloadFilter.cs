@@ -1,6 +1,6 @@
 namespace IConnet.Presale.Application.Common.Interfaces.Managers.Options;
 
-public enum CacheFetchMode
+public enum WorkloadFilter
 {
     All,
     OnlyImportUnverified,

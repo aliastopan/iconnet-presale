@@ -39,7 +39,7 @@ internal sealed class WorkloadManager : IWorkloadManager
         return workloadCount;
     }
 
-    public async Task<IQueryable<WorkPaper>> FetchWorkloadAsync(CacheFetchMode cacheFetchMode = CacheFetchMode.All)
+    public async Task<IQueryable<WorkPaper>> FetchWorkloadAsync(WorkloadFilter filter = WorkloadFilter.All)
     {
         List<WorkPaper> workPapers = [];
         List<string?> jsonWorkPapers = await _cacheService.GetAllValuesAsync();
@@ -53,27 +53,27 @@ internal sealed class WorkloadManager : IWorkloadManager
 
             var workPaper = JsonSerializer.Deserialize<WorkPaper>(json)!;
 
-            switch (cacheFetchMode)
+            switch (filter)
             {
-                case CacheFetchMode.OnlyImportVerified:
+                case WorkloadFilter.OnlyImportVerified:
                     if (workPaper.ApprovalOpportunity.StatusImport != ImportStatus.Verified)
                     {
                         continue;
                     }
                     break;
-                case CacheFetchMode.OnlyImportUnverified:
+                case WorkloadFilter.OnlyImportUnverified:
                     if (workPaper.ApprovalOpportunity.StatusImport != ImportStatus.Unverified)
                     {
                         continue;
                     }
                     break;
-                case CacheFetchMode.OnlyImportArchived:
+                case WorkloadFilter.OnlyImportArchived:
                     if (workPaper.ApprovalOpportunity.StatusImport != ImportStatus.Invalid)
                     {
                         continue;
                     }
                     break;
-                case CacheFetchMode.OnlyValidating:
+                case WorkloadFilter.OnlyValidating:
                     if (workPaper.ApprovalOpportunity.StatusImport != ImportStatus.Verified
                         && workPaper.SignatureHelpdeskInCharge.IsEmptySignature())
                     {

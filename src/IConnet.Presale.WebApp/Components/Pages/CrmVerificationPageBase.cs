@@ -21,7 +21,7 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
     protected override void OnInitialized()
     {
         PageName = PageNavName.CrmVerification;
-        CacheFetchMode = CacheFetchMode.OnlyImportUnverified;
+        WorkloadFilter = WorkloadFilter.OnlyImportUnverified;
 
         TabNavigationManager.SelectTab(this);
 

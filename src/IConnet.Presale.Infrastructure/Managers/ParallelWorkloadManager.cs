@@ -61,7 +61,7 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
         return count;
     }
 
-    public async Task<IQueryable<WorkPaper>> FetchWorkloadAsync(CacheFetchMode cacheFetchMode = CacheFetchMode.All)
+    public async Task<IQueryable<WorkPaper>> FetchWorkloadAsync(WorkloadFilter filter = WorkloadFilter.All)
     {
         var stopwatch = new Stopwatch();
         double seconds;
@@ -76,7 +76,7 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
 
         // filter
         stopwatch.Restart();
-        jsonWorkPapers = JsonWorkPaperProcessor.FilterJsonWorkPapers(jsonWorkPapers!, cacheFetchMode, _parallelOptions).ToList()!;
+        jsonWorkPapers = JsonWorkPaperProcessor.FilterJsonWorkPapers(jsonWorkPapers!, filter, _parallelOptions).ToList()!;
         stopwatch.Stop();
         seconds = stopwatch.ElapsedMilliseconds / 1000.0;
         LogSwitch.Debug($"Parallel filter workload execution took {seconds:F2} seconds.");

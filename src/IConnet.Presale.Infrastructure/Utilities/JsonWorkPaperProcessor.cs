@@ -7,7 +7,7 @@ namespace IConnet.Presale.Infrastructure.Utilities;
 
 internal static class JsonWorkPaperProcessor
 {
-    internal static IEnumerable<string> FilterJsonWorkPapers(IEnumerable<string> jsonWorkPapers, CacheFetchMode cacheFetchMode,
+    internal static IEnumerable<string> FilterJsonWorkPapers(IEnumerable<string> jsonWorkPapers, WorkloadFilter filter,
         ParallelOptions parallelOptions, int parallelThreshold = 100)
     {
         var concurrentQueue = new ConcurrentQueue<string>();
@@ -16,7 +16,7 @@ internal static class JsonWorkPaperProcessor
         {
             Parallel.ForEach(jsonWorkPapers, parallelOptions, json =>
             {
-                if (json != null && ShouldOnlyInclude(json, cacheFetchMode))
+                if (json != null && ShouldOnlyInclude(json, filter))
                 {
                     concurrentQueue.Enqueue(json);
                 }
@@ -26,7 +26,7 @@ internal static class JsonWorkPaperProcessor
         {
             foreach (var json in jsonWorkPapers)
             {
-                if (json != null && ShouldOnlyInclude(json, cacheFetchMode))
+                if (json != null && ShouldOnlyInclude(json, filter))
                 {
                     concurrentQueue.Enqueue(json);
                 }
@@ -85,19 +85,19 @@ internal static class JsonWorkPaperProcessor
         return concurrentBag.ToList();
     }
 
-    internal static bool ShouldOnlyInclude(string json, CacheFetchMode cacheFetchMode)
+    internal static bool ShouldOnlyInclude(string json, WorkloadFilter filter)
     {
         var workPaperLevel = ExtractWorkPaperLevelFromJson(json);
 
-        return cacheFetchMode switch
+        return filter switch
         {
-            CacheFetchMode.OnlyImportUnverified => workPaperLevel == WorkPaperLevel.ImportUnverified,
-            CacheFetchMode.OnlyImportInvalid => workPaperLevel == WorkPaperLevel.ImportInvalid,
-            CacheFetchMode.OnlyImportArchived => workPaperLevel == WorkPaperLevel.ImportArchived,
-            CacheFetchMode.OnlyImportVerified => workPaperLevel == WorkPaperLevel.ImportVerified,
-            CacheFetchMode.OnlyValidating => (workPaperLevel & (WorkPaperLevel.Validating | WorkPaperLevel.ImportVerified)) != 0,
-            CacheFetchMode.OnlyWaitingApproval => workPaperLevel == WorkPaperLevel.WaitingApproval,
-            CacheFetchMode.OnlyDoneProcessing => workPaperLevel == WorkPaperLevel.DoneProcessing,
+            WorkloadFilter.OnlyImportUnverified => workPaperLevel == WorkPaperLevel.ImportUnverified,
+            WorkloadFilter.OnlyImportInvalid => workPaperLevel == WorkPaperLevel.ImportInvalid,
+            WorkloadFilter.OnlyImportArchived => workPaperLevel == WorkPaperLevel.ImportArchived,
+            WorkloadFilter.OnlyImportVerified => workPaperLevel == WorkPaperLevel.ImportVerified,
+            WorkloadFilter.OnlyValidating => (workPaperLevel & (WorkPaperLevel.Validating | WorkPaperLevel.ImportVerified)) != 0,
+            WorkloadFilter.OnlyWaitingApproval => workPaperLevel == WorkPaperLevel.WaitingApproval,
+            WorkloadFilter.OnlyDoneProcessing => workPaperLevel == WorkPaperLevel.DoneProcessing,
             _ => true,
         };
     }
