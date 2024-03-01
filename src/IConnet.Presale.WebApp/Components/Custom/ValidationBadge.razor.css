@@ -1,0 +1,48 @@
+
+.validation-badge-waiting{
+    background-color: var(--info);
+    text-align: center;
+    color: white;
+    padding: 0 10px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+.validation-badge-invalid{
+    background-color: var(--error);
+    text-align: center;
+    color: white;
+    padding: 0 10px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+.validation-badge-valid{
+    background-color: var(--success);
+    text-align: center;
+    color: white;
+    padding: 0 10px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+.validation-badge-warning{
+    background-color: var(--warning);
+    text-align: center;
+    color: white;
+    padding: 0 10px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
