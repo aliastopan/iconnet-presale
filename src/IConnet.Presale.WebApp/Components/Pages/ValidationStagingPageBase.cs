@@ -62,7 +62,7 @@ public class ValidationStagingPageBase : WorkloadPageBase, IPageNavigation
         // Log.Warning("Selected row {0}", workPaper is null ? "null" : workPaper.ApprovalOpportunity.IdPermohonan);
 
         var now = DateTimeService.DateTimeOffsetNow.DateTime;
-        var duration = new TimeSpan(0, 5, 0);
+        var duration = InChargeDuration.ValidationDuration;
         var timeRemaining = workPaper!.SignatureHelpdeskInCharge.GetDurationRemaining(now, duration);
         var label = timeRemaining > TimeSpan.Zero ? "Active" : "Expired";
 

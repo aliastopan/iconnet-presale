@@ -145,12 +145,12 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
     protected bool IsStillInCharge(WorkPaper workPaper, bool debug = false)
     {
         var now = DateTimeService.DateTimeOffsetNow.DateTime;
-        var duration = new TimeSpan(0, 5, 0);
+        var duration = InChargeDuration.ValidationDuration;
 
         if (debug)
         {
             var timeRemaining = workPaper.SignatureHelpdeskInCharge.GetDurationRemaining(now, duration);
-            // LogSwitch.Debug("Time remaining: {0}", timeRemaining);
+            LogSwitch.Debug("Time remaining: {0}", timeRemaining);
         }
 
         return !workPaper.SignatureHelpdeskInCharge.IsDurationExceeded(now, duration);

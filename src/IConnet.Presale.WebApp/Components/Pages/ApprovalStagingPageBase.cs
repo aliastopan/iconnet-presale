@@ -60,7 +60,7 @@ public class ApprovalStagingPageBase : WorkloadPageBase, IPageNavigation
         var workPaper = row.Item;
 
         var now = DateTimeService.DateTimeOffsetNow.DateTime;
-        var duration = new TimeSpan(0, 10, 0);
+        var duration = InChargeDuration.ApprovalDuration;
         var timeRemaining = workPaper!.SignaturePlanningAssetCoverageInCharge.GetDurationRemaining(now, duration);
 
         var isNotStaged = workPaper!.SignaturePlanningAssetCoverageInCharge.IsEmptySignature();
