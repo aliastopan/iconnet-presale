@@ -139,7 +139,7 @@ public class ApprovalPageBase : WorkloadPageBase, IPageNavigation
             LogSwitch.Debug("Time remaining: {0}", timeRemaining);
         }
 
-        return !workPaper.SignatureHelpdeskInCharge.IsDurationExceeded(now, duration);
+        return !workPaper.SignaturePlanningAssetCoverageInCharge.IsDurationExceeded(now, duration);
     }
 
     private async Task RestageWorkPaperAsync(WorkPaper workPaper)
