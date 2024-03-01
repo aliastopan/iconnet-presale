@@ -3,3 +3,171 @@
 @rendermode @(InteractiveServer.DisablePreRender())
 
 <PageTitle>Approval</PageTitle>
+
+<AuthorizeView Policy="@Policies.RolePlanningAssetCoverage"
+    Context="AuthenticationContext">
+
+    <Authorized>
+        <div class="d-flex flex-row align-items-center">
+            <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Approval</FluentLabel>
+            <div class="filter-toggle">
+                <FluentButton IconEnd="@(new Icons.Filled.Size20.Grid())"
+                    OnClick="SessionService.FilterPreference.ToggleFilters"/>
+
+            </div>
+        </div>
+        <span class="page-description">Proses approval permohonan</span>
+
+        <div class="@_filterSection">
+            <FilterForm @ref="FilterComponent"
+                OnFilter="@(this.StateHasChanged)"/>
+        </div>
+
+        <div class="datagrid-wrapper">
+            @if (WorkPapers is not null)
+            {
+                <FluentDataGrid Items="@WorkPapers"
+                    TGridItem="WorkPaper"
+                    Virtualize="true"
+                    Pagination="@Pagination"
+                    ItemSize="32"
+                    OnRowFocus="@OnRowSelected"
+                    EmptyContent="@HtmlFragment.EmptyContent"
+                    GridTemplateColumns="@GridTemplateCols">
+
+                    <TemplateColumn Title="ID PERMOHONAN" SortBy="@SortByIdPermohonan" Style="GetWidthStyle(ColumnWidth.IdPermohonanPx)">
+                        <ColumnOptions>
+                            <div class="">
+                                @if (FilterComponent is not null)
+                                {
+                                    <FluentSearch Autofocus=true
+                                        style="width: 200px;"
+                                        type="search"
+                                        @bind-Value=FilterComponent.FilterModel.IdPermohonan
+                                        @oninput="FilterComponent.FilterModel.IdPermohonanFilterHandler"
+                                        Placeholder="Id Permohonan"/>
+                                }
+                            </div>
+                        </ColumnOptions>
+                        <ChildContent>
+                            <div class="">
+                                @context.ApprovalOpportunity.IdPermohonan
+                            </div>
+                        </ChildContent>
+                    </TemplateColumn>
+                    <TemplateColumn Title="TGL PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.TglPermohonanPx)">
+                        <div class="">
+                            @context.ApprovalOpportunity.TglPermohonan
+                        </div>
+                    </TemplateColumn>
+                    <TemplateColumn Title="STATUS TAMPUNG"
+                        SortBy="@SortByStagingStatus"
+                        Style="@GetWidthStyle(ColumnWidth.StagingStatusPx)">
+                        @if (IsStillInCharge(context))
+                        {
+                            <divs class="staging-active">
+                                Active
+                            </divs>
+                        }
+                        else
+                        {
+                            <div class="staging-expired">
+                                Expired
+                            </div>
+                        }
+                    </TemplateColumn>
+                    <TemplateColumn Title="PIC APPROVAL" Style="@GetWidthStyle(ColumnWidth.PlanningAssetCoverageInChargePx)">
+                        <div class="">
+                            @context.SignaturePlanningAssetCoverageInCharge.Alias
+                        </div>
+                    </TemplateColumn>
+                    <TemplateColumn Title="NAMA PELANGGAN" Style="@GetWidthStyle(ColumnWidth.ValidasiNamaPelangganPx)">
+                        <div class="">
+                            @(EnumProcessor.EnumToDisplayString(context.ProsesValidasi.ParameterValidasi.ValidasiNama))
+                        </div>
+                    </TemplateColumn>
+                    <TemplateColumn Title="NOMOR TELP AKTIF" Style="@GetWidthStyle(ColumnWidth.ValidasiNomorTelpPx)">
+                        <div class="">
+                            @(EnumProcessor.EnumToDisplayString(context.ProsesValidasi.ParameterValidasi.ValidasiNomorTelepon))
+                        </div>
+                    </TemplateColumn>
+                    <TemplateColumn Title="EMAIL AKTIF" Style="@GetWidthStyle(ColumnWidth.ValidasiEmailPx)">
+                        <div class="">
+                            @(EnumProcessor.EnumToDisplayString(context.ProsesValidasi.ParameterValidasi.ValidasiEmail))
+                        </div>
+                    </TemplateColumn>
+                    <TemplateColumn Title="ID PLAN" Style="@GetWidthStyle(ColumnWidth.ValidasiIdPlnPx)">
+                        <div class="">
+                            @(EnumProcessor.EnumToDisplayString(context.ProsesValidasi.ParameterValidasi.ValidasiIdPln))
+                        </div>
+                    </TemplateColumn>
+                    <TemplateColumn Title="ALAMAT PELANGGAN" Style="@GetWidthStyle(ColumnWidth.ValidasiAlamatPx)">
+                        <div class="">
+                            @(EnumProcessor.EnumToDisplayString(context.ProsesValidasi.ParameterValidasi.ValidasiAlamat))
+                        </div>
+                    </TemplateColumn>
+                    <TemplateColumn Title="SHARE LOC" Style="@GetWidthStyle(ColumnWidth.ValidasiShareLocPx)">
+                        <div class="">
+                            @context.ProsesValidasi.ParameterValidasi.ShareLoc.LatitudeLongitude
+                        </div>
+                    </TemplateColumn>
+                    <TemplateColumn Title="REKAP CHAT HISTORY" Style="@GetWidthStyle(ColumnWidth.LinkRekapChatHistoryPx)">
+                        <div class="">
+                            @context.ProsesValidasi.LinkRekapChatHistory
+                        </div>
+                    </TemplateColumn>
+                    <TemplateColumn Title="KETERANGAN VALIDASI" Style="@GetWidthStyle(ColumnWidth.KeteranganValidasiPx)">
+                        <div class="">
+                            @context.ProsesValidasi.Keterangan
+                        </div>
+                    </TemplateColumn>
+                    <TemplateColumn Title="CONTACT WHATSAPP" Style="@GetWidthStyle(ColumnWidth.ContactWhatsAppPx)">
+                        <div class="">
+                            @{
+                                var url = $"http://{context.ApprovalOpportunity.Pemohon.WhatsApp}";
+                            }
+                            <FluentAnchor Href="@url" Target="_blank" Appearance="Appearance.Lightweight">
+                                @context.ApprovalOpportunity.Pemohon.WhatsApp
+                            </FluentAnchor>
+                        </div>
+                    </TemplateColumn>
+                    <TemplateColumn Title="KANTOR PERWAKILAN" Style="@GetWidthStyle(ColumnWidth.KantorPerwakilanPx)">
+                        <div class="">
+                            @context.ApprovalOpportunity.Regional.KantorPerwakilan
+                        </div>
+                    </TemplateColumn>
+                </FluentDataGrid>
+            }
+            else
+            {
+                <span>Loading...</span>
+            }
+        </div>
+
+        <FluentPaginator State="@Pagination">
+            <SummaryTemplate>
+                Terdapat <strong>@(Pagination.TotalItemCount ?? 0)</strong> baris
+            </SummaryTemplate>
+            <PaginationTextTemplate>
+                Hal. <strong>@(Pagination.CurrentPageIndex + 1)</strong> dari <strong>@(Pagination.LastPageIndex + 1)</strong> halaman
+            </PaginationTextTemplate>
+        </FluentPaginator>
+
+        @if (WorkPapers is not null)
+        {
+            <div>
+
+            </div>
+        }
+    </Authorized>
+
+    <NotAuthorized>
+        <AccessDenied />
+    </NotAuthorized>
+
+</AuthorizeView>
+
+@code
+{
+    private string _filterSection => SessionService.FilterPreference.ShowFilters ? "enable" : "filter-section-disable";
+}
