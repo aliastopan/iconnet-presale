@@ -14,6 +14,7 @@ public class ApprovalStagingPageBase : WorkloadPageBase, IPageNavigation
 
     protected string GridTemplateCols => GetGridTemplateCols();
     protected FilterForm FilterComponent { get; set; } = default!;
+    protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
 
     public TabNavigationModel PageDeclaration()
     {
@@ -111,7 +112,7 @@ public class ApprovalStagingPageBase : WorkloadPageBase, IPageNavigation
     {
         var parameters = new DialogParameters()
         {
-            Title = "Tampung Kertas Kerja",
+            Title = "Tampung Kertas Kerja (Approval)",
             TrapFocus = true,
             Width = "500px",
         };
@@ -168,16 +169,13 @@ public class ApprovalStagingPageBase : WorkloadPageBase, IPageNavigation
         return $@"
             {ColumnWidth.IdPermohonanPx}px
             {ColumnWidth.TglPermohonanPx}px
-            {ColumnWidth.HelpdeskInChargePx}px
-            {ColumnWidth.ShiftPx}px
-            {ColumnWidth.TglChatCallMulaiPx}px
+            {ColumnWidth.PlanningAssetCoverageInChargePx}px
             {ColumnWidth.ValidasiNamaPelangganPx}px
             {ColumnWidth.ValidasiNomorTelpPx}px
             {ColumnWidth.ValidasiEmailPx}px
             {ColumnWidth.ValidasiIdPlnPx}px
             {ColumnWidth.ValidasiAlamatPx}px
             {ColumnWidth.ValidasiShareLocPx}px
-            {ColumnWidth.TglChatCallResponsPx}px
             {ColumnWidth.LinkRekapChatHistoryPx}px
             {ColumnWidth.KeteranganValidasiPx}px
             {ColumnWidth.ContactWhatsAppPx}px

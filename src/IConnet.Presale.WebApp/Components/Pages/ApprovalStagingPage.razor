@@ -60,26 +60,16 @@
                             @context.ApprovalOpportunity.TglPermohonan
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="PIC CHAT/CALL" Style="@GetWidthStyle(ColumnWidth.HelpdeskInChargePx)">
+                    <TemplateColumn Title="PAC APPROVAL" Style="@GetWidthStyle(ColumnWidth.PlanningAssetCoverageInChargePx)">
                         <div class="">
-                            @if (string.IsNullOrEmpty(context.SignatureHelpdeskInCharge.Alias))
+                            @if (string.IsNullOrEmpty(context.SignaturePlanningAssetCoverageInCharge.Alias))
                             {
                                 <span>Menunggu Tampung</span>
                             }
                             else
                             {
-                                @context.SignatureHelpdeskInCharge.Alias
+                                @context.SignaturePlanningAssetCoverageInCharge.Alias
                             }
-                        </div>
-                    </TemplateColumn>
-                    <TemplateColumn Title="SHIFT" Style="@GetWidthStyle(ColumnWidth.ShiftPx)">
-                        <div class="">
-                            @context.Shift
-                        </div>
-                    </TemplateColumn>
-                    <TemplateColumn Title="TGL CHAT/CALL MULAI" Style="@GetWidthStyle(ColumnWidth.TglChatCallMulaiPx)">
-                        <div class="">
-                            @context.ProsesValidasi.SignatureChatCallMulai.TglAksi
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="NAMA PELANGGAN" Style="@GetWidthStyle(ColumnWidth.ValidasiNamaPelangganPx)">
@@ -110,11 +100,6 @@
                     <TemplateColumn Title="SHARE LOC" Style="@GetWidthStyle(ColumnWidth.ValidasiShareLocPx)">
                         <div class="">
                             @context.ProsesValidasi.ParameterValidasi.ShareLoc.LatitudeLongitude
-                        </div>
-                    </TemplateColumn>
-                    <TemplateColumn Title="TGL CHAT/CALL RESPONS" Style="@GetWidthStyle(ColumnWidth.TglChatCallResponsPx)">
-                        <div class="">
-                            @context.ProsesValidasi.SignatureChatCallRespons.TglAksi
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="REKAP CHAT HISTORY" Style="@GetWidthStyle(ColumnWidth.LinkRekapChatHistoryPx)">
