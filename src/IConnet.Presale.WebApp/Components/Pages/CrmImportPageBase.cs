@@ -24,9 +24,14 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
 
     protected string GridTemplateCols => GetGridTemplateCols();
 
+    public TabNavigationModel PageDeclaration()
+    {
+        return new TabNavigationModel("crm-import", PageNavName.CrmImport, PageRoute.CrmImport);
+    }
+
     protected override void OnInitialized()
     {
-        TabNavigationManager.SelectTab(PageDeclaration());
+        TabNavigationManager.SelectTab(this);
 
         base.OnInitialized();
     }
@@ -125,10 +130,5 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
             {ColumnWidth.KelurahanPx}px
             {ColumnWidth.LatitudePx}px
             {ColumnWidth.LongitudePx}px;";
-    }
-
-    public TabNavigationModel PageDeclaration()
-    {
-        return new TabNavigationModel("crm-import", PageNavName.CrmImport, PageRoute.CrmImport);
     }
 }

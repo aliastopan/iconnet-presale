@@ -24,12 +24,17 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
     protected WorkPaper? ActiveWorkPaper { get; set; }
     protected WorkPaperValidationModel? ActiveValidationModel { get; set; }
 
+    public TabNavigationModel PageDeclaration()
+    {
+        return new TabNavigationModel("validation", PageNavName.Validation, PageRoute.Validation);
+    }
+
     protected override void OnInitialized()
     {
         PageName = PageNavName.Validation;
         CacheFetchMode = CacheFetchMode.OnlyValidating;
 
-        TabNavigationManager.SelectTab(PageDeclaration());
+        TabNavigationManager.SelectTab(this);
 
         base.OnInitialized();
     }
@@ -189,10 +194,5 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.KeteranganValidasiPx}px
             {ColumnWidth.ContactWhatsAppPx}px
             {ColumnWidth.KantorPerwakilanPx}px";
-    }
-
-    public TabNavigationModel PageDeclaration()
-    {
-        return new TabNavigationModel("validation", PageNavName.Validation, PageRoute.Validation);
     }
 }

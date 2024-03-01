@@ -13,12 +13,17 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
     protected string GridTemplateCols => GetGridTemplateCols();
     protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
 
+    public TabNavigationModel PageDeclaration()
+    {
+        return new TabNavigationModel("crm-verification", PageNavName.CrmVerification, PageRoute.CrmVerification);
+    }
+
     protected override void OnInitialized()
     {
         PageName = PageNavName.CrmVerification;
         CacheFetchMode = CacheFetchMode.OnlyImportUnverified;
 
-        TabNavigationManager.SelectTab(PageDeclaration());
+        TabNavigationManager.SelectTab(this);
 
         base.OnInitialized();
     }
@@ -149,10 +154,5 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.KelurahanPx}px
             {ColumnWidth.LatitudePx}px
             {ColumnWidth.LongitudePx}px;";
-    }
-
-    public TabNavigationModel PageDeclaration()
-    {
-        return new TabNavigationModel("crm-verification", PageNavName.CrmVerification, PageRoute.CrmVerification);
     }
 }

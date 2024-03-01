@@ -15,12 +15,17 @@ public class ApprovalStagingPageBase : WorkloadPageBase, IPageNavigation
     protected string GridTemplateCols => GetGridTemplateCols();
     protected FilterForm FilterComponent { get; set; } = default!;
 
+    public TabNavigationModel PageDeclaration()
+    {
+        return new TabNavigationModel("approval-staging", PageNavName.ApprovalStaging, PageRoute.ApprovalStaging);
+    }
+
     protected override void OnInitialized()
     {
         PageName = PageNavName.ApprovalStaging;
         CacheFetchMode = CacheFetchMode.OnlyWaitingApproval;
 
-        TabNavigationManager.SelectTab(PageDeclaration());
+        TabNavigationManager.SelectTab(this);
 
         base.OnInitialized();
     }
@@ -177,10 +182,5 @@ public class ApprovalStagingPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.KeteranganValidasiPx}px
             {ColumnWidth.ContactWhatsAppPx}px
             {ColumnWidth.KantorPerwakilanPx}px";
-    }
-
-    public TabNavigationModel PageDeclaration()
-    {
-        return new TabNavigationModel("approval-staging", PageNavName.ApprovalStaging, PageRoute.ApprovalStaging);
     }
 }

@@ -21,9 +21,11 @@ public class TabNavigationManager
         _stateHasChanged = stateHasChanged;
     }
 
-    public void SelectTab(TabNavigationModel tabToSelect)
+    public void SelectTab(IPageNavigation pageNavigation)
     {
+        var tabToSelect = pageNavigation.PageDeclaration();
         var notListed = !_tabNavigations.Any(x => x.Id == tabToSelect.Id);
+
         if (notListed)
         {
             _tabNavigations.Add(tabToSelect);

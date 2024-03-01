@@ -16,12 +16,17 @@ public class ValidationStagingPageBase : WorkloadPageBase, IPageNavigation
     protected FilterForm FilterComponent { get; set; } = default!;
     protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
 
+    public TabNavigationModel PageDeclaration()
+    {
+        return new TabNavigationModel("validation-staging", PageNavName.ValidationStaging, PageRoute.ValidationStaging);
+    }
+
     protected override void OnInitialized()
     {
         PageName = PageNavName.ValidationStaging;
         CacheFetchMode = CacheFetchMode.OnlyValidating;
 
-        TabNavigationManager.SelectTab(PageDeclaration());
+        TabNavigationManager.SelectTab(this);
 
         base.OnInitialized();
     }
@@ -183,10 +188,5 @@ public class ValidationStagingPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.KeteranganValidasiPx}px
             {ColumnWidth.ContactWhatsAppPx}px
             {ColumnWidth.KantorPerwakilanPx}px";
-    }
-
-    public TabNavigationModel PageDeclaration()
-    {
-        return new TabNavigationModel("validation-staging", PageNavName.ValidationStaging, PageRoute.ValidationStaging);
     }
 }

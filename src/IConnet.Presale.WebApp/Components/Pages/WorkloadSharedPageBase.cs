@@ -6,12 +6,17 @@ public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
 
     protected string GridTemplateCols => GetGridTemplateCols();
 
+    public TabNavigationModel PageDeclaration()
+    {
+        return new TabNavigationModel("workload-shared", PageNavName.WorkloadShared, PageRoute.WorkloadShared);
+    }
+
     protected override void OnInitialized()
     {
         PageName = PageNavName.WorkloadShared;
         CacheFetchMode = CacheFetchMode.OnlyImportVerified;
 
-        TabNavigationManager.SelectTab(PageDeclaration());
+        TabNavigationManager.SelectTab(this);
 
         base.OnInitialized();
     }
@@ -60,10 +65,5 @@ public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.KelurahanPx}px
             {ColumnWidth.LatitudePx}px
             {ColumnWidth.LongitudePx}px;";
-    }
-
-    public TabNavigationModel PageDeclaration()
-    {
-        return new TabNavigationModel("workload-shared", PageNavName.WorkloadShared, PageRoute.WorkloadShared);
     }
 }
