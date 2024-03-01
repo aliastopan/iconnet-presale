@@ -10,7 +10,6 @@ public class ValidationStagingPageBase : WorkloadPageBase
     [Inject] public IToastService ToastService { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
 
-    private readonly string _pageName = "Helpdesk staging page";
     private readonly static int _stagingLimit = 10;
 
     protected string GridTemplateCols => GetGridTemplateCols();
@@ -19,6 +18,9 @@ public class ValidationStagingPageBase : WorkloadPageBase
 
     protected override void OnInitialized()
     {
+        PageName = PageNavName.ValidationStaging;
+        CacheFetchMode = CacheFetchMode.OnlyValidating;
+
         TabNavigationManager.SelectTab(ValidationStagingPage());
 
         base.OnInitialized();
@@ -26,9 +28,6 @@ public class ValidationStagingPageBase : WorkloadPageBase
 
     protected override async Task OnInitializedAsync()
     {
-        PageName = _pageName;
-        CacheFetchMode = CacheFetchMode.OnlyValidating;
-
         await base.OnInitializedAsync();
 
         ColumnWidth.SetColumnWidth(WorkPapers);

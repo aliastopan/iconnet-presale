@@ -11,7 +11,6 @@ public class ValidationPageBase : WorkloadPageBase
     [Inject] public IJSRuntime JsRuntime { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
 
-    private readonly string _pageName = "Helpdesk page";
     private Guid _sessionId;
     private readonly List<WorkPaperValidationModel> _validationModels = new List<WorkPaperValidationModel>();
     private readonly GridSort<WorkPaper> _sortByStagingStatus = GridSort<WorkPaper>
@@ -27,6 +26,9 @@ public class ValidationPageBase : WorkloadPageBase
 
     protected override void OnInitialized()
     {
+        PageName = PageNavName.Validation;
+        CacheFetchMode = CacheFetchMode.OnlyValidating;
+
         TabNavigationManager.SelectTab(ValidationPage());
 
         base.OnInitialized();
@@ -35,8 +37,6 @@ public class ValidationPageBase : WorkloadPageBase
     protected override async Task OnInitializedAsync()
     {
         _sessionId = await SessionService.GetUserAccountIdAsync();
-        PageName = _pageName;
-        CacheFetchMode = CacheFetchMode.OnlyValidating;
 
         await base.OnInitializedAsync();
 

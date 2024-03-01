@@ -10,7 +10,6 @@ public class ApprovalStagingPageBase : WorkloadPageBase
     [Inject] public IToastService ToastService { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
 
-    private readonly string _pageName = "Approval staging page";
     private readonly static int _stagingLimit = 10;
 
     protected string GridTemplateCols => GetGridTemplateCols();
@@ -18,6 +17,9 @@ public class ApprovalStagingPageBase : WorkloadPageBase
 
     protected override void OnInitialized()
     {
+        PageName = PageNavName.ApprovalStaging;
+        CacheFetchMode = CacheFetchMode.OnlyWaitingApproval;
+
         TabNavigationManager.SelectTab(ApprovalStagingPage());
 
         base.OnInitialized();
@@ -25,9 +27,6 @@ public class ApprovalStagingPageBase : WorkloadPageBase
 
     protected override async Task OnInitializedAsync()
     {
-        PageName = _pageName;
-        CacheFetchMode = CacheFetchMode.OnlyWaitingApproval;
-
         await base.OnInitializedAsync();
 
         ColumnWidth.SetColumnWidth(WorkPapers);

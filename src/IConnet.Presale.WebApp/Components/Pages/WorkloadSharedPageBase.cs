@@ -4,12 +4,13 @@ public class WorkloadSharedPageBase : WorkloadPageBase
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
 
-    private readonly string _pageName = "Workload (shared) page";
-
     protected string GridTemplateCols => GetGridTemplateCols();
 
     protected override void OnInitialized()
     {
+        PageName = PageNavName.WorkloadShared;
+        CacheFetchMode = CacheFetchMode.OnlyImportVerified;
+
         TabNavigationManager.SelectTab(WorkloadSharedPage());
 
         base.OnInitialized();
@@ -17,9 +18,6 @@ public class WorkloadSharedPageBase : WorkloadPageBase
 
     protected override async Task OnInitializedAsync()
     {
-        PageName = _pageName;
-        CacheFetchMode = CacheFetchMode.OnlyImportVerified;
-
         await base.OnInitializedAsync();
 
         ColumnWidth.SetColumnWidth(WorkPapers);

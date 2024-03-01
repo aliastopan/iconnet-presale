@@ -9,14 +9,15 @@ public class CrmVerificationPageBase : WorkloadPageBase
     [Inject] public IDialogService DialogService { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
 
-    private readonly string _pageName = "CRM Verification page";
-
     protected FilterForm FilterComponent { get; set; } = default!;
     protected string GridTemplateCols => GetGridTemplateCols();
     protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
 
     protected override void OnInitialized()
     {
+        PageName = PageNavName.CrmVerification;
+        CacheFetchMode = CacheFetchMode.OnlyImportUnverified;
+
         TabNavigationManager.SelectTab(CrmVerificationPage());
 
         base.OnInitialized();
@@ -24,9 +25,6 @@ public class CrmVerificationPageBase : WorkloadPageBase
 
     protected override async Task OnInitializedAsync()
     {
-        PageName = _pageName;
-        CacheFetchMode = CacheFetchMode.OnlyImportUnverified;
-
         await base.OnInitializedAsync();
 
         ColumnWidth.SetColumnWidth(WorkPapers);
