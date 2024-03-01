@@ -1,0 +1,12 @@
+@if (WorkPaper is not null && ApprovalModel is not null)
+{
+    <div class="d-flex flex-column approval-header">
+        <div id="approval-id">
+            <FluentLabel Typo="Typography.Header">@WorkPaper.ApprovalOpportunity.IdPermohonan</FluentLabel>
+        </div>
+        <div>
+            <span class="approval-info">Keterangan:</span>
+            <span>@WorkPaper.ApprovalOpportunity.Pemohon.Keterangan</span>
+        </div>
+    </div>
+}
