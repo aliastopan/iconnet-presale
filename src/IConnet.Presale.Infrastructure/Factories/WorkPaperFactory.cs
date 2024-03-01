@@ -136,7 +136,7 @@ internal sealed class WorkPaperFactory
             },
             ProsesApproval = new ApprovalProcess
             {
-                StatusApproval = string.Empty,
+                StatusApproval = ApprovalStatus.OnProgress,
                 RootCause = string.Empty,
                 Keterangan = string.Empty,
                 JarakShareLoc = string.Empty,

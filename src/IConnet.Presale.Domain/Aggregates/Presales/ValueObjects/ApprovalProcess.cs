@@ -10,7 +10,7 @@ public class ApprovalProcess : ValueObject
 
     }
 
-    public ApprovalProcess(string statusApproval, string rootCause, string keterangan,
+    public ApprovalProcess(ApprovalStatus statusApproval, string rootCause, string keterangan,
         string jarakShareLoc, string jarakICrmPlus, DateTime vaTerbit)
     {
         StatusApproval = statusApproval;
@@ -22,7 +22,7 @@ public class ApprovalProcess : ValueObject
     }
 
     public ActionSignature SignatureApproval { get; init;} = new();
-    public string StatusApproval { get; init; } = string.Empty;
+    public ApprovalStatus StatusApproval { get; init; } = default;
     public string RootCause { get; init; } = string.Empty;
     public string Keterangan { get; init; } = string.Empty;
     public string JarakShareLoc { get; init; } = string.Empty;
