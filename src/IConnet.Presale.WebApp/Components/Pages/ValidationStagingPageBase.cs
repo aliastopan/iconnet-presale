@@ -3,7 +3,7 @@ using IConnet.Presale.WebApp.Components.Forms;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
 
-public class ValidationStagingPageBase : WorkloadPageBase
+public class ValidationStagingPageBase : WorkloadPageBase, IPageNavigation
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public IDialogService DialogService { get; set; } = default!;
@@ -21,7 +21,7 @@ public class ValidationStagingPageBase : WorkloadPageBase
         PageName = PageNavName.ValidationStaging;
         CacheFetchMode = CacheFetchMode.OnlyValidating;
 
-        TabNavigationManager.SelectTab(ValidationStagingPage());
+        TabNavigationManager.SelectTab(PageDeclaration());
 
         base.OnInitialized();
     }
@@ -185,7 +185,7 @@ public class ValidationStagingPageBase : WorkloadPageBase
             {ColumnWidth.KantorPerwakilanPx}px";
     }
 
-    private static TabNavigationModel ValidationStagingPage()
+    public TabNavigationModel PageDeclaration()
     {
         return new TabNavigationModel("validation-staging", PageNavName.ValidationStaging, PageRoute.ValidationStaging);
     }

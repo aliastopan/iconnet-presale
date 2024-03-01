@@ -1,6 +1,6 @@
 namespace IConnet.Presale.WebApp.Components.Pages;
 
-public class WorkloadSharedPageBase : WorkloadPageBase
+public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
 
@@ -11,7 +11,7 @@ public class WorkloadSharedPageBase : WorkloadPageBase
         PageName = PageNavName.WorkloadShared;
         CacheFetchMode = CacheFetchMode.OnlyImportVerified;
 
-        TabNavigationManager.SelectTab(WorkloadSharedPage());
+        TabNavigationManager.SelectTab(PageDeclaration());
 
         base.OnInitialized();
     }
@@ -62,7 +62,7 @@ public class WorkloadSharedPageBase : WorkloadPageBase
             {ColumnWidth.LongitudePx}px;";
     }
 
-    private static TabNavigationModel WorkloadSharedPage()
+    public TabNavigationModel PageDeclaration()
     {
         return new TabNavigationModel("workload-shared", PageNavName.WorkloadShared, PageRoute.WorkloadShared);
     }

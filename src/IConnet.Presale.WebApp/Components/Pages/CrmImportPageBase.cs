@@ -1,6 +1,6 @@
 namespace IConnet.Presale.WebApp.Components.Pages;
 
-public class CrmImportPageBase : ComponentBase
+public class CrmImportPageBase : ComponentBase, IPageNavigation
 {
     [Inject] public IJSRuntime JsRuntime { get; init; } = default!;
     [Inject] public TabNavigationManager TabNavigationManager { get; set; } = default!;
@@ -26,7 +26,7 @@ public class CrmImportPageBase : ComponentBase
 
     protected override void OnInitialized()
     {
-        TabNavigationManager.SelectTab(CrmImportPage());
+        TabNavigationManager.SelectTab(PageDeclaration());
 
         base.OnInitialized();
     }
@@ -127,7 +127,7 @@ public class CrmImportPageBase : ComponentBase
             {ColumnWidth.LongitudePx}px;";
     }
 
-    private static TabNavigationModel CrmImportPage()
+    public TabNavigationModel PageDeclaration()
     {
         return new TabNavigationModel("crm-import", PageNavName.CrmImport, PageRoute.CrmImport);
     }

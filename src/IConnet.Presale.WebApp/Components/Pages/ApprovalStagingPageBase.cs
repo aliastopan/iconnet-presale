@@ -3,7 +3,7 @@ using IConnet.Presale.WebApp.Components.Forms;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
 
-public class ApprovalStagingPageBase : WorkloadPageBase
+public class ApprovalStagingPageBase : WorkloadPageBase, IPageNavigation
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public IDialogService DialogService { get; set; } = default!;
@@ -20,7 +20,7 @@ public class ApprovalStagingPageBase : WorkloadPageBase
         PageName = PageNavName.ApprovalStaging;
         CacheFetchMode = CacheFetchMode.OnlyWaitingApproval;
 
-        TabNavigationManager.SelectTab(ApprovalStagingPage());
+        TabNavigationManager.SelectTab(PageDeclaration());
 
         base.OnInitialized();
     }
@@ -179,7 +179,7 @@ public class ApprovalStagingPageBase : WorkloadPageBase
             {ColumnWidth.KantorPerwakilanPx}px";
     }
 
-    private static TabNavigationModel ApprovalStagingPage()
+    public TabNavigationModel PageDeclaration()
     {
         return new TabNavigationModel("approval-staging", PageNavName.ApprovalStaging, PageRoute.ApprovalStaging);
     }

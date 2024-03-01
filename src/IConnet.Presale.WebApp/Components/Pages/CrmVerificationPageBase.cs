@@ -3,7 +3,7 @@ using IConnet.Presale.WebApp.Components.Forms;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
 
-public class CrmVerificationPageBase : WorkloadPageBase
+public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public IDialogService DialogService { get; set; } = default!;
@@ -18,7 +18,7 @@ public class CrmVerificationPageBase : WorkloadPageBase
         PageName = PageNavName.CrmVerification;
         CacheFetchMode = CacheFetchMode.OnlyImportUnverified;
 
-        TabNavigationManager.SelectTab(CrmVerificationPage());
+        TabNavigationManager.SelectTab(PageDeclaration());
 
         base.OnInitialized();
     }
@@ -151,7 +151,7 @@ public class CrmVerificationPageBase : WorkloadPageBase
             {ColumnWidth.LongitudePx}px;";
     }
 
-    private static TabNavigationModel CrmVerificationPage()
+    public TabNavigationModel PageDeclaration()
     {
         return new TabNavigationModel("crm-verification", PageNavName.CrmVerification, PageRoute.CrmVerification);
     }
