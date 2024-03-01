@@ -8,6 +8,7 @@ public class ApprovalPageBase : WorkloadPageBase, IPageNavigation
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public IDialogService DialogService { get; set; } = default!;
+    [Inject] public IJSRuntime JsRuntime { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
 
     private Guid _sessionId;
@@ -126,6 +127,14 @@ public class ApprovalPageBase : WorkloadPageBase, IPageNavigation
         }
 
         await RestageWorkPaperAsync(dialogData);
+    }
+
+    protected async Task ScrollToApprovalForm()
+    {
+        var elementId = "approval-id";
+        await JsRuntime.InvokeVoidAsync("scrollToElement", elementId);
+
+        LogSwitch.Debug("Scrolling...");
     }
 
     protected bool IsStillInCharge(WorkPaper workPaper, bool debug = false)

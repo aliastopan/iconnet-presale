@@ -65,7 +65,7 @@
                         Style="@GetWidthStyle(ColumnWidth.StagingStatusPx)">
                         @if (IsStillInCharge(context))
                         {
-                            <divs class="staging-active">
+                            <divs class="staging-active" @onclick="@ScrollToApprovalForm">
                                 Active
                             </divs>
                         }
@@ -156,7 +156,11 @@
         @if (WorkPapers is not null)
         {
             <div>
-
+                <CascadingValue Name="CascadeWorkPaper" Value="@ActiveWorkPaper">
+                    <CascadingValue Name="CascadeApprovalModel" Value="@ActiveApprovalModel">
+                        <WorkPaperApprovalForm UnstageWorkPaper="DeselectWorkPaper"/>
+                    </CascadingValue>
+                </CascadingValue>
             </div>
         }
     </Authorized>
