@@ -70,7 +70,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         }
 
         var coordinateShareLoc = new Coordinate(ValidationModel.ShareLoc);
-        var chatCallRespons = new ActionSignature
+        var signatureChatCallRespons = new ActionSignature
         {
             AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
             Alias = await SessionService.GetSessionAliasAsync(),
@@ -80,7 +80,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         var parameterValidasi = WorkPaper.ProsesValidasi.ParameterValidasi.WithShareLoc(coordinateShareLoc);
         var prosesValidasi = WorkPaper.ProsesValidasi
             .WithParameterValidasi(parameterValidasi)
-            .WithChatCallRespons(chatCallRespons)
+            .WithSignatureChatCallRespons(signatureChatCallRespons)
             .WithWaktuTanggalRespons(ValidationModel.GetWaktuTanggalRespons())
             .WithLinkRekapChatHistory(ValidationModel.LinkRekapChatHistory)
             .WithKeterangan(ValidationModel.Keterangan);
@@ -88,7 +88,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         WorkPaper.ProsesValidasi = prosesValidasi;
         WorkPaper.WorkPaperLevel = WorkPaperLevel.WaitingApproval;
 
-        var message = $"{chatCallRespons.Alias} has commit chat/call validation to {WorkPaper.ApprovalOpportunity.IdPermohonan}";
+        var message = $"{signatureChatCallRespons.Alias} has commit chat/call validation to {WorkPaper.ApprovalOpportunity.IdPermohonan}";
         await UpdateProsesValidasi(WorkPaper, message);
 
         await UnstageWorkPaper.InvokeAsync();
@@ -221,18 +221,18 @@ public partial class WorkPaperValidationForm : ComponentBase
             return;
         }
 
-        var chatCallMulai = new ActionSignature
+        var signatureChatCallMulai = new ActionSignature
         {
             AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
             Alias = await SessionService.GetSessionAliasAsync(),
             TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
         };
 
-        var prosesValidasi = WorkPaper.ProsesValidasi.WithChatCallMulai(chatCallMulai);
+        var prosesValidasi = WorkPaper.ProsesValidasi.WithSignatureChatCallMulai(signatureChatCallMulai);
 
         WorkPaper.ProsesValidasi = prosesValidasi;
 
-        var message = $"{chatCallMulai.Alias} has began chat/call to {WorkPaper.ApprovalOpportunity.IdPermohonan}";
+        var message = $"{signatureChatCallMulai.Alias} has began chat/call to {WorkPaper.ApprovalOpportunity.IdPermohonan}";
         await UpdateProsesValidasi(WorkPaper, message);
 
         ValidationModel.MulaiChatCall();

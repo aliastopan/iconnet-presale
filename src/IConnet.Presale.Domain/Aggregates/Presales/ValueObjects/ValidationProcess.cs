@@ -33,7 +33,7 @@ public class ValidationProcess : ValueObject
     [NotMapped]
     public bool IsOnGoing => SignatureChatCallRespons.IsEmptySignature();
 
-    public ValidationProcess WithChatCallMulai(ActionSignature signatureChatCallMulai)
+    public ValidationProcess WithSignatureChatCallMulai(ActionSignature signatureChatCallMulai)
     {
        return new ValidationProcess
         {
@@ -47,7 +47,7 @@ public class ValidationProcess : ValueObject
         };
     }
 
-    public ValidationProcess WithChatCallRespons(ActionSignature signatureChatCallRespons)
+    public ValidationProcess WithSignatureChatCallRespons(ActionSignature signatureChatCallRespons)
     {
        return new ValidationProcess
         {
