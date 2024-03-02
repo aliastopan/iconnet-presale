@@ -1,6 +1,6 @@
-<div style="min-height: 550px;">
-    @if (WorkPaper is not null && ValidationModel is not null)
-    {
+@if (WorkPaper is not null && ValidationModel is not null)
+{
+    <div style="min-height: 550px;">
         <div class="d-flex flex-column validation-header">
             <div id="validation-id">
                 <FluentLabel Typo="Typography.Header">@WorkPaper.ApprovalOpportunity.IdPermohonan</FluentLabel>
@@ -277,6 +277,5 @@
             </FluentStack>
 
         </FluentStack>
-
-    }
-</div>
+    </div>
+}

@@ -1,6 +1,6 @@
-<div style="min-height: 550px;">
-    @if (WorkPaper is not null && ApprovalModel is not null)
-    {
+@if (WorkPaper is not null && ApprovalModel is not null)
+{
+    <div style="min-height: 550px;">
         <div class="d-flex flex-column approval-header">
             <div id="approval-id">
                 <FluentLabel Typo="Typography.Header">@WorkPaper.ApprovalOpportunity.IdPermohonan</FluentLabel>
@@ -185,6 +185,5 @@
             </FluentStack>
 
         </FluentStack>
-    }
-
-</div>
+    </div>
+}
