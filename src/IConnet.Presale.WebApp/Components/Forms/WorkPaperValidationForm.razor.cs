@@ -101,7 +101,7 @@ public partial class WorkPaperValidationForm : ComponentBase
             return;
         }
 
-        var namaPelanggan = WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap;
+        var namaPelanggan = WorkPaper.ApprovalOpportunity.Pemohon.NamaPelanggan;
 
         await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", namaPelanggan);
         ClipboardToast(namaPelanggan);

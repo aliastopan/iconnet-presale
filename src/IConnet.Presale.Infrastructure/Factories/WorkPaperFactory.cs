@@ -28,7 +28,7 @@ internal sealed class WorkPaperFactory
             Splitter = importModel.Splitter,
             Pemohon = new Applicant
             {
-                NamaLengkap = importModel.NamaPemohon,
+                NamaPelanggan = importModel.NamaPemohon,
                 IdPln = importModel.IdPln,
                 Email = importModel.EmailPemohon,
                 NomorTelepon = importModel.TeleponPemohon,

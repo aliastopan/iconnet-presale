@@ -10,11 +10,11 @@ public class Applicant : ValueObject
 
     }
 
-    public Applicant(string idPln, string namaLengkap, string nomorTelepon, string email,
+    public Applicant(string idPln, string namaPelanggan, string nomorTelepon, string email,
         string alamat, string nik, string npwp, string keterangan)
     {
         IdPln = idPln;
-        NamaLengkap = namaLengkap;
+        NamaPelanggan = namaPelanggan;
         NomorTelepon = nomorTelepon;
         Email = email;
         Alamat = alamat;
@@ -24,7 +24,7 @@ public class Applicant : ValueObject
     }
 
     public string IdPln { get; init; } = string.Empty;
-    public string NamaLengkap { get; init; }  = string.Empty;
+    public string NamaPelanggan { get; init; }  = string.Empty;
     public string NomorTelepon { get; init; }  = string.Empty;
     public string Email { get; init; } = string.Empty;
     public string Alamat { get; init; }  = string.Empty;
@@ -38,7 +38,7 @@ public class Applicant : ValueObject
     protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return IdPln;
-        yield return NamaLengkap;
+        yield return NamaPelanggan;
         yield return NomorTelepon;
         yield return Email;
         yield return Alamat;

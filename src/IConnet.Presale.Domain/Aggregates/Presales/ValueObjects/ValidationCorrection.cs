@@ -9,11 +9,11 @@ public class ValidationCorrection : ValueObject
 
     }
 
-    public ValidationCorrection(string idPln, string namaLengkap,
+    public ValidationCorrection(string idPln, string namaPelanggan,
         string nomorTelepon, string email, string alamat)
     {
         PembetulanIdPln = idPln;
-        PembetulanNama = namaLengkap;
+        PembetulanNama = namaPelanggan;
         PembetulanNomorTelepon = nomorTelepon;
         PembetulanEmail = email;
         PembetulanAlamat = alamat;

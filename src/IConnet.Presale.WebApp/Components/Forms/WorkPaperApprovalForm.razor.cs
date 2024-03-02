@@ -36,7 +36,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
             return ApprovalModel!.DataPembetulan.PembetulanNama;
         }
 
-        return ApprovalModel!.DataPelanggan.NamaLengkap;
+        return ApprovalModel!.DataPelanggan.NamaPelanggan;
     }
 
     public string GetNomorTelepon()
