@@ -29,7 +29,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
     protected string CssBackgroundColorIdPln => GetCssBackgroundColor(ApprovalModel!.HasilValidasi.ValidasiIdPln);
     protected string CssBackgroundColorAlamat => GetCssBackgroundColor(ApprovalModel!.HasilValidasi.ValidasiAlamat);
 
-    public string GetNamaPelanggan()
+    protected string GetNamaPelanggan()
     {
         if (ApprovalModel!.HasilValidasi.ValidasiNama != ValidationStatus.Sesuai)
         {
@@ -39,7 +39,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
         return ApprovalModel!.DataPelanggan.NamaPelanggan;
     }
 
-    public string GetNomorTelepon()
+    protected string GetNomorTelepon()
     {
         if (ApprovalModel!.HasilValidasi.ValidasiNomorTelepon != ValidationStatus.Sesuai)
         {
@@ -49,7 +49,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
         return ApprovalModel!.DataPelanggan.NomorTelepon;
     }
 
-    public string GetEmail()
+    protected string GetEmail()
     {
         if (ApprovalModel!.HasilValidasi.ValidasiEmail != ValidationStatus.Sesuai)
         {
@@ -59,7 +59,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
         return ApprovalModel!.DataPelanggan.Email;
     }
 
-    public string GetIdPln()
+    protected string GetIdPln()
     {
         if (ApprovalModel!.HasilValidasi.ValidasiIdPln != ValidationStatus.Sesuai)
         {
@@ -69,7 +69,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
         return ApprovalModel!.DataPelanggan.IdPln;
     }
 
-    public string GetAlamat()
+    protected string GetAlamat()
     {
         if (ApprovalModel!.HasilValidasi.ValidasiAlamat != ValidationStatus.Sesuai)
         {
@@ -79,17 +79,17 @@ public partial class WorkPaperApprovalForm : ComponentBase
         return ApprovalModel!.DataPelanggan.Alamat;
     }
 
-    public string GetShareLoc()
+    protected string GetShareLoc()
     {
         return ApprovalModel!.HasilValidasi.ShareLoc.LatitudeLongitude;
     }
 
-    public string GetKeteranganValidasi()
+    protected string GetKeteranganValidasi()
     {
         return ApprovalModel!.KeteranganValidasi;
     }
 
-    public async Task OnJarakShareLocAsync(string jarakShareLoc)
+    protected async Task OnJarakShareLocAsync(string jarakShareLoc)
     {
         if (!jarakShareLoc.IsParsableAsInteger())
         {
@@ -103,7 +103,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
         await Task.CompletedTask;
     }
 
-    public async Task OnJarakICrmAsync(string jarakICrmPlus)
+    protected async Task OnJarakICrmAsync(string jarakICrmPlus)
     {
         if (!jarakICrmPlus.IsParsableAsInteger())
         {
