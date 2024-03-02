@@ -22,7 +22,7 @@ public class WorkPaperValidationModel
     }
 
     public bool IsChatCallMulai { get; private set; }
-    public string IdPermohonan { get; set; } = string.Empty;
+    public string IdPermohonan { get; init; } = string.Empty;
     public string ValidasiIdPln { get; set; } = string.Empty;
     public string ValidasiNama { get; set; } = string.Empty;
     public string ValidasiNomorTelepon { get; set; } = string.Empty;
