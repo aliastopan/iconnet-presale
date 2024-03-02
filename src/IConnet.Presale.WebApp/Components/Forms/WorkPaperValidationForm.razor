@@ -1,280 +1,282 @@
-@if (WorkPaper is not null && ValidationModel is not null)
-{
-    <div class="d-flex flex-column validation-header">
-        <div id="validation-id">
-            <FluentLabel Typo="Typography.Header">@WorkPaper.ApprovalOpportunity.IdPermohonan</FluentLabel>
+<div style="min-height: 550px;">
+    @if (WorkPaper is not null && ValidationModel is not null)
+    {
+        <div class="d-flex flex-column validation-header">
+            <div id="validation-id">
+                <FluentLabel Typo="Typography.Header">@WorkPaper.ApprovalOpportunity.IdPermohonan</FluentLabel>
+            </div>
+            <div>
+                <span class="validation-info">Keterangan:</span>
+                <span>@WorkPaper.ApprovalOpportunity.Pemohon.Keterangan</span>
+            </div>
+            <div class="d-flex flex-row align-items-center">
+                @{
+                    var url = $"http://{WorkPaper.ApprovalOpportunity.Pemohon.WhatsApp}";
+                }
+                <WhatsAppNav Contact="@WorkPaper.ApprovalOpportunity.Pemohon.WhatsApp"
+                    ChatCallMulai="UpdateChatCallMulaiSignature"/>
+                <FluentButton Appearance="Appearance.Outline"
+                    style="margin-left: 10px"
+                    OnClick="OpenDialogAsync">
+                    Chat Template</FluentButton>
+            </div>
         </div>
-        <div>
-            <span class="validation-info">Keterangan:</span>
-            <span>@WorkPaper.ApprovalOpportunity.Pemohon.Keterangan</span>
-        </div>
-        <div class="d-flex flex-row align-items-center">
-            @{
-                var url = $"http://{WorkPaper.ApprovalOpportunity.Pemohon.WhatsApp}";
-            }
-            <WhatsAppNav Contact="@WorkPaper.ApprovalOpportunity.Pemohon.WhatsApp"
-                ChatCallMulai="UpdateChatCallMulaiSignature"/>
-            <FluentButton Appearance="Appearance.Outline"
-                style="margin-left: 10px"
-                OnClick="OpenDialogAsync">
-                Chat Template</FluentButton>
-        </div>
-    </div>
 
-    <FluentStack Orientation="Orientation.Horizontal"
-        HorizontalAlignment="HorizontalAlignment.Start"
-        VerticalAlignment="VerticalAlignment.Top"
-        HorizontalGap="1">
-
-        <FluentStack Orientation="Orientation.Vertical"
+        <FluentStack Orientation="Orientation.Horizontal"
             HorizontalAlignment="HorizontalAlignment.Start"
             VerticalAlignment="VerticalAlignment.Top"
-            HorizontalGap="4">
+            HorizontalGap="1">
 
-            <div class="validation-element">
-                <div class="validation-label">
-                    <div class="validation-label-bg" style="display: flex;">
-                        <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                            NAMA LENGKAP
-                        </FluentLabel>
-                        <FluentIcon Value="@LabelIconNamaPelanggan" />
-                    </div>
-                    <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
-                        Value="@ValidationModel.ValidasiNama"
-                        ValueChanged="OnValidateNamaPelangganAsync"
-                        OptionDisabled="@OptionDisableNamaPelanggan"
-                        Disabled="DisableOnBeforeContact"
-                        Position="SelectPosition.Below"
-                        Width="165px" />
-                </div>
-                <div class="validation-value">
-                    <div class="@CssBackgroundColorNamaPelanggan" @onclick="OnClipboardNamaPelangganAsync">
-                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
-                            @WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap
-                        </FluentLabel>
-                    </div>
-                    <FluentTextField style="width: 300px"
-                        Value=@ValidationModel.PembetulanNama
-                        ValueChanged="OnPembetulanNamaAsync"
-                        Disabled="@DisableTextFieldNamaPelanggan"
-                        Placeholder="Pembetulan Nama Pelanggan"></FluentTextField>
-                </div>
-            </div>
-            <div class="validation-element">
-                <div class="validation-label">
-                    <div class="validation-label-bg" style="display: flex;">
-                        <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                            NO. TELEPON
-                        </FluentLabel>
-                        <FluentIcon Value="@LabelIconNoTelepon" />
-                    </div>
-                    <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
-                        Value="@ValidationModel.ValidasiNomorTelepon"
-                        ValueChanged="OnValidateNomorTeleponAsync"
-                        OptionDisabled="@OptionDisableNoTelepon"
-                        Disabled="DisableOnBeforeContact"
-                        Position="SelectPosition.Below"
-                        Width="165px" />
-                </div>
-                <div class="validation-value">
-                    <div class="@CssBackgroundColorNomorTelepon" @onclick="OnClipboardNomorTeleponAsync">
-                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
-                            @WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon
-                        </FluentLabel>
-                    </div>
-                    <FluentTextField style="width: 300px"
-                        Value=@ValidationModel.PembetulanNomorTelepon
-                        ValueChanged="OnPembetulanNomorTeleponAsync"
-                        Disabled="@DisableTextFieldNoTelepon"
-                        Placeholder="Pembetulan No. Telepon Aktif"></FluentTextField>
-                </div>
-            </div>
-            <div class="validation-element">
-                <div class="validation-label">
-                    <div class="validation-label-bg" style="display: flex;">
-                        <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                            EMAIL
-                        </FluentLabel>
-                        <FluentIcon Value="@LabelIconEmail" />
-                    </div>
-                    <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
-                        Value="@ValidationModel.ValidasiEmail"
-                        ValueChanged="OnValidateEmailAsync"
-                        OptionDisabled="@OptionDisableEmail"
-                        Disabled="DisableOnBeforeContact"
-                        Position="SelectPosition.Below"
-                        Width="165px" />
-                </div>
-                <div class="validation-value">
-                    <div class="@CssBackgroundColorEmail" @onclick="OnClipboardEmailAsync">
-                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
-                            @WorkPaper.ApprovalOpportunity.Pemohon.Email
-                        </FluentLabel>
-                    </div>
-                    <FluentTextField style="width: 300px"
-                        Value=@ValidationModel.PembetulanEmail
-                        ValueChanged="OnPembetulanEmailAsync"
-                        Disabled="@DisableTextFieldEmail"
-                        Placeholder="Pembetulan Email Aktif"></FluentTextField>
-                </div>
-            </div>
-            <div class="validation-element">
-                <div class="validation-label">
-                    <div class="validation-label-bg" style="display: flex;">
-                        <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                            ID PLN
-                        </FluentLabel>
-                        <FluentIcon Value="@LabelIconIdPln" />
-                    </div>
-                    <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
-                        Value="@ValidationModel.ValidasiIdPln"
-                        ValueChanged="OnValidateIdPlnAsync"
-                        OptionDisabled="@OptionDisableIdPln"
-                        Disabled="DisableOnBeforeContact"
-                        Position="SelectPosition.Below"
-                        Width="165px" />
-                </div>
-                <div class="validation-value">
-                    <div class="@CssBackgroundColorIdPln" @onclick="OnClipboardIdPlnAsync">
-                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
-                            @WorkPaper.ApprovalOpportunity.Pemohon.IdPln
-                        </FluentLabel>
-                    </div>
-                    <FluentTextField style="width: 300px"
-                        Value=@ValidationModel.PembetulanIdPln
-                        ValueChanged="OnPembetulanIdPlnAsync"
-                        Disabled="@DisableTextFieldIdPln"
-                        Placeholder="Pembetulan Id PLN"></FluentTextField>
-                </div>
-            </div>
-            <div class="validation-element-arrange">
-                <div class="arrange-end">
+            <FluentStack Orientation="Orientation.Vertical"
+                HorizontalAlignment="HorizontalAlignment.Start"
+                VerticalAlignment="VerticalAlignment.Top"
+                HorizontalGap="4">
+
+                <div class="validation-element">
                     <div class="validation-label">
                         <div class="validation-label-bg" style="display: flex;">
                             <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                                ALAMAT
+                                NAMA LENGKAP
                             </FluentLabel>
-                            <FluentIcon Value="@LabelIconAlamat" />
+                            <FluentIcon Value="@LabelIconNamaPelanggan" />
                         </div>
-                    </div>
-                    <div class="validation-value">
-                        <div class="@CssBackgroundColorAlamat" @onclick="OnClipboardAlamatAsync">
-                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
-                                @WorkPaper.ApprovalOpportunity.Pemohon.Alamat
-                            </FluentLabel>
-                        </div>
-                    </div>
-                </div>
-                <div class="arrange-start validation-bottom-margin">
-                    <div class="validation-label">
                         <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
-                            Value="@ValidationModel.ValidasiAlamat"
-                            ValueChanged="OnValidateAlamatAsync"
-                            OptionDisabled="@OptionDisableAlamat"
+                            Value="@ValidationModel.ValidasiNama"
+                            ValueChanged="OnValidateNamaPelangganAsync"
+                            OptionDisabled="@OptionDisableNamaPelanggan"
                             Disabled="DisableOnBeforeContact"
                             Position="SelectPosition.Below"
                             Width="165px" />
                     </div>
                     <div class="validation-value">
-                        <FluentTextArea style="width: 300px;" class="validation-textarea"
-                            Value=@ValidationModel.PembetulanAlamat
-                            ValueChanged="OnPembetulanAlamatAsync"
-                            Disabled="@DisableTextAreaAlamatPelanggan"
-                            Placeholder="Pembetulan Alamat Pelanggan"></FluentTextArea>
-                    </div>
-                </div>
-            </div>
-        </FluentStack>
-
-        <FluentStack Orientation="Orientation.Vertical"
-            HorizontalAlignment="HorizontalAlignment.Start"
-            VerticalAlignment="VerticalAlignment.Top"
-            HorizontalGap="4">
-
-            <div class="validation-element">
-                <div class="validation-label">
-                    <div class="validation-label-bg" style="display: flex;">
-                        <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                            CRM KOORDINAT
-                        </FluentLabel>
-                        <FluentIcon Value="@LabelIconCrmKoordinat" />
-                    </div>
-                </div>
-                <div class="validation-value">
-                    <div class="@CssBackgroundColorCrmKoordinat" @onclick="OnClipboardShareLocAsync">
-                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
-                            @WorkPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude
-                        </FluentLabel>
-                    </div>
-                    <FluentTextField style="width: 300px"
-                        Placeholder="Konfirmasi Share Loc"
-                        Value="@ValidationModel.ShareLoc"
-                        ValueChanged="OnShareLoc"
-                        Disabled="DisableOnBeforeContact"></FluentTextField>
-                </div>
-            </div>
-            <div class="validation-element" style="margin-top: -2px;">
-                <div class="validation-label">
-                    <div class="validation-label-bg" style="display: flex; margin-top: 2px;">
-                        <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                            TGL RESPONS
-                        </FluentLabel>
-                    </div>
-                </div>
-                <div class="validation-value">
-                    <div style="display: flex; margin-top: 2px;">
-                        <FluentTimePicker style="width: 100px;"
-                            Value="@ValidationModel.NullableWaktuRespons"
-                            ValueChanged="OnWaktuRespons"
-                            Disabled="DisableOnBeforeContact"/>
-                        <FluentDatePicker style="width: 200px; padding-left: 8px;"
-                            Value="@ValidationModel.NullableTanggalRespons"
-                            ValueChanged="OnTanggalRespons"
-                            Disabled="DisableOnBeforeContact"/>
-                    </div>
-                </div>
-            </div>
-            <div class="validation-element validation-element-push">
-                <div class="validation-label">
-                    <div class="validation-label-bg" style="display: flex; margin-top: 2px;">
-                        <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                            HISTORY CHAT
-                        </FluentLabel>
-                    </div>
-                </div>
-                <div class="validation-value">
-                    <div style="display: flex; margin-top: 2px;">
+                        <div class="@CssBackgroundColorNamaPelanggan" @onclick="OnClipboardNamaPelangganAsync">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap
+                            </FluentLabel>
+                        </div>
                         <FluentTextField style="width: 300px"
-                            Value=@ValidationModel.LinkRekapChatHistory
-                            ValueChanged="OnLinkRekapChatHistory"
-                            Placeholder="https://drive.google.com/chat-history"
+                            Value=@ValidationModel.PembetulanNama
+                            ValueChanged="OnPembetulanNamaAsync"
+                            Disabled="@DisableTextFieldNamaPelanggan"
+                            Placeholder="Pembetulan Nama Pelanggan"></FluentTextField>
+                    </div>
+                </div>
+                <div class="validation-element">
+                    <div class="validation-label">
+                        <div class="validation-label-bg" style="display: flex;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                NO. TELEPON
+                            </FluentLabel>
+                            <FluentIcon Value="@LabelIconNoTelepon" />
+                        </div>
+                        <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
+                            Value="@ValidationModel.ValidasiNomorTelepon"
+                            ValueChanged="OnValidateNomorTeleponAsync"
+                            OptionDisabled="@OptionDisableNoTelepon"
+                            Disabled="DisableOnBeforeContact"
+                            Position="SelectPosition.Below"
+                            Width="165px" />
+                    </div>
+                    <div class="validation-value">
+                        <div class="@CssBackgroundColorNomorTelepon" @onclick="OnClipboardNomorTeleponAsync">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon
+                            </FluentLabel>
+                        </div>
+                        <FluentTextField style="width: 300px"
+                            Value=@ValidationModel.PembetulanNomorTelepon
+                            ValueChanged="OnPembetulanNomorTeleponAsync"
+                            Disabled="@DisableTextFieldNoTelepon"
+                            Placeholder="Pembetulan No. Telepon Aktif"></FluentTextField>
+                    </div>
+                </div>
+                <div class="validation-element">
+                    <div class="validation-label">
+                        <div class="validation-label-bg" style="display: flex;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                EMAIL
+                            </FluentLabel>
+                            <FluentIcon Value="@LabelIconEmail" />
+                        </div>
+                        <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
+                            Value="@ValidationModel.ValidasiEmail"
+                            ValueChanged="OnValidateEmailAsync"
+                            OptionDisabled="@OptionDisableEmail"
+                            Disabled="DisableOnBeforeContact"
+                            Position="SelectPosition.Below"
+                            Width="165px" />
+                    </div>
+                    <div class="validation-value">
+                        <div class="@CssBackgroundColorEmail" @onclick="OnClipboardEmailAsync">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @WorkPaper.ApprovalOpportunity.Pemohon.Email
+                            </FluentLabel>
+                        </div>
+                        <FluentTextField style="width: 300px"
+                            Value=@ValidationModel.PembetulanEmail
+                            ValueChanged="OnPembetulanEmailAsync"
+                            Disabled="@DisableTextFieldEmail"
+                            Placeholder="Pembetulan Email Aktif"></FluentTextField>
+                    </div>
+                </div>
+                <div class="validation-element">
+                    <div class="validation-label">
+                        <div class="validation-label-bg" style="display: flex;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                ID PLN
+                            </FluentLabel>
+                            <FluentIcon Value="@LabelIconIdPln" />
+                        </div>
+                        <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
+                            Value="@ValidationModel.ValidasiIdPln"
+                            ValueChanged="OnValidateIdPlnAsync"
+                            OptionDisabled="@OptionDisableIdPln"
+                            Disabled="DisableOnBeforeContact"
+                            Position="SelectPosition.Below"
+                            Width="165px" />
+                    </div>
+                    <div class="validation-value">
+                        <div class="@CssBackgroundColorIdPln" @onclick="OnClipboardIdPlnAsync">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @WorkPaper.ApprovalOpportunity.Pemohon.IdPln
+                            </FluentLabel>
+                        </div>
+                        <FluentTextField style="width: 300px"
+                            Value=@ValidationModel.PembetulanIdPln
+                            ValueChanged="OnPembetulanIdPlnAsync"
+                            Disabled="@DisableTextFieldIdPln"
+                            Placeholder="Pembetulan Id PLN"></FluentTextField>
+                    </div>
+                </div>
+                <div class="validation-element-arrange">
+                    <div class="arrange-end">
+                        <div class="validation-label">
+                            <div class="validation-label-bg" style="display: flex;">
+                                <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                    ALAMAT
+                                </FluentLabel>
+                                <FluentIcon Value="@LabelIconAlamat" />
+                            </div>
+                        </div>
+                        <div class="validation-value">
+                            <div class="@CssBackgroundColorAlamat" @onclick="OnClipboardAlamatAsync">
+                                <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                    @WorkPaper.ApprovalOpportunity.Pemohon.Alamat
+                                </FluentLabel>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arrange-start validation-bottom-margin">
+                        <div class="validation-label">
+                            <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
+                                Value="@ValidationModel.ValidasiAlamat"
+                                ValueChanged="OnValidateAlamatAsync"
+                                OptionDisabled="@OptionDisableAlamat"
+                                Disabled="DisableOnBeforeContact"
+                                Position="SelectPosition.Below"
+                                Width="165px" />
+                        </div>
+                        <div class="validation-value">
+                            <FluentTextArea style="width: 300px;" class="validation-textarea"
+                                Value=@ValidationModel.PembetulanAlamat
+                                ValueChanged="OnPembetulanAlamatAsync"
+                                Disabled="@DisableTextAreaAlamatPelanggan"
+                                Placeholder="Pembetulan Alamat Pelanggan"></FluentTextArea>
+                        </div>
+                    </div>
+                </div>
+            </FluentStack>
+
+            <FluentStack Orientation="Orientation.Vertical"
+                HorizontalAlignment="HorizontalAlignment.Start"
+                VerticalAlignment="VerticalAlignment.Top"
+                HorizontalGap="4">
+
+                <div class="validation-element">
+                    <div class="validation-label">
+                        <div class="validation-label-bg" style="display: flex;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                CRM KOORDINAT
+                            </FluentLabel>
+                            <FluentIcon Value="@LabelIconCrmKoordinat" />
+                        </div>
+                    </div>
+                    <div class="validation-value">
+                        <div class="@CssBackgroundColorCrmKoordinat" @onclick="OnClipboardShareLocAsync">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @WorkPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude
+                            </FluentLabel>
+                        </div>
+                        <FluentTextField style="width: 300px"
+                            Placeholder="Konfirmasi Share Loc"
+                            Value="@ValidationModel.ShareLoc"
+                            ValueChanged="OnShareLoc"
                             Disabled="DisableOnBeforeContact"></FluentTextField>
                     </div>
                 </div>
-            </div>
-            <div class="validation-element validation-element-push">
-                <div class="validation-label">
-                    <div class="validation-label-bg" style="display: flex; margin-top: 2px;">
-                        <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                            KETERANGAN
-                        </FluentLabel>
+                <div class="validation-element" style="margin-top: -2px;">
+                    <div class="validation-label">
+                        <div class="validation-label-bg" style="display: flex; margin-top: 2px;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                TGL RESPONS
+                            </FluentLabel>
+                        </div>
                     </div>
-                    <FluentButton class="validation-submit"
-                        Appearance="Appearance.Accent"
-                        Disabled="DisableCommit"
-                        OnClick="OnCommitAsync">
-                        Simpan</FluentButton>
+                    <div class="validation-value">
+                        <div style="display: flex; margin-top: 2px;">
+                            <FluentTimePicker style="width: 100px;"
+                                Value="@ValidationModel.NullableWaktuRespons"
+                                ValueChanged="OnWaktuRespons"
+                                Disabled="DisableOnBeforeContact"/>
+                            <FluentDatePicker style="width: 200px; padding-left: 8px;"
+                                Value="@ValidationModel.NullableTanggalRespons"
+                                ValueChanged="OnTanggalRespons"
+                                Disabled="DisableOnBeforeContact"/>
+                        </div>
+                    </div>
                 </div>
-                <div class="validation-value">
-                    <FluentTextArea class="validation-textarea" style="width: 300px; margin-top: 2px;"
-                        Value=@ValidationModel.Keterangan
-                        ValueChanged="OnKeterangan"
-                        Disabled="DisableOnBeforeContact"
-                        Placeholder="Keterangan"></FluentTextArea>
+                <div class="validation-element validation-element-push">
+                    <div class="validation-label">
+                        <div class="validation-label-bg" style="display: flex; margin-top: 2px;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                HISTORY CHAT
+                            </FluentLabel>
+                        </div>
+                    </div>
+                    <div class="validation-value">
+                        <div style="display: flex; margin-top: 2px;">
+                            <FluentTextField style="width: 300px"
+                                Value=@ValidationModel.LinkRekapChatHistory
+                                ValueChanged="OnLinkRekapChatHistory"
+                                Placeholder="https://drive.google.com/chat-history"
+                                Disabled="DisableOnBeforeContact"></FluentTextField>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <div class="validation-element validation-element-push">
+                    <div class="validation-label">
+                        <div class="validation-label-bg" style="display: flex; margin-top: 2px;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                KETERANGAN
+                            </FluentLabel>
+                        </div>
+                        <FluentButton class="validation-submit"
+                            Appearance="Appearance.Accent"
+                            Disabled="DisableCommit"
+                            OnClick="OnCommitAsync">
+                            Simpan</FluentButton>
+                    </div>
+                    <div class="validation-value">
+                        <FluentTextArea class="validation-textarea" style="width: 300px; margin-top: 2px;"
+                            Value=@ValidationModel.Keterangan
+                            ValueChanged="OnKeterangan"
+                            Disabled="DisableOnBeforeContact"
+                            Placeholder="Keterangan"></FluentTextArea>
+                    </div>
+                </div>
+            </FluentStack>
+
         </FluentStack>
 
-    </FluentStack>
-
-}
+    }
+</div>
