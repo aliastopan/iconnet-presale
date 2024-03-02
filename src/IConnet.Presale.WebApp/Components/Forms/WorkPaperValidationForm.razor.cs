@@ -48,12 +48,12 @@ public partial class WorkPaperValidationForm : ComponentBase
     protected Icon LabelIconAlamat => HtmlHelper.GetFluentIcon(ValidationModel?.ValidasiAlamat);
     protected Icon LabelIconCrmKoordinat => HtmlHelper.GetFluentIcon(ValidationModel?.ValidasiCrmKoordinat, errorIconColor: "var(--warning)");
 
-    protected string CssBackgroundColorNamaPelanggan => HtmlHelper.GetCssBackgroundColor(ValidationModel?.ValidasiNama);
-    protected string CssBackgroundColorNomorTelepon => HtmlHelper.GetCssBackgroundColor(ValidationModel?.ValidasiNomorTelepon);
-    protected string CssBackgroundColorEmail => HtmlHelper.GetCssBackgroundColor(ValidationModel?.ValidasiEmail);
-    protected string CssBackgroundColorIdPln => HtmlHelper.GetCssBackgroundColor(ValidationModel?.ValidasiIdPln);
-    protected string CssBackgroundColorAlamat => HtmlHelper.GetCssBackgroundColor(ValidationModel?.ValidasiAlamat);
-    protected string CssBackgroundColorCrmKoordinat => HtmlHelper.GetCssBackgroundColor(ValidationModel?.ValidasiCrmKoordinat, invalid: "validation-value-bg-warning");
+    protected string CssBackgroundColorNamaPelanggan => HtmlHelper.GetCssBackgroundColorValidation(ValidationModel?.ValidasiNama);
+    protected string CssBackgroundColorNomorTelepon => HtmlHelper.GetCssBackgroundColorValidation(ValidationModel?.ValidasiNomorTelepon);
+    protected string CssBackgroundColorEmail => HtmlHelper.GetCssBackgroundColorValidation(ValidationModel?.ValidasiEmail);
+    protected string CssBackgroundColorIdPln => HtmlHelper.GetCssBackgroundColorValidation(ValidationModel?.ValidasiIdPln);
+    protected string CssBackgroundColorAlamat => HtmlHelper.GetCssBackgroundColorValidation(ValidationModel?.ValidasiAlamat);
+    protected string CssBackgroundColorCrmKoordinat => HtmlHelper.GetCssBackgroundColorValidation(ValidationModel?.ValidasiCrmKoordinat, invalid: "validation-value-bg-warning");
 
     protected bool DisableTextFieldNamaPelanggan => ValidationModel?.ValidasiNama != OptionSelect.StatusValidasi.TidakSesuai;
     protected bool DisableTextFieldNoTelepon => ValidationModel?.ValidasiNomorTelepon != OptionSelect.StatusValidasi.TidakSesuai;

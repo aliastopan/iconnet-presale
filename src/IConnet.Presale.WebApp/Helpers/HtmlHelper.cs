@@ -19,7 +19,7 @@ public static class HtmlHelper
         };
     }
 
-    public static string GetCssBackgroundColor(string? section,
+    public static string GetCssBackgroundColorValidation(string? section,
         string waiting = "validation-value-bg-waiting",
         string invalid = "validation-value-bg-invalid",
         string valid = "validation-value-bg-valid")
@@ -32,5 +32,18 @@ public static class HtmlHelper
         };
 
         return $"{css} validation-value-clipboard";
+    }
+
+    public static string GetCssBackgroundColorApproval(string? section,
+        string waiting = "approval-value-bg-waiting",
+        string invalid = "approval-value-bg-invalid",
+        string valid = "approval-value-bg-valid")
+    {
+        return section switch
+        {
+            string status when status == OptionSelect.StatusValidasi.TidakSesuai => invalid,
+            string status when status == OptionSelect.StatusValidasi.Sesuai => valid,
+            _ => waiting,
+        };
     }
 }
