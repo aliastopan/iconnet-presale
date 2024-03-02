@@ -9,4 +9,37 @@
             <span>@WorkPaper.ApprovalOpportunity.Pemohon.Keterangan</span>
         </div>
     </div>
+
+    <FluentStack Orientation="Orientation.Horizontal"
+        HorizontalAlignment="HorizontalAlignment.Start"
+        VerticalAlignment="VerticalAlignment.Top"
+        HorizontalGap="1">
+
+        <FluentStack Orientation="Orientation.Vertical"
+            HorizontalAlignment="HorizontalAlignment.Start"
+            VerticalAlignment="VerticalAlignment.Top"
+            HorizontalGap="4">
+            <div class="approval-element">
+                <div class="approval-label">
+                    <div class="approval-label-bg" style="display: flex;">
+                        <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                            NAMA LENGKAP
+                        </FluentLabel>
+                        <FluentIcon Value="@LabelIconNamaPelanggan" />
+                    </div>
+
+                </div>
+                <div class="approval-value">
+                    <div class="">
+                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                            @WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap
+                        </FluentLabel>
+                    </div>
+                </div>
+            </div>
+
+        </FluentStack>
+
+    </FluentStack>
+
 }
