@@ -41,7 +41,7 @@
 .validation-label{
     display: flex;
     flex-direction: column;
-    width: 165px;
+    width: 185px;
     /* background-color: crimson; */
     margin-right: 10px;
 }
@@ -197,7 +197,7 @@
 .approval-label{
     display: flex;
     flex-direction: column;
-    width: 165px;
+    width: 185px;
     /* background-color: crimson; */
     margin-right: 10px;
 }
