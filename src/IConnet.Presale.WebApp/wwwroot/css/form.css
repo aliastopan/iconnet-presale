@@ -232,7 +232,7 @@
 }
 
 .approval-value .fluent-typography{
-    cursor: pointer !important;
+    /* cursor: pointer !important; */
     max-width: fit-content;
     font-weight: 600 !important;
     color: #373737 !important;
@@ -293,9 +293,9 @@
     color: white !important;
 } */
 
-.approval-value-clipboard{
+/* .approval-value-clipboard{
     cursor: pointer;
-}
+} */
 
 .approval-shareloc{
     background-color: crimson;
