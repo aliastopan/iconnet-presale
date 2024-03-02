@@ -28,66 +28,117 @@
                             </FluentLabel>
                             <FluentIcon Value="@LabelIconNamaPelanggan" />
                         </div>
+                    </div>
+                    <div class="approval-value">
+                        <div class="@CssBackgroundColorNamaPelanggan">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @GetNamaPelanggan()
+                            </FluentLabel>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="approval-element">
+                    <div class="approval-label">
                         <div class="approval-label-bg" style="display: flex;">
                             <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
                                 NO. TELEPON
                             </FluentLabel>
                             <FluentIcon Value="@LabelIconNoTelepon" />
                         </div>
+                    </div>
+                    <div class="approval-value">
+                        <div class="@CssBackgroundColorNomorTelepon">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @GetNomorTelepon()
+                            </FluentLabel>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="approval-element">
+                    <div class="approval-label">
                         <div class="approval-label-bg" style="display: flex;">
                             <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
                                 EMAIL
                             </FluentLabel>
                             <FluentIcon Value="@LabelIconEmail" />
                         </div>
+                    </div>
+                    <div class="approval-value">
+                        <div class="@CssBackgroundColorEmail">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @GetEmail()
+                            </FluentLabel>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="approval-element">
+                    <div class="approval-label">
                         <div class="approval-label-bg" style="display: flex;">
                             <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
                                 ID PLN
                             </FluentLabel>
                             <FluentIcon Value="@LabelIconIdPln" />
                         </div>
+                    </div>
+                    <div class="approval-value">
+                        <div class="@CssBackgroundColorIdPln">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @GetIdPln()
+                            </FluentLabel>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="approval-element">
+                    <div class="approval-label">
                         <div class="approval-label-bg" style="display: flex;">
                             <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
                                 ALAMAT
                             </FluentLabel>
                             <FluentIcon Value="@LabelIconAlamat" />
                         </div>
+                    </div>
+                    <div class="approval-value">
+                        <div class="@CssBackgroundColorAlamat">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @GetAlamat()
+                            </FluentLabel>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="approval-element">
+                    <div class="approval-label">
                         <div class="approval-label-bg" style="display: flex;">
                             <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
                                 SHARE LOC
                             </FluentLabel>
+                            <FluentIcon Value="@LabelIconNamaPelanggan" />
                         </div>
                     </div>
-
                     <div class="approval-value">
                         <div class="">
                             <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
-                                @WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap
+                                @GetShareLoc()
                             </FluentLabel>
                         </div>
-                        <div class="">
-                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
-                                @WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon
+                    </div>
+                </div>
+                <div class="approval-element">
+                    <div class="approval-label">
+                        <div class="approval-label-bg" style="display: flex;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                KETERANGAN
                             </FluentLabel>
                         </div>
+                    </div>
+                    <div class="approval-value">
                         <div class="">
                             <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
-                                @WorkPaper.ApprovalOpportunity.Pemohon.Email
-                            </FluentLabel>
-                        </div>
-                        <div class="">
-                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
-                                @WorkPaper.ApprovalOpportunity.Pemohon.IdPln
-                            </FluentLabel>
-                        </div>
-                        <div class="">
-                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
-                                @WorkPaper.ApprovalOpportunity.Pemohon.Alamat
-                            </FluentLabel>
-                        </div>
-                        <div class="">
-                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
-                                @WorkPaper.ProsesValidasi.ParameterValidasi.ShareLoc.LatitudeLongitude
+                                @GetKeteranganValidasi()
                             </FluentLabel>
                         </div>
                     </div>
