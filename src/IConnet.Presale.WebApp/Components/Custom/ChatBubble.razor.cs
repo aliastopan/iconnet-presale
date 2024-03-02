@@ -11,6 +11,8 @@ public partial class ChatBubble : ComponentBase
     [Parameter] public string Sender { get; set; } = string.Empty;
     [Parameter] public string Timestamp { get; set; } = string.Empty;
 
+    public bool IsCopy { get; set; } = false;
+
     public MarkupString GetChatTemplate()
     {
         if (ActiveWorkPaper is null)
@@ -36,6 +38,8 @@ public partial class ChatBubble : ComponentBase
         }
 
         LogSwitch.Debug("Copying clipboard chat {sequence}", ChatTemplate.Sequence);
+
+        IsCopy = true;
 
         await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", ChatTemplate.Content
             .ReplacePlaceholder(PlaceholderText.IdPln, ActiveWorkPaper.ApprovalOpportunity.Pemohon.IdPln)

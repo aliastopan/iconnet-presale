@@ -83,7 +83,16 @@
     padding: 8px 16px;
 }
 
+.chat-copied-label{
+    font-family: "Roboto";
+    padding: 0 8px;
+    color: #a5a5a5;
+    font-size: 12px;
+}
+
 .chat-timestamp{
+    font-family: "Roboto";
+    font-weight: 500px;
     color: #a5a5a5;
     font-size: 12px;
 }

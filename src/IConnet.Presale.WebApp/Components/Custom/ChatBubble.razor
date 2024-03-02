@@ -6,6 +6,10 @@
         @GetChatTemplate()
     </p>
     <div class="chat-footer">
+        @if (IsCopy)
+        {
+            <span class="chat-copied-label">copied</span>
+        }
         <span class="chat-timestamp">@Timestamp</span>
     </div>
 </div>
