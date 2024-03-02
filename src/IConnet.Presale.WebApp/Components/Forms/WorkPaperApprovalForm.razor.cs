@@ -13,23 +13,29 @@ public partial class WorkPaperApprovalForm : ComponentBase
     [CascadingParameter(Name = "CascadeApprovalModel")]
     public WorkPaperApprovalModel? ApprovalModel { get; set; }
 
-    private readonly Icon _questionIcon = new Icons.Filled.Size20.QuestionCircle();
-    private readonly Icon _errorIcon = new Icons.Filled.Size20.ErrorCircle();
-    private readonly Icon _checkmarkIcon = new Icons.Filled.Size20.CheckmarkCircle();
+    private static readonly Icon _questionIcon = new Icons.Filled.Size20.QuestionCircle();
+    private static readonly Icon _errorIcon = new Icons.Filled.Size20.ErrorCircle();
+    private static readonly Icon _checkmarkIcon = new Icons.Filled.Size20.CheckmarkCircle();
 
-    protected Icon LabelIconNamaPelanggan => GetIcon(ApprovalModel?.ValidasiNama.ToString());
+    protected Icon LabelIconNamaPelanggan => GetIcon(ApprovalModel!.ValidasiNama);
+    protected Icon LabelIconNoTelepon => GetIcon(ApprovalModel!.ValidasiNomorTelepon);
+    protected Icon LabelIconEmail => GetIcon(ApprovalModel!.ValidasiEmail);
+    protected Icon LabelIconIdPln => GetIcon(ApprovalModel!.ValidasiIdPln);
+    protected Icon LabelIconAlamat => GetIcon(ApprovalModel!.ValidasiAlamat);
 
-
-    private Icon GetIcon(string? section,
+    private static Icon GetIcon(ValidationStatus section,
         string questionIconColor = "var(--info)",
-        string errorIconColor = "var(--error)",
+        string errorIconColor = "var(--warning)",
         string checkmarkIconColor = "var(--success)")
     {
-        return section switch
+        switch (section)
         {
-            string status when status == OptionSelect.StatusValidasi.TidakSesuai => _errorIcon.WithColor(errorIconColor),
-            string status when status == OptionSelect.StatusValidasi.Sesuai => _checkmarkIcon.WithColor(checkmarkIconColor),
-            _ => _questionIcon.WithColor(questionIconColor),
-        };
+            case ValidationStatus.TidakSesuai:
+                return _errorIcon.WithColor(errorIconColor);
+            case ValidationStatus.Sesuai:
+                return _checkmarkIcon.WithColor(checkmarkIconColor);
+            default:
+                return _questionIcon.WithColor(questionIconColor);
+        }
     }
 }

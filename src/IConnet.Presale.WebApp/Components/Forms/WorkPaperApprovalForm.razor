@@ -1,45 +1,101 @@
-@if (WorkPaper is not null && ApprovalModel is not null)
-{
-    <div class="d-flex flex-column approval-header">
-        <div id="approval-id">
-            <FluentLabel Typo="Typography.Header">@WorkPaper.ApprovalOpportunity.IdPermohonan</FluentLabel>
+<div style="min-height: 550px;">
+    @if (WorkPaper is not null && ApprovalModel is not null)
+    {
+        <div class="d-flex flex-column approval-header">
+            <div id="approval-id">
+                <FluentLabel Typo="Typography.Header">@WorkPaper.ApprovalOpportunity.IdPermohonan</FluentLabel>
+            </div>
+            <div>
+                <span class="approval-info">Keterangan:</span>
+                <span>@WorkPaper.ApprovalOpportunity.Pemohon.Keterangan</span>
+            </div>
         </div>
-        <div>
-            <span class="approval-info">Keterangan:</span>
-            <span>@WorkPaper.ApprovalOpportunity.Pemohon.Keterangan</span>
-        </div>
-    </div>
 
-    <FluentStack Orientation="Orientation.Horizontal"
-        HorizontalAlignment="HorizontalAlignment.Start"
-        VerticalAlignment="VerticalAlignment.Top"
-        HorizontalGap="1">
-
-        <FluentStack Orientation="Orientation.Vertical"
+        <FluentStack Orientation="Orientation.Horizontal"
             HorizontalAlignment="HorizontalAlignment.Start"
             VerticalAlignment="VerticalAlignment.Top"
-            HorizontalGap="4">
-            <div class="approval-element">
-                <div class="approval-label">
-                    <div class="approval-label-bg" style="display: flex;">
-                        <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                            NAMA LENGKAP
-                        </FluentLabel>
-                        <FluentIcon Value="@LabelIconNamaPelanggan" />
+            HorizontalGap="1">
+
+            <FluentStack Orientation="Orientation.Vertical"
+                HorizontalAlignment="HorizontalAlignment.Start"
+                VerticalAlignment="VerticalAlignment.Top"
+                HorizontalGap="4">
+                <div class="approval-element">
+                    <div class="approval-label">
+                        <div class="approval-label-bg" style="display: flex;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                NAMA LENGKAP
+                            </FluentLabel>
+                            <FluentIcon Value="@LabelIconNamaPelanggan" />
+                        </div>
+                        <div class="approval-label-bg" style="display: flex;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                NO. TELEPON
+                            </FluentLabel>
+                            <FluentIcon Value="@LabelIconNoTelepon" />
+                        </div>
+                        <div class="approval-label-bg" style="display: flex;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                EMAIL
+                            </FluentLabel>
+                            <FluentIcon Value="@LabelIconEmail" />
+                        </div>
+                        <div class="approval-label-bg" style="display: flex;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                ID PLN
+                            </FluentLabel>
+                            <FluentIcon Value="@LabelIconIdPln" />
+                        </div>
+                        <div class="approval-label-bg" style="display: flex;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                ALAMAT
+                            </FluentLabel>
+                            <FluentIcon Value="@LabelIconAlamat" />
+                        </div>
+                        <div class="approval-label-bg" style="display: flex;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                SHARE LOC
+                            </FluentLabel>
+                        </div>
                     </div>
 
-                </div>
-                <div class="approval-value">
-                    <div class="">
-                        <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
-                            @WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap
-                        </FluentLabel>
+                    <div class="approval-value">
+                        <div class="">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @WorkPaper.ApprovalOpportunity.Pemohon.NamaLengkap
+                            </FluentLabel>
+                        </div>
+                        <div class="">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon
+                            </FluentLabel>
+                        </div>
+                        <div class="">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @WorkPaper.ApprovalOpportunity.Pemohon.Email
+                            </FluentLabel>
+                        </div>
+                        <div class="">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @WorkPaper.ApprovalOpportunity.Pemohon.IdPln
+                            </FluentLabel>
+                        </div>
+                        <div class="">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @WorkPaper.ApprovalOpportunity.Pemohon.Alamat
+                            </FluentLabel>
+                        </div>
+                        <div class="">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @WorkPaper.ProsesValidasi.ParameterValidasi.ShareLoc.LatitudeLongitude
+                            </FluentLabel>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+            </FluentStack>
 
         </FluentStack>
+    }
 
-    </FluentStack>
-
-}
+</div>
