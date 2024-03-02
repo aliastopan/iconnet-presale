@@ -37,7 +37,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="approval-element">
                     <div class="approval-label">
                         <div class="approval-label-bg" style="display: flex;">
@@ -55,7 +54,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="approval-element">
                     <div class="approval-label">
                         <div class="approval-label-bg" style="display: flex;">
@@ -73,7 +71,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="approval-element">
                     <div class="approval-label">
                         <div class="approval-label-bg" style="display: flex;">
@@ -91,7 +88,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="approval-element">
                     <div class="approval-label">
                         <div class="approval-label-bg" style="display: flex;">
@@ -109,24 +105,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="approval-element">
-                    <div class="approval-label">
-                        <div class="approval-label-bg" style="display: flex;">
-                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                                SHARE LOC
-                            </FluentLabel>
-                            <FluentIcon Value="@LabelIconNamaPelanggan" />
-                        </div>
-                    </div>
-                    <div class="approval-value">
-                        <div class="">
-                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
-                                @GetShareLoc()
-                            </FluentLabel>
-                        </div>
-                    </div>
-                </div>
                 <div class="approval-element">
                     <div class="approval-label">
                         <div class="approval-label-bg" style="display: flex;">
@@ -136,9 +114,33 @@
                         </div>
                     </div>
                     <div class="approval-value">
-                        <div class="">
+                        <div class="approval-value-bg">
                             <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                                 @GetKeteranganValidasi()
+                            </FluentLabel>
+                        </div>
+                    </div>
+                </div>
+
+            </FluentStack>
+
+            <FluentStack Orientation="Orientation.Vertical"
+                HorizontalAlignment="HorizontalAlignment.Start"
+                VerticalAlignment="VerticalAlignment.Top"
+                HorizontalGap="4">
+
+                <div class="approval-element">
+                    <div class="approval-label">
+                        <div class="approval-label-bg" style="display: flex;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                SHARE LOC
+                            </FluentLabel>
+                        </div>
+                    </div>
+                    <div class="approval-value">
+                        <div class="approval-value-bg">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @GetShareLoc()
                             </FluentLabel>
                         </div>
                     </div>

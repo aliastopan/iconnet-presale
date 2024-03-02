@@ -243,6 +243,16 @@
     -o-border-radius: 3px;
 }
 
+.approval-value-bg{
+    background-color: #f3f2f2;
+    min-height: 32px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
 .approval-value-bg-waiting{
     background-color: #f3f2f2;
     min-height: 32px;
