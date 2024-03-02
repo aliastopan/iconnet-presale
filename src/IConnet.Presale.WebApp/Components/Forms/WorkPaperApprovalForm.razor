@@ -146,6 +146,42 @@
                     </div>
                 </div>
 
+                <div class="approval-element">
+                    <div class="approval-label">
+                        <div class="approval-label-bg" style="display: flex;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                JARAK SHARE LOC
+                            </FluentLabel>
+                        </div>
+                    </div>
+                    <div class="approval-value">
+                        <div class="approval-value-bg">
+                        <FluentTextField  style="width: 300px"
+                            Value=@ApprovalModel.JarakShareLoc
+                            ValueChanged="OnJarakShareLocAsync"
+                            Placeholder="Jarak Share Loc (meter)"></FluentTextField>
+                        </div>
+                    </div>
+                </div>
+                <div class="approval-element">
+                    <div class="approval-label">
+                        <div class="approval-label-bg" style="display: flex;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                JARAK CRM
+                            </FluentLabel>
+                        </div>
+                    </div>
+                    <div class="approval-value">
+                        <div class="approval-value-bg">
+                        <FluentTextField  style="width: 300px"
+                            Value=@ApprovalModel.JarakICrmPlus
+                            ValueChanged="OnJarakICrmAsync"
+                            Placeholder="Jarak iCRM+ (meter)"></FluentTextField>
+                        </div>
+                    </div>
+                </div>
+
+
             </FluentStack>
 
         </FluentStack>

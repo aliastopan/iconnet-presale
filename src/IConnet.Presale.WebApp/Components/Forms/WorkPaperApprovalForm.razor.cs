@@ -89,6 +89,34 @@ public partial class WorkPaperApprovalForm : ComponentBase
         return ApprovalModel!.KeteranganValidasi;
     }
 
+    public async Task OnJarakShareLocAsync(string jarakShareLoc)
+    {
+        if (!jarakShareLoc.IsParsableAsInteger())
+        {
+            return;
+        }
+
+        ApprovalModel!.JarakShareLoc = jarakShareLoc;
+
+        LogSwitch.Debug("Jarak ShareLoc: {0}", ApprovalModel!.JarakShareLoc);
+
+        await Task.CompletedTask;
+    }
+
+    public async Task OnJarakICrmAsync(string jarakICrmPlus)
+    {
+        if (!jarakICrmPlus.IsParsableAsInteger())
+        {
+            return;
+        }
+
+        ApprovalModel!.JarakICrmPlus = jarakICrmPlus;
+
+        LogSwitch.Debug("Jarak iCRM: {0}", ApprovalModel!.JarakICrmPlus);
+
+        await Task.CompletedTask;
+    }
+
     private static Icon GetIcon(ValidationStatus section,
         string questionIconColor = "var(--info)",
         string errorIconColor = "var(--error)",
