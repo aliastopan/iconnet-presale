@@ -44,4 +44,9 @@ public static class StringExtensions
         // LogSwitch.Debug("Replacing {placeholder} with {value}", placeholder, value);
         return input.Replace(placeholder, value);
     }
+
+    public static bool IsParsableAsInteger(this string input)
+    {
+        return int.TryParse(input, out int result);
+    }
 }
