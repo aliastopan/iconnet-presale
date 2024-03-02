@@ -165,3 +165,22 @@
 .input-form .fluent-input-label{
     font-weight: 700 !important;
 }
+
+.approval-header{
+    margin-bottom: 10px;
+}
+.approval-info{
+    padding-right: 6px;
+    font-weight: 400 !important;
+}
+
+#approval-id .fluent-typography{
+    font-weight: 500 !important;
+}
+
+.approval-element{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    /* background-color: cornflowerblue; */
+}
