@@ -41,19 +41,19 @@ public partial class WorkPaperValidationForm : ComponentBase
     protected Func<string, bool> OptionDisableAlamat => x => x == OptionSelect.StatusValidasi.MenungguValidasi
         && ValidationModel?.ValidasiAlamat != OptionSelect.StatusValidasi.MenungguValidasi;
 
-    protected Icon LabelIconNamaPelanggan => GetIcon(ValidationModel?.ValidasiNama);
-    protected Icon LabelIconNoTelepon => GetIcon(ValidationModel?.ValidasiNomorTelepon);
-    protected Icon LabelIconEmail => GetIcon(ValidationModel?.ValidasiEmail);
-    protected Icon LabelIconIdPln => GetIcon(ValidationModel?.ValidasiIdPln);
-    protected Icon LabelIconAlamat => GetIcon(ValidationModel?.ValidasiAlamat);
-    protected Icon LabelIconCrmKoordinat => GetIcon(ValidationModel?.ValidasiCrmKoordinat, errorIconColor: "var(--warning)");
+    protected Icon LabelIconNamaPelanggan => HtmlHelper.GetFluentIcon(ValidationModel?.ValidasiNama);
+    protected Icon LabelIconNoTelepon => HtmlHelper.GetFluentIcon(ValidationModel?.ValidasiNomorTelepon);
+    protected Icon LabelIconEmail => HtmlHelper.GetFluentIcon(ValidationModel?.ValidasiEmail);
+    protected Icon LabelIconIdPln => HtmlHelper.GetFluentIcon(ValidationModel?.ValidasiIdPln);
+    protected Icon LabelIconAlamat => HtmlHelper.GetFluentIcon(ValidationModel?.ValidasiAlamat);
+    protected Icon LabelIconCrmKoordinat => HtmlHelper.GetFluentIcon(ValidationModel?.ValidasiCrmKoordinat, errorIconColor: "var(--warning)");
 
-    protected string BgColorNamaPelanggan => GetBackgroundColor(ValidationModel?.ValidasiNama);
-    protected string BgColorNomorTelepon => GetBackgroundColor(ValidationModel?.ValidasiNomorTelepon);
-    protected string BgColorEmail => GetBackgroundColor(ValidationModel?.ValidasiEmail);
-    protected string BgColorIdPln => GetBackgroundColor(ValidationModel?.ValidasiIdPln);
-    protected string BgColorAlamat => GetBackgroundColor(ValidationModel?.ValidasiAlamat);
-    protected string BgColorCrmKoordinat => GetBackgroundColor(ValidationModel?.ValidasiCrmKoordinat, invalid: "validation-value-bg-warning");
+    protected string CssBackgroundColorNamaPelanggan => HtmlHelper.GetCssBackgroundColor(ValidationModel?.ValidasiNama);
+    protected string CssBackgroundColorNomorTelepon => HtmlHelper.GetCssBackgroundColor(ValidationModel?.ValidasiNomorTelepon);
+    protected string CssBackgroundColorEmail => HtmlHelper.GetCssBackgroundColor(ValidationModel?.ValidasiEmail);
+    protected string CssBackgroundColorIdPln => HtmlHelper.GetCssBackgroundColor(ValidationModel?.ValidasiIdPln);
+    protected string CssBackgroundColorAlamat => HtmlHelper.GetCssBackgroundColor(ValidationModel?.ValidasiAlamat);
+    protected string CssBackgroundColorCrmKoordinat => HtmlHelper.GetCssBackgroundColor(ValidationModel?.ValidasiCrmKoordinat, invalid: "validation-value-bg-warning");
 
     protected bool DisableTextFieldNamaPelanggan => ValidationModel?.ValidasiNama != OptionSelect.StatusValidasi.TidakSesuai;
     protected bool DisableTextFieldNoTelepon => ValidationModel?.ValidasiNomorTelepon != OptionSelect.StatusValidasi.TidakSesuai;
@@ -424,34 +424,6 @@ public partial class WorkPaperValidationForm : ComponentBase
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
         await BroadcastService.BroadcastMessageAsync(broadcastMessage);
         LogSwitch.Debug("Broadcast validation {message}", broadcastMessage);
-    }
-
-    private Icon GetIcon(string? section,
-        string questionIconColor = "var(--info)",
-        string errorIconColor = "var(--error)",
-        string checkmarkIconColor = "var(--success)")
-    {
-        return section switch
-        {
-            string status when status == OptionSelect.StatusValidasi.TidakSesuai => _errorIcon.WithColor(errorIconColor),
-            string status when status == OptionSelect.StatusValidasi.Sesuai => _checkmarkIcon.WithColor(checkmarkIconColor),
-            _ => _questionIcon.WithColor(questionIconColor),
-        };
-    }
-
-    private static string GetBackgroundColor(string? section,
-        string waiting = "validation-value-bg-waiting",
-        string invalid = "validation-value-bg-invalid",
-        string valid = "validation-value-bg-valid")
-    {
-        var css = section switch
-        {
-            string status when status == OptionSelect.StatusValidasi.TidakSesuai => invalid,
-            string status when status == OptionSelect.StatusValidasi.Sesuai => valid,
-            _ => waiting,
-        };
-
-        return $"{css} validation-value-clipboard";
     }
 
     private void ClipboardToast(string clipboard)
