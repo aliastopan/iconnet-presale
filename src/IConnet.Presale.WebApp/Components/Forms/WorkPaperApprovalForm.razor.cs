@@ -117,6 +117,12 @@ public partial class WorkPaperApprovalForm : ComponentBase
         await Task.CompletedTask;
     }
 
+    protected void OnVaTerbit(DateTime? tanggalVaTerbit)
+    {
+        ApprovalModel!.NullableVaTerbit = tanggalVaTerbit;
+        LogSwitch.Debug("Va Terbit: {0}", tanggalVaTerbit!.Value.Date);
+    }
+
     private static Icon GetIcon(ValidationStatus section,
         string questionIconColor = "var(--info)",
         string errorIconColor = "var(--error)",
