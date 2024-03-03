@@ -37,6 +37,12 @@ public partial class WorkPaperApprovalForm : ComponentBase
     protected string CssBackgroundColorIdPln => GetCssBackgroundColor(ApprovalModel!.HasilValidasi.ValidasiIdPln);
     protected string CssBackgroundColorAlamat => GetCssBackgroundColor(ApprovalModel!.HasilValidasi.ValidasiAlamat);
 
+    protected string CssStyleStrikethroughNamaPelanggan => GetCssStyleStrikethrough(ApprovalModel!.HasilValidasi.ValidasiNama);
+    protected string CssStyleStrikethroughNomorTelepon => GetCssStyleStrikethrough(ApprovalModel!.HasilValidasi.ValidasiNomorTelepon);
+    protected string CssStyleStrikethroughEmail => GetCssStyleStrikethrough(ApprovalModel!.HasilValidasi.ValidasiEmail);
+    protected string CssStyleStrikethroughIdPln => GetCssStyleStrikethrough(ApprovalModel!.HasilValidasi.ValidasiIdPln);
+    protected string CssStyleStrikethroughAlamat => GetCssStyleStrikethrough(ApprovalModel!.HasilValidasi.ValidasiAlamat);
+
     protected override void OnInitialized()
     {
         if (ApprovalModel is not null)
@@ -48,52 +54,52 @@ public partial class WorkPaperApprovalForm : ComponentBase
 
     protected string GetNamaPelanggan()
     {
-        if (ApprovalModel!.HasilValidasi.ValidasiNama != ValidationStatus.Sesuai)
-        {
-            return ApprovalModel!.DataPembetulan.PembetulanNama;
-        }
-
         return ApprovalModel!.DataPelanggan.NamaPelanggan;
+    }
+
+    protected string GetPembetulanNamaPelanggan()
+    {
+        return ApprovalModel!.DataPembetulan.PembetulanNama;
     }
 
     protected string GetNomorTelepon()
     {
-        if (ApprovalModel!.HasilValidasi.ValidasiNomorTelepon != ValidationStatus.Sesuai)
-        {
-            return ApprovalModel!.DataPembetulan.PembetulanNomorTelepon;
-        }
-
         return ApprovalModel!.DataPelanggan.NomorTelepon;
+    }
+
+    protected string GetPembetulanNomorTelepon()
+    {
+        return ApprovalModel!.DataPembetulan.PembetulanNomorTelepon;
     }
 
     protected string GetEmail()
     {
-        if (ApprovalModel!.HasilValidasi.ValidasiEmail != ValidationStatus.Sesuai)
-        {
-            return ApprovalModel!.DataPembetulan.PembetulanEmail;
-        }
-
         return ApprovalModel!.DataPelanggan.Email;
+    }
+
+    protected string GetPembetulanEmail()
+    {
+        return ApprovalModel!.DataPembetulan.PembetulanEmail;
     }
 
     protected string GetIdPln()
     {
-        if (ApprovalModel!.HasilValidasi.ValidasiIdPln != ValidationStatus.Sesuai)
-        {
-            return ApprovalModel!.DataPembetulan.PembetulanIdPln;
-        }
-
         return ApprovalModel!.DataPelanggan.IdPln;
+    }
+
+    protected string GetPembetulanIdPln()
+    {
+        return ApprovalModel!.DataPembetulan.PembetulanIdPln;
     }
 
     protected string GetAlamat()
     {
-        if (ApprovalModel!.HasilValidasi.ValidasiAlamat != ValidationStatus.Sesuai)
-        {
-            return ApprovalModel!.DataPembetulan.PembetulanAlamat;
-        }
-
         return ApprovalModel!.DataPelanggan.Alamat;
+    }
+
+    protected string GetPembetulanAlamat()
+    {
+        return ApprovalModel!.DataPembetulan.PembetulanAlamat;
     }
 
     protected string GetShareLoc()
@@ -190,5 +196,16 @@ public partial class WorkPaperApprovalForm : ComponentBase
             default:
                 return waiting;
         }
+    }
+
+    private static string GetCssStyleStrikethrough(ValidationStatus validationStatus)
+    {
+        var style = validationStatus == ValidationStatus.Sesuai
+            ? string.Empty
+            : "text-decoration: line-through; color: #ababab !important;";
+
+        LogSwitch.Debug("StyleStrikethrough: {0}", style);
+
+        return style;
     }
 }

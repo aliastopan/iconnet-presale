@@ -15,6 +15,12 @@ public class WorkPaperApprovalModel
         Keterangan = workPaper.ProsesApproval.Keterangan;
         JarakShareLoc = workPaper.ProsesApproval.JarakShareLoc;
         JarakICrmPlus = workPaper.ProsesApproval.JarakICrmPlus;
+
+        DisplayHasilValidasiNamaPelanggan = ConvertHasilValidasi(HasilValidasi.ValidasiNama);
+        DisplayHasilValidasiNomorTelepon = ConvertHasilValidasi(HasilValidasi.ValidasiNomorTelepon);
+        DisplayHasilValidasiEmail = ConvertHasilValidasi(HasilValidasi.ValidasiEmail);
+        DisplayHasilValidasiIdPln = ConvertHasilValidasi(HasilValidasi.ValidasiIdPln);
+        DisplayHasilValidasiAlamat = ConvertHasilValidasi(HasilValidasi.ValidasiAlamat);
     }
 
     public string IdPermohonan { get; init; } = string.Empty;
@@ -29,4 +35,17 @@ public class WorkPaperApprovalModel
     public string JarakShareLoc { get; set; } = string.Empty;
     public string JarakICrmPlus { get; set; } = string.Empty;
     public DateTime? NullableVaTerbit { get; set; } = DateTime.Today;
+
+    public string DisplayHasilValidasiNamaPelanggan { get; set; } = string.Empty;
+    public string DisplayHasilValidasiNomorTelepon { get; set; } = string.Empty;
+    public string DisplayHasilValidasiEmail { get; set; } = string.Empty;
+    public string DisplayHasilValidasiIdPln { get; set; } = string.Empty;
+    public string DisplayHasilValidasiAlamat { get; set; } = string.Empty;
+
+    private static string ConvertHasilValidasi(ValidationStatus validationStatus)
+    {
+        return validationStatus == ValidationStatus.Sesuai
+            ? "Sesuai"
+            : "Pembetulan";
+    }
 }
