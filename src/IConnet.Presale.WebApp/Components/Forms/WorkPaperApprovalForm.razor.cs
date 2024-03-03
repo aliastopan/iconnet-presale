@@ -31,11 +31,17 @@ public partial class WorkPaperApprovalForm : ComponentBase
     protected Icon LabelIconIdPln => GetIcon(ApprovalModel!.HasilValidasi.ValidasiIdPln);
     protected Icon LabelIconAlamat => GetIcon(ApprovalModel!.HasilValidasi.ValidasiAlamat);
 
-    protected string CssBackgroundColorNamaPelanggan => GetCssBackgroundColor(ApprovalModel!.HasilValidasi.ValidasiNama);
-    protected string CssBackgroundColorNomorTelepon => GetCssBackgroundColor(ApprovalModel!.HasilValidasi.ValidasiNomorTelepon);
-    protected string CssBackgroundColorEmail => GetCssBackgroundColor(ApprovalModel!.HasilValidasi.ValidasiEmail);
-    protected string CssBackgroundColorIdPln => GetCssBackgroundColor(ApprovalModel!.HasilValidasi.ValidasiIdPln);
-    protected string CssBackgroundColorAlamat => GetCssBackgroundColor(ApprovalModel!.HasilValidasi.ValidasiAlamat);
+    protected string CssBackgroundColorNamaPelanggan => GetCssBackgroundColorValueActual(ApprovalModel!.HasilValidasi.ValidasiNama);
+    protected string CssBackgroundColorNomorTelepon => GetCssBackgroundColorValueActual(ApprovalModel!.HasilValidasi.ValidasiNomorTelepon);
+    protected string CssBackgroundColorEmail => GetCssBackgroundColorValueActual(ApprovalModel!.HasilValidasi.ValidasiEmail);
+    protected string CssBackgroundColorIdPln => GetCssBackgroundColorValueActual(ApprovalModel!.HasilValidasi.ValidasiIdPln);
+    protected string CssBackgroundColorAlamat => GetCssBackgroundColorValueActual(ApprovalModel!.HasilValidasi.ValidasiAlamat);
+
+    protected string CssBackgroundColorNamaPelangganPembetulan => GetCssBackgroundColorValueRevision(ApprovalModel!.HasilValidasi.ValidasiNama);
+    protected string CssBackgroundColorNomorTeleponPembetulan => GetCssBackgroundColorValueRevision(ApprovalModel!.HasilValidasi.ValidasiNomorTelepon);
+    protected string CssBackgroundColorEmailPembetulan => GetCssBackgroundColorValueRevision(ApprovalModel!.HasilValidasi.ValidasiEmail);
+    protected string CssBackgroundColorIdPlnPembetulan => GetCssBackgroundColorValueRevision(ApprovalModel!.HasilValidasi.ValidasiIdPln);
+    protected string CssBackgroundColorAlamatPembetulan => GetCssBackgroundColorValueRevision(ApprovalModel!.HasilValidasi.ValidasiAlamat);
 
     protected string CssStyleStrikethroughNamaPelanggan => GetCssStyleStrikethrough(ApprovalModel!.HasilValidasi.ValidasiNama);
     protected string CssStyleStrikethroughNomorTelepon => GetCssStyleStrikethrough(ApprovalModel!.HasilValidasi.ValidasiNomorTelepon);
@@ -122,7 +128,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
         }
     }
 
-    private static string GetCssBackgroundColor(ValidationStatus section,
+    private static string GetCssBackgroundColorValueActual(ValidationStatus section,
         string info = "approval-value-bg-info",
         string valid = "approval-value-bg-valid")
     {
@@ -130,6 +136,19 @@ public partial class WorkPaperApprovalForm : ComponentBase
         {
             case ValidationStatus.Sesuai:
                 return valid;
+            default:
+                return info;
+        }
+    }
+
+    private static string GetCssBackgroundColorValueRevision(ValidationStatus section,
+        string info = "approval-value-bg-neutral",
+        string revision = "approval-value-bg-valid")
+    {
+        switch (section)
+        {
+            case ValidationStatus.TidakSesuai:
+                return revision;
             default:
                 return info;
         }
