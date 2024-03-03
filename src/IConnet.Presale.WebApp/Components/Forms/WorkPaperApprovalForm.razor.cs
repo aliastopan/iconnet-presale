@@ -143,7 +143,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
 
     private static string GetCssBackgroundColorValueRevision(ValidationStatus section,
         string info = "approval-value-bg-neutral",
-        string revision = "approval-value-bg-valid")
+        string revision = "approval-value-bg-revision")
     {
         switch (section)
         {

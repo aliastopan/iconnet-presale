@@ -264,7 +264,7 @@
 
 .approval-validation-result-bg{
     height: fit-content;
-    border: 1px solid #cfcfcf;
+    border: 1px solid #ededed;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -316,8 +316,8 @@
     -o-border-radius: 5px;
 }
 
-.approval-value-bg-warning{
-    background-color: var(--warning);
+.approval-value-bg-revision{
+    background-color: var(--accent-base-color);
     height: fit-content;
     border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -326,7 +326,7 @@
     -o-border-radius: 5px;
 }
 
-/* .approval-value-bg-info p.fluent-typography, */
+.approval-value-bg-revision p.fluent-typography,
 .approval-value-bg-invalid p.fluent-typography,
 .approval-value-bg-valid p.fluent-typography{
     color: white !important;
