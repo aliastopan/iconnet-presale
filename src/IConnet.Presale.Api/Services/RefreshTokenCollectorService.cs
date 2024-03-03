@@ -23,7 +23,7 @@ public class RefreshTokenCollectorService : BackgroundService
             var refreshTokenService = scope.ServiceProvider.GetRequiredService<IRefreshTokenService>();
             var count = await refreshTokenService.DeleteUsedRefreshTokensAsync(daysBefore: 3);
 
-            LogSwitch.Debug("Collecting refresh tokens {count}", count);
+            Log.Information("Collecting refresh tokens {count}", count);
         }
     }
 }

@@ -21,7 +21,7 @@ public class MainLayoutBase : LayoutComponentBase
     {
         if (ErrorBoundary?.CurrentException is not null)
         {
-            LogSwitch.Debug("Recovering from {exception}", ErrorBoundary.CurrentException.GetType().Name);
+            Log.Information("Recovering from {exception}", ErrorBoundary.CurrentException.GetType().Name);
             ErrorBoundary?.Recover();
         }
     }

@@ -13,7 +13,7 @@ public class CustomCircuitHandler : CircuitHandler
         }
         catch (Exception exception)
         {
-            LogSwitch.Debug("Exception has occurred {during}: {exception}", state, exception.Message);
+            Log.Fatal("Exception has occurred {during}: {exception}", state, exception.Message);
             return base.OnConnectionUpAsync(circuit, cancellationToken);
         }
     }
@@ -27,7 +27,7 @@ public class CustomCircuitHandler : CircuitHandler
         }
         catch (Exception exception)
         {
-            LogSwitch.Debug("Exception has occurred {during}: {exception}", state, exception.Message);
+            Log.Fatal("Exception has occurred {during}: {exception}", state, exception.Message);
             return base.OnConnectionDownAsync(circuit, cancellationToken);
         }
     }

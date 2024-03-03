@@ -39,7 +39,7 @@ public partial class CreateUserForm : ComponentBase
 
         if (!isValid)
         {
-            LogSwitch.Debug("Errors {0}", _errors.Count);
+            // LogSwitch.Debug("Errors {0}", _errors.Count);
             _errors.AddRange(errors);
 
             return;

@@ -56,7 +56,7 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
 
         stopwatch.Stop();
         double seconds = stopwatch.ElapsedMilliseconds / 1000.0;
-        LogSwitch.Debug($"Import execution took {seconds:F2} seconds.");
+        // LogSwitch.Debug($"Import execution took {seconds:F2} seconds.");
 
         return count;
     }
@@ -72,21 +72,21 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
         var jsonWorkPapers = await _cacheService.GetAllValuesAsync();
         stopwatch.Stop();
         seconds = stopwatch.ElapsedMilliseconds / 1000.0;
-        LogSwitch.Debug($"Fetching cache execution took {seconds:F2} seconds.");
+        // LogSwitch.Debug($"Fetching cache execution took {seconds:F2} seconds.");
 
         // filter
         stopwatch.Restart();
         jsonWorkPapers = JsonWorkPaperProcessor.FilterJsonWorkPapers(jsonWorkPapers!, filter, _parallelOptions).ToList()!;
         stopwatch.Stop();
         seconds = stopwatch.ElapsedMilliseconds / 1000.0;
-        LogSwitch.Debug($"Parallel filter workload execution took {seconds:F2} seconds.");
+        // LogSwitch.Debug($"Parallel filter workload execution took {seconds:F2} seconds.");
 
         // deserialize
         stopwatch.Restart();
         var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapers(jsonWorkPapers!, _parallelOptions);
         stopwatch.Stop();
         seconds = stopwatch.ElapsedMilliseconds / 1000.0;
-        LogSwitch.Debug($"Parallel deserializing workload execution took {seconds:F2} seconds.");
+        // LogSwitch.Debug($"Parallel deserializing workload execution took {seconds:F2} seconds.");
 
         return workPapers.AsQueryable()!;
     }

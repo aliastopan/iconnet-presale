@@ -27,7 +27,7 @@ public class StartupService : IHostedService
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        LogSwitch.Debug("Starting application");
+        // LogSwitch.Debug("Starting application");
 
         Task[] tasks =
         [
@@ -41,7 +41,7 @@ public class StartupService : IHostedService
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        LogSwitch.Debug("Closing application");
+        // LogSwitch.Debug("Closing application");
 
         return Task.CompletedTask;
     }
@@ -69,7 +69,7 @@ public class StartupService : IHostedService
                 var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
                 var extension = problemDetails.GetProblemDetailsExtension();
 
-                LogSwitch.Debug("Error {message}: ", extension.Errors.First().Message);
+                // LogSwitch.Debug("Error {message}: ", extension.Errors.First().Message);
             }
         }
         catch (Exception exception)
@@ -102,7 +102,7 @@ public class StartupService : IHostedService
                 var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
                 var extension = problemDetails.GetProblemDetailsExtension();
 
-                LogSwitch.Debug("Error {message}: ", extension.Errors.First().Message);
+                // LogSwitch.Debug("Error {message}: ", extension.Errors.First().Message);
             }
         }
         catch (Exception exception)
@@ -136,7 +136,7 @@ public class StartupService : IHostedService
                 var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
                 var extension = problemDetails.GetProblemDetailsExtension();
 
-                LogSwitch.Debug("Error {message}: ", extension.Errors.First().Message);
+                // LogSwitch.Debug("Error {message}: ", extension.Errors.First().Message);
             }
         }
         catch (Exception exception)
