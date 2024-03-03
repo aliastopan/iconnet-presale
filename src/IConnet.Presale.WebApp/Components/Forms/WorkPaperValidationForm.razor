@@ -6,8 +6,10 @@
                 <FluentLabel Typo="Typography.Header">@WorkPaper.ApprovalOpportunity.IdPermohonan</FluentLabel>
             </div>
             <div>
-                <span class="validation-info">Keterangan:</span>
-                <span>@WorkPaper.ApprovalOpportunity.Pemohon.Keterangan</span>
+                <div class="d-flex flex-row" style="margin-bottom: 4px;">
+                    <span class="validation-info">Keterangan:</span>
+                    <span class="validation-info-badge">@WorkPaper.ApprovalOpportunity.Pemohon.Keterangan</span>
+                </div>
             </div>
             <div class="d-flex flex-row align-items-center">
                 @{
@@ -32,33 +34,41 @@
                 VerticalAlignment="VerticalAlignment.Top"
                 HorizontalGap="4">
 
-                <div class="validation-element">
-                    <div class="validation-label">
-                        <div class="validation-label-bg" style="display: flex;">
-                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                                NAMA PELANGGAN
-                            </FluentLabel>
-                            <FluentIcon Value="@LabelIconNamaPelanggan" />
+                <div class="validation-element-arrange">
+                    <div class="arrange-end">
+                        <div class="validation-label">
+                            <div class="validation-label-bg" style="display: flex;">
+                                <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                    NAMA PELANGGAN
+                                </FluentLabel>
+                                <FluentIcon Value="@LabelIconNamaPelanggan" />
+                            </div>
                         </div>
-                        <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
-                            Value="@ValidationModel.ValidasiNama"
-                            ValueChanged="OnValidateNamaPelangganAsync"
-                            OptionDisabled="@OptionDisableNamaPelanggan"
-                            Disabled="DisableOnBeforeContact"
-                            Position="SelectPosition.Below"
-                            Width="185px" />
+                        <div class="validation-value">
+                            <div class="@CssBackgroundColorNamaPelanggan" @onclick="OnClipboardNamaPelangganAsync">
+                                <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                    @WorkPaper.ApprovalOpportunity.Pemohon.NamaPelanggan
+                                </FluentLabel>
+                            </div>
+                        </div>
                     </div>
-                    <div class="validation-value">
-                        <div class="@CssBackgroundColorNamaPelanggan" @onclick="OnClipboardNamaPelangganAsync">
-                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
-                                @WorkPaper.ApprovalOpportunity.Pemohon.NamaPelanggan
-                            </FluentLabel>
+                    <div class="arrange-start">
+                        <div class="validation-label">
+                            <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
+                                Value="@ValidationModel.ValidasiNama"
+                                ValueChanged="OnValidateNamaPelangganAsync"
+                                OptionDisabled="@OptionDisableNamaPelanggan"
+                                Disabled="DisableOnBeforeContact"
+                                Position="SelectPosition.Below"
+                                Width="185px" />
                         </div>
-                        <FluentTextField style="width: 300px"
-                            Value=@ValidationModel.PembetulanNama
-                            ValueChanged="OnPembetulanNamaAsync"
-                            Disabled="@DisableTextFieldNamaPelanggan"
-                            Placeholder="Pembetulan Nama Pelanggan"></FluentTextField>
+                        <div class="validation-value">
+                            <FluentTextField style="width: 300px"
+                                Value=@ValidationModel.PembetulanNama
+                                ValueChanged="OnPembetulanNamaAsync"
+                                Disabled="@DisableTextFieldNamaPelanggan"
+                                Placeholder="Pembetulan Nama Pelanggan"></FluentTextField>
+                        </div>
                     </div>
                 </div>
                 <div class="validation-element">

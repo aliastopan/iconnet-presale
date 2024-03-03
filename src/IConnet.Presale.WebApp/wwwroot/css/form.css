@@ -6,6 +6,15 @@
     font-weight: 400 !important;
 }
 
+
+.validation-info-badge {
+    background-color: #FFFF8A;
+    font-weight: 500;
+    color: #434343;
+    padding: 0 4px;
+    border-radius: 3px;
+}
+
 #validation-id .fluent-typography{
     font-weight: 500 !important;
 }
