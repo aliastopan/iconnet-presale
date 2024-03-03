@@ -96,87 +96,47 @@ public partial class WorkPaperValidationForm : ComponentBase
 
     protected async Task OnClipboardNamaPelangganAsync()
     {
-        if (WorkPaper is null)
-        {
-            return;
-        }
-
-        var namaPelanggan = WorkPaper.ApprovalOpportunity.Pemohon.NamaPelanggan;
+        string namaPelanggan = ValidationModel!.DataPelanggan.NamaPelanggan;
 
         await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", namaPelanggan);
         ClipboardToast(namaPelanggan);
-
-        LogSwitch.Debug("Copying {0}", namaPelanggan);
     }
 
     protected async Task OnClipboardNomorTeleponAsync()
     {
-        if (WorkPaper is null)
-        {
-            return;
-        }
-
-        var nomorTelepon = WorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon;
+        string nomorTelepon = ValidationModel!.DataPelanggan.NomorTelepon;
 
         await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", nomorTelepon);
         ClipboardToast(nomorTelepon);
-
-        LogSwitch.Debug("Copying {0}", nomorTelepon);
     }
 
     protected async Task OnClipboardEmailAsync()
     {
-        if (WorkPaper is null)
-        {
-            return;
-        }
-
-        var email = WorkPaper.ApprovalOpportunity.Pemohon.Email;
+        string email = ValidationModel!.DataPelanggan.Email;
 
         await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", email);
         ClipboardToast(email);
-
-        LogSwitch.Debug("Copying {0}", email);
     }
 
     protected async Task OnClipboardIdPlnAsync()
     {
-        if (WorkPaper is null)
-        {
-            return;
-        }
-
-        var idPln = WorkPaper.ApprovalOpportunity.Pemohon.IdPln;
+        string idPln = ValidationModel!.DataPelanggan.IdPln;
 
         await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", idPln);
         ClipboardToast(idPln);
-
-        LogSwitch.Debug("Copying {0}", idPln);
     }
 
     protected async Task OnClipboardAlamatAsync()
     {
-        if (WorkPaper is null)
-        {
-            return;
-        }
-
-        var alamat = WorkPaper.ApprovalOpportunity.Pemohon.Alamat;
+        string alamat = ValidationModel!.DataPelanggan.Alamat;
 
         await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", alamat);
         ClipboardToast(alamat);
-
-        LogSwitch.Debug("Copying {0}", alamat);
     }
 
     protected async Task OnClipboardShareLocAsync()
     {
-        if (WorkPaper is null)
-        {
-            return;
-        }
-
-        var latitudeLongitude = WorkPaper.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude;
+        string latitudeLongitude = ValidationModel!.DataCrmKoordinat.LatitudeLongitude;
 
         await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", latitudeLongitude);
         ClipboardToast(latitudeLongitude);

@@ -5,8 +5,10 @@ public class WorkPaperValidationModel
     public WorkPaperValidationModel(WorkPaper workPaper)
     {
         IsChatCallMulai = !workPaper.ProsesValidasi.SignatureChatCallMulai.IsEmptySignature();
-
         IdPermohonan = workPaper.ApprovalOpportunity.IdPermohonan;
+        DataPelanggan = workPaper.ApprovalOpportunity.Pemohon;
+        DataCrmKoordinat = workPaper.ApprovalOpportunity.Regional.Koordinat;
+
         ValidasiIdPln = EnumProcessor.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiIdPln);
         ValidasiNama = EnumProcessor.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiNama);
         ValidasiNomorTelepon = EnumProcessor.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiNomorTelepon);
@@ -23,6 +25,9 @@ public class WorkPaperValidationModel
 
     public bool IsChatCallMulai { get; private set; }
     public string IdPermohonan { get; init; } = string.Empty;
+    public Applicant DataPelanggan { get; init; } = new();
+    public Coordinate DataCrmKoordinat { get; init; } = new();
+
     public string ValidasiIdPln { get; set; } = string.Empty;
     public string ValidasiNama { get; set; } = string.Empty;
     public string ValidasiNomorTelepon { get; set; } = string.Empty;
