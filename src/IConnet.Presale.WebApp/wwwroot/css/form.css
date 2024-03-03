@@ -262,6 +262,21 @@
     -o-border-radius: 5px;
 }
 
+.approval-validation-result-bg{
+    height: fit-content;
+    border: 1px solid #cfcfcf;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.approval-validation-result-bg p.fluent-typography{
+    color: #9b9b9b !important;
+    font-weight: 400 !important;
+}
+
 .approval-value-bg-neutral{
     height: fit-content;
     border-radius: 5px;

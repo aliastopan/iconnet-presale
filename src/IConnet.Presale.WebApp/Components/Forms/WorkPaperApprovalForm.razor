@@ -46,9 +46,11 @@
                     </div>
                     <div class="arrange-start">
                         <div class="approval-label">
-                            <FluentSelect TOption="string" Disabled="true" Width="185px">
-                                <FluentOption>@ApprovalModel.DisplayHasilValidasiNamaPelanggan</FluentOption>
-                            </FluentSelect>
+                            <div class="approval-validation-result-bg">
+                                <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                    @ApprovalModel.DisplayHasilValidasiNamaPelanggan
+                                </FluentLabel>
+                            </div>
                         </div>
                         <div class="approval-value">
                             <div class="approval-value-bg-neutral">
@@ -68,9 +70,11 @@
                             </FluentLabel>
                             <FluentIcon Value="@LabelIconNoTelepon" />
                         </div>
-                        <FluentSelect TOption="string" Disabled="true" Width="185px">
-                            <FluentOption>@ApprovalModel.DisplayHasilValidasiNomorTelepon</FluentOption>
-                        </FluentSelect>
+                        <div class="approval-validation-result-bg">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @ApprovalModel.DisplayHasilValidasiNomorTelepon
+                            </FluentLabel>
+                        </div>
                     </div>
                     <div class="approval-value">
                         <div class="@CssBackgroundColorNomorTelepon">
@@ -97,9 +101,11 @@
                             </FluentLabel>
                             <FluentIcon Value="@LabelIconEmail" />
                         </div>
-                        <FluentSelect TOption="string" Disabled="true" Width="185px">
-                            <FluentOption>@ApprovalModel.DisplayHasilValidasiEmail</FluentOption>
-                        </FluentSelect>
+                        <div class="approval-validation-result-bg">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @ApprovalModel.DisplayHasilValidasiEmail
+                            </FluentLabel>
+                        </div>
                     </div>
                     <div class="approval-value">
                         <div class="@CssStyleStrikethroughEmail">
@@ -126,9 +132,11 @@
                             </FluentLabel>
                             <FluentIcon Value="@LabelIconIdPln" />
                         </div>
-                        <FluentSelect TOption="string" Disabled="true" Width="185px">
-                            <FluentOption>@ApprovalModel.DisplayHasilValidasiIdPln</FluentOption>
-                        </FluentSelect>
+                        <div class="approval-validation-result-bg">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @ApprovalModel.DisplayHasilValidasiIdPln
+                            </FluentLabel>
+                        </div>
                     </div>
                     <div class="approval-value">
                         <div class="@CssBackgroundColorIdPln">
@@ -170,9 +178,11 @@
                     </div>
                     <div class="arrange-start approval-bottom-margin">
                         <div class="approval-label">
-                            <FluentSelect TOption="string" Disabled="true" Width="185px">
-                                <FluentOption>@ApprovalModel.DisplayHasilValidasiAlamat</FluentOption>
-                            </FluentSelect>
+                            <div class="approval-validation-result-bg">
+                                <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                    @ApprovalModel.DisplayHasilValidasiAlamat
+                                </FluentLabel>
+                            </div>
                         </div>
                         <div class="approval-value">
                             <div class="approval-value-bg-neutral">
