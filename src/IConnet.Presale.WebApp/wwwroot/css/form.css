@@ -241,7 +241,7 @@
 }
 
 .approval-value .fluent-typography{
-    /* cursor: pointer !important; */
+    cursor: pointer !important;
     max-width: fit-content;
     font-weight: 600 !important;
     color: #373737 !important;
@@ -307,6 +307,7 @@
 }
 
 .approval-value-bg-valid{
+    cursor: pointer !important;
     background-color: var(--success);
     height: fit-content;
     border-radius: 5px;
@@ -317,6 +318,7 @@
 }
 
 .approval-value-bg-revision{
+    cursor: pointer !important;
     background-color: var(--accent-base-color);
     height: fit-content;
     border-radius: 5px;

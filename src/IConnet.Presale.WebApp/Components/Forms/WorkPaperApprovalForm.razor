@@ -34,7 +34,8 @@
                             </div>
                         </div>
                         <div class="approval-value">
-                            <div class="@CssBackgroundColorNamaPelanggan" style="height: fit-content;">
+                            <div class="@CssBackgroundColorNamaPelanggan" style="height: fit-content; cursor: pointer !important;"
+                                @onclick="OnClipboardNamaPelangganAsync">
                             @{
                                 string cssStyleNamaPelanggan = $"margin: 0 8px; margin-top: 2px; {CssStyleStrikethroughNamaPelanggan}";
                                 <FluentLabel Typo="Typography.Body" style="@cssStyleNamaPelanggan">
@@ -53,7 +54,8 @@
                             </div>
                         </div>
                         <div class="approval-value">
-                            <div class="@CssBackgroundColorNamaPelangganPembetulan">
+                            <div class="@CssBackgroundColorNamaPelangganPembetulan"
+                                @onclick="OnClipboardPembetulanNamaPelangganAsync">
                                 <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                                     @ApprovalModel!.DataPembetulan.PembetulanNama
                                 </FluentLabel>
@@ -77,7 +79,8 @@
                         </div>
                     </div>
                     <div class="approval-value">
-                        <div class="@CssBackgroundColorNomorTelepon">
+                        <div class="@CssBackgroundColorNomorTelepon" style="cursor: pointer !important;"
+                            @onclick="OnClipboardNomorTeleponAsync">
                         @{
                             string cssStyleNomorTelepon = $"margin: 0 8px; margin-top: 2px; {CssStyleStrikethroughNomorTelepon}";
                             <FluentLabel Typo="Typography.Body" style="@cssStyleNomorTelepon">
@@ -85,7 +88,8 @@
                             </FluentLabel>
                         }
                         </div>
-                        <div class="@CssBackgroundColorNomorTeleponPembetulan">
+                        <div class="@CssBackgroundColorNomorTeleponPembetulan"
+                            @onclick="OnClipboardPembetulanNomorTeleponAsync">
                             <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                                 @ApprovalModel!.DataPembetulan.PembetulanNomorTelepon
                             </FluentLabel>
@@ -108,7 +112,8 @@
                         </div>
                     </div>
                     <div class="approval-value">
-                        <div class="@CssStyleStrikethroughEmail">
+                        <div class="@CssStyleStrikethroughEmail" style="cursor: pointer !important;"
+                            @onclick="OnClipboardEmailAsync">
                         @{
                             string cssStyleEmail = $"margin: 0 8px; margin-top: 2px; {CssStyleStrikethroughEmail}";
                             <FluentLabel Typo="Typography.Body" style="@cssStyleEmail">
@@ -116,7 +121,8 @@
                             </FluentLabel>
                         }
                         </div>
-                        <div class="@CssBackgroundColorEmailPembetulan">
+                        <div class="@CssBackgroundColorEmailPembetulan"
+                            @onclick="OnClipboardPembetulanEmailAsync">
                             <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                                 @ApprovalModel!.DataPembetulan.PembetulanEmail
                             </FluentLabel>
@@ -139,7 +145,8 @@
                         </div>
                     </div>
                     <div class="approval-value">
-                        <div class="@CssBackgroundColorIdPln">
+                        <div class="@CssBackgroundColorIdPln" style="cursor: pointer !important;"
+                            @onclick="OnClipboardIdPlnAsync">
                         @{
                             string cssStyleIdPln = $"margin: 0 8px; margin-top: 2px; {CssStyleStrikethroughIdPln}";
                             <FluentLabel Typo="Typography.Body" style="@cssStyleIdPln">
@@ -147,7 +154,8 @@
                             </FluentLabel>
                         }
                         </div>
-                        <div class="@CssBackgroundColorIdPlnPembetulan">
+                        <div class="@CssBackgroundColorIdPlnPembetulan"
+                            @onclick="OnClipboardPembetulanIdPlnAsync">
                             <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                                 @ApprovalModel!.DataPembetulan.PembetulanIdPln
                             </FluentLabel>
@@ -166,7 +174,8 @@
                             </div>
                         </div>
                         <div class="approval-value">
-                            <div class="@CssBackgroundColorAlamat" style="height: fit-content;">
+                            <div class="@CssBackgroundColorAlamat" style="height: fit-content; cursor: pointer !important;"
+                                @onclick="OnClipboardAlamatAsync">
                             @{
                                 string cssStyleAlamat = $"margin: 0 8px; margin-top: 2px; {CssStyleStrikethroughAlamat}";
                                 <FluentLabel Typo="Typography.Body" style="@cssStyleAlamat">
@@ -185,7 +194,8 @@
                             </div>
                         </div>
                         <div class="approval-value">
-                            <div class="@CssBackgroundColorAlamatPembetulan">
+                            <div class="@CssBackgroundColorAlamatPembetulan"
+                                @onclick="OnClipboardPembetulanAlamatAsync">
                                 <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                                     @ApprovalModel!.DataPembetulan.PembetulanAlamat
                                 </FluentLabel>

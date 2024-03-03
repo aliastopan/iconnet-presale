@@ -5,6 +5,8 @@ namespace IConnet.Presale.WebApp.Components.Forms;
 public partial class WorkPaperApprovalForm : ComponentBase
 {
     [Inject] public OptionService OptionService { get; set; } = default!;
+    [Inject] public IJSRuntime JsRuntime { get; set; } = default!;
+    [Inject] public IToastService ToastService { get; set; } = default!;
 
     [Parameter]
     public EventCallback UnstageWorkPaper { get; set; }
@@ -48,6 +50,111 @@ public partial class WorkPaperApprovalForm : ComponentBase
     protected string CssStyleStrikethroughEmail => GetCssStyleStrikethrough(ApprovalModel!.HasilValidasi.ValidasiEmail);
     protected string CssStyleStrikethroughIdPln => GetCssStyleStrikethrough(ApprovalModel!.HasilValidasi.ValidasiIdPln);
     protected string CssStyleStrikethroughAlamat => GetCssStyleStrikethrough(ApprovalModel!.HasilValidasi.ValidasiAlamat);
+
+    protected async Task OnClipboardNamaPelangganAsync()
+    {
+        string namaPelanggan = ApprovalModel!.DataPelanggan.NamaPelanggan;
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", namaPelanggan);
+        ClipboardToast(namaPelanggan);
+    }
+
+    protected async Task OnClipboardPembetulanNamaPelangganAsync()
+    {
+        if (ApprovalModel!.HasilValidasi.ValidasiNama != ValidationStatus.TidakSesuai)
+        {
+            return;
+        }
+
+        string pembetulanNamaPelanggan = ApprovalModel!.DataPembetulan.PembetulanNama;
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", pembetulanNamaPelanggan);
+        ClipboardToast(pembetulanNamaPelanggan);
+    }
+
+    protected async Task OnClipboardNomorTeleponAsync()
+    {
+        string nomorTelepon = ApprovalModel!.DataPelanggan.NomorTelepon;
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", nomorTelepon);
+        ClipboardToast(nomorTelepon);
+    }
+
+    protected async Task OnClipboardPembetulanNomorTeleponAsync()
+    {
+        if (ApprovalModel!.HasilValidasi.ValidasiNomorTelepon != ValidationStatus.TidakSesuai)
+        {
+            return;
+        }
+
+        string pembetulanNomorTelepon = ApprovalModel!.DataPembetulan.PembetulanNomorTelepon;
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", pembetulanNomorTelepon);
+        ClipboardToast(pembetulanNomorTelepon);
+    }
+
+    protected async Task OnClipboardEmailAsync()
+    {
+        string email = ApprovalModel!.DataPelanggan.Email;
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", email);
+        ClipboardToast(email);
+    }
+
+    protected async Task OnClipboardPembetulanEmailAsync()
+    {
+        if (ApprovalModel!.HasilValidasi.ValidasiEmail != ValidationStatus.TidakSesuai)
+        {
+            return;
+        }
+
+        string pembetulanEmail = ApprovalModel!.DataPembetulan.PembetulanEmail;
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", pembetulanEmail);
+        ClipboardToast(pembetulanEmail);
+    }
+
+    protected async Task OnClipboardIdPlnAsync()
+    {
+        string idPln = ApprovalModel!.DataPelanggan.IdPln;
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", idPln);
+        ClipboardToast(idPln);
+    }
+
+    protected async Task OnClipboardPembetulanIdPlnAsync()
+    {
+        if (ApprovalModel!.HasilValidasi.ValidasiIdPln != ValidationStatus.TidakSesuai)
+        {
+            return;
+        }
+
+        string pembetulanIdPln = ApprovalModel!.DataPembetulan.PembetulanIdPln;
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", pembetulanIdPln);
+        ClipboardToast(pembetulanIdPln);
+    }
+
+    protected async Task OnClipboardAlamatAsync()
+    {
+        string alamat = ApprovalModel!.DataPelanggan.Alamat;
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", alamat);
+        ClipboardToast(alamat);
+    }
+
+    protected async Task OnClipboardPembetulanAlamatAsync()
+    {
+        if (ApprovalModel!.HasilValidasi.ValidasiAlamat != ValidationStatus.TidakSesuai)
+        {
+            return;
+        }
+
+        string pembetulanAlamat = ApprovalModel!.DataPembetulan.PembetulanAlamat;
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", pembetulanAlamat);
+        ClipboardToast(pembetulanAlamat);
+    }
 
     protected string GetShareLoc()
     {
@@ -112,6 +219,15 @@ public partial class WorkPaperApprovalForm : ComponentBase
         await Task.CompletedTask;
     }
 
+    private void ClipboardToast(string clipboard)
+    {
+        var intent = ToastIntent.Info;
+        var message = $"Copy: {clipboard}";
+        var timeout = 2500; // milliseconds
+
+        ToastService.ShowToast(intent, message, timeout: timeout);
+    }
+
     private static Icon GetIcon(ValidationStatus section,
         string questionIconColor = "var(--info)",
         string errorIconColor = "var(--error)",
@@ -158,7 +274,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
     {
         var style = validationStatus == ValidationStatus.Sesuai
             ? string.Empty
-            : "text-decoration: line-through; color: #ababab !important;";
+            : "text-decoration: line-through; color: #ababab !important; cursor: pointer !important;";
 
         return style;
     }
