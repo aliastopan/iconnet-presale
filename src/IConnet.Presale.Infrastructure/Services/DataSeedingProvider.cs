@@ -161,14 +161,14 @@ internal sealed class DataSeedingProvider : IDataSeedingService
     {
         var rootCauses = new List<RootCause>
         {
-            new RootCause(0, "AKTIVASI TIDAK STANDARD"),
-            new RootCause(1, "BATAL PASANG"),
-            new RootCause(2, "DOUBLE INPUTAN"),
-            new RootCause(3, "KESALAHAN DATA DARI USER"),
-            new RootCause(4, "USER TIDAK ADA RESPONS"),
-            new RootCause(4, "TIDAK TERCOVER FAT PENUH"),
-            new RootCause(5, "TIDAK TERCOVER GPON PENUH"),
-            new RootCause(7, "TIDAK TERCOVER JARAK"),
+            new RootCause(0, "Aktivasi Tidak Standard"),
+            new RootCause(1, "Batal Pasang"),
+            new RootCause(2, "Double Inputan"),
+            new RootCause(3, "Kesalahan Data Dari User"),
+            new RootCause(4, "User Tidak Ada Respons"),
+            new RootCause(4, "Tidak Tercover FAT Penuh"),
+            new RootCause(5, "Tidak Tercover GPON Penuh"),
+            new RootCause(7, "Tidak Tercover Jarak"),
         };
 
         using var dbContext = _dbContextFactory.CreateDbContext();
