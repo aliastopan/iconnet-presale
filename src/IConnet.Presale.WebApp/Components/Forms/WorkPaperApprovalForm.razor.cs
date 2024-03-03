@@ -43,65 +43,6 @@ public partial class WorkPaperApprovalForm : ComponentBase
     protected string CssStyleStrikethroughIdPln => GetCssStyleStrikethrough(ApprovalModel!.HasilValidasi.ValidasiIdPln);
     protected string CssStyleStrikethroughAlamat => GetCssStyleStrikethrough(ApprovalModel!.HasilValidasi.ValidasiAlamat);
 
-    protected override void OnInitialized()
-    {
-        if (ApprovalModel is not null)
-        {
-            ApprovalModel!.RootCause = OptionService.RootCauseOptions.First();
-            LogSwitch.Debug("Init Root Cause");
-        }
-    }
-
-    protected string GetNamaPelanggan()
-    {
-        return ApprovalModel!.DataPelanggan.NamaPelanggan;
-    }
-
-    protected string GetPembetulanNamaPelanggan()
-    {
-        return ApprovalModel!.DataPembetulan.PembetulanNama;
-    }
-
-    protected string GetNomorTelepon()
-    {
-        return ApprovalModel!.DataPelanggan.NomorTelepon;
-    }
-
-    protected string GetPembetulanNomorTelepon()
-    {
-        return ApprovalModel!.DataPembetulan.PembetulanNomorTelepon;
-    }
-
-    protected string GetEmail()
-    {
-        return ApprovalModel!.DataPelanggan.Email;
-    }
-
-    protected string GetPembetulanEmail()
-    {
-        return ApprovalModel!.DataPembetulan.PembetulanEmail;
-    }
-
-    protected string GetIdPln()
-    {
-        return ApprovalModel!.DataPelanggan.IdPln;
-    }
-
-    protected string GetPembetulanIdPln()
-    {
-        return ApprovalModel!.DataPembetulan.PembetulanIdPln;
-    }
-
-    protected string GetAlamat()
-    {
-        return ApprovalModel!.DataPelanggan.Alamat;
-    }
-
-    protected string GetPembetulanAlamat()
-    {
-        return ApprovalModel!.DataPembetulan.PembetulanAlamat;
-    }
-
     protected string GetShareLoc()
     {
         return ApprovalModel!.HasilValidasi.ShareLoc.LatitudeLongitude;
@@ -152,7 +93,6 @@ public partial class WorkPaperApprovalForm : ComponentBase
 
         if (ApprovalModel!.RootCause.IsNullOrWhiteSpace())
         {
-            LogSwitch.Debug("Init Root Cause");
             ApprovalModel!.RootCause = OptionService.RootCauseOptions.First();
         }
 
@@ -183,18 +123,15 @@ public partial class WorkPaperApprovalForm : ComponentBase
     }
 
     private static string GetCssBackgroundColor(ValidationStatus section,
-        string waiting = "approval-value-bg-waiting",
-        string invalid = "approval-value-bg-invalid",
+        string info = "approval-value-bg-info",
         string valid = "approval-value-bg-valid")
     {
         switch (section)
         {
-            case ValidationStatus.TidakSesuai:
-                return invalid;
             case ValidationStatus.Sesuai:
                 return valid;
             default:
-                return waiting;
+                return info;
         }
     }
 
@@ -203,8 +140,6 @@ public partial class WorkPaperApprovalForm : ComponentBase
         var style = validationStatus == ValidationStatus.Sesuai
             ? string.Empty
             : "text-decoration: line-through; color: #ababab !important;";
-
-        LogSwitch.Debug("StyleStrikethrough: {0}", style);
 
         return style;
     }
