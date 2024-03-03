@@ -4,6 +4,8 @@ namespace IConnet.Presale.WebApp.Components.Forms;
 
 public partial class WorkPaperApprovalForm : ComponentBase
 {
+    [Inject] public OptionService OptionService { get; set; } = default!;
+
     [Parameter]
     public EventCallback UnstageWorkPaper { get; set; }
 
@@ -17,6 +19,12 @@ public partial class WorkPaperApprovalForm : ComponentBase
     private static readonly Icon _errorIcon = new Icons.Filled.Size20.ErrorCircle();
     private static readonly Icon _checkmarkIcon = new Icons.Filled.Size20.CheckmarkCircle();
 
+    protected Func<string, bool> OptionDisableNamaOnProgress => option => option == OptionSelect.StatusApproval.OnProgress
+        && ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.OnProgress;
+
+    protected bool DisableRootCause => ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.Reject
+        && ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.ClosedLost;
+
     protected Icon LabelIconNamaPelanggan => GetIcon(ApprovalModel!.HasilValidasi.ValidasiNama);
     protected Icon LabelIconNoTelepon => GetIcon(ApprovalModel!.HasilValidasi.ValidasiNomorTelepon);
     protected Icon LabelIconEmail => GetIcon(ApprovalModel!.HasilValidasi.ValidasiEmail);
@@ -28,6 +36,15 @@ public partial class WorkPaperApprovalForm : ComponentBase
     protected string CssBackgroundColorEmail => GetCssBackgroundColor(ApprovalModel!.HasilValidasi.ValidasiEmail);
     protected string CssBackgroundColorIdPln => GetCssBackgroundColor(ApprovalModel!.HasilValidasi.ValidasiIdPln);
     protected string CssBackgroundColorAlamat => GetCssBackgroundColor(ApprovalModel!.HasilValidasi.ValidasiAlamat);
+
+    protected override void OnInitialized()
+    {
+        if (ApprovalModel is not null)
+        {
+            ApprovalModel!.RootCause = OptionService.RootCauseOptions.First();
+            LogSwitch.Debug("Init Root Cause");
+        }
+    }
 
     protected string GetNamaPelanggan()
     {
@@ -121,6 +138,26 @@ public partial class WorkPaperApprovalForm : ComponentBase
     {
         ApprovalModel!.NullableVaTerbit = tanggalVaTerbit;
         LogSwitch.Debug("Va Terbit: {0}", tanggalVaTerbit!.Value.Date);
+    }
+
+    protected async Task OnStatusApprovalAsync(string statusApproval)
+    {
+        ApprovalModel!.StatusApproval = statusApproval;
+
+        if (ApprovalModel!.RootCause.IsNullOrWhiteSpace())
+        {
+            LogSwitch.Debug("Init Root Cause");
+            ApprovalModel!.RootCause = OptionService.RootCauseOptions.First();
+        }
+
+        await Task.CompletedTask;
+    }
+
+    protected async Task OnRootCauseAsync(string rootCause)
+    {
+        ApprovalModel!.RootCause = rootCause;
+
+        await Task.CompletedTask;
     }
 
     private static Icon GetIcon(ValidationStatus section,

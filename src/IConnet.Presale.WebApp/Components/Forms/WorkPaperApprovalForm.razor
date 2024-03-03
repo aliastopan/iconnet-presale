@@ -196,7 +196,44 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="approval-element">
+                    <div class="approval-label">
+                        <div class="approval-label-bg" style="display: flex;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                STATUS APPROVAL
+                            </FluentLabel>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <FluentSelect Items="@OptionSelect.StatusApproval.StatusApprovalOptions"
+                                Value="@ApprovalModel.StatusApproval"
+                                ValueChanged="OnStatusApprovalAsync"
+                                OptionDisabled="@OptionDisableNamaOnProgress"
+                                Position="SelectPosition.Below"
+                                Width="150px" />
+                        </div>
+                    </div>
+                </div>
+                <div class="approval-element">
+                    <div class="approval-label">
+                        <div class="approval-label-bg" style="display: flex;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                ROOT CAUSE
+                            </FluentLabel>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <FluentSelect Items="@OptionService.RootCauseOptions"
+                                Value="@ApprovalModel.RootCause"
+                                ValueChanged="OnRootCauseAsync"
+                                Disabled="@DisableRootCause"
+                                Position="SelectPosition.Above"
+                                Width="300px"/>
+                        </div>
+                    </div>
+                </div>
             </FluentStack>
 
         </FluentStack>
