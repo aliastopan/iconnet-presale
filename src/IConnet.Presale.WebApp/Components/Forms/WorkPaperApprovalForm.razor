@@ -21,31 +21,39 @@
                 VerticalAlignment="VerticalAlignment.Top"
                 HorizontalGap="4">
 
-                <div class="approval-element">
-                    <div class="approval-label">
-                        <div class="approval-label-bg" style="display: flex;">
-                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                                NAMA PELANGGAN
-                            </FluentLabel>
-                            <FluentIcon Value="@LabelIconNamaPelanggan" />
+                <div class="approval-element-arrange">
+                    <div class="arrange-end">
+                        <div class="approval-label">
+                            <div class="approval-label-bg" style="display: flex;">
+                                <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                    NAMA PELANGGAN
+                                </FluentLabel>
+                                <FluentIcon Value="@LabelIconNamaPelanggan" />
+                            </div>
                         </div>
-                        <FluentSelect TOption="string" Disabled="true" Width="185px">
-                            <FluentOption>@ApprovalModel.DisplayHasilValidasiNamaPelanggan</FluentOption>
-                        </FluentSelect>
+                        <div class="approval-value">
+                            <div class="approval-value-bg-info" style="height: fit-content;">
+                            @{
+                                string cssStyleNamaPelanggan = $"margin: 0 8px; margin-top: 2px; {CssStyleStrikethroughNamaPelanggan}";
+                                <FluentLabel Typo="Typography.Body" style="@cssStyleNamaPelanggan">
+                                    @GetNamaPelanggan()
+                                </FluentLabel>
+                            }
+                            </div>
+                        </div>
                     </div>
-                    <div class="approval-value">
-                        <div class="approval-value-bg-info">
-                        @{
-                            _cssStyle = $"margin: 0 8px; margin-top: 2px; {CssStyleStrikethroughNamaPelanggan}";
-                            <FluentLabel Typo="Typography.Body" style="@_cssStyle">
-                                @GetNamaPelanggan()
-                            </FluentLabel>
-                        }
+                    <div class="arrange-start">
+                        <div class="approval-label">
+                            <FluentSelect TOption="string" Disabled="true" Width="185px">
+                                <FluentOption>@ApprovalModel.DisplayHasilValidasiNamaPelanggan</FluentOption>
+                            </FluentSelect>
                         </div>
-                        <div class="approval-value-bg-neutral">
-                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
-                                @GetPembetulanNamaPelanggan()
-                            </FluentLabel>
+                        <div class="approval-value">
+                            <div class="approval-value-bg-neutral">
+                                <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                    @GetNamaPelanggan()
+                                </FluentLabel>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -65,8 +73,8 @@
                     <div class="approval-value">
                         <div class="approval-value-bg-info">
                         @{
-                            _cssStyle = $"margin: 0 8px; margin-top: 2px; {CssStyleStrikethroughNomorTelepon}";
-                            <FluentLabel Typo="Typography.Body" style="@_cssStyle">
+                            string cssStyleNomorTelepon = $"margin: 0 8px; margin-top: 2px; {CssStyleStrikethroughNomorTelepon}";
+                            <FluentLabel Typo="Typography.Body" style="@cssStyleNomorTelepon">
                                 @GetNomorTelepon()
                             </FluentLabel>
                         }
@@ -94,8 +102,8 @@
                     <div class="approval-value">
                         <div class="approval-value-bg-info">
                         @{
-                            _cssStyle = $"margin: 0 8px; margin-top: 2px; {CssStyleStrikethroughEmail}";
-                            <FluentLabel Typo="Typography.Body" style="@_cssStyle">
+                            string cssStyleEmail = $"margin: 0 8px; margin-top: 2px; {CssStyleStrikethroughEmail}";
+                            <FluentLabel Typo="Typography.Body" style="@cssStyleEmail">
                                 @GetEmail()
                             </FluentLabel>
                         }
@@ -123,8 +131,8 @@
                     <div class="approval-value">
                         <div class="approval-value-bg-info">
                         @{
-                            _cssStyle = $"margin: 0 8px; margin-top: 2px; {CssStyleStrikethroughIdPln}";
-                            <FluentLabel Typo="Typography.Body" style="@_cssStyle">
+                            string cssStyleIdPln = $"margin: 0 8px; margin-top: 2px; {CssStyleStrikethroughIdPln}";
+                            <FluentLabel Typo="Typography.Body" style="@cssStyleIdPln">
                                 @GetIdPln()
                             </FluentLabel>
                         }
@@ -150,8 +158,8 @@
                         <div class="approval-value">
                             <div class="approval-value-bg-info" style="height: fit-content;">
                             @{
-                                _cssStyle = $"margin: 0 8px; margin-top: 2px; {CssStyleStrikethroughAlamat}";
-                                <FluentLabel Typo="Typography.Body" style="@_cssStyle">
+                                string cssStyleAlamat = $"margin: 0 8px; margin-top: 2px; {CssStyleStrikethroughAlamat}";
+                                <FluentLabel Typo="Typography.Body" style="@cssStyleAlamat">
                                     @GetAlamat()
                                 </FluentLabel>
                             }
@@ -290,9 +298,4 @@
 
         </FluentStack>
     </div>
-}
-
-@code
-{
-    private string _cssStyle = string.Empty;
 }
