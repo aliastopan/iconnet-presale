@@ -213,11 +213,14 @@
                         </div>
                     </div>
                     <div class="approval-value">
+                    @if (!ApprovalModel.KeteranganValidasi.IsNullOrWhiteSpace())
+                    {
                         <div class="approval-value-bg-note">
                             <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                                 @ApprovalModel.KeteranganValidasi
                             </FluentLabel>
                         </div>
+                    }
                     </div>
                 </div>
 
