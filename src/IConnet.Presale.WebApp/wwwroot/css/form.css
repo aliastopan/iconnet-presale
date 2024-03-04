@@ -161,7 +161,7 @@
 } */
 
 .validation-textarea::part(control){
-    height: 110px
+    height: 104px
 }
 
 .validation-submit{
@@ -389,5 +389,5 @@
 }
 
 .approval-textarea::part(control){
-    height: 110px
+    height: 104px
 }
