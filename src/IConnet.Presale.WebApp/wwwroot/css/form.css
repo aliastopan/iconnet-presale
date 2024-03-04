@@ -2,16 +2,18 @@
     margin-bottom: 10px;
 }
 .validation-info{
+    white-space: nowrap;
     padding-right: 6px;
     font-weight: 400 !important;
 }
 
 
 .validation-info-badge {
-    background-color: #FFFF8A;
-    font-weight: 500;
-    color: #434343;
+    background-color: #ffbe14;
+    font-weight: 700;
+    color: #1a1a1a;
     padding: 0 4px;
+    /* border: 1px solid #dadada; */
     border-radius: 3px;
 }
 

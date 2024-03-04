@@ -3,12 +3,12 @@
     <div style="min-height: 550px;">
         <div class="d-flex flex-column approval-header">
             <div id="approval-id">
-                <FluentLabel Typo="Typography.Header">@WorkPaper.ApprovalOpportunity.IdPermohonan</FluentLabel>
+                <FluentLabel Typo="Typography.Header">@ApprovalModel.IdPermohonan</FluentLabel>
             </div>
             <div>
                 <div class="d-flex flex-row" style="margin-bottom: 4px;">
-                    <span class="validation-info">Keterangan:</span>
-                    <span class="validation-info-badge">@WorkPaper.ApprovalOpportunity.Pemohon.Keterangan</span>
+                    <span class="validation-info">Keterangan Pelanggan:</span>
+                    <span class="@_infoBadge">@ApprovalModel.DataPelanggan.Keterangan</span>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
                             @{
                                 string cssStyleNamaPelanggan = $"margin: 0 8px; margin-top: 2px; {CssStyleStrikethroughNamaPelanggan}";
                                 <FluentLabel Typo="Typography.Body" style="@cssStyleNamaPelanggan">
-                                    @ApprovalModel!.DataPelanggan.NamaPelanggan
+                                    @ApprovalModel.DataPelanggan.NamaPelanggan
                                 </FluentLabel>
                             }
                             </div>
@@ -320,4 +320,11 @@
 
         </FluentStack>
     </div>
+}
+
+@code
+{
+    private string _infoBadge => ApprovalModel!.DataPelanggan.Keterangan.IsNullOrWhiteSpace()
+        ? ""
+        : "validation-info-badge";
 }

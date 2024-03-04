@@ -3,19 +3,19 @@
     <div style="min-height: 550px;">
         <div class="d-flex flex-column validation-header">
             <div id="validation-id">
-                <FluentLabel Typo="Typography.Header">@WorkPaper.ApprovalOpportunity.IdPermohonan</FluentLabel>
+                <FluentLabel Typo="Typography.Header">@ValidationModel.IdPermohonan</FluentLabel>
             </div>
             <div>
                 <div class="d-flex flex-row" style="margin-bottom: 4px;">
-                    <span class="validation-info">Keterangan:</span>
-                    <span class="validation-info-badge">@WorkPaper.ApprovalOpportunity.Pemohon.Keterangan</span>
+                    <span class="validation-info">Keterangan Pelanggan:</span>
+                    <span class="@_infoBadge">@ValidationModel.DataPelanggan.Keterangan</span>
                 </div>
             </div>
             <div class="d-flex flex-row align-items-center">
                 @{
-                    var url = $"http://{WorkPaper.ApprovalOpportunity.Pemohon.WhatsApp}";
+                    var url = $"http://{ValidationModel.DataPelanggan.WhatsApp}";
                 }
-                <WhatsAppNav Contact="@WorkPaper.ApprovalOpportunity.Pemohon.WhatsApp"
+                <WhatsAppNav Contact="@ValidationModel.DataPelanggan.WhatsApp"
                     ChatCallMulai="UpdateChatCallMulaiSignature"/>
                 <FluentButton Appearance="Appearance.Outline"
                     style="margin-left: 10px"
@@ -292,4 +292,11 @@
 
         </FluentStack>
     </div>
+}
+
+@code
+{
+    private string _infoBadge => ValidationModel!.DataPelanggan.Keterangan.IsNullOrWhiteSpace()
+        ? ""
+        : "validation-info-badge";
 }
