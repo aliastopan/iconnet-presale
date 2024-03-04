@@ -277,10 +277,8 @@ public partial class WorkPaperApprovalForm : ComponentBase
 
     private static string GetCssStyleStrikethrough(ValidationStatus validationStatus)
     {
-        var style = validationStatus == ValidationStatus.Sesuai
-            ? string.Empty
-            : "text-decoration: line-through; color: #ababab !important; cursor: pointer !important;";
-
-        return style;
+        return validationStatus == ValidationStatus.TidakSesuai
+            ? "text-decoration: line-through; color: #ababab !important; cursor: pointer !important;"
+            : string.Empty;
     }
 }
