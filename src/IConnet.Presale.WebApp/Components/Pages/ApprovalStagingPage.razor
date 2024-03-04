@@ -104,12 +104,30 @@
                     </TemplateColumn>
                     <TemplateColumn Title="SHARE LOC" Style="@GetWidthStyle(ColumnWidth.ValidasiShareLocPx)">
                         <div class="">
+                        @if(IsClosedLost(context.ProsesValidasi))
+                        {
+                            <div class="closed-lost-badge">
+                                @_closedLost.ToUpper()
+                            </div>
+                        }
+                        else
+                        {
                             @context.ProsesValidasi.ParameterValidasi.ShareLoc.LatitudeLongitude
+                        }
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="REKAP CHAT HISTORY" Style="@GetWidthStyle(ColumnWidth.LinkRekapChatHistoryPx)">
                         <div class="">
+                        @if(IsClosedLost(context.ProsesValidasi))
+                        {
+                            <div class="closed-lost-badge">
+                                @_closedLost.ToUpper()
+                            </div>
+                        }
+                        else
+                        {
                             @context.ProsesValidasi.LinkRekapChatHistory
+                        }
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="KETERANGAN VALIDASI" Style="@GetWidthStyle(ColumnWidth.KeteranganValidasiPx)">
@@ -159,4 +177,5 @@
 @code
 {
     private string _filterSection => SessionService.FilterPreference.ShowFilters ? "enable" : "filter-section-disable";
+    private string _closedLost => "Closed Lost";
 }

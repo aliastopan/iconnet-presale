@@ -146,6 +146,13 @@ public class ApprovalStagingPageBase : WorkloadPageBase, IPageNavigation
         await BroadcastService.BroadcastMessageAsync(message);
     }
 
+    protected bool IsClosedLost(ValidationProcess validationProcess)
+    {
+        DateTime today = DateTimeService.DateTimeOffsetNow.Date;
+
+        return validationProcess.IsClosedLost(today);
+    }
+
     private async Task<int> GetStageCountAsync()
     {
         var alias = await SessionService.GetSessionAliasAsync();
