@@ -21,6 +21,25 @@
                     style="margin-left: 10px"
                     OnClick="OpenDialogAsync">
                     Chat Template</FluentButton>
+
+                @if(WorkPaper.ProsesValidasi.HasStarted)
+                {
+                    <div class="validation-aging-response">
+                        <span style="margin-right: 4px;">
+                            Chat/Call mulai:
+                        </span>
+                        <span class="validation-aging-label" style="margin-right: 4px;">
+                            @GetAgingResponseString()
+                        </span>
+                        <span>yang lalu</span>
+                        @if(IsClosedLost())
+                        {
+                            <span class="validation-closed-lost" style="margin-right: 4px;">
+                                CLOSED LOST
+                            </span>
+                        }
+                    </div>
+                }
             </div>
         </div>
 

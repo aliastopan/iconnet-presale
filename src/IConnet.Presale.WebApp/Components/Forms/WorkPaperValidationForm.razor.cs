@@ -94,6 +94,31 @@ public partial class WorkPaperValidationForm : ComponentBase
         await UnstageWorkPaper.InvokeAsync();
     }
 
+    protected bool IsClosedLost()
+    {
+        DateTime today = DateTimeService.DateTimeOffsetNow.Date;
+
+        return WorkPaper!.ProsesValidasi.IsClosedLost(today);
+    }
+
+    protected string GetAgingResponseString()
+    {
+        DateTime today = DateTimeService.DateTimeOffsetNow.Date;
+        TimeSpan agingResponse = WorkPaper!.ProsesValidasi.GetAgingChatCallRespons(today);
+
+        if (agingResponse.TotalHours < 1)
+        {
+            return "kurang dari 1 Jam";
+        }
+        else
+        {
+            int totalDays = (int)agingResponse.TotalDays;
+            int hours = agingResponse.Hours;
+
+            return $"{totalDays} Hari {hours} Jam";
+        }
+    }
+
     protected async Task OnClipboardNamaPelangganAsync()
     {
         string namaPelanggan = ValidationModel!.DataPelanggan.NamaPelanggan;
