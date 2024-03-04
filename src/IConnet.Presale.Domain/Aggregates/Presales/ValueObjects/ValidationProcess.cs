@@ -31,6 +31,9 @@ public class ValidationProcess : ValueObject
     public string Keterangan { get; init; }  = string.Empty;
 
     [NotMapped]
+    public bool HasStarted => !SignatureChatCallMulai.IsEmptySignature();
+
+    [NotMapped]
     public bool IsOnGoing => SignatureChatCallRespons.IsEmptySignature();
 
     public ValidationProcess WithSignatureChatCallMulai(ActionSignature signatureChatCallMulai)
@@ -129,6 +132,21 @@ public class ValidationProcess : ValueObject
             PembetulanValidasi = this.PembetulanValidasi,
             Keterangan = keterangan
         };
+    }
+
+    public bool IsClosedLost(DateTime today, int closedLostThreshold = 3)
+    {
+        TimeSpan agingResponse = GetAgingChatCallRespons(today);
+
+        bool notResponding = SignatureChatCallRespons.IsEmptySignature();
+        bool closedLost = Math.Abs(agingResponse.Days) >= closedLostThreshold;
+
+        return notResponding && closedLost;
+    }
+
+    public TimeSpan GetAgingChatCallRespons(DateTime today)
+    {
+        return today - SignatureChatCallMulai.TglAksi;
     }
 
     protected override IEnumerable<object> GetEqualityComponents()
