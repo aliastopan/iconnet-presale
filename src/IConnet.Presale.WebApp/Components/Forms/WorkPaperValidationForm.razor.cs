@@ -94,6 +94,21 @@ public partial class WorkPaperValidationForm : ComponentBase
         await UnstageWorkPaper.InvokeAsync();
     }
 
+    protected async Task OnClosedLostAsync()
+    {
+        WorkPaper!.WorkPaperLevel = WorkPaperLevel.WaitingApproval;
+
+        var message = $"{WorkPaper.ApprovalOpportunity.IdPermohonan} is CLOSED LOST";
+
+        Task[] tasks =
+        [
+            UpdateProsesValidasi(WorkPaper, message),
+            UnstageWorkPaper.InvokeAsync()
+        ];
+
+        await Task.WhenAll(tasks);
+    }
+
     protected bool IsClosedLost()
     {
         DateTime today = DateTimeService.DateTimeOffsetNow.Date;

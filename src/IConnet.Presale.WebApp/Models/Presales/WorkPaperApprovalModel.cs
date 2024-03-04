@@ -44,8 +44,16 @@ public class WorkPaperApprovalModel
 
     private static string ConvertHasilValidasi(ValidationStatus validationStatus)
     {
-        return validationStatus == ValidationStatus.Sesuai
-            ? "Sesuai"
-            : "Pembetulan";
+        switch (validationStatus)
+        {
+            case ValidationStatus.MenungguValidasi:
+                return "Tidak Ada Respons";
+            case ValidationStatus.TidakSesuai:
+                return "Pembetulan";
+            case ValidationStatus.Sesuai:
+                return "Sesuai";
+            default:
+                throw new NotImplementedException();
+        }
     }
 }

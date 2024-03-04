@@ -307,6 +307,17 @@
                             Placeholder="Keterangan"></FluentTextArea>
                     </div>
                 </div>
+                <div class="validation-element">
+                    <div class="validation-label-closed-lost">
+                        @if(IsClosedLost())
+                        {
+                            <FluentButton BackgroundColor="crimson"
+                                Color="white"
+                                OnClick="OnClosedLostAsync">
+                                CLOSED LOST</FluentButton>
+                        }
+                    </div>
+                </div>
             </FluentStack>
 
         </FluentStack>

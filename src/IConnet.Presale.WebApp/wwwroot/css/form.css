@@ -86,6 +86,17 @@
     margin-top: 2px;
 }
 
+.validation-label-closed-lost{
+    display: flex;
+    flex-direction: column;
+    width: 185px;
+    margin-right: 10px;
+}
+
+.validation-label-closed-lost fluent-button::part(control){
+    font-weight: 600 !important;
+}
+
 .validation-value .fluent-typography{
     cursor: pointer !important;
     max-width: fit-content;
