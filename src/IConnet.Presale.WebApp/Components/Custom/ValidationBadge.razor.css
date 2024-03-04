@@ -1,5 +1,6 @@
 
 .validation-badge-waiting{
+    font-weight: 600;
     background-color: var(--info);
     text-align: center;
     color: white;
@@ -12,6 +13,7 @@
 }
 
 .validation-badge-invalid{
+    font-weight: 600;
     background-color: var(--error);
     text-align: center;
     color: white;
@@ -24,6 +26,7 @@
 }
 
 .validation-badge-valid{
+    font-weight: 600;
     background-color: var(--success);
     text-align: center;
     color: white;
@@ -36,7 +39,21 @@
 }
 
 .validation-badge-warning{
+    font-weight: 600;
     background-color: var(--warning);
+    text-align: center;
+    color: white;
+    padding: 0 10px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+.validation-badge-closed-lost{
+    font-weight: 600;
+    background-color: var(--soft-black);
     text-align: center;
     color: white;
     padding: 0 10px;
