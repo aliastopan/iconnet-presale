@@ -185,7 +185,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="arrange-start approval-bottom-margin">
+                    <div class="arrange-start">
                         <div class="approval-label">
                             <div class="approval-validation-result-bg">
                                 <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
@@ -204,6 +204,23 @@
                     </div>
                 </div>
 
+                <div class="approval-element">
+                    <div class="approval-label">
+                        <div class="approval-label-bg" style="display: flex;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                KETERANGAN
+                            </FluentLabel>
+                        </div>
+                    </div>
+                    <div class="approval-value">
+                        <div class="approval-value-bg-note">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @ApprovalModel.KeteranganValidasi
+                            </FluentLabel>
+                        </div>
+                    </div>
+                </div>
+
             </FluentStack>
 
             <FluentStack Orientation="Orientation.Vertical"
@@ -211,7 +228,8 @@
                 VerticalAlignment="VerticalAlignment.Top"
                 HorizontalGap="4">
 
-                @* <div class="approval-element">
+                @*
+                <div class="approval-element">
                     <div class="approval-label">
                         <div class="approval-label-bg" style="display: flex;">
                             <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
@@ -315,7 +333,8 @@
                                 Width="300px"/>
                         </div>
                     </div>
-                </div> *@
+                </div>
+                *@
             </FluentStack>
 
         </FluentStack>
