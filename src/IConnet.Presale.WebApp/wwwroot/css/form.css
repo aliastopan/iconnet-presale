@@ -198,7 +198,7 @@
 
 .validation-closed-lost{
     font-weight: 700;
-    background-color: #1a1a1a;
+    background-color: var(--soft-black);
     color: white;
     margin: 4px;
     padding: 2px 6px;
@@ -383,7 +383,7 @@
 
 .approval-value-bg-closed-lost{
     cursor: pointer !important;
-    background-color: black;
+    background-color: var(--soft-black);
     height: fit-content;
     border-radius: 5px;
     -webkit-border-radius: 5px;
