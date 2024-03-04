@@ -245,15 +245,20 @@ public partial class WorkPaperApprovalForm : ComponentBase
     }
 
     private static string GetCssBackgroundColorValueActual(ValidationStatus section,
+        string valid = "approval-value-bg-valid",
         string info = "approval-value-bg-info",
-        string valid = "approval-value-bg-valid")
+        string closedLost = "approval-value-bg-closed-lost")
     {
         switch (section)
         {
+            case ValidationStatus.MenungguValidasi:
+                return closedLost;
+            case ValidationStatus.TidakSesuai:
+                return info;
             case ValidationStatus.Sesuai:
                 return valid;
             default:
-                return info;
+                throw new NotImplementedException();
         }
     }
 
