@@ -10,10 +10,10 @@ public partial class WorkPaperValidationForm : ComponentBase
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public IDialogService DialogService { get; set; } = default!;
     [Inject] public IJSRuntime JsRuntime { get; set; } = default!;
+    [Inject] public IToastService ToastService { get; set; } = default!;
     [Inject] public IWorkloadManager WorkloadManager { get; init; } = default!;
     [Inject] public BroadcastService BroadcastService { get; init; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
-    [Inject] public IToastService ToastService { get; set; } = default!;
 
     [Parameter]
     public EventCallback UnstageWorkPaper { get; set; }
