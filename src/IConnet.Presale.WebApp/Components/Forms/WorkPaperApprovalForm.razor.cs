@@ -224,6 +224,13 @@ public partial class WorkPaperApprovalForm : ComponentBase
         await Task.CompletedTask;
     }
 
+    protected bool IsClosedLost()
+    {
+        DateTime today = DateTimeService.DateTimeOffsetNow.Date;
+
+        return WorkPaper!.ProsesValidasi.IsClosedLost(today);
+    }
+
     private void ClipboardToast(string clipboard)
     {
         var intent = ToastIntent.Info;
