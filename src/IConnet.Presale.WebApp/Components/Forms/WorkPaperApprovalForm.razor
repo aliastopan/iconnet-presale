@@ -344,6 +344,7 @@
                             <FluentSelect Items="@OptionService.RootCauseOptions"
                                 Value="@ApprovalModel.RootCause"
                                 ValueChanged="OnRootCauseAsync"
+                                Disabled="@DisableRootCause"
                                 Position="SelectPosition.Above"
                                 Width="300px"
                                 Label="Root Cause"/>
