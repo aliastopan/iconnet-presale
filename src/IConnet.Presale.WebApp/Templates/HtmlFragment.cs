@@ -11,4 +11,12 @@ public static class HtmlFragment
         builder.AddContent(2, "Data tidak tersedia.");
         builder.CloseElement();
     };
+
+    public static RenderFragment MeterUnitOfMeasurement => builder =>
+    {
+        builder.OpenElement(0, "span");
+        builder.AddAttribute(1, "class", "meter-unit");
+        builder.AddContent(2, "meter");
+        builder.CloseElement();
+    };
 }
