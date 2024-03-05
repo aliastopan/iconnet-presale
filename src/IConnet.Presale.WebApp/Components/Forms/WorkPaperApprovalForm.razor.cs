@@ -31,6 +31,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
 
     protected bool DisableRootCause => ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.Reject
         && ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.ClosedLost;
+    protected bool DisableOnClosedLost => IsClosedLost();
 
     protected Icon LabelIconNamaPelanggan => GetIcon(ApprovalModel!.HasilValidasi.ValidasiNama);
     protected Icon LabelIconNoTelepon => GetIcon(ApprovalModel!.HasilValidasi.ValidasiNomorTelepon);
@@ -55,6 +56,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
     protected string CssStyleStrikethroughEmail => GetCssStyleStrikethrough(ApprovalModel!.HasilValidasi.ValidasiEmail);
     protected string CssStyleStrikethroughIdPln => GetCssStyleStrikethrough(ApprovalModel!.HasilValidasi.ValidasiIdPln);
     protected string CssStyleStrikethroughAlamat => GetCssStyleStrikethrough(ApprovalModel!.HasilValidasi.ValidasiAlamat);
+
 
     protected async Task OnCommitAsync()
     {

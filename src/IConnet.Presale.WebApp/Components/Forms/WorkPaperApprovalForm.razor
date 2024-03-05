@@ -274,14 +274,17 @@
                                     Max="10000"
                                     Value=@ApprovalModel.JarakShareLoc
                                     ValueChanged="EventCallback.Factory.Create<int>(this, OnJarakShareLocAsync)"
+                                    Disabled="@DisableOnClosedLost"
                                     Placeholder="Share Loc">
                                     <label>Jarak Share Loc</label>
                                     @HtmlFragment.MeterUnitOfMeasurement</FluentNumberField>
                             </div>
                             <div class="approval-value-stack-distance">
                                 <FluentNumberField  style="width: 100px"
+                                    Max="10000"
                                     Value=@ApprovalModel.JarakICrmPlus
                                     ValueChanged="EventCallback.Factory.Create<int>(this, OnJarakICrmAsync)"
+                                    Disabled="@DisableOnClosedLost"
                                     Placeholder="iCRM+">
                                     <label>Jarak iCRM+</label>
                                     @HtmlFragment.MeterUnitOfMeasurement</FluentNumberField>
@@ -310,6 +313,7 @@
                                 <FluentDatePicker style="width: 145px;"
                                     Value="@ApprovalModel.NullableVaTerbit"
                                     ValueChanged="OnVaTerbit"
+                                    Disabled="@DisableOnClosedLost"
                                     Label="Va Terbit"/>
                             </div>
                             <div class="d-flex flex-column">
