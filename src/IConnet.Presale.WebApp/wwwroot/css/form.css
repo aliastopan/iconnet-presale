@@ -443,3 +443,13 @@
 .approval-textarea::part(control){
     height: 104px
 }
+
+.approval-value-label{
+    display: flex;
+    flex-direction: row !important;
+}
+
+.approval-value-label .approval-value-stack label.fluent-input-label{
+    font-weight: 500;
+    margin-top: -26px;
+}

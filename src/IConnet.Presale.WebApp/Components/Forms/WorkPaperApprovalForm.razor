@@ -258,18 +258,44 @@
                     }
                     </div>
                 </div>
-                @*
 
+                <div class="approval-element approval-element-push">
+                    <div class="approval-label">
+                        <div class="approval-label-bg" style="display: flex;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                JARAK APPROVAL
+                            </FluentLabel>
+                        </div>
+                    </div>
+                    <div class="approval-value approval-value-label">
+                        <div class="approval-value-stack">
+                            <FluentTextField  style="width: 145px; margin-right: 10px"
+                                Value=@ApprovalModel.JarakShareLoc
+                                ValueChanged="OnJarakShareLocAsync"
+                                Placeholder="Jarak Share Loc"
+                                Label="Jarak Share Loc"></FluentTextField>
+                        </div>
+                        <div class="approval-value-stack">
+                            <FluentTextField  style="width: 145px"
+                                Value=@ApprovalModel.JarakICrmPlus
+                                ValueChanged="OnJarakShareLocAsync"
+                                Placeholder="Jarak iCRM+"
+                                Label="Jarak iCRM+"></FluentTextField>
+                        </div>
+                    </div>
+                </div>
+
+                @*
                 <div class="approval-element">
                     <div class="approval-label">
                         <div class="approval-label-bg" style="display: flex;">
                             <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                                JARAK SHARE LOC
+                                JARAK APPROVAL
                             </FluentLabel>
                         </div>
                     </div>
                     <div class="approval-value">
-                        <div class="approval-value-bg">
+                        <div class="">
                         <FluentTextField  style="width: 300px"
                             Value=@ApprovalModel.JarakShareLoc
                             ValueChanged="OnJarakShareLocAsync"
@@ -277,7 +303,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="approval-element">
+                <div class="approval-element approval-element-push">
                     <div class="approval-label">
                         <div class="approval-label-bg" style="display: flex;">
                             <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
@@ -294,6 +320,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="approval-element">
                     <div class="approval-label">
                         <div class="approval-label-bg" style="display: flex;">
