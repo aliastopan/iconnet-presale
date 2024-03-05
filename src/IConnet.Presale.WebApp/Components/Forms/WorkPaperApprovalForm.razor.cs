@@ -26,7 +26,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
     private static readonly Icon _errorIcon = new Icons.Filled.Size20.ErrorCircle();
     private static readonly Icon _checkmarkIcon = new Icons.Filled.Size20.CheckmarkCircle();
 
-    protected Func<string, bool> OptionDisableNamaOnProgress => option => option == OptionSelect.StatusApproval.OnProgress
+    protected Func<string, bool> OptionDisableOnProgress => option => option == OptionSelect.StatusApproval.OnProgress
         && ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.OnProgress;
 
     protected bool DisableRootCause => ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.Reject
