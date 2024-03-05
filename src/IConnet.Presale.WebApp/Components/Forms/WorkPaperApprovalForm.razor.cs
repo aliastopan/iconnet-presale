@@ -33,6 +33,10 @@ public partial class WorkPaperApprovalForm : ComponentBase
         && ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.ClosedLost;
     protected bool DisableOnClosedLost => IsClosedLost();
 
+    protected string OnClosedLostSelectedOption => IsClosedLost()
+        ? OptionSelect.StatusApproval.ClosedLost
+        : OptionSelect.StatusApproval.OnProgress;
+
     protected Icon LabelIconNamaPelanggan => GetIcon(ApprovalModel!.HasilValidasi.ValidasiNama);
     protected Icon LabelIconNoTelepon => GetIcon(ApprovalModel!.HasilValidasi.ValidasiNomorTelepon);
     protected Icon LabelIconEmail => GetIcon(ApprovalModel!.HasilValidasi.ValidasiEmail);
