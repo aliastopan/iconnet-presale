@@ -161,13 +161,13 @@ internal sealed class DataSeedingProvider : IDataSeedingService
     {
         var rootCauses = new List<RootCause>
         {
-            new RootCause(0, "Aktivasi Tidak Standard"),
-            new RootCause(1, "Batal Pasang"),
-            new RootCause(2, "Double Inputan"),
-            new RootCause(3, "Kesalahan Data Dari User"),
-            new RootCause(4, "User Tidak Ada Respons"),
-            new RootCause(4, "Tidak Tercover FAT Penuh"),
-            new RootCause(5, "Tidak Tercover GPON Penuh"),
+            new RootCause(0, "User Tidak Ada Respons"),
+            new RootCause(1, "Aktivasi Tidak Standard"),
+            new RootCause(2, "Batal Pasang"),
+            new RootCause(3, "Double Inputan"),
+            new RootCause(4, "Kesalahan Data Dari User"),
+            new RootCause(5, "Tidak Tercover FAT Penuh"),
+            new RootCause(6, "Tidak Tercover GPON Penuh"),
             new RootCause(7, "Tidak Tercover Jarak"),
         };
 
