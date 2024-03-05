@@ -272,15 +272,17 @@
                             <FluentTextField  style="width: 145px; margin-right: 10px"
                                 Value=@ApprovalModel.JarakShareLoc
                                 ValueChanged="OnJarakShareLocAsync"
-                                Placeholder="Jarak Share Loc"
-                                Label="Jarak Share Loc"></FluentTextField>
+                                Placeholder="Share Loc">
+                                <label>Jarak Share Loc</label>
+                                @HtmlFragment.MeterUnitOfMeasurement</FluentTextField>
                         </div>
                         <div class="approval-value-stack">
                             <FluentTextField  style="width: 145px"
                                 Value=@ApprovalModel.JarakICrmPlus
-                                ValueChanged="OnJarakShareLocAsync"
-                                Placeholder="Jarak iCRM+"
-                                Label="Jarak iCRM+"></FluentTextField>
+                                ValueChanged="OnJarakICrmAsync"
+                                Placeholder="iCRM+">
+                                <label>Jarak iCRM+</label>
+                                @HtmlFragment.MeterUnitOfMeasurement</FluentTextField>
                         </div>
                     </div>
                 </div>

@@ -449,7 +449,24 @@
     flex-direction: row !important;
 }
 
-.approval-value-label .approval-value-stack label.fluent-input-label{
+.approval-value-stack{
+    margin-top: -26px;
+}
+
+.approval-value-stack label{
+    font-weight: 500;
+}
+
+/* .approval-value-stack label,
+.approval-value-stack label.fluent-input-label{
     font-weight: 500;
     margin-top: -26px;
+} */
+
+.meter-unit {
+    color: #939391;
+    position: absolute;
+    z-index: 99;
+    margin-top: 30px;
+    left: 100px;
 }
