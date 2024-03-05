@@ -502,6 +502,11 @@
     font-weight: 500;
 }
 
+.approval-submit{
+    width: 185px;
+    margin-right: 10px;
+}
+
 .meter-unit {
     color: #939391;
     position: absolute;

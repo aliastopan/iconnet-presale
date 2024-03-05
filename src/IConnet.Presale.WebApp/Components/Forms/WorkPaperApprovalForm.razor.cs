@@ -56,6 +56,11 @@ public partial class WorkPaperApprovalForm : ComponentBase
     protected string CssStyleStrikethroughIdPln => GetCssStyleStrikethrough(ApprovalModel!.HasilValidasi.ValidasiIdPln);
     protected string CssStyleStrikethroughAlamat => GetCssStyleStrikethrough(ApprovalModel!.HasilValidasi.ValidasiAlamat);
 
+    protected async Task OnCommitAsync()
+    {
+        await Task.CompletedTask;
+    }
+
     protected async Task OnClipboardNamaPelangganAsync()
     {
         string namaPelanggan = ApprovalModel!.DataPelanggan.NamaPelanggan;
