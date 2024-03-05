@@ -41,12 +41,12 @@ public partial class WorkPaperValidationForm : ComponentBase
     protected Func<string, bool> OptionDisableAlamat => x => x == OptionSelect.StatusValidasi.MenungguValidasi
         && ValidationModel?.ValidasiAlamat != OptionSelect.StatusValidasi.MenungguValidasi;
 
-    protected Icon LabelIconNamaPelanggan => GetIcon(ValidationModel?.ValidasiNama);
-    protected Icon LabelIconNoTelepon => GetIcon(ValidationModel?.ValidasiNomorTelepon);
-    protected Icon LabelIconEmail => GetIcon(ValidationModel?.ValidasiEmail);
-    protected Icon LabelIconIdPln => GetIcon(ValidationModel?.ValidasiIdPln);
-    protected Icon LabelIconAlamat => GetIcon(ValidationModel?.ValidasiAlamat);
-    protected Icon LabelIconCrmKoordinat => GetIcon(ValidationModel?.ValidasiCrmKoordinat, errorIconColor: "var(--warning)");
+    protected Icon LabelIconNamaPelanggan => GetValidationIcon(ValidationModel?.ValidasiNama);
+    protected Icon LabelIconNoTelepon => GetValidationIcon(ValidationModel?.ValidasiNomorTelepon);
+    protected Icon LabelIconEmail => GetValidationIcon(ValidationModel?.ValidasiEmail);
+    protected Icon LabelIconIdPln => GetValidationIcon(ValidationModel?.ValidasiIdPln);
+    protected Icon LabelIconAlamat => GetValidationIcon(ValidationModel?.ValidasiAlamat);
+    protected Icon LabelIconCrmKoordinat => GetValidationIcon(ValidationModel?.ValidasiCrmKoordinat, errorIconColor: "var(--warning)");
 
     protected string CssBackgroundColorNamaPelanggan => GetCssBackgroundColor(ValidationModel?.ValidasiNama);
     protected string CssBackgroundColorNomorTelepon => GetCssBackgroundColor(ValidationModel?.ValidasiNomorTelepon);
@@ -445,7 +445,7 @@ public partial class WorkPaperValidationForm : ComponentBase
             && ValidationModel?.ShareLoc != string.Empty;
     }
 
-    private Icon GetIcon(string? section,
+    private Icon GetValidationIcon(string? section,
         string questionIconColor = "var(--info)",
         string errorIconColor = "var(--error)",
         string checkmarkIconColor = "var(--success)")

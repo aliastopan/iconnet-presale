@@ -37,11 +37,11 @@ public partial class WorkPaperApprovalForm : ComponentBase
         ? OptionSelect.StatusApproval.ClosedLost
         : OptionSelect.StatusApproval.OnProgress;
 
-    protected Icon LabelIconNamaPelanggan => GetIcon(ApprovalModel!.HasilValidasi.ValidasiNama);
-    protected Icon LabelIconNoTelepon => GetIcon(ApprovalModel!.HasilValidasi.ValidasiNomorTelepon);
-    protected Icon LabelIconEmail => GetIcon(ApprovalModel!.HasilValidasi.ValidasiEmail);
-    protected Icon LabelIconIdPln => GetIcon(ApprovalModel!.HasilValidasi.ValidasiIdPln);
-    protected Icon LabelIconAlamat => GetIcon(ApprovalModel!.HasilValidasi.ValidasiAlamat);
+    protected Icon LabelIconNamaPelanggan => GetValidationIcon(ApprovalModel!.HasilValidasi.ValidasiNama);
+    protected Icon LabelIconNoTelepon => GetValidationIcon(ApprovalModel!.HasilValidasi.ValidasiNomorTelepon);
+    protected Icon LabelIconEmail => GetValidationIcon(ApprovalModel!.HasilValidasi.ValidasiEmail);
+    protected Icon LabelIconIdPln => GetValidationIcon(ApprovalModel!.HasilValidasi.ValidasiIdPln);
+    protected Icon LabelIconAlamat => GetValidationIcon(ApprovalModel!.HasilValidasi.ValidasiAlamat);
 
     protected string CssBackgroundColorNamaPelanggan => GetCssBackgroundColorValueActual(ApprovalModel!.HasilValidasi.ValidasiNama);
     protected string CssBackgroundColorNomorTelepon => GetCssBackgroundColorValueActual(ApprovalModel!.HasilValidasi.ValidasiNomorTelepon);
@@ -259,7 +259,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
         ToastService.ShowToast(intent, message, timeout: timeout);
     }
 
-    private static Icon GetIcon(ValidationStatus section,
+    private static Icon GetValidationIcon(ValidationStatus section,
         string questionIconColor = "var(--info)",
         string errorIconColor = "var(--error)",
         string checkmarkIconColor = "var(--success)")
