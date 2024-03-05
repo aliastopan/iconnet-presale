@@ -134,8 +134,8 @@ internal sealed class WorkPaperFactory
                 StatusApproval = ApprovalStatus.OnProgress,
                 RootCause = string.Empty,
                 Keterangan = string.Empty,
-                JarakShareLoc = string.Empty,
-                JarakICrmPlus = string.Empty,
+                JarakShareLoc = 0,
+                JarakICrmPlus = 0,
                 VaTerbit = _dateTimeService.Zero
             }
         };

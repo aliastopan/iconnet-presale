@@ -11,7 +11,7 @@ public class ApprovalProcess : ValueObject
     }
 
     public ApprovalProcess(ApprovalStatus statusApproval, string rootCause, string keterangan,
-        string jarakShareLoc, string jarakICrmPlus, DateTime vaTerbit)
+        int jarakShareLoc, int jarakICrmPlus, DateTime vaTerbit)
     {
         StatusApproval = statusApproval;
         RootCause = rootCause;
@@ -25,8 +25,8 @@ public class ApprovalProcess : ValueObject
     public ApprovalStatus StatusApproval { get; init; } = default;
     public string RootCause { get; init; } = string.Empty;
     public string Keterangan { get; init; } = string.Empty;
-    public string JarakShareLoc { get; init; } = string.Empty;
-    public string JarakICrmPlus { get; init; } = string.Empty;
+    public int JarakShareLoc { get; init; }
+    public int JarakICrmPlus { get; init; }
     public DateTime VaTerbit { get; init; } = default;
 
     [NotMapped]
@@ -88,7 +88,7 @@ public class ApprovalProcess : ValueObject
         };
     }
 
-    public ApprovalProcess WithJarakShareLoc(string jarakShareLoc)
+    public ApprovalProcess WithJarakShareLoc(int jarakShareLoc)
     {
         return new ApprovalProcess
         {
@@ -102,7 +102,7 @@ public class ApprovalProcess : ValueObject
         };
     }
 
-    public ApprovalProcess WithJarakICrmPlus(string jarakShareLoc)
+    public ApprovalProcess WithJarakICrmPlus(int jarakShareLoc)
     {
         return new ApprovalProcess
         {
