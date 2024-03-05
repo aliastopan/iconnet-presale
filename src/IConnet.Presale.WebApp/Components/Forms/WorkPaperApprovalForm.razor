@@ -263,13 +263,13 @@
                     <div class="approval-label">
                         <div class="approval-label-bg" style="display: flex;">
                             <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                                JARAK APPROVAL
+                                JARAK
                             </FluentLabel>
                         </div>
                     </div>
                     <div class="approval-value">
                         <div class="approval-value-label">
-                            <div class="approval-value-stack">
+                            <div class="approval-value-stack-distance">
                                 <FluentNumberField style="width: 100px; margin-right: 10px"
                                     Max="10000"
                                     Value=@ApprovalModel.JarakShareLoc
@@ -278,7 +278,7 @@
                                     <label>Jarak Share Loc</label>
                                     @HtmlFragment.MeterUnitOfMeasurement</FluentNumberField>
                             </div>
-                            <div class="approval-value-stack">
+                            <div class="approval-value-stack-distance">
                                 <FluentNumberField  style="width: 100px"
                                     Value=@ApprovalModel.JarakICrmPlus
                                     ValueChanged="EventCallback.Factory.Create<int>(this, OnJarakICrmAsync)"
@@ -287,7 +287,8 @@
                                     @HtmlFragment.MeterUnitOfMeasurement</FluentNumberField>
                             </div>
                         </div>
-                        <div class="approval-value-bg-accent approval-value-clipboard" @onclick="OnClipboardSplitterAsync">
+                        <div class="approval-value-bg-accent approval-value-clipboard" style="margin-top: 2px;"
+                            @onclick="OnClipboardSplitterAsync">
                             <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                                 @ApprovalModel.Splitter
                             </FluentLabel>
@@ -295,62 +296,54 @@
                     </div>
                 </div>
 
-                @*
-                <div class="approval-element">
+                <div class="approval-element approval-element-push-far" style="margin-top: -5px;">
                     <div class="approval-label">
                         <div class="approval-label-bg" style="display: flex;">
-                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                                VA TERBIT
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 1px;">
+                                APPROVAL
                             </FluentLabel>
                         </div>
                     </div>
-                    <div class="">
-                        <div class="">
-                            <FluentDatePicker style="width: 150px;"
-                                Value="@ApprovalModel.NullableVaTerbit"
-                                ValueChanged="OnVaTerbit"/>
+                    <div class="approval-value">
+                        <div class="approval-value-status d-flex flex-row">
+                            <div class="d-flex flex-column" style="margin-right: 10px;">
+                                <FluentDatePicker style="width: 145px;"
+                                    Value="@ApprovalModel.NullableVaTerbit"
+                                    ValueChanged="OnVaTerbit"
+                                    Label="Va Terbit"/>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <FluentSelect Items="@OptionSelect.StatusApproval.StatusApprovalOptions"
+                                    Value="@ApprovalModel.StatusApproval"
+                                    ValueChanged="OnStatusApprovalAsync"
+                                    OptionDisabled="@OptionDisableNamaOnProgress"
+                                    Position="SelectPosition.Below"
+                                    Width="145px"
+                                    Label="Status"/>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="approval-element">
+
+                <div class="approval-element approval-element-push" style="">
                     <div class="approval-label">
                         <div class="approval-label-bg" style="display: flex;">
-                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                                STATUS APPROVAL
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 1px;">
+                                RESULT
                             </FluentLabel>
                         </div>
                     </div>
-                    <div class="">
-                        <div class="">
-                            <FluentSelect Items="@OptionSelect.StatusApproval.StatusApprovalOptions"
-                                Value="@ApprovalModel.StatusApproval"
-                                ValueChanged="OnStatusApprovalAsync"
-                                OptionDisabled="@OptionDisableNamaOnProgress"
-                                Position="SelectPosition.Below"
-                                Width="150px" />
-                        </div>
-                    </div>
-                </div>
-                <div class="approval-element">
-                    <div class="approval-label">
-                        <div class="approval-label-bg" style="display: flex;">
-                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                                ROOT CAUSE
-                            </FluentLabel>
-                        </div>
-                    </div>
-                    <div class="">
-                        <div class="">
+                    <div class="approval-value">
+                        <div class="approval-label-result">
                             <FluentSelect Items="@OptionService.RootCauseOptions"
                                 Value="@ApprovalModel.RootCause"
                                 ValueChanged="OnRootCauseAsync"
-                                Disabled="@DisableRootCause"
                                 Position="SelectPosition.Above"
-                                Width="300px"/>
+                                Width="300px"
+                                Label="Root Cause"/>
                         </div>
                     </div>
                 </div>
-                *@
             </FluentStack>
 
         </FluentStack>

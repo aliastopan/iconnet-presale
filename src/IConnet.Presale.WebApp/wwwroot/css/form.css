@@ -271,6 +271,10 @@
     margin-right: 10px;
 }
 
+.approval-label-result{
+
+}
+
 .approval-value{
     display: flex;
     flex-direction: column;
@@ -461,19 +465,41 @@
     flex-direction: row !important;
 }
 
-.approval-value-stack{
+.approval-value-stack-distance{
     margin-right: 45px;
     margin-top: -26px;
 }
 
-.approval-value-stack label{
+.approval-value-stack-distance label{
     font-weight: 500;
 }
 
-.approval-value-stack .fluent-number-field::part(root)::part(controls),
-.approval-value-stack .fluent-number-field::part(root .controls){
-    background-color: #343433 !important;
-    margin-right: 50px;
+.approval-value-status{
+    display: flex;
+    flex-direction: row !important;
+    margin-top: -26px;
+}
+
+
+.approval-label-result label.fluent-input-label,
+.approval-value-status div label.fluent-input-label{
+    font-weight: 600 !important;
+}
+
+.approval-element-push{
+    margin-top: 32px;
+}
+
+.approval-element-push-far{
+    margin-top: 66px !important;
+}
+
+.approval-label-result{
+    margin-top: -26px;
+}
+
+.approval-label-result label.fluent-input-label{
+    font-weight: 500;
 }
 
 .meter-unit {
