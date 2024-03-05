@@ -267,23 +267,30 @@
                             </FluentLabel>
                         </div>
                     </div>
-                    <div class="approval-value approval-value-label">
-                        <div class="approval-value-stack">
-                            <FluentNumberField style="width: 100px; margin-right: 10px"
-                                Max="10000"
-                                Value=@ApprovalModel.JarakShareLoc
-                                ValueChanged="EventCallback.Factory.Create<int>(this, OnJarakShareLocAsync)"
-                                Placeholder="Share Loc">
-                                <label>Jarak Share Loc</label>
-                                @HtmlFragment.MeterUnitOfMeasurement</FluentNumberField>
+                    <div class="approval-value">
+                        <div class="approval-value-label">
+                            <div class="approval-value-stack">
+                                <FluentNumberField style="width: 100px; margin-right: 10px"
+                                    Max="10000"
+                                    Value=@ApprovalModel.JarakShareLoc
+                                    ValueChanged="EventCallback.Factory.Create<int>(this, OnJarakShareLocAsync)"
+                                    Placeholder="Share Loc">
+                                    <label>Jarak Share Loc</label>
+                                    @HtmlFragment.MeterUnitOfMeasurement</FluentNumberField>
+                            </div>
+                            <div class="approval-value-stack">
+                                <FluentNumberField  style="width: 100px"
+                                    Value=@ApprovalModel.JarakICrmPlus
+                                    ValueChanged="EventCallback.Factory.Create<int>(this, OnJarakICrmAsync)"
+                                    Placeholder="iCRM+">
+                                    <label>Jarak iCRM+</label>
+                                    @HtmlFragment.MeterUnitOfMeasurement</FluentNumberField>
+                            </div>
                         </div>
-                        <div class="approval-value-stack">
-                            <FluentNumberField  style="width: 100px"
-                                Value=@ApprovalModel.JarakICrmPlus
-                                ValueChanged="EventCallback.Factory.Create<int>(this, OnJarakICrmAsync)"
-                                Placeholder="iCRM+">
-                                <label>Jarak iCRM+</label>
-                                @HtmlFragment.MeterUnitOfMeasurement</FluentNumberField>
+                        <div class="approval-value-bg-accent approval-value-clipboard" @onclick="OnClipboardSplitterAsync">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @ApprovalModel.Splitter
+                            </FluentLabel>
                         </div>
                     </div>
                 </div>

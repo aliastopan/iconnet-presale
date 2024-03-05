@@ -171,6 +171,16 @@ public partial class WorkPaperApprovalForm : ComponentBase
         LogSwitch.Debug("Copying {0}", latitudeLongitude);
     }
 
+    protected async Task OnClipboardSplitterAsync()
+    {
+        string splitter = ApprovalModel!.Splitter;
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", splitter);
+        ClipboardToast(splitter);
+
+        LogSwitch.Debug("Copying {0}", splitter);
+    }
+
     protected string GetShareLoc()
     {
         return ApprovalModel!.HasilValidasi.ShareLoc.LatitudeLongitude;
