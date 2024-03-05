@@ -55,7 +55,7 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
             _validationModels.Add(new WorkPaperValidationModel(workPaper));
         }
 
-        LogSwitch.Debug("Validation Models {count}", _validationModels.Count);
+        // LogSwitch.Debug("Validation Models {count}", _validationModels.Count);
     }
 
     protected IQueryable<WorkPaper>? FilterWorkPapers()
