@@ -181,31 +181,19 @@ public partial class WorkPaperApprovalForm : ComponentBase
         return ApprovalModel!.KeteranganValidasi;
     }
 
-    protected async Task OnJarakShareLocAsync(string jarakShareLoc)
+    protected async Task OnJarakShareLocAsync(int jarakShareLoc)
     {
-        if (!jarakShareLoc.IsParsableAsInteger())
-        {
-            return;
-        }
-
         ApprovalModel!.JarakShareLoc = jarakShareLoc;
 
         LogSwitch.Debug("Jarak ShareLoc: {0}", ApprovalModel!.JarakShareLoc);
-
         await Task.CompletedTask;
     }
 
-    protected async Task OnJarakICrmAsync(string jarakICrmPlus)
+    protected async Task OnJarakICrmAsync(int jarakICrmPlus)
     {
-        if (!jarakICrmPlus.IsParsableAsInteger())
-        {
-            return;
-        }
-
         ApprovalModel!.JarakICrmPlus = jarakICrmPlus;
 
         LogSwitch.Debug("Jarak iCRM: {0}", ApprovalModel!.JarakICrmPlus);
-
         await Task.CompletedTask;
     }
 

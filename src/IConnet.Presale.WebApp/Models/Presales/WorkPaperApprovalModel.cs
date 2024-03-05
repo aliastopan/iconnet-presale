@@ -34,8 +34,8 @@ public class WorkPaperApprovalModel
     public string StatusApproval { get; set; } = string.Empty;
     public string RootCause { get; set; } = string.Empty;
     public string Keterangan { get; set; } = string.Empty;
-    public string JarakShareLoc { get; set; } = string.Empty;
-    public string JarakICrmPlus { get; set; } = string.Empty;
+    public int JarakShareLoc { get; set; }
+    public int JarakICrmPlus { get; set; }
     public DateTime? NullableVaTerbit { get; set; } = DateTime.Today;
 
     public string DisplayHasilValidasiNamaPelanggan { get; set; } = string.Empty;

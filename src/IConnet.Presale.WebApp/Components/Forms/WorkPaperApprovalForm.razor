@@ -269,60 +269,26 @@
                     </div>
                     <div class="approval-value approval-value-label">
                         <div class="approval-value-stack">
-                            <FluentTextField  style="width: 145px; margin-right: 10px"
+                            <FluentNumberField style="width: 100px; margin-right: 10px"
+                                Max="10000"
                                 Value=@ApprovalModel.JarakShareLoc
-                                ValueChanged="OnJarakShareLocAsync"
+                                ValueChanged="EventCallback.Factory.Create<int>(this, OnJarakShareLocAsync)"
                                 Placeholder="Share Loc">
                                 <label>Jarak Share Loc</label>
-                                @HtmlFragment.MeterUnitOfMeasurement</FluentTextField>
+                                @HtmlFragment.MeterUnitOfMeasurement</FluentNumberField>
                         </div>
                         <div class="approval-value-stack">
-                            <FluentTextField  style="width: 145px"
+                            <FluentNumberField  style="width: 100px"
                                 Value=@ApprovalModel.JarakICrmPlus
-                                ValueChanged="OnJarakICrmAsync"
+                                ValueChanged="EventCallback.Factory.Create<int>(this, OnJarakICrmAsync)"
                                 Placeholder="iCRM+">
                                 <label>Jarak iCRM+</label>
-                                @HtmlFragment.MeterUnitOfMeasurement</FluentTextField>
+                                @HtmlFragment.MeterUnitOfMeasurement</FluentNumberField>
                         </div>
                     </div>
                 </div>
 
                 @*
-                <div class="approval-element">
-                    <div class="approval-label">
-                        <div class="approval-label-bg" style="display: flex;">
-                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                                JARAK APPROVAL
-                            </FluentLabel>
-                        </div>
-                    </div>
-                    <div class="approval-value">
-                        <div class="">
-                        <FluentTextField  style="width: 300px"
-                            Value=@ApprovalModel.JarakShareLoc
-                            ValueChanged="OnJarakShareLocAsync"
-                            Placeholder="Jarak Share Loc (meter)"></FluentTextField>
-                        </div>
-                    </div>
-                </div>
-                <div class="approval-element approval-element-push">
-                    <div class="approval-label">
-                        <div class="approval-label-bg" style="display: flex;">
-                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                                JARAK CRM
-                            </FluentLabel>
-                        </div>
-                    </div>
-                    <div class="approval-value">
-                        <div class="approval-value-bg">
-                        <FluentTextField  style="width: 300px"
-                            Value=@ApprovalModel.JarakICrmPlus
-                            ValueChanged="OnJarakICrmAsync"
-                            Placeholder="Jarak iCRM+ (meter)"></FluentTextField>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="approval-element">
                     <div class="approval-label">
                         <div class="approval-label-bg" style="display: flex;">
