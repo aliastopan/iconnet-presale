@@ -231,7 +231,6 @@
                 VerticalAlignment="VerticalAlignment.Top"
                 HorizontalGap="4">
 
-                @*
                 <div class="approval-element">
                     <div class="approval-label">
                         <div class="approval-label-bg" style="display: flex;">
@@ -241,13 +240,25 @@
                         </div>
                     </div>
                     <div class="approval-value">
+                    @if(IsClosedLost())
+                    {
+                        <div class="approval-value-bg-closed-lost">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                @_closedLost.ToUpper()
+                            </FluentLabel>
+                        </div>
+                    }
+                    else
+                    {
                         <div class="approval-value-bg">
                             <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                                 @GetShareLoc()
                             </FluentLabel>
                         </div>
+                    }
                     </div>
                 </div>
+                @*
 
                 <div class="approval-element">
                     <div class="approval-label">
@@ -349,4 +360,5 @@
     private string _infoBadge => ApprovalModel!.DataPelanggan.Keterangan.IsNullOrWhiteSpace()
         ? ""
         : "validation-info-badge";
+    private string _closedLost => "Closed Lost";
 }
