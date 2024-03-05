@@ -395,7 +395,6 @@
 }
 
 .approval-value-bg-closed-lost{
-    cursor: pointer !important;
     background-color: var(--soft-black);
     height: fit-content;
     border-radius: 5px;
@@ -414,6 +413,11 @@
 
 .approval-value-bg-note p.fluent-typography{
     color: #1a1a1a !important;
+}
+
+.approval-value-clipboard,
+.approval-value-clipboard p.fluent-typography{
+    cursor: pointer;
 }
 
 .approval-shareloc{

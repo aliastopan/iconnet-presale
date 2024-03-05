@@ -243,14 +243,14 @@
                     @if(IsClosedLost())
                     {
                         <div class="approval-value-bg-closed-lost">
-                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px; cursor: default !important;">
                                 @_closedLost.ToUpper()
                             </FluentLabel>
                         </div>
                     }
                     else
                     {
-                        <div class="approval-value-bg">
+                        <div class="approval-value-bg approval-value-clipboard" @onclick="OnClipboardShareLocAsync">
                             <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                                 @GetShareLoc()
                             </FluentLabel>

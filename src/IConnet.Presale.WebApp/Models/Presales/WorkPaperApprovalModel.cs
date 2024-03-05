@@ -8,6 +8,7 @@ public class WorkPaperApprovalModel
         DataPelanggan = workPaper.ApprovalOpportunity.Pemohon;
         DataPembetulan = workPaper.ProsesValidasi.PembetulanValidasi;
         HasilValidasi = workPaper.ProsesValidasi.ParameterValidasi;
+        DataCrmKoordinat = workPaper.ApprovalOpportunity.Regional.Koordinat;
         KeteranganValidasi = workPaper.ProsesValidasi.Keterangan;
 
         StatusApproval = EnumProcessor.EnumToDisplayString(workPaper.ProsesApproval.StatusApproval);
@@ -27,6 +28,7 @@ public class WorkPaperApprovalModel
     public Applicant DataPelanggan { get; init; } = new();
     public ValidationCorrection DataPembetulan { get; init; } = new();
     public ValidationParameter HasilValidasi { get; init; } = new();
+    public Coordinate DataCrmKoordinat { get; init; } = new();
     public string KeteranganValidasi { get; init; } = string.Empty;
 
     public string StatusApproval { get; set; } = string.Empty;

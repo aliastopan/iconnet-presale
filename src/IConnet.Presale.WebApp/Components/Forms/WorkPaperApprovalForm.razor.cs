@@ -161,6 +161,16 @@ public partial class WorkPaperApprovalForm : ComponentBase
         ClipboardToast(pembetulanAlamat);
     }
 
+    protected async Task OnClipboardShareLocAsync()
+    {
+        string latitudeLongitude = ApprovalModel!.DataCrmKoordinat.LatitudeLongitude;
+
+        await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", latitudeLongitude);
+        ClipboardToast(latitudeLongitude);
+
+        LogSwitch.Debug("Copying {0}", latitudeLongitude);
+    }
+
     protected string GetShareLoc()
     {
         return ApprovalModel!.HasilValidasi.ShareLoc.LatitudeLongitude;
