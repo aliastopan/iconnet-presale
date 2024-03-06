@@ -299,7 +299,7 @@
                     </div>
                 </div>
 
-                <div class="approval-element approval-element-push-far" style="margin-top: -5px;">
+                <div class="approval-element" style="@_pushStyle">
                     <div class="approval-label">
                         <div class="approval-label-bg" style="display: flex;">
                             <FluentLabel Typo="Typography.Body" style="margin-top: 1px;">
@@ -364,4 +364,8 @@
         ? ""
         : "validation-info-badge";
     private string _closedLost => "Closed Lost";
+
+    private string _pushStyle => IsClosedLost()
+        ? "margin-top: 66px !important;"
+        : "margin-top: 70px !important;";
 }
