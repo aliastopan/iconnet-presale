@@ -74,7 +74,7 @@ public static class ConfigureServices
         });
         services.AddSingleton<ICacheService, RedisCacheProvider>();
         services.AddSingleton<IInMemoryWorkloadService, InMemoryWorkloadProvider>();
-        services.AddSingleton<IWorkloadManager, ParallelWorkloadManager>();
+        services.AddSingleton<IWorkloadManager, FasterWorkloadManager>();
 
         return services;
     }
