@@ -32,6 +32,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
     protected bool DisableRootCause => ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.Reject
         && ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.ClosedLost;
     protected bool DisableOnClosedLost => IsClosedLost();
+    protected bool DisableOnProgress => ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.OnProgress;
 
     protected string OnClosedLostSelectedOption => IsClosedLost()
         ? OptionSelect.StatusApproval.ClosedLost
@@ -61,9 +62,9 @@ public partial class WorkPaperApprovalForm : ComponentBase
     protected string CssStyleStrikethroughIdPln => GetCssStyleStrikethrough(ApprovalModel!.HasilValidasi.ValidasiIdPln);
     protected string CssStyleStrikethroughAlamat => GetCssStyleStrikethrough(ApprovalModel!.HasilValidasi.ValidasiAlamat);
 
-
     protected async Task OnCommitAsync()
     {
+        LogSwitch.Debug("Commit Approval");
         await Task.CompletedTask;
     }
 
