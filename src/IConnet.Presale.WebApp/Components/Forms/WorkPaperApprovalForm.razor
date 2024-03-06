@@ -273,7 +273,7 @@
                                 <FluentNumberField style="width: 100px; margin-right: 10px"
                                     Max="10000"
                                     Value=@ApprovalModel.JarakShareLoc
-                                    ValueChanged="EventCallback.Factory.Create<int>(this, OnJarakShareLocAsync)"
+                                    ValueChanged="EventCallback.Factory.Create<int>(this, OnJarakShareLocChanged)"
                                     Disabled="@DisableOnClosedLost"
                                     Placeholder="Share Loc">
                                     <label>Jarak Share Loc</label>
@@ -283,7 +283,7 @@
                                 <FluentNumberField  style="width: 100px"
                                     Max="10000"
                                     Value=@ApprovalModel.JarakICrmPlus
-                                    ValueChanged="EventCallback.Factory.Create<int>(this, OnJarakICrmAsync)"
+                                    ValueChanged="EventCallback.Factory.Create<int>(this, OnJarakICrmChanged)"
                                     Disabled="@DisableOnClosedLost"
                                     Placeholder="iCRM+">
                                     <label>Jarak iCRM+</label>
@@ -320,7 +320,7 @@
                             <div class="d-flex flex-column">
                                 <FluentSelect Items="@OptionSelect.StatusApproval.StatusApprovalOptions"
                                     Value="@ApprovalModel.StatusApproval"
-                                    ValueChanged="OnStatusApprovalAsync"
+                                    ValueChanged="OnStatusApprovalChanged"
                                     OptionDisabled="@OptionDisableOnProgress"
                                     Position="SelectPosition.Below"
                                     Width="145px"
@@ -344,7 +344,7 @@
                         <div class="approval-label-result">
                             <FluentSelect Items="@OptionService.RootCauseOptions"
                                 Value="@ApprovalModel.RootCause"
-                                ValueChanged="OnRootCauseAsync"
+                                ValueChanged="OnRootCauseChanged"
                                 Disabled="@DisableRootCause"
                                 Position="SelectPosition.Above"
                                 Width="300px"
@@ -352,7 +352,7 @@
                         </div>
                         <FluentTextArea class="validation-textarea" style="width: 300px; margin-top: 10px;"
                             Value="@ApprovalModel.Keterangan"
-                            ValueChanged="OnKeteranganAsync"
+                            ValueChanged="OnKeteranganChanged"
                             Placeholder="Keterangan"></FluentTextArea>
                     </div>
                 </div>

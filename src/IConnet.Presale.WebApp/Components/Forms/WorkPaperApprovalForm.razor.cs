@@ -209,29 +209,22 @@ public partial class WorkPaperApprovalForm : ComponentBase
         LogSwitch.Debug("Copying {0}", splitter);
     }
 
-    protected async Task OnJarakShareLocAsync(int jarakShareLoc)
+    protected void OnJarakShareLocChanged(int jarakShareLoc)
     {
         ApprovalModel!.JarakShareLoc = jarakShareLoc;
-
-        LogSwitch.Debug("Jarak ShareLoc: {0}", ApprovalModel!.JarakShareLoc);
-        await Task.CompletedTask;
     }
 
-    protected async Task OnJarakICrmAsync(int jarakICrmPlus)
+    protected void OnJarakICrmChanged(int jarakICrmPlus)
     {
         ApprovalModel!.JarakICrmPlus = jarakICrmPlus;
-
-        LogSwitch.Debug("Jarak iCRM: {0}", ApprovalModel!.JarakICrmPlus);
-        await Task.CompletedTask;
     }
 
     protected void OnVaTerbit(DateTime? tanggalVaTerbit)
     {
         ApprovalModel!.NullableVaTerbit = tanggalVaTerbit;
-        LogSwitch.Debug("Va Terbit: {0}", tanggalVaTerbit!.Value.Date);
     }
 
-    protected async Task OnStatusApprovalAsync(string statusApproval)
+    protected void OnStatusApprovalChanged(string statusApproval)
     {
         ApprovalModel!.StatusApproval = statusApproval;
 
@@ -239,24 +232,16 @@ public partial class WorkPaperApprovalForm : ComponentBase
         {
             ApprovalModel!.RootCause = OptionService.RootCauseOptions.First();
         }
-
-        LogSwitch.Debug("On Status Approval {0}", statusApproval);
-        await Task.CompletedTask;
     }
 
-    protected async Task OnRootCauseAsync(string rootCause)
+    protected void OnRootCauseChanged(string rootCause)
     {
         ApprovalModel!.RootCause = rootCause;
-
-        await Task.CompletedTask;
     }
 
-    protected async Task OnKeteranganAsync(string Keterangan)
+    protected void OnKeteranganChanged(string Keterangan)
     {
         ApprovalModel!.Keterangan = Keterangan;
-
-        LogSwitch.Debug("Keterangan: {0}", Keterangan);
-        await Task.CompletedTask;
     }
 
     protected bool IsClosedLost()
