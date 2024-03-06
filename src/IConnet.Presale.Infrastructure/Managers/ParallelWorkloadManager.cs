@@ -61,7 +61,7 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
         return count;
     }
 
-    public async Task<IQueryable<WorkPaper>> FetchWorkloadAsync(WorkloadFilter filter = WorkloadFilter.All)
+    public async Task<IQueryable<WorkPaper>> GetWorkloadAsync(WorkloadFilter filter = WorkloadFilter.All)
     {
         var stopwatch = new Stopwatch();
         double seconds;

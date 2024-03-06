@@ -28,7 +28,7 @@ public class WorkloadPageBase : ComponentBase
     {
         if (!_isInitialized)
         {
-            _workPapers = await WorkloadManager.FetchWorkloadAsync(WorkloadFilter);
+            _workPapers = await WorkloadManager.GetWorkloadAsync(WorkloadFilter);
             BroadcastService.Subscribe(OnUpdateWorkloadAsync);
 
             _isInitialized = true;
@@ -37,7 +37,7 @@ public class WorkloadPageBase : ComponentBase
 
     protected virtual async Task OnUpdateWorkloadAsync(string message)
     {
-        _workPapers = await WorkloadManager.FetchWorkloadAsync(WorkloadFilter);
+        _workPapers = await WorkloadManager.GetWorkloadAsync(WorkloadFilter);
 
         // Log.Warning(message);
 
