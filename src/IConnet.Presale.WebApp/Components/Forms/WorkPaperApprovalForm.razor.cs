@@ -43,6 +43,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
     protected Icon LabelIconEmail => GetValidationIcon(ApprovalModel!.HasilValidasi.ValidasiEmail);
     protected Icon LabelIconIdPln => GetValidationIcon(ApprovalModel!.HasilValidasi.ValidasiIdPln);
     protected Icon LabelIconAlamat => GetValidationIcon(ApprovalModel!.HasilValidasi.ValidasiAlamat);
+    protected Icon ApprovalIcon => GetApprovalIcon(ApprovalModel!.StatusApproval);
 
     protected string CssBackgroundColorNamaPelanggan => GetCssBackgroundColorValueActual(ApprovalModel!.HasilValidasi.ValidasiNama);
     protected string CssBackgroundColorNomorTelepon => GetCssBackgroundColorValueActual(ApprovalModel!.HasilValidasi.ValidasiNomorTelepon);
@@ -234,6 +235,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
             ApprovalModel!.RootCause = OptionService.RootCauseOptions.First();
         }
 
+        LogSwitch.Debug("On Status Approval {0}", statusApproval);
         await Task.CompletedTask;
     }
 
@@ -274,6 +276,18 @@ public partial class WorkPaperApprovalForm : ComponentBase
             default:
                 return _questionIcon.WithColor(questionIconColor);
         }
+    }
+
+    private static Icon GetApprovalIcon(string? approvalStatus)
+    {
+        return approvalStatus switch
+        {
+            string status when status == OptionSelect.StatusApproval.OnProgress => _questionIcon.WithColor("var(--info)"),
+            string status when status == OptionSelect.StatusApproval.ClosedLost => _errorIcon.WithColor("var(--soft-black)"),
+            string status when status == OptionSelect.StatusApproval.Reject => _errorIcon.WithColor("var(--error)"),
+            string status when status == OptionSelect.StatusApproval.Approve => _checkmarkIcon.WithColor("var(--success)"),
+            _ => throw new NotImplementedException(),
+        };
     }
 
     private static string GetCssBackgroundColorValueActual(ValidationStatus section,
