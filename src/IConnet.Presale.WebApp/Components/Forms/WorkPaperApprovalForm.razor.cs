@@ -61,8 +61,27 @@ public partial class WorkPaperApprovalForm : ComponentBase
 
     protected async Task OnCommitAsync()
     {
-        LogSwitch.Debug("Commit Approval");
-        await Task.CompletedTask;
+        var signatureApproval = new ActionSignature
+        {
+            AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
+            Alias = await SessionService.GetSessionAliasAsync(),
+            TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
+        };
+
+        var prosesApproval = WorkPaper!.ProsesApproval.WithSignatureApproval(signatureApproval)
+            .WithVaTerbit(ApprovalModel!.NullableVaTerbit!.Value)
+            .WithJarakShareLoc(ApprovalModel!.JarakShareLoc)
+            .WithJarakICrmPlus(ApprovalModel!.JarakICrmPlus)
+            .WithKeterangan(ApprovalModel!.Keterangan)
+            .WithRootCause(ApprovalModel!.RootCause);
+
+        WorkPaper.ProsesApproval = prosesApproval;
+        WorkPaper.WorkPaperLevel = WorkPaperLevel.DoneProcessing;
+
+        var message = $"{signatureApproval.Alias} has commit chat/call approval to {ApprovalModel!.IdPermohonan}";
+        await UpdateProsesApproval(WorkPaper, message);
+
+        await UnstageWorkPaper.InvokeAsync();
     }
 
     protected async Task OnClipboardNamaPelangganAsync()
@@ -255,6 +274,13 @@ public partial class WorkPaperApprovalForm : ComponentBase
         DateTime today = DateTimeService.DateTimeOffsetNow.Date;
 
         return WorkPaper!.ProsesValidasi.IsClosedLost(today);
+    }
+
+    private async Task UpdateProsesApproval(WorkPaper workPaper, string broadcastMessage)
+    {
+        await WorkloadManager.UpdateWorkloadAsync(workPaper);
+        await BroadcastService.BroadcastMessageAsync(broadcastMessage);
+        LogSwitch.Debug("Broadcast approval {message}", broadcastMessage);
     }
 
     private void ClipboardToast(string clipboard)
