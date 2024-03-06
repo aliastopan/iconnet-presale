@@ -22,6 +22,8 @@ public partial class WorkPaperApprovalForm : ComponentBase
     [CascadingParameter(Name = "CascadeApprovalModel")]
     public WorkPaperApprovalModel? ApprovalModel { get; set; }
 
+    protected bool IsLoading { get; set; } = false;
+
     private static readonly Icon _questionIcon = new Icons.Filled.Size20.QuestionCircle();
     private static readonly Icon _errorIcon = new Icons.Filled.Size20.ErrorCircle();
     private static readonly Icon _checkmarkIcon = new Icons.Filled.Size20.CheckmarkCircle();
@@ -63,6 +65,8 @@ public partial class WorkPaperApprovalForm : ComponentBase
 
     protected async Task OnCommitAsync()
     {
+        IsLoading = true;
+
         var signatureApproval = new ActionSignature
         {
             AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
@@ -84,6 +88,8 @@ public partial class WorkPaperApprovalForm : ComponentBase
         await UpdateProsesApproval(WorkPaper, message);
 
         await UnstageWorkPaper.InvokeAsync();
+
+        IsLoading = false;
     }
 
     protected async Task OnClipboardNamaPelangganAsync()

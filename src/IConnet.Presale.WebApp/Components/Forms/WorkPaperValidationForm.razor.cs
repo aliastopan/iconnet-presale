@@ -28,6 +28,8 @@ public partial class WorkPaperValidationForm : ComponentBase
     private readonly Icon _errorIcon = new Icons.Filled.Size20.ErrorCircle();
     private readonly Icon _checkmarkIcon = new Icons.Filled.Size20.CheckmarkCircle();
 
+    protected bool IsLoading { get; set; } = false;
+
     protected bool DisableOnBeforeContact => !(ValidationModel?.IsChatCallMulai ?? false);
 
     protected Func<string, bool> OptionDisableNamaPelanggan => option => option == OptionSelect.StatusValidasi.MenungguValidasi
@@ -64,6 +66,8 @@ public partial class WorkPaperValidationForm : ComponentBase
 
     protected async Task OnCommitAsync()
     {
+        IsLoading = true;
+
         if (WorkPaper is null || ValidationModel is null)
         {
             return;
@@ -92,6 +96,8 @@ public partial class WorkPaperValidationForm : ComponentBase
         await UpdateProsesValidasi(WorkPaper, message);
 
         await UnstageWorkPaper.InvokeAsync();
+
+        IsLoading = false;
     }
 
     protected async Task OnClosedLostAsync()

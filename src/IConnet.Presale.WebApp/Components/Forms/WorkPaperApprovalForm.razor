@@ -360,6 +360,13 @@
 
         </FluentStack>
     </div>
+
+    <FluentOverlay @bind-Visible=@IsLoading
+        Opacity="0.4"
+        Alignment="@Align.Center"
+        Justification="@JustifyContent.Center">
+        <FluentProgressRing />
+    </FluentOverlay>
 }
 
 @code
