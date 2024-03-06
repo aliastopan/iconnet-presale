@@ -209,16 +209,6 @@ public partial class WorkPaperApprovalForm : ComponentBase
         LogSwitch.Debug("Copying {0}", splitter);
     }
 
-    protected string GetShareLoc()
-    {
-        return ApprovalModel!.HasilValidasi.ShareLoc.LatitudeLongitude;
-    }
-
-    protected string GetKeteranganValidasi()
-    {
-        return ApprovalModel!.KeteranganValidasi;
-    }
-
     protected async Task OnJarakShareLocAsync(int jarakShareLoc)
     {
         ApprovalModel!.JarakShareLoc = jarakShareLoc;
