@@ -242,6 +242,14 @@ public partial class WorkPaperApprovalForm : ComponentBase
         await Task.CompletedTask;
     }
 
+    protected async Task OnKeteranganAsync(string Keterangan)
+    {
+        ApprovalModel!.Keterangan = Keterangan;
+
+        LogSwitch.Debug("Keterangan: {0}", Keterangan);
+        await Task.CompletedTask;
+    }
+
     protected bool IsClosedLost()
     {
         DateTime today = DateTimeService.DateTimeOffsetNow.Date;
