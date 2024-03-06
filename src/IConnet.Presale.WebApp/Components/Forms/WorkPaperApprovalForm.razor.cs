@@ -31,8 +31,10 @@ public partial class WorkPaperApprovalForm : ComponentBase
 
     protected bool DisableRootCause => ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.Reject
         && ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.ClosedLost;
-    protected bool DisableOnClosedLost => IsClosedLost();
     protected bool DisableOnProgress => ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.OnProgress;
+    protected bool DisableForm => IsClosedLost()
+        || ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.Reject
+        || ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.ClosedLost;
 
     protected Icon LabelIconNamaPelanggan => GetValidationIcon(ApprovalModel!.HasilValidasi.ValidasiNama);
     protected Icon LabelIconNoTelepon => GetValidationIcon(ApprovalModel!.HasilValidasi.ValidasiNomorTelepon);
