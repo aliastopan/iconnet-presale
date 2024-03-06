@@ -96,6 +96,9 @@ public partial class WorkPaperValidationForm : ComponentBase
 
     protected async Task OnClosedLostAsync()
     {
+        var prosesValidasi = WorkPaper!.ProsesValidasi.WithKeterangan(ValidationModel!.Keterangan);
+
+        WorkPaper!.ProsesValidasi = prosesValidasi;
         WorkPaper!.WorkPaperLevel = WorkPaperLevel.WaitingApproval;
 
         var message = $"{WorkPaper.ApprovalOpportunity.IdPermohonan} is CLOSED LOST";
