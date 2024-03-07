@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Text.Json;
 using IConnet.Presale.Domain.Aggregates.Presales;
 using IConnet.Presale.Domain.Enums;
 using IConnet.Presale.Shared.Interfaces.Models.Presales;
@@ -8,15 +9,18 @@ namespace IConnet.Presale.Infrastructure.Managers;
 internal sealed class FasterWorkloadManager : IWorkloadManager
 {
     private readonly IInMemoryWorkloadService _inMemoryWorkloadService;
+    private readonly IRedisService _redisService;
     private readonly WorkPaperFactory _workloadFactory;
 
     private readonly int _processorCount;
     private readonly ParallelOptions _parallelOptions;
 
     public FasterWorkloadManager(IInMemoryWorkloadService inMemoryWorkloadService,
+        IRedisService redisService,
         WorkPaperFactory workloadFactory)
     {
         _inMemoryWorkloadService = inMemoryWorkloadService;
+        _redisService = redisService;
         _workloadFactory = workloadFactory;
 
         _processorCount = Environment.ProcessorCount;
@@ -30,23 +34,60 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
     {
         var stopwatch = Stopwatch.StartNew();
 
-        var existingIds = _inMemoryWorkloadService.WorkPapers?
+        int count = 0;
+        HashSet<string> keysToCheck = [];
+        HashSet<string> existingIds = [];
+        HashSet<string> existingKeys = [];
+
+        keysToCheck = importModels.Select(importModel => importModel.IdPermohonan).ToHashSet();
+
+        // check against in-memory cache
+        existingIds = _inMemoryWorkloadService.WorkPapers!
+            .Where(x => keysToCheck.Contains(x.ApprovalOpportunity.IdPermohonan))
             .Select(x => x.ApprovalOpportunity.IdPermohonan)
             .ToHashSet();
 
+        // check against redis cache
+        existingKeys = await _redisService.GetExistingKeysAsync(keysToCheck);
+
+        // combine both sets
+        existingIds.IntersectWith(existingKeys);
+
+        // LogSwitch.Debug("Existing in-memory ids: {0}", existingIds.Count);
+        // LogSwitch.Debug("Existing redis keys: {0}", existingKeys.Count);
+        // LogSwitch.Debug("Combined existing ids/keys: {0}", existingIds.Count);
+
+        // string idsString = string.Join(", ", existingIds);
+        // string keysString = string.Join(", ", existingKeys);
+
+        // LogSwitch.Debug("in-memory ids: {0}", existingIds);
+        // LogSwitch.Debug("Redis keys: {0}", keysString);
+
         var workPapers = importModels
-            .Where(workPaper => !existingIds!.Contains(workPaper.IdPermohonan))
+            .Where(workPaper => !existingIds.Contains(workPaper.IdPermohonan))
             .Select(_workloadFactory.CreateWorkPaper);
 
         _inMemoryWorkloadService.InsertRange(workPapers);
 
+        var tasks = importModels
+            .Where(importModel => !existingIds.Contains(importModel.IdPermohonan))
+            .Select(async importModel =>
+            {
+                var workPaper = _workloadFactory.CreateWorkPaper(importModel);
+                var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
+                var key = workPaper.ApprovalOpportunity.IdPermohonan;
+
+                await _redisService.SetValueAsync(key, jsonWorkPaper);
+                Interlocked.Increment(ref count);
+            });
+
+        await Task.WhenAll(tasks);
+
         stopwatch.Stop();
         double seconds = stopwatch.ElapsedMilliseconds / 1000.0;
-
         LogSwitch.Debug($"Import execution took {seconds:F2} seconds.");
-        await Task.CompletedTask;
 
-        return workPapers.Count();
+        return count;
     }
 
     public async Task<IQueryable<WorkPaper>> GetWorkloadAsync(WorkloadFilter filter = WorkloadFilter.All)
