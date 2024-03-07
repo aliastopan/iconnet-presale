@@ -8,6 +8,8 @@ namespace IConnet.Presale.Infrastructure.Managers;
 
 internal sealed class FasterWorkloadManager : IWorkloadManager
 {
+    private const int PartitionSize = 100;
+
     private readonly IInMemoryWorkloadService _inMemoryWorkloadService;
     private readonly IRedisService _redisService;
     private readonly WorkPaperFactory _workloadFactory;
@@ -119,37 +121,17 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
     {
         var stopwatch = Stopwatch.StartNew();
 
-        IQueryable<WorkPaper> workPapers = filter switch
-        {
-            WorkloadFilter.OnlyImportUnverified => FilterOnly(WorkPaperLevel.ImportUnverified),
-            WorkloadFilter.OnlyImportInvalid => FilterOnly(WorkPaperLevel.ImportInvalid),
-            WorkloadFilter.OnlyImportArchived => FilterOnly(WorkPaperLevel.ImportArchived),
-            WorkloadFilter.OnlyImportVerified => FilterOnly(WorkPaperLevel.ImportVerified),
-            WorkloadFilter.OnlyValidating => FilterOnly(WorkPaperLevel.ImportVerified, WorkPaperLevel.Validating),
-            WorkloadFilter.OnlyWaitingApproval => FilterOnly(WorkPaperLevel.WaitingApproval),
-            WorkloadFilter.OnlyDoneProcessing => FilterOnly(WorkPaperLevel.DoneProcessing),
-            _ => _inMemoryWorkloadService.WorkPapers!.AsQueryable()
-        };
+        IQueryable<WorkPaper> workPapers;
+
+        var partitions = SplitIntoPartitions(_inMemoryWorkloadService.WorkPapers!, PartitionSize);
+        var tasks = partitions.Select(partition => FilterPartitionAsync(filter, partition));
+
+        workPapers = (await Task.WhenAll(tasks)).SelectMany(partition => partition).AsQueryable();
 
         stopwatch.Stop();
-        double seconds = stopwatch.ElapsedMilliseconds / 1000.0;
-
-        LogSwitch.Debug("Get execution took {0} seconds.", $"{seconds:F2}");
-        await Task.CompletedTask;
+        LogSwitch.Debug("Get execution took {0} ms", stopwatch.ElapsedMilliseconds);
 
         return workPapers;
-
-        IQueryable<WorkPaper> FilterOnly(params WorkPaperLevel[] levels)
-        {
-            if (levels.Length == 1)
-            {
-                return _inMemoryWorkloadService.WorkPapers!.Where(workPaper => workPaper.WorkPaperLevel == levels[0]);
-            }
-            else
-            {
-                return _inMemoryWorkloadService.WorkPapers!.Where(workPaper => levels.Any(level => workPaper.WorkPaperLevel == level));
-            }
-        }
     }
 
     public async Task<bool> UpdateWorkloadAsync(WorkPaper workPaper)
@@ -164,5 +146,50 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
         await Task.CompletedTask;
 
         return true;
+    }
+
+    private static async Task<IQueryable<WorkPaper>> FilterPartitionAsync(WorkloadFilter filter, IEnumerable<WorkPaper> partition)
+    {
+        return await Task.Run(() => FilterWorkload(filter, partition.AsQueryable()));
+    }
+
+    private static IQueryable<WorkPaper> FilterWorkload(WorkloadFilter filter, IQueryable<WorkPaper> workPapers)
+    {
+        return filter switch
+        {
+            WorkloadFilter.OnlyImportUnverified => FilterOnly(WorkPaperLevel.ImportUnverified),
+            WorkloadFilter.OnlyImportInvalid => FilterOnly(WorkPaperLevel.ImportInvalid),
+            WorkloadFilter.OnlyImportArchived => FilterOnly(WorkPaperLevel.ImportArchived),
+            WorkloadFilter.OnlyImportVerified => FilterOnly(WorkPaperLevel.ImportVerified),
+            WorkloadFilter.OnlyValidating => FilterOnly(WorkPaperLevel.ImportVerified, WorkPaperLevel.Validating),
+            WorkloadFilter.OnlyWaitingApproval => FilterOnly(WorkPaperLevel.WaitingApproval),
+            WorkloadFilter.OnlyDoneProcessing => FilterOnly(WorkPaperLevel.DoneProcessing),
+            _ => workPapers
+        };
+
+        IQueryable<WorkPaper> FilterOnly(params WorkPaperLevel[] levels)
+        {
+            if (levels.Length == 1)
+            {
+                return workPapers.Where(workPaper => workPaper.WorkPaperLevel == levels[0]);
+            }
+            else
+            {
+                return workPapers.Where(workPaper => levels.Any(level => workPaper.WorkPaperLevel == level));
+            }
+        }
+    }
+
+    private static List<IEnumerable<WorkPaper>> SplitIntoPartitions(IEnumerable<WorkPaper> source, int partitionSize)
+    {
+        return source
+            .Select((workPaper, index) => new
+            {
+                WorkPaper = workPaper,
+                Index = index
+            })
+            .GroupBy(partition => partition.Index / partitionSize)
+            .Select(group => group.Select(x => x.WorkPaper))
+            .ToList();
     }
 }
