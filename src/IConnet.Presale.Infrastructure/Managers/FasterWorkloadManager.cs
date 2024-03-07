@@ -43,8 +43,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
             return 0;
         }
 
-        var stopwatch = new Stopwatch();
-        double seconds;
+        var stopwatch = Stopwatch.StartNew();
 
         var jsonWorkPapers = await _redisService.GetAllValuesAsync();
         var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapers(jsonWorkPapers!, _parallelOptions);
@@ -52,8 +51,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
         int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers);
 
         stopwatch.Stop();
-        seconds = stopwatch.ElapsedMilliseconds / 1000.0;
-        LogSwitch.Debug("Synchronize execution took {0} seconds.", $"{seconds:F2}");
+        LogSwitch.Debug("Synchronize execution took {0} ms", stopwatch.ElapsedMilliseconds);
 
         _isInitialized = true;
 
@@ -88,16 +86,6 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
         // combine both sets
         existingIds.IntersectWith(existingKeys);
 
-        // LogSwitch.Debug("Existing in-memory ids: {0}", existingIds.Count);
-        // LogSwitch.Debug("Existing redis keys: {0}", existingKeys.Count);
-        // LogSwitch.Debug("Combined existing ids/keys: {0}", existingIds.Count);
-
-        // string idsString = string.Join(", ", existingIds);
-        // string keysString = string.Join(", ", existingKeys);
-
-        // LogSwitch.Debug("in-memory ids: {0}", existingIds);
-        // LogSwitch.Debug("Redis keys: {0}", keysString);
-
         var workPapers = importModels
             .Where(workPaper => !existingIds.Contains(workPaper.IdPermohonan))
             .Select(_workloadFactory.CreateWorkPaper);
@@ -119,8 +107,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
         await Task.WhenAll(tasks);
 
         stopwatch.Stop();
-        double seconds = stopwatch.ElapsedMilliseconds / 1000.0;
-        LogSwitch.Debug("Import execution took {0} seconds.", $"{seconds:F2}");
+        LogSwitch.Debug("Import execution took {0} ms", stopwatch.ElapsedMilliseconds);
 
         return count;
     }
