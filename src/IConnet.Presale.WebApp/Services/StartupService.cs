@@ -6,18 +6,21 @@ namespace IConnet.Presale.WebApp.Services;
 
 public class StartupService : IHostedService
 {
+    private readonly IWorkloadManager _workloadManager;
     private readonly IRepresentativeOfficeHttpClient _representativeOfficeHttpClient;
     private readonly IRootCauseHttpClient _rootCauseHttpClient;
     private readonly IChatTemplateHttpClient _chatTemplateHttpClient;
     private readonly ChatTemplateService _chatTemplateService;
     private readonly OptionService _optionService;
 
-    public StartupService(IRepresentativeOfficeHttpClient representativeOfficeHttpClient,
+    public StartupService(IWorkloadManager workloadManager,
+        IRepresentativeOfficeHttpClient representativeOfficeHttpClient,
         IRootCauseHttpClient rootCauseHttpClient,
         IChatTemplateHttpClient chatTemplateHttpClient,
         ChatTemplateService chatTemplateService,
         OptionService optionService)
     {
+        _workloadManager = workloadManager;
         _representativeOfficeHttpClient = representativeOfficeHttpClient;
         _rootCauseHttpClient = rootCauseHttpClient;
         _chatTemplateHttpClient = chatTemplateHttpClient;
@@ -33,7 +36,8 @@ public class StartupService : IHostedService
         [
             GetRepresentativeOfficesAsync(),
             GetChatTemplatesAsync(),
-            GetRootCausesAsync()
+            GetRootCausesAsync(),
+            SynchronizeRedisToInMemory()
         ];
 
         await Task.WhenAll(tasks);
@@ -144,5 +148,10 @@ public class StartupService : IHostedService
             Log.Fatal("Fatal error occurred: {message}", exception.Message);
             Environment.Exit(1);
         }
+    }
+
+    private async Task SynchronizeRedisToInMemory()
+    {
+        await _workloadManager.SynchronizeRedisToInMemoryAsync();
     }
 }
