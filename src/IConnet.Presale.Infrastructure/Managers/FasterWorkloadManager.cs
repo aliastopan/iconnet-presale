@@ -48,7 +48,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
 
         stopwatch.Stop();
         seconds = stopwatch.ElapsedMilliseconds / 1000.0;
-        LogSwitch.Debug($"Synchronize execution took {seconds:F2} seconds.");
+        LogSwitch.Debug("Synchronize execution took {0} seconds.", $"{seconds:F2}");
 
         _isInitialized = true;
 
@@ -110,7 +110,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
 
         stopwatch.Stop();
         double seconds = stopwatch.ElapsedMilliseconds / 1000.0;
-        LogSwitch.Debug($"Import execution took {seconds:F2} seconds.");
+        LogSwitch.Debug("Import execution took {0} seconds.", $"{seconds:F2}");
 
         return count;
     }
@@ -134,7 +134,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
         stopwatch.Stop();
         double seconds = stopwatch.ElapsedMilliseconds / 1000.0;
 
-        LogSwitch.Debug($"Get execution took {seconds:F2} seconds.");
+        LogSwitch.Debug("Get execution took {0} seconds.", $"{seconds:F2}");
         await Task.CompletedTask;
 
         return workPapers;
