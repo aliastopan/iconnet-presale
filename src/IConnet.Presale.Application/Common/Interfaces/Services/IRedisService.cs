@@ -8,5 +8,5 @@ public interface IRedisService
     Task<bool> UpdateValueAsync(string key, string value, TimeSpan? expiry = null);
     Task<bool> DeleteValueAsync(string key);
     Task<bool> IsKeyExistsAsync(string key);
-    Task<List<string>> GetExistingKeysAsync(List<string> keysToCheck);
+    Task<HashSet<string>> GetExistingKeysAsync(HashSet<string> keysToCheck);
 }

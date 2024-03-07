@@ -121,7 +121,7 @@ internal sealed class RedisProvider : IRedisService
         }
     }
 
-    public async Task<List<string>> GetExistingKeysAsync(List<string> keysToCheck)
+    public async Task<HashSet<string>> GetExistingKeysAsync(HashSet<string> keysToCheck)
     {
         try
         {
@@ -139,7 +139,7 @@ internal sealed class RedisProvider : IRedisService
             var redisKeys = keysToCheck.Select(key => (RedisKey)key).ToArray();
             var result = await Redis.ScriptEvaluateAsync(luaScript, redisKeys);
 
-            var existingKeys = result.ToString().Split(',').Select(key => key.Trim()).ToList();
+            var existingKeys = result.ToString().Split(',').Select(key => key.Trim()).ToHashSet();
 
             return existingKeys;
         }

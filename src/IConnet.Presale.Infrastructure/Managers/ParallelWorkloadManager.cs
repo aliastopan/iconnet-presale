@@ -36,7 +36,7 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
         stopwatch.Start();
 
         // check existing keys in a single batch operation
-        var keysToCheck = importModels.Select(importModel => importModel.IdPermohonan).ToList();
+        var keysToCheck = importModels.Select(importModel => importModel.IdPermohonan).ToHashSet();
         var existingKeys = await _redisService.GetExistingKeysAsync(keysToCheck);
 
         var tasks = importModels
