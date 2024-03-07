@@ -86,13 +86,17 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
         }
     }
 
-    public Task<bool> UpdateWorkloadAsync(WorkPaper workPaper)
+    public async Task<bool> UpdateWorkloadAsync(WorkPaper workPaper)
     {
-        throw new NotImplementedException();
+        await Task.CompletedTask;
+
+        return true;
     }
 
-    public Task<bool> DeleteWorkloadAsync(WorkPaper workPaper)
+    public async Task<bool> DeleteWorkloadAsync(WorkPaper workPaper)
     {
-        throw new NotImplementedException();
+        await Task.CompletedTask;
+
+        return true;
     }
 }
