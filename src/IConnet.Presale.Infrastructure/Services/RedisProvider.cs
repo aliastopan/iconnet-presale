@@ -3,13 +3,13 @@ using StackExchange.Redis;
 
 namespace IConnet.Presale.Infrastructure.Services;
 
-internal sealed class RedisCacheProvider : ICacheService
+internal sealed class RedisProvider : IRedisService
 {
     private int _dbIndex = 0;
     private readonly IConnectionMultiplexer _connectionMultiplexer;
     private readonly AppSecretSettings _appSecretSettings;
 
-    public RedisCacheProvider(IConnectionMultiplexer connectionMultiplexer,
+    public RedisProvider(IConnectionMultiplexer connectionMultiplexer,
         IOptions<AppSecretSettings> appSecretOptions)
     {
         _connectionMultiplexer = connectionMultiplexer;

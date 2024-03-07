@@ -10,16 +10,16 @@ namespace IConnet.Presale.Infrastructure.Managers;
 internal sealed class ParallelWorkloadManager : IWorkloadManager
 {
     private readonly WorkPaperFactory _workloadFactory;
-    private readonly ICacheService _cacheService;
+    private readonly IRedisService _redisService;
 
     private readonly int _processorCount;
     private readonly ParallelOptions _parallelOptions;
 
     public ParallelWorkloadManager(WorkPaperFactory workloadFactory,
-        ICacheService cacheService)
+        IRedisService cacheService)
     {
         _workloadFactory = workloadFactory;
-        _cacheService = cacheService;
+        _redisService = cacheService;
 
         _processorCount = Environment.ProcessorCount;
         _parallelOptions = new ParallelOptions
@@ -37,7 +37,7 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
 
         // check existing keys in a single batch operation
         var keysToCheck = importModels.Select(importModel => importModel.IdPermohonan).ToList();
-        var existingKeys = await _cacheService.GetExistingKeysAsync(keysToCheck);
+        var existingKeys = await _redisService.GetExistingKeysAsync(keysToCheck);
 
         var tasks = importModels
             .Where(importModel => !existingKeys.Contains(importModel.IdPermohonan))
@@ -47,7 +47,7 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
                 var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
                 var key = workPaper.ApprovalOpportunity.IdPermohonan;
 
-                await _cacheService.SetValueAsync(key, jsonWorkPaper);
+                await _redisService.SetValueAsync(key, jsonWorkPaper);
                 Interlocked.Increment(ref count);
             })
             .ToList();
@@ -69,7 +69,7 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
         // fetch
         // TODO: add in-memory caching to reduce execution time
         stopwatch.Start();
-        var jsonWorkPapers = await _cacheService.GetAllValuesAsync();
+        var jsonWorkPapers = await _redisService.GetAllValuesAsync();
         stopwatch.Stop();
         seconds = stopwatch.ElapsedMilliseconds / 1000.0;
         // LogSwitch.Debug($"Fetching cache execution took {seconds:F2} seconds.");
@@ -94,14 +94,14 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
     public async Task<bool> UpdateWorkloadAsync(WorkPaper workPaper)
     {
         var cacheKey = workPaper.ApprovalOpportunity.IdPermohonan;
-        var isWorkPaperExist = await _cacheService.IsKeyExistsAsync(cacheKey);
+        var isWorkPaperExist = await _redisService.IsKeyExistsAsync(cacheKey);
         if (!isWorkPaperExist)
         {
             return false;
         }
 
         var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
-        await _cacheService.SetValueAsync(cacheKey, jsonWorkPaper);
+        await _redisService.SetValueAsync(cacheKey, jsonWorkPaper);
 
         return true;
     }
@@ -109,12 +109,12 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
     public async Task<bool> DeleteWorkloadAsync(WorkPaper workPaper)
     {
         var cacheKey = workPaper.ApprovalOpportunity.IdPermohonan;
-        var isWorkPaperExist = await _cacheService.IsKeyExistsAsync(cacheKey);
+        var isWorkPaperExist = await _redisService.IsKeyExistsAsync(cacheKey);
         if (!isWorkPaperExist)
         {
             return false;
         }
 
-        return await _cacheService.DeleteValueAsync(cacheKey);
+        return await _redisService.DeleteValueAsync(cacheKey);
     }
 }

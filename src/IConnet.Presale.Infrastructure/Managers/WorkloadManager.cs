@@ -8,13 +8,13 @@ namespace IConnet.Presale.Infrastructure.Managers;
 internal sealed class WorkloadManager : IWorkloadManager
 {
     private readonly WorkPaperFactory _workloadFactory;
-    private readonly ICacheService _cacheService;
+    private readonly IRedisService _redisService;
 
     public WorkloadManager(WorkPaperFactory workloadFactory,
-        ICacheService cacheService)
+        IRedisService cacheService)
     {
         _workloadFactory = workloadFactory;
-        _cacheService = cacheService;
+        _redisService = cacheService;
     }
 
     public async Task<int> InsertWorkloadAsync(List<IApprovalOpportunityModel> importModels)
@@ -28,10 +28,10 @@ internal sealed class WorkloadManager : IWorkloadManager
             var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
             var key = workPaper.ApprovalOpportunity.IdPermohonan;
 
-            var isKeyExists = await _cacheService.IsKeyExistsAsync(key);
+            var isKeyExists = await _redisService.IsKeyExistsAsync(key);
             if (!isKeyExists)
             {
-                await _cacheService.SetValueAsync(key, jsonWorkPaper);
+                await _redisService.SetValueAsync(key, jsonWorkPaper);
                 workloadCount++;
             }
         }
@@ -42,7 +42,7 @@ internal sealed class WorkloadManager : IWorkloadManager
     public async Task<IQueryable<WorkPaper>> GetWorkloadAsync(WorkloadFilter filter = WorkloadFilter.All)
     {
         List<WorkPaper> workPapers = [];
-        List<string?> jsonWorkPapers = await _cacheService.GetAllValuesAsync();
+        List<string?> jsonWorkPapers = await _redisService.GetAllValuesAsync();
 
         foreach (var json in jsonWorkPapers)
         {
@@ -91,14 +91,14 @@ internal sealed class WorkloadManager : IWorkloadManager
     public async Task<bool> UpdateWorkloadAsync(WorkPaper workPaper)
     {
         var cacheKey = workPaper.ApprovalOpportunity.IdPermohonan;
-        var isWorkPaperExist = await _cacheService.IsKeyExistsAsync(cacheKey);
+        var isWorkPaperExist = await _redisService.IsKeyExistsAsync(cacheKey);
         if (!isWorkPaperExist)
         {
             return false;
         }
 
         var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
-        await _cacheService.SetValueAsync(cacheKey, jsonWorkPaper);
+        await _redisService.SetValueAsync(cacheKey, jsonWorkPaper);
 
         return true;
     }
@@ -106,12 +106,12 @@ internal sealed class WorkloadManager : IWorkloadManager
     public async Task<bool> DeleteWorkloadAsync(WorkPaper workPaper)
     {
         var cacheKey = workPaper.ApprovalOpportunity.IdPermohonan;
-        var isWorkPaperExist = await _cacheService.IsKeyExistsAsync(cacheKey);
+        var isWorkPaperExist = await _redisService.IsKeyExistsAsync(cacheKey);
         if (!isWorkPaperExist)
         {
             return false;
         }
 
-        return await _cacheService.DeleteValueAsync(cacheKey);
+        return await _redisService.DeleteValueAsync(cacheKey);
     }
 }

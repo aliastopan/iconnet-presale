@@ -1,6 +1,6 @@
 namespace IConnet.Presale.Application.Common.Interfaces.Services;
 
-public interface ICacheService
+public interface IRedisService
 {
     Task<string?> GetValueAsync(string key);
     Task<List<string?>> GetAllValuesAsync();
