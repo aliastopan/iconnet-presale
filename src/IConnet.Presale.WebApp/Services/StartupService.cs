@@ -8,21 +8,21 @@ public class StartupService : IHostedService
 {
     private readonly IRepresentativeOfficeHttpClient _representativeOfficeHttpClient;
     private readonly IRootCauseHttpClient _rootCauseHttpClient;
-    private readonly OptionService _optionService;
     private readonly IChatTemplateHttpClient _chatTemplateHttpClient;
     private readonly ChatTemplateService _chatTemplateService;
+    private readonly OptionService _optionService;
 
     public StartupService(IRepresentativeOfficeHttpClient representativeOfficeHttpClient,
         IRootCauseHttpClient rootCauseHttpClient,
-        OptionService optionService,
         IChatTemplateHttpClient chatTemplateHttpClient,
-        ChatTemplateService chatTemplateService)
+        ChatTemplateService chatTemplateService,
+        OptionService optionService)
     {
         _representativeOfficeHttpClient = representativeOfficeHttpClient;
         _rootCauseHttpClient = rootCauseHttpClient;
-        _optionService = optionService;
         _chatTemplateHttpClient = chatTemplateHttpClient;
         _chatTemplateService = chatTemplateService;
+        _optionService = optionService;
     }
 
     public async Task StartAsync(CancellationToken cancellationToken)
