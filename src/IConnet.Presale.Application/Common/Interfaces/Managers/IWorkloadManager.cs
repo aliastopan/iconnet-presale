@@ -11,5 +11,5 @@ public interface IWorkloadManager
     Task<bool> DeleteWorkloadAsync(WorkPaper workPaper);
 
     Task<int> SynchronizeRedisToInMemoryAsync();
-    // Task<int> SynchronizeToInMemoryRedis(WorkPaper workPaper);
+    Task<int> SynchronizeInMemoryToRedisAsync();
 }

@@ -122,4 +122,9 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
     {
         throw new NotImplementedException();
     }
+
+    public Task<int> SynchronizeInMemoryToRedisAsync()
+    {
+        throw new NotImplementedException();
+    }
 }

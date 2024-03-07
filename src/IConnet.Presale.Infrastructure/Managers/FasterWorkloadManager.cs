@@ -60,6 +60,11 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
         return insertCount;
     }
 
+    public Task<int> SynchronizeInMemoryToRedisAsync()
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<int> InsertWorkloadAsync(List<IApprovalOpportunityModel> importModels)
     {
         var stopwatch = Stopwatch.StartNew();
