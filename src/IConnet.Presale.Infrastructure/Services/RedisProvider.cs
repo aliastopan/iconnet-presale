@@ -138,17 +138,9 @@ internal sealed class RedisProvider : IRedisService
             ";
 
             RedisKey[]? redisKeys = keysToCheck.Select(key => (RedisKey)key).ToArray();
-            RedisResult? redisResult = await Redis.ScriptEvaluateAsync(luaScript, redisKeys);
+            RedisResult[] redisResult = (RedisResult[])(await Redis.ScriptEvaluateAsync(luaScript, redisKeys))!;
 
-            List<string> existingKeys = [];
-            RedisResult[] arrayResult = (RedisResult[])redisResult!;
-
-            foreach (var result in arrayResult)
-            {
-                existingKeys.Add(result.ToString());
-            }
-
-            return existingKeys.ToHashSet();
+            return redisResult.Select(result => result.ToString()).ToHashSet();
         }
         catch (TimeoutException exception)
         {
