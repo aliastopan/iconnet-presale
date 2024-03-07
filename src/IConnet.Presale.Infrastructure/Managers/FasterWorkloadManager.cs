@@ -10,6 +10,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
 {
     private const int PartitionSize = 100;
 
+    private readonly IDateTimeService _dateTimeService;
     private readonly IInMemoryWorkloadService _inMemoryWorkloadService;
     private readonly IRedisService _redisService;
     private readonly WorkPaperFactory _workloadFactory;
@@ -18,10 +19,12 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
     private readonly ParallelOptions _parallelOptions;
     private bool _isInitialized = false;
 
-    public FasterWorkloadManager(IInMemoryWorkloadService inMemoryWorkloadService,
+    public FasterWorkloadManager(IDateTimeService dateTimeService,
+        IInMemoryWorkloadService inMemoryWorkloadService,
         IRedisService redisService,
         WorkPaperFactory workloadFactory)
     {
+        _dateTimeService = dateTimeService;
         _inMemoryWorkloadService = inMemoryWorkloadService;
         _redisService = redisService;
         _workloadFactory = workloadFactory;
@@ -136,6 +139,8 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
 
     public async Task<bool> UpdateWorkloadAsync(WorkPaper workPaper)
     {
+        workPaper.LastModified = _dateTimeService.DateTimeOffsetNow;
+
         await Task.CompletedTask;
 
         return true;

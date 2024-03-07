@@ -137,7 +137,8 @@ internal sealed class WorkPaperFactory
                 JarakShareLoc = 0,
                 JarakICrmPlus = 0,
                 VaTerbit = _dateTimeService.Zero
-            }
+            },
+            LastModified = _dateTimeService.DateTimeOffsetNow
         };
     }
 }

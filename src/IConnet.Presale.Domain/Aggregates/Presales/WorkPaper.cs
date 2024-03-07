@@ -1,9 +1,10 @@
 #nullable disable
+using System.ComponentModel.DataAnnotations.Schema;
 using IConnet.Presale.Domain.Aggregates.Presales.ValueObjects;
 
 namespace IConnet.Presale.Domain.Aggregates.Presales;
 
-public class WorkPaper : IAggregateRoot
+public class WorkPaper : IAggregateRoot, IConcurrencyTracking
 {
     public WorkPaper()
     {
@@ -23,6 +24,9 @@ public class WorkPaper : IAggregateRoot
 
     public Guid FkApprovalOpportunityId { get; init; }
     public virtual ApprovalOpportunity ApprovalOpportunity { get; init; }
+
+    [NotMapped]
+    public DateTimeOffset LastModified { get; set; }
 
     public void SetHelpdeskInCharge(ActionSignature signatureHelpdeskInCharge)
     {
