@@ -14,6 +14,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
 
     private readonly int _processorCount;
     private readonly ParallelOptions _parallelOptions;
+    private bool _isInitialized = false;
 
     public FasterWorkloadManager(IInMemoryWorkloadService inMemoryWorkloadService,
         IRedisService redisService,
@@ -28,6 +29,28 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
         {
             MaxDegreeOfParallelism = _processorCount
         };
+    }
+
+    public async Task<int> SynchronizeRedisToInMemoryAsync()
+    {
+        if (_isInitialized)
+        {
+            return 0;
+        }
+
+        var stopwatch = new Stopwatch();
+        double seconds;
+
+        var jsonWorkPapers = await _redisService.GetAllValuesAsync();
+        var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapers(jsonWorkPapers!, _parallelOptions);
+
+        _inMemoryWorkloadService.InsertOverwrite(workPapers);
+
+        stopwatch.Stop();
+        seconds = stopwatch.ElapsedMilliseconds / 1000.0;
+        LogSwitch.Debug($"Synchronize execution took {seconds:F2} seconds.");
+
+        return _inMemoryWorkloadService.WorkPapers!.Count();
     }
 
     public async Task<int> InsertWorkloadAsync(List<IApprovalOpportunityModel> importModels)

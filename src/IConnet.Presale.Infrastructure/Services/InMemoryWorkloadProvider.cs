@@ -22,4 +22,10 @@ internal sealed class InMemoryWorkloadProvider : IInMemoryWorkloadService
     {
         _workPapers.AddRange(workPapers);
     }
+
+    public void InsertOverwrite(IEnumerable<WorkPaper> workPapers)
+    {
+        _workPapers.Clear();
+        _workPapers.AddRange(workPapers);
+    }
 }

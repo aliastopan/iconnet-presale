@@ -9,4 +9,7 @@ public interface IWorkloadManager
     Task<IQueryable<WorkPaper>> GetWorkloadAsync(WorkloadFilter filter = WorkloadFilter.All);
     Task<bool> UpdateWorkloadAsync(WorkPaper workPaper);
     Task<bool> DeleteWorkloadAsync(WorkPaper workPaper);
+
+    Task<int> SynchronizeRedisToInMemoryAsync();
+    // Task<int> SynchronizeToInMemoryRedis(WorkPaper workPaper);
 }

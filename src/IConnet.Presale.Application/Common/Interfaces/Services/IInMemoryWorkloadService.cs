@@ -8,4 +8,5 @@ public interface IInMemoryWorkloadService
 
     void Insert(WorkPaper workPaper);
     void InsertRange(IEnumerable<WorkPaper> workPapers);
+    void InsertOverwrite(IEnumerable<WorkPaper> workPapers);
 }
