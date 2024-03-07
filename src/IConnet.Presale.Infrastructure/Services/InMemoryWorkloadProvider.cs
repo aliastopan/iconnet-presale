@@ -13,19 +13,32 @@ internal sealed class InMemoryWorkloadProvider : IInMemoryWorkloadService
 
     }
 
-    public void Insert(WorkPaper workPaper)
+    public bool Insert(WorkPaper workPaper)
     {
-        _workPapers.Add(workPaper);
+        try
+        {
+            _workPapers.Add(workPaper);
+
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
-    public void InsertRange(IEnumerable<WorkPaper> workPapers)
+    public int InsertRange(IEnumerable<WorkPaper> workPapers)
     {
         _workPapers.AddRange(workPapers);
+
+        return _workPapers.Count;
     }
 
-    public void InsertOverwrite(IEnumerable<WorkPaper> workPapers)
+    public int InsertOverwrite(IEnumerable<WorkPaper> workPapers)
     {
         _workPapers.Clear();
         _workPapers.AddRange(workPapers);
+
+        return _workPapers.Count;
     }
 }

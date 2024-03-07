@@ -6,7 +6,7 @@ public interface IInMemoryWorkloadService
 {
     IQueryable<WorkPaper>? WorkPapers { get; }
 
-    void Insert(WorkPaper workPaper);
-    void InsertRange(IEnumerable<WorkPaper> workPapers);
-    void InsertOverwrite(IEnumerable<WorkPaper> workPapers);
+    bool Insert(WorkPaper workPaper);
+    int InsertRange(IEnumerable<WorkPaper> workPapers);
+    int InsertOverwrite(IEnumerable<WorkPaper> workPapers);
 }

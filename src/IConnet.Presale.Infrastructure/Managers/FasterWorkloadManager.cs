@@ -44,13 +44,15 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
         var jsonWorkPapers = await _redisService.GetAllValuesAsync();
         var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapers(jsonWorkPapers!, _parallelOptions);
 
-        _inMemoryWorkloadService.InsertOverwrite(workPapers);
+        int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers);
 
         stopwatch.Stop();
         seconds = stopwatch.ElapsedMilliseconds / 1000.0;
         LogSwitch.Debug($"Synchronize execution took {seconds:F2} seconds.");
 
-        return _inMemoryWorkloadService.WorkPapers!.Count();
+        _isInitialized = true;
+
+        return insertCount;
     }
 
     public async Task<int> InsertWorkloadAsync(List<IApprovalOpportunityModel> importModels)
