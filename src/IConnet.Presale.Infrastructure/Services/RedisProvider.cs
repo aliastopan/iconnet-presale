@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 
@@ -136,12 +137,18 @@ internal sealed class RedisProvider : IRedisService
                 return result
             ";
 
-            var redisKeys = keysToCheck.Select(key => (RedisKey)key).ToArray();
-            var result = await Redis.ScriptEvaluateAsync(luaScript, redisKeys);
+            RedisKey[]? redisKeys = keysToCheck.Select(key => (RedisKey)key).ToArray();
+            RedisResult? redisResult = await Redis.ScriptEvaluateAsync(luaScript, redisKeys);
 
-            var existingKeys = result.ToString().Split(',').Select(key => key.Trim()).ToHashSet();
+            List<string> existingKeys = [];
+            RedisResult[] arrayResult = (RedisResult[])redisResult!;
 
-            return existingKeys;
+            foreach (var result in arrayResult)
+            {
+                existingKeys.Add(result.ToString());
+            }
+
+            return existingKeys.ToHashSet();
         }
         catch (TimeoutException exception)
         {
