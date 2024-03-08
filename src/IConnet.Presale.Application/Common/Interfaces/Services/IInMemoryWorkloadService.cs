@@ -9,4 +9,6 @@ public interface IInMemoryWorkloadService
     bool Insert(WorkPaper workPaper);
     int InsertRange(IEnumerable<WorkPaper> workPapers);
     int InsertOverwrite(IEnumerable<WorkPaper> workPapers);
+
+    bool Delete(WorkPaper workPaper);
 }
