@@ -256,7 +256,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         await UpdateProsesValidasi(WorkPaper, broadcastMessage);
     }
 
-    protected async Task OnValidateNamaPelangganAsync(string statusValidasi)
+    protected async Task OnValidateNamaPelangganChangedAsync(string statusValidasi)
     {
         string namaPelanggan = ValidationParameterPropertyNames.ValidasiNama;
         ValidationModel!.ValidasiNama = statusValidasi;
@@ -264,7 +264,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         await ValidasiProperty(namaPelanggan, statusValidasi);
     }
 
-    protected async Task OnValidateNomorTeleponAsync(string statusValidasi)
+    protected async Task OnValidateNomorTeleponChangedAsync(string statusValidasi)
     {
         string nomorTelepon = ValidationParameterPropertyNames.ValidasiNomorTelepon;
         ValidationModel!.ValidasiNomorTelepon = statusValidasi;
@@ -272,7 +272,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         await ValidasiProperty(nomorTelepon, statusValidasi);
     }
 
-    protected async Task OnValidateEmailAsync(string statusValidasi)
+    protected async Task OnValidateEmailChangedAsync(string statusValidasi)
     {
         string email = ValidationParameterPropertyNames.ValidasiEmail;
         ValidationModel!.ValidasiEmail = statusValidasi;
@@ -280,7 +280,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         await ValidasiProperty(email, statusValidasi);
     }
 
-    protected async Task OnValidateIdPlnAsync(string statusValidasi)
+    protected async Task OnValidateIdPlnChangedAsync(string statusValidasi)
     {
         string idPln = ValidationParameterPropertyNames.ValidasiIdPln;
         ValidationModel!.ValidasiIdPln = statusValidasi;
@@ -288,7 +288,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         await ValidasiProperty(idPln, statusValidasi);
     }
 
-    protected async Task OnValidateAlamatAsync(string statusValidasi)
+    protected async Task OnValidateAlamatChangedAsync(string statusValidasi)
     {
         string alamat = ValidationParameterPropertyNames.ValidasiAlamat;
         ValidationModel!.ValidasiAlamat = statusValidasi;
@@ -296,7 +296,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         await ValidasiProperty(alamat, statusValidasi);
     }
 
-    protected void OnShareLoc(string shareLoc)
+    protected void OnShareLocChanged(string shareLoc)
     {
         if (!LatitudeLongitude().IsMatch(shareLoc))
         {
@@ -314,31 +314,31 @@ public partial class WorkPaperValidationForm : ComponentBase
         // LogSwitch.Debug("Share loc: {0}", shareLoc);
     }
 
-    protected void OnWaktuRespons(DateTime? waktuRespons)
+    protected void OnWaktuResponsChanged(DateTime? waktuRespons)
     {
         ValidationModel!.NullableWaktuRespons = waktuRespons;
         // LogSwitch.Debug("Waktu respons: {0}", waktuRespons!.Value.TimeOfDay);
     }
 
-    protected void OnTanggalRespons(DateTime? tanggalRespons)
+    protected void OnTanggalResponsChanged(DateTime? tanggalRespons)
     {
         ValidationModel!.NullableTanggalRespons = tanggalRespons;
         // LogSwitch.Debug("Tanggal respons: {0}", tanggalRespons!.Value.Date);
     }
 
-    protected void OnLinkRekapChatHistory(string linkChatHistory)
+    protected void OnLinkRekapChatHistoryChanged(string linkChatHistory)
     {
         ValidationModel!.LinkRekapChatHistory = linkChatHistory;
         // LogSwitch.Debug("Link chat history: {0}", linkChatHistory);
     }
 
-    protected void OnKeterangan(string keterangan)
+    protected void OnKeteranganChanged(string keterangan)
     {
         ValidationModel!.Keterangan = keterangan;
         // LogSwitch.Debug("Keterangan: {0}", keterangan);
     }
 
-    protected async Task OnPembetulanNamaAsync(string pembetulanNama)
+    protected async Task OnPembetulanNamaChangedAsync(string pembetulanNama)
     {
         string namaPelanggan = ValidationCorrectionPropertyNames.PembetulanNama;
         ValidationModel!.PembetulanNama = pembetulanNama;
@@ -346,7 +346,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         await PembetulanProperty(namaPelanggan, pembetulanNama);
     }
 
-    protected async Task OnPembetulanNomorTeleponAsync(string pembetulanNomorTelepon)
+    protected async Task OnPembetulanNomorTeleponChangedAsync(string pembetulanNomorTelepon)
     {
         string nomorTelepon = ValidationCorrectionPropertyNames.PembetulanNomorTelepon;
         ValidationModel!.PembetulanNomorTelepon = pembetulanNomorTelepon;
@@ -354,7 +354,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         await PembetulanProperty(nomorTelepon, pembetulanNomorTelepon);
     }
 
-    protected async Task OnPembetulanEmailAsync(string pembetulanEmail)
+    protected async Task OnPembetulanEmailChangedAsync(string pembetulanEmail)
     {
         string email = ValidationCorrectionPropertyNames.PembetulanEmail;
         ValidationModel!.PembetulanEmail = pembetulanEmail;
@@ -362,7 +362,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         await PembetulanProperty(email, pembetulanEmail);
     }
 
-    protected async Task OnPembetulanIdPlnAsync(string pembetulanIdPln)
+    protected async Task OnPembetulanIdPlnChangedAsync(string pembetulanIdPln)
     {
         string idPln = ValidationCorrectionPropertyNames.PembetulanIdPln;
         ValidationModel!.PembetulanIdPln = pembetulanIdPln;
@@ -370,7 +370,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         await PembetulanProperty(idPln, pembetulanIdPln);
     }
 
-    protected async Task OnPembetulanAlamatAsync(string pembetulanAlamat)
+    protected async Task OnPembetulanAlamatChangedAsync(string pembetulanAlamat)
     {
         string alamat = ValidationCorrectionPropertyNames.PembetulanAlamat;
         ValidationModel!.PembetulanAlamat = pembetulanAlamat;

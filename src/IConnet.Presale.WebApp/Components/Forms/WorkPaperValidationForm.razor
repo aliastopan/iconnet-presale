@@ -75,7 +75,7 @@
                         <div class="validation-label">
                             <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
                                 Value="@ValidationModel.ValidasiNama"
-                                ValueChanged="OnValidateNamaPelangganAsync"
+                                ValueChanged="OnValidateNamaPelangganChangedAsync"
                                 OptionDisabled="@OptionDisableNamaPelanggan"
                                 Disabled="DisableOnBeforeContact"
                                 Position="SelectPosition.Below"
@@ -84,7 +84,7 @@
                         <div class="validation-value">
                             <FluentTextField style="width: 300px"
                                 Value=@ValidationModel.PembetulanNama
-                                ValueChanged="OnPembetulanNamaAsync"
+                                ValueChanged="OnPembetulanNamaChangedAsync"
                                 Disabled="@DisableTextFieldNamaPelanggan"
                                 Placeholder="Pembetulan Nama Pelanggan"></FluentTextField>
                         </div>
@@ -101,7 +101,7 @@
                         </div>
                         <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
                             Value="@ValidationModel.ValidasiNomorTelepon"
-                            ValueChanged="OnValidateNomorTeleponAsync"
+                            ValueChanged="OnValidateNomorTeleponChangedAsync"
                             OptionDisabled="@OptionDisableNoTelepon"
                             Disabled="DisableOnBeforeContact"
                             Position="SelectPosition.Below"
@@ -115,7 +115,7 @@
                         </div>
                         <FluentTextField style="width: 300px"
                             Value=@ValidationModel.PembetulanNomorTelepon
-                            ValueChanged="OnPembetulanNomorTeleponAsync"
+                            ValueChanged="OnPembetulanNomorTeleponChangedAsync"
                             Disabled="@DisableTextFieldNoTelepon"
                             Placeholder="Pembetulan No. Telepon Aktif"></FluentTextField>
                     </div>
@@ -131,7 +131,7 @@
                         </div>
                         <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
                             Value="@ValidationModel.ValidasiEmail"
-                            ValueChanged="OnValidateEmailAsync"
+                            ValueChanged="OnValidateEmailChangedAsync"
                             OptionDisabled="@OptionDisableEmail"
                             Disabled="DisableOnBeforeContact"
                             Position="SelectPosition.Below"
@@ -145,7 +145,7 @@
                         </div>
                         <FluentTextField style="width: 300px"
                             Value=@ValidationModel.PembetulanEmail
-                            ValueChanged="OnPembetulanEmailAsync"
+                            ValueChanged="OnPembetulanEmailChangedAsync"
                             Disabled="@DisableTextFieldEmail"
                             Placeholder="Pembetulan Email Aktif"></FluentTextField>
                     </div>
@@ -161,7 +161,7 @@
                         </div>
                         <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
                             Value="@ValidationModel.ValidasiIdPln"
-                            ValueChanged="OnValidateIdPlnAsync"
+                            ValueChanged="OnValidateIdPlnChangedAsync"
                             OptionDisabled="@OptionDisableIdPln"
                             Disabled="DisableOnBeforeContact"
                             Position="SelectPosition.Below"
@@ -175,7 +175,7 @@
                         </div>
                         <FluentTextField style="width: 300px"
                             Value=@ValidationModel.PembetulanIdPln
-                            ValueChanged="OnPembetulanIdPlnAsync"
+                            ValueChanged="OnPembetulanIdPlnChangedAsync"
                             Disabled="@DisableTextFieldIdPln"
                             Placeholder="Pembetulan Id PLN"></FluentTextField>
                     </div>
@@ -203,7 +203,7 @@
                         <div class="validation-label">
                             <FluentSelect Items="@OptionSelect.StatusValidasi.StatusValidasiOptions"
                                 Value="@ValidationModel.ValidasiAlamat"
-                                ValueChanged="OnValidateAlamatAsync"
+                                ValueChanged="OnValidateAlamatChangedAsync"
                                 OptionDisabled="@OptionDisableAlamat"
                                 Disabled="DisableOnBeforeContact"
                                 Position="SelectPosition.Above"
@@ -212,7 +212,7 @@
                         <div class="validation-value">
                             <FluentTextArea style="width: 300px;" class="validation-textarea"
                                 Value=@ValidationModel.PembetulanAlamat
-                                ValueChanged="OnPembetulanAlamatAsync"
+                                ValueChanged="OnPembetulanAlamatChangedAsync"
                                 Disabled="@DisableTextAreaAlamatPelanggan"
                                 Placeholder="Pembetulan Alamat Pelanggan"></FluentTextArea>
                         </div>
@@ -243,7 +243,7 @@
                         <FluentTextField style="width: 300px"
                             Placeholder="Konfirmasi Share Loc"
                             Value="@ValidationModel.ShareLoc"
-                            ValueChanged="OnShareLoc"
+                            ValueChanged="OnShareLocChanged"
                             Disabled="DisableOnBeforeContact"></FluentTextField>
                     </div>
                 </div>
@@ -259,11 +259,11 @@
                         <div style="display: flex; margin-top: 2px;">
                             <FluentTimePicker style="width: 100px;"
                                 Value="@ValidationModel.NullableWaktuRespons"
-                                ValueChanged="OnWaktuRespons"
+                                ValueChanged="OnWaktuResponsChanged"
                                 Disabled="DisableOnBeforeContact"/>
                             <FluentDatePicker style="width: 200px; padding-left: 8px;"
                                 Value="@ValidationModel.NullableTanggalRespons"
-                                ValueChanged="OnTanggalRespons"
+                                ValueChanged="OnTanggalResponsChanged"
                                 Disabled="DisableOnBeforeContact"/>
                         </div>
                     </div>
@@ -280,7 +280,7 @@
                         <div style="display: flex; margin-top: 2px;">
                             <FluentTextField style="width: 300px"
                                 Value=@ValidationModel.LinkRekapChatHistory
-                                ValueChanged="OnLinkRekapChatHistory"
+                                ValueChanged="OnLinkRekapChatHistoryChanged"
                                 Placeholder="https://drive.google.com/chat-history"
                                 Disabled="DisableOnBeforeContact"></FluentTextField>
                         </div>
@@ -306,7 +306,7 @@
                     <div class="validation-value">
                         <FluentTextArea class="validation-textarea" style="width: 300px; margin-top: 2px;"
                             Value=@ValidationModel.Keterangan
-                            ValueChanged="OnKeterangan"
+                            ValueChanged="OnKeteranganChanged"
                             Disabled="DisableOnBeforeContact"
                             Placeholder="Keterangan"></FluentTextArea>
                     </div>
