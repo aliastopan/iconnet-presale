@@ -68,12 +68,7 @@ public partial class WorkPaperValidationForm : ComponentBase
     {
         IsLoading = true;
 
-        if (WorkPaper is null || ValidationModel is null)
-        {
-            return;
-        }
-
-        var coordinateShareLoc = new Coordinate(ValidationModel.ShareLoc);
+        var coordinateShareLoc = new Coordinate(ValidationModel!.ShareLoc);
         var signatureChatCallRespons = new ActionSignature
         {
             AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
@@ -81,7 +76,7 @@ public partial class WorkPaperValidationForm : ComponentBase
             TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
         };
 
-        var parameterValidasi = WorkPaper.ProsesValidasi.ParameterValidasi.WithShareLoc(coordinateShareLoc);
+        var parameterValidasi = WorkPaper!.ProsesValidasi.ParameterValidasi.WithShareLoc(coordinateShareLoc);
         var prosesValidasi = WorkPaper.ProsesValidasi
             .WithParameterValidasi(parameterValidasi)
             .WithSignatureChatCallRespons(signatureChatCallRespons)
@@ -189,8 +184,6 @@ public partial class WorkPaperValidationForm : ComponentBase
 
         await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", latitudeLongitude);
         ClipboardToast(latitudeLongitude);
-
-        LogSwitch.Debug("Copying {0}", latitudeLongitude);
     }
 
     protected void OpenDialog()
@@ -200,11 +193,6 @@ public partial class WorkPaperValidationForm : ComponentBase
 
     protected async Task OpenChatTemplateDialogAsync()
     {
-        if (WorkPaper is null)
-        {
-            return;
-        }
-
         LogSwitch.Debug("Chat Template Dialog");
 
         var parameters = new DialogParameters()
@@ -214,7 +202,7 @@ public partial class WorkPaperValidationForm : ComponentBase
             Width = "500px",
         };
 
-        var dialog = await DialogService.ShowDialogAsync<ChatTemplateDialog>(WorkPaper, parameters);
+        var dialog = await DialogService.ShowDialogAsync<ChatTemplateDialog>(WorkPaper!, parameters);
         var result = await dialog.Result;
 
         if (result.Cancelled || result.Data == null)
@@ -225,11 +213,6 @@ public partial class WorkPaperValidationForm : ComponentBase
 
     protected async Task UpdateChatCallMulaiSignature()
     {
-        if (WorkPaper is null || ValidationModel is null)
-        {
-            return;
-        }
-
         var signatureChatCallMulai = new ActionSignature
         {
             AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
@@ -237,25 +220,20 @@ public partial class WorkPaperValidationForm : ComponentBase
             TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
         };
 
-        var prosesValidasi = WorkPaper.ProsesValidasi.WithSignatureChatCallMulai(signatureChatCallMulai);
+        var prosesValidasi = WorkPaper!.ProsesValidasi.WithSignatureChatCallMulai(signatureChatCallMulai);
 
         WorkPaper.ProsesValidasi = prosesValidasi;
 
         var message = $"{signatureChatCallMulai.Alias} has began chat/call to {WorkPaper.ApprovalOpportunity.IdPermohonan}";
         await UpdateProsesValidasi(WorkPaper, message);
 
-        ValidationModel.MulaiChatCall();
+        ValidationModel!.MulaiChatCall();
     }
 
     protected async Task ValidasiProperty(string propertyName, string statusValidasi)
     {
-        if (WorkPaper is null || ValidationModel is null)
-        {
-            return;
-        }
-
         var validationStatus = EnumProcessor.StringToEnum<ValidationStatus>(statusValidasi);
-        var parameterValidasi = WorkPaper.ProsesValidasi.ParameterValidasi.Validasi(propertyName, validationStatus);
+        var parameterValidasi = WorkPaper!.ProsesValidasi.ParameterValidasi.Validasi(propertyName, validationStatus);
         var prosesValidasi = WorkPaper.ProsesValidasi.WithParameterValidasi(parameterValidasi);
 
         WorkPaper.ProsesValidasi = prosesValidasi;
@@ -266,12 +244,7 @@ public partial class WorkPaperValidationForm : ComponentBase
 
     protected async Task PembetulanProperty(string propertyName, string pembetulan)
     {
-        if (WorkPaper is null || ValidationModel is null)
-        {
-            return;
-        }
-
-        var pembetulanValidasi = WorkPaper.ProsesValidasi.PembetulanValidasi.Pembetulan(propertyName, pembetulan);
+        var pembetulanValidasi = WorkPaper!.ProsesValidasi.PembetulanValidasi.Pembetulan(propertyName, pembetulan);
         var prosesValidasi = WorkPaper.ProsesValidasi.WithPembetulanValidasi(pembetulanValidasi);
 
         WorkPaper.ProsesValidasi = prosesValidasi;
@@ -322,70 +295,44 @@ public partial class WorkPaperValidationForm : ComponentBase
 
     protected void OnShareLoc(string shareLoc)
     {
-        if (ValidationModel is null)
-        {
-            return;
-        }
-
-
         if (!LatitudeLongitude().IsMatch(shareLoc))
         {
-            ValidationModel.ShareLoc = ValidationModel.ShareLoc;
-            LogSwitch.Debug("Invalid share loc format: {0}", shareLoc);
+            ValidationModel!.ShareLoc = ValidationModel.ShareLoc;
+            // LogSwitch.Debug("Invalid share loc format: {0}", shareLoc);
 
             return;
         }
 
-        ValidationModel.ShareLoc = shareLoc;
+        ValidationModel!.ShareLoc = shareLoc;
         ValidationModel.ValidasiCrmKoordinat = ValidationModel!.ShareLoc.Equals(WorkPaper!.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude)
             ? OptionSelect.StatusValidasi.Sesuai
             : OptionSelect.StatusValidasi.TidakSesuai;
 
-        LogSwitch.Debug("Share loc: {0}", shareLoc);
+        // LogSwitch.Debug("Share loc: {0}", shareLoc);
     }
 
     protected void OnWaktuRespons(DateTime? waktuRespons)
     {
-        if (ValidationModel is null)
-        {
-            return;
-        }
-
-        ValidationModel.NullableWaktuRespons = waktuRespons;
-        LogSwitch.Debug("Waktu respons: {0}", waktuRespons!.Value.TimeOfDay);
+        ValidationModel!.NullableWaktuRespons = waktuRespons;
+        // LogSwitch.Debug("Waktu respons: {0}", waktuRespons!.Value.TimeOfDay);
     }
 
     protected void OnTanggalRespons(DateTime? tanggalRespons)
     {
-        if (ValidationModel is null)
-        {
-            return;
-        }
-
-        ValidationModel.NullableTanggalRespons = tanggalRespons;
-        LogSwitch.Debug("Tanggal respons: {0}", tanggalRespons!.Value.Date);
+        ValidationModel!.NullableTanggalRespons = tanggalRespons;
+        // LogSwitch.Debug("Tanggal respons: {0}", tanggalRespons!.Value.Date);
     }
 
     protected void OnLinkRekapChatHistory(string linkChatHistory)
     {
-        if (ValidationModel is null)
-        {
-            return;
-        }
-
-        ValidationModel.LinkRekapChatHistory = linkChatHistory;
-        LogSwitch.Debug("Link chat history: {0}", linkChatHistory);
+        ValidationModel!.LinkRekapChatHistory = linkChatHistory;
+        // LogSwitch.Debug("Link chat history: {0}", linkChatHistory);
     }
 
     protected void OnKeterangan(string keterangan)
     {
-        if (ValidationModel is null)
-        {
-            return;
-        }
-
-        ValidationModel.Keterangan = keterangan;
-        LogSwitch.Debug("Keterangan: {0}", keterangan);
+        ValidationModel!.Keterangan = keterangan;
+        // LogSwitch.Debug("Keterangan: {0}", keterangan);
     }
 
     protected async Task OnPembetulanNamaAsync(string pembetulanNama)
