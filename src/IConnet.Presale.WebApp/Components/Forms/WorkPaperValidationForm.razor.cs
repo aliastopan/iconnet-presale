@@ -29,6 +29,7 @@ public partial class WorkPaperValidationForm : ComponentBase
     private readonly Icon _checkmarkIcon = new Icons.Filled.Size20.CheckmarkCircle();
 
     protected bool IsLoading { get; set; } = false;
+    protected bool IsCommitReady { get; set; } = false;
 
     protected bool DisableOnBeforeContact => !(ValidationModel?.IsChatCallMulai ?? false);
 
@@ -62,7 +63,9 @@ public partial class WorkPaperValidationForm : ComponentBase
     protected bool DisableTextFieldEmail => ValidationModel?.ValidasiEmail != OptionSelect.StatusValidasi.TidakSesuai;
     protected bool DisableTextFieldIdPln => ValidationModel?.ValidasiIdPln != OptionSelect.StatusValidasi.TidakSesuai;
     protected bool DisableTextAreaAlamatPelanggan => ValidationModel?.ValidasiAlamat != OptionSelect.StatusValidasi.TidakSesuai;
-    protected bool DisableCommit => !EnableCommitButton();
+
+    protected bool DisableCommitToggle => !EnableCommitButton();
+    protected bool DisableCommit => !IsCommitReady;
 
     protected async Task OnCommitAsync()
     {

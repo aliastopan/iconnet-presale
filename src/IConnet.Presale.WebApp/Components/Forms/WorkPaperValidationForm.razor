@@ -290,10 +290,14 @@
                     <div class="validation-label">
                         <div class="validation-label-bg" style="display: flex; margin-top: 2px;">
                             <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
-                                KETERANGAN
+                                VALIDASI
                             </FluentLabel>
                         </div>
-                        <FluentButton class="validation-submit"
+                        <FluentCheckbox class="validation-submit"
+                            @bind-Value="@IsCommitReady"
+                            Disabled="DisableCommitToggle"
+                            Label="Selesai" />
+                        <FluentButton
                             Appearance="Appearance.Accent"
                             Disabled="DisableCommit"
                             OnClick="OnCommitAsync">
