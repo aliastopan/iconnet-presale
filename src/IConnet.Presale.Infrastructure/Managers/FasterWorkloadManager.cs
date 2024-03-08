@@ -133,7 +133,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
         return workPapers;
     }
 
-    public async Task<bool> UpdateWorkloadAsync(WorkPaper workPaper)
+    public async Task UpdateWorkloadAsync(WorkPaper workPaper)
     {
         workPaper.LastModified = _dateTimeService.DateTimeOffsetNow;
 
@@ -145,11 +145,9 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
         EnqueueForwardingTask(operationId: key, task);
 
         await Task.CompletedTask;
-
-        return true;
     }
 
-    public async Task<bool> DeleteWorkloadAsync(WorkPaper workPaper)
+    public async Task DeleteWorkloadAsync(WorkPaper workPaper)
     {
         var key = workPaper.ApprovalOpportunity.IdPermohonan;
 
@@ -159,8 +157,6 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
         EnqueueForwardingTask(operationId: key, task);
 
         await Task.CompletedTask;
-
-        return true;
     }
 
     private static async Task<IQueryable<WorkPaper>> FilterPartitionAsync(WorkloadFilter filter, IEnumerable<WorkPaper> partition)

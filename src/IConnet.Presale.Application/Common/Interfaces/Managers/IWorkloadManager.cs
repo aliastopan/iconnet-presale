@@ -7,8 +7,8 @@ public interface IWorkloadManager
 {
     Task<int> InsertWorkloadAsync(List<IApprovalOpportunityModel> importModels);
     Task<IQueryable<WorkPaper>> GetWorkloadAsync(WorkloadFilter filter = WorkloadFilter.All);
-    Task<bool> UpdateWorkloadAsync(WorkPaper workPaper);
-    Task<bool> DeleteWorkloadAsync(WorkPaper workPaper);
+    Task UpdateWorkloadAsync(WorkPaper workPaper);
+    Task DeleteWorkloadAsync(WorkPaper workPaper);
 
     Task<int> SynchronizeRedisToInMemoryAsync();
     Task<int> SynchronizeInMemoryToRedisAsync();

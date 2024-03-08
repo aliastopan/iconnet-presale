@@ -91,31 +91,29 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
         return workPapers.AsQueryable()!;
     }
 
-    public async Task<bool> UpdateWorkloadAsync(WorkPaper workPaper)
+    public async Task UpdateWorkloadAsync(WorkPaper workPaper)
     {
         var cacheKey = workPaper.ApprovalOpportunity.IdPermohonan;
         var isWorkPaperExist = await _redisService.IsKeyExistsAsync(cacheKey);
         if (!isWorkPaperExist)
         {
-            return false;
+            return;
         }
 
         var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
         await _redisService.SetValueAsync(cacheKey, jsonWorkPaper);
-
-        return true;
     }
 
-    public async Task<bool> DeleteWorkloadAsync(WorkPaper workPaper)
+    public async Task DeleteWorkloadAsync(WorkPaper workPaper)
     {
         var cacheKey = workPaper.ApprovalOpportunity.IdPermohonan;
         var isWorkPaperExist = await _redisService.IsKeyExistsAsync(cacheKey);
         if (!isWorkPaperExist)
         {
-            return false;
+            return;
         }
 
-        return await _redisService.DeleteValueAsync(cacheKey);
+        await _redisService.DeleteValueAsync(cacheKey);
     }
 
     public Task<int> SynchronizeRedisToInMemoryAsync()
