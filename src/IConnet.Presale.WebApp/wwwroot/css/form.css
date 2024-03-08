@@ -505,7 +505,13 @@
 
 .approval-submit{
     width: 185px;
+    margin-top: -20px;
     margin-right: 10px;
+    margin-bottom: 8px;
+}
+
+.approval-submit-button{
+    width: 185px;
 }
 
 .meter-unit {

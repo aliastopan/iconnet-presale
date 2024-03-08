@@ -23,6 +23,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
     public WorkPaperApprovalModel? ApprovalModel { get; set; }
 
     protected bool IsLoading { get; set; } = false;
+    protected bool IsCommitReady { get; set; } = false;
 
     private static readonly Icon _questionIcon = new Icons.Filled.Size20.QuestionCircle();
     private static readonly Icon _errorIcon = new Icons.Filled.Size20.ErrorCircle();
@@ -37,6 +38,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
     protected bool DisableForm => IsClosedLost()
         || ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.Reject
         || ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.ClosedLost;
+    protected bool DisableCommit => !IsCommitReady;
 
     protected Icon LabelIconNamaPelanggan => GetValidationIcon(ApprovalModel!.HasilValidasi.ValidasiNama);
     protected Icon LabelIconNoTelepon => GetValidationIcon(ApprovalModel!.HasilValidasi.ValidasiNomorTelepon);

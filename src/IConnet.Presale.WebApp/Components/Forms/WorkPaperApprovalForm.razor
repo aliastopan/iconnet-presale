@@ -332,10 +332,15 @@
 
                 <div class="approval-element approval-element-push" style="">
                     <div class="">
-                        <div class="">
-                            <FluentButton class="approval-submit"
-                                Appearance="Appearance.Accent"
+                        <div class="" style="width: 100%; margin-top: -28px !important;">
+                            <FluentCheckbox class="approval-submit"
+                                @bind-Value="@IsCommitReady"
                                 Disabled="@DisableOnProgress"
+                                Label="Selesai" />
+                            <FluentButton class="approval-submit-button"
+                                Width="185px"
+                                Appearance="Appearance.Accent"
+                                Disabled="@DisableCommit"
                                 OnClick="OnCommitAsync">
                                 Simpan</FluentButton>
                         </div>
