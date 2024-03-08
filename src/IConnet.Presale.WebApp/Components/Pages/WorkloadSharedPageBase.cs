@@ -14,7 +14,7 @@ public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
     protected override void OnInitialized()
     {
         PageName = PageNavName.WorkloadShared;
-        WorkloadFilter = WorkloadFilter.OnlyImportVerified;
+        WorkloadFilter = WorkloadFilter.All;
 
         TabNavigationManager.SelectTab(this);
 
