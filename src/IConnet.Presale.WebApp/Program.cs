@@ -37,6 +37,7 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddFluentUIComponents();
 
     services.AddHostedService<StartupService>();
+    services.AddHostedService<ForwardingService>();
     services.AddSignalR(options =>
     {
         options.EnableDetailedErrors = true;
