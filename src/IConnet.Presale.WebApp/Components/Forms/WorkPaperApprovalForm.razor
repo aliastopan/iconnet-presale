@@ -271,21 +271,21 @@
                         <div class="approval-value-label">
                             <div class="approval-value-stack-distance">
                                 <FluentNumberField style="width: 100px; margin-right: 10px"
+                                    Min="0"
                                     Max="10000"
                                     Value=@ApprovalModel.JarakShareLoc
                                     ValueChanged="EventCallback.Factory.Create<int>(this, OnJarakShareLocChanged)"
-                                    Disabled="@DisableForm"
-                                    Placeholder="Share Loc">
+                                    Disabled="@DisableForm">
                                     <label>Jarak Share Loc</label>
                                     @HtmlFragment.MeterUnitOfMeasurement</FluentNumberField>
                             </div>
                             <div class="approval-value-stack-distance">
                                 <FluentNumberField  style="width: 100px"
+                                    Min="0"
                                     Max="10000"
                                     Value=@ApprovalModel.JarakICrmPlus
                                     ValueChanged="EventCallback.Factory.Create<int>(this, OnJarakICrmChanged)"
-                                    Disabled="@DisableForm"
-                                    Placeholder="iCRM+">
+                                    Disabled="@DisableForm">
                                     <label>Jarak iCRM+</label>
                                     @HtmlFragment.MeterUnitOfMeasurement</FluentNumberField>
                             </div>
