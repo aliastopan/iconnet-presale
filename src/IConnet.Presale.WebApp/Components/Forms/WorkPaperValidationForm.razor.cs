@@ -198,7 +198,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         LogSwitch.Debug("Chat Template Dialog");
     }
 
-    protected async Task OpenDialogAsync()
+    protected async Task OpenChatTemplateDialogAsync()
     {
         if (WorkPaper is null)
         {
