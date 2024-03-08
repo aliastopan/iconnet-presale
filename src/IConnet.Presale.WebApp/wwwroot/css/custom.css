@@ -215,6 +215,7 @@ input:invalid::part(root) {
 } */
 
 .staging-active{
+    width: 100%;
     font-weight: 600;
     cursor: pointer;
     background-color: var(--success);
@@ -231,6 +232,7 @@ input:invalid::part(root) {
 
 .staging-waiting,
 .staging-expired{
+    width: 100%;
     font-weight: 600;
     cursor: pointer;
     background-color: var(--info);
