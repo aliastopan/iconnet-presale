@@ -75,6 +75,7 @@ public static class ConfigureServices
         services.AddSingleton<IRedisService, RedisProvider>();
         services.AddSingleton<IInMemoryWorkloadService, InMemoryWorkloadProvider>();
         services.AddSingleton<IWorkloadManager, FasterWorkloadManager>();
+        services.AddSingleton<IWorkloadForwardingManager, FasterWorkloadManager>();
 
         return services;
     }

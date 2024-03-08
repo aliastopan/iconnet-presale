@@ -6,7 +6,7 @@ using IConnet.Presale.Shared.Interfaces.Models.Presales;
 
 namespace IConnet.Presale.Infrastructure.Managers;
 
-internal sealed class FasterWorkloadManager : IWorkloadManager
+internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForwardingManager
 {
     private const int PartitionSize = 100;
 
@@ -14,6 +14,8 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
     private readonly IInMemoryWorkloadService _inMemoryWorkloadService;
     private readonly IRedisService _redisService;
     private readonly WorkPaperFactory _workloadFactory;
+
+    private readonly Queue<(string id, Task task)> _cacheForwardingTasks;
 
     private readonly int _processorCount;
     private readonly ParallelOptions _parallelOptions;
@@ -28,6 +30,8 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
         _inMemoryWorkloadService = inMemoryWorkloadService;
         _redisService = redisService;
         _workloadFactory = workloadFactory;
+
+        _cacheForwardingTasks = new Queue<(string id, Task task)>();
 
         _processorCount = Environment.ProcessorCount;
         _parallelOptions = new ParallelOptions
@@ -51,7 +55,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
         int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers);
 
         stopwatch.Stop();
-        LogSwitch.Debug("Synchronize execution took {0} ms", stopwatch.ElapsedMilliseconds);
+        // LogSwitch.Debug("Synchronize execution took {0} ms", stopwatch.ElapsedMilliseconds);
 
         _isInitialized = true;
 
@@ -107,7 +111,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
         await Task.WhenAll(tasks);
 
         stopwatch.Stop();
-        LogSwitch.Debug("Import execution took {0} ms", stopwatch.ElapsedMilliseconds);
+        // LogSwitch.Debug("Import execution took {0} ms", stopwatch.ElapsedMilliseconds);
 
         return count;
     }
@@ -124,7 +128,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
         workPapers = (await Task.WhenAll(tasks)).SelectMany(partition => partition).AsQueryable();
 
         stopwatch.Stop();
-        LogSwitch.Debug("Get execution took {0} ms", stopwatch.ElapsedMilliseconds);
+        // LogSwitch.Debug("Get execution took {0} ms", stopwatch.ElapsedMilliseconds);
 
         return workPapers;
     }
@@ -132,6 +136,13 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
     public async Task<bool> UpdateWorkloadAsync(WorkPaper workPaper)
     {
         workPaper.LastModified = _dateTimeService.DateTimeOffsetNow;
+
+        var key = workPaper.ApprovalOpportunity.IdPermohonan;
+        var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
+
+        var task = _redisService.SetValueAsync(key, jsonWorkPaper);
+
+        EnqueueForwardingTask(operationId: key, task);
 
         await Task.CompletedTask;
 
@@ -188,5 +199,40 @@ internal sealed class FasterWorkloadManager : IWorkloadManager
             .GroupBy(partition => partition.Index / partitionSize)
             .Select(group => group.Select(x => x.WorkPaper))
             .ToList();
+    }
+
+    public void EnqueueForwardingTask(string operationId, Task task)
+    {
+        lock (_cacheForwardingTasks)
+        {
+            _cacheForwardingTasks.Enqueue((operationId, task));
+        }
+    }
+
+    public async Task ProcessForwardingTasks()
+    {
+        while (true)
+        {
+            (string id, Task task) cacheForwardingTask;
+
+            lock (_cacheForwardingTasks)
+            {
+                if (_cacheForwardingTasks.Count == 0)
+                {
+                    break;
+                }
+
+                cacheForwardingTask = _cacheForwardingTasks.Dequeue();
+            }
+
+            try
+            {
+                await cacheForwardingTask.task;
+            }
+            catch (Exception exception)
+            {
+                Log.Fatal("Error executing task for operation {0}: {1}", cacheForwardingTask.id, exception.Message);
+            }
+        }
     }
 }
