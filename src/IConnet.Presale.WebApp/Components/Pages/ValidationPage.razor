@@ -66,13 +66,13 @@
                         @if (IsStillInCharge(context))
                         {
                             <divs class="staging-active" @onclick="@ScrollToValidationForm">
-                                Active
+                                ACTIVE
                             </divs>
                         }
                         else
                         {
                             <div class="staging-expired">
-                                Expired
+                                EXPIRED
                             </div>
                         }
                     </TemplateColumn>
@@ -80,7 +80,7 @@
                         <div class="">
                             @if (string.IsNullOrEmpty(context.SignatureHelpdeskInCharge.Alias))
                             {
-                                <span>Menunggu Tampung</span>
+                                <span>WAITING</span>
                             }
                             else
                             {
