@@ -65,15 +65,13 @@
                         Style="@GetWidthStyle(ColumnWidth.StagingStatusPx)">
                         @if (IsStillInCharge(context))
                         {
-                            <divs class="staging-active" @onclick="@ScrollToApprovalForm">
+                            <span class="staging-active" @onclick="@ScrollToApprovalForm">
                                 Active
-                            </divs>
+                            </span>
                         }
                         else
                         {
-                            <div class="staging-expired">
-                                Expired
-                            </div>
+                            <span class="staging-expired">Expired</span>
                         }
                     </TemplateColumn>
                     <TemplateColumn Title="PIC APPROVAL" Style="@GetWidthStyle(ColumnWidth.PlanningAssetCoverageInChargePx)">

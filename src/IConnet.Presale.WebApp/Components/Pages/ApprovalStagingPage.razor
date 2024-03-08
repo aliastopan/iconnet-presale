@@ -61,10 +61,12 @@
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="PAC APPROVAL" Style="@GetWidthStyle(ColumnWidth.PlanningAssetCoverageInChargePx)">
-                        <div class="">
+                        <div class="" style="display: flex;">
                             @if (string.IsNullOrEmpty(context.SignaturePlanningAssetCoverageInCharge.Alias))
                             {
-                                <span>WAITING</span>
+                                <span class="staging-waiting">
+                                    WAITING
+                                </span>
                             }
                             else
                             {

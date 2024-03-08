@@ -229,6 +229,7 @@ input:invalid::part(root) {
     z-index: 999;
 }
 
+.staging-waiting,
 .staging-expired{
     font-weight: 600;
     cursor: pointer;
