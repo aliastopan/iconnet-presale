@@ -115,14 +115,4 @@ internal sealed class ParallelWorkloadManager : IWorkloadManager
 
         await _redisService.DeleteValueAsync(cacheKey);
     }
-
-    public Task<int> SynchronizeRedisToInMemoryAsync()
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<int> SynchronizeInMemoryToRedisAsync()
-    {
-        throw new NotImplementedException();
-    }
 }

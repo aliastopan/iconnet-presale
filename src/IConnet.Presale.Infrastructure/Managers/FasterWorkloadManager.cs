@@ -40,33 +40,6 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
         };
     }
 
-    public async Task<int> SynchronizeRedisToInMemoryAsync()
-    {
-        if (_isInitialized)
-        {
-            return 0;
-        }
-
-        var stopwatch = Stopwatch.StartNew();
-
-        var jsonWorkPapers = await _redisService.GetAllValuesAsync();
-        var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapers(jsonWorkPapers!, _parallelOptions);
-
-        int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers);
-
-        stopwatch.Stop();
-        // LogSwitch.Debug("Synchronize execution took {0} ms", stopwatch.ElapsedMilliseconds);
-
-        _isInitialized = true;
-
-        return insertCount;
-    }
-
-    public Task<int> SynchronizeInMemoryToRedisAsync()
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task<int> InsertWorkloadAsync(List<IApprovalOpportunityModel> importModels)
     {
         var stopwatch = Stopwatch.StartNew();
@@ -237,5 +210,27 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
                 Log.Fatal("Error executing task for operation {0}: {1}", cacheForwardingTask.id, exception.Message);
             }
         }
+    }
+
+    public async Task<int> ForwardRedisToInMemoryAsync()
+    {
+        if (_isInitialized)
+        {
+            return 0;
+        }
+
+        var stopwatch = Stopwatch.StartNew();
+
+        var jsonWorkPapers = await _redisService.GetAllValuesAsync();
+        var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapers(jsonWorkPapers!, _parallelOptions);
+
+        int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers);
+
+        stopwatch.Stop();
+        // LogSwitch.Debug("Forward execution took {0} ms", stopwatch.ElapsedMilliseconds);
+
+        _isInitialized = true;
+
+        return insertCount;
     }
 }

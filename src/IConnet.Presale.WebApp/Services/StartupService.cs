@@ -6,21 +6,21 @@ namespace IConnet.Presale.WebApp.Services;
 
 public class StartupService : IHostedService
 {
-    private readonly IWorkloadManager _workloadManager;
+    private readonly IWorkloadForwardingManager _workloadForwardingManager;
     private readonly IRepresentativeOfficeHttpClient _representativeOfficeHttpClient;
     private readonly IRootCauseHttpClient _rootCauseHttpClient;
     private readonly IChatTemplateHttpClient _chatTemplateHttpClient;
     private readonly ChatTemplateService _chatTemplateService;
     private readonly OptionService _optionService;
 
-    public StartupService(IWorkloadManager workloadManager,
+    public StartupService(IWorkloadForwardingManager workloadForwardingManager,
         IRepresentativeOfficeHttpClient representativeOfficeHttpClient,
         IRootCauseHttpClient rootCauseHttpClient,
         IChatTemplateHttpClient chatTemplateHttpClient,
         ChatTemplateService chatTemplateService,
         OptionService optionService)
     {
-        _workloadManager = workloadManager;
+        _workloadForwardingManager = workloadForwardingManager;
         _representativeOfficeHttpClient = representativeOfficeHttpClient;
         _rootCauseHttpClient = rootCauseHttpClient;
         _chatTemplateHttpClient = chatTemplateHttpClient;
@@ -152,6 +152,6 @@ public class StartupService : IHostedService
 
     private async Task SynchronizeRedisToInMemory()
     {
-        await _workloadManager.SynchronizeRedisToInMemoryAsync();
+        await _workloadForwardingManager.ForwardRedisToInMemoryAsync();
     }
 }
