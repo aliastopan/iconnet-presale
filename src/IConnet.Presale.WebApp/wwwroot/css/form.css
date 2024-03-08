@@ -272,10 +272,6 @@
     margin-right: 10px;
 }
 
-.approval-label-result{
-
-}
-
 .approval-value{
     display: flex;
     flex-direction: column;
@@ -512,6 +508,16 @@
 
 .approval-submit-button{
     width: 185px;
+}
+
+.approval-chat-history-link{
+    margin: 4px 0;
+}
+
+.approval-chat-history-link a{
+    /* border: 1px solid gainsboro; */
+    border-radius: 3px;
+    padding: 2px 4px;
 }
 
 .meter-unit {
