@@ -36,6 +36,16 @@ internal static class JsonWorkPaperProcessor
         return concurrentQueue.ToList();
     }
 
+    internal static WorkPaper DeserializeJsonWorkPaper(string json)
+    {
+        if (json is null)
+        {
+            throw new JsonException();
+        }
+
+        return JsonSerializer.Deserialize<WorkPaper>(json)!;
+    }
+
     internal static IEnumerable<WorkPaper> DeserializeJsonWorkPapers(IEnumerable<string> jsonWorkPapers,
         ParallelOptions parallelOptions, int parallelThreshold = 100)
     {

@@ -132,6 +132,20 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
         await Task.CompletedTask;
     }
 
+    public async Task<WorkPaper?> SearchWorkPaper(string idPermohonan)
+    {
+        var isKeyExist = await _redisService.IsKeyExistsAsync(idPermohonan);
+
+        if (!isKeyExist)
+        {
+            return null;
+        }
+
+        var jsonWorkPaper = await _redisService.GetValueAsync(idPermohonan);
+
+        return JsonWorkPaperProcessor.DeserializeJsonWorkPaper(jsonWorkPaper!);
+    }
+
     private static async Task<IQueryable<WorkPaper>> FilterPartitionAsync(WorkloadFilter filter, IEnumerable<WorkPaper> partition)
     {
         return await Task.Run(() => FilterWorkload(filter, partition.AsQueryable()));
