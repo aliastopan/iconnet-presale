@@ -151,6 +151,13 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
 
     public async Task<bool> DeleteWorkloadAsync(WorkPaper workPaper)
     {
+        var key = workPaper.ApprovalOpportunity.IdPermohonan;
+
+        var task = _redisService.DeleteValueAsync(key);
+
+        _inMemoryWorkloadService.Delete(workPaper);
+        EnqueueForwardingTask(operationId: key, task);
+
         await Task.CompletedTask;
 
         return true;

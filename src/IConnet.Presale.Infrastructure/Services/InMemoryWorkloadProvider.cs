@@ -41,4 +41,9 @@ internal sealed class InMemoryWorkloadProvider : IInMemoryWorkloadService
 
         return _workPapers.Count;
     }
+
+    public bool Delete(WorkPaper workPaper)
+    {
+        return _workPapers.Remove(workPaper);
+    }
 }
