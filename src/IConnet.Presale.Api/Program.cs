@@ -19,7 +19,7 @@ builder.Host.ConfigureServices((context, services) =>
 
 var app = builder.Build();
 
-// app.InitializeDbContext();
+app.InitializeDbContext();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseHttpsRedirection();

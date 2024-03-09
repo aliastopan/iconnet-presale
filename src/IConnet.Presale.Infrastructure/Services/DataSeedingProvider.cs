@@ -29,6 +29,8 @@ internal sealed class DataSeedingProvider : IDataSeedingService
 
     public async Task<int> GenerateSuperUserAsync()
     {
+        Log.Information("Generating SuperUser");
+
         using var dbContext = _dbContextFactory.CreateDbContext();
 
         dbContext.UserAccounts.Add(new UserAccount

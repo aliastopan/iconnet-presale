@@ -105,6 +105,7 @@ public static class ConfigureServices
                 options.EnableDetailedErrors();
             });
             services.AddScoped<AppDbContextFactory>();
+            services.AddScoped<IDataSeedingService, DataSeedingProvider>();
         }
 
         return services;
