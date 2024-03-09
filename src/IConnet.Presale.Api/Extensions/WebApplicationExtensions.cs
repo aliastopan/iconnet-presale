@@ -17,11 +17,11 @@ public static class WebApplicationExtensions
 
         Task[] seedingTasks =
         [
-            dataSeedingService.GenerateSuperUserAsync()
+            // dataSeedingService.GenerateSuperUserAsync()
             // dataSeedingService.GenerateUsersAsync(),
-            // dataSeedingService.GenerateChatTemplatesAsync(),
-            // dataSeedingService.GenerateRepresentativeOfficesAsync(),
-            // dataSeedingService.GenerateRootCausesAsync()
+            dataSeedingService.GenerateChatTemplatesAsync(),
+            dataSeedingService.GenerateRepresentativeOfficesAsync(),
+            dataSeedingService.GenerateRootCausesAsync()
         ];
 
         Task.WaitAll(seedingTasks);

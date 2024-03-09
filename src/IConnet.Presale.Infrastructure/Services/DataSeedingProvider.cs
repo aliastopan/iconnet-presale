@@ -137,6 +137,8 @@ internal sealed class DataSeedingProvider : IDataSeedingService
 
     public async Task<int> GenerateChatTemplatesAsync()
     {
+        Log.Information("Generating ChatTemplates");
+
         string templateName = "default";
         string greeting = "Selamat pagi kak, kami dari Helpdesk *ICONNET* ingin mengkorfimasi pemasangan baru 😊";
         string question = "Konfirmasi Data Calon Pelanggan\n\n" +
@@ -173,6 +175,8 @@ internal sealed class DataSeedingProvider : IDataSeedingService
 
     public async Task<int> GenerateRepresentativeOfficesAsync()
     {
+        Log.Information("Generating RepresentativeOffices");
+
         var kantorPerwakilan = new List<RepresentativeOffice>
         {
             new RepresentativeOffice(0, "SEMUA KANTOR PERWAKILAN"),
@@ -180,7 +184,6 @@ internal sealed class DataSeedingProvider : IDataSeedingService
             new RepresentativeOffice(2, "JEMBER"),
             new RepresentativeOffice(3, "MADIUN"),
             new RepresentativeOffice(4, "MALANG"),
-            new RepresentativeOffice(5, "BANYUWANGI")
         };
 
         using var dbContext = _dbContextFactory.CreateDbContext();
@@ -192,6 +195,8 @@ internal sealed class DataSeedingProvider : IDataSeedingService
 
     public async Task<int> GenerateRootCausesAsync()
     {
+        Log.Information("Generating RootCauses");
+
         var rootCauses = new List<RootCause>
         {
             new RootCause(0, "User Tidak Ada Respons"),
