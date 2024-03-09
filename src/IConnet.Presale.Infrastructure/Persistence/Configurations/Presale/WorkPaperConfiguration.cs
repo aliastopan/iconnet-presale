@@ -30,9 +30,11 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
             .HasColumnName("shift")
             .IsRequired();
 
-        builder.OwnsOne(wp => wp.SignatureHelpdeskInCharge,
+        builder.ComplexProperty(wp => wp.SignatureHelpdeskInCharge,
             signatureHelpdeskInCharge =>
             {
+                signatureHelpdeskInCharge.IsRequired();
+
                 signatureHelpdeskInCharge.Property(s => s.AccountIdSignature)
                     .HasColumnName("sign_ph_in_charge_account_id")
                     .IsRequired();
@@ -46,9 +48,11 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
                     .IsRequired();
             });
 
-        builder.OwnsOne(wp => wp.SignaturePlanningAssetCoverageInCharge,
+        builder.ComplexProperty(wp => wp.SignaturePlanningAssetCoverageInCharge,
             signaturePlanningAssetCoverageInCharge =>
             {
+                signaturePlanningAssetCoverageInCharge.IsRequired();
+
                 signaturePlanningAssetCoverageInCharge.Property(s => s.AccountIdSignature)
                     .HasColumnName("sign_pac_in_charge_account_id")
                     .IsRequired();
@@ -62,12 +66,16 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
                     .IsRequired();
             });
 
-        builder.OwnsOne(wp => wp.ProsesValidasi,
+        builder.ComplexProperty(wp => wp.ProsesValidasi,
             prosesValidasi =>
             {
-                prosesValidasi.OwnsOne(pv => pv.SignatureChatCallMulai,
+                prosesValidasi.IsRequired();
+
+                prosesValidasi.ComplexProperty(pv => pv.SignatureChatCallMulai,
                     signatureChatCallMulai =>
                     {
+                        signatureChatCallMulai.IsRequired();
+
                         signatureChatCallMulai.Property(s => s.AccountIdSignature)
                             .HasColumnName("sign_chat_call_mulai_account_id")
                             .IsRequired();
@@ -81,9 +89,11 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
                             .IsRequired();
                     });
 
-                prosesValidasi.OwnsOne(pv => pv.SignatureChatCallRespons,
+                prosesValidasi.ComplexProperty(pv => pv.SignatureChatCallRespons,
                     signatureChatCallRespons =>
                     {
+                        signatureChatCallRespons.IsRequired();
+
                         signatureChatCallRespons.Property(s => s.AccountIdSignature)
                             .HasColumnName("sign_chat_call_respons_account_id")
                             .IsRequired();
@@ -105,9 +115,11 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
                     .HasColumnName("link_chat_history")
                     .IsRequired();
 
-                prosesValidasi.OwnsOne(pv => pv.ParameterValidasi,
+                prosesValidasi.ComplexProperty(pv => pv.ParameterValidasi,
                     parameterValidasi =>
                     {
+                        parameterValidasi.IsRequired();
+
                         parameterValidasi.Property(p => p.ValidasiIdPln)
                             .HasColumnName("validasi_id_pln")
                             .IsRequired();
@@ -128,22 +140,26 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
                             .HasColumnName("validasi_alamat")
                             .IsRequired();
 
-                        parameterValidasi.OwnsOne(r => r.ShareLoc,
-                            koordinat =>
+                        parameterValidasi.ComplexProperty(r => r.ShareLoc,
+                            shareLoc =>
                             {
-                                koordinat.Property(c => c.Latitude)
+                                shareLoc.IsRequired();
+
+                                shareLoc.Property(c => c.Latitude)
                                     .HasColumnName("regional_koordinat_latitude")
                                     .IsRequired();
 
-                                koordinat.Property(c => c.Longitude)
+                                shareLoc.Property(c => c.Longitude)
                                     .HasColumnName("regional_koordinat_longitude")
                                     .IsRequired();
                             });
                     });
 
-                prosesValidasi.OwnsOne(pv => pv.PembetulanValidasi,
+                prosesValidasi.ComplexProperty(pv => pv.PembetulanValidasi,
                     pembetulanValidasi =>
                     {
+                        pembetulanValidasi.IsRequired();
+
                         pembetulanValidasi.Property(p => p.PembetulanIdPln)
                             .HasColumnName("pembetulan_id_pln");
 
@@ -164,12 +180,16 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
                     .HasColumnName("keterangan_validasi");
             });
 
-        builder.OwnsOne(wp => wp.ProsesApproval,
+        builder.ComplexProperty(wp => wp.ProsesApproval,
             prosesApproval =>
             {
-                prosesApproval.OwnsOne(pa => pa.SignatureApproval,
+                prosesApproval.IsRequired();
+
+                prosesApproval.ComplexProperty(pa => pa.SignatureApproval,
                     signatureApproval =>
                     {
+                        signatureApproval.IsRequired();
+
                         signatureApproval.Property(s => s.AccountIdSignature)
                             .HasColumnName("sign_approval_account_id")
                             .IsRequired();

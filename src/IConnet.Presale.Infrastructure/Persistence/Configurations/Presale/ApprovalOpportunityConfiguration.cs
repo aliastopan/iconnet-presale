@@ -49,9 +49,11 @@ internal sealed class ApprovalOpportunityConfiguration : IEntityTypeConfiguratio
             .HasColumnName("splitter")
             .IsRequired();
 
-        builder.OwnsOne(ao => ao.Pemohon,
+        builder.ComplexProperty(ao => ao.Pemohon,
             pemohon =>
             {
+                pemohon.IsRequired();
+
                 pemohon.Property(p => p.IdPln)
                     .HasColumnName("pemohon_id_pln")
                     .IsRequired();
@@ -82,9 +84,11 @@ internal sealed class ApprovalOpportunityConfiguration : IEntityTypeConfiguratio
                     .HasColumnName("pemohon_keterangan");
             });
 
-        builder.OwnsOne(ao => ao.Agen,
+        builder.ComplexProperty(ao => ao.Agen,
             agen =>
             {
+                agen.IsRequired();
+
                 agen.Property(a => a.NamaLengkap)
                     .HasColumnName("agen_nama_lengkap")
                     .IsRequired();
@@ -102,9 +106,11 @@ internal sealed class ApprovalOpportunityConfiguration : IEntityTypeConfiguratio
                     .IsRequired();
             });
 
-        builder.OwnsOne(ao => ao.Regional,
+        builder.ComplexProperty(ao => ao.Regional,
             regional =>
             {
+                regional.IsRequired();
+
                 regional.Property(r => r.Bagian)
                     .HasColumnName("regional_bagian")
                     .IsRequired();
@@ -129,9 +135,11 @@ internal sealed class ApprovalOpportunityConfiguration : IEntityTypeConfiguratio
                     .HasColumnName("regional_kelurahan")
                     .IsRequired();
 
-                regional.OwnsOne(r => r.Koordinat,
+                regional.ComplexProperty(r => r.Koordinat,
                     koordinat =>
                     {
+                        koordinat.IsRequired();
+
                         koordinat.Property(c => c.Latitude)
                             .HasColumnName("regional_koordinat_latitude")
                             .IsRequired();
@@ -146,9 +154,11 @@ internal sealed class ApprovalOpportunityConfiguration : IEntityTypeConfiguratio
             .HasColumnName("status_import")
             .IsRequired();
 
-        builder.OwnsOne(ao => ao.SignatureImport,
+        builder.ComplexProperty(ao => ao.SignatureImport,
             signatureImport =>
             {
+                signatureImport.IsRequired();
+
                 signatureImport.Property(s => s.AccountIdSignature)
                     .HasColumnName("sign_import_account_id")
                     .IsRequired();
@@ -162,9 +172,11 @@ internal sealed class ApprovalOpportunityConfiguration : IEntityTypeConfiguratio
                     .IsRequired();
             });
 
-        builder.OwnsOne(ao => ao.SignatureVerifikasiImport,
+        builder.ComplexProperty(ao => ao.SignatureVerifikasiImport,
             signatureVerifikasiImport =>
             {
+                signatureVerifikasiImport.IsRequired();
+
                 signatureVerifikasiImport.Property(s => s.AccountIdSignature)
                     .HasColumnName("sign_import_verifikasi_account_id")
                     .IsRequired();
