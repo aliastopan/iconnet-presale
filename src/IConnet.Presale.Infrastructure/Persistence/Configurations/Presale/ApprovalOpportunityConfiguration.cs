@@ -129,17 +129,17 @@ internal sealed class ApprovalOpportunityConfiguration : IEntityTypeConfiguratio
                     .HasColumnName("regional_kelurahan")
                     .IsRequired();
 
-                    regional.OwnsOne(r => r.Koordinat,
-                        koordinat =>
-                        {
-                            koordinat.Property(c => c.Latitude)
-                                .HasColumnName("regional_koordinat_latitude")
-                                .IsRequired();
+                regional.OwnsOne(r => r.Koordinat,
+                    koordinat =>
+                    {
+                        koordinat.Property(c => c.Latitude)
+                            .HasColumnName("regional_koordinat_latitude")
+                            .IsRequired();
 
-                            koordinat.Property(c => c.Longitude)
-                                .HasColumnName("regional_koordinat_longitude")
-                                .IsRequired();
-                        });
+                        koordinat.Property(c => c.Longitude)
+                            .HasColumnName("regional_koordinat_longitude")
+                            .IsRequired();
+                    });
             });
 
         builder.Property(ao => ao.StatusImport)
