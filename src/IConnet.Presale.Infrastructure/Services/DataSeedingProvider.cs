@@ -26,6 +26,37 @@ internal sealed class DataSeedingProvider : IDataSeedingService
         _configuration = configuration;
     }
 
+
+    public async Task<int> GenerateSuperUserAsync()
+    {
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        dbContext.UserAccounts.Add(new UserAccount
+        {
+            UserAccountId = Guid.Parse("06f631d6-14a8-4967-a9c0-78471586ca72"),
+            User = new User
+            {
+                Username = "aliastopan",
+                EmploymentStatus = EmploymentStatus.PegawaiTetap,
+                UserRole = UserRole.SuperUser,
+                UserPrivileges = new List<UserPrivilege>()
+                {
+                    UserPrivilege.Viewer,
+                    UserPrivilege.Editor,
+                    UserPrivilege.Administrator
+                },
+                JobShift = JobShift.Siang,
+                JobTitle = "Developer"
+            },
+            PasswordHash = _passwordService.HashPassword(_configuration["Credentials:SuperUser"]!, out var salt),
+            PasswordSalt = salt,
+            CreationDate = _dateTimeService.DateTimeOffsetNow,
+            LastSignedIn = _dateTimeService.DateTimeOffsetNow
+        });
+
+        return await dbContext.SaveChangesAsync();
+    }
+
     public async Task<int> GenerateUsersAsync()
     {
         var administrator01 = new UserAccount
