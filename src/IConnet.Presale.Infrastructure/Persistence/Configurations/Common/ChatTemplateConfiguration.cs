@@ -15,7 +15,7 @@ internal sealed class ChatTemplateConfiguration : IEntityTypeConfiguration<ChatT
 
         // configure properties
         builder.Property(ct => ct.ChatTemplateId)
-               .HasColumnName("chat_template_id")
+               .HasColumnName("id")
                .IsRequired();
 
         builder.Property(ct => ct.TemplateName)
