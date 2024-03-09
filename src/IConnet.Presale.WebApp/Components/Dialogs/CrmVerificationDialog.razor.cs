@@ -38,7 +38,7 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
     {
         Content.WorkPaperLevel = WorkPaperLevel.ImportVerified;
         Content.ApprovalOpportunity.StatusImport = ImportStatus.Verified;
-        Content.ApprovalOpportunity.ImportVerifikasiSignature = new ActionSignature
+        Content.ApprovalOpportunity.SignatureVerifikasiImport = new ActionSignature
         {
             AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
             Alias = await SessionService.GetSessionAliasAsync(),
@@ -50,7 +50,7 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
     {
         Content.WorkPaperLevel = WorkPaperLevel.ImportInvalid;
         Content.ApprovalOpportunity.StatusImport = ImportStatus.Invalid;
-        Content.ApprovalOpportunity.ImportVerifikasiSignature = new ActionSignature
+        Content.ApprovalOpportunity.SignatureVerifikasiImport = new ActionSignature
         {
             AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
             Alias = await SessionService.GetSessionAliasAsync(),
@@ -62,7 +62,7 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
     {
         Content.WorkPaperLevel = WorkPaperLevel.ImportArchived;
         Content.ApprovalOpportunity.StatusImport = ImportStatus.Invalid;
-        Content.ApprovalOpportunity.ImportVerifikasiSignature = new ActionSignature
+        Content.ApprovalOpportunity.SignatureVerifikasiImport = new ActionSignature
         {
             AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
             Alias = await SessionService.GetSessionAliasAsync(),

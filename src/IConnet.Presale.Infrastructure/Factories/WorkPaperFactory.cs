@@ -59,14 +59,14 @@ internal sealed class WorkPaperFactory
                 }
             },
             StatusImport = ImportStatus.Unverified,
-            ImportSignature = new ActionSignature
+            SignatureImport = new ActionSignature
             {
                 AccountIdSignature = importModel.ImportAccountIdSignature,
                 Alias = importModel.ImportAliasSignature,
                 TglAksi = importModel.TglImport,
 
             },
-            ImportVerifikasiSignature = new ActionSignature
+            SignatureVerifikasiImport = new ActionSignature
             {
                 AccountIdSignature = Guid.Empty,
                 Alias = string.Empty,

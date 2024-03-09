@@ -28,8 +28,8 @@ public class ApprovalOpportunity
     public Regional Regional { get; set; }
 
     public ImportStatus StatusImport { get; set; }
-    public ActionSignature ImportSignature { get; set ; }
-    public ActionSignature ImportVerifikasiSignature { get; set ; }
+    public ActionSignature SignatureImport { get; set ; }
+    public ActionSignature SignatureVerifikasiImport { get; set ; }
 
     public TimeSpan GetOpportunityLifetime()
     {

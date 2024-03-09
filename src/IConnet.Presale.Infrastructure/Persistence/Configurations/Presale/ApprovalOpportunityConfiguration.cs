@@ -146,34 +146,34 @@ internal sealed class ApprovalOpportunityConfiguration : IEntityTypeConfiguratio
             .HasColumnName("status_import")
             .IsRequired();
 
-        builder.OwnsOne(ao => ao.ImportSignature,
-            importSignature =>
+        builder.OwnsOne(ao => ao.SignatureImport,
+            signatureImport =>
             {
-                importSignature.Property(a => a.AccountIdSignature)
+                signatureImport.Property(a => a.AccountIdSignature)
                     .HasColumnName("sign_import_account_id")
                     .IsRequired();
 
-                importSignature.Property(a => a.Alias)
+                signatureImport.Property(a => a.Alias)
                     .HasColumnName("sign_import_alias")
                     .IsRequired();
 
-                importSignature.Property(a => a.TglAksi)
+                signatureImport.Property(a => a.TglAksi)
                     .HasColumnName("sign_import_tgl_aksi")
                     .IsRequired();
             });
 
-        builder.OwnsOne(ao => ao.ImportVerifikasiSignature,
-            importVerifikasiSignature =>
+        builder.OwnsOne(ao => ao.SignatureVerifikasiImport,
+            signatureVerifikasiImport =>
             {
-                importVerifikasiSignature.Property(a => a.AccountIdSignature)
+                signatureVerifikasiImport.Property(a => a.AccountIdSignature)
                     .HasColumnName("sign_import_verifikasi_account_id")
                     .IsRequired();
 
-                importVerifikasiSignature.Property(a => a.Alias)
+                signatureVerifikasiImport.Property(a => a.Alias)
                     .HasColumnName("sign_import_verifikasi_alias")
                     .IsRequired();
 
-                importVerifikasiSignature.Property(a => a.TglAksi)
+                signatureVerifikasiImport.Property(a => a.TglAksi)
                     .HasColumnName("sign_import_verifikasi_tgl_aksi")
                     .IsRequired();
             });
