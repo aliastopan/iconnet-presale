@@ -18,7 +18,7 @@ internal sealed class UserAccountConfiguration : IEntityTypeConfiguration<UserAc
 
         // configure properties
         builder.Property(u => u.UserAccountId)
-            .HasColumnName("user_account_id")
+            .HasColumnName("id")
             .HasMaxLength(36)
             .IsRequired();
 

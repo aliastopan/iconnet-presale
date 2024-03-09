@@ -15,7 +15,7 @@ internal sealed class RootCauseConfiguration : IEntityTypeConfiguration<RootCaus
 
         // configure properties
         builder.Property(rc => rc.RootCauseId)
-                .HasColumnName("root_cause_id")
+                .HasColumnName("id")
                 .IsRequired();
 
         builder.Property(rc => rc.Order)

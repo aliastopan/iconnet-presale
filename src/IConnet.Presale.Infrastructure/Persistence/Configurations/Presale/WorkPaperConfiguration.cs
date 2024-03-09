@@ -18,7 +18,7 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
 
         // configure properties
         builder.Property(wp => wp.WorkPaperId)
-            .HasColumnName("work_paper_id")
+            .HasColumnName("id")
             .HasMaxLength(36)
             .IsRequired();
 

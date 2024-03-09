@@ -15,7 +15,7 @@ internal sealed class RefreshTokenConfiguration : IEntityTypeConfiguration<Refre
 
        // configure properties
        builder.Property(rt => rt.RefreshTokenId)
-              .HasColumnName("refresh_token_id")
+              .HasColumnName("id")
               .HasMaxLength(36)
               .IsRequired();
 

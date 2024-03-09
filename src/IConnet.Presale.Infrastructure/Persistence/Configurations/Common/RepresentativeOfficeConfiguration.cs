@@ -15,7 +15,7 @@ internal sealed class RepresentativeOfficeConfiguration : IEntityTypeConfigurati
 
         // configure properties
         builder.Property(ro => ro.KantorPerwakilanId)
-                .HasColumnName("kantor_perwakilan_id")
+                .HasColumnName("id")
                 .IsRequired();
 
         builder.Property(ro => ro.Order)
