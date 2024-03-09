@@ -149,15 +149,15 @@ internal sealed class ApprovalOpportunityConfiguration : IEntityTypeConfiguratio
         builder.OwnsOne(ao => ao.SignatureImport,
             signatureImport =>
             {
-                signatureImport.Property(a => a.AccountIdSignature)
+                signatureImport.Property(s => s.AccountIdSignature)
                     .HasColumnName("sign_import_account_id")
                     .IsRequired();
 
-                signatureImport.Property(a => a.Alias)
+                signatureImport.Property(s => s.Alias)
                     .HasColumnName("sign_import_alias")
                     .IsRequired();
 
-                signatureImport.Property(a => a.TglAksi)
+                signatureImport.Property(s => s.TglAksi)
                     .HasColumnName("sign_import_tgl_aksi")
                     .IsRequired();
             });
@@ -165,15 +165,15 @@ internal sealed class ApprovalOpportunityConfiguration : IEntityTypeConfiguratio
         builder.OwnsOne(ao => ao.SignatureVerifikasiImport,
             signatureVerifikasiImport =>
             {
-                signatureVerifikasiImport.Property(a => a.AccountIdSignature)
+                signatureVerifikasiImport.Property(s => s.AccountIdSignature)
                     .HasColumnName("sign_import_verifikasi_account_id")
                     .IsRequired();
 
-                signatureVerifikasiImport.Property(a => a.Alias)
+                signatureVerifikasiImport.Property(s => s.Alias)
                     .HasColumnName("sign_import_verifikasi_alias")
                     .IsRequired();
 
-                signatureVerifikasiImport.Property(a => a.TglAksi)
+                signatureVerifikasiImport.Property(s => s.TglAksi)
                     .HasColumnName("sign_import_verifikasi_tgl_aksi")
                     .IsRequired();
             });
