@@ -33,8 +33,10 @@ public class Coordinate : ValueObject
     public string Latitude { get; init; } = string.Empty;
     public string Longitude { get; init; } = string.Empty;
 
-    [NotMapped]
-    public string LatitudeLongitude => $"{Latitude}, {Longitude}";
+    public string GetLatitudeLongitude()
+    {
+        return $"{Latitude}, {Longitude}";
+    }
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

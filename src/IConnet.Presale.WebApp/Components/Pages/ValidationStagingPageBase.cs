@@ -70,7 +70,7 @@ public class ValidationStagingPageBase : WorkloadPageBase, IPageNavigation
 
         var isNotStaged = workPaper!.SignatureHelpdeskInCharge.IsEmptySignature();
         var hasStageExpired = workPaper!.SignatureHelpdeskInCharge.IsDurationExceeded(now, duration);
-        var isOnGoingValidation = workPaper!.ProsesValidasi.IsOnGoing;
+        var isOnGoingValidation = workPaper!.ProsesValidasi.IsOnGoing();
 
         if ((isNotStaged || hasStageExpired) && isOnGoingValidation)
         {

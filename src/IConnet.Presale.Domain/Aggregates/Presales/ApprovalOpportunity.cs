@@ -27,10 +27,12 @@ public class ApprovalOpportunity
     public Salesperson Agen { get; set; }
     public Regional Regional { get; set; }
 
-    [NotMapped]
-    public TimeSpan OpportunityLifetime => DateTime.Now - TglPermohonan;
-
     public ImportStatus StatusImport { get; set; }
     public ActionSignature ImportSignature { get; set ; }
     public ActionSignature ImportVerifikasiSignature { get; set ; }
+
+    public TimeSpan GetOpportunityLifetime()
+    {
+        return DateTime.Now - TglPermohonan;
+    }
 }

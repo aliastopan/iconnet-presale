@@ -66,7 +66,7 @@ public class ApprovalStagingPageBase : WorkloadPageBase, IPageNavigation
 
         var isNotStaged = workPaper!.SignaturePlanningAssetCoverageInCharge.IsEmptySignature();
         var hasStageExpired = workPaper!.SignaturePlanningAssetCoverageInCharge.IsDurationExceeded(now, duration);
-        var isOnGoingApproval = workPaper!.ProsesApproval.IsOnGoing;
+        var isOnGoingApproval = workPaper!.ProsesApproval.IsOnGoing();
 
         if ((isNotStaged || hasStageExpired) && isOnGoingApproval)
         {

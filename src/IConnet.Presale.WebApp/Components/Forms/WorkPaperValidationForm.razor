@@ -13,16 +13,16 @@
             </div>
             <div class="d-flex flex-row align-items-center">
                 @{
-                    var url = $"http://{ValidationModel.DataPelanggan.WhatsApp}";
+                    var url = $"http://{ValidationModel.DataPelanggan.GetWhatsApp()}";
                 }
-                <WhatsAppNav Contact="@ValidationModel.DataPelanggan.WhatsApp"
+                <WhatsAppNav Contact="@ValidationModel.DataPelanggan.GetWhatsApp()"
                     ChatCallMulai="UpdateChatCallMulaiSignature"/>
                 <FluentButton Appearance="Appearance.Outline"
                     style="margin-left: 10px"
                     OnClick="OpenChatTemplateDialogAsync">
                     Chat Template</FluentButton>
 
-                @if(WorkPaper.ProsesValidasi.HasStarted)
+                @if(WorkPaper.ProsesValidasi.HasStarted())
                 {
                     <div class="validation-aging-response">
                         <span style="margin-right: 4px;">
@@ -237,7 +237,7 @@
                     <div class="validation-value">
                         <div class="@CssBackgroundColorCrmKoordinat" @onclick="OnClipboardShareLocAsync">
                             <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
-                                @ValidationModel.DataCrmKoordinat.LatitudeLongitude
+                                @ValidationModel.DataCrmKoordinat.GetLatitudeLongitude()
                             </FluentLabel>
                         </div>
                         <FluentTextField style="width: 300px"

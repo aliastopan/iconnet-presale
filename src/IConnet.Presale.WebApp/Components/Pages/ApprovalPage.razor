@@ -111,7 +111,7 @@
                     </TemplateColumn>
                     <TemplateColumn Title="SHARE LOC" Style="@GetWidthStyle(ColumnWidth.ValidasiShareLocPx)">
                         <div class="">
-                            @context.ProsesValidasi.ParameterValidasi.ShareLoc.LatitudeLongitude
+                            @context.ProsesValidasi.ParameterValidasi.ShareLoc.GetLatitudeLongitude()
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="REKAP CHAT HISTORY" Style="@GetWidthStyle(ColumnWidth.LinkRekapChatHistoryPx)">
@@ -127,10 +127,10 @@
                     <TemplateColumn Title="CONTACT WHATSAPP" Style="@GetWidthStyle(ColumnWidth.ContactWhatsAppPx)">
                         <div class="">
                             @{
-                                var url = $"http://{context.ApprovalOpportunity.Pemohon.WhatsApp}";
+                                var url = $"http://{context.ApprovalOpportunity.Pemohon.GetWhatsApp()}";
                             }
                             <FluentAnchor Href="@url" Target="_blank" Appearance="Appearance.Lightweight">
-                                @context.ApprovalOpportunity.Pemohon.WhatsApp
+                                @context.ApprovalOpportunity.Pemohon.GetWhatsApp()
                             </FluentAnchor>
                         </div>
                     </TemplateColumn>

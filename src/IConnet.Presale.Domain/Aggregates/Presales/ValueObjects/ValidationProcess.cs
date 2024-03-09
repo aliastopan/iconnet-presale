@@ -30,11 +30,15 @@ public class ValidationProcess : ValueObject
     public ValidationCorrection PembetulanValidasi { get; init; } = new();
     public string Keterangan { get; init; }  = string.Empty;
 
-    [NotMapped]
-    public bool HasStarted => !SignatureChatCallMulai.IsEmptySignature();
+    public bool HasStarted()
+    {
+        return !SignatureChatCallMulai.IsEmptySignature();
+    }
 
-    [NotMapped]
-    public bool IsOnGoing => SignatureChatCallRespons.IsEmptySignature();
+    public bool IsOnGoing()
+    {
+        return SignatureChatCallRespons.IsEmptySignature();
+    }
 
     public ValidationProcess WithSignatureChatCallMulai(ActionSignature signatureChatCallMulai)
     {

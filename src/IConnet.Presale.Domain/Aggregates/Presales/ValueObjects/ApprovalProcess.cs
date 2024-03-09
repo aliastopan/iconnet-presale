@@ -29,8 +29,10 @@ public class ApprovalProcess : ValueObject
     public int JarakICrmPlus { get; init; }
     public DateTime VaTerbit { get; init; } = default;
 
-    [NotMapped]
-    public bool IsOnGoing => SignatureApproval.IsEmptySignature();
+    public bool IsOnGoing()
+    {
+        return SignatureApproval.IsEmptySignature();
+    }
 
     public ApprovalProcess WithSignatureApproval(ActionSignature signatureApproval)
     {

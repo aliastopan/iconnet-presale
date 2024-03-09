@@ -183,7 +183,7 @@ public partial class WorkPaperValidationForm : ComponentBase
 
     protected async Task OnClipboardShareLocAsync()
     {
-        string latitudeLongitude = ValidationModel!.DataCrmKoordinat.LatitudeLongitude;
+        string latitudeLongitude = ValidationModel!.DataCrmKoordinat.GetLatitudeLongitude();
 
         await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", latitudeLongitude);
         ClipboardToast(latitudeLongitude);
@@ -307,7 +307,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         }
 
         ValidationModel!.ShareLoc = shareLoc;
-        ValidationModel.ValidasiCrmKoordinat = ValidationModel!.ShareLoc.Equals(WorkPaper!.ApprovalOpportunity.Regional.Koordinat.LatitudeLongitude)
+        ValidationModel.ValidasiCrmKoordinat = ValidationModel!.ShareLoc.Equals(WorkPaper!.ApprovalOpportunity.Regional.Koordinat.GetLatitudeLongitude())
             ? OptionSelect.StatusValidasi.Sesuai
             : OptionSelect.StatusValidasi.TidakSesuai;
 

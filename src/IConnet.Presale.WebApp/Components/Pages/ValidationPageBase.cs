@@ -67,7 +67,7 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
 
         IQueryable<WorkPaper>? workPapers = FilterComponent.FilterWorkPapers(base.WorkPapers)?
             .Where(x => x.SignatureHelpdeskInCharge.AccountIdSignature == _sessionId
-                && x.ProsesValidasi.IsOnGoing);
+                && x.ProsesValidasi.IsOnGoing());
 
         ColumnWidth.SetColumnWidth(workPapers);
         return workPapers;

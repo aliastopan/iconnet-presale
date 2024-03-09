@@ -32,8 +32,10 @@ public class Applicant : ValueObject
     public string Npwp { get; init; } = string.Empty;
     public string Keterangan { get; init; } = string.Empty;
 
-    [NotMapped]
-    public string WhatsApp => $"wa.me/{(NomorTelepon.StartsWith('+') ? NomorTelepon[1..] : NomorTelepon)}";
+    public string GetWhatsApp()
+    {
+        return $"wa.me/{(NomorTelepon.StartsWith('+') ? NomorTelepon[1..] : NomorTelepon)}";
+    }
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
@@ -46,4 +48,5 @@ public class Applicant : ValueObject
         yield return Npwp;
         yield return Keterangan;
     }
+
 }
