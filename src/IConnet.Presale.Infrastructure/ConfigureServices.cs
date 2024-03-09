@@ -102,7 +102,6 @@ public static class ConfigureServices
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseMySql(connectionString, serverVersion);
-                options.EnableSensitiveDataLogging();
                 options.EnableDetailedErrors();
             });
             services.AddScoped<AppDbContextFactory>();
