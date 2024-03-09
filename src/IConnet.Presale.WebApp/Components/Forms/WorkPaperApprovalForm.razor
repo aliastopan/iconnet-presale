@@ -179,7 +179,7 @@
                             </div>
                         </div>
                         <div class="approval-value">
-                            <div class="@CssBackgroundColorAlamat" style="height: fit-content; cursor: pointer !important;"
+                            <div class="@CssBackgroundColorAlamat" style="height: fit-content; margin-top: 2px; cursor: pointer !important;"
                                 @onclick="OnClipboardAlamatAsync">
                             @{
                                 string cssStyleAlamat = $"margin: 0 8px; margin-top: 2px; {CssStyleStrikethroughAlamat}";
@@ -336,7 +336,7 @@
                 </div>
 
                 <div class="approval-element approval-element-push" style="">
-                    <div class="">
+                    <div class="" style="width: 195px;">
                         <div class="" style="width: 100%; margin-top: -28px !important;">
                             <FluentCheckbox class="approval-submit"
                                 @bind-Value="@IsCommitReady"

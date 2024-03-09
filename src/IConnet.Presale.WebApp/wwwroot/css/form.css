@@ -351,6 +351,7 @@
 }
 
 .approval-value-bg-neutral{
+    min-height: 30px;
     height: fit-content;
     border-radius: 5px;
     border: 1px solid #f3f2f2;
