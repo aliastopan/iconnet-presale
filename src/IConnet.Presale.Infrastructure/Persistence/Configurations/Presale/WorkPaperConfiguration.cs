@@ -224,6 +224,11 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
 
             });
 
+       // foreign key
+       builder.Property(wp => wp.FkApprovalOpportunityId)
+              .HasColumnName("fk_ao_id")
+              .IsRequired();
+
         // configure relationships
         builder.HasOne(wp => wp.ApprovalOpportunity)
             .WithOne()
