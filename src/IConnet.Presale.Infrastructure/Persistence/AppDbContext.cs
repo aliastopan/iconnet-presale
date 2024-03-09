@@ -17,6 +17,7 @@ internal sealed class AppDbContext : DbContext
     }
 
     // aggregates
+    public DbSet<WorkPaper> WorkPapers => Set<WorkPaper>();
     public DbSet<UserAccount> UserAccounts => Set<UserAccount>();
 
     // entities
