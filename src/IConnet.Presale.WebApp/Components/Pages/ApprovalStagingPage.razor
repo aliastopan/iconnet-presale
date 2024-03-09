@@ -118,7 +118,7 @@
                         }
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="REKAP CHAT HISTORY" Style="@GetWidthStyle(ColumnWidth.LinkRekapChatHistoryPx)">
+                    <TemplateColumn Title="REKAP CHAT HISTORY" Style="@GetWidthStyle(ColumnWidth.LinkChatHistoryPx)">
                         <div class="">
                         @if(IsClosedLost(context.ProsesValidasi))
                         {
@@ -128,7 +128,7 @@
                         }
                         else
                         {
-                            @context.ProsesValidasi.LinkRekapChatHistory
+                            @context.ProsesValidasi.LinkChatHistory
                         }
                         </div>
                     </TemplateColumn>

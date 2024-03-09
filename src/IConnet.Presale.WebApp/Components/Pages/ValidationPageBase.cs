@@ -190,7 +190,7 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.ValidasiAlamatPx}px
             {ColumnWidth.ValidasiShareLocPx}px
             {ColumnWidth.TglChatCallResponsPx}px
-            {ColumnWidth.LinkRekapChatHistoryPx}px
+            {ColumnWidth.LinkChatHistoryPx}px
             {ColumnWidth.KeteranganValidasiPx}px
             {ColumnWidth.ContactWhatsAppPx}px
             {ColumnWidth.KantorPerwakilanPx}px";

@@ -182,7 +182,7 @@ public class ApprovalPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.ValidasiIdPlnPx}px
             {ColumnWidth.ValidasiAlamatPx}px
             {ColumnWidth.ValidasiShareLocPx}px
-            {ColumnWidth.LinkRekapChatHistoryPx}px
+            {ColumnWidth.LinkChatHistoryPx}px
             {ColumnWidth.KeteranganValidasiPx}px
             {ColumnWidth.ContactWhatsAppPx}px
             {ColumnWidth.KantorPerwakilanPx}px";

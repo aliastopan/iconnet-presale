@@ -52,7 +52,7 @@ public abstract class ColumnWidthBase<T>
     public int ValidasiAlamatPx { get; set; } = DefaultWidth;
     public int ValidasiIdPlnPx { get; set; } = DefaultWidth;
     public int ValidasiShareLocPx { get; set; } = DefaultWidth;
-    public int LinkRekapChatHistoryPx { get; set; } = 250;
+    public int LinkChatHistoryPx { get; set; } = 250;
     public int StatusValidasiPx { get; set; } = DefaultWidth;
     public int KeteranganValidasiPx { get; set; } = DefaultWidth;
     public int ContactWhatsAppPx { get; set; } = 225;

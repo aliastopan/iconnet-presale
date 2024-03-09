@@ -113,7 +113,7 @@ internal sealed class WorkPaperFactory
                     TglAksi = _dateTimeService.Zero
                 },
                 WaktuTanggalRespons = _dateTimeService.Zero,
-                LinkRekapChatHistory = string.Empty,
+                LinkChatHistory = string.Empty,
                 ParameterValidasi = new ValidationParameter
                 {
                     ValidasiIdPln = ValidationStatus.MenungguValidasi,

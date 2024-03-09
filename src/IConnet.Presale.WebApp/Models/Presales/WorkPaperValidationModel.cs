@@ -35,7 +35,7 @@ public class WorkPaperValidationModel
     public string ValidasiAlamat { get; set; } = string.Empty;
     public string ValidasiCrmKoordinat { get; set; } = string.Empty;
     public string ShareLoc { get; set; } = string.Empty;
-    public string LinkRekapChatHistory { get; set; } = string.Empty;
+    public string LinkChatHistory { get; set; } = string.Empty;
     public string Keterangan { get; set; } = string.Empty;
 
     public DateTime? NullableWaktuRespons { get; set; } = DateTime.Today;

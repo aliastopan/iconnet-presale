@@ -19,7 +19,7 @@ public class WorkloadColumnWidth : ColumnWidthBase<WorkPaper>
 
         SetColumnWidth(workPaper, crm => crm.Shift.Length, width => KeteranganPx = width, "Shift");
         SetColumnWidth(workPaper, crm => crm.ProsesValidasi.ParameterValidasi.ShareLoc.GetLatitudeLongitude().Length, width => ValidasiShareLocPx = width, "Share Loc");
-        SetColumnWidth(workPaper, crm => crm.ProsesValidasi.LinkRekapChatHistory.Length, width => LinkRekapChatHistoryPx = width, "Rekap Chat History");
+        SetColumnWidth(workPaper, crm => crm.ProsesValidasi.LinkChatHistory.Length, width => LinkChatHistoryPx = width, "Rekap Chat History");
         SetColumnWidth(workPaper, crm => crm.ProsesValidasi.Keterangan.Length, width => KeteranganValidasiPx = width, "Keterangan Validasi");
     }
 }

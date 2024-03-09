@@ -10,7 +10,7 @@ public class WorkPaperApprovalModel
         HasilValidasi = workPaper.ProsesValidasi.ParameterValidasi;
         DataCrmKoordinat = workPaper.ApprovalOpportunity.Regional.Koordinat;
         Splitter = workPaper.ApprovalOpportunity.Splitter;
-        LinkRekapChatHistory = workPaper.ProsesValidasi.LinkRekapChatHistory;
+        LinkChatHistory = workPaper.ProsesValidasi.LinkChatHistory;
         KeteranganValidasi = workPaper.ProsesValidasi.Keterangan;
 
         StatusApproval = EnumProcessor.EnumToDisplayString(workPaper.ProsesApproval.StatusApproval);
@@ -32,7 +32,7 @@ public class WorkPaperApprovalModel
     public ValidationParameter HasilValidasi { get; init; } = new();
     public Coordinate DataCrmKoordinat { get; init; } = new();
     public string Splitter { get; set; } = string.Empty;
-    public string LinkRekapChatHistory { get; set; } = string.Empty;
+    public string LinkChatHistory { get; set; } = string.Empty;
     public string KeteranganValidasi { get; init; } = string.Empty;
 
     public string StatusApproval { get; set; } = string.Empty;

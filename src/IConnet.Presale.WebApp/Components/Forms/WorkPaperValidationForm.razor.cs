@@ -84,7 +84,7 @@ public partial class WorkPaperValidationForm : ComponentBase
             .WithParameterValidasi(parameterValidasi)
             .WithSignatureChatCallRespons(signatureChatCallRespons)
             .WithWaktuTanggalRespons(ValidationModel.GetWaktuTanggalRespons())
-            .WithLinkRekapChatHistory(ValidationModel.LinkRekapChatHistory)
+            .WithLinkChatHistory(ValidationModel.LinkChatHistory)
             .WithKeterangan(ValidationModel.Keterangan);
 
         WorkPaper.ProsesValidasi = prosesValidasi;
@@ -326,9 +326,9 @@ public partial class WorkPaperValidationForm : ComponentBase
         // LogSwitch.Debug("Tanggal respons: {0}", tanggalRespons!.Value.Date);
     }
 
-    protected void OnLinkRekapChatHistoryChanged(string linkChatHistory)
+    protected void OnLinkChatHistoryChanged(string linkChatHistory)
     {
-        ValidationModel!.LinkRekapChatHistory = linkChatHistory;
+        ValidationModel!.LinkChatHistory = linkChatHistory;
         // LogSwitch.Debug("Link chat history: {0}", linkChatHistory);
     }
 
