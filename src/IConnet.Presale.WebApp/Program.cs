@@ -17,6 +17,11 @@ builder.ConfigureLogging();
 
 builder.Host.ConfigureServices((context, services) =>
 {
+    services.AddTransient(sp => new HttpClient(new HttpClientHandler
+    {
+        ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+    }));
+
     services.AddSingleton<CircuitHandler, CustomCircuitHandler>();
     services.AddSingleton<ChatTemplateService>();
     services.AddSingleton<OptionService>();
@@ -51,18 +56,8 @@ builder.Host.ConfigureServices((context, services) =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/error", createScopeForErrors: true);
-    app.UseHsts();
-}
-else
-{
-    app.UseDeveloperExceptionPage();
-}
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 app.UseStatusCodePagesWithRedirects("/redirect/{0}");
 // app.UseStatusCodePagesWithReExecute("/redirect/{0}");
 
@@ -71,12 +66,6 @@ app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
-
-// app.MapPost("broadcast", async (string message, IHubContext<UpdateHub> context) =>
-// {
-//     await context.Clients.All.SendAsync("ReceiveUpdate", message);
-//     return Results.NoContent();
-// });
 
 app.MapHub<BroadcastHub>("/broadcast");
 
