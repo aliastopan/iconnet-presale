@@ -44,6 +44,9 @@ builder.Host.ConfigureServices((context, services) =>
         options.KeepAliveInterval = TimeSpan.FromSeconds(10);
         options.HandshakeTimeout = TimeSpan.FromSeconds(5);
     });
+
+    LogSwitch.Debug("HttpClient base address {0}", context.Configuration["HttpClient:BaseAddress"]!);
+
 });
 
 var app = builder.Build();

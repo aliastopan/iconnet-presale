@@ -18,9 +18,9 @@ internal class HttpClientBase : IHttpClientBase
 
             return true;
         }
-        catch (HttpRequestException)
+        catch (HttpRequestException exception)
         {
-            Log.Fatal("Host does not responding.");
+            Log.Fatal("Host does not responding: {0}", exception.Message);
             return false;
         }
     }
