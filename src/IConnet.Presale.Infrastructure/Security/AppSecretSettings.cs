@@ -5,6 +5,7 @@ public class AppSecretSettings
     public static class Section
     {
         public const string MasterKey = "AppSecrets:MasterKey";
+        public const string DevelopmentConnectionString = "AppSecrets:DevelopmentConnectionString";
         public const string MySqlConnectionString = "AppSecrets:MySqlConnectionString";
         public const string RedisConnectionString = "AppSecrets:RedisConnectionString";
         public const string RedisPassword = "AppSecrets:RedisPassword";
@@ -16,6 +17,7 @@ public class AppSecretSettings
     public const string SectionName = "AppSecrets";
 
     public string MasterKey { get; set; } = string.Empty;
+    public string DevelopmentConnectionString { get; set; } = string.Empty;
     public string MySqlConnectionString { get; set; } = string.Empty;
     public string RedisConnectionString { get; set; } = string.Empty;
     public string RedisPassword { get; set; } = string.Empty;
