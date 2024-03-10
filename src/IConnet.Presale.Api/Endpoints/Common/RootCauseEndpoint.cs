@@ -22,7 +22,6 @@ public class RootCauseEndpoint : IEndpointDefinition
             },
             fault => fault.AsProblem(new ProblemDetails
             {
-                Type = "https://localhost:7244/errors/root-causes",
                 Title = "Root Cause Query Failed",
                 Instance = httpContext.Request.Path
             },

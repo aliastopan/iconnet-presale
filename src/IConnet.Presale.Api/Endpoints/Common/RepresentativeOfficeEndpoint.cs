@@ -22,7 +22,6 @@ public class RepresentativeOfficeEndpoint : IEndpointDefinition
             },
             fault => fault.AsProblem(new ProblemDetails
             {
-                Type = "https://localhost:7244/errors/representative-offices",
                 Title = "Representative Offices Query Failed",
                 Instance = httpContext.Request.Path
             },

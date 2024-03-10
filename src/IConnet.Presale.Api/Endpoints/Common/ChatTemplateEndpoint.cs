@@ -23,7 +23,6 @@ public class ChatTemplateEndpoint : IEndpointDefinition
             },
             fault => fault.AsProblem(new ProblemDetails
             {
-                Type = "https://localhost:7244/errors/chat-templates",
                 Title = "Chat Templates Query Failed",
                 Instance = httpContext.Request.Path
             },
