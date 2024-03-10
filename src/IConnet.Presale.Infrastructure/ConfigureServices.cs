@@ -101,6 +101,7 @@ public static class ConfigureServices
             }
             else
             {
+                Log.Warning("Using DEVELOPMENT DB");
                 connectionString = configuration[AppSecretSettings.Section.DevelopmentConnectionString]!;
             }
 
