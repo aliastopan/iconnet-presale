@@ -22,6 +22,16 @@ public partial class SignInForm : ComponentBase
     public string ErrorMessage { get; set; } = string.Empty;
     public SignInModel SignInModel => _signInForm;
 
+    protected void OnUsernameChanged(string username)
+    {
+        _signInForm.Username = username;
+    }
+
+    protected void OnPasswordChanged(string password)
+    {
+        _signInForm.Password = password;
+    }
+
     protected async Task SubmitAsync()
     {
         ErrorMessage = string.Empty;
