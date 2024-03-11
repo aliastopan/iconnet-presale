@@ -66,7 +66,7 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
 
     protected async Task<string> PasteClipboardAsync()
     {
-        return await JsRuntime.InvokeAsync<string>("navigator.clipboard.readText");
+        return await JsRuntime.InvokeAsync<string>("readClipboard");
     }
 
     private void ImportResultToast()
