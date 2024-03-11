@@ -8,7 +8,7 @@ namespace IConnet.Presale.WebApp.Models.Identity;
 public class CreateUserModel : IRegistrationModel
 {
     [Required(ErrorMessage = "Username tidak boleh kosong.")]
-    [RegularExpression(RegexPattern.Username)]
+    [RegularExpression(RegexPattern.Username, ErrorMessage = "Username harus terdiri dari 3-16 karakter, jangan awali atau akhiri dengan garis bawah/titik, boleh alfanumerik, garis bawah, titik, tidak boleh ada spasi.")]
     public string Username { get; set; }
 
     [Required(ErrorMessage = "Password tidak boleh kosong.")]
