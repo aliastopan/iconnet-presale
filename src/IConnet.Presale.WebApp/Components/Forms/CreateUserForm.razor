@@ -19,16 +19,26 @@
                 <div class="input-form">
                     <FluentTextField style="width: 250px"
                         @bind-Value=@CreateUserModel.Password
-                        TextFieldType="TextFieldType.Password"
+                        TextFieldType="@PasswordTextFieldType"
                         Placeholder="Password"
-                        Label="Password"></FluentTextField>
+                        Label="Password">
+                            <FluentIcon Value="@PasswordIcon"
+                                Color="@Color.Neutral"
+                                Slot="end"
+                                OnClick="OnToggleShowPassword"/>
+                        </FluentTextField>
                 </div>
                 <div class="input-form">
                     <FluentTextField style="width: 250px"
                         @bind-Value=@CreateUserModel.ConfirmPassword
-                        TextFieldType="TextFieldType.Password"
+                        TextFieldType="@ConfirmationPasswordTextFieldType"
                         Placeholder="Konfirmasi Password"
-                        Label="Konfirmasi Password"></FluentTextField>
+                        Label="Konfirmasi Password">
+                            <FluentIcon Value="@ConfirmationPasswordIcon"
+                                Color="@Color.Neutral"
+                                Slot="end"
+                                OnClick="OnToggleShowConfirmationPassword"/>
+                        </FluentTextField>
                 </div>
                 <div class="input-form">
 

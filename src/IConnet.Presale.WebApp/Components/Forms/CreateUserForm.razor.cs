@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using IConnet.Presale.WebApp.Models.Identity;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace IConnet.Presale.WebApp.Components.Forms;
 
@@ -15,6 +16,22 @@ public partial class CreateUserForm : ComponentBase
     public List<Error> Errors => _errors;
     public bool IsLoading { get; set; } = false;
     public bool ShowErrorMessages => _errors.Count > 0;
+
+    public bool ShowPassword = false;
+    protected Icon PasswordIcon => ShowPassword
+        ? new Icons.Filled.Size20.Eye()
+        : new Icons.Filled.Size20.EyeOff();
+    protected TextFieldType PasswordTextFieldType => ShowPassword
+        ? TextFieldType.Text
+        : TextFieldType.Password;
+
+    public bool ShowConfirmationPassword = false;
+    protected Icon ConfirmationPasswordIcon => ShowConfirmationPassword
+        ? new Icons.Filled.Size20.Eye()
+        : new Icons.Filled.Size20.EyeOff();
+    protected TextFieldType ConfirmationPasswordTextFieldType => ShowConfirmationPassword
+        ? TextFieldType.Text
+        : TextFieldType.Password;
 
     protected Func<string, bool> OptionDisableSuperUser => option => option == OptionSelect.Role.SuperUser;
 
@@ -47,7 +64,7 @@ public partial class CreateUserForm : ComponentBase
         await CreateUserAsync();
     }
 
-    public async Task CreateUserAsync()
+    protected async Task CreateUserAsync()
     {
         IsLoading = true;
 
@@ -81,5 +98,15 @@ public partial class CreateUserForm : ComponentBase
         }
 
         IsLoading = false;
+    }
+
+    protected void OnToggleShowPassword(MouseEventArgs args)
+    {
+        ShowPassword = !ShowPassword;
+    }
+
+    protected void OnToggleShowConfirmationPassword(MouseEventArgs args)
+    {
+        ShowConfirmationPassword = !ShowConfirmationPassword;
     }
 }
