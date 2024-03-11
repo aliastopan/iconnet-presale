@@ -65,6 +65,7 @@ fluent-data-grid-cell.column-header .col-title .col-title-text{
     color: #5e5f5f;
 }
 
+/* shadow filter */
 fluent-data-grid-cell.column-header .col-options{
     padding: 8px;
     left: 1px;
