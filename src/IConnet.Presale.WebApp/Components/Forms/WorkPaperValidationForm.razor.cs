@@ -89,6 +89,7 @@ public partial class WorkPaperValidationForm : ComponentBase
 
         WorkPaper.ProsesValidasi = prosesValidasi;
         WorkPaper.WorkPaperLevel = WorkPaperLevel.WaitingApproval;
+        WorkPaper.Shift = SessionService.GetShift();
 
         var message = $"{signatureChatCallRespons.Alias} has commit chat/call validation to {WorkPaper.ApprovalOpportunity.IdPermohonan}";
         await UpdateProsesValidasi(WorkPaper, message);

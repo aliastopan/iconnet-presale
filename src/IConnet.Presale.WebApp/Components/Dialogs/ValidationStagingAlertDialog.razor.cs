@@ -30,7 +30,7 @@ public partial class ValidationStagingAlertDialog : IDialogContentComponent<Work
 
     private async Task RestageWorkPaperAsync()
     {
-        Content.Shift = "";
+        Content.Shift = SessionService.GetShift();
         Content.SetHelpdeskInCharge(new ActionSignature
         {
             AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
@@ -41,6 +41,7 @@ public partial class ValidationStagingAlertDialog : IDialogContentComponent<Work
 
     private void UnstageWorkPaper()
     {
+        Content.Shift = string.Empty;
         Content.SetHelpdeskInCharge(new ActionSignature
         {
             AccountIdSignature = Guid.Empty,

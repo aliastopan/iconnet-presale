@@ -8,15 +8,18 @@ namespace IConnet.Presale.WebApp.Services;
 
 public sealed class SessionService
 {
+    private readonly IDateTimeService _dateTimeService;
     private readonly ProtectedLocalStorage _localStorage;
     private readonly NavigationManager _navigationManager;
     private readonly OptionService _optionService;
     private readonly FilterPreference _filterPreference;
 
-    public SessionService(ProtectedLocalStorage localStorage,
+    public SessionService(IDateTimeService dateTimeService,
+        ProtectedLocalStorage localStorage,
         NavigationManager navigationManager,
         OptionService optionService)
     {
+        _dateTimeService = dateTimeService;
         _localStorage = localStorage;
         _navigationManager = navigationManager;
         _optionService = optionService;
@@ -87,6 +90,25 @@ public sealed class SessionService
         }
 
         return UserModel!.UserAccountId;
+    }
+
+    public string GetShift()
+    {
+        var now = _dateTimeService.DateTimeOffsetNow;
+        int currentHour = now.Hour;
+
+        if (currentHour >= 8 && currentHour < 14)
+        {
+            return JobShift.Siang.ToString();
+        }
+        else if (currentHour >= 14 && currentHour < 21)
+        {
+            return JobShift.Malam.ToString();
+        }
+        else
+        {
+            return "";
+        }
     }
 
     private string SetRoleString(string role)

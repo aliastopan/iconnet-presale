@@ -30,7 +30,7 @@ public partial class ApprovalStagingAlertDialog : IDialogContentComponent<WorkPa
 
     private async Task RestageWorkPaperAsync()
     {
-        Content.Shift = "";
+        Content.Shift = SessionService.GetShift();
         Content.SetPlanningAssetCoverageInCharge(new ActionSignature
         {
             AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
@@ -41,6 +41,7 @@ public partial class ApprovalStagingAlertDialog : IDialogContentComponent<WorkPa
 
     private void UnstageWorkPaper()
     {
+        Content.Shift = string.Empty;
         Content.SetPlanningAssetCoverageInCharge(new ActionSignature
         {
             AccountIdSignature = Guid.Empty,
