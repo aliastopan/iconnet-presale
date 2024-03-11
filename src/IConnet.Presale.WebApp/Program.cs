@@ -57,7 +57,7 @@ builder.Host.ConfigureServices((context, services) =>
 var app = builder.Build();
 
 
-// app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 app.UseStatusCodePagesWithRedirects("/redirect/{0}");
 // app.UseStatusCodePagesWithReExecute("/redirect/{0}");
 

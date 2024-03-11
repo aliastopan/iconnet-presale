@@ -18,7 +18,16 @@ public sealed class BroadcastService : IAsyncDisposable
         _configuration = configuration;
         _hubContext = hubContext;
         _hubConnection = new HubConnectionBuilder()
-            .WithUrl($"{_configuration["WebSocket:BaseAddress"]}/broadcast")
+            .WithUrl($"{_configuration["WebSocket:BaseAddress"]}/broadcast", options =>
+            {
+                options.HttpMessageHandlerFactory = innerHandler =>
+                {
+                    return new HttpClientHandler
+                    {
+                        ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+                    };
+                };
+            })
             .Build();
     }
 
