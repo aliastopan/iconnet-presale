@@ -172,7 +172,7 @@ public class ApprovalPageBase : WorkloadPageBase, IPageNavigation
     private string GetGridTemplateCols()
     {
         return $@"
-            {ColumnWidth.IdPermohonanPx}px
+            {ColumnWidth.IdPermohonanPx + ColumnWidth.OffsetPx}px
             {ColumnWidth.TglPermohonanPx}px
             {ColumnWidth.StagingStatusPx}px
             {ColumnWidth.PlanningAssetCoverageInChargePx}px

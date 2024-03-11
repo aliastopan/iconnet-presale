@@ -18,7 +18,7 @@
             EmptyContent="@HtmlFragment.EmptyContent"
             GridTemplateColumns="@GridTemplateCols">
 
-            <TemplateColumn Title="ID PERMOHONAN" SortBy="@SortByIdPermohonan" Style="@GetWidthStyle(ColumnWidth.IdPermohonanPx)">
+            <TemplateColumn Title="ID PERMOHONAN" SortBy="@SortByIdPermohonan" Style="@GetWidthStyle(ColumnWidth.IdPermohonanPx, ColumnWidth.OffsetPx)">
                 <div class="">
                     @context.ApprovalOpportunity.IdPermohonan
                 </div>

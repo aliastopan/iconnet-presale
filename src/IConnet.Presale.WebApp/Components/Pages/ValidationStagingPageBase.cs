@@ -172,7 +172,7 @@ public class ValidationStagingPageBase : WorkloadPageBase, IPageNavigation
     private string GetGridTemplateCols()
     {
         return $@"
-            {ColumnWidth.IdPermohonanPx}px
+            {ColumnWidth.IdPermohonanPx + ColumnWidth.OffsetPx}px
             {ColumnWidth.TglPermohonanPx}px
             {ColumnWidth.HelpdeskInChargePx}px
             {ColumnWidth.ShiftPx}px
