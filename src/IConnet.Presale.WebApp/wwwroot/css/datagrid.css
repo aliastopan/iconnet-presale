@@ -71,11 +71,11 @@ fluent-data-grid-cell.column-header .col-title .col-title-text{
 }
 
 /* shadow filter */
-fluent-data-grid-cell.column-header .col-options{
+/* fluent-data-grid-cell.column-header .col-options{
     padding: 8px;
     left: 1px;
     box-shadow: none;
-}
+} */
 
 /* fluent-data-grid-cell.column-header {
     position: relative;
