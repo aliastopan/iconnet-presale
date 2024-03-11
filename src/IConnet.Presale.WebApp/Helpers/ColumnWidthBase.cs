@@ -9,8 +9,9 @@ public abstract class ColumnWidthBase<T>
     private readonly static int _defaultWidth = 200;    //px
 
     public static int DefaultWidth => _defaultWidth;
+    public int OffsetPx => 32;
 
-    public int IdPermohonanPx { get; set; } = 225;
+    public int IdPermohonanPx { get; set; } = DefaultWidth;
     public int TglPermohonanPx { get; set; } = DefaultWidth;
     public int DurasiTidakLanjutPx { get; set; } = DefaultWidth;
     public int NamaPemohonPx { get; set; } = DefaultWidth;
@@ -20,7 +21,7 @@ public abstract class ColumnWidthBase<T>
     public int StatusPermohonanPx { get; set; } = 210;
     public int NamaAgenPx { get; set; } = DefaultWidth;
     public int EmailAgenPx { get; set; } = DefaultWidth;
-    public int TelpAgenPx { get; set; } = 150;
+    public int TelpAgenPx { get; set; } = 180;
     public int MitraAgenPx { get; set; } = DefaultWidth;
     public int SplitterPx { get; set; } = 165;
     public int JenisPermohonanPx { get; set; } = 180;

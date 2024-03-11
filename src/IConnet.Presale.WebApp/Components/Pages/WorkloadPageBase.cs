@@ -49,8 +49,8 @@ public class WorkloadPageBase : ComponentBase
         });
     }
 
-    protected string GetWidthStyle(int widthPx)
+    protected string GetWidthStyle(int widthPx, int offsetPx = 0)
     {
-        return $"width: {widthPx}px;";
+        return $"width: {widthPx + offsetPx}px;";
     }
 }
