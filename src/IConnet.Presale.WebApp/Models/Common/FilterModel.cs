@@ -29,6 +29,12 @@ public class FilterModel
 
     // column filters
     public string IdPermohonan { get; set; } = string.Empty;
+    public string IdPln { get; set; } = string.Empty;
+    public string NamaPemohon { get; set; } = string.Empty;
+    public string NomorTeleponPemohon { get; set; } = string.Empty;
+    public string EmailPemohon { get; set; } = string.Empty;
+
+    public string Splitter { get; set; } = string.Empty;
 
     public void IdPermohonanFilterHandler(ChangeEventArgs args)
     {
@@ -46,9 +52,95 @@ public class FilterModel
         }
     }
 
+    public void IdPlnFilterHandler(ChangeEventArgs args)
+    {
+        if (args.Value is string value)
+        {
+            IdPermohonan = value;
+        }
+    }
+
+    public void IdPlnFilterClear()
+    {
+        if (IdPln.IsNullOrWhiteSpace())
+        {
+            IdPln = string.Empty;
+        }
+    }
+
+    public void NamaPemohonFilterHandler(ChangeEventArgs args)
+    {
+        if (args.Value is string value)
+        {
+            NamaPemohon = value;
+        }
+    }
+
+    public void NamaPemohonFilterClear()
+    {
+        if (NamaPemohon.IsNullOrWhiteSpace())
+        {
+            NamaPemohon = string.Empty;
+        }
+    }
+
+    public void NomorTeleponPemohonFilterHandler(ChangeEventArgs args)
+    {
+        if (args.Value is string value)
+        {
+            NomorTeleponPemohon = value;
+        }
+    }
+
+    public void NomorTeleponPemohonFilterClear()
+    {
+        if (NomorTeleponPemohon.IsNullOrWhiteSpace())
+        {
+            NomorTeleponPemohon = string.Empty;
+        }
+    }
+
+    public void EmailPemohonFilterHandler(ChangeEventArgs args)
+    {
+        if (args.Value is string value)
+        {
+            EmailPemohon = value;
+        }
+    }
+
+    public void EmailPemohonFilterClear()
+    {
+        if (EmailPemohon.IsNullOrWhiteSpace())
+        {
+            EmailPemohon = string.Empty;
+        }
+    }
+
+    public void SplitterFilterHandler(ChangeEventArgs args)
+    {
+        if (args.Value is string value)
+        {
+            Splitter = value;
+        }
+    }
+
+    public void SplitterFilterClear()
+    {
+        if (Splitter.IsNullOrWhiteSpace())
+        {
+            Splitter = string.Empty;
+        }
+    }
+
     public void ResetColumnFilters()
     {
         IdPermohonan = string.Empty;
+        IdPln = string.Empty;
+        NamaPemohon = string.Empty;
+        NomorTeleponPemohon = string.Empty;
+        EmailPemohon = string.Empty;
+
+        Splitter = string.Empty;
     }
 
     public void ResetFilters(DateTime today, FilterPreference filterPreference)
@@ -63,5 +155,10 @@ public class FilterModel
         filterPreference.TglPermohonanMax = FilterDateTimeMax;
 
         IdPermohonan = string.Empty;
+        IdPln = string.Empty;
+        NamaPemohon = string.Empty;
+        NomorTeleponPemohon = string.Empty;
+        EmailPemohon = string.Empty;
+        Splitter = string.Empty;
     }
 }
