@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using IConnet.Presale.Domain.Aggregates.Presales;
 using IConnet.Presale.Domain.Enums;
+using IConnet.Presale.Domain.Extensions;
 using IConnet.Presale.Shared.Interfaces.Models.Presales;
 
 namespace IConnet.Presale.Infrastructure.Managers;
@@ -116,6 +117,11 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
         var task = _redisService.SetValueAsync(key, jsonWorkPaper);
 
         EnqueueForwardingTask(operationId: key, task);
+
+        if (workPaper.IsDoneProcessing())
+        {
+            _inMemoryWorkloadService.Delete(workPaper);
+        }
 
         await Task.CompletedTask;
     }
