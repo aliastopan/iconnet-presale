@@ -1,0 +1,6 @@
+{
+    "permissions": {
+        "clipboard-read": {},
+        "clipboard-write": {}
+    }
+}
