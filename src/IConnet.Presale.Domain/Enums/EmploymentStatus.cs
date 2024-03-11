@@ -4,5 +4,5 @@ namespace IConnet.Presale.Domain.Enums;
 public enum EmploymentStatus
 {
     Magang,
-    PegawaiTetap
+    Internal
 }

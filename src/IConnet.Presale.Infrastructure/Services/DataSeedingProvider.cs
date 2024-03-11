@@ -39,7 +39,7 @@ internal sealed class DataSeedingProvider : IDataSeedingService
             User = new User
             {
                 Username = "aliastopan",
-                EmploymentStatus = EmploymentStatus.PegawaiTetap,
+                EmploymentStatus = EmploymentStatus.Internal,
                 UserRole = UserRole.SuperUser,
                 UserPrivileges = new List<UserPrivilege>()
                 {
@@ -67,7 +67,7 @@ internal sealed class DataSeedingProvider : IDataSeedingService
             User = new User
             {
                 Username = "erasmus",
-                EmploymentStatus = EmploymentStatus.PegawaiTetap,
+                EmploymentStatus = EmploymentStatus.Internal,
                 UserRole = UserRole.SuperUser,
                 UserPrivileges = new List<UserPrivilege>()
                 {
