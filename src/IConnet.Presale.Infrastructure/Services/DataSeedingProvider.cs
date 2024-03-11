@@ -47,7 +47,6 @@ internal sealed class DataSeedingProvider : IDataSeedingService
                     UserPrivilege.Editor,
                     UserPrivilege.Administrator
                 },
-                JobShift = JobShift.Siang,
                 JobTitle = "Developer"
             },
             PasswordHash = _passwordService.HashPassword(_configuration["Credentials:SuperUser"]!, out var salt),
@@ -75,7 +74,6 @@ internal sealed class DataSeedingProvider : IDataSeedingService
                     UserPrivilege.Editor,
                     UserPrivilege.Administrator
                 },
-                JobShift = JobShift.Siang,
                 JobTitle = "Developer"
             },
             PasswordHash = _passwordService.HashPassword(_configuration["Credentials:Administrator"]!, out var salt),
@@ -96,7 +94,6 @@ internal sealed class DataSeedingProvider : IDataSeedingService
                     UserPrivilege.Viewer,
                     UserPrivilege.Editor,
                 },
-                JobShift = JobShift.Siang,
                 JobTitle = "Helpdesk"
             },
             PasswordHash = _passwordService.HashPassword("pwd", out salt),
@@ -117,7 +114,6 @@ internal sealed class DataSeedingProvider : IDataSeedingService
                     UserPrivilege.Viewer,
                     UserPrivilege.Editor,
                 },
-                JobShift = JobShift.Siang,
                 JobTitle = "Planning Asset Coverage"
             },
             PasswordHash = _passwordService.HashPassword("pwd", out salt),

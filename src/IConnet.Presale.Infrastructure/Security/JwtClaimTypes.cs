@@ -19,5 +19,4 @@ public static class JwtClaimTypes
     public const string EmploymentStatus = "employment_status";
     public const string Role = "role";
     public const string JobTitle = "job_title";
-    public const string JobShift = "job_shift";
 }

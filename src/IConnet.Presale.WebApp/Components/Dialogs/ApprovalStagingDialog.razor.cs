@@ -25,7 +25,7 @@ public partial class ApprovalStagingDialog : IDialogContentComponent<WorkPaper>
     protected async Task StageWorkPaperAsync()
     {
         Content.WorkPaperLevel = WorkPaperLevel.WaitingApproval;
-        Content.Shift = (await SessionService.GetJobShiftAsync()).ToString();
+        Content.Shift = "";
         Content.SetPlanningAssetCoverageInCharge(new ActionSignature
         {
             AccountIdSignature = await SessionService.GetUserAccountIdAsync(),

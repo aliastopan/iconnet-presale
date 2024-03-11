@@ -7,7 +7,7 @@ public interface IIdentityAggregateHandler
 {
     // user account
     Task<UserAccount> CreateUserAccountAsync(string username, string password,
-        EmploymentStatus employmentStatus, UserRole userRole, string jobTitle, JobShift jobShift,
+        EmploymentStatus employmentStatus, UserRole userRole, string jobTitle,
         bool autoPrivilege = false);
     Task SignUserAsync(UserAccount userAccount, RefreshToken refreshToken);
     Task<Result<UserAccount>> TryGetUserAccountAsync(Guid userAccountId);

@@ -27,7 +27,6 @@ public class SignUpCommandHandler : IRequestHandler<SignUpCommand, Result<SignUp
             request.EmploymentStatus,
             request.UserRole,
             request.JobTitle,
-            request.JobShift,
             request.IsManagedByAdministrator);
 
         if (trySignUp.IsFailure())
@@ -41,8 +40,7 @@ public class SignUpCommandHandler : IRequestHandler<SignUpCommand, Result<SignUp
             userAccount.User.EmploymentStatus.ToString(),
             userAccount.User.UserRole.ToString(),
             userAccount.User.UserPrivileges.Select(privilege => privilege.ToString()).ToList(),
-            userAccount.User.JobTitle,
-            userAccount.User.JobShift.ToString());
+            userAccount.User.JobTitle);
 
         return Result<SignUpResponse>.Ok(response);
     }

@@ -13,7 +13,7 @@ internal sealed class IdentityManager : IIdentityManager
     }
 
     public async Task<Result<UserAccount>> TrySignUpAsync(string username, string password,
-        string statusEmploymentString, string userRoleString, string jobTitle, string jobShiftString,
+        string statusEmploymentString, string userRoleString, string jobTitle,
         bool autoPrivilege = false)
     {
         var TryValidateAvailability = await _identityAggregateHandler.TryValidateAvailabilityAsync(username);
@@ -24,13 +24,11 @@ internal sealed class IdentityManager : IIdentityManager
 
         EmploymentStatus employmentStatus;
         UserRole userRole;
-        JobShift jobShift;
 
         try
         {
             employmentStatus = (EmploymentStatus)Enum.Parse(typeof(EmploymentStatus), statusEmploymentString);
             userRole = (UserRole)Enum.Parse(typeof(UserRole), userRoleString);
-            jobShift = (JobShift)Enum.Parse(typeof(JobShift), jobShiftString);
         }
         catch (Exception exception)
         {
@@ -39,7 +37,7 @@ internal sealed class IdentityManager : IIdentityManager
         }
 
         var userAccount = await _identityAggregateHandler.CreateUserAccountAsync(username, password,
-            employmentStatus, userRole, jobTitle, jobShift,
+            employmentStatus, userRole, jobTitle,
             autoPrivilege);
 
         return Result<UserAccount>.Ok(userAccount);

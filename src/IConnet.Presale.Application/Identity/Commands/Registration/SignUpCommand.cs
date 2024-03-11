@@ -5,7 +5,7 @@ using IConnet.Presale.Shared.Interfaces.Models.Identity;
 namespace IConnet.Presale.Application.Identity.Commands.Registration;
 
 public class SignUpCommand(string username, string password,
-    string employmentStatus, string userRole, string jobTitle, string jobShift,
+    string employmentStatus, string userRole, string jobTitle,
     bool isManagedByAdministrator)
     : IRegistrationModel, IRequest<Result<SignUpResponse>>
 {
@@ -25,9 +25,6 @@ public class SignUpCommand(string username, string password,
 
     [Required]
     public string JobTitle { get; } = jobTitle;
-
-    [Required]
-    public string JobShift { get; } = jobShift;
 
     [Required]
     public bool IsManagedByAdministrator { get; } = isManagedByAdministrator;

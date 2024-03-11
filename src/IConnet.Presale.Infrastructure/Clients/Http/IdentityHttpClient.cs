@@ -15,7 +15,7 @@ internal sealed class IdentityHttpClient : HttpClientBase, IIdentityHttpClient
 
 
     public async Task<HttpResult> SignUpAsync(string username, string password,
-        string statusEmployment, string userRole, string jobTitle, string jobShift,
+        string statusEmployment, string userRole, string jobTitle,
         bool isManagedByAdministrator)
     {
         var isResponding = await IsHostRespondingAsync();
@@ -28,7 +28,7 @@ internal sealed class IdentityHttpClient : HttpClientBase, IIdentityHttpClient
         }
 
         var request = new SignUpRequest(username, password,
-            statusEmployment, userRole, jobTitle, jobShift,
+            statusEmployment, userRole, jobTitle,
             isManagedByAdministrator);
 
         var jsonBody = JsonSerializer.Serialize(request);

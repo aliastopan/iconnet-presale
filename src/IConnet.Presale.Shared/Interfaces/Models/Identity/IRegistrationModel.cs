@@ -7,6 +7,5 @@ public interface IRegistrationModel
    string EmploymentStatus { get; }
    string UserRole { get; }
    string JobTitle { get; }
-   string JobShift { get; }
    bool IsManagedByAdministrator { get; }
 }

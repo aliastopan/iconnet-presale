@@ -9,7 +9,6 @@ public class User : ValueObject
     public UserRole UserRole { get; init; }
     public IReadOnlyCollection<UserPrivilege> UserPrivileges { get; init; }
     public string JobTitle { get; init; }
-    public JobShift JobShift { get; init; }
 
     public User ChangeUserRole(UserRole userRole)
     {
@@ -20,7 +19,6 @@ public class User : ValueObject
             UserRole = userRole,
             UserPrivileges = this.UserPrivileges,
             JobTitle = this.JobTitle,
-            JobShift = this.JobShift
         };
     }
 
@@ -38,7 +36,6 @@ public class User : ValueObject
             UserRole = this.UserRole,
             UserPrivileges = privileges,
             JobTitle = this.JobTitle,
-            JobShift = this.JobShift
         };
     }
 
@@ -61,7 +58,6 @@ public class User : ValueObject
             UserRole = this.UserRole,
             UserPrivileges = privileges,
             JobTitle = this.JobTitle,
-            JobShift = this.JobShift
         };
     }
 
@@ -77,7 +73,6 @@ public class User : ValueObject
             UserRole = this.UserRole,
             UserPrivileges = privileges,
             JobTitle = this.JobTitle,
-            JobShift = this.JobShift
         };
     }
 
@@ -90,20 +85,6 @@ public class User : ValueObject
             UserRole = this.UserRole,
             UserPrivileges = this.UserPrivileges,
             JobTitle = jobTitle,
-            JobShift = this.JobShift
-        };
-    }
-
-    public User ChangeJobShift(JobShift jobShift)
-    {
-        return new User
-        {
-            Username = this.Username,
-            EmploymentStatus = this.EmploymentStatus,
-            UserRole = this.UserRole,
-            UserPrivileges = this.UserPrivileges,
-            JobTitle = this.JobTitle,
-            JobShift = jobShift
         };
     }
 
@@ -114,6 +95,5 @@ public class User : ValueObject
         yield return UserRole;
         yield return UserPrivileges;
         yield return JobTitle;
-        yield return JobShift;
     }
 }

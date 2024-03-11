@@ -30,7 +30,7 @@ public partial class ValidationStagingAlertDialog : IDialogContentComponent<Work
 
     private async Task RestageWorkPaperAsync()
     {
-        Content.Shift = (await SessionService.GetJobShiftAsync()).ToString();
+        Content.Shift = "";
         Content.SetHelpdeskInCharge(new ActionSignature
         {
             AccountIdSignature = await SessionService.GetUserAccountIdAsync(),

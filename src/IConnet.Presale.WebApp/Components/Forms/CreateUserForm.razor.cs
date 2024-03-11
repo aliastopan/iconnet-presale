@@ -22,7 +22,6 @@ public partial class CreateUserForm : ComponentBase
     {
         CreateUserModel = new CreateUserModel
         {
-            JobShift = OptionSelect.Shift.ShiftOptions.First(),
             UserRole = OptionSelect.Role.RoleOptions.First(),
             EmploymentStatus = OptionSelect.StatusKepegawaian.StatusKepegawaianOptions.First(),
             IsManagedByAdministrator = true
@@ -63,7 +62,6 @@ public partial class CreateUserForm : ComponentBase
             EnumProcessor.DisplayStringToEnumString(CreateUserModel.EmploymentStatus),
             EnumProcessor.DisplayStringToEnumString(CreateUserModel.UserRole),
             CreateUserModel.JobTitle,
-            CreateUserModel.JobShift,
             CreateUserModel.IsManagedByAdministrator);
 
         if (httpResult.IsSuccessStatusCode)

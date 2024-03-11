@@ -29,9 +29,4 @@ public static class OptionSelect
         public static IEnumerable<string> RoleOptions => EnumProcessor.GetStringOptions<UserRole>(skipFirst: true);
         public static string SuperUser => RoleOptions.Last();
     }
-
-    public static class Shift
-    {
-        public static IEnumerable<string> ShiftOptions => EnumProcessor.GetStringOptions<JobShift>();
-    }
 }

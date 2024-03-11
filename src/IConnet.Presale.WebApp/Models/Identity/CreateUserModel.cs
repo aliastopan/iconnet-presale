@@ -29,9 +29,6 @@ public class CreateUserModel : IRegistrationModel
     public string JobTitle { get; set; }
 
     [Required]
-    public string JobShift { get; set; }
-
-    [Required]
     public bool IsManagedByAdministrator { get; set; } = false;
 
     public void Reset()

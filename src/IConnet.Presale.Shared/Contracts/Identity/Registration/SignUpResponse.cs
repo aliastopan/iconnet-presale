@@ -5,5 +5,4 @@ public record SignUpResponse(Guid UserAccountId,
     string EmploymentStatus,
     string UserRole,
     List<string> UserPrivileges,
-    string JobTitle,
-    string JobShift);
+    string JobTitle);

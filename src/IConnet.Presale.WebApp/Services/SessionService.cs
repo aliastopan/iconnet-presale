@@ -89,16 +89,6 @@ public sealed class SessionService
         return UserModel!.UserAccountId;
     }
 
-    public async Task<string> GetJobShiftAsync()
-    {
-        if (UserModel is null)
-        {
-            await SignOutAsync();
-        }
-
-        return UserModel!.JobShift.ToString();
-    }
-
     private string SetRoleString(string role)
     {
         if (UserModel!.EmploymentStatus == EmploymentStatus.Magang)

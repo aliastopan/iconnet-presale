@@ -25,7 +25,7 @@ public partial class ValidationStagingDialog : IDialogContentComponent<WorkPaper
     private async Task StageWorkPaperAsync()
     {
         Content.WorkPaperLevel = WorkPaperLevel.Validating;
-        Content.Shift = (await SessionService.GetJobShiftAsync()).ToString();
+        Content.Shift = "";
         Content.SetHelpdeskInCharge(new ActionSignature
         {
             AccountIdSignature = await SessionService.GetUserAccountIdAsync(),

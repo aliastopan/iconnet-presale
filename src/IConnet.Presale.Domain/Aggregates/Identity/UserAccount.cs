@@ -11,7 +11,7 @@ public class UserAccount : IAggregateRoot
     }
 
     public UserAccount(string username, string passwordHash, string passwordSalt,
-        EmploymentStatus employmentStatus, UserRole userRole, string jobTitle, JobShift jobShift,
+        EmploymentStatus employmentStatus, UserRole userRole, string jobTitle,
         DateTimeOffset creationDate)
     {
         User = new User
@@ -24,7 +24,6 @@ public class UserAccount : IAggregateRoot
                 UserPrivilege.Viewer
             },
             JobTitle = jobTitle,
-            JobShift = jobShift
         };
 
         UserAccountId = Guid.NewGuid();

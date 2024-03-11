@@ -30,9 +30,6 @@ public sealed class UserModel
         }
 
         JobTitle = principal.FindFirst(c => c.Type == JwtClaimTypes.JobTitle)!.Value;
-
-        var jobShift = principal.FindFirst(c => c.Type == JwtClaimTypes.JobShift)!.Value;
-        JobShift = (JobShift)Enum.Parse(typeof(JobShift), jobShift);
     }
 
     public Guid UserAccountId { get; set; }
@@ -41,6 +38,5 @@ public sealed class UserModel
     public UserRole Role { get; set; }
     public ICollection<UserPrivilege> Privileges { get; set; } = [];
     public string JobTitle { get; set; }
-    public JobShift JobShift { get; set; }
 }
 

@@ -62,12 +62,6 @@ internal sealed class UserAccountConfiguration : IEntityTypeConfiguration<UserAc
                     .HasColumnName("job_title")
                     .HasColumnOrder(5)
                     .IsRequired();
-
-                user.Property(u => u.JobShift)
-                    .HasColumnName("job_shift")
-                    .HasColumnOrder(6)
-                    .HasMaxLength(32)
-                    .IsRequired();
             });
 
         builder.Property(u => u.PasswordHash)
