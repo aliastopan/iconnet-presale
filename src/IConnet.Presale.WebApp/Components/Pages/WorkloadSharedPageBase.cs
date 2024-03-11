@@ -1,10 +1,17 @@
+using IConnet.Presale.WebApp.Components.Dialogs;
+using IConnet.Presale.WebApp.Components.Forms;
+
 namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
+    [Inject] public IDialogService DialogService { get; set; } = default!;
+    [Inject] public SessionService SessionService { get; set; } = default!;
 
+    protected FilterForm FilterComponent { get; set; } = default!;
     protected string GridTemplateCols => GetGridTemplateCols();
+    protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
 
     public TabNavigationModel PageDeclaration()
     {
@@ -33,6 +40,19 @@ public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
         await base.OnUpdateWorkloadAsync(message);
 
         ColumnWidth.SetColumnWidth(WorkPapers);
+    }
+
+    protected IQueryable<WorkPaper>? FilterWorkPapers()
+    {
+        if (FilterComponent is null)
+        {
+            return base.WorkPapers;
+        }
+
+        IQueryable<WorkPaper>? workPapers = FilterComponent.FilterWorkPapers(base.WorkPapers);
+
+        ColumnWidth.SetColumnWidth(workPapers);
+        return workPapers;
     }
 
     private string GetGridTemplateCols()
