@@ -129,8 +129,20 @@ public partial class FilterForm : ComponentBase
         workPapers = BaseFilter(workPapers);
 
         return workPapers?
-            .Where(x => !FilterModel.IdPermohonan.HasValue() || x.ApprovalOpportunity.IdPermohonan
-                .Contains(FilterModel.IdPermohonan, StringComparison.CurrentCultureIgnoreCase));
+            .Where(x =>
+                (!FilterModel.IdPermohonan.HasValue() || x.ApprovalOpportunity.IdPermohonan
+                    .Contains(FilterModel.IdPermohonan, StringComparison.CurrentCultureIgnoreCase)) &&
+                (!FilterModel.NamaPemohon.HasValue() || x.ApprovalOpportunity.Pemohon.NamaPelanggan
+                    .Contains(FilterModel.NamaPemohon, StringComparison.CurrentCultureIgnoreCase)) &&
+                (!FilterModel.IdPln.HasValue() || x.ApprovalOpportunity.Pemohon.IdPln
+                    .Contains(FilterModel.IdPln, StringComparison.CurrentCultureIgnoreCase)) &&
+                (!FilterModel.NomorTeleponPemohon.HasValue() || x.ApprovalOpportunity.Pemohon.NomorTelepon
+                    .Contains(FilterModel.NomorTeleponPemohon, StringComparison.CurrentCultureIgnoreCase)) &&
+                (!FilterModel.EmailPemohon.HasValue() || x.ApprovalOpportunity.Pemohon.Email
+                    .Contains(FilterModel.EmailPemohon, StringComparison.CurrentCultureIgnoreCase)) &&
+                (!FilterModel.Splitter.HasValue() || x.ApprovalOpportunity.Splitter
+                    .Contains(FilterModel.Splitter, StringComparison.CurrentCultureIgnoreCase))
+            );
 
     }
 
