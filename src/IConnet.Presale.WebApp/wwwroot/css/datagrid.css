@@ -18,6 +18,11 @@ fluent-data-grid-cell:not(.column-header):hover + fluent-data-grid-row{
     background-color: #F0F0F0;
 }
 
+fluent-data-grid-row.empty-content-row:hover{
+    background-color: white;
+    cursor: default;
+}
+
 fluent-data-grid-row.header,
 fluent-data-grid-cell.column-header{
     background-color: #F0F0F0;
@@ -142,3 +147,4 @@ fluent-data-grid-cell.column-header:last-child{
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
 }
+
