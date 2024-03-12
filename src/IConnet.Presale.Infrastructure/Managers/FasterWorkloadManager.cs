@@ -140,6 +140,13 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
 
     public async Task<WorkPaper?> SearchWorkPaper(string idPermohonan)
     {
+        var workPaper = _inMemoryWorkloadService.Get(idPermohonan);
+
+        if(workPaper is not null)
+        {
+            return workPaper;
+        }
+
         var isKeyExist = await _redisService.IsKeyExistsAsync(idPermohonan);
 
         if (!isKeyExist)
