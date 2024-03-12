@@ -82,6 +82,32 @@
             </div>
         </div>
 
+        <div class="progress-step">
+            <div class="progress-step-header">
+                <FluentIcon Value="@WaitingApprovalStepIcon" />
+                <div class="progress-step-header-label" style="@WaitingApprovalStepHeaderColor">
+                    APPROVAL
+                </div>
+                <div class="progress-step-header-date">
+                    @if (ProceedDoneProcessing)
+                    {
+                        <span>@ApprovalDateTime.ToReadableFormat()</span>
+                    }
+                </div>
+            </div>
+            <div class="progress-step-body" style="@WaitingApprovalStepTrailColor">
+                <span class="progress-step-body-content">
+                    @if (IsWaitingApproval)
+                    {
+                        <span>Data sedang dalam proses approval</span>
+                    }
+                    else if (ProceedDoneProcessing)
+                    {
+                        <span>Data telah selesai diproses</span>
+                    }
+                </span>
+            </div>
+        </div>
 
 
     </div>

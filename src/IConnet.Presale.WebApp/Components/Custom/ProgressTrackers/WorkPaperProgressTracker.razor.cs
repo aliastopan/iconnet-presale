@@ -6,8 +6,6 @@ public partial class WorkPaperProgressTracker : ComponentBase
     public WorkPaper? WorkPaper { get; set; }
 
     private readonly string _greyedOut = "#e6e6e6";
-    private readonly Icon _circleIcon = new Icons.Filled.Size20.Circle();
-    private readonly Icon _checkmarkIcon = new Icons.Filled.Size20.CheckmarkCircle();
 
     protected Icon ImportStepIcon => GetStepIcon(WorkPaperLevel.ImportUnverified);
     protected string ImportStepHeaderColor => GetHeaderColor(WorkPaperLevel.ImportUnverified);
@@ -23,13 +21,18 @@ public partial class WorkPaperProgressTracker : ComponentBase
 
     protected Icon ValidatingStepIcon => GetStepIcon(WorkPaperLevel.Validating, checkOnGoing: true);
     protected string ValidatingStepHeaderColor => GetHeaderColor(WorkPaperLevel.Validating);
-    protected string ValidatingStepTrailColor => GetTrailColor(WorkPaperLevel.Validating);
+    protected string ValidatingStepTrailColor => GetTrailColor(WorkPaperLevel.Validating, checkOnGoing: true);
     protected DateTime ValidatingDateTime => WorkPaper!.ProsesValidasi.SignatureChatCallRespons.TglAksi;
     protected bool IsValidating => WorkPaper!.WorkPaperLevel == WorkPaperLevel.Validating;
     protected bool ProceedValidating => WorkPaper!.WorkPaperLevel > WorkPaperLevel.Validating;
 
-    protected DateTime ProceedWaitingDateTime => WorkPaper!.ProsesApproval.SignatureApproval.TglAksi;
+    protected Icon WaitingApprovalStepIcon => GetStepIcon(WorkPaperLevel.WaitingApproval, checkOnGoing: true);
+    protected string WaitingApprovalStepHeaderColor => GetHeaderColor(WorkPaperLevel.WaitingApproval);
+    protected string WaitingApprovalStepTrailColor => GetTrailColor(WorkPaperLevel.WaitingApproval, checkOnGoing: true);
+    protected DateTime ApprovalDateTime => WorkPaper!.ProsesApproval.SignatureApproval.TglAksi;
+    protected bool IsWaitingApproval => WorkPaper!.WorkPaperLevel == WorkPaperLevel.WaitingApproval;
     protected bool ProceedWaitingApproval => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.WaitingApproval;
+    protected bool ProceedDoneProcessing => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.DoneProcessing;
 
     protected Icon GetStepIcon(WorkPaperLevel stepLevel, bool checkOnGoing = false)
     {
@@ -37,41 +40,60 @@ public partial class WorkPaperProgressTracker : ComponentBase
         {
             if (WorkPaper?.WorkPaperLevel >= stepLevel)
             {
-                return _checkmarkIcon.WithColor("var(--accent-fill-rest)");
+                return new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success)");
             }
             else
             {
-                return _circleIcon.WithColor(_greyedOut);
+                return new Icons.Filled.Size20.Circle().WithColor(_greyedOut);
             }
         }
         else
         {
             if (WorkPaper?.WorkPaperLevel > stepLevel)
             {
-                return _checkmarkIcon.WithColor("var(--accent-fill-rest)");
+                return new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success)");
             }
             else
             {
                 if (WorkPaper?.WorkPaperLevel == stepLevel)
                 {
-                    return _circleIcon.WithColor("var(--accent-fill-rest)");
+                    return new Icons.Filled.Size20.Circle().WithColor("var(--accent-fill-rest)");
 
                 }
 
-                return _circleIcon.WithColor(_greyedOut);
+                return new Icons.Filled.Size20.Circle().WithColor(_greyedOut);
             }
         }
     }
 
-    protected string GetTrailColor(WorkPaperLevel stepLevel)
+    protected string GetTrailColor(WorkPaperLevel stepLevel, bool checkOnGoing = false)
     {
-        if (WorkPaper?.WorkPaperLevel >= stepLevel)
+        if (!checkOnGoing)
         {
-            return "border-left: 2px solid var(--accent-fill-rest) !important;";
+            if (WorkPaper?.WorkPaperLevel >= stepLevel)
+            {
+                return "border-left: 2px solid var(--success) !important;";
+            }
+            else
+            {
+                return $"border-left: 2px solid {_greyedOut} !important;";
+            }
         }
         else
         {
-            return $"border-left: 2px solid {_greyedOut} !important;";
+            if (WorkPaper?.WorkPaperLevel > stepLevel)
+            {
+                return "border-left: 2px solid var(--success) !important;";
+            }
+            else
+            {
+                if (WorkPaper?.WorkPaperLevel == stepLevel)
+                {
+                    return "border-left: 2px solid var(--accent-fill-rest) !important;";
+                }
+
+                return $"border-left: 2px solid {_greyedOut} !important;";
+            }
         }
     }
 
