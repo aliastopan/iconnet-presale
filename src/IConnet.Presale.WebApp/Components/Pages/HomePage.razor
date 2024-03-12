@@ -2,7 +2,25 @@
 @inherits HomePageBase
 @rendermode @(InteractiveServer.DisablePreRender())
 
+@using IConnet.Presale.WebApp.Components.Custom.ProgressTrackers
+
 <PageTitle>Home</PageTitle>
 
 <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Home</FluentLabel>
 <span class="page-description">Halaman utama Presale App</span>
+
+<div>
+    <FluentSearch
+        Value=@IdPermohonan
+        ValueChanged="OnIdPermohonanSearchChanged"
+        Placeholder="ID PERMOHONAN"/>
+</div>
+<div>
+
+    <WorkPaperProgressTracker />
+
+    @if (WorkPaper is not null)
+    {
+
+    }
+</div>
