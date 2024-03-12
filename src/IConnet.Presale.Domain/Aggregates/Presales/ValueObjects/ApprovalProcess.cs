@@ -48,7 +48,7 @@ public class ApprovalProcess : ValueObject
         };
     }
 
-    public ApprovalProcess WithSignatureApproval(ApprovalStatus approvalStatus)
+    public ApprovalProcess WithStatusApproval(ApprovalStatus approvalStatus)
     {
         return new ApprovalProcess
         {

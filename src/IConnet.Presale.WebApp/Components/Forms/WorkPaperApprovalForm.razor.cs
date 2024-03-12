@@ -76,12 +76,18 @@ public partial class WorkPaperApprovalForm : ComponentBase
             TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
         };
 
+        var approvalStatus = EnumProcessor.StringToEnum<ApprovalStatus>(ApprovalModel!.StatusApproval);
+        var rootCause = approvalStatus == ApprovalStatus.Approve
+            ? string.Empty
+            : ApprovalModel!.RootCause;
+
         var prosesApproval = WorkPaper!.ProsesApproval.WithSignatureApproval(signatureApproval)
+            .WithStatusApproval(approvalStatus)
             .WithVaTerbit(ApprovalModel!.NullableVaTerbit!.Value)
             .WithJarakShareLoc(ApprovalModel!.JarakShareLoc)
             .WithJarakICrmPlus(ApprovalModel!.JarakICrmPlus)
             .WithKeterangan(ApprovalModel!.Keterangan)
-            .WithRootCause(ApprovalModel!.RootCause);
+            .WithRootCause(rootCause);
 
         WorkPaper.ProsesApproval = prosesApproval;
         WorkPaper.WorkPaperLevel = WorkPaperLevel.DoneProcessing;
