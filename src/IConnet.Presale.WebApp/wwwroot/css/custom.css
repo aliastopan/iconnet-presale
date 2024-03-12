@@ -297,3 +297,9 @@ input:invalid::part(root) {
 .progress-step-body-content{
     padding: 2px 8px;
 }
+
+.search-bar-stack{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

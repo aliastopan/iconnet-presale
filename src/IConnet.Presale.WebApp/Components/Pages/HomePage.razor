@@ -9,11 +9,17 @@
 <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Home</FluentLabel>
 <span class="page-description">Halaman utama Presale App</span>
 
-<div>
+<div class="search-bar-stack">
     <FluentSearch
         Value=@IdPermohonan
         ValueChanged="OnIdPermohonanSearchChanged"
         Placeholder="ID PERMOHONAN"/>
+    <div class="p-2">
+    @if (IsLoading)
+    {
+        <FluentProgressRing style="width: 16px; height: 16px;"></FluentProgressRing>
+    }
+    </div>
 </div>
 <div>
 
