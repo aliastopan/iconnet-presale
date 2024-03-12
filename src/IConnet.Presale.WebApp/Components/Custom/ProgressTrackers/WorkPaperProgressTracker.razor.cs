@@ -21,7 +21,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
     protected DateTime ImportVerifiedDateTime => WorkPaper!.ApprovalOpportunity.SignatureVerifikasiImport.TglAksi;
     protected bool ProceedImportVerified => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.ImportVerified;
 
-    protected Icon ValidatingStepIcon => GetValidatingStepIcon();
+    protected Icon ValidatingStepIcon => GetStepIcon(WorkPaperLevel.Validating, checkOnGoing: true);
     protected string ValidatingStepHeaderColor => GetHeaderColor(WorkPaperLevel.Validating);
     protected string ValidatingStepTrailColor => GetTrailColor(WorkPaperLevel.Validating);
     protected DateTime ValidatingDateTime => WorkPaper!.ProsesValidasi.SignatureChatCallRespons.TglAksi;
@@ -31,33 +31,35 @@ public partial class WorkPaperProgressTracker : ComponentBase
     protected DateTime ProceedWaitingDateTime => WorkPaper!.ProsesApproval.SignatureApproval.TglAksi;
     protected bool ProceedWaitingApproval => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.WaitingApproval;
 
-    protected Icon GetStepIcon(WorkPaperLevel stepLevel)
+    protected Icon GetStepIcon(WorkPaperLevel stepLevel, bool checkOnGoing = false)
     {
-        if (WorkPaper?.WorkPaperLevel >= stepLevel)
+        if (!checkOnGoing)
         {
-            return _checkmarkIcon.WithColor("var(--accent-fill-rest)");
-        }
-        else
-        {
-            return _circleIcon.WithColor(_greyedOut);
-        }
-    }
-
-    protected Icon GetValidatingStepIcon()
-    {
-        if (WorkPaper?.WorkPaperLevel > WorkPaperLevel.Validating)
-        {
-            return _checkmarkIcon.WithColor("var(--accent-fill-rest)");
-        }
-        else
-        {
-            if (WorkPaper?.WorkPaperLevel == WorkPaperLevel.Validating)
+            if (WorkPaper?.WorkPaperLevel >= stepLevel)
             {
-                return _circleIcon.WithColor("var(--accent-fill-rest)");
-
+                return _checkmarkIcon.WithColor("var(--accent-fill-rest)");
             }
+            else
+            {
+                return _circleIcon.WithColor(_greyedOut);
+            }
+        }
+        else
+        {
+            if (WorkPaper?.WorkPaperLevel > stepLevel)
+            {
+                return _checkmarkIcon.WithColor("var(--accent-fill-rest)");
+            }
+            else
+            {
+                if (WorkPaper?.WorkPaperLevel == stepLevel)
+                {
+                    return _circleIcon.WithColor("var(--accent-fill-rest)");
 
-            return _circleIcon.WithColor(_greyedOut);
+                }
+
+                return _circleIcon.WithColor(_greyedOut);
+            }
         }
     }
 
