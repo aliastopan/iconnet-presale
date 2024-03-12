@@ -48,6 +48,11 @@ public class WorkPaperApprovalModel
     public string DisplayHasilValidasiIdPln { get; set; } = string.Empty;
     public string DisplayHasilValidasiAlamat { get; set; } = string.Empty;
 
+    public bool IsValidJarak()
+    {
+        return JarakShareLoc > 0 && JarakICrmPlus > 0;
+    }
+
     private static string ConvertHasilValidasi(ValidationStatus validationStatus)
     {
         switch (validationStatus)
