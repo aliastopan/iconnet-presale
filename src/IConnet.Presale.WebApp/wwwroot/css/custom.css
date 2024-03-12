@@ -247,6 +247,10 @@ input:invalid::part(root) {
     z-index: 999;
 }
 
+.progress-tracker{
+    margin-top: 16px;
+}
+
 .progress-workpaper-level{
     padding: 8px 0;
 }
@@ -296,6 +300,16 @@ input:invalid::part(root) {
 
 .progress-step-body-content{
     padding: 2px 8px;
+}
+
+.progress-result-label{
+    font-weight: 700;
+    padding: 2px 4px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
 }
 
 .search-bar-stack{

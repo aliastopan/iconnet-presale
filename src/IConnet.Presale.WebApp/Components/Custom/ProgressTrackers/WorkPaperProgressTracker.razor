@@ -4,13 +4,9 @@
 {
     <div class="progress-tracker">
 
-        <div class="progress-workpaper-level">
-            @WorkPaper.WorkPaperLevel
-        </div>
-
         <div class="progress-step">
             <div class="progress-step-header">
-                <FluentIcon Value="@ImportStepIcon" style="@ImportStepHeaderColor"/>
+                <FluentIcon Value="@ImportStepIcon" style="@ImportStepHeaderColorStyle"/>
                 <div class="progress-step-header-label">
                     IMPORT
                 </div>
@@ -18,7 +14,7 @@
                     @ImportDateTime.ToReadableFormat()
                 </div>
             </div>
-            <div class="progress-step-body" style="@ImportStepTrailColor">
+            <div class="progress-step-body" style="@ImportStepTrailColorStyle">
                 <span class="progress-step-body-content">
                     @if (ProceedImportUnverified)
                     {
@@ -35,7 +31,7 @@
         <div class="progress-step">
             <div class="progress-step-header">
                 <FluentIcon Value="@ImportVerifiedStepIcon" />
-                <div class="progress-step-header-label" style="@ImportVerificationStepHeaderColor">
+                <div class="progress-step-header-label" style="@ImportVerificationStepHeaderColorStyle">
                     VERIFIKASI
                 </div>
                 <div class="progress-step-header-date">
@@ -45,7 +41,7 @@
                     }
                 </div>
             </div>
-            <div class="progress-step-body" style="@ImportVerificationStepTrailColor">
+            <div class="progress-step-body" style="@ImportVerificationStepTrailColorStyle">
                 <span class="progress-step-body-content">
                     @if (ProceedImportVerified)
                     {
@@ -58,7 +54,7 @@
         <div class="progress-step">
             <div class="progress-step-header">
                 <FluentIcon Value="@ValidatingStepIcon" />
-                <div class="progress-step-header-label" style="@ValidatingStepHeaderColor">
+                <div class="progress-step-header-label" style="@ValidatingStepHeaderColorStyle">
                     VALIDASI
                 </div>
                 <div class="progress-step-header-date">
@@ -68,7 +64,7 @@
                     }
                 </div>
             </div>
-            <div class="progress-step-body" style="@ValidatingStepTrailColor">
+            <div class="progress-step-body" style="@ValidatingStepTrailColorStyle">
                 <span class="progress-step-body-content">
                     @if (IsValidating)
                     {
@@ -85,7 +81,7 @@
         <div class="progress-step">
             <div class="progress-step-header">
                 <FluentIcon Value="@WaitingApprovalStepIcon" />
-                <div class="progress-step-header-label" style="@WaitingApprovalStepHeaderColor">
+                <div class="progress-step-header-label" style="@WaitingApprovalStepHeaderColorStyle">
                     APPROVAL
                 </div>
                 <div class="progress-step-header-date">
@@ -95,7 +91,7 @@
                     }
                 </div>
             </div>
-            <div class="progress-step-body" style="@WaitingApprovalStepTrailColor">
+            <div class="progress-step-body" style="@WaitingApprovalStepTrailColorStyle">
                 <span class="progress-step-body-content">
                     @if (IsWaitingApproval)
                     {
@@ -104,11 +100,33 @@
                     else if (ProceedDoneProcessing)
                     {
                         <span>Data telah selesai diproses</span>
+                        <span class="progress-result-label" style="@GetApprovalStatusLabelStyle()">
+                            @GetApprovalStatus().ToUpper()
+                        </span>
                     }
                 </span>
             </div>
         </div>
 
+        @* @if(ProceedDoneProcessing)
+        {
+            <div class="progress-step">
+                <div class="progress-step-header">
+                    <FluentIcon Value="@GetResultStepIcon()" />
+                    <div class="progress-step-header-label">
+                        STATUS
+                    </div>
+                    <div class="progress-step-header-date">
+
+                    </div>
+                </div>
+                <div class="progress-step-body" style="@GetResultTrailColor()">
+                    <span class="progress-step-body-content">
+                        @GetApprovalStatus()
+                    </span>
+                </div>
+            </div>
+        } *@
 
     </div>
 }
