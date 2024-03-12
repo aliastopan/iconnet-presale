@@ -2,131 +2,118 @@
 
 @if (WorkPaper is not null)
 {
-    <div class="progress-tracker">
+    <div class="progress-stack">
 
-        <div class="progress-step">
-            <div class="progress-step-header">
-                <FluentIcon Value="@ImportStepIcon" style="@ImportStepHeaderColorStyle"/>
-                <div class="progress-step-header-label">
-                    IMPORT
-                </div>
-                <div class="progress-step-header-date">
-                    @ImportDateTime.ToReadableFormat()
-                </div>
-            </div>
-            <div class="progress-step-body" style="@ImportStepTrailColorStyle">
-                <span class="progress-step-body-content">
-                    @if (ProceedImportUnverified)
-                    {
-                        <span>Data permohonan telah di-import</span>
-                    }
-                    else
-                    {
-                        <span>Data tidak tersedia.</span>
-                    }
-                </span>
-            </div>
-        </div>
-
-        <div class="progress-step">
-            <div class="progress-step-header">
-                <FluentIcon Value="@ImportVerifiedStepIcon" />
-                <div class="progress-step-header-label" style="@ImportVerificationStepHeaderColorStyle">
-                    VERIFIKASI
-                </div>
-                <div class="progress-step-header-date">
-                    @if (ProceedImportVerified)
-                    {
-                        <span>@ImportVerifiedDateTime.ToReadableFormat()</span>
-                    }
-                </div>
-            </div>
-            <div class="progress-step-body" style="@ImportVerificationStepTrailColorStyle">
-                <span class="progress-step-body-content">
-                    @if (ProceedImportVerified)
-                    {
-                        <span>Data permohonan telah diverifikasi</span>
-                    }
-                </span>
-            </div>
-        </div>
-
-        <div class="progress-step">
-            <div class="progress-step-header">
-                <FluentIcon Value="@ValidatingStepIcon" />
-                <div class="progress-step-header-label" style="@ValidatingStepHeaderColorStyle">
-                    VALIDASI
-                </div>
-                <div class="progress-step-header-date">
-                    @if (ProceedWaitingApproval)
-                    {
-                        <span>@ValidatingDateTime.ToReadableFormat()</span>
-                    }
-                </div>
-            </div>
-            <div class="progress-step-body" style="@ValidatingStepTrailColorStyle">
-                <span class="progress-step-body-content">
-                    @if (IsValidating)
-                    {
-                        <span>Data sedang divalidasi</span>
-                    }
-                    else if (ProceedValidating)
-                    {
-                        <span>Data telah diproses oleh Helpdesk</span>
-                    }
-                </span>
-            </div>
-        </div>
-
-        <div class="progress-step">
-            <div class="progress-step-header">
-                <FluentIcon Value="@WaitingApprovalStepIcon" />
-                <div class="progress-step-header-label" style="@WaitingApprovalStepHeaderColorStyle">
-                    APPROVAL
-                </div>
-                <div class="progress-step-header-date">
-                    @if (ProceedDoneProcessing)
-                    {
-                        <span>@ApprovalDateTime.ToReadableFormat()</span>
-                    }
-                </div>
-            </div>
-            <div class="progress-step-body" style="@WaitingApprovalStepTrailColorStyle">
-                <span class="progress-step-body-content">
-                    @if (IsWaitingApproval)
-                    {
-                        <span>Data sedang dalam proses approval</span>
-                    }
-                    else if (ProceedDoneProcessing)
-                    {
-                        <span>Data telah selesai diproses</span>
-                        <span class="progress-result-label" style="@GetApprovalStatusLabelStyle()">
-                            @GetApprovalStatus().ToUpper()
-                        </span>
-                    }
-                </span>
-            </div>
-        </div>
-
-        @* @if(ProceedDoneProcessing)
-        {
+        <div class="progress-tracker">
             <div class="progress-step">
                 <div class="progress-step-header">
-                    <FluentIcon Value="@GetResultStepIcon()" />
+                    <FluentIcon Value="@ImportStepIcon" style="@ImportStepHeaderColorStyle"/>
                     <div class="progress-step-header-label">
-                        STATUS
+                        IMPORT
                     </div>
                     <div class="progress-step-header-date">
-
+                        @ImportDateTime.ToReadableFormat()
                     </div>
                 </div>
-                <div class="progress-step-body" style="@GetResultTrailColor()">
+                <div class="progress-step-body" style="@ImportStepTrailColorStyle">
                     <span class="progress-step-body-content">
-                        @GetApprovalStatus()
+                        @if (ProceedImportUnverified)
+                        {
+                            <span>Data permohonan telah di-import</span>
+                        }
+                        else
+                        {
+                            <span>Data tidak tersedia.</span>
+                        }
                     </span>
                 </div>
             </div>
-        } *@
+
+            <div class="progress-step">
+                <div class="progress-step-header">
+                    <FluentIcon Value="@ImportVerifiedStepIcon" />
+                    <div class="progress-step-header-label" style="@ImportVerificationStepHeaderColorStyle">
+                        VERIFIKASI
+                    </div>
+                    <div class="progress-step-header-date">
+                        @if (ProceedImportVerified)
+                        {
+                            <span>@ImportVerifiedDateTime.ToReadableFormat()</span>
+                        }
+                    </div>
+                </div>
+                <div class="progress-step-body" style="@ImportVerificationStepTrailColorStyle">
+                    <span class="progress-step-body-content">
+                        @if (ProceedImportVerified)
+                        {
+                            <span>Data permohonan telah diverifikasi</span>
+                        }
+                    </span>
+                </div>
+            </div>
+
+            <div class="progress-step">
+                <div class="progress-step-header">
+                    <FluentIcon Value="@ValidatingStepIcon" />
+                    <div class="progress-step-header-label" style="@ValidatingStepHeaderColorStyle">
+                        VALIDASI
+                    </div>
+                    <div class="progress-step-header-date">
+                        @if (ProceedWaitingApproval)
+                        {
+                            <span>@ValidatingDateTime.ToReadableFormat()</span>
+                        }
+                    </div>
+                </div>
+                <div class="progress-step-body" style="@ValidatingStepTrailColorStyle">
+                    <span class="progress-step-body-content">
+                        @if (IsValidating)
+                        {
+                            <span>Data sedang divalidasi</span>
+                        }
+                        else if (ProceedValidating)
+                        {
+                            <span>Data telah diproses oleh Helpdesk</span>
+                        }
+                    </span>
+                </div>
+            </div>
+
+            <div class="progress-step">
+                <div class="progress-step-header">
+                    <FluentIcon Value="@WaitingApprovalStepIcon" />
+                    <div class="progress-step-header-label" style="@WaitingApprovalStepHeaderColorStyle">
+                        APPROVAL
+                    </div>
+                    <div class="progress-step-header-date">
+                        @if (ProceedDoneProcessing)
+                        {
+                            <span>@ApprovalDateTime.ToReadableFormat()</span>
+                        }
+                    </div>
+                </div>
+                <div class="progress-step-body" style="@WaitingApprovalStepTrailColorStyle">
+                    <span class="progress-step-body-content">
+                        @if (IsWaitingApproval)
+                        {
+                            <span>Data sedang dalam proses approval</span>
+                        }
+                        else if (ProceedDoneProcessing)
+                        {
+                            <span>Data telah selesai diproses</span>
+                            <span class="progress-result-label" style="@GetApprovalStatusLabelStyle()">
+                                @GetApprovalStatus().ToUpper()
+                            </span>
+                        }
+                    </span>
+                </div>
+            </div>
+
+        </div>
+        <div class="progress-report">
+            Progress Report
+        </div>
 
     </div>
+
 }

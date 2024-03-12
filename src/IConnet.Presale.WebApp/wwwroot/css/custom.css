@@ -247,8 +247,21 @@ input:invalid::part(root) {
     z-index: 999;
 }
 
+.progress-stack{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+}
+
 .progress-tracker{
     margin-top: 16px;
+    margin-right: 32px;
+}
+
+.progress-report{
+    margin-top: 16px;
+
+    background-color: #f04444;
 }
 
 .progress-workpaper-level{
