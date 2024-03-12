@@ -4,32 +4,77 @@ public static class TimeSpanExtensions
 {
     public static string AsReadableDateTime(this TimeSpan timeSpan)
     {
-        int minutes = timeSpan.Minutes;
+        int days = timeSpan.Days;
         int hours = timeSpan.Hours;
+        int minutes = timeSpan.Minutes;
 
-        if (timeSpan.TotalHours < 1)
+        if (days >= 365)
         {
-            return $"{minutes} Menit";
+            return "Lebih dari 1 tahun";
         }
 
-        return $"{hours} Jam {minutes} Menit";
+        string result = "";
+
+        if (days > 0)
+        {
+            result += $"{days} Hari ";
+        }
+
+        if (hours > 0)
+        {
+            result += $"{hours} Jam ";
+        }
+
+        if (minutes > 0)
+        {
+            result += $"{minutes} Menit";
+        }
+        else
+        {
+            result = result.TrimEnd();
+        }
+
+        return result;
     }
 
     public static string AsReadableDateTimeWithSeconds(this TimeSpan timeSpan)
     {
-        int seconds = timeSpan.Seconds;
-        int minutes = timeSpan.Minutes;
+        int days = timeSpan.Days;
         int hours = timeSpan.Hours;
+        int minutes = timeSpan.Minutes;
+        int seconds = timeSpan.Seconds;
 
-        if (timeSpan.TotalHours < 1)
+        if (days >= 365)
         {
-            if (timeSpan.TotalMinutes < 1)
-            {
-                return $"{seconds} Detik";
-            }
-            return $"{minutes} Menit {seconds} Detik";
+            return "Lebih dari 1 tahun";
         }
 
-        return $"{hours} Jam {minutes} Menit {seconds} Detik";
+        string result = "";
+
+        if (days > 0)
+        {
+            result += $"{days} Hari ";
+        }
+
+        if (hours > 0)
+        {
+            result += $"{hours} Jam ";
+        }
+
+        if (minutes > 0)
+        {
+            result += $"{minutes} Menit ";
+        }
+
+        if (seconds > 0)
+        {
+            result += $"{seconds} Detik";
+        }
+        else
+        {
+            result = result.TrimEnd();
+        }
+
+        return result;
     }
 }
