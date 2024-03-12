@@ -1,39 +1,43 @@
-<div class="progress-tracker">
+@if (WorkPaper is not null)
+{
+    <div class="progress-tracker">
 
-    <div class="progress-workpaper-level">
-        WorkPaper.Level
-    </div>
-    <div class="progress-step">
-        <div class="progress-step-header">
-            <FluentIcon Value="@(new Icons.Filled.Size20.CheckmarkCircle())" />
-            <div class="progress-step-header-label">
-                Import
+        <div class="progress-workpaper-level">
+            @WorkPaper.WorkPaperLevel
+        </div>
+        <div class="progress-step">
+            <div class="progress-step-header">
+                <FluentIcon Value="@(new Icons.Filled.Size20.CheckmarkCircle())" />
+                <div class="progress-step-header-label">
+                    Import
+                </div>
+                <div class="progress-step-header-date">
+                    1 Jan 2024 22:04
+                </div>
             </div>
-            <div class="progress-step-header-date">
-                1 Jan 2024 22:04
+            <div class="progress-step-body">
+                <span class="progress-step-body-content">
+                    Data permohonan telah di-import oleh PAC
+                </span>
             </div>
         </div>
-        <div class="progress-step-body">
-            <span class="progress-step-body-content">
-                Data permohonan telah di-import oleh PAC
-            </span>
+
+        <div class="progress-step">
+            <div class="progress-step-header">
+                <FluentIcon Value="@(new Icons.Filled.Size20.Circle())" />
+                <div class="progress-step-header-label">
+                    Import (Verifikasi)
+                </div>
+                <div class="progress-step-header-date">
+                    1 Jan 2024 22:04
+                </div>
+            </div>
+            <div class="progress-step-body">
+                <div class="progress-step-body-content">
+                    Data CRM permohonan telah diverifikasi oleh PAC
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="progress-step">
-        <div class="progress-step-header">
-            <FluentIcon Value="@(new Icons.Filled.Size20.Circle())" />
-            <div class="progress-step-header-label">
-                Import (Verifikasi)
-            </div>
-            <div class="progress-step-header-date">
-                1 Jan 2024 22:04
-            </div>
-        </div>
-        <div class="progress-step-body">
-            <div class="progress-step-body-content">
-                Data CRM permohonan telah diverifikasi oleh PAC
-            </div>
-        </div>
-    </div>
-</div>
+}
