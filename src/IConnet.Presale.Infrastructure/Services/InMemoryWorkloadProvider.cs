@@ -42,6 +42,12 @@ internal sealed class InMemoryWorkloadProvider : IInMemoryWorkloadService
         return _workPapers.Count;
     }
 
+
+    public WorkPaper? Get(string idPermohonan)
+    {
+        return _workPapers.FirstOrDefault(x => x.ApprovalOpportunity.IdPermohonan == idPermohonan);
+    }
+
     public bool Delete(WorkPaper workPaper)
     {
         return _workPapers.Remove(workPaper);

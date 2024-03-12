@@ -10,5 +10,7 @@ public interface IInMemoryWorkloadService
     int InsertRange(IEnumerable<WorkPaper> workPapers);
     int InsertOverwrite(IEnumerable<WorkPaper> workPapers);
 
+    WorkPaper? Get(string idPermohonan);
+
     bool Delete(WorkPaper workPaper);
 }
