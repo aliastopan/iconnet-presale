@@ -10,17 +10,17 @@
 
         <div class="progress-step">
             <div class="progress-step-header">
-                <FluentIcon Value="@GetImportStepIcon" />
+                <FluentIcon Value="@ImportStepIcon" style="@ImportStepHeaderColor"/>
                 <div class="progress-step-header-label">
-                    Import
+                    IMPORT
                 </div>
                 <div class="progress-step-header-date">
-                    1 Jan 2024 22:04
+                    @ImportDateTime.ToReadableFormat()
                 </div>
             </div>
-            <div class="progress-step-body">
+            <div class="progress-step-body" style="@ImportStepTrailColor">
                 <span class="progress-step-body-content">
-                     @if (ProceedImportUnverified)
+                    @if (ProceedImportUnverified)
                     {
                         <span>Data permohonan telah di-import</span>
                     }
@@ -32,42 +32,56 @@
             </div>
         </div>
 
-
-
-        @*
         <div class="progress-step">
             <div class="progress-step-header">
-                <FluentIcon Value="@(new Icons.Filled.Size20.CheckmarkCircle())" />
-                <div class="progress-step-header-label">
-                    Import
+                <FluentIcon Value="@ImportVerifiedStepIcon" />
+                <div class="progress-step-header-label" style="@ImportVerificationStepHeaderColor">
+                    VERIFIKASI
                 </div>
                 <div class="progress-step-header-date">
-                    1 Jan 2024 22:04
+                    @if (ProceedImportVerified)
+                    {
+                        <span>@ImportVerifiedDateTime.ToReadableFormat()</span>
+                    }
                 </div>
             </div>
-            <div class="progress-step-body">
+            <div class="progress-step-body" style="@ImportVerificationStepTrailColor">
                 <span class="progress-step-body-content">
-                    Data permohonan telah di-import oleh PAC
+                    @if (ProceedImportVerified)
+                    {
+                        <span>Data permohonan telah diverifikasi</span>
+                    }
                 </span>
             </div>
         </div>
 
         <div class="progress-step">
             <div class="progress-step-header">
-                <FluentIcon Value="@(new Icons.Filled.Size20.Circle())" />
-                <div class="progress-step-header-label">
-                    Import (Verifikasi)
+                <FluentIcon Value="@ValidatingStepIcon" />
+                <div class="progress-step-header-label" style="@ValidatingStepHeaderColor">
+                    VALIDASI
                 </div>
                 <div class="progress-step-header-date">
-                    1 Jan 2024 22:04
+                    @if (ProceedWaitingApproval)
+                    {
+                        <span>@ValidatingDateTime.ToReadableFormat()</span>
+                    }
                 </div>
             </div>
-            <div class="progress-step-body">
-                <div class="progress-step-body-content">
-                    Data CRM permohonan telah diverifikasi oleh PAC
-                </div>
+            <div class="progress-step-body" style="@ValidatingStepTrailColor">
+                <span class="progress-step-body-content">
+                    @if (IsValidating)
+                    {
+                        <span>Data sedang divalidasi</span>
+                    }
+                    else if (ProceedValidating)
+                    {
+                        <span>Data telah diproses oleh Helpdesk</span>
+                    }
+                </span>
             </div>
-        </div> *@
+        </div>
+
 
 
     </div>

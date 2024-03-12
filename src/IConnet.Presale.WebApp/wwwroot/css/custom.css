@@ -286,7 +286,7 @@ input:invalid::part(root) {
     display: flex;
     flex-direction: column;
     padding: 8 8px;
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
     border-left: 2px solid var(--accent-fill-rest);
     margin: 4px 0;
     margin-left: 8px !important;
