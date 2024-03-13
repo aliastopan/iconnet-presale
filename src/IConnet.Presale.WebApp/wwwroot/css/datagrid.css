@@ -148,3 +148,16 @@ fluent-data-grid-cell.column-header:last-child{
     -o-border-radius: 3px;
 }
 
+.datagrid-wrapper .paginator{
+    margin-bottom: 8px;
+}
+
+.paginator .summary{
+    width: 100%;
+}
+
+.paginator .paginator-nav{
+    margin-left: auto;
+    width: 450px;
+    padding: 0;
+}

@@ -17,6 +17,7 @@ public class WorkloadPageBase : ComponentBase
     private readonly GridSort<WorkPaper> _sortByWorkPaperLevel = GridSort<WorkPaper>
         .ByAscending(workPaper => workPaper.WorkPaperLevel);
 
+    protected string PaginationItemsPerPageOptions { get; set ;} = default!;
     protected PaginationState Pagination => _pagination;
     protected WorkloadColumnWidth ColumnWidth => _columnWidth;
     protected WorkloadFilter WorkloadFilter { get; set; } = WorkloadFilter.OnlyImportVerified;
@@ -50,6 +51,12 @@ public class WorkloadPageBase : ComponentBase
             StateHasChanged();
             // Log.Warning($"Re-render '{PageName}'.");
         });
+    }
+
+    protected void OnItemsPerPageChanged(string ItemsPerPageString)
+    {
+        int itemsPerPage = int.Parse(ItemsPerPageString);
+        _pagination.ItemsPerPage = itemsPerPage;
     }
 
     protected string GetWidthStyle(int widthPx, int offsetPx = 0)

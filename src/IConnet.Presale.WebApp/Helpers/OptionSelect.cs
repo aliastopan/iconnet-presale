@@ -2,6 +2,12 @@ namespace IConnet.Presale.WebApp.Helpers;
 
 public static class OptionSelect
 {
+    public static class Pagination
+    {
+        private static readonly List<string> _itemsPerPageOptions = ["10", "25", "50"];
+        public static List<string> ItemsPerPageOptions => _itemsPerPageOptions;
+    }
+
     public static class StatusValidasi
     {
         public static IEnumerable<string> StatusValidasiOptions => EnumProcessor.GetStringOptions<ValidationStatus>();
