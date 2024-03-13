@@ -174,6 +174,7 @@ public class ApprovalPageBase : WorkloadPageBase, IPageNavigation
         return $@"
             {ColumnWidth.IdPermohonanPx + ColumnWidth.OffsetPx}px
             {ColumnWidth.TglPermohonanPx}px
+            {ColumnWidth.StatusApprovalPx}px
             {ColumnWidth.StagingStatusPx}px
             {ColumnWidth.PlanningAssetCoverageInChargePx}px
             {ColumnWidth.ValidasiNamaPelangganPx}px

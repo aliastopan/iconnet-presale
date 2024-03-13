@@ -59,6 +59,7 @@ public abstract class ColumnWidthBase<T>
     public int ContactWhatsAppPx { get; set; } = 225;
 
     public int PlanningAssetCoverageInChargePx { get; set; } = DefaultWidth;
+    public int StatusApprovalPx { get; set; } = DefaultWidth;
 
     protected int CharWidth => _charWidth;
     protected int Padding => _padding;

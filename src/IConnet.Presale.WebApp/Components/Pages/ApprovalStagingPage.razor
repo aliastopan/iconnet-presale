@@ -60,6 +60,11 @@
                             @context.ApprovalOpportunity.TglPermohonan
                         </div>
                     </TemplateColumn>
+                    <TemplateColumn Title="APPROVAL" Style="@GetWidthStyle(ColumnWidth.StatusApprovalPx)">
+                        <div class="">
+                            <ApprovalBadge ApprovalStatus="@context.ProsesApproval.StatusApproval"/>
+                        </div>
+                    </TemplateColumn>
                     <TemplateColumn Title="PIC APPROVAL" Style="@GetWidthStyle(ColumnWidth.PlanningAssetCoverageInChargePx)">
                         <div class="" style="display: flex;">
                             @if (string.IsNullOrEmpty(context.SignaturePlanningAssetCoverageInCharge.Alias))
