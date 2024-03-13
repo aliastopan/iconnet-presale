@@ -140,17 +140,33 @@ public class ValidationProcess : ValueObject
 
     public bool IsClosedLost(DateTime today, int closedLostThreshold = 3)
     {
-        TimeSpan agingResponse = GetAgingChatCallRespons(today);
+        if (!HasStarted())
+        {
+            return false;
+        }
+
+        TimeSpan agingChatCallMulai = GetAgingChatCallMulai(today);
+        int days = Math.Abs(agingChatCallMulai.Days);
+
+        if (days < closedLostThreshold)
+        {
+            return false;
+        }
 
         bool notResponding = SignatureChatCallRespons.IsEmptySignature();
-        bool closedLost = Math.Abs(agingResponse.Days) >= closedLostThreshold;
+        bool closedLost = days >= closedLostThreshold;
 
         return notResponding && closedLost;
     }
 
-    public TimeSpan GetAgingChatCallRespons(DateTime today)
+    public TimeSpan GetAgingChatCallMulai(DateTime today)
     {
         return today - SignatureChatCallMulai.TglAksi;
+    }
+
+    public TimeSpan GetAgingChatCallRespons(DateTime today)
+    {
+        return today - SignatureChatCallRespons.TglAksi;
     }
 
     protected override IEnumerable<object> GetEqualityComponents()

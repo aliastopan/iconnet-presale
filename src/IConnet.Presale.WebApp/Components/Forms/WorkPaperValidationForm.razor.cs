@@ -124,19 +124,19 @@ public partial class WorkPaperValidationForm : ComponentBase
         return WorkPaper!.ProsesValidasi.IsClosedLost(today);
     }
 
-    protected string GetAgingResponseString()
+    protected string GetAgingChatCallMulaiString()
     {
         DateTime today = DateTimeService.DateTimeOffsetNow.Date;
-        TimeSpan agingResponse = WorkPaper!.ProsesValidasi.GetAgingChatCallRespons(today);
+        TimeSpan agingChatCallMulai = WorkPaper!.ProsesValidasi.GetAgingChatCallMulai(today);
 
-        if (agingResponse.TotalHours < 1)
+        if (agingChatCallMulai.TotalHours < 1)
         {
             return "kurang dari 1 Jam";
         }
         else
         {
-            int totalDays = (int)agingResponse.TotalDays;
-            int hours = agingResponse.Hours;
+            int totalDays = (int)agingChatCallMulai.TotalDays;
+            int hours = agingChatCallMulai.Hours;
 
             return $"{totalDays} Hari {hours} Jam";
         }
