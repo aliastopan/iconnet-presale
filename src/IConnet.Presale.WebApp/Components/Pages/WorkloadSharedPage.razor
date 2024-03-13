@@ -188,6 +188,21 @@
                     </span>
                 </div>
             </TemplateColumn>
+            <TemplateColumn Title="NIK PEMOHON" Style="@GetWidthStyle(ColumnWidth.NikPemohonPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Pemohon.Nik
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="NPWP PEMOHON" Style="@GetWidthStyle(ColumnWidth.NpwpPemohonPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Pemohon.Npwp
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="KETERANGAN PEMOHON" Style="@GetWidthStyle(ColumnWidth.KeteranganPx)">
+                <div class="">
+                    @context.ApprovalOpportunity.Pemohon.Keterangan
+                </div>
+            </TemplateColumn>
             <TemplateColumn Title="LAYANAN" Style="@GetWidthStyle(ColumnWidth.LayananPx)">
                 <div class="">
                     @context.ApprovalOpportunity.Layanan
@@ -243,21 +258,6 @@
                         @context.ApprovalOpportunity.Splitter
                     </div>
                 </ChildContent>
-            </TemplateColumn>
-            <TemplateColumn Title="NIK PEMOHON" Style="@GetWidthStyle(ColumnWidth.NikPemohonPx)">
-                <div class="">
-                    @context.ApprovalOpportunity.Pemohon.Nik
-                </div>
-            </TemplateColumn>
-            <TemplateColumn Title="NPWP PEMOHON" Style="@GetWidthStyle(ColumnWidth.NpwpPemohonPx)">
-                <div class="">
-                    @context.ApprovalOpportunity.Pemohon.Npwp
-                </div>
-            </TemplateColumn>
-            <TemplateColumn Title="KETERANGAN" Style="@GetWidthStyle(ColumnWidth.KeteranganPx)">
-                <div class="">
-                    @context.ApprovalOpportunity.Pemohon.Keterangan
-                </div>
             </TemplateColumn>
             <TemplateColumn Title="REGIONAL" Style="@GetWidthStyle(ColumnWidth.RegionalPx)">
                 <div class="">

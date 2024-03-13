@@ -67,6 +67,9 @@ public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.EmailPemohonPx + 200}px
             {ColumnWidth.IdPlnPx + 180}px
             {ColumnWidth.AlamatPemohonPx + 200}px
+            {ColumnWidth.NikPemohonPx}px
+            {ColumnWidth.NpwpPemohonPx}px
+            {ColumnWidth.KeteranganPx}px
             {ColumnWidth.LayananPx}px
             {ColumnWidth.SumberPermohonanPx}px
             {ColumnWidth.StatusPermohonanPx}px
@@ -75,9 +78,6 @@ public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.TelpAgenPx}px
             {ColumnWidth.MitraAgenPx}px
             {ColumnWidth.SplitterPx}px
-            {ColumnWidth.NikPemohonPx}px
-            {ColumnWidth.NpwpPemohonPx}px
-            {ColumnWidth.KeteranganPx}px
             {ColumnWidth.RegionalPx}px
             {ColumnWidth.KantorPerwakilanPx}px
             {ColumnWidth.ProvinsiPx}px
