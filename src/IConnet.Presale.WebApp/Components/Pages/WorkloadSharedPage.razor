@@ -188,6 +188,11 @@
                     </span>
                 </div>
             </TemplateColumn>
+            <TemplateColumn Title="SHARE LOC" Style="@GetWidthStyle(ColumnWidth.ValidasiShareLocPx)">
+                <div class="">
+                    @context.ProsesValidasi.ParameterValidasi.ShareLoc.GetLatitudeLongitude()
+                </div>
+            </TemplateColumn>
             <TemplateColumn Title="NIK PEMOHON" Style="@GetWidthStyle(ColumnWidth.NikPemohonPx)">
                 <div class="">
                     @context.ApprovalOpportunity.Pemohon.Nik
@@ -201,6 +206,44 @@
             <TemplateColumn Title="KETERANGAN PEMOHON" Style="@GetWidthStyle(ColumnWidth.KeteranganPx)">
                 <div class="">
                     @context.ApprovalOpportunity.Pemohon.Keterangan
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="TGL CHAT/CALL MULAI" Style="@GetWidthStyle(ColumnWidth.TglChatCallMulaiPx)">
+                <div class="">
+                    @if(!context.ProsesValidasi.SignatureChatCallMulai.IsEmptySignature())
+                    {
+                        @context.ProsesValidasi.SignatureChatCallMulai.TglAksi
+                    }
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="TGL CHAT/CALL RESPONS" Style="@GetWidthStyle(ColumnWidth.TglChatCallResponsPx)">
+                <div class="">
+                    @if(!context.ProsesValidasi.SignatureChatCallRespons.IsEmptySignature())
+                    {
+                        @context.ProsesValidasi.SignatureChatCallRespons.TglAksi
+                    }
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="REKAP CHAT HISTORY" Style="@GetWidthStyle(ColumnWidth.LinkChatHistoryPx)">
+                <div class="">
+                    <a href="@context.ProsesValidasi.LinkChatHistory" target="_blank">
+                        @context.ProsesValidasi.LinkChatHistory
+                    </a>
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="KETERANGAN VALIDASI" Style="@GetWidthStyle(ColumnWidth.KeteranganValidasiPx)">
+                <div class="">
+                    @context.ProsesValidasi.Keterangan
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="CONTACT WHATSAPP" Style="@GetWidthStyle(ColumnWidth.ContactWhatsAppPx)">
+                <div class="">
+                    @{
+                        var url = $"http://{context.ApprovalOpportunity.Pemohon.GetWhatsApp()}";
+                    }
+                    <a href="@url" target="_blank">
+                        @context.ApprovalOpportunity.Pemohon.GetWhatsApp()
+                    </a>
                 </div>
             </TemplateColumn>
             <TemplateColumn Title="LAYANAN" Style="@GetWidthStyle(ColumnWidth.LayananPx)">
