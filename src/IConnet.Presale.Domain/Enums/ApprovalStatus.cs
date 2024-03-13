@@ -6,5 +6,6 @@ public enum ApprovalStatus
     OnProgress,
     ClosedLost,
     Reject,
-    Approve
+    Approve,
+    Expansion
 }
