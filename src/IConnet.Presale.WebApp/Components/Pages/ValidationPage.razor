@@ -35,7 +35,8 @@
                     EmptyContent="@HtmlFragment.EmptyContent"
                     GridTemplateColumns="@GridTemplateCols">
 
-                    <TemplateColumn Title="ID PERMOHONAN" SortBy="@SortByIdPermohonan" Style="GetWidthStyle(ColumnWidth.IdPermohonanPx, ColumnWidth.OffsetPx)">
+                    <TemplateColumn Title="ID PERMOHONAN" Style="GetWidthStyle(ColumnWidth.IdPermohonanPx, ColumnWidth.OffsetPx)"
+                        SortBy="@SortByIdPermohonan">
                         <ColumnOptions>
                             <div class="">
                                 @if (FilterComponent is not null)

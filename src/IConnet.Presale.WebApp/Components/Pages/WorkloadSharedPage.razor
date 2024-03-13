@@ -46,7 +46,8 @@
                     @context.WorkPaperLevel
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="ID PERMOHONAN" SortBy="@SortByIdPermohonan" Style="@GetWidthStyle(ColumnWidth.IdPermohonanPx, ColumnWidth.OffsetPx)">
+            <TemplateColumn Title="ID PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.IdPermohonanPx, ColumnWidth.OffsetPx)"
+                SortBy="@SortByIdPermohonan">
                 <ColumnOptions>
                     <div class="search-box">
                         @if (FilterComponent is not null)
