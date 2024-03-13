@@ -132,12 +132,12 @@
                     </TemplateColumn>
                     <TemplateColumn Title="CONTACT WHATSAPP" Style="@GetWidthStyle(ColumnWidth.ContactWhatsAppPx)">
                         <div class="">
-                            @{
-                                var url = $"http://{context.ApprovalOpportunity.Pemohon.GetWhatsApp()}";
-                            }
-                            <FluentAnchor Href="@url" Target="_blank" Appearance="Appearance.Lightweight">
-                                @context.ApprovalOpportunity.Pemohon.GetWhatsApp()
-                            </FluentAnchor>
+                        @{
+                            var url = $"http://{context.ApprovalOpportunity.Pemohon.GetWhatsApp()}";
+                        }
+                        <a href="@url" target="_blank">
+                            @context.ApprovalOpportunity.Pemohon.GetWhatsApp()
+                        </a>
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="KANTOR PERWAKILAN" Style="@GetWidthStyle(ColumnWidth.KantorPerwakilanPx)">
