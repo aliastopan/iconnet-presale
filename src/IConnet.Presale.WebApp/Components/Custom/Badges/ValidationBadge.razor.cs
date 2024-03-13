@@ -8,6 +8,9 @@ public partial class ValidationBadge : ComponentBase
     [Parameter]
     public bool IncludeClosedLost { get; set; } = false;
 
+    [Parameter]
+    public bool WidthConstraint { get; set; } = false;
+
     protected string GetCssBadge()
     {
         switch (ValidationStatus)

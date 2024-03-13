@@ -26,7 +26,7 @@ public abstract class ColumnWidthBase<T>
     public int MitraAgenPx { get; set; } = DefaultWidth;
     public int SplitterPx { get; set; } = 165;
     public int JenisPermohonanPx { get; set; } = 180;
-    public int TelpPemohonPx { get; set; } = 150;
+    public int TelpPemohonPx { get; set; } = 180;
     public int EmailPemohonPx { get; set; } = DefaultWidth;
     public int NikPemohonPx { get; set; } = 180;
     public int NpwpPemohonPx { get; set; } = 180;

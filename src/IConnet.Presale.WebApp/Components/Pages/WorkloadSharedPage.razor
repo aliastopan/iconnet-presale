@@ -79,7 +79,7 @@
                     @DateTimeService.GetElapsedTime(context.ApprovalOpportunity.TglPermohonan).AsReadableDateTime()
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="NAMA PEMOHON" Style="@GetWidthStyle(ColumnWidth.NamaPemohonPx)">
+            <TemplateColumn Title="NAMA PEMOHON" Style="@GetWidthStyle(ColumnWidth.NamaPemohonPx, 200)">
                 <ColumnOptions>
                     <div class="search-box">
                         @if (FilterComponent is not null)
@@ -95,12 +95,66 @@
                     </div>
                 </ColumnOptions>
                 <ChildContent>
-                    <div class="">
-                        @context.ApprovalOpportunity.Pemohon.NamaPelanggan
+                    <div class="d-flex flex-row">
+                        <ValidationBadge ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiNama"
+                            WidthConstraint="true"/>
+                        <span style="padding-left: 8px;">
+                            @context.ApprovalOpportunity.Pemohon.NamaPelanggan
+                        </span>
                     </div>
                 </ChildContent>
             </TemplateColumn>
-            <TemplateColumn Title="ID PLN" Style="@GetWidthStyle(ColumnWidth.IdPlnPx)">
+            <TemplateColumn Title="TELP. PEMOHON" Style="@GetWidthStyle(ColumnWidth.TelpPemohonPx, 180)">
+                <ColumnOptions>
+                    <div class="search-box">
+                        @if (FilterComponent is not null)
+                        {
+                            <FluentSearch Autofocus=true
+                                style="width: 200px;"
+                                type="search"
+                                @bind-Value=FilterComponent.FilterModel.NomorTeleponPemohon
+                                @oninput="FilterComponent.FilterModel.NomorTeleponPemohonFilterHandler"
+                                @bind-Value:after="FilterComponent.FilterModel.NomorTeleponPemohonFilterClear"
+                                Placeholder="Nomor Telepon"/>
+                        }
+                    </div>
+                </ColumnOptions>
+                <ChildContent>
+                    <div class="d-flex flex-row">
+                        <ValidationBadge ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiNomorTelepon"
+                            WidthConstraint="true"/>
+                        <span style="padding-left: 8px;">
+                            @context.ApprovalOpportunity.Pemohon.NomorTelepon
+                        </span>
+                    </div>
+                </ChildContent>
+            </TemplateColumn>
+            <TemplateColumn Title="EMAIL PEMOHON" Style="@GetWidthStyle(ColumnWidth.EmailPemohonPx, 200)">
+                <ColumnOptions>
+                    <div class="search-box">
+                        @if (FilterComponent is not null)
+                        {
+                            <FluentSearch Autofocus=true
+                                style="width: 200px;"
+                                type="search"
+                                @bind-Value=FilterComponent.FilterModel.EmailPemohon
+                                @oninput="FilterComponent.FilterModel.EmailPemohonFilterHandler"
+                                @bind-Value:after="FilterComponent.FilterModel.EmailPemohonFilterClear"
+                                Placeholder="Email"/>
+                        }
+                    </div>
+                </ColumnOptions>
+                <ChildContent>
+                    <div class="d-flex flex-row">
+                        <ValidationBadge ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiEmail"
+                            WidthConstraint="true"/>
+                        <span style="padding-left: 8px;">
+                            @context.ApprovalOpportunity.Pemohon.Email
+                        </span>
+                    </div>
+                </ChildContent>
+            </TemplateColumn>
+            <TemplateColumn Title="ID PLN" Style="@GetWidthStyle(ColumnWidth.IdPlnPx, 180)">
                 <ColumnOptions>
                     <div class="search-box">
                         @if (FilterComponent is not null)
@@ -116,10 +170,23 @@
                     </div>
                 </ColumnOptions>
                 <ChildContent>
-                    <div class="">
-                        @context.ApprovalOpportunity.Pemohon.IdPln
+                    <div class="d-flex flex-row">
+                        <ValidationBadge ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiIdPln"
+                            WidthConstraint="true"/>
+                        <span style="padding-left: 8px;">
+                            @context.ApprovalOpportunity.Pemohon.IdPln
+                        </span>
                     </div>
                 </ChildContent>
+            </TemplateColumn>
+            <TemplateColumn Title="ALAMAT PEMOHON" Style="@GetWidthStyle(ColumnWidth.AlamatPemohonPx, 200)">
+                <div class="d-flex flex-row">
+                    <ValidationBadge ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiAlamat"
+                        WidthConstraint="true"/>
+                    <span style="padding-left: 8px;">
+                        @context.ApprovalOpportunity.Pemohon.Alamat
+                    </span>
+                </div>
             </TemplateColumn>
             <TemplateColumn Title="LAYANAN" Style="@GetWidthStyle(ColumnWidth.LayananPx)">
                 <div class="">
@@ -177,48 +244,6 @@
                     </div>
                 </ChildContent>
             </TemplateColumn>
-            <TemplateColumn Title="TELP. PEMOHON" Style="@GetWidthStyle(ColumnWidth.TelpPemohonPx)">
-                <ColumnOptions>
-                    <div class="search-box">
-                        @if (FilterComponent is not null)
-                        {
-                            <FluentSearch Autofocus=true
-                                style="width: 200px;"
-                                type="search"
-                                @bind-Value=FilterComponent.FilterModel.NomorTeleponPemohon
-                                @oninput="FilterComponent.FilterModel.NomorTeleponPemohonFilterHandler"
-                                @bind-Value:after="FilterComponent.FilterModel.NomorTeleponPemohonFilterClear"
-                                Placeholder="Nomor Telepon"/>
-                        }
-                    </div>
-                </ColumnOptions>
-                <ChildContent>
-                    <div class="">
-                        @context.ApprovalOpportunity.Pemohon.NomorTelepon
-                    </div>
-                </ChildContent>
-            </TemplateColumn>
-            <TemplateColumn Title="EMAIL PEMOHON" Style="@GetWidthStyle(ColumnWidth.EmailPemohonPx)">
-                <ColumnOptions>
-                    <div class="search-box">
-                        @if (FilterComponent is not null)
-                        {
-                            <FluentSearch Autofocus=true
-                                style="width: 200px;"
-                                type="search"
-                                @bind-Value=FilterComponent.FilterModel.EmailPemohon
-                                @oninput="FilterComponent.FilterModel.EmailPemohonFilterHandler"
-                                @bind-Value:after="FilterComponent.FilterModel.EmailPemohonFilterClear"
-                                Placeholder="Email"/>
-                        }
-                    </div>
-                </ColumnOptions>
-                <ChildContent>
-                    <div class="">
-                        @context.ApprovalOpportunity.Pemohon.Email
-                    </div>
-                </ChildContent>
-            </TemplateColumn>
             <TemplateColumn Title="NIK PEMOHON" Style="@GetWidthStyle(ColumnWidth.NikPemohonPx)">
                 <div class="">
                     @context.ApprovalOpportunity.Pemohon.Nik
@@ -232,11 +257,6 @@
             <TemplateColumn Title="KETERANGAN" Style="@GetWidthStyle(ColumnWidth.KeteranganPx)">
                 <div class="">
                     @context.ApprovalOpportunity.Pemohon.Keterangan
-                </div>
-            </TemplateColumn>
-            <TemplateColumn Title="ALAMAT PEMOHON" Style="@GetWidthStyle(ColumnWidth.AlamatPemohonPx)">
-                <div class="">
-                    @context.ApprovalOpportunity.Pemohon.Alamat
                 </div>
             </TemplateColumn>
             <TemplateColumn Title="REGIONAL" Style="@GetWidthStyle(ColumnWidth.RegionalPx)">

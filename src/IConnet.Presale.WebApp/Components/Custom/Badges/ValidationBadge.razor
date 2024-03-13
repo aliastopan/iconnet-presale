@@ -1,8 +1,11 @@
-<div class="@_badge">
+<div class="@_badge" style="@_widthConstraintStyle">
     @GetValidationStatusString().ToUpper()
 </div>
 
 @code
 {
     private string _badge => GetCssBadge();
+    private string _widthConstraintStyle => WidthConstraint
+        ? "width: 175px"
+        : "";
 }
