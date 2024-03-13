@@ -73,9 +73,15 @@ public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.KeteranganPx}px
             {ColumnWidth.TglChatCallMulaiPx}px
             {ColumnWidth.TglChatCallResponsPx}px
+            {ColumnWidth.TglChatCallMulaiPx}px
             {ColumnWidth.LinkChatHistoryPx}px
             {ColumnWidth.KeteranganValidasiPx}px
             {ColumnWidth.ContactWhatsAppPx}px
+            {ColumnWidth.StatusApprovalPx}px
+            {ColumnWidth.RootCausePx}px
+            {ColumnWidth.TglApprovalPx}px
+            {ColumnWidth.PlanningAssetCoverageInChargePx}px
+            {ColumnWidth.KeteranganApprovalPx}px
             {ColumnWidth.LayananPx}px
             {ColumnWidth.SumberPermohonanPx}px
             {ColumnWidth.StatusPermohonanPx}px

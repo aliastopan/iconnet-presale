@@ -224,6 +224,11 @@
                     }
                 </div>
             </TemplateColumn>
+            <TemplateColumn Title="PIC CHAT/CALL" Style="@GetWidthStyle(ColumnWidth.HelpdeskInChargePx)">
+                <div class="" style="display: flex;">
+                    @context.SignatureHelpdeskInCharge.Alias
+                </div>
+            </TemplateColumn>
             <TemplateColumn Title="REKAP CHAT HISTORY" Style="@GetWidthStyle(ColumnWidth.LinkChatHistoryPx)">
                 <div class="">
                     <a href="@context.ProsesValidasi.LinkChatHistory" target="_blank">
@@ -244,6 +249,41 @@
                     <a href="@url" target="_blank">
                         @context.ApprovalOpportunity.Pemohon.GetWhatsApp()
                     </a>
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="APPROVAL" Style="@GetWidthStyle(ColumnWidth.StatusApprovalPx)">
+                <div class="">
+                    <ApprovalBadge ApprovalStatus="@context.ProsesApproval.StatusApproval"/>
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="ROOT CAUSE" Style="@GetWidthStyle(ColumnWidth.RootCausePx)">
+                <div class="">
+                    @context.ProsesApproval.RootCause
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="TGL APPROVAL" Style="@GetWidthStyle(ColumnWidth.TglApprovalPx)">
+                <div class="">
+                    @if(!context.ProsesApproval.SignatureApproval.IsEmptySignature())
+                    {
+                        @context.ProsesApproval.SignatureApproval.TglAksi
+                    }
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="PIC APPROVAL" Style="@GetWidthStyle(ColumnWidth.PlanningAssetCoverageInChargePx)">
+                <div class="">
+                    @if(!context.ProsesApproval.SignatureApproval.IsEmptySignature())
+                    {
+                        @context.ProsesApproval.SignatureApproval.Alias
+                    }
+                    else
+                    {
+                        @context.SignaturePlanningAssetCoverageInCharge.Alias
+                    }
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="KETERANGAN APPROVAL" Style="@GetWidthStyle(ColumnWidth.KeteranganApprovalPx)">
+                <div class="">
+                    @context.ProsesApproval.Keterangan
                 </div>
             </TemplateColumn>
             <TemplateColumn Title="LAYANAN" Style="@GetWidthStyle(ColumnWidth.LayananPx)">
