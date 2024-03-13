@@ -32,13 +32,13 @@ public partial class WorkPaperApprovalForm : ComponentBase
     protected Func<string, bool> OptionDisableOnProgress => option => option == OptionSelect.StatusApproval.OnProgress
         && ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.OnProgress;
 
-    protected bool DisableRootCause => ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.Reject
+    protected bool DisableRootCause => ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.Rejected
         && ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.ClosedLost;
     protected bool DisableOnProgress => ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.OnProgress
-        || (ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.Approve && !ApprovalModel!.IsValidJarak())
+        || (ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.Approved && !ApprovalModel!.IsValidJarak())
         || (ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.Expansion && !ApprovalModel!.IsValidJarak());
     protected bool DisableForm => IsClosedLost()
-        || ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.Reject
+        || ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.Rejected
         || ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.ClosedLost;
     protected bool DisableCommit => !IsCommitReady;
 
@@ -79,7 +79,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
         };
 
         var approvalStatus = EnumProcessor.StringToEnum<ApprovalStatus>(ApprovalModel!.StatusApproval);
-        var rootCause = approvalStatus == ApprovalStatus.Approve
+        var rootCause = approvalStatus == ApprovalStatus.Approved
             ? string.Empty
             : ApprovalModel!.RootCause;
 
@@ -307,8 +307,8 @@ public partial class WorkPaperApprovalForm : ComponentBase
         {
             string status when status == OptionSelect.StatusApproval.OnProgress => _questionIcon.WithColor("var(--info)"),
             string status when status == OptionSelect.StatusApproval.ClosedLost => _errorIcon.WithColor("var(--soft-black)"),
-            string status when status == OptionSelect.StatusApproval.Reject => _errorIcon.WithColor("var(--error)"),
-            string status when status == OptionSelect.StatusApproval.Approve => _checkmarkIcon.WithColor("var(--success)"),
+            string status when status == OptionSelect.StatusApproval.Rejected => _errorIcon.WithColor("var(--error)"),
+            string status when status == OptionSelect.StatusApproval.Approved => _checkmarkIcon.WithColor("var(--success)"),
             string status when status == OptionSelect.StatusApproval.Expansion => _checkmarkIcon.WithColor("var(--success)"),
             _ => throw new NotImplementedException(),
         };

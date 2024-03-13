@@ -37,7 +37,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
     protected Icon GetStepIcon(WorkPaperLevel stepLevel, bool checkOnGoing = false)
     {
         if (WorkPaper?.WorkPaperLevel == WorkPaperLevel.DoneProcessing
-            && WorkPaper.ProsesApproval.StatusApproval != ApprovalStatus.Approve)
+            && WorkPaper.ProsesApproval.StatusApproval != ApprovalStatus.Approved)
         {
             return new Icons.Filled.Size20.DismissCircle().WithColor("var(--error)");
         }
@@ -75,7 +75,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
     protected string GetTrailColor(WorkPaperLevel stepLevel, bool checkOnGoing = false)
     {
         if (WorkPaper?.WorkPaperLevel == WorkPaperLevel.DoneProcessing
-            && WorkPaper.ProsesApproval.StatusApproval != ApprovalStatus.Approve)
+            && WorkPaper.ProsesApproval.StatusApproval != ApprovalStatus.Approved)
         {
             return "border-left: 2px solid var(--error) !important;";
         }
@@ -123,7 +123,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
 
     protected Icon GetResultStepIcon()
     {
-        if (WorkPaper?.ProsesApproval.StatusApproval == ApprovalStatus.Approve)
+        if (WorkPaper?.ProsesApproval.StatusApproval == ApprovalStatus.Approved)
         {
             return new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success)");
         }
@@ -135,7 +135,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
 
     protected string GetResultTrailColor()
     {
-        if (WorkPaper?.ProsesApproval.StatusApproval == ApprovalStatus.Approve)
+        if (WorkPaper?.ProsesApproval.StatusApproval == ApprovalStatus.Approved)
         {
             return "border-left: 2px solid var(--success) !important;";
         }
@@ -152,7 +152,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
 
     protected string GetApprovalStatusLabelStyle()
     {
-        return WorkPaper?.ProsesApproval.StatusApproval == ApprovalStatus.Approve
+        return WorkPaper?.ProsesApproval.StatusApproval == ApprovalStatus.Approved
             ? "background-color: var(--success); color: white;"
             : "background-color: var(--error); color: white;";
     }

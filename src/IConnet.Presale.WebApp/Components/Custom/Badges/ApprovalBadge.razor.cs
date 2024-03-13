@@ -13,11 +13,11 @@ public partial class ApprovalBadge : ComponentBase
                 return "approval-badge-on-progress";
             case ApprovalStatus.ClosedLost:
                 return "approval-badge-closed-lost";
-            case ApprovalStatus.Reject:
+            case ApprovalStatus.Rejected:
                 return "approval-badge-reject";
             case ApprovalStatus.Expansion:
                 return "approval-badge-expansion";
-            case ApprovalStatus.Approve:
+            case ApprovalStatus.Approved:
                 return "approval-badge-approved";
             default:
                 return "approval-badge-neutral";
