@@ -58,6 +58,7 @@ public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
     private string GetGridTemplateCols()
     {
         return $@"
+            {ColumnWidth.WorkPaperLevelPx}px
             {ColumnWidth.IdPermohonanPx + ColumnWidth.OffsetPx}px
             {ColumnWidth.TglPermohonanPx}px
             {ColumnWidth.DurasiTidakLanjutPx}px

@@ -41,6 +41,11 @@
             EmptyContent="@HtmlFragment.EmptyContent"
             GridTemplateColumns="@GridTemplateCols">
 
+            <TemplateColumn Title="STATUS KERTAS KERJA" Style="@GetWidthStyle(ColumnWidth.WorkPaperLevelPx)">
+                <div class="">
+                    @context.WorkPaperLevel
+                </div>
+            </TemplateColumn>
             <TemplateColumn Title="ID PERMOHONAN" SortBy="@SortByIdPermohonan" Style="@GetWidthStyle(ColumnWidth.IdPermohonanPx, ColumnWidth.OffsetPx)">
                 <ColumnOptions>
                     <div class="search-box">

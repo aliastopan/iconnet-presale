@@ -11,6 +11,7 @@ public abstract class ColumnWidthBase<T>
     public static int DefaultWidth => _defaultWidth;
     public int OffsetPx => 32;
 
+    public int WorkPaperLevelPx { get; set; } = DefaultWidth;
     public int IdPermohonanPx { get; set; } = DefaultWidth;
     public int TglPermohonanPx { get; set; } = DefaultWidth;
     public int DurasiTidakLanjutPx { get; set; } = DefaultWidth;
