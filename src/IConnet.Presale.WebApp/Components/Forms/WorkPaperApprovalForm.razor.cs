@@ -79,7 +79,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
         };
 
         var approvalStatus = EnumProcessor.StringToEnum<ApprovalStatus>(ApprovalModel!.StatusApproval);
-        var rootCause = approvalStatus == ApprovalStatus.Approved
+        var rootCause = approvalStatus == ApprovalStatus.Approved || approvalStatus == ApprovalStatus.Expansion
             ? string.Empty
             : ApprovalModel!.RootCause;
 
