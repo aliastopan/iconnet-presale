@@ -35,6 +35,11 @@ public class Coordinate : ValueObject
 
     public string GetLatitudeLongitude()
     {
+        if (Latitude == string.Empty || Longitude == string.Empty)
+        {
+            return string.Empty;
+        }
+
         return $"{Latitude}, {Longitude}";
     }
 
