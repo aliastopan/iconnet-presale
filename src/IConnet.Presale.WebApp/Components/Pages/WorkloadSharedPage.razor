@@ -41,9 +41,10 @@
             EmptyContent="@HtmlFragment.EmptyContent"
             GridTemplateColumns="@GridTemplateCols">
 
-            <TemplateColumn Title="STATUS KERTAS KERJA" Style="@GetWidthStyle(ColumnWidth.WorkPaperLevelPx)">
+            <TemplateColumn Title="STATUS KERTAS KERJA" Style="@GetWidthStyle(ColumnWidth.WorkPaperLevelPx, ColumnWidth.OffsetPx)"
+                SortBy="@SortByWorkPaperLevel">
                 <div class="">
-                    @context.WorkPaperLevel
+                    <WorkPaperLevelBadge WorkPaperLevel="@context.WorkPaperLevel"/>
                 </div>
             </TemplateColumn>
             <TemplateColumn Title="ID PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.IdPermohonanPx, ColumnWidth.OffsetPx)"

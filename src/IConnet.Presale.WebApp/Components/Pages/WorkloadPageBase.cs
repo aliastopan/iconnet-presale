@@ -14,12 +14,15 @@ public class WorkloadPageBase : ComponentBase
     private IQueryable<WorkPaper>? _workPapers;
     private readonly GridSort<WorkPaper> _sortByIdPermohonan = GridSort<WorkPaper>
         .ByAscending(workPaper => workPaper.ApprovalOpportunity.IdPermohonan);
+    private readonly GridSort<WorkPaper> _sortByWorkPaperLevel = GridSort<WorkPaper>
+        .ByAscending(workPaper => workPaper.WorkPaperLevel);
 
     protected PaginationState Pagination => _pagination;
     protected WorkloadColumnWidth ColumnWidth => _columnWidth;
     protected WorkloadFilter WorkloadFilter { get; set; } = WorkloadFilter.OnlyImportVerified;
     protected virtual IQueryable<WorkPaper>? WorkPapers => _workPapers;
     protected GridSort<WorkPaper> SortByIdPermohonan => _sortByIdPermohonan;
+    protected GridSort<WorkPaper> SortByWorkPaperLevel => _sortByWorkPaperLevel;
 
     protected string PageName { get; set; } = "Workload page (base)";
     protected virtual bool IsLoading { get; set; } = false;
