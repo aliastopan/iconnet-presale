@@ -1,4 +1,4 @@
-namespace IConnet.Presale.WebApp.Components.Custom;
+namespace IConnet.Presale.WebApp.Components.Custom.Badges;
 
 public partial class ValidationBadge : ComponentBase
 {
