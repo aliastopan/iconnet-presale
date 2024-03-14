@@ -39,10 +39,10 @@
 }
 
 .approval-badge-expansion{
-    font-weight: 700;
-    background-color: var(--warning-yellow);
+    font-weight: 600;
+    background-color: var(--success-green);
     text-align: center;
-    color: var(--soft-black);
+    color: white;
     padding: 0 10px;
     border-radius: 3px;
     -webkit-border-radius: 3px;
