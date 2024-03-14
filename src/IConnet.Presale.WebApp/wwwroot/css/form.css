@@ -121,9 +121,9 @@
 }
 
 .validation-value-bg-invalid{
-    background-color: var(--error);
+    background-color: var(--error-red);
     height: fit-content;
-    border: 1px solid var(--error);
+    border: 1px solid var(--error-red);
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -373,9 +373,9 @@
 }
 
 .approval-value-bg-invalid{
-    background-color: var(--error);
+    background-color: var(--error-red);
     height: fit-content;
-    border: 1px solid var(--error);
+    border: 1px solid var(--error-red);
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;

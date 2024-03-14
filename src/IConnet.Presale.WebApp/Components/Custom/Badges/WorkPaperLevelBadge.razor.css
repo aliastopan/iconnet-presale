@@ -13,7 +13,7 @@
 
 .workpaper-import-invalid{
     font-weight: 600;
-    background-color: var(--error);
+    background-color: var(--error-red);
     text-align: center;
     color: white;
     padding: 0 10px;

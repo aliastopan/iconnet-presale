@@ -39,7 +39,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
         if (WorkPaper?.WorkPaperLevel == WorkPaperLevel.DoneProcessing
             && WorkPaper.ProsesApproval.StatusApproval != ApprovalStatus.Approved)
         {
-            return new Icons.Filled.Size20.DismissCircle().WithColor("var(--error)");
+            return new Icons.Filled.Size20.DismissCircle().WithColor("var(--error-red)");
         }
 
         if (!checkOnGoing)
@@ -77,7 +77,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
         if (WorkPaper?.WorkPaperLevel == WorkPaperLevel.DoneProcessing
             && WorkPaper.ProsesApproval.StatusApproval != ApprovalStatus.Approved)
         {
-            return "border-left: 2px solid var(--error) !important;";
+            return "border-left: 2px solid var(--error-red) !important;";
         }
 
         if (!checkOnGoing)
@@ -129,7 +129,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
         }
         else
         {
-            return new Icons.Filled.Size20.DismissCircle().WithColor("var(--error)");
+            return new Icons.Filled.Size20.DismissCircle().WithColor("var(--error-red)");
         }
     }
 
@@ -141,7 +141,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
         }
         else
         {
-            return "border-left: 2px solid var(--error) !important;";
+            return "border-left: 2px solid var(--error-red) !important;";
         }
     }
 
@@ -154,6 +154,6 @@ public partial class WorkPaperProgressTracker : ComponentBase
     {
         return WorkPaper?.ProsesApproval.StatusApproval == ApprovalStatus.Approved
             ? "background-color: var(--success); color: white;"
-            : "background-color: var(--error); color: white;";
+            : "background-color: var(--error-red); color: white;";
     }
 }

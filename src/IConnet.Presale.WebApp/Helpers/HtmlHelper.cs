@@ -8,7 +8,7 @@ public static class HtmlHelper
 
     public static Icon GetFluentIcon(string? section,
         string questionIconColor = "var(--info)",
-        string errorIconColor = "var(--error)",
+        string errorIconColor = "var(--error-red)",
         string checkmarkIconColor = "var(--success)")
     {
         return section switch

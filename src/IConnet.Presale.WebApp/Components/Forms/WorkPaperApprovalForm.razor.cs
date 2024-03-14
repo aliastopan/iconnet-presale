@@ -287,7 +287,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
 
     private static Icon GetValidationIcon(ValidationStatus section,
         string questionIconColor = "var(--info)",
-        string errorIconColor = "var(--error)",
+        string errorIconColor = "var(--error-red)",
         string checkmarkIconColor = "var(--success)")
     {
         switch (section)
@@ -307,7 +307,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
         {
             string status when status == OptionSelect.StatusApproval.OnProgress => _questionIcon.WithColor("var(--info)"),
             string status when status == OptionSelect.StatusApproval.ClosedLost => _errorIcon.WithColor("var(--soft-black)"),
-            string status when status == OptionSelect.StatusApproval.Rejected => _errorIcon.WithColor("var(--error)"),
+            string status when status == OptionSelect.StatusApproval.Rejected => _errorIcon.WithColor("var(--error-red)"),
             string status when status == OptionSelect.StatusApproval.Approved => _checkmarkIcon.WithColor("var(--success)"),
             string status when status == OptionSelect.StatusApproval.Expansion => _checkmarkIcon.WithColor("var(--success)"),
             _ => throw new NotImplementedException(),
