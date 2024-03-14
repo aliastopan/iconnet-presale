@@ -12,12 +12,12 @@ public partial class CreateUserForm : ComponentBase
 
     private readonly List<Error> _errors = [];
 
-    public CreateUserModel CreateUserModel { get; set; } = default!;
-    public List<Error> Errors => _errors;
-    public bool IsLoading { get; set; } = false;
-    public bool ShowErrorMessages => _errors.Count > 0;
+    protected CreateUserModel CreateUserModel { get; set; } = default!;
+    protected List<Error> Errors => _errors;
+    protected bool IsLoading { get; set; } = false;
+    protected bool ShowErrorMessages => _errors.Count > 0;
 
-    public bool ShowPassword = false;
+    protected bool ShowPassword = false;
     protected Icon PasswordIcon => ShowPassword
         ? new Icons.Filled.Size20.Eye()
         : new Icons.Filled.Size20.EyeOff();
@@ -25,7 +25,7 @@ public partial class CreateUserForm : ComponentBase
         ? TextFieldType.Text
         : TextFieldType.Password;
 
-    public bool ShowConfirmationPassword = false;
+    protected bool ShowConfirmationPassword = false;
     protected Icon ConfirmationPasswordIcon => ShowConfirmationPassword
         ? new Icons.Filled.Size20.Eye()
         : new Icons.Filled.Size20.EyeOff();

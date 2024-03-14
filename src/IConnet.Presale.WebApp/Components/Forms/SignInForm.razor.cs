@@ -18,9 +18,9 @@ public partial class SignInForm : ComponentBase
 
     private readonly SignInModel _signInForm = new SignInModel();
 
-    public bool IsLoading { get; set; } = false;
-    public string ErrorMessage { get; set; } = string.Empty;
-    public SignInModel SignInModel => _signInForm;
+    protected bool IsLoading { get; set; } = false;
+    protected string ErrorMessage { get; set; } = string.Empty;
+    protected SignInModel SignInModel => _signInForm;
 
     protected void OnUsernameChanged(string username)
     {
