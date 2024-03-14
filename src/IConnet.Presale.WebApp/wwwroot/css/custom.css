@@ -218,7 +218,7 @@ input:invalid::part(root) {
     width: 100%;
     font-weight: 600;
     cursor: pointer;
-    background-color: var(--success);
+    background-color: var(--success-green);
     text-align: center;
     color: white;
     padding: 0 10px;

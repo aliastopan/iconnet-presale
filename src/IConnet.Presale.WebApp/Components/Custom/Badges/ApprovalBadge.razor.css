@@ -53,7 +53,7 @@
 
 .approval-badge-approved{
     font-weight: 600;
-    background-color: var(--success);
+    background-color: var(--success-green);
     text-align: center;
     color: white;
     padding: 0 10px;

@@ -132,9 +132,9 @@
 }
 
 .validation-value-bg-valid{
-    background-color: var(--success);
+    background-color: var(--success-green);
     height: fit-content;
-    border: 1px solid var(--success);
+    border: 1px solid var(--success-green);
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -384,9 +384,9 @@
 
 .approval-value-bg-valid{
     cursor: pointer !important;
-    background-color: var(--success);
+    background-color: var(--success-green);
     height: fit-content;
-    border: 1px solid var(--success);
+    border: 1px solid var(--success-green);
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;

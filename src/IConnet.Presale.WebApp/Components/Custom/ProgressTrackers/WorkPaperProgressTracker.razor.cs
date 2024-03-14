@@ -46,7 +46,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
         {
             if (WorkPaper?.WorkPaperLevel >= stepLevel)
             {
-                return new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success)");
+                return new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success-green)");
             }
             else
             {
@@ -57,7 +57,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
         {
             if (WorkPaper?.WorkPaperLevel > stepLevel)
             {
-                return new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success)");
+                return new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success-green)");
             }
             else
             {
@@ -84,7 +84,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
         {
             if (WorkPaper?.WorkPaperLevel >= stepLevel)
             {
-                return "border-left: 2px solid var(--success) !important;";
+                return "border-left: 2px solid var(--success-green) !important;";
             }
             else
             {
@@ -95,7 +95,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
         {
             if (WorkPaper?.WorkPaperLevel > stepLevel)
             {
-                return "border-left: 2px solid var(--success) !important;";
+                return "border-left: 2px solid var(--success-green) !important;";
             }
             else
             {
@@ -125,7 +125,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
     {
         if (IsApproved())
         {
-            return new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success)");
+            return new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success-green)");
         }
         else
         {
@@ -137,7 +137,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
     {
         if (IsApproved())
         {
-            return "border-left: 2px solid var(--success) !important;";
+            return "border-left: 2px solid var(--success-green) !important;";
         }
         else
         {
@@ -153,7 +153,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
     protected string GetApprovalStatusLabelStyle()
     {
         return IsApproved()
-            ? "background-color: var(--success); color: white;"
+            ? "background-color: var(--success-green); color: white;"
             : "background-color: var(--error-red); color: white;";
     }
 

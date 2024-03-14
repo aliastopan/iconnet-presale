@@ -284,7 +284,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
     private static Icon GetValidationIcon(ValidationStatus section,
         string questionIconColor = "var(--info)",
         string errorIconColor = "var(--error-red)",
-        string checkmarkIconColor = "var(--success)")
+        string checkmarkIconColor = "var(--success-green)")
     {
         switch (section)
         {
@@ -304,8 +304,8 @@ public partial class WorkPaperApprovalForm : ComponentBase
             string status when status == OptionSelect.StatusApproval.OnProgress => new Icons.Filled.Size20.QuestionCircle().WithColor("var(--info)"),
             string status when status == OptionSelect.StatusApproval.ClosedLost => new Icons.Filled.Size20.ErrorCircle().WithColor("var(--soft-black)"),
             string status when status == OptionSelect.StatusApproval.Rejected => new Icons.Filled.Size20.ErrorCircle().WithColor("var(--error-red)"),
-            string status when status == OptionSelect.StatusApproval.Approved => new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success)"),
-            string status when status == OptionSelect.StatusApproval.Expansion => new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success)"),
+            string status when status == OptionSelect.StatusApproval.Approved => new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success-green)"),
+            string status when status == OptionSelect.StatusApproval.Expansion => new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success-green)"),
             _ => throw new NotImplementedException(),
         };
     }

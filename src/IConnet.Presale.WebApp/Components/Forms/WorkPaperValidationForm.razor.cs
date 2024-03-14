@@ -408,7 +408,7 @@ public partial class WorkPaperValidationForm : ComponentBase
     private static Icon GetValidationIcon(string? section,
         string questionIconColor = "var(--info)",
         string errorIconColor = "var(--error-red)",
-        string checkmarkIconColor = "var(--success)")
+        string checkmarkIconColor = "var(--success-green)")
     {
         return section switch
         {
