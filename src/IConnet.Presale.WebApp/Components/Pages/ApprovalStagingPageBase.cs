@@ -10,7 +10,7 @@ public class ApprovalStagingPageBase : WorkloadPageBase, IPageNavigation
     [Inject] public IToastService ToastService { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
 
-    private readonly static int _stagingLimit = 10;
+    private readonly static int _stagingLimit = 25;
 
     protected string GridTemplateCols => GetGridTemplateCols();
     protected FilterForm FilterComponent { get; set; } = default!;
