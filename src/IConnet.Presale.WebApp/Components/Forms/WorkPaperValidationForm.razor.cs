@@ -24,10 +24,6 @@ public partial class WorkPaperValidationForm : ComponentBase
     [CascadingParameter(Name = "CascadeValidationModel")]
     public WorkPaperValidationModel? ValidationModel { get; set; }
 
-    // private readonly Icon _questionIcon = new Icons.Filled.Size20.QuestionCircle();
-    // private readonly Icon _errorIcon = new Icons.Filled.Size20.ErrorCircle();
-    // private readonly Icon _checkmarkIcon = new Icons.Filled.Size20.CheckmarkCircle();
-
     protected bool IsLoading { get; set; } = false;
     protected bool IsCommitReady { get; set; } = false;
 
