@@ -65,13 +65,8 @@ public sealed class SessionService
         return true;
     }
 
-    public async Task<string> GetSessionAliasAsync()
+    public string GetSessionAlias()
     {
-        if (UserModel is null)
-        {
-            await SignOutAsync();
-        }
-
         return UserModel switch
         {
             { Role: UserRole.Helpdesk } => $"{UserModel!.Username} {SetRoleString("PH")}",
@@ -80,6 +75,16 @@ public sealed class SessionService
             { Role: UserRole.SuperUser } => $"{UserModel!.Username} {SetRoleString("SUPER ADMIN")}",
             _ => $"{UserModel!.Username} (GUEST)"
         };
+    }
+
+    public async Task<string> GetSessionAliasAsync()
+    {
+        if (UserModel is null)
+        {
+            await SignOutAsync();
+        }
+
+        return GetSessionAlias();
     }
 
     public async Task<Guid> GetUserAccountIdAsync()
