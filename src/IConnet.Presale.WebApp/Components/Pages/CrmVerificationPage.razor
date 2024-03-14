@@ -245,9 +245,25 @@
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="ALAMAT PEMOHON" Style="@GetWidthStyle(ColumnWidth.AlamatPemohonPx)">
-                        <div class="">
-                            @context.ApprovalOpportunity.Pemohon.Alamat
-                        </div>
+                        <ColumnOptions>
+                            <div class="search-box">
+                                @if (FilterComponent is not null)
+                                {
+                                    <FluentSearch Autofocus=true
+                                        style="width: 200px;"
+                                        type="search"
+                                        @bind-Value=FilterComponent.FilterModel.AlamatPemohon
+                                        @oninput="FilterComponent.FilterModel.AlamatPemohonFilterHandler"
+                                        @bind-Value:after="FilterComponent.FilterModel.AlamatPemohonFilterClear"
+                                        Placeholder="Alamat"/>
+                                }
+                            </div>
+                        </ColumnOptions>
+                        <ChildContent>
+                            <div class="">
+                                @context.ApprovalOpportunity.Pemohon.Alamat
+                            </div>
+                        </ChildContent>
                     </TemplateColumn>
                     <TemplateColumn Title="REGIONAL" Style="@GetWidthStyle(ColumnWidth.RegionalPx)">
                         <div class="">

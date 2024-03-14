@@ -181,13 +181,29 @@
                 </ChildContent>
             </TemplateColumn>
             <TemplateColumn Title="ALAMAT PEMOHON" Style="@GetWidthStyle(ColumnWidth.AlamatPemohonPx, 200)">
-                <div class="d-flex flex-row">
-                    <ValidationBadge ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiAlamat"
-                        WidthConstraint="true"/>
-                    <span style="padding-left: 8px;">
-                        @context.ApprovalOpportunity.Pemohon.Alamat
-                    </span>
-                </div>
+                <ColumnOptions>
+                    <div class="search-box">
+                        @if (FilterComponent is not null)
+                        {
+                            <FluentSearch Autofocus=true
+                                style="width: 200px;"
+                                type="search"
+                                @bind-Value=FilterComponent.FilterModel.AlamatPemohon
+                                @oninput="FilterComponent.FilterModel.AlamatPemohonFilterHandler"
+                                @bind-Value:after="FilterComponent.FilterModel.AlamatPemohonFilterClear"
+                                Placeholder="Alamat"/>
+                        }
+                    </div>
+                </ColumnOptions>
+                <ChildContent>
+                    <div class="d-flex flex-row">
+                        <ValidationBadge ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiAlamat"
+                            WidthConstraint="true"/>
+                        <span style="padding-left: 8px;">
+                            @context.ApprovalOpportunity.Pemohon.Alamat
+                        </span>
+                    </div>
+                </ChildContent>
             </TemplateColumn>
             <TemplateColumn Title="SHARE LOC" Style="@GetWidthStyle(ColumnWidth.ValidasiShareLocPx)">
                 <div class="">

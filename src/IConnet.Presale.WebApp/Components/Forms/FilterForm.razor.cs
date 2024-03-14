@@ -140,6 +140,8 @@ public partial class FilterForm : ComponentBase
                     .Contains(FilterModel.NomorTeleponPemohon, StringComparison.CurrentCultureIgnoreCase)) &&
                 (!FilterModel.EmailPemohon.HasValue() || x.ApprovalOpportunity.Pemohon.Email
                     .Contains(FilterModel.EmailPemohon, StringComparison.CurrentCultureIgnoreCase)) &&
+                (!FilterModel.AlamatPemohon.HasValue() || x.ApprovalOpportunity.Pemohon.Alamat
+                    .Contains(FilterModel.AlamatPemohon, StringComparison.CurrentCultureIgnoreCase)) &&
                 (!FilterModel.Splitter.HasValue() || x.ApprovalOpportunity.Splitter
                     .Contains(FilterModel.Splitter, StringComparison.CurrentCultureIgnoreCase))
             );

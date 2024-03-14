@@ -33,6 +33,7 @@ public class FilterModel
     public string NamaPemohon { get; set; } = string.Empty;
     public string NomorTeleponPemohon { get; set; } = string.Empty;
     public string EmailPemohon { get; set; } = string.Empty;
+    public string AlamatPemohon { get; set; } = string.Empty;
 
     public string Splitter { get; set; } = string.Empty;
 
@@ -116,6 +117,22 @@ public class FilterModel
         }
     }
 
+    public void AlamatPemohonFilterHandler(ChangeEventArgs args)
+    {
+        if (args.Value is string value)
+        {
+            AlamatPemohon = value;
+        }
+    }
+
+    public void AlamatPemohonFilterClear()
+    {
+        if (Splitter.IsNullOrWhiteSpace())
+        {
+            AlamatPemohon = string.Empty;
+        }
+    }
+
     public void SplitterFilterHandler(ChangeEventArgs args)
     {
         if (args.Value is string value)
@@ -139,6 +156,7 @@ public class FilterModel
         NamaPemohon = string.Empty;
         NomorTeleponPemohon = string.Empty;
         EmailPemohon = string.Empty;
+        AlamatPemohon = string.Empty;
 
         Splitter = string.Empty;
     }
@@ -159,6 +177,7 @@ public class FilterModel
         NamaPemohon = string.Empty;
         NomorTeleponPemohon = string.Empty;
         EmailPemohon = string.Empty;
+        AlamatPemohon = string.Empty;
         Splitter = string.Empty;
     }
 }
