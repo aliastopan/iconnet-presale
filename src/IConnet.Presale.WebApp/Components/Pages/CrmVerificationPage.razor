@@ -71,7 +71,7 @@
                     <TemplateColumn Title="TGL PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.TglPermohonanPx)"
                         SortBy="@SortByTglPermohonan">
                         <div class="">
-                            @context.ApprovalOpportunity.TglPermohonan
+                            <DateTimeBadge DateTime="@context.ApprovalOpportunity.TglPermohonan"/>
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="PIC IMPORT" Style="@GetWidthStyle(ColumnWidth.SignatureImportPx)">

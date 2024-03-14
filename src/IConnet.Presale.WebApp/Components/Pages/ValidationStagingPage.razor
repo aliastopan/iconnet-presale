@@ -59,7 +59,7 @@
                     <TemplateColumn Title="TGL PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.TglPermohonanPx)"
                         SortBy="@SortByTglPermohonan">
                         <div class="">
-                            @context.ApprovalOpportunity.TglPermohonan
+                            <DateTimeBadge DateTime="@context.ApprovalOpportunity.TglPermohonan"/>
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="PIC CHAT/CALL" Style="@GetWidthStyle(ColumnWidth.HelpdeskInChargePx)">
@@ -85,7 +85,7 @@
                         <div class="">
                             @if(!context.ProsesValidasi.SignatureChatCallMulai.IsEmptySignature())
                             {
-                                @context.ProsesValidasi.SignatureChatCallMulai.TglAksi
+                                <DateTimeBadge DateTime="@context.ProsesValidasi.SignatureChatCallMulai.TglAksi"/>
                             }
                         </div>
                     </TemplateColumn>
@@ -123,7 +123,7 @@
                         <div class="">
                             @if(!context.ProsesValidasi.SignatureChatCallRespons.IsEmptySignature())
                             {
-                                @context.ProsesValidasi.SignatureChatCallRespons.TglAksi
+                                <DateTimeBadge DateTime="@context.ProsesValidasi.SignatureChatCallRespons.TglAksi"/>
                             }
                         </div>
                     </TemplateColumn>
