@@ -31,7 +31,10 @@ public class ApprovalProcess : ValueObject
 
     public bool IsOnGoing()
     {
-        return SignatureApproval.IsEmptySignature();
+        bool isSignatureEmpty = SignatureApproval.IsEmptySignature();
+        bool isPendingOnExpansion = StatusApproval == ApprovalStatus.Expansion;
+
+        return isSignatureEmpty || (!isSignatureEmpty && isPendingOnExpansion);
     }
 
     public ApprovalProcess WithSignatureApproval(ActionSignature signatureApproval)
