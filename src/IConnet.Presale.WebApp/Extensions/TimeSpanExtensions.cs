@@ -2,7 +2,7 @@ namespace IConnet.Presale.WebApp.Extensions;
 
 public static class TimeSpanExtensions
 {
-    public static string AsReadableDateTime(this TimeSpan timeSpan)
+    public static string ToReadableDateTime(this TimeSpan timeSpan)
     {
         int days = timeSpan.Days;
         int hours = timeSpan.Hours;
@@ -11,6 +11,11 @@ public static class TimeSpanExtensions
         if (days >= 365)
         {
             return "Lebih dari 1 tahun";
+        }
+
+        if (timeSpan.TotalMinutes < 1)
+        {
+            return "Kurang dari 1 menit";
         }
 
         string result = "";
