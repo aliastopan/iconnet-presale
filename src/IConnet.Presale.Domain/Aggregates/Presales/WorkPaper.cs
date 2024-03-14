@@ -33,7 +33,7 @@ public class WorkPaper : IAggregateRoot, IConcurrencyTracking
         SignatureHelpdeskInCharge = signatureHelpdeskInCharge;
     }
 
-   public void SetPlanningAssetCoverageInCharge(ActionSignature signaturePlanningAssetCoverageInCharge)
+    public void SetPlanningAssetCoverageInCharge(ActionSignature signaturePlanningAssetCoverageInCharge)
     {
         SignaturePlanningAssetCoverageInCharge = signaturePlanningAssetCoverageInCharge;
     }
