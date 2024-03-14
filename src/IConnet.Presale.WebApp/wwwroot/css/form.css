@@ -13,7 +13,6 @@
     font-weight: 700;
     color: #1a1a1a;
     padding: 0 4px;
-    /* border: 1px solid #dadada; */
     border-radius: 3px;
 }
 
@@ -25,7 +24,6 @@
     display: flex;
     flex-direction: row;
     align-items: start;
-    /* background-color: cornflowerblue; */
 }
 
 .validation-element-push{
@@ -53,7 +51,6 @@
     display: flex;
     flex-direction: column;
     width: 185px;
-    /* background-color: crimson; */
     margin-right: 10px;
 }
 
@@ -61,7 +58,6 @@
     display: flex;
     flex-direction: column;
     width: 300px;
-    /* background-color: #97afdb */
 }
 
 .validation-label .fluent-typography,
@@ -166,14 +162,6 @@
     cursor: pointer;
 }
 
-.validation-shareloc{
-    background-color: crimson;
-}
-
-/* .validation-bottom-margin{
-    margin-bottom: 40px;
-} */
-
 .validation-textarea::part(control){
     height: 104px
 }
@@ -184,7 +172,6 @@
 }
 
 .validation-aging-response{
-    /* background-color: #ededed; */
     display: flex;
     align-items: center;
     height: 32px;
@@ -251,7 +238,6 @@
     display: flex;
     flex-direction: row;
     align-items: start;
-    /* background-color: cornflowerblue; */
 }
 
 .approval-element-push{
@@ -267,7 +253,6 @@
     display: flex;
     flex-direction: column;
     width: 185px;
-    /* background-color: crimson; */
     margin-right: 10px;
 }
 
@@ -275,7 +260,6 @@
     display: flex;
     flex-direction: column;
     width: 300px;
-    /* background-color: #97afdb */
 }
 
 .approval-label .fluent-typography,
@@ -515,7 +499,6 @@
 }
 
 .approval-chat-history-link a{
-    /* border: 1px solid gainsboro; */
     border-radius: 3px;
     padding: 2px 4px;
 }
