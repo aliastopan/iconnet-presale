@@ -16,6 +16,7 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
     private CrmImportMetadata _importMetadata = default!;
 
     protected ImportModelColumnWidth ColumnWidth => _columnWidth;
+    protected string PaginationItemsPerPageOptions { get; set ;} = default!;
     protected PaginationState Pagination => _pagination;
     protected IQueryable<IApprovalOpportunityModel>? ImportModels => _importModels;
     protected CrmImportMetadata ImportMetadata => _importMetadata;
@@ -96,6 +97,12 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
     protected string GetWidthStyle(int widthPx)
     {
         return $"width: {widthPx}px;";
+    }
+
+    protected void OnItemsPerPageChanged(string ItemsPerPageString)
+    {
+        int itemsPerPage = int.Parse(ItemsPerPageString);
+        _pagination.ItemsPerPage = itemsPerPage;
     }
 
     private string GetGridTemplateCols()

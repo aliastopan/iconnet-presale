@@ -74,7 +74,17 @@
 
         <FluentPaginator State="@Pagination">
             <SummaryTemplate>
-                Terdapat <strong>@(Pagination.TotalItemCount ?? 0)</strong> baris
+                <div class="d-flex flex-row align-items-center">
+                    <span style="margin-right: 8px;">
+                        Terdapat <strong>@(Pagination.TotalItemCount ?? 0)</strong> baris
+                    </span>
+                    <span style="margin-left: auto; margin-right: 10px;">
+                        <FluentSelect Items="@OptionSelect.Pagination.ItemsPerPageOptions"
+                            Value="@PaginationItemsPerPageOptions"
+                            ValueChanged="OnItemsPerPageChanged"
+                            Width="65px"/>
+                    </span>
+                </div>
             </SummaryTemplate>
             <PaginationTextTemplate>
                 Hal. <strong>@(Pagination.CurrentPageIndex + 1)</strong> dari <strong>@(Pagination.LastPageIndex + 1)</strong> halaman
