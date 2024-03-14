@@ -143,9 +143,9 @@
 }
 
 .validation-value-bg-warning{
-    background-color: var(--warning);
+    background-color: var(--warning-yellow);
     height: fit-content;
-    border: 1px solid var(--warning);
+    border: 1px solid var(--warning-yellow);
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -153,15 +153,14 @@
     -o-border-radius: 5px;
 }
 
-/* .validation-value-bg-waiting p.fluent-typography, */
 .validation-value-bg-invalid p.fluent-typography,
 .validation-value-bg-valid p.fluent-typography{
     color: white !important;
 }
 
-/* .validation-value-bg-valid p.fluent-typography{
-    color: white !important;
-} */
+.validation-value-bg-warning p.fluent-typography{
+    color: var(--soft-black) !important;
+}
 
 .validation-value-clipboard{
     cursor: pointer;

@@ -49,7 +49,7 @@ public partial class WorkPaperValidationForm : ComponentBase
     protected Icon LabelIconEmail => GetValidationIcon(ValidationModel?.ValidasiEmail);
     protected Icon LabelIconIdPln => GetValidationIcon(ValidationModel?.ValidasiIdPln);
     protected Icon LabelIconAlamat => GetValidationIcon(ValidationModel?.ValidasiAlamat);
-    protected Icon LabelIconCrmKoordinat => GetValidationIcon(ValidationModel?.ValidasiCrmKoordinat, errorIconColor: "var(--warning)");
+    protected Icon LabelIconCrmKoordinat => GetValidationIcon(ValidationModel?.ValidasiCrmKoordinat, errorIconColor: "var(--info)");
 
     protected string CssBackgroundColorNamaPelanggan => GetCssBackgroundColor(ValidationModel?.ValidasiNama);
     protected string CssBackgroundColorNomorTelepon => GetCssBackgroundColor(ValidationModel?.ValidasiNomorTelepon);
