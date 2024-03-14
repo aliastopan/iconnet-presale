@@ -37,7 +37,7 @@ public class StartupService : IHostedService
             GetRepresentativeOfficesAsync(),
             GetChatTemplatesAsync(),
             GetRootCausesAsync(),
-            SynchronizeRedisToInMemory()
+            ForwardRedisToInMemoryAsync()
         ];
 
         await Task.WhenAll(tasks);
@@ -150,7 +150,7 @@ public class StartupService : IHostedService
         }
     }
 
-    private async Task SynchronizeRedisToInMemory()
+    private async Task ForwardRedisToInMemoryAsync()
     {
         await _workloadForwardingManager.ForwardRedisToInMemoryAsync();
     }
