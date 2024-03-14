@@ -16,6 +16,8 @@ public class WorkloadPageBase : ComponentBase
         .ByAscending(workPaper => workPaper.ApprovalOpportunity.IdPermohonan);
     private readonly GridSort<WorkPaper> _sortByWorkPaperLevel = GridSort<WorkPaper>
         .ByAscending(workPaper => workPaper.WorkPaperLevel);
+    private readonly GridSort<WorkPaper> _sortByTglPermohonan = GridSort<WorkPaper>
+        .ByAscending(workPaper => workPaper.ApprovalOpportunity.TglPermohonan);
 
     protected string PaginationItemsPerPageOptions { get; set ;} = default!;
     protected PaginationState Pagination => _pagination;
@@ -24,6 +26,7 @@ public class WorkloadPageBase : ComponentBase
     protected virtual IQueryable<WorkPaper>? WorkPapers => _workPapers;
     protected GridSort<WorkPaper> SortByIdPermohonan => _sortByIdPermohonan;
     protected GridSort<WorkPaper> SortByWorkPaperLevel => _sortByWorkPaperLevel;
+    protected GridSort<WorkPaper> SortByTglPermohonan => _sortByTglPermohonan;
 
     protected string PageName { get; set; } = "Workload page (base)";
     protected virtual bool IsLoading { get; set; } = false;

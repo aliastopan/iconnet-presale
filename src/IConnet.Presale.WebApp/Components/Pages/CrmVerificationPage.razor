@@ -68,7 +68,8 @@
                             </div>
                         </ChildContent>
                     </TemplateColumn>
-                    <TemplateColumn Title="TGL PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.TglPermohonanPx)">
+                    <TemplateColumn Title="TGL PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.TglPermohonanPx)"
+                        SortBy="@SortByTglPermohonan">
                         <div class="">
                             @context.ApprovalOpportunity.TglPermohonan
                         </div>
