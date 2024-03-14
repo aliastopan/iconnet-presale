@@ -30,6 +30,21 @@ public sealed class SessionService
     public bool HasUser => UserModel is not null;
     public FilterPreference FilterPreference => _filterPreference;
 
+    public async Task<ActionSignature> GenerateActionSignatureAsync()
+    {
+        if (UserModel is null)
+        {
+            await SignOutAsync();
+        }
+
+        return new ActionSignature
+        {
+            AccountIdSignature = UserModel!.UserAccountId,
+            Alias = GetSessionAlias(),
+            TglAksi = _dateTimeService.DateTimeOffsetNow.DateTime
+        };
+    }
+
     public void SetSession(ClaimsPrincipal principal)
     {
         UserModel = new UserModel(principal);
@@ -41,17 +56,6 @@ public sealed class SessionService
         await _localStorage.DeleteAsync("refresh-token");
 
         _navigationManager.NavigateTo("/", forceLoad: true);
-    }
-
-    public string GetSessionAlias()
-    {
-        return UserModel switch
-        {
-            { Role: UserRole.Helpdesk } => $"{UserModel!.Username} {SetRoleString("PH")}",
-            { Role: UserRole.PlanningAssetCoverage } => $"{UserModel!.Username} {SetRoleString("PAC")}",
-            { Role: UserRole.Administrator } => $"{UserModel!.Username} {SetRoleString("ADMIN")}",
-            _ => $"{UserModel!.Username} (GUEST)"
-        };
     }
 
     public async Task<bool> IsAliasMatch(string alias)
