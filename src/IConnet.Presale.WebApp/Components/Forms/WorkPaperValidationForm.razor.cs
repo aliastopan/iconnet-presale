@@ -83,6 +83,7 @@ public partial class WorkPaperValidationForm : ComponentBase
             .WithLinkChatHistory(ValidationModel.LinkChatHistory)
             .WithKeterangan(ValidationModel.Keterangan);
 
+        WorkPaper.SetHelpdeskInCharge(signatureChatCallRespons);
         WorkPaper.ProsesValidasi = prosesValidasi;
         WorkPaper.WorkPaperLevel = WorkPaperLevel.WaitingApproval;
         WorkPaper.Shift = SessionService.GetShift();
