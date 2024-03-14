@@ -24,9 +24,9 @@ public partial class WorkPaperValidationForm : ComponentBase
     [CascadingParameter(Name = "CascadeValidationModel")]
     public WorkPaperValidationModel? ValidationModel { get; set; }
 
-    private readonly Icon _questionIcon = new Icons.Filled.Size20.QuestionCircle();
-    private readonly Icon _errorIcon = new Icons.Filled.Size20.ErrorCircle();
-    private readonly Icon _checkmarkIcon = new Icons.Filled.Size20.CheckmarkCircle();
+    // private readonly Icon _questionIcon = new Icons.Filled.Size20.QuestionCircle();
+    // private readonly Icon _errorIcon = new Icons.Filled.Size20.ErrorCircle();
+    // private readonly Icon _checkmarkIcon = new Icons.Filled.Size20.CheckmarkCircle();
 
     protected bool IsLoading { get; set; } = false;
     protected bool IsCommitReady { get; set; } = false;
@@ -405,16 +405,17 @@ public partial class WorkPaperValidationForm : ComponentBase
             && ValidationModel?.ShareLoc != string.Empty;
     }
 
-    private Icon GetValidationIcon(string? section,
+    private static Icon GetValidationIcon(string? section,
         string questionIconColor = "var(--info)",
         string errorIconColor = "var(--error-red)",
         string checkmarkIconColor = "var(--success)")
     {
         return section switch
         {
-            string status when status == OptionSelect.StatusValidasi.TidakSesuai => _errorIcon.WithColor(errorIconColor),
-            string status when status == OptionSelect.StatusValidasi.Sesuai => _checkmarkIcon.WithColor(checkmarkIconColor),
-            _ => _questionIcon.WithColor(questionIconColor),
+            string status when status == OptionSelect.StatusValidasi.MenungguValidasi => new Icons.Filled.Size20.QuestionCircle().WithColor(questionIconColor),
+            string status when status == OptionSelect.StatusValidasi.TidakSesuai => new Icons.Filled.Size20.ErrorCircle().WithColor(errorIconColor),
+            string status when status == OptionSelect.StatusValidasi.Sesuai => new Icons.Filled.Size20.CheckmarkCircle().WithColor(checkmarkIconColor),
+            _ => throw new NotImplementedException(),
         };
     }
 
@@ -425,9 +426,10 @@ public partial class WorkPaperValidationForm : ComponentBase
     {
         var css = section switch
         {
+            string status when status == OptionSelect.StatusValidasi.MenungguValidasi => waiting,
             string status when status == OptionSelect.StatusValidasi.TidakSesuai => invalid,
             string status when status == OptionSelect.StatusValidasi.Sesuai => valid,
-            _ => waiting,
+            _ => throw new NotImplementedException(),
         };
 
         return $"{css} validation-value-clipboard";

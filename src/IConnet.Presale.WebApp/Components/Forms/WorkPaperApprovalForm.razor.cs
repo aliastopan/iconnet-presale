@@ -25,10 +25,6 @@ public partial class WorkPaperApprovalForm : ComponentBase
     protected bool IsLoading { get; set; } = false;
     protected bool IsCommitReady { get; set; } = false;
 
-    private static readonly Icon _questionIcon = new Icons.Filled.Size20.QuestionCircle();
-    private static readonly Icon _errorIcon = new Icons.Filled.Size20.ErrorCircle();
-    private static readonly Icon _checkmarkIcon = new Icons.Filled.Size20.CheckmarkCircle();
-
     protected Func<string, bool> OptionDisableOnProgress => option => option == OptionSelect.StatusApproval.OnProgress
         && ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.OnProgress;
 
@@ -293,11 +289,11 @@ public partial class WorkPaperApprovalForm : ComponentBase
         switch (section)
         {
             case ValidationStatus.TidakSesuai:
-                return _errorIcon.WithColor(errorIconColor);
+                return new Icons.Filled.Size20.ErrorCircle().WithColor(errorIconColor);
             case ValidationStatus.Sesuai:
-                return _checkmarkIcon.WithColor(checkmarkIconColor);
+                return new Icons.Filled.Size20.CheckmarkCircle().WithColor(checkmarkIconColor);
             default:
-                return _questionIcon.WithColor(questionIconColor);
+                return new Icons.Filled.Size20.QuestionCircle().WithColor(questionIconColor);
         }
     }
 
@@ -305,11 +301,11 @@ public partial class WorkPaperApprovalForm : ComponentBase
     {
         return approvalStatus switch
         {
-            string status when status == OptionSelect.StatusApproval.OnProgress => _questionIcon.WithColor("var(--info)"),
-            string status when status == OptionSelect.StatusApproval.ClosedLost => _errorIcon.WithColor("var(--soft-black)"),
-            string status when status == OptionSelect.StatusApproval.Rejected => _errorIcon.WithColor("var(--error-red)"),
-            string status when status == OptionSelect.StatusApproval.Approved => _checkmarkIcon.WithColor("var(--success)"),
-            string status when status == OptionSelect.StatusApproval.Expansion => _checkmarkIcon.WithColor("var(--success)"),
+            string status when status == OptionSelect.StatusApproval.OnProgress => new Icons.Filled.Size20.QuestionCircle().WithColor("var(--info)"),
+            string status when status == OptionSelect.StatusApproval.ClosedLost => new Icons.Filled.Size20.ErrorCircle().WithColor("var(--soft-black)"),
+            string status when status == OptionSelect.StatusApproval.Rejected => new Icons.Filled.Size20.ErrorCircle().WithColor("var(--error-red)"),
+            string status when status == OptionSelect.StatusApproval.Approved => new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success)"),
+            string status when status == OptionSelect.StatusApproval.Expansion => new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success)"),
             _ => throw new NotImplementedException(),
         };
     }
