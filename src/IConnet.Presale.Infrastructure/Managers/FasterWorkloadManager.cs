@@ -251,8 +251,8 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
         var jsonWorkPapers = await _redisService.GetAllValuesAsync();
         var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapers(jsonWorkPapers!, _parallelOptions);
 
-        // int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers);
-        int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers, excludeDoneProcessing);
+        int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers);
+        // int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers, excludeDoneProcessing);
 
         stopwatch.Stop();
         // LogSwitch.Debug("Forward execution took {0} ms", stopwatch.ElapsedMilliseconds);
