@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
 using IConnet.Presale.Shared.Contracts.Identity.Authentication;
 using IConnet.Presale.WebApp.Models.Identity;
@@ -21,6 +22,14 @@ public partial class SignInForm : ComponentBase
     protected bool IsLoading { get; set; } = false;
     protected string ErrorMessage { get; set; } = string.Empty;
     protected SignInModel SignInModel => _signInForm;
+
+    protected bool ShowPassword = false;
+    protected Icon PasswordIcon => ShowPassword
+        ? new Icons.Filled.Size20.Eye().WithColor("var(--info)")
+        : new Icons.Filled.Size20.EyeOff().WithColor("#bdbbbb");
+    protected TextFieldType PasswordTextFieldType => ShowPassword
+        ? TextFieldType.Text
+        : TextFieldType.Password;
 
     protected void OnUsernameChanged(string username)
     {
@@ -82,6 +91,11 @@ public partial class SignInForm : ComponentBase
         }
 
         IsLoading = false;
+    }
+
+    protected void OnToggleShowPassword(MouseEventArgs args)
+    {
+        ShowPassword = !ShowPassword;
     }
 
     private static string SummarizeErrorMessage(Error[] errors)

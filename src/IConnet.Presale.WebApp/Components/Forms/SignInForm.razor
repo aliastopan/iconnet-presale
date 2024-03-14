@@ -11,7 +11,10 @@
         Value="@SignInModel.Password"
         ValueChanged="OnPasswordChanged"
         Placeholder="Password"
-        TextFieldType="TextFieldType.Password">
+        TextFieldType="@PasswordTextFieldType">
+            <FluentIcon Value="@PasswordIcon"
+                Slot="end"
+                OnClick="OnToggleShowPassword"/>
         </FluentTextField>
 
     <FluentButton Class="sign-in-button"
