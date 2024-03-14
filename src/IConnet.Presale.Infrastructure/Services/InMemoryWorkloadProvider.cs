@@ -42,6 +42,13 @@ internal sealed class InMemoryWorkloadProvider : IInMemoryWorkloadService
         return _workPapers.Count;
     }
 
+    public int InsertOverwrite(IEnumerable<WorkPaper> workPapers, Func<WorkPaper, bool> filter)
+    {
+        _workPapers.Clear();
+        _workPapers.AddRange(workPapers.Where(filter));
+
+        return _workPapers.Count;
+    }
 
     public WorkPaper? Get(string idPermohonan)
     {

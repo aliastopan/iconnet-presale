@@ -9,6 +9,7 @@ public interface IInMemoryWorkloadService
     bool Insert(WorkPaper workPaper);
     int InsertRange(IEnumerable<WorkPaper> workPapers);
     int InsertOverwrite(IEnumerable<WorkPaper> workPapers);
+    int InsertOverwrite(IEnumerable<WorkPaper> workPapers, Func<WorkPaper, bool> filter);
 
     WorkPaper? Get(string idPermohonan);
 
