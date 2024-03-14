@@ -7,6 +7,7 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public IDialogService DialogService { get; set; } = default!;
+    [Inject] public IToastService ToastService { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
 
     protected FilterForm FilterComponent { get; set; } = default!;
@@ -42,7 +43,37 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
             return;
         }
 
-        await OpenDialogAsync(row.Item);
+        if (row.Item.ApprovalOpportunity.SignatureVerifikasiImport.IsEmptySignature())
+        {
+            await BeginVerification(row);
+            return;
+        }
+
+        var now = DateTimeService.DateTimeOffsetNow.DateTime;
+        var duration = InChargeDuration.VerificationDuration;
+        var alias = row.Item.ApprovalOpportunity.SignatureVerifikasiImport.Alias;
+        var idPermohonan = row.Item.ApprovalOpportunity.IdPermohonan;
+        var isLockExpired = row.Item.ApprovalOpportunity.SignatureVerifikasiImport.IsDurationExceeded(now, duration);
+
+        if (isLockExpired)
+        {
+            await BeginVerification(row);
+            return;
+        }
+
+        if (await SessionService.IsAliasMatch(alias))
+        {
+            await BeginVerification(row);
+            return;
+        }
+
+        ConcurrencyLockedToast(idPermohonan, alias);
+
+        async Task BeginVerification(FluentDataGridRow<WorkPaper> row)
+        {
+            row.Item!.ApprovalOpportunity.SignatureVerifikasiImport = await SessionService.GenerateActionSignatureAsync();
+            await OpenDialogAsync(row.Item);
+        }
     }
 
     protected IQueryable<WorkPaper>? FilterWorkPapers()
@@ -120,6 +151,14 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
         await BroadcastService.BroadcastMessageAsync(message);
 
         IsLoading = false;
+    }
+
+    private void ConcurrencyLockedToast(string idPermohonan, string alias)
+    {
+        var intent = ToastIntent.Warning;
+        var message = $"Data CRM {idPermohonan} sedang diverifikasi oleh {alias}";
+
+        ToastService.ShowToast(intent, message);
     }
 
     private string GetGridTemplateCols()
