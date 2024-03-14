@@ -88,7 +88,11 @@ public partial class WorkPaperApprovalForm : ComponentBase
             .WithRootCause(rootCause);
 
         WorkPaper.ProsesApproval = prosesApproval;
-        WorkPaper.WorkPaperLevel = WorkPaperLevel.DoneProcessing;
+
+        if (WorkPaper.ProsesApproval.StatusApproval != ApprovalStatus.Expansion)
+        {
+            WorkPaper.WorkPaperLevel = WorkPaperLevel.DoneProcessing;
+        }
 
         var message = $"{signatureApproval.Alias} has commit chat/call approval to {ApprovalModel!.IdPermohonan}";
         await UpdateProsesApproval(WorkPaper, message);
