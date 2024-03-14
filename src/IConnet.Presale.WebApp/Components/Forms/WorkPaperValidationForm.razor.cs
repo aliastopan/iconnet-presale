@@ -96,6 +96,7 @@ public partial class WorkPaperValidationForm : ComponentBase
 
         await UnstageWorkPaper.InvokeAsync();
 
+        IsCommitReady = false;
         IsLoading = false;
     }
 
