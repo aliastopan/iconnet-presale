@@ -37,7 +37,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
     protected Icon GetStepIcon(WorkPaperLevel stepLevel, bool checkOnGoing = false)
     {
         if (WorkPaper?.WorkPaperLevel == WorkPaperLevel.DoneProcessing
-            && WorkPaper.ProsesApproval.StatusApproval != ApprovalStatus.Approved)
+            && !IsApproved())
         {
             return new Icons.Filled.Size20.DismissCircle().WithColor("var(--error-red)");
         }
@@ -75,7 +75,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
     protected string GetTrailColor(WorkPaperLevel stepLevel, bool checkOnGoing = false)
     {
         if (WorkPaper?.WorkPaperLevel == WorkPaperLevel.DoneProcessing
-            && WorkPaper.ProsesApproval.StatusApproval != ApprovalStatus.Approved)
+            && !IsApproved())
         {
             return "border-left: 2px solid var(--error-red) !important;";
         }
@@ -123,7 +123,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
 
     protected Icon GetResultStepIcon()
     {
-        if (WorkPaper?.ProsesApproval.StatusApproval == ApprovalStatus.Approved)
+        if (IsApproved())
         {
             return new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success)");
         }
@@ -135,7 +135,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
 
     protected string GetResultTrailColor()
     {
-        if (WorkPaper?.ProsesApproval.StatusApproval == ApprovalStatus.Approved)
+        if (IsApproved())
         {
             return "border-left: 2px solid var(--success) !important;";
         }
@@ -152,8 +152,14 @@ public partial class WorkPaperProgressTracker : ComponentBase
 
     protected string GetApprovalStatusLabelStyle()
     {
-        return WorkPaper?.ProsesApproval.StatusApproval == ApprovalStatus.Approved
+        return IsApproved()
             ? "background-color: var(--success); color: white;"
             : "background-color: var(--error-red); color: white;";
+    }
+
+    private bool IsApproved()
+    {
+        return WorkPaper?.ProsesApproval.StatusApproval == ApprovalStatus.Approved
+            || WorkPaper?.ProsesApproval.StatusApproval == ApprovalStatus.Expansion;
     }
 }
