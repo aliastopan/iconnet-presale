@@ -2,7 +2,9 @@
 
 :root {
     --soft-black: #202020;
+    --info-grey: #444444;
     --warning-yellow: #fbff00;
+    --waiting-orange: #ff7300;
     --accent-blue: #1e6bc9;
     --error-red: #ff0033;
     --success-green: #0e700e;
