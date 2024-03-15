@@ -46,14 +46,14 @@
     border-radius: 50%;
     width: 16px;
     height: 16px;
-    background-color: var(--cold-blue);
+    background-color: var(--accent-blue);
   }
 
 .progress-step-body{
     display: flex;
     flex-direction: column;
     padding: 8 8px;
-    border-left: 2px solid var(--cold-blue);
+    border-left: 2px solid var(--accent-blue);
     margin: 4px 0;
     margin-left: 8px !important;
     min-height: 40px;
@@ -87,7 +87,7 @@
 .progress-report-id-permohonan{
     width: fit-content;
     font-weight: 600;
-    background-color: var(--cold-blue);
+    background-color: var(--accent-blue);
     padding: 0 4px;
     color: white;
     border-radius: 3px;
@@ -104,7 +104,7 @@
 .progress-report-id-pln{
     width: fit-content;
     font-weight: 600;
-    background-color: var(--cold-blue);
+    background-color: var(--accent-blue);
     padding: 0 4px;
     color: white;
     border-radius: 3px;
@@ -140,7 +140,7 @@
 .splitter-stack-splitter{
     width: fit-content;
     font-weight: 600;
-    background-color: var(--cold-blue);
+    background-color: var(--accent-blue);
     padding: 0 4px;
     color: white;
     border-radius: 3px;
