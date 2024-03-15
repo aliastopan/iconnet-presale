@@ -12,8 +12,7 @@
 
 .progress-report{
     margin-top: 16px;
-
-    background-color: #f04444;
+    /* background-color: #f04444; */
 }
 
 .progress-workpaper-level{
@@ -74,4 +73,88 @@
     -moz-border-radius: 3px;
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
+}
+
+.progress-report{
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+}
+
+.progress-report-id-permohonan-stack{
+    font-weight: 700;
+}
+
+.progress-report-id-permohonan{
+    width: fit-content;
+    font-weight: 600;
+    background-color: var(--cold-blue);
+    padding: 0 4px;
+    color: white;
+    border-radius: 3px;
+}
+
+.progress-report-nama{
+    margin-bottom: 16px;
+}
+
+.progress-report-id-pln-stack{
+    font-weight: 700;
+}
+
+.progress-report-id-pln{
+    width: fit-content;
+    font-weight: 600;
+    background-color: var(--cold-blue);
+    padding: 0 4px;
+    color: white;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+/* .progress-report-alamat{
+
+} */
+
+.progress-report-shareloc{
+    margin-bottom: 16px;
+}
+
+
+.splitter-stack{
+    display: flex;
+}
+
+.splitter-stack-label{
+    padding-right: 8px;
+    font-weight: 700;
+}
+
+.splitter-stack-splitter{
+    padding-right: 8px;
+    font-weight: 700;
+}
+
+.splitter-stack-splitter{
+    width: fit-content;
+    font-weight: 600;
+    background-color: var(--cold-blue);
+    padding: 0 4px;
+    color: white;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+.progress-report-table-jarak{
+    width: 216px;
+}
+
+.progress-report-table-jarak .distance {
+    text-align: right;
 }

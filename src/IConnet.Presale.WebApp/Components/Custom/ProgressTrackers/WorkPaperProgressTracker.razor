@@ -111,9 +111,62 @@
 
         </div>
         <div class="progress-report">
-            Progress Report
+
+            <div class="progress-report-id-permohonan-stack">
+                <span>
+                    ID PERMOHONAN -
+                </span>
+                <span class="progress-report-id-permohonan">
+                    @WorkPaper.ApprovalOpportunity.IdPermohonan
+                </span>
+            </div>
+            <div class="progress-report-nama">
+                @WorkPaper.ApprovalOpportunity.Pemohon.NamaPelanggan
+            </div>
+            <div class="progress-report-id-pln-stack">
+                <span>
+                    ID PLN -
+                </span>
+                <span class="progress-report-id-pln">
+                    @WorkPaper.ApprovalOpportunity.Pemohon.IdPln
+                </span>
+            </div>
+            <div class="progress-report-alamat">
+                @WorkPaper.ApprovalOpportunity.Pemohon.Alamat
+            </div>
+            <div class="progress-report-shareloc">
+                @WorkPaper.ProsesValidasi.ParameterValidasi.ShareLoc.GetLatitudeLongitude()
+            </div>
+            <div class="d-flex flex-column">
+                <div class="splitter-stack">
+                    <span class="splitter-stack-label">
+                        SPLITTER -
+                    </span>
+                    <span class="splitter-stack-splitter">
+                        @WorkPaper.ApprovalOpportunity.Splitter
+                    </span>
+                </div>
+                <table class="progress-report-table-jarak">
+                    <thead>
+                        <tr>
+                            <th style="margin-right: 16px;">Jarak Share Loc</th>
+                            <td class="distance">
+                                <span>@WorkPaper.ProsesApproval.JarakShareLoc</span>
+                                <span style="margin-left: 4px;">meter</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="margin-right: 16px;">Jarak iCRM+</th>
+                            <td class="distance">
+                                <span>@WorkPaper.ProsesApproval.JarakICrmPlus</span>
+                                <span style="margin-left: 4px;">meter</span>
+                            </td>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
         </div>
 
     </div>
-
 }
