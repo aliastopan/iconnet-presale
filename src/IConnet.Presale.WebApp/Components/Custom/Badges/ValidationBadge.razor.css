@@ -1,7 +1,7 @@
 
 .validation-badge-waiting{
     font-weight: 600;
-    background-color: var(--info);
+    background-color: var(--info-grey);
     text-align: center;
     color: white;
     padding: 0 10px;

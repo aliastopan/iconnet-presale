@@ -45,7 +45,7 @@ public partial class WorkPaperValidationForm : ComponentBase
     protected Icon LabelIconEmail => GetValidationIcon(ValidationModel?.ValidasiEmail);
     protected Icon LabelIconIdPln => GetValidationIcon(ValidationModel?.ValidasiIdPln);
     protected Icon LabelIconAlamat => GetValidationIcon(ValidationModel?.ValidasiAlamat);
-    protected Icon LabelIconCrmKoordinat => GetValidationIcon(ValidationModel?.ValidasiCrmKoordinat, errorIconColor: "var(--info)");
+    protected Icon LabelIconCrmKoordinat => GetValidationIcon(ValidationModel?.ValidasiCrmKoordinat, errorIconColor: "var(--info-grey)");
 
     protected string CssBackgroundColorNamaPelanggan => GetCssBackgroundColor(ValidationModel?.ValidasiNama);
     protected string CssBackgroundColorNomorTelepon => GetCssBackgroundColor(ValidationModel?.ValidasiNomorTelepon);
@@ -404,7 +404,7 @@ public partial class WorkPaperValidationForm : ComponentBase
     }
 
     private static Icon GetValidationIcon(string? section,
-        string questionIconColor = "var(--info)",
+        string questionIconColor = "var(--info-grey)",
         string errorIconColor = "var(--error-red)",
         string checkmarkIconColor = "var(--success-green)")
     {

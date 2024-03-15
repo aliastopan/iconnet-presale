@@ -1,8 +1,8 @@
 .workpaper-import-unverified{
-    font-weight: 700;
-    background-color: var(--warning-yellow);
+    font-weight: 600;
+    background-color: var(--info-grey);
     text-align: center;
-    color: var(--soft-black);
+    color: white;
     padding: 0 10px;
     border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -26,7 +26,7 @@
 
 .workpaper-import-archived{
     font-weight: 600;
-    background-color: var(--info);
+    background-color: var(--info-grey);
     text-align: center;
     color: white;
     padding: 0 10px;
@@ -39,7 +39,7 @@
 
 .workpaper-import-archived{
     font-weight: 600;
-    background-color: var(--accent-blue);
+    background-color: var(--soft-black);
     text-align: center;
     color: white;
     padding: 0 10px;
@@ -53,7 +53,7 @@
 .workpaper-import-verified,
 .workpaper-validating{
     font-weight: 600;
-    background-color: var(--accent-blue);
+    background-color: var(--waiting-orange);
     text-align: center;
     color: white;
     padding: 0 10px;
@@ -79,7 +79,7 @@
 
 .workpaper-done-processing{
     font-weight: 600;
-    background-color: var(--accent-blue);
+    background-color: var(--success-green);
     text-align: center;
     color: white;
     padding: 0 10px;

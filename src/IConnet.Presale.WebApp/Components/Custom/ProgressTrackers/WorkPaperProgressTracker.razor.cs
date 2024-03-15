@@ -63,7 +63,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
             {
                 if (WorkPaper?.WorkPaperLevel == stepLevel)
                 {
-                    return new Icons.Filled.Size20.QuestionCircle().WithColor("var(--info)");
+                    return new Icons.Filled.Size20.QuestionCircle().WithColor("var(--info-grey)");
 
                 }
 
@@ -101,7 +101,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
             {
                 if (WorkPaper?.WorkPaperLevel == stepLevel)
                 {
-                    return "border-left: 2px solid var(--info) !important;";
+                    return "border-left: 2px solid var(--info-grey) !important;";
                 }
 
                 return $"border-left: 2px solid {_greyedOut} !important;";

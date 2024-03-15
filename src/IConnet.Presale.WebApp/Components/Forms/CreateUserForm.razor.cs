@@ -19,7 +19,7 @@ public partial class CreateUserForm : ComponentBase
 
     protected bool ShowPassword = false;
     protected Icon PasswordIcon => ShowPassword
-        ? new Icons.Filled.Size20.Eye().WithColor("var(--info)")
+        ? new Icons.Filled.Size20.Eye().WithColor("var(--info-grey)")
         : new Icons.Filled.Size20.EyeOff().WithColor("#bdbbbb");
     protected TextFieldType PasswordTextFieldType => ShowPassword
         ? TextFieldType.Text
@@ -27,7 +27,7 @@ public partial class CreateUserForm : ComponentBase
 
     protected bool ShowConfirmationPassword = false;
     protected Icon ConfirmationPasswordIcon => ShowConfirmationPassword
-        ? new Icons.Filled.Size20.Eye().WithColor("var(--info)")
+        ? new Icons.Filled.Size20.Eye().WithColor("var(--info-grey)")
         : new Icons.Filled.Size20.EyeOff().WithColor("#bdbbbb");
     protected TextFieldType ConfirmationPasswordTextFieldType => ShowConfirmationPassword
         ? TextFieldType.Text

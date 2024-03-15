@@ -25,7 +25,7 @@ public partial class SignInForm : ComponentBase
 
     protected bool ShowPassword = false;
     protected Icon PasswordIcon => ShowPassword
-        ? new Icons.Filled.Size20.Eye().WithColor("var(--info)")
+        ? new Icons.Filled.Size20.Eye().WithColor("var(--info-grey)")
         : new Icons.Filled.Size20.EyeOff().WithColor("#bdbbbb");
     protected TextFieldType PasswordTextFieldType => ShowPassword
         ? TextFieldType.Text
