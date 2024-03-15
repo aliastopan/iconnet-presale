@@ -75,9 +75,3 @@
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
 }
-
-.search-bar-stack{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}

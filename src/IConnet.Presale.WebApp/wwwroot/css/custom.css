@@ -247,6 +247,14 @@ input:invalid::part(root) {
     z-index: 999;
 }
 
+.searchbar-stack{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
 .search-notfound{
     font-weight: 600;
     padding: 4px;

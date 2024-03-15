@@ -1,4 +1,4 @@
-﻿@attribute [Route(PageRoute.Home)]
+@attribute [Route(PageRoute.Home)]
 @inherits HomePageBase
 @rendermode @(InteractiveServer.DisablePreRender())
 
@@ -7,7 +7,7 @@
 <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Home</FluentLabel>
 <span class="page-description">Halaman utama Presale App</span>
 
-<div class="search-bar-stack">
+<div class="searchbar-stack">
     <FluentSearch
         Value=@IdPermohonan
         ValueChanged="OnIdPermohonanSearchChanged"
