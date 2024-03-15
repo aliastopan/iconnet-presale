@@ -246,3 +246,8 @@ input:invalid::part(root) {
     -o-border-radius: 3px;
     z-index: 999;
 }
+
+.search-notfound{
+    font-weight: 600;
+    padding: 4px;
+}

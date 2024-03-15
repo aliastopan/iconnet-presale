@@ -6,6 +6,7 @@ public class HomePageBase : ComponentBase, IPageNavigation
     [Inject] public IWorkloadManager WorkloadManager { get; init; } = default!;
 
     public bool IsLoading { get; set; } = false;
+    public bool HasSearched { get; set; } = false;
     public string IdPermohonan { get; set; } = default!;
     public WorkPaper? WorkPaper { get; set; }
 
@@ -24,6 +25,7 @@ public class HomePageBase : ComponentBase, IPageNavigation
     protected async Task OnIdPermohonanSearchChanged(string idPermohonan)
     {
         IsLoading = true;
+        HasSearched = true;
 
         IdPermohonan = idPermohonan;
         WorkPaper = await WorkloadManager.SearchWorkPaper(IdPermohonan);
