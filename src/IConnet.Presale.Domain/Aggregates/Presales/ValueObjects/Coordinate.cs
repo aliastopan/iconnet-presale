@@ -35,12 +35,22 @@ public class Coordinate : ValueObject
 
     public string GetLatitudeLongitude()
     {
-        if (Latitude == string.Empty || Longitude == string.Empty)
+        if (IsEmptyCoordinate())
         {
             return string.Empty;
         }
 
         return $"{Latitude}, {Longitude}";
+    }
+
+    public bool IsEmptyCoordinate()
+    {
+        return Latitude == string.Empty || Longitude == string.Empty;
+    }
+
+    public string GetGoogleMapLink()
+    {
+        return $"https://www.google.com/maps?q={Latitude},{Longitude}";
     }
 
     protected override IEnumerable<object> GetEqualityComponents()
