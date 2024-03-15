@@ -134,9 +134,6 @@
             <div class="progress-report-alamat">
                 @WorkPaper.ApprovalOpportunity.Pemohon.Alamat
             </div>
-            <div class="progress-report-shareloc">
-                @WorkPaper.ProsesValidasi.ParameterValidasi.ShareLoc.GetLatitudeLongitude()
-            </div>
             <div class="d-flex flex-column">
                 <div class="splitter-stack">
                     <span class="splitter-stack-label">
@@ -164,8 +161,18 @@
                         </tr>
                     </thead>
                 </table>
-
             </div>
+            @if (!WorkPaper.ProsesValidasi.ParameterValidasi.ShareLoc.IsEmptyCoordinate())
+            {
+                <div class="progress-report-shareloc">
+                    @{
+                        var url = @WorkPaper.ProsesValidasi.ParameterValidasi.ShareLoc.GetGoogleMapLink();
+                    }
+                    <a href="@url" target="_blank">
+                        @WorkPaper.ProsesValidasi.ParameterValidasi.ShareLoc.GetLatitudeLongitude()
+                    </a>
+                </div>
+            }
         </div>
 
     </div>

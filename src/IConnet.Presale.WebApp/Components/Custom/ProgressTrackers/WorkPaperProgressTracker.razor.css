@@ -115,11 +115,12 @@
     -o-border-radius: 3px;
 }
 
-/* .progress-report-alamat{
-
-} */
+.progress-report-alamat{
+    margin-bottom: 16px;
+}
 
 .progress-report-shareloc{
+    padding-top: 16px;
     margin-bottom: 16px;
 }
 
