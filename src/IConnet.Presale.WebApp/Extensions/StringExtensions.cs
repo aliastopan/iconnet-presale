@@ -14,6 +14,14 @@ public static class StringExtensions
         return string.IsNullOrWhiteSpace(str);
     }
 
+    public static string SanitizeOnlyAlphanumeric(this string input)
+    {
+        if (string.IsNullOrEmpty(input))
+            return string.Empty;
+
+        return new string(input.Where(char.IsLetterOrDigit).ToArray());
+    }
+
     public static string RemoveNewlines(this string str)
     {
         if (str.Contains('\n') || str.Contains('\r'))
