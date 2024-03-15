@@ -35,7 +35,7 @@ public class HomePageBase : ComponentBase, IPageNavigation
         IsLoading = true;
         HasSearched = true;
 
-        IdPermohonan = idPermohonan;
+        IdPermohonan = idPermohonan.SanitizeOnlyAlphanumeric();
         WorkPaper = await WorkloadManager.SearchWorkPaper(IdPermohonan);
 
         await Task.CompletedTask;
