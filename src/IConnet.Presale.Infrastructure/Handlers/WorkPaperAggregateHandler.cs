@@ -1,3 +1,4 @@
+using IConnet.Presale.Domain.Aggregates.Presales;
 using IConnet.Presale.Shared.Interfaces.Models.Presales;
 
 namespace IConnet.Presale.Infrastructure.Handlers;
@@ -19,6 +20,15 @@ internal sealed class WorkPaperAggregateHandler : IWorkPaperAggregateHandler
         try
         {
             using var dbContext = _dbContextFactory.CreateDbContext();
+
+            var duplicate = dbContext.GetWorkPaper(workPaperModel.IdPermohonan);
+
+            if (duplicate is not null)
+            {
+                var error = new Error($"Duplicate {workPaperModel.IdPermohonan}", ErrorSeverity.Warning);
+
+                return Result.Error(error);
+            }
 
             var workPaper = _workPaperFactory.TransformWorkPaperFromModel(workPaperModel);
 
