@@ -19,6 +19,7 @@
                 <div class="input-form">
                     <FluentTextField style="width: 250px"
                         @bind-Value=@CreateUserModel.Password
+                        Immediate="true"
                         TextFieldType="@PasswordTextFieldType"
                         Placeholder="Password"
                         Label="Password">
@@ -30,6 +31,7 @@
                 <div class="input-form">
                     <FluentTextField style="width: 250px"
                         @bind-Value=@CreateUserModel.ConfirmPassword
+                        Immediate="true"
                         TextFieldType="@ConfirmationPasswordTextFieldType"
                         Placeholder="Konfirmasi Password"
                         Label="Konfirmasi Password">
