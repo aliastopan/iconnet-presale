@@ -3,7 +3,7 @@ using IConnet.Presale.Domain.Entities;
 
 namespace IConnet.Presale.Infrastructure.Extensions.Repository;
 
-internal static class ChatTemplateExtensions
+internal static class ChatTemplateRepositoryExtensions
 {
     public static List<ChatTemplate> GetChatTemplates(this AppDbContext context, string templateName)
     {

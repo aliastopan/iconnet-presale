@@ -3,7 +3,7 @@ using IConnet.Presale.Domain.Aggregates.Identity;
 
 namespace IConnet.Presale.Infrastructure.Extensions.Repository;
 
-internal static class UserAccountExtensions
+internal static class UserAccountRepositoryExtensions
 {
     public static async Task<UserAccount?> GetUserAccountByIdAsync(this AppDbContext context, Guid userAccountId)
     {

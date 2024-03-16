@@ -2,7 +2,7 @@ using IConnet.Presale.Domain.Entities;
 
 namespace IConnet.Presale.Infrastructure.Extensions.Repository;
 
-internal static class RepresentativeOfficeExtensions
+internal static class RepresentativeOfficeRepositoryExtensions
 {
     public static List<RepresentativeOffice> GetRepresentativeOffices(this AppDbContext context)
     {

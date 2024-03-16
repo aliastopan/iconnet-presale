@@ -2,7 +2,7 @@ using IConnet.Presale.Domain.Entities;
 
 namespace IConnet.Presale.Infrastructure.Extensions.Repository;
 
-internal static class RootCauseExtension
+internal static class RootCauseRepositoryExtension
 {
     public static List<RootCause> GetRootCauses(this AppDbContext context)
     {

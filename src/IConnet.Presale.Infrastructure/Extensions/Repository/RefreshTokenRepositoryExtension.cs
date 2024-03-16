@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IConnet.Presale.Infrastructure.Extensions.Repository;
 
-internal static class RefreshTokenExtensions
+internal static class RefreshTokenRepositoryExtensions
 {
     public static async Task<List<RefreshToken>> GetRefreshTokensByUserAccountIdAsync(this AppDbContext context, Guid userAccountId)
     {
