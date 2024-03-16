@@ -1,6 +1,6 @@
 namespace IConnet.Presale.Shared.Interfaces.Models.Presales;
 
-interface IWorkPaperModel
+public interface IWorkPaperModel
 {
     Guid WorkPaperId { get; }
     int WorkPaperLevel { get; }
