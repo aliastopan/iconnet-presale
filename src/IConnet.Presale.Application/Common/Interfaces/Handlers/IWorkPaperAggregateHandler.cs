@@ -4,5 +4,5 @@ namespace IConnet.Presale.Application.Common.Interfaces.Handlers;
 
 public interface IWorkPaperAggregateHandler
 {
-    Task<Result> TryInsertWorkPaper(IWorkPaperModel workPaperModel);
+    Task<Result> TryInsertWorkPaperAsync(IWorkPaperModel workPaperModel);
 }
