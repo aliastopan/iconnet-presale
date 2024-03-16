@@ -1,12 +1,12 @@
 using IConnet.Presale.Domain.Entities;
 
-namespace IConnet.Presale.Infrastructure.Managers;
+namespace IConnet.Presale.Infrastructure.Handlers;
 
-internal sealed class RepresentativeOfficeManager : IRepresentativeOfficeManager
+internal sealed class RepresentativeOfficeHandler : IRepresentativeOfficeHandler
 {
     private readonly AppDbContextFactory _dbContextFactory;
 
-    public RepresentativeOfficeManager(AppDbContextFactory dbContextFactory)
+    public RepresentativeOfficeHandler(AppDbContextFactory dbContextFactory)
     {
         _dbContextFactory = dbContextFactory;
     }

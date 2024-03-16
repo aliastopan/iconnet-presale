@@ -5,11 +5,11 @@ namespace IConnet.Presale.Application.RepresentativeOffices.Queries;
 public class GetRepresentativeOfficesQueryHandler
     : IRequestHandler<GetRepresentativeOfficesQuery, Result<GetRepresentativeOfficesQueryResponse>>
 {
-    private readonly IRepresentativeOfficeManager _representativeOfficeManager;
+    private readonly IRepresentativeOfficeHandler _representativeOfficeHandler;
 
-    public GetRepresentativeOfficesQueryHandler(IRepresentativeOfficeManager representativeOfficeManager)
+    public GetRepresentativeOfficesQueryHandler(IRepresentativeOfficeHandler representativeOfficeHandler)
     {
-        _representativeOfficeManager = representativeOfficeManager;
+        _representativeOfficeHandler = representativeOfficeHandler;
     }
 
     public ValueTask<Result<GetRepresentativeOfficesQueryResponse>> Handle(GetRepresentativeOfficesQuery request,
@@ -18,7 +18,7 @@ public class GetRepresentativeOfficesQueryHandler
         Result<GetRepresentativeOfficesQueryResponse> result;
 
         // representative office
-        var tryGetRepresentativeOffices = _representativeOfficeManager.TryGetRepresentativesOffice();
+        var tryGetRepresentativeOffices = _representativeOfficeHandler.TryGetRepresentativesOffice();
         if (tryGetRepresentativeOffices.IsFailure())
         {
             result = Result<GetRepresentativeOfficesQueryResponse>.Inherit(result: tryGetRepresentativeOffices);
