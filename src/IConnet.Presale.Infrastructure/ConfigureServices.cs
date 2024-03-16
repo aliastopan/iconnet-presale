@@ -38,14 +38,19 @@ public static class ConfigureServices
     {
         services.ConfigureDbContext(configuration, environment);
 
+        // aggregate handlers
         services.AddScoped<IIdentityAggregateHandler, IdentityAggregateHandler>();
-        services.AddScoped<IIdentityManager, IdentityManager>();
-        services.AddScoped<IAuthenticationManager, AuthenticationManager>();
-        services.AddScoped<IChatTemplateHandler, ChatTemplateHandler>();
         services.AddScoped<IWorkPaperAggregateHandler, WorkPaperAggregateHandler>();
+
+        // entity handlers
+        services.AddScoped<IChatTemplateHandler, ChatTemplateHandler>();
         services.AddScoped<IRepresentativeOfficeHandler, RepresentativeOfficeHandler>();
         services.AddScoped<IRootCauseHandler, RootCauseHandler>();
         services.AddScoped<IRefreshTokenService, RefreshTokenProvider>();
+
+        // managers
+        services.AddScoped<IIdentityManager, IdentityManager>();
+        services.AddScoped<IAuthenticationManager, AuthenticationManager>();
 
         return services;
     }
