@@ -108,6 +108,7 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
                             .IsRequired();
                     });
 
+                // TODO: this can be mark as non-required
                 prosesValidasi.Property(pv => pv.WaktuTanggalRespons)
                     .HasColumnName("waktu_tgl_respons")
                     .IsRequired();
