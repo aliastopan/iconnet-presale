@@ -27,6 +27,9 @@ internal sealed class ApprovalOpportunityConfiguration : IEntityTypeConfiguratio
             .HasColumnName("id_permohonan")
             .IsRequired();
 
+        builder.HasIndex(ao => ao.IdPermohonan)
+            .HasDatabaseName("IX_id_permohonan");
+
         builder.Property(ao => ao.TglPermohonan)
             .HasColumnName("tgl_permohonan")
             .IsRequired();
