@@ -118,10 +118,10 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
 
         EnqueueForwardingTask(operationId: key, task);
 
-        if (workPaper.IsDoneProcessing())
-        {
-            _inMemoryWorkloadService.Delete(workPaper);
-        }
+        // if (workPaper.IsDoneProcessing())
+        // {
+        //     _inMemoryWorkloadService.Delete(workPaper);
+        // }
 
         await Task.CompletedTask;
     }
