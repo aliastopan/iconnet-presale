@@ -15,6 +15,11 @@ public static class RouteEndpoint
         public const string GetUsers = "/api/identity/get-range";
     }
 
+    public static class Presale
+    {
+        public const string InsertWorkPaper = "/api/presale/insert-workpaper";
+    }
+
     public static class ChatTemplate
     {
         public const string GetChatTemplates = "/api/chat-templates/get-{templateName}";
