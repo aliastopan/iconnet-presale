@@ -64,13 +64,7 @@
                     </TemplateColumn>
                     <TemplateColumn Title="PIC CHAT/CALL" Style="@GetWidthStyle(ColumnWidth.HelpdeskInChargePx)">
                         <div class="" style="display: flex;">
-                            @if (string.IsNullOrEmpty(context.SignatureHelpdeskInCharge.Alias))
-                            {
-                                <span class="staging-waiting">
-                                    WAITING
-                                </span>
-                            }
-                            else
+                            @if (!string.IsNullOrEmpty(context.SignatureHelpdeskInCharge.Alias))
                             {
                                 @context.SignatureHelpdeskInCharge.Alias
                             }

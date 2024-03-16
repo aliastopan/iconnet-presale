@@ -71,12 +71,6 @@
                         <div class="" style="display: flex;">
                             @if (string.IsNullOrEmpty(context.SignaturePlanningAssetCoverageInCharge.Alias))
                             {
-                                <span class="staging-waiting">
-                                    WAITING
-                                </span>
-                            }
-                            else
-                            {
                                 @context.SignaturePlanningAssetCoverageInCharge.Alias
                             }
                         </div>

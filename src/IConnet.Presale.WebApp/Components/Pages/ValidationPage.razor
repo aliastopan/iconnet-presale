@@ -82,12 +82,6 @@
                         <div class="">
                             @if (string.IsNullOrEmpty(context.SignatureHelpdeskInCharge.Alias))
                             {
-                                <span class="staging-waiting">
-                                    WAITING
-                                </span>
-                            }
-                            else
-                            {
                                 @context.SignatureHelpdeskInCharge.Alias
                             }
                         </div>
