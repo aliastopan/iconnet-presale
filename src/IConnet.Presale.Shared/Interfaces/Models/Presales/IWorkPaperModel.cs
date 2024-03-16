@@ -67,6 +67,14 @@ public interface IWorkPaperModel
     string EmailAgen { get; }
     string NomorTeleponAgen { get; }
     string MitraAgen { get; }
+    string Bagian { get;}
+    string KantorPerwakilan { get;}
+    string Provinsi { get;}
+    string Kabupaten { get;}
+    string Kecamatan { get;}
+    string Kelurahan { get;}
+    string KoordinatLatitude { get; }
+    string KoordinatLongitude { get; }
     int StatusImport { get; }
     Guid ImportAccountIdSignature { get; }
     string ImportAliasSignature { get; }
