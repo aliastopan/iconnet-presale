@@ -4,5 +4,6 @@ namespace IConnet.Presale.Domain.Enums;
 public enum JobShift
 {
     Siang = 0,
-    Malam = 1
+    Malam = 1,
+    OverShift = 2
 }

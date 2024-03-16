@@ -108,15 +108,15 @@ public sealed class SessionService
 
         if (currentHour >= 8 && currentHour < 14)
         {
-            return JobShift.Siang.ToString();
+            return EnumProcessor.EnumToDisplayString(JobShift.Siang);
         }
         else if (currentHour >= 14 && currentHour < 21)
         {
-            return JobShift.Malam.ToString();
+            return EnumProcessor.EnumToDisplayString(JobShift.Malam);
         }
         else
         {
-            return "";
+            return EnumProcessor.EnumToDisplayString(JobShift.OverShift);
         }
     }
 
