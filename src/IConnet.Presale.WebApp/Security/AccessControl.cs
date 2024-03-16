@@ -9,6 +9,15 @@ public static class AccessControl
     {
         services.AddAuthorization(options =>
         {
+            options.AddPolicy(Policies.DeveloperAccess, policy =>
+            {
+                policy.RequireAuthenticatedUser();
+                policy.RequireAssertion(context =>
+                {
+                    return context.User.HasClaim(c => c.Type == JwtClaimTypes.Role && c.Value == UserRole.SuperUser.ToString())
+                        && context.User.HasClaim(c => c.Type == JwtClaimTypes.JobTitle && string.Equals(c.Value, "Developer", StringComparison.OrdinalIgnoreCase));
+                });
+            });
             options.AddPolicy(Policies.AdministratorPrivilege, policy =>
             {
                 policy.RequireAuthenticatedUser();
