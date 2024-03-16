@@ -24,6 +24,8 @@ public static class ConfigureServices
 
         services.Configure<AppSecretSettings>(context.Configuration.GetSection(AppSecretSettings.SectionName));
 
+        services.AddSingleton<WorkPaperFactory>();
+
         services.AddSingleton<ISecurityTokenValidatorService, SecurityTokenValidatorProvider>();
         services.AddSingleton<IDateTimeService, DateTimeProvider>();
         services.AddSingleton<IPasswordService, PasswordProvider>();
@@ -60,7 +62,6 @@ public static class ConfigureServices
     {
         services.ConfigureHttpClient(configuration);
 
-        services.AddSingleton<WorkPaperFactory>();
         services.AddSingleton<IConnectionMultiplexer>(provider =>
         {
             var connectionString = configuration[AppSecretSettings.Section.RedisConnectionString];
