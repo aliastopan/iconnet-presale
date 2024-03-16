@@ -1,8 +1,8 @@
 using IConnet.Presale.Domain.Entities;
 
-namespace IConnet.Presale.Application.Common.Interfaces.Managers;
+namespace IConnet.Presale.Application.Common.Interfaces.Handlers;
 
-public interface IChatTemplateManager
+public interface IChatTemplateHandler
 {
     Result<ICollection<ChatTemplate>> TryGetChatTemplates(string templateName);
 }

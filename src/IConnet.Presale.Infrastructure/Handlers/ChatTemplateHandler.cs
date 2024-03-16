@@ -1,12 +1,12 @@
 using IConnet.Presale.Domain.Entities;
 
-namespace IConnet.Presale.Infrastructure.Managers;
+namespace IConnet.Presale.Infrastructure.Handlers;
 
-internal sealed class ChatTemplateManager : IChatTemplateManager
+internal sealed class ChatTemplateHandler : IChatTemplateHandler
 {
     private readonly AppDbContextFactory _dbContextFactory;
 
-    public ChatTemplateManager(AppDbContextFactory dbContextFactory)
+    public ChatTemplateHandler(AppDbContextFactory dbContextFactory)
     {
         _dbContextFactory = dbContextFactory;
     }

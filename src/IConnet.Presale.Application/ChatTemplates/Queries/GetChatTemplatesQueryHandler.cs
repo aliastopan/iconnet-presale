@@ -4,11 +4,11 @@ namespace IConnet.Presale.Application.ChatTemplates.Queries;
 
 public class GetChatTemplatesQueryHandler : IRequestHandler<GetChatTemplatesQuery, Result<GetChatTemplatesQueryResponse>>
 {
-    private readonly IChatTemplateManager _chatTemplateManager;
+    private readonly IChatTemplateHandler _chatTemplateHandler;
 
-    public GetChatTemplatesQueryHandler(IChatTemplateManager chatTemplateManager)
+    public GetChatTemplatesQueryHandler(IChatTemplateHandler chatTemplateHandler)
     {
-        _chatTemplateManager = chatTemplateManager;
+        _chatTemplateHandler = chatTemplateHandler;
     }
 
     public ValueTask<Result<GetChatTemplatesQueryResponse>> Handle(GetChatTemplatesQuery request,
@@ -25,7 +25,7 @@ public class GetChatTemplatesQueryHandler : IRequestHandler<GetChatTemplatesQuer
         }
 
         // chat template
-        var tryGetChatTemplates = _chatTemplateManager.TryGetChatTemplates(request.TemplateName);
+        var tryGetChatTemplates = _chatTemplateHandler.TryGetChatTemplates(request.TemplateName);
         if (tryGetChatTemplates.IsFailure())
         {
             result = Result<GetChatTemplatesQueryResponse>.Inherit(result: tryGetChatTemplates);
