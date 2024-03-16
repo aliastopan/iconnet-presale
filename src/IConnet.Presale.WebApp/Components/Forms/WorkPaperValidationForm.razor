@@ -235,10 +235,16 @@
                         </div>
                     </div>
                     <div class="validation-value">
-                        <div class="@CssBackgroundColorCrmKoordinat" @onclick="OnClipboardShareLocAsync">
-                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
-                                @ValidationModel.DataCrmKoordinat.GetLatitudeLongitude()
-                            </FluentLabel>
+                        <div class="@CssBackgroundColorCrmKoordinat" style="display: flex; flex-direction: row; align-items: center;">
+                            <div style="width: 260px;" @onclick="OnClipboardShareLocAsync">
+                                <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                    @ValidationModel.DataCrmKoordinat.GetLatitudeLongitude()
+                                </FluentLabel>
+                            </div>
+                            <div style="margin-left: auto; margin-right: 8px;">
+                                <FluentIcon Value="@(new Icons.Filled.Size20.Open())"
+                                    OnClick="OnOpenGoogleMapAsync"/>
+                            </div>
                         </div>
                         <FluentTextField style="width: 300px"
                             Placeholder="Konfirmasi Share Loc"

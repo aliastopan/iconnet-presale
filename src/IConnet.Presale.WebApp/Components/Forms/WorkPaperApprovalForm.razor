@@ -255,10 +255,16 @@
                     }
                     else
                     {
-                        <div class="approval-value-bg approval-value-clipboard" @onclick="OnClipboardShareLocAsync">
-                            <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
-                                @ApprovalModel!.HasilValidasi.ShareLoc.GetLatitudeLongitude()
-                            </FluentLabel>
+                        <div class="approval-value-bg approval-value-clipboard d-flex flex-row align-items-center">
+                            <div style="width: 260px;" @onclick="OnClipboardShareLocAsync">
+                                <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                    @ApprovalModel!.HasilValidasi.ShareLoc.GetLatitudeLongitude()
+                                </FluentLabel>
+                            </div>
+                            <div style="margin-left: auto; margin-right: 8px;">
+                                <FluentIcon Value="@(new Icons.Filled.Size20.Open())"
+                                    OnClick="OnOpenGoogleMapAsync"/>
+                            </div>
                         </div>
                     }
                     </div>

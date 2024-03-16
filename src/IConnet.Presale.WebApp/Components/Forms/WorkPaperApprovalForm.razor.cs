@@ -270,6 +270,13 @@ public partial class WorkPaperApprovalForm : ComponentBase
         return WorkPaper!.ProsesValidasi.IsClosedLost(today);
     }
 
+    protected async Task OnOpenGoogleMapAsync()
+    {
+        var url = ApprovalModel!.HasilValidasi.ShareLoc.GetGoogleMapLink();
+
+        await JsRuntime.InvokeVoidAsync("open", url, "_blank");
+    }
+
     private async Task UpdateProsesApproval(WorkPaper workPaper, string broadcastMessage)
     {
         await WorkloadManager.UpdateWorkloadAsync(workPaper);

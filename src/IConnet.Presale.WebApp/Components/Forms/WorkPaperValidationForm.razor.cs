@@ -377,6 +377,13 @@ public partial class WorkPaperValidationForm : ComponentBase
         await PembetulanProperty(alamat, pembetulanAlamat);
     }
 
+    protected async Task OnOpenGoogleMapAsync()
+    {
+        var url = ValidationModel!.DataCrmKoordinat.GetGoogleMapLink();
+
+        await JsRuntime.InvokeVoidAsync("open", url, "_blank");
+    }
+
     private async Task UpdateProsesValidasi(WorkPaper workPaper, string broadcastMessage)
     {
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
