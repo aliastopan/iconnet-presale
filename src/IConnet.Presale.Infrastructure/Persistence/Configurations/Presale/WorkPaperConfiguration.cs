@@ -20,7 +20,8 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
         builder.Property(wp => wp.WorkPaperId)
             .HasColumnName("id")
             .HasMaxLength(36)
-            .IsRequired();
+            .IsRequired()
+            .ValueGeneratedNever();
 
         builder.Property(wp => wp.WorkPaperLevel)
             .HasColumnName("work_paper_level")

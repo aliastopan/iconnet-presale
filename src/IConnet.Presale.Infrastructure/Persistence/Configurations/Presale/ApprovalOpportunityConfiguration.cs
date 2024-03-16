@@ -20,7 +20,8 @@ internal sealed class ApprovalOpportunityConfiguration : IEntityTypeConfiguratio
         builder.Property(ao => ao.ApprovalOpportunityId)
             .HasColumnName("id")
             .HasMaxLength(36)
-            .IsRequired();
+            .IsRequired()
+            .ValueGeneratedNever();
 
         builder.Property(ao => ao.IdPermohonan)
             .HasColumnName("id_permohonan")
