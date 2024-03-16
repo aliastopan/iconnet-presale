@@ -80,10 +80,7 @@
                     </TemplateColumn>
                     <TemplateColumn Title="PIC CHAT/CALL" Style="@GetWidthStyle(ColumnWidth.HelpdeskInChargePx)">
                         <div class="">
-                            @if (string.IsNullOrEmpty(context.SignatureHelpdeskInCharge.Alias))
-                            {
-                                @context.SignatureHelpdeskInCharge.Alias
-                            }
+                            @context.SignatureHelpdeskInCharge.Alias
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="SHIFT" Style="@GetWidthStyle(ColumnWidth.ShiftPx)">

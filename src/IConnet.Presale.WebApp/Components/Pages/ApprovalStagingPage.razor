@@ -69,10 +69,7 @@
                     </TemplateColumn>
                     <TemplateColumn Title="PIC APPROVAL" Style="@GetWidthStyle(ColumnWidth.PlanningAssetCoverageInChargePx)">
                         <div class="" style="display: flex;">
-                            @if (string.IsNullOrEmpty(context.SignaturePlanningAssetCoverageInCharge.Alias))
-                            {
-                                @context.SignaturePlanningAssetCoverageInCharge.Alias
-                            }
+                            @context.SignaturePlanningAssetCoverageInCharge.Alias
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="NAMA PELANGGAN" Style="@GetWidthStyle(ColumnWidth.ValidasiNamaPelangganPx)">
