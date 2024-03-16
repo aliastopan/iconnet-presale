@@ -131,6 +131,12 @@ internal sealed class WorkPaperFactory
             },
             ProsesApproval = new ApprovalProcess
             {
+                SignatureApproval = new ActionSignature
+                {
+                    AccountIdSignature = Guid.Empty,
+                    Alias = string.Empty,
+                    TglAksi = _dateTimeService.Zero
+                },
                 StatusApproval = ApprovalStatus.OnProgress,
                 RootCause = string.Empty,
                 Keterangan = string.Empty,
