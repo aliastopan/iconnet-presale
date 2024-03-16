@@ -137,6 +137,11 @@ public static class ConfigureServices
             httpClient.BaseAddress = new Uri(configuration["HttpClient:BaseAddress"]!);
         });
 
+        services.AddHttpClient<IWorkPaperHttpClient, WorkPaperHttpClient>((_, httpClient) =>
+        {
+            httpClient.BaseAddress = new Uri(configuration["HttpClient:BaseAddress"]!);
+        });
+
         services.AddHttpClient<IChatTemplateHttpClient, ChatTemplateHttpClient>((_, httpClient) =>
         {
             httpClient.BaseAddress = new Uri(configuration["HttpClient:BaseAddress"]!);
