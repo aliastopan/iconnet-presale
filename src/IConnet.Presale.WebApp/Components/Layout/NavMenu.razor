@@ -67,6 +67,13 @@
                     @PageNavName.UserManager</FluentNavLink>
             </AuthorizeView>
 
+            <AuthorizeView Policy="@Policies.DeveloperAccess">
+                <FluentNavLink Href="@PageRoute.Developer"
+                    Icon="@(new Icons.Regular.Size20.Code())"
+                    IconColor="Color.Accent">
+                    @PageNavName.Developer</FluentNavLink>
+            </AuthorizeView>
+
         </FluentNavMenu>
     </nav>
 </div>

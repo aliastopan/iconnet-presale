@@ -2,6 +2,7 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 
 public static class PageNavName
 {
+    public const string Developer = "Developer Access";
     public const string Home = "Home";
     public const string CrmImport = "Import CRM";
     public const string CrmVerification = "Verifikasi CRM";

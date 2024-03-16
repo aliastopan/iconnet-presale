@@ -1,0 +1,22 @@
+@attribute [Route(PageRoute.Developer)]
+@inherits DeveloperPageBase
+@rendermode @(InteractiveServer.DisablePreRender())
+
+<PageTitle>Developer Access</PageTitle>
+
+<AuthorizeView Policy="@Policies.DeveloperAccess"
+    Context="AuthenticationContext">
+
+    <Authorized>
+        <div class="d-flex flex-row align-items-center">
+            <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Dev's Backdoor</FluentLabel>
+        </div>
+        <span class="page-description">Developer only page</span>
+
+    </Authorized>
+
+    <NotAuthorized>
+        <AccessDenied />
+    </NotAuthorized>
+
+</AuthorizeView>

@@ -2,6 +2,7 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 
 public static class PageRoute
 {
+    public const string Developer = "/developer";
     public const string Home = "/";
     public const string CrmImport = "/crm-import";
     public const string CrmVerification = "/crm-verification";
