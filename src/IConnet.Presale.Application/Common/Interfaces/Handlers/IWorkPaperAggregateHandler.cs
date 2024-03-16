@@ -1,8 +1,8 @@
 using IConnet.Presale.Shared.Interfaces.Models.Presales;
 
-namespace IConnet.Presale.Application.Common.Interfaces.Managers;
+namespace IConnet.Presale.Application.Common.Interfaces.Handlers;
 
-public interface IPresaleManager
+public interface IWorkPaperAggregateHandler
 {
     Task<Result> TryInsertWorkPaper(IWorkPaperModel workPaperModel);
 }

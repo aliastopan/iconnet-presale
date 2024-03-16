@@ -1,8 +1,8 @@
 using IConnet.Presale.Shared.Interfaces.Models.Presales;
 
-namespace IConnet.Presale.Infrastructure.Managers;
+namespace IConnet.Presale.Infrastructure.Handlers;
 
-internal sealed class PresaleManager : IPresaleManager
+internal sealed class WorkPaperAggregateHandler : IWorkPaperAggregateHandler
 {
     public Task<Result> TryInsertWorkPaper(IWorkPaperModel workPaperModel)
     {

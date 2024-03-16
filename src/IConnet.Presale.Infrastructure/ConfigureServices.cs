@@ -42,7 +42,7 @@ public static class ConfigureServices
         services.AddScoped<IIdentityManager, IdentityManager>();
         services.AddScoped<IAuthenticationManager, AuthenticationManager>();
         services.AddScoped<IChatTemplateHandler, ChatTemplateHandler>();
-        services.AddScoped<IPresaleManager, PresaleManager>();
+        services.AddScoped<IWorkPaperAggregateHandler, WorkPaperAggregateHandler>();
         services.AddScoped<IRepresentativeOfficeHandler, RepresentativeOfficeHandler>();
         services.AddScoped<IRootCauseHandler, RootCauseHandler>();
         services.AddScoped<IRefreshTokenService, RefreshTokenProvider>();
