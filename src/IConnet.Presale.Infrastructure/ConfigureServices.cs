@@ -44,7 +44,7 @@ public static class ConfigureServices
         services.AddScoped<IChatTemplateHandler, ChatTemplateHandler>();
         services.AddScoped<IPresaleManager, PresaleManager>();
         services.AddScoped<IRepresentativeOfficeHandler, RepresentativeOfficeHandler>();
-        services.AddScoped<IRootCauseManager, RootCauseManager>();
+        services.AddScoped<IRootCauseHandler, RootCauseHandler>();
         services.AddScoped<IRefreshTokenService, RefreshTokenProvider>();
 
         return services;

@@ -1,12 +1,12 @@
 using IConnet.Presale.Domain.Entities;
 
-namespace IConnet.Presale.Infrastructure.Managers;
+namespace IConnet.Presale.Infrastructure.Handlers;
 
-internal class RootCauseManager : IRootCauseManager
+internal class RootCauseHandler : IRootCauseHandler
 {
     private readonly AppDbContextFactory _dbContextFactory;
 
-    public RootCauseManager(AppDbContextFactory dbContextFactory)
+    public RootCauseHandler(AppDbContextFactory dbContextFactory)
     {
         _dbContextFactory = dbContextFactory;
     }

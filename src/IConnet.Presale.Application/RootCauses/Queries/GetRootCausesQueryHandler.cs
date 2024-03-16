@@ -5,11 +5,11 @@ namespace IConnet.Presale.Application.RootCauses.Queries;
 public class GetRootCausesQueryHandler
     : IRequestHandler<GetRootCausesQuery, Result<GetRootCausesQueryResponse>>
 {
-    private readonly IRootCauseManager _rootCauseManager;
+    private readonly IRootCauseHandler _rootCauseHandler;
 
-    public GetRootCausesQueryHandler(IRootCauseManager rootCauseManager)
+    public GetRootCausesQueryHandler(IRootCauseHandler rootCauseHandler)
     {
-        _rootCauseManager = rootCauseManager;
+        _rootCauseHandler = rootCauseHandler;
     }
 
     public ValueTask<Result<GetRootCausesQueryResponse>> Handle(GetRootCausesQuery request,
@@ -18,7 +18,7 @@ public class GetRootCausesQueryHandler
         Result<GetRootCausesQueryResponse> result;
 
         // root cause
-        var tryGetRootCauses = _rootCauseManager.TryGetRootCauses();
+        var tryGetRootCauses = _rootCauseHandler.TryGetRootCauses();
         if (tryGetRootCauses.IsFailure())
         {
             result = Result<GetRootCausesQueryResponse>.Inherit(result: tryGetRootCauses);
