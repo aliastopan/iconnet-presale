@@ -6,7 +6,7 @@ public class RootCauseEndpoint : IEndpointDefinition
 {
     public void DefineEndpoints(WebApplication app)
     {
-        app.MapGet(RouteEndpoint.RootCauses.GetRootCauses, GetRootCauses).AllowAnonymous();
+        app.MapGet(ApiRoute.RootCauses.GetRootCauses, GetRootCauses).AllowAnonymous();
     }
 
     internal async Task<IResult> GetRootCauses([FromServices] ISender sender,

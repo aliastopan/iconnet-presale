@@ -6,7 +6,7 @@ public class GetUsersEndpoint : IEndpointDefinition
 {
     public void DefineEndpoints(WebApplication app)
     {
-        app.MapGet(RouteEndpoint.Identity.GetUsers, GetUsers);
+        app.MapGet(ApiRoute.Identity.GetUsers, GetUsers);
     }
 
     internal async Task<IResult> GetUsers([FromServices] ISender sender,

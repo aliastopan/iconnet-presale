@@ -7,7 +7,7 @@ public class GrantPrivilegeEndpoint : IEndpointDefinition
 {
     public void DefineEndpoints(WebApplication app)
     {
-        app.MapPost(RouteEndpoint.Identity.GrantPrivilege, GrantPrivilege)
+        app.MapPost(ApiRoute.Identity.GrantPrivilege, GrantPrivilege)
             .RequireAuthorization(Policies.AdministratorPrivilege);
     }
 
