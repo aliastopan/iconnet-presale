@@ -237,14 +237,32 @@
                 HorizontalGap="4">
 
                 <div class="approval-element">
-                    <div class="approval-label">
-                        <div class="approval-label-bg" style="display: flex;">
+                    <div class="approval-label" style="margin-top: -32px;">
+                        <div class="approval-label-bg-neutral" style="display: flex; margin-left: 8px;">
+                            <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
+                                iCRM+ KOORDINAT
+                            </FluentLabel>
+                        </div>
+                        <div class="approval-label-bg" style="display: flex; margin-top: 2px;">
                             <FluentLabel Typo="Typography.Body" style="margin-top: 2px;">
                                 SHARE LOC
                             </FluentLabel>
                         </div>
                     </div>
                     <div class="approval-value">
+                        <div class="approval-value-bg-neutral approval-value-clipboard d-flex flex-row align-items-center"
+                            style="margin-top: -32px;">
+                            <div style="width: 260px;" @onclick="OnClipboardCrmKoordinatAsync">
+                                <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
+                                    @ApprovalModel!.DataCrmKoordinat.GetLatitudeLongitude()
+                                </FluentLabel>
+                            </div>
+                            <div style="margin-left: auto; margin-right: 8px;">
+                                <FluentIcon Value="@(new Icons.Filled.Size20.Open())"
+                                    OnClick="OnOpenGoogleMapAsync"/>
+                            </div>
+                        </div>
+
                     @if(IsClosedLost())
                     {
                         <div class="approval-value-bg-closed-lost">
@@ -255,7 +273,8 @@
                     }
                     else
                     {
-                        <div class="approval-value-bg approval-value-clipboard d-flex flex-row align-items-center">
+                        <div class="approval-value-bg approval-value-clipboard d-flex flex-row align-items-center"
+                            style="margin-top: -2px;">
                             <div style="width: 260px;" @onclick="OnClipboardShareLocAsync">
                                 <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px;">
                                     @ApprovalModel!.HasilValidasi.ShareLoc.GetLatitudeLongitude()
