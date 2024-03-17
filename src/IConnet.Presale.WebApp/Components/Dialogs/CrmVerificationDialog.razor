@@ -152,12 +152,20 @@
                     <td>@Content.ApprovalOpportunity.Regional.Kecamatan</td>
                 </tr>
                 <tr>
-                    <th style="padding-right: 1rem; width: 200px;">LATITUDE</th>
-                    <td>@Content.ApprovalOpportunity.Regional.Koordinat.Latitude</td>
-                </tr>
-                <tr>
-                    <th style="padding-right: 1rem; width: 200px;">LONGITUDE</th>
-                    <td>@Content.ApprovalOpportunity.Regional.Koordinat.Longitude</td>
+                    <th class="d-flex flex-row align-items-center" style="padding-right: 1rem; width: 200px;">
+                        <div>
+                            TITK KOODINAT
+                        </div>
+                        <div style="margin-left: 4px; margin-right: 2px;">
+                            <FluentIcon Value="@(new Icons.Filled.Size20.Open())"
+                                OnClick="OnOpenGoogleMapAsync"/>
+                        </div>
+                    </th>
+                    <td class="">
+                        <div>
+                            @Content.ApprovalOpportunity.Regional.Koordinat.GetLatitudeLongitude()
+                        </div>
+                    </td>
                 </tr>
             </thead>
         </table>

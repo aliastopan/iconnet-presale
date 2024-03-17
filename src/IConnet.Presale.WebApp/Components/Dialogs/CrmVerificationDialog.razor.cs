@@ -3,6 +3,7 @@ namespace IConnet.Presale.WebApp.Components.Dialogs;
 public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
+    [Inject] public IJSRuntime JsRuntime { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
 
     [Parameter]
@@ -68,5 +69,12 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
             Alias = await SessionService.GetSessionAliasAsync(),
             TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
         };
+    }
+
+    protected async Task OnOpenGoogleMapAsync()
+    {
+        var url = Content.ApprovalOpportunity.Regional.Koordinat.GetGoogleMapLink();
+
+        await JsRuntime.InvokeVoidAsync("open", url, "_blank");
     }
 }
