@@ -33,7 +33,7 @@ public static class OptionSelect
 
     public static class Role
     {
-        public static IEnumerable<string> RoleOptions => EnumProcessor.GetStringOptions<UserRole>(skipFirst: true);
+        public static IEnumerable<string> RoleOptions => EnumProcessor.GetStringOptions<UserRole>();
         public static string SuperUser => RoleOptions.Last();
     }
 }

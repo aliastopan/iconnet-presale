@@ -212,6 +212,12 @@ internal sealed class IdentityAggregateHandler : IIdentityAggregateHandler
                     UserPrivilege.Administrator
                 });
                 break;
+            case UserRole.PTL:
+                userAccount.User = userAccount.User.AddPrivilege(new List<UserPrivilege>
+                {
+                    UserPrivilege.Viewer,
+                });
+                break;
             default:
                 userAccount.User = userAccount.User.AddPrivilege(new List<UserPrivilege>
                 {
