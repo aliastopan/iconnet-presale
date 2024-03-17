@@ -494,6 +494,10 @@
     font-weight: 500;
 }
 
+.approval-splitter-change{
+    margin-top: 50px;
+}
+
 .approval-submit{
     width: 185px;
     margin-top: -20px;

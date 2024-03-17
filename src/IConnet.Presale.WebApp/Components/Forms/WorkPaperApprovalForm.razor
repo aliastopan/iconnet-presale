@@ -296,6 +296,10 @@
                                 JARAK
                             </FluentLabel>
                         </div>
+                        <FluentCheckbox class="approval-splitter-change"
+                            Value="@IsChangeSplitter"
+                            ValueChanged="OnIsChangeSplitterChange"
+                            Label="Ganti Splitter" />
                     </div>
                     <div class="approval-value">
                         <div class="approval-value-label">
@@ -326,6 +330,11 @@
                                 @ApprovalModel.Splitter
                             </FluentLabel>
                         </div>
+                        <FluentTextField style="width: 300px; margin-top: 5px;"
+                            Value="@ApprovalModel.SplitterChange"
+                            ValueChanged="OnSplitterChangeChanged"
+                            Disabled="@(!IsChangeSplitter)"
+                            Placeholder="Splitter"></FluentTextField>
                     </div>
                 </div>
 
@@ -412,6 +421,6 @@
     private string _closedLost => "Closed Lost";
 
     private string _pushStyle => IsClosedLost()
-        ? "margin-top: 66px !important;"
-        : "margin-top: 68px !important;";
+        ? "margin-top: 30px !important;"
+        : "margin-top: 32px !important;";
 }

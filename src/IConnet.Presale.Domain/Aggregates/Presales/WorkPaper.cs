@@ -37,4 +37,9 @@ public class WorkPaper : IAggregateRoot, IConcurrencyTracking
     {
         SignaturePlanningAssetCoverageInCharge = signaturePlanningAssetCoverageInCharge;
     }
+
+    public void ChangeSplitter(string splitter)
+    {
+        ApprovalOpportunity.Splitter = splitter;
+    }
 }

@@ -32,6 +32,7 @@ public class WorkPaperApprovalModel
     public ValidationParameter HasilValidasi { get; init; } = new();
     public Coordinate DataCrmKoordinat { get; init; } = new();
     public string Splitter { get; set; } = string.Empty;
+    public string SplitterChange { get; set; } = string.Empty;
     public string LinkChatHistory { get; set; } = string.Empty;
     public string KeteranganValidasi { get; init; } = string.Empty;
 

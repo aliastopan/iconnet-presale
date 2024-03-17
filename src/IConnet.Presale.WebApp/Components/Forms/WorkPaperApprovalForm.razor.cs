@@ -23,6 +23,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
     public WorkPaperApprovalModel? ApprovalModel { get; set; }
 
     protected bool IsLoading { get; set; } = false;
+    protected bool IsChangeSplitter { get; set; } = false;
     protected bool IsCommitReady { get; set; } = false;
 
     protected Func<string, bool> OptionDisableOnProgress => option => option == OptionSelect.StatusApproval.OnProgress
@@ -78,6 +79,11 @@ public partial class WorkPaperApprovalForm : ComponentBase
         var rootCause = approvalStatus == ApprovalStatus.Approved || approvalStatus == ApprovalStatus.Expansion
             ? string.Empty
             : ApprovalModel!.RootCause;
+
+        if (!ApprovalModel!.SplitterChange.IsNullOrWhiteSpace())
+        {
+            WorkPaper!.ChangeSplitter(ApprovalModel!.SplitterChange);
+        }
 
         var prosesApproval = WorkPaper!.ProsesApproval.WithSignatureApproval(signatureApproval)
             .WithStatusApproval(approvalStatus)
@@ -246,6 +252,21 @@ public partial class WorkPaperApprovalForm : ComponentBase
     protected void OnJarakICrmChanged(int jarakICrmPlus)
     {
         ApprovalModel!.JarakICrmPlus = jarakICrmPlus;
+    }
+
+    protected void OnIsChangeSplitterChange()
+    {
+        IsChangeSplitter = !IsChangeSplitter;
+
+        if(!IsChangeSplitter)
+        {
+            ApprovalModel!.SplitterChange = string.Empty;
+        }
+    }
+
+    protected void OnSplitterChangeChanged(string splitter)
+    {
+        ApprovalModel!.SplitterChange = splitter;
     }
 
     protected void OnVaTerbit(DateTime? tanggalVaTerbit)
