@@ -28,17 +28,23 @@ public partial class WorkPaperValidationForm : ComponentBase
     protected bool IsCommitReady { get; set; } = false;
 
     protected bool DisableOnBeforeContact => !(ValidationModel?.IsChatCallMulai ?? false);
+    protected bool DisableForms => DisableOnBeforeContact || !IsStillInCharge();
 
-    protected Func<string, bool> OptionDisableNamaPelanggan => option => option == OptionSelect.StatusValidasi.MenungguValidasi
-        && ValidationModel?.ValidasiNama != OptionSelect.StatusValidasi.MenungguValidasi;
-    protected Func<string, bool> OptionDisableNoTelepon => option => option == OptionSelect.StatusValidasi.MenungguValidasi
-        && ValidationModel?.ValidasiNomorTelepon != OptionSelect.StatusValidasi.MenungguValidasi;
-    protected Func<string, bool> OptionDisableEmail => option => option == OptionSelect.StatusValidasi.MenungguValidasi
-        && ValidationModel?.ValidasiEmail != OptionSelect.StatusValidasi.MenungguValidasi;
-    protected Func<string, bool> OptionDisableIdPln => x => x == OptionSelect.StatusValidasi.MenungguValidasi
-        && ValidationModel?.ValidasiIdPln != OptionSelect.StatusValidasi.MenungguValidasi;
-    protected Func<string, bool> OptionDisableAlamat => x => x == OptionSelect.StatusValidasi.MenungguValidasi
-        && ValidationModel?.ValidasiAlamat != OptionSelect.StatusValidasi.MenungguValidasi;
+    protected Func<string, bool> OptionDisableNamaPelanggan => option => (option == OptionSelect.StatusValidasi.MenungguValidasi
+        && ValidationModel?.ValidasiNama != OptionSelect.StatusValidasi.MenungguValidasi)
+        || !IsStillInCharge();
+    protected Func<string, bool> OptionDisableNoTelepon => option => (option == OptionSelect.StatusValidasi.MenungguValidasi
+        && ValidationModel?.ValidasiNomorTelepon != OptionSelect.StatusValidasi.MenungguValidasi)
+        || !IsStillInCharge();
+    protected Func<string, bool> OptionDisableEmail => option => (option == OptionSelect.StatusValidasi.MenungguValidasi
+        && ValidationModel?.ValidasiEmail != OptionSelect.StatusValidasi.MenungguValidasi)
+        || !IsStillInCharge();
+    protected Func<string, bool> OptionDisableIdPln => option => (option == OptionSelect.StatusValidasi.MenungguValidasi
+        && ValidationModel?.ValidasiIdPln != OptionSelect.StatusValidasi.MenungguValidasi)
+        || !IsStillInCharge();
+    protected Func<string, bool> OptionDisableAlamat => option => (option == OptionSelect.StatusValidasi.MenungguValidasi
+        && ValidationModel?.ValidasiAlamat != OptionSelect.StatusValidasi.MenungguValidasi)
+        || !IsStillInCharge();
 
     protected Icon LabelIconNamaPelanggan => GetValidationIcon(ValidationModel?.ValidasiNama);
     protected Icon LabelIconNoTelepon => GetValidationIcon(ValidationModel?.ValidasiNomorTelepon);
@@ -54,11 +60,11 @@ public partial class WorkPaperValidationForm : ComponentBase
     protected string CssBackgroundColorAlamat => GetCssBackgroundColor(ValidationModel?.ValidasiAlamat);
     protected string CssBackgroundColorCrmKoordinat => GetCssBackgroundColor(ValidationModel?.ValidasiCrmKoordinat, invalid: "validation-value-bg-warning");
 
-    protected bool DisableTextFieldNamaPelanggan => ValidationModel?.ValidasiNama != OptionSelect.StatusValidasi.TidakSesuai;
-    protected bool DisableTextFieldNoTelepon => ValidationModel?.ValidasiNomorTelepon != OptionSelect.StatusValidasi.TidakSesuai;
-    protected bool DisableTextFieldEmail => ValidationModel?.ValidasiEmail != OptionSelect.StatusValidasi.TidakSesuai;
-    protected bool DisableTextFieldIdPln => ValidationModel?.ValidasiIdPln != OptionSelect.StatusValidasi.TidakSesuai;
-    protected bool DisableTextAreaAlamatPelanggan => ValidationModel?.ValidasiAlamat != OptionSelect.StatusValidasi.TidakSesuai;
+    protected bool DisableTextFieldNamaPelanggan => ValidationModel?.ValidasiNama != OptionSelect.StatusValidasi.TidakSesuai || !IsStillInCharge();
+    protected bool DisableTextFieldNoTelepon => ValidationModel?.ValidasiNomorTelepon != OptionSelect.StatusValidasi.TidakSesuai || !IsStillInCharge();
+    protected bool DisableTextFieldEmail => ValidationModel?.ValidasiEmail != OptionSelect.StatusValidasi.TidakSesuai || !IsStillInCharge();
+    protected bool DisableTextFieldIdPln => ValidationModel?.ValidasiIdPln != OptionSelect.StatusValidasi.TidakSesuai || !IsStillInCharge();
+    protected bool DisableTextAreaAlamatPelanggan => ValidationModel?.ValidasiAlamat != OptionSelect.StatusValidasi.TidakSesuai || !IsStillInCharge();
 
     protected bool DisableCommitToggle => !EnableCommitButton();
     protected bool DisableCommit => !IsCommitReady;
@@ -261,6 +267,11 @@ public partial class WorkPaperValidationForm : ComponentBase
         ValidationModel!.ValidasiNama = statusValidasi;
 
         await ValidasiProperty(namaPelanggan, statusValidasi);
+
+        if (!IsStillInCharge())
+        {
+            StagingExpiredToast();
+        }
     }
 
     protected async Task OnValidateNomorTeleponChangedAsync(string statusValidasi)
@@ -269,6 +280,11 @@ public partial class WorkPaperValidationForm : ComponentBase
         ValidationModel!.ValidasiNomorTelepon = statusValidasi;
 
         await ValidasiProperty(nomorTelepon, statusValidasi);
+
+        if (!IsStillInCharge())
+        {
+            StagingExpiredToast();
+        }
     }
 
     protected async Task OnValidateEmailChangedAsync(string statusValidasi)
@@ -277,6 +293,11 @@ public partial class WorkPaperValidationForm : ComponentBase
         ValidationModel!.ValidasiEmail = statusValidasi;
 
         await ValidasiProperty(email, statusValidasi);
+
+        if (!IsStillInCharge())
+        {
+            StagingExpiredToast();
+        }
     }
 
     protected async Task OnValidateIdPlnChangedAsync(string statusValidasi)
@@ -285,6 +306,11 @@ public partial class WorkPaperValidationForm : ComponentBase
         ValidationModel!.ValidasiIdPln = statusValidasi;
 
         await ValidasiProperty(idPln, statusValidasi);
+
+        if (!IsStillInCharge())
+        {
+            StagingExpiredToast();
+        }
     }
 
     protected async Task OnValidateAlamatChangedAsync(string statusValidasi)
@@ -293,6 +319,11 @@ public partial class WorkPaperValidationForm : ComponentBase
         ValidationModel!.ValidasiAlamat = statusValidasi;
 
         await ValidasiProperty(alamat, statusValidasi);
+
+        if (!IsStillInCharge())
+        {
+            StagingExpiredToast();
+        }
     }
 
     protected void OnShareLocChanged(string shareLoc)
@@ -310,31 +341,50 @@ public partial class WorkPaperValidationForm : ComponentBase
             ? OptionSelect.StatusValidasi.Sesuai
             : OptionSelect.StatusValidasi.TidakSesuai;
 
-        // LogSwitch.Debug("Share loc: {0}", shareLoc);
+        if (!IsStillInCharge())
+        {
+            StagingExpiredToast();
+        }
     }
 
     protected void OnWaktuResponsChanged(DateTime? waktuRespons)
     {
         ValidationModel!.NullableWaktuRespons = waktuRespons;
-        // LogSwitch.Debug("Waktu respons: {0}", waktuRespons!.Value.TimeOfDay);
+
+        if (!IsStillInCharge())
+        {
+            StagingExpiredToast();
+        }
     }
 
     protected void OnTanggalResponsChanged(DateTime? tanggalRespons)
     {
         ValidationModel!.NullableTanggalRespons = tanggalRespons;
-        // LogSwitch.Debug("Tanggal respons: {0}", tanggalRespons!.Value.Date);
+
+        if (!IsStillInCharge())
+        {
+            StagingExpiredToast();
+        }
     }
 
     protected void OnLinkChatHistoryChanged(string linkChatHistory)
     {
         ValidationModel!.LinkChatHistory = linkChatHistory;
-        // LogSwitch.Debug("Link chat history: {0}", linkChatHistory);
+
+        if (!IsStillInCharge())
+        {
+            StagingExpiredToast();
+        }
     }
 
     protected void OnKeteranganChanged(string keterangan)
     {
         ValidationModel!.Keterangan = keterangan;
-        // LogSwitch.Debug("Keterangan: {0}", keterangan);
+
+        if (!IsStillInCharge())
+        {
+            StagingExpiredToast();
+        }
     }
 
     protected async Task OnPembetulanNamaChangedAsync(string pembetulanNama)
@@ -343,6 +393,11 @@ public partial class WorkPaperValidationForm : ComponentBase
         ValidationModel!.PembetulanNama = pembetulanNama;
 
         await PembetulanProperty(namaPelanggan, pembetulanNama);
+
+        if (!IsStillInCharge())
+        {
+            StagingExpiredToast();
+        }
     }
 
     protected async Task OnPembetulanNomorTeleponChangedAsync(string pembetulanNomorTelepon)
@@ -351,6 +406,11 @@ public partial class WorkPaperValidationForm : ComponentBase
         ValidationModel!.PembetulanNomorTelepon = pembetulanNomorTelepon;
 
         await PembetulanProperty(nomorTelepon, pembetulanNomorTelepon);
+
+        if (!IsStillInCharge())
+        {
+            StagingExpiredToast();
+        }
     }
 
     protected async Task OnPembetulanEmailChangedAsync(string pembetulanEmail)
@@ -359,6 +419,11 @@ public partial class WorkPaperValidationForm : ComponentBase
         ValidationModel!.PembetulanEmail = pembetulanEmail;
 
         await PembetulanProperty(email, pembetulanEmail);
+
+        if (!IsStillInCharge())
+        {
+            StagingExpiredToast();
+        }
     }
 
     protected async Task OnPembetulanIdPlnChangedAsync(string pembetulanIdPln)
@@ -367,6 +432,11 @@ public partial class WorkPaperValidationForm : ComponentBase
         ValidationModel!.PembetulanIdPln = pembetulanIdPln;
 
         await PembetulanProperty(idPln, pembetulanIdPln);
+
+        if (!IsStillInCharge())
+        {
+            StagingExpiredToast();
+        }
     }
 
     protected async Task OnPembetulanAlamatChangedAsync(string pembetulanAlamat)
@@ -375,6 +445,11 @@ public partial class WorkPaperValidationForm : ComponentBase
         ValidationModel!.PembetulanAlamat = pembetulanAlamat;
 
         await PembetulanProperty(alamat, pembetulanAlamat);
+
+        if (!IsStillInCharge())
+        {
+            StagingExpiredToast();
+        }
     }
 
     protected async Task OnOpenGoogleMapAsync()
@@ -391,11 +466,53 @@ public partial class WorkPaperValidationForm : ComponentBase
         LogSwitch.Debug("Broadcast validation {message}", broadcastMessage);
     }
 
+    protected bool IsStillInCharge()
+    {
+        var now = DateTimeService.DateTimeOffsetNow.DateTime;
+        var duration = InChargeDuration.ValidationDuration;
+
+        return !WorkPaper!.SignatureHelpdeskInCharge.IsDurationExceeded(now, duration);
+    }
+
+    protected async Task RestageWorkloadAsync()
+    {
+        WorkPaper!.SetHelpdeskInCharge(new ActionSignature
+        {
+            AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
+            Alias = await SessionService.GetSessionAliasAsync(),
+            TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
+        });
+
+        var broadcastMessage = "Extend staging duration";
+
+        await UpdateProsesValidasi(broadcastMessage);
+
+        StagingExtendToast();
+    }
+
     private void ClipboardToast(string clipboard)
     {
         var intent = ToastIntent.Info;
         var message = $"Copy: {clipboard}";
         var timeout = 2500; // milliseconds
+
+        ToastService.ShowToast(intent, message, timeout: timeout);
+    }
+
+    private void StagingExpiredToast()
+    {
+        var intent = ToastIntent.Info;
+        var message = "Masa tampung telah habis";
+        var timeout = 3000; // milliseconds
+
+        ToastService.ShowToast(intent, message, timeout: timeout);
+    }
+
+    private void StagingExtendToast()
+    {
+        var intent = ToastIntent.Success;
+        var message = "Masa tampung telah berhasil diperpanjang";
+        var timeout = 3000; // milliseconds
 
         ToastService.ShowToast(intent, message, timeout: timeout);
     }

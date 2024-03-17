@@ -77,7 +77,7 @@
                                 Value="@ValidationModel.ValidasiNama"
                                 ValueChanged="OnValidateNamaPelangganChangedAsync"
                                 OptionDisabled="@OptionDisableNamaPelanggan"
-                                Disabled="DisableOnBeforeContact"
+                                Disabled="@DisableForms"
                                 Position="SelectPosition.Below"
                                 Width="185px" />
                         </div>
@@ -103,7 +103,7 @@
                             Value="@ValidationModel.ValidasiNomorTelepon"
                             ValueChanged="OnValidateNomorTeleponChangedAsync"
                             OptionDisabled="@OptionDisableNoTelepon"
-                            Disabled="DisableOnBeforeContact"
+                            Disabled="DisableForms"
                             Position="SelectPosition.Below"
                             Width="185px" />
                     </div>
@@ -133,7 +133,7 @@
                             Value="@ValidationModel.ValidasiEmail"
                             ValueChanged="OnValidateEmailChangedAsync"
                             OptionDisabled="@OptionDisableEmail"
-                            Disabled="DisableOnBeforeContact"
+                            Disabled="DisableForms"
                             Position="SelectPosition.Below"
                             Width="185px" />
                     </div>
@@ -163,7 +163,7 @@
                             Value="@ValidationModel.ValidasiIdPln"
                             ValueChanged="OnValidateIdPlnChangedAsync"
                             OptionDisabled="@OptionDisableIdPln"
-                            Disabled="DisableOnBeforeContact"
+                            Disabled="DisableForms"
                             Position="SelectPosition.Below"
                             Width="185px" />
                     </div>
@@ -205,7 +205,7 @@
                                 Value="@ValidationModel.ValidasiAlamat"
                                 ValueChanged="OnValidateAlamatChangedAsync"
                                 OptionDisabled="@OptionDisableAlamat"
-                                Disabled="DisableOnBeforeContact"
+                                Disabled="DisableForms"
                                 Position="SelectPosition.Below"
                                 Width="185px" />
                         </div>
@@ -250,7 +250,7 @@
                             Placeholder="Konfirmasi Share Loc"
                             Value="@ValidationModel.ShareLoc"
                             ValueChanged="OnShareLocChanged"
-                            Disabled="DisableOnBeforeContact"></FluentTextField>
+                            Disabled="DisableForms"></FluentTextField>
                     </div>
                 </div>
                 <div class="validation-element" style="margin-top: -2px;">
@@ -266,11 +266,11 @@
                             <FluentTimePicker style="width: 100px;"
                                 Value="@ValidationModel.NullableWaktuRespons"
                                 ValueChanged="OnWaktuResponsChanged"
-                                Disabled="DisableOnBeforeContact"/>
+                                Disabled="DisableForms"/>
                             <FluentDatePicker style="width: 200px; padding-left: 8px;"
                                 Value="@ValidationModel.NullableTanggalRespons"
                                 ValueChanged="OnTanggalResponsChanged"
-                                Disabled="DisableOnBeforeContact"/>
+                                Disabled="DisableForms"/>
                         </div>
                     </div>
                 </div>
@@ -288,7 +288,7 @@
                                 Value=@ValidationModel.LinkChatHistory
                                 ValueChanged="OnLinkChatHistoryChanged"
                                 Placeholder="https://drive.google.com/chat-history"
-                                Disabled="DisableOnBeforeContact"></FluentTextField>
+                                Disabled="DisableForms"></FluentTextField>
                         </div>
                     </div>
                 </div>
@@ -308,12 +308,20 @@
                             Disabled="DisableCommit"
                             OnClick="OnCommitAsync">
                             Simpan</FluentButton>
+                            @if (!IsStillInCharge())
+                            {
+                                <div class="validation-restage-button">
+                                    <FluentButton Appearance="Appearance.Neutral"
+                                        OnClick="RestageWorkloadAsync">
+                                        TAMPUNG ULANG</FluentButton>
+                                </div>
+                            }
                     </div>
                     <div class="validation-value">
                         <FluentTextArea class="validation-textarea" style="width: 300px; margin-top: 2px;"
                             Value=@ValidationModel.Keterangan
                             ValueChanged="OnKeteranganChanged"
-                            Disabled="DisableOnBeforeContact"
+                            Disabled="DisableForms"
                             Placeholder="Keterangan"></FluentTextArea>
                     </div>
                 </div>
