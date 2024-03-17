@@ -23,7 +23,7 @@ builder.Host.ConfigureServices((context, services) =>
     }));
 
     services.AddSingleton<CircuitHandler, CustomCircuitHandler>();
-    services.AddSingleton<ChatTemplateService>();
+    services.AddSingleton<ChatTemplateManager>();
     services.AddSingleton<OptionService>();
 
     services.AddApplicationServices(ServiceScope.WEBAPP_ONLY_SERVICE);
