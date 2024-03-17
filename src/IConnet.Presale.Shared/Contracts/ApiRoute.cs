@@ -1,4 +1,4 @@
-namespace IConnet.Presale.Api.Endpoints;
+namespace IConnet.Presale.Shared.Contracts;
 
 public static class ApiRoute
 {
