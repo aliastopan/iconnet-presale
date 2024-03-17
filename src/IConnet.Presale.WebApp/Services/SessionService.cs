@@ -45,9 +45,19 @@ public sealed class SessionService
         };
     }
 
-    public void SetSession(ClaimsPrincipal principal)
+    public async Task SetSessionAsync(ClaimsPrincipal principal)
     {
-        UserModel = new UserModel(principal);
+        try
+        {
+            UserModel = new UserModel(principal);
+        }
+        catch (Exception exception)
+        {
+            Log.Warning("Unable to set session", exception.Message);
+
+            await _localStorage.DeleteAsync("access-token");
+            await _localStorage.DeleteAsync("refresh-token");
+        }
     }
 
     public async Task SignOutAsync()

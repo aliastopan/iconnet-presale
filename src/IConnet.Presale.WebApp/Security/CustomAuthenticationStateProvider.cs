@@ -80,7 +80,8 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
             }
         }
 
-        _sessionService.SetSession(principal);
+        await _sessionService.SetSessionAsync(principal);
+
         NotifyAuthenticationStateChanged(Task.FromResult(AuthenticatedState(principal)));
         return AuthenticatedState(principal);
     }
