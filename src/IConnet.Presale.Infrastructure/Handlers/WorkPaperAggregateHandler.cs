@@ -21,7 +21,7 @@ internal sealed class WorkPaperAggregateHandler : IWorkPaperAggregateHandler
         {
             using var dbContext = _dbContextFactory.CreateDbContext();
 
-            var duplicate = dbContext.GetWorkPaper(workPaperModel.IdPermohonan);
+            var duplicate = await dbContext.FindApprovalOpportunityAsync(workPaperModel.IdPermohonan);
 
             if (duplicate is not null)
             {
