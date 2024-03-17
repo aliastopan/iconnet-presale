@@ -30,7 +30,7 @@ internal sealed class WorkPaperHttpClient : HttpClientBase, IWorkPaperHttpClient
         var request = workPaperModel.Adapt<InsertWorkPaperRequest>();
         var jsonBody = JsonSerializer.Serialize(request);
         var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-        var requestUri = ApiRoute.Presale.InsertWorkPaper;
+        var requestUri = UriEndpoint.Presale.InsertWorkPaper;
 
         using var responseMessage = await HttpClient.PostAsync(requestUri, content);
 

@@ -34,7 +34,7 @@ internal sealed class IdentityHttpClient : HttpClientBase, IIdentityHttpClient
 
         var jsonBody = JsonSerializer.Serialize(request);
         var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-        var requestUri = ApiRoute.Identity.SignUp;
+        var requestUri = UriEndpoint.Identity.SignUp;
 
         using var responseMessage = await HttpClient.PostAsync(requestUri, content);
 
@@ -60,7 +60,7 @@ internal sealed class IdentityHttpClient : HttpClientBase, IIdentityHttpClient
         var request = new SignInRequest(username, password);
         var jsonBody = JsonSerializer.Serialize(request);
         var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-        var requestUri = ApiRoute.Identity.SignIn;
+        var requestUri = UriEndpoint.Identity.SignIn;
 
         using var responseMessage = await HttpClient.PostAsync(requestUri, content);
 
@@ -86,7 +86,7 @@ internal sealed class IdentityHttpClient : HttpClientBase, IIdentityHttpClient
         var request = new RefreshAccessRequest(accessToken, refreshTokenStr);
         var jsonBody = JsonSerializer.Serialize(request);
         var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-        var requestUri = ApiRoute.Identity.Refresh;
+        var requestUri = UriEndpoint.Identity.Refresh;
 
         using var responseMessage = await HttpClient.PostAsync(requestUri, content);
 

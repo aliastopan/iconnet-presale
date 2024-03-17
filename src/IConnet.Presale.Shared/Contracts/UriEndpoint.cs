@@ -1,6 +1,6 @@
 namespace IConnet.Presale.Shared.Contracts;
 
-public static class ApiRoute
+public static class UriEndpoint
 {
     public static class Identity
     {

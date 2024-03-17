@@ -21,7 +21,7 @@ internal sealed class RootCauseHttpClient : HttpClientBase, IRootCauseHttpClient
             };
         }
 
-        var requestUri = ApiRoute.RootCauses.GetRootCauses;
+        var requestUri = UriEndpoint.RootCauses.GetRootCauses;
 
         using var responseMessage = await HttpClient.GetAsync(requestUri);
 

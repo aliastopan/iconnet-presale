@@ -6,7 +6,7 @@ public class RepresentativeOfficeEndpoint : IEndpointDefinition
 {
     public void DefineEndpoints(WebApplication app)
     {
-        app.MapGet(ApiRoute.RepresentativeOffice.GetRepresentativeOffices, GetChatRepresentativeOffices).AllowAnonymous();
+        app.MapGet(UriEndpoint.RepresentativeOffice.GetRepresentativeOffices, GetChatRepresentativeOffices).AllowAnonymous();
     }
 
     internal async Task<IResult> GetChatRepresentativeOffices([FromServices] ISender sender,

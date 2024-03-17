@@ -7,7 +7,7 @@ public class RevokePrivilegeEndpoint : IEndpointDefinition
 {
     public void DefineEndpoints(WebApplication app)
     {
-        app.MapPost(ApiRoute.Identity.RevokePrivilege, RevokePrivilege)
+        app.MapPost(UriEndpoint.Identity.RevokePrivilege, RevokePrivilege)
             .RequireAuthorization(Policies.AdministratorPrivilege);
     }
 

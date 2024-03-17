@@ -8,7 +8,7 @@ public class RefreshAccessEndpoint : IEndpointDefinition
 {
     public void DefineEndpoints(WebApplication app)
     {
-        app.MapPost(ApiRoute.Identity.Refresh, Refresh).AllowAnonymous();
+        app.MapPost(UriEndpoint.Identity.Refresh, Refresh).AllowAnonymous();
     }
 
     internal async Task<IResult> Refresh([FromServices] ISender sender,

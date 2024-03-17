@@ -21,7 +21,7 @@ internal sealed class RepresentativeOfficeHttpClient : HttpClientBase, IRepresen
             };
         }
 
-        var requestUri = ApiRoute.RepresentativeOffice.GetRepresentativeOffices;
+        var requestUri = UriEndpoint.RepresentativeOffice.GetRepresentativeOffices;
 
         using var responseMessage = await HttpClient.GetAsync(requestUri);
 

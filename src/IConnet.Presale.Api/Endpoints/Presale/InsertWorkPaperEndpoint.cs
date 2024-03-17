@@ -8,7 +8,7 @@ public class InsertWorkPaperEndpoint : IEndpointDefinition
 {
     public void DefineEndpoints(WebApplication app)
     {
-        app.MapPost(ApiRoute.Presale.InsertWorkPaper, Insert).AllowAnonymous();
+        app.MapPost(UriEndpoint.Presale.InsertWorkPaper, Insert).AllowAnonymous();
     }
 
     internal async Task<IResult> Insert([FromServices] ISender sender,
