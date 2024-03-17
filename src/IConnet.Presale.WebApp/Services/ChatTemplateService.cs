@@ -6,7 +6,6 @@ public class ChatTemplateService
 {
     private readonly List<ChatTemplateModel> _chatTemplateModels = new List<ChatTemplateModel>();
 
-    public WorkPaper? ActiveWorkPaper { get; set; }
     public IReadOnlyCollection<ChatTemplateModel> ChatTemplateModels => _chatTemplateModels.AsReadOnly();
 
     public void InitializeChatTemplate(ICollection<ChatTemplateDto> chatTemplateDtos)

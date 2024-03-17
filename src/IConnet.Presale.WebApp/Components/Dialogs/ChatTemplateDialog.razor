@@ -10,7 +10,7 @@
 <div class="chat-box">
     @foreach (var chatTemplate in ChatTemplateService.ChatTemplateModels)
     {
-        <ChatBubble ActiveWorkPaper="@ChatTemplateService.ActiveWorkPaper"
+        <ChatBubble ActiveWorkPaper="@Content"
             ChatTemplate="@chatTemplate"
             Sender="@SessionService.UserModel!.Username"
             Timestamp="@DateTimeService.GetClockTime()"/>

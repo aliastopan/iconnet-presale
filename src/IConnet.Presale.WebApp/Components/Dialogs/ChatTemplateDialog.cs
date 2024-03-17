@@ -15,9 +15,6 @@ public partial class ChatTemplateDialog : IDialogContentComponent<WorkPaper>
     protected override void OnInitialized()
     {
         base.OnInitialized();
-
-        ChatTemplateService.ActiveWorkPaper = Content;
-        // LogSwitch.Debug("WorkPaper {0}", Content.ApprovalOpportunity.IdPermohonan);
     }
 
     private async Task CancelAsync()
