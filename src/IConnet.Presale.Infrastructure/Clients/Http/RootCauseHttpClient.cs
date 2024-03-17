@@ -1,3 +1,4 @@
+using IConnet.Presale.Shared.Contracts;
 
 namespace IConnet.Presale.Infrastructure.Clients.Http;
 
@@ -20,7 +21,9 @@ internal sealed class RootCauseHttpClient : HttpClientBase, IRootCauseHttpClient
             };
         }
 
-        using var responseMessage = await HttpClient.GetAsync("/api/root-causes/get");
+        var requestUri = ApiRoute.RootCauses.GetRootCauses;
+
+        using var responseMessage = await HttpClient.GetAsync(requestUri);
 
         return new HttpResult
         {

@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.Json;
 using IConnet.Presale.Shared.Interfaces.Models.Presales;
+using IConnet.Presale.Shared.Contracts;
 using IConnet.Presale.Shared.Contracts.Presale;
 using Mapster;
 
@@ -29,8 +30,9 @@ internal sealed class WorkPaperHttpClient : HttpClientBase, IWorkPaperHttpClient
         var request = workPaperModel.Adapt<InsertWorkPaperRequest>();
         var jsonBody = JsonSerializer.Serialize(request);
         var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+        var requestUri = ApiRoute.Presale.InsertWorkPaper;
 
-        using var responseMessage = await HttpClient.PostAsync("/api/presale/insert-workpaper", content);
+        using var responseMessage = await HttpClient.PostAsync(requestUri, content);
 
         return new HttpResult
         {

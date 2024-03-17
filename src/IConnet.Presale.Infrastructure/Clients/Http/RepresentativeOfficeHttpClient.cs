@@ -1,3 +1,5 @@
+using IConnet.Presale.Shared.Contracts;
+
 namespace IConnet.Presale.Infrastructure.Clients.Http;
 
 internal sealed class RepresentativeOfficeHttpClient : HttpClientBase, IRepresentativeOfficeHttpClient
@@ -19,7 +21,9 @@ internal sealed class RepresentativeOfficeHttpClient : HttpClientBase, IRepresen
             };
         }
 
-        using var responseMessage = await HttpClient.GetAsync("/api/representative-offices/get");
+        var requestUri = ApiRoute.RepresentativeOffice.GetRepresentativeOffices;
+
+        using var responseMessage = await HttpClient.GetAsync(requestUri);
 
         return new HttpResult
         {

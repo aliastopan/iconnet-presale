@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using IConnet.Presale.Shared.Contracts;
 using IConnet.Presale.Shared.Contracts.Identity.Authentication;
 using IConnet.Presale.Shared.Contracts.Identity.Registration;
 
@@ -33,8 +34,9 @@ internal sealed class IdentityHttpClient : HttpClientBase, IIdentityHttpClient
 
         var jsonBody = JsonSerializer.Serialize(request);
         var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+        var requestUri = ApiRoute.Identity.SignUp;
 
-        using var responseMessage = await HttpClient.PostAsync("api/sign-up", content);
+        using var responseMessage = await HttpClient.PostAsync(requestUri, content);
 
         return new HttpResult
         {
@@ -58,8 +60,9 @@ internal sealed class IdentityHttpClient : HttpClientBase, IIdentityHttpClient
         var request = new SignInRequest(username, password);
         var jsonBody = JsonSerializer.Serialize(request);
         var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+        var requestUri = ApiRoute.Identity.SignIn;
 
-        using var responseMessage = await HttpClient.PostAsync("api/sign-in", content);
+        using var responseMessage = await HttpClient.PostAsync(requestUri, content);
 
         return new HttpResult
         {
@@ -83,8 +86,9 @@ internal sealed class IdentityHttpClient : HttpClientBase, IIdentityHttpClient
         var request = new RefreshAccessRequest(accessToken, refreshTokenStr);
         var jsonBody = JsonSerializer.Serialize(request);
         var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+        var requestUri = ApiRoute.Identity.Refresh;
 
-        using var responseMessage = await HttpClient.PostAsync("api/sign-in/refresh", content);
+        using var responseMessage = await HttpClient.PostAsync(requestUri, content);
 
         return new HttpResult
         {
