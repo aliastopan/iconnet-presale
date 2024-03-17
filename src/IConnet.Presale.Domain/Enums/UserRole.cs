@@ -3,7 +3,7 @@ namespace IConnet.Presale.Domain.Enums;
 [Flags]
 public enum UserRole
 {
-    Guest = 0,
+    PTL = 0,
     Helpdesk = 1,
     PlanningAssetCoverage = 2,
     Administrator = 4,

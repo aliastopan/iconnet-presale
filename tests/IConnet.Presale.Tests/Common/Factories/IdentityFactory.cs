@@ -14,7 +14,7 @@ public static class IdentityFactory
             User = new User
             {
                 Username = "tester",
-                UserRole = UserRole.Guest,
+                UserRole = UserRole.PTL,
                 UserPrivileges = new List<UserPrivilege>()
                 {
                     UserPrivilege.Viewer
