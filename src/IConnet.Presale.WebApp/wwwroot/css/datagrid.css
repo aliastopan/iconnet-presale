@@ -127,14 +127,23 @@ fluent-data-grid-cell.column-header:last-child{
 
 .datagrid-wrapper{
     margin-top: 0.5rem;
+    max-height: 364px;
     overflow-x: auto;
+    overflow-y: auto;
+}
+
+.datagrid-wrapper fluent-data-grid fluent-data-grid-row.header{
+    height: 33px;
+    position: sticky;
+    top: 0;
+    border-bottom: 1px solid #c5c5c5 !important;
 }
 
 .datagrid-wrapper::-webkit-scrollbar{
-    width: 12px;
-    height: 0.65rem;
-
+    width: 8px;
+    height: 8px;
 }
+
 .datagrid-wrapper::-webkit-scrollbar-track{
     background-color: #cccccc;
 }
@@ -147,6 +156,7 @@ fluent-data-grid-cell.column-header:last-child{
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
 }
+
 
 .datagrid-wrapper .paginator{
     margin-bottom: 8px;
