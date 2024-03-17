@@ -95,7 +95,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
         }
 
         var message = $"{signatureApproval.Alias} has commit chat/call approval to {ApprovalModel!.IdPermohonan}";
-        await UpdateProsesApproval(message);
+        await UpdateProsesApprovalAsync(message);
 
         await UnstageWorkPaper.InvokeAsync();
 
@@ -287,7 +287,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
         await JsRuntime.InvokeVoidAsync("open", url, "_blank");
     }
 
-    private async Task UpdateProsesApproval(string broadcastMessage)
+    private async Task UpdateProsesApprovalAsync(string broadcastMessage)
     {
         await WorkloadManager.UpdateWorkloadAsync(WorkPaper!);
         await BroadcastService.BroadcastMessageAsync(broadcastMessage);

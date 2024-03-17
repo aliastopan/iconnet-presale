@@ -95,7 +95,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         WorkPaper.Shift = SessionService.GetShift();
 
         var message = $"{signatureChatCallRespons.Alias} has commit chat/call validation to {WorkPaper.ApprovalOpportunity.IdPermohonan}";
-        await UpdateProsesValidasi(message);
+        await UpdateProsesValidasiAsync(message);
 
         await UnstageWorkPaper.InvokeAsync();
 
@@ -114,7 +114,7 @@ public partial class WorkPaperValidationForm : ComponentBase
 
         Task[] tasks =
         [
-            UpdateProsesValidasi(message),
+            UpdateProsesValidasiAsync(message),
             UnstageWorkPaper.InvokeAsync()
         ];
 
@@ -233,7 +233,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         WorkPaper.ProsesValidasi = prosesValidasi;
 
         var message = $"{signatureChatCallMulai.Alias} has began chat/call to {WorkPaper.ApprovalOpportunity.IdPermohonan}";
-        await UpdateProsesValidasi(message);
+        await UpdateProsesValidasiAsync(message);
 
         ValidationModel!.MulaiChatCall();
     }
@@ -247,7 +247,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         WorkPaper.ProsesValidasi = prosesValidasi;
 
         var broadcastMessage = $"Validating: [{propertyName}:{WorkPaper.ProsesValidasi.ParameterValidasi.GetValidationStatus(propertyName)}]";
-        await UpdateProsesValidasi(broadcastMessage);
+        await UpdateProsesValidasiAsync(broadcastMessage);
     }
 
     protected async Task PembetulanProperty(string propertyName, string pembetulan)
@@ -258,7 +258,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         WorkPaper.ProsesValidasi = prosesValidasi;
 
         var broadcastMessage = $"Correction: [{propertyName}:{WorkPaper.ProsesValidasi.PembetulanValidasi.GetPembetulan(propertyName)}]";
-        await UpdateProsesValidasi(broadcastMessage);
+        await UpdateProsesValidasiAsync(broadcastMessage);
     }
 
     protected async Task OnValidateNamaPelangganChangedAsync(string statusValidasi)
@@ -459,7 +459,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         await JsRuntime.InvokeVoidAsync("open", url, "_blank");
     }
 
-    private async Task UpdateProsesValidasi(string broadcastMessage)
+    private async Task UpdateProsesValidasiAsync(string broadcastMessage)
     {
         await WorkloadManager.UpdateWorkloadAsync(WorkPaper!);
         await BroadcastService.BroadcastMessageAsync(broadcastMessage);
@@ -485,7 +485,7 @@ public partial class WorkPaperValidationForm : ComponentBase
 
         var broadcastMessage = "Extend staging duration";
 
-        await UpdateProsesValidasi(broadcastMessage);
+        await UpdateProsesValidasiAsync(broadcastMessage);
 
         StagingExtendToast();
     }
