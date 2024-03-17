@@ -12,6 +12,13 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
     [CascadingParameter]
     public FluentDialog Dialog { get; set; } = default!;
 
+    public int JarakICrmPlusVerification { get; set; }
+
+    protected void OnJarakICrmChanged(int jarakShareLoc)
+    {
+        JarakICrmPlusVerification = jarakShareLoc;
+    }
+
     protected async Task SaveAsync()
     {
         await VerifyCrmAsync();
@@ -45,6 +52,10 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
             Alias = await SessionService.GetSessionAliasAsync(),
             TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
         };
+
+        var prosesApproval = Content!.ProsesApproval.WithJarakICrmPlus(JarakICrmPlusVerification);
+
+        Content.ProsesApproval = prosesApproval;
     }
 
     private async Task DeleteCrmAsync()

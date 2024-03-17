@@ -167,6 +167,19 @@
                         </div>
                     </td>
                 </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px; vertical-align: middle;">
+                        JARAK iCRM+ (meter)
+                    </th>
+                    <td style="vertical-align: middle;">
+                        <FluentNumberField style="width: 200px;"
+                            Min="0"
+                            Max="10000"
+                            Value=@JarakICrmPlusVerification
+                            ValueChanged="EventCallback.Factory.Create<int>(this, OnJarakICrmChanged)">
+                            </FluentNumberField>
+                    </td>
+                </tr>
             </thead>
         </table>
     </FluentCard>
@@ -174,8 +187,8 @@
 
 <FluentDialogFooter>
     <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.End">
-        <FluentCheckbox @bind-Value="@_isCrmValid" Label="Data CRM telah sesuai" />
-        <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync" Disabled="@(!_isCrmValid)" IconStart="@(new Icons.Regular.Size16.Save())">Simpan</FluentButton>
+        <FluentCheckbox @bind-Value="@_isCrmValid" Label="Data CRM telah sesuai" Disabled="@(!_isValidJarakICrmPlus)"/>
+        <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync" Disabled="@(!_isCrmValid || !_isValidJarakICrmPlus)" IconStart="@(new Icons.Regular.Size16.Save())">Simpan</FluentButton>
         <FluentButton BackgroundColor="crimson" Color="white" OnClick="@DeleteAsync" Disabled="@(_isCrmValid)">Hapus</FluentButton>
         @* <FluentButton BackgroundColor="crimson" Color="white" OnClick="@ArchiveAsync" Disabled="@(_isCrmValid)">Archive</FluentButton> *@
         <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Batal</FluentButton>
@@ -185,4 +198,5 @@
 @code
 {
     private bool _isCrmValid = false;
+    private bool _isValidJarakICrmPlus => JarakICrmPlusVerification > 0;
 }
