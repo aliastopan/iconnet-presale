@@ -84,7 +84,7 @@ public sealed class SessionService
         return UserModel switch
         {
             { Role: UserRole.Helpdesk } => $"{UserModel!.Username} {SetRoleString("PH")}",
-            { Role: UserRole.PlanningAssetCoverage } => $"{UserModel!.Username} {SetRoleString("PAC")}",
+            { Role: UserRole.PAC } => $"{UserModel!.Username} {SetRoleString("PAC")}",
             { Role: UserRole.Administrator } => $"{UserModel!.Username} {SetRoleString("ADMIN")}",
             { Role: UserRole.SuperUser } => $"{UserModel!.Username} {SetRoleString("SUPER ADMIN")}",
             _ => $"{UserModel!.Username} (GUEST)"

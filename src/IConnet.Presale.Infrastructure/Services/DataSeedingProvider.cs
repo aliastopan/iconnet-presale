@@ -108,7 +108,7 @@ internal sealed class DataSeedingProvider : IDataSeedingService
             User = new User
             {
                 Username = "pac",
-                UserRole = UserRole.PlanningAssetCoverage,
+                UserRole = UserRole.PAC,
                 UserPrivileges = new List<UserPrivilege>()
                 {
                     UserPrivilege.Viewer,

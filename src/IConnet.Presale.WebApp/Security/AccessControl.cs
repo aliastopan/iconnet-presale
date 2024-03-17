@@ -37,7 +37,7 @@ public static class AccessControl
                 policy.RequireAuthenticatedUser();
                 policy.RequireAssertion(context =>
                 {
-                    return context.User.HasClaim(c => c.Type == JwtClaimTypes.Role && c.Value == UserRole.PlanningAssetCoverage.ToString())
+                    return context.User.HasClaim(c => c.Type == JwtClaimTypes.Role && c.Value == UserRole.PAC.ToString())
                         || context.User.HasClaim(c => c.Type == JwtClaimTypes.Privileges && c.Value == UserPrivilege.Administrator.ToString());
                 });
             });
