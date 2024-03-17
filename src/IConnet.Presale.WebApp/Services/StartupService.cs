@@ -9,22 +9,19 @@ public class StartupService : IHostedService
     private readonly IWorkloadForwardingManager _workloadForwardingManager;
     private readonly IRepresentativeOfficeHttpClient _representativeOfficeHttpClient;
     private readonly IRootCauseHttpClient _rootCauseHttpClient;
-    private readonly IChatTemplateHttpClient _chatTemplateHttpClient;
-    private readonly ChatTemplateService _chatTemplateService;
+    private readonly ChatTemplateManager _chatTemplateManager;
     private readonly OptionService _optionService;
 
     public StartupService(IWorkloadForwardingManager workloadForwardingManager,
         IRepresentativeOfficeHttpClient representativeOfficeHttpClient,
         IRootCauseHttpClient rootCauseHttpClient,
-        IChatTemplateHttpClient chatTemplateHttpClient,
-        ChatTemplateService chatTemplateService,
+        ChatTemplateManager chatTemplateManager,
         OptionService optionService)
     {
         _workloadForwardingManager = workloadForwardingManager;
         _representativeOfficeHttpClient = representativeOfficeHttpClient;
         _rootCauseHttpClient = rootCauseHttpClient;
-        _chatTemplateHttpClient = chatTemplateHttpClient;
-        _chatTemplateService = chatTemplateService;
+        _chatTemplateManager = chatTemplateManager;
         _optionService = optionService;
     }
 
@@ -35,7 +32,7 @@ public class StartupService : IHostedService
         Task[] tasks =
         [
             GetRepresentativeOfficesAsync(),
-            GetChatTemplatesAsync(),
+            _chatTemplateManager.SetDefaultChatTemplatesAsync(),
             GetRootCausesAsync(),
             ForwardRedisToInMemoryAsync()
         ];
@@ -100,40 +97,6 @@ public class StartupService : IHostedService
                 ICollection<RootCausesDto> rootCauseDtos = response!.RootCausesDtos;
 
                 _optionService.PopulateRootCause(rootCauseDtos);
-            }
-            else
-            {
-                var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
-                var extension = problemDetails.GetProblemDetailsExtension();
-
-                // LogSwitch.Debug("Error {message}: ", extension.Errors.First().Message);
-            }
-        }
-        catch (Exception exception)
-        {
-            Log.Fatal("Fatal error occurred: {message}", exception.Message);
-            Environment.Exit(1);
-        }
-    }
-
-    private async Task GetChatTemplatesAsync()
-    {
-        var options = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        };
-
-        try
-        {
-            var templateName = "default";
-            var httpResult = await _chatTemplateHttpClient.GetChatTemplatesAsync(templateName);
-
-            if (httpResult.IsSuccessStatusCode)
-            {
-                var response = JsonSerializer.Deserialize<GetChatTemplatesQueryResponse>(httpResult.Content, options);
-                ICollection<ChatTemplateDto> chatTemplateDtos = response!.ChatTemplateDtos;
-
-                _chatTemplateService.InitializeChatTemplate(chatTemplateDtos);
             }
             else
             {
