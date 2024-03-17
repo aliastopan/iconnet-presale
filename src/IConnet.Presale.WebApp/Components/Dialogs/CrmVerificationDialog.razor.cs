@@ -12,25 +12,25 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
     [CascadingParameter]
     public FluentDialog Dialog { get; set; } = default!;
 
-    private async Task SaveAsync()
+    protected async Task SaveAsync()
     {
         await VerifyCrmAsync();
         await Dialog.CloseAsync(Content);
     }
 
-    private async Task DeleteAsync()
+    protected async Task DeleteAsync()
     {
         await DeleteCrmAsync();
         await Dialog.CloseAsync(Content);
     }
 
-    private async Task ArchiveAsync()
+    protected async Task ArchiveAsync()
     {
         await ArchiveCrmAsync();
         await Dialog.CloseAsync(Content);
     }
 
-    private async Task CancelAsync()
+    protected async Task CancelAsync()
     {
         await Dialog.CancelAsync();
     }
