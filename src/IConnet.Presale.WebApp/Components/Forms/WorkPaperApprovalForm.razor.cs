@@ -210,7 +210,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
 
     protected async Task OnClipboardShareLocAsync()
     {
-        string latitudeLongitude = ApprovalModel!.DataCrmKoordinat.GetLatitudeLongitude();
+        string latitudeLongitude = ApprovalModel!.HasilValidasi.ShareLoc.GetLatitudeLongitude();
 
         await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", latitudeLongitude);
         ClipboardToast(latitudeLongitude);
