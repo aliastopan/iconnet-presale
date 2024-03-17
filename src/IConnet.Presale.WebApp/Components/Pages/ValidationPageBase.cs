@@ -82,7 +82,7 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
 
         if (!IsStillInCharge(row.Item))
         {
-            await OpenDialogAsync(row.Item);
+            await OpenRestagingDialogAsync(row.Item);
             return;
         }
 
@@ -103,7 +103,7 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
         ActiveValidationModel = null;
     }
 
-    protected async Task OpenDialogAsync(WorkPaper workPaper)
+    protected async Task OpenRestagingDialogAsync(WorkPaper workPaper)
     {
         var parameters = new DialogParameters()
         {
