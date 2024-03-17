@@ -93,7 +93,7 @@ public partial class SignInForm : ComponentBase
         IsLoading = false;
     }
 
-    protected void OnToggleShowPassword(MouseEventArgs args)
+    protected void OnToggleShowPassword(MouseEventArgs _)
     {
         ShowPassword = !ShowPassword;
     }
