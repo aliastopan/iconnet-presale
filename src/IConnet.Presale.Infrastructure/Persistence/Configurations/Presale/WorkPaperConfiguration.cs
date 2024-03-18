@@ -29,6 +29,7 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
 
         builder.Property(wp => wp.Shift)
             .HasColumnName("shift")
+            .HasMaxLength(16)
             .IsRequired();
 
         builder.ComplexProperty(wp => wp.SignatureHelpdeskInCharge,
@@ -38,10 +39,12 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
 
                 signatureHelpdeskInCharge.Property(s => s.AccountIdSignature)
                     .HasColumnName("sign_ph_in_charge_account_id")
+                    .HasMaxLength(36)
                     .IsRequired();
 
                 signatureHelpdeskInCharge.Property(s => s.Alias)
                     .HasColumnName("sign_ph_in_charge_alias")
+                    .HasMaxLength(64)
                     .IsRequired();
 
                 signatureHelpdeskInCharge.Property(s => s.TglAksi)
@@ -56,10 +59,12 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
 
                 signaturePlanningAssetCoverageInCharge.Property(s => s.AccountIdSignature)
                     .HasColumnName("sign_pac_in_charge_account_id")
+                    .HasMaxLength(36)
                     .IsRequired();
 
                 signaturePlanningAssetCoverageInCharge.Property(s => s.Alias)
                     .HasColumnName("sign_pac_in_charge_alias")
+                    .HasMaxLength(64)
                     .IsRequired();
 
                 signaturePlanningAssetCoverageInCharge.Property(s => s.TglAksi)
@@ -79,10 +84,12 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
 
                         signatureChatCallMulai.Property(s => s.AccountIdSignature)
                             .HasColumnName("sign_chat_call_mulai_account_id")
+                            .HasMaxLength(36)
                             .IsRequired();
 
                         signatureChatCallMulai.Property(s => s.Alias)
                             .HasColumnName("sign_chat_call_mulai_alias")
+                            .HasMaxLength(64)
                             .IsRequired();
 
                         signatureChatCallMulai.Property(s => s.TglAksi)
@@ -97,10 +104,12 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
 
                         signatureChatCallRespons.Property(s => s.AccountIdSignature)
                             .HasColumnName("sign_chat_call_respons_account_id")
+                            .HasMaxLength(36)
                             .IsRequired();
 
                         signatureChatCallRespons.Property(s => s.Alias)
                             .HasColumnName("sign_chat_call_respons_alias")
+                            .HasMaxLength(64)
                             .IsRequired();
 
                         signatureChatCallRespons.Property(s => s.TglAksi)
@@ -108,13 +117,12 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
                             .IsRequired();
                     });
 
-                // TODO: this can be mark as non-required
                 prosesValidasi.Property(pv => pv.WaktuTanggalRespons)
-                    .HasColumnName("waktu_tgl_respons")
-                    .IsRequired();
+                    .HasColumnName("waktu_tgl_respons");
 
                 prosesValidasi.Property(pv => pv.LinkChatHistory)
                     .HasColumnName("link_chat_history")
+                    .HasMaxLength(255)
                     .IsRequired();
 
                 prosesValidasi.ComplexProperty(pv => pv.ParameterValidasi,
@@ -149,10 +157,12 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
 
                                 shareLoc.Property(c => c.Latitude)
                                     .HasColumnName("regional_koordinat_latitude")
+                                    .HasMaxLength(64)
                                     .IsRequired();
 
                                 shareLoc.Property(c => c.Longitude)
                                     .HasColumnName("regional_koordinat_longitude")
+                                    .HasMaxLength(64)
                                     .IsRequired();
                             });
                     });
@@ -163,19 +173,24 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
                         pembetulanValidasi.IsRequired();
 
                         pembetulanValidasi.Property(p => p.PembetulanIdPln)
-                            .HasColumnName("pembetulan_id_pln");
+                            .HasColumnName("pembetulan_id_pln")
+                            .HasMaxLength(32);
 
                         pembetulanValidasi.Property(p => p.PembetulanNama)
-                            .HasColumnName("pembetulan_nama");
+                            .HasColumnName("pembetulan_nama")
+                            .HasMaxLength(128);
 
                         pembetulanValidasi.Property(p => p.PembetulanNomorTelepon)
-                            .HasColumnName("pembetulan_nomor_telepon");
+                            .HasColumnName("pembetulan_nomor_telepon")
+                            .HasMaxLength(32);
 
                         pembetulanValidasi.Property(p => p.PembetulanEmail)
-                            .HasColumnName("pembetulan_email");
+                            .HasColumnName("pembetulan_email")
+                            .HasMaxLength(128);
 
                         pembetulanValidasi.Property(p => p.PembetulanAlamat)
-                            .HasColumnName("pembetulan_alamat");
+                            .HasColumnName("pembetulan_alamat")
+                            .HasMaxLength(255);
                     });
 
                 prosesValidasi.Property(pv => pv.Keterangan)
@@ -194,10 +209,12 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
 
                         signatureApproval.Property(s => s.AccountIdSignature)
                             .HasColumnName("sign_approval_account_id")
+                            .HasMaxLength(36)
                             .IsRequired();
 
                         signatureApproval.Property(s => s.Alias)
                             .HasColumnName("sign_approval_alias")
+                            .HasMaxLength(64)
                             .IsRequired();
 
                         signatureApproval.Property(s => s.TglAksi)
@@ -210,7 +227,8 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
                     .IsRequired();
 
                 prosesApproval.Property(pa => pa.RootCause)
-                    .HasColumnName("root_cause");
+                    .HasColumnName("root_cause")
+                    .HasMaxLength(64);
 
                 prosesApproval.Property(pa => pa.Keterangan)
                     .HasColumnName("keterangan_approval");
@@ -231,8 +249,9 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
 
        // foreign key
        builder.Property(wp => wp.FkApprovalOpportunityId)
-              .HasColumnName("fk_ao_id")
-              .IsRequired();
+            .HasColumnName("fk_ao_id")
+            .HasMaxLength(36)
+            .IsRequired();
 
         // configure relationships
         builder.HasOne(wp => wp.ApprovalOpportunity)
