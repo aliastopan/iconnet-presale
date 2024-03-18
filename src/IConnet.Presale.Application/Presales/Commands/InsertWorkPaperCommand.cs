@@ -44,6 +44,7 @@ public class InsertWorkPaperCommand : IWorkPaperModel, IRequest<Result>
         string keteranganApproval,
         int jarakShareLoc,
         int jarakICrmPlus,
+        string splitterGanti,
         DateTime vaTerbit,
         Guid approvalOpportunityId,
         string idPermohonan,
@@ -120,6 +121,7 @@ public class InsertWorkPaperCommand : IWorkPaperModel, IRequest<Result>
         KeteranganApproval = keteranganApproval;
         JarakShareLoc = jarakShareLoc;
         JarakICrmPlus = jarakICrmPlus;
+        SplitterGanti = splitterGanti;
         VaTerbit = vaTerbit;
         ApprovalOpportunityId = approvalOpportunityId;
         IdPermohonan = idPermohonan;
@@ -198,6 +200,7 @@ public class InsertWorkPaperCommand : IWorkPaperModel, IRequest<Result>
     public string KeteranganApproval { get; init; }
     public int JarakShareLoc { get; init; }
     public int JarakICrmPlus { get; init; }
+    public string SplitterGanti { get; init; }
     public DateTime VaTerbit { get; init; }
 
     [Required] public Guid ApprovalOpportunityId { get; init; }

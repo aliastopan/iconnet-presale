@@ -44,6 +44,7 @@ public interface IWorkPaperModel
     string KeteranganApproval { get; }
     int JarakShareLoc { get; }
     int JarakICrmPlus { get; }
+    string SplitterGanti { get; }
     DateTime VaTerbit { get; }
 
     // ApprovalOpportunity

@@ -43,6 +43,7 @@ public record InsertWorkPaperRequest : IWorkPaperModel
         string keteranganApproval,
         int jarakShareLoc,
         int jarakICrmPlus,
+        string splitterGanti,
         DateTime vaTerbit,
         Guid approvalOpportunityId,
         string idPermohonan,
@@ -119,6 +120,7 @@ public record InsertWorkPaperRequest : IWorkPaperModel
         KeteranganApproval = keteranganApproval;
         JarakShareLoc = jarakShareLoc;
         JarakICrmPlus = jarakICrmPlus;
+        SplitterGanti = splitterGanti;
         VaTerbit = vaTerbit;
         ApprovalOpportunityId = approvalOpportunityId;
         IdPermohonan = idPermohonan;
@@ -197,6 +199,7 @@ public record InsertWorkPaperRequest : IWorkPaperModel
     public string KeteranganApproval { get; init; }
     public int JarakShareLoc { get; init; }
     public int JarakICrmPlus { get; init; }
+    public string SplitterGanti { get; init; }
     public DateTime VaTerbit { get; init; }
 
     public Guid ApprovalOpportunityId { get; init; }

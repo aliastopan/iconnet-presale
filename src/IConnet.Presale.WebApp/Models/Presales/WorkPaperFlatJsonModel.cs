@@ -44,6 +44,7 @@ public class WorkPaperFlatJsonModel : IWorkPaperModel
         KeteranganApproval = workPaper.ProsesApproval.Keterangan;
         JarakShareLoc = workPaper.ProsesApproval.JarakShareLoc;
         JarakICrmPlus = workPaper.ProsesApproval.JarakICrmPlus;
+        SplitterGanti = workPaper.ProsesApproval.SplitterGanti;
         VaTerbit = workPaper.ProsesApproval.VaTerbit;
 
         ApprovalOpportunityId = workPaper.ApprovalOpportunity.ApprovalOpportunityId;
@@ -124,6 +125,7 @@ public class WorkPaperFlatJsonModel : IWorkPaperModel
     public string KeteranganApproval { get; init; }
     public int JarakShareLoc { get; init; }
     public int JarakICrmPlus { get; init; }
+    public string SplitterGanti { get; init; }
     public DateTime VaTerbit { get; init; }
 
     public Guid ApprovalOpportunityId { get; init; }

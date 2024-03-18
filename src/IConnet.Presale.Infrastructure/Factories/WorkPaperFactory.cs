@@ -211,6 +211,7 @@ internal sealed class WorkPaperFactory
                 Keterangan = model.KeteranganApproval,
                 JarakShareLoc = model.JarakShareLoc,
                 JarakICrmPlus = model.JarakICrmPlus,
+                SplitterGanti = model.SplitterGanti,
                 VaTerbit = model.VaTerbit
             },
             FkApprovalOpportunityId = model.ApprovalOpportunityId,
