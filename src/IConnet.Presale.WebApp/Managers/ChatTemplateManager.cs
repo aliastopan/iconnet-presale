@@ -8,10 +8,13 @@ public class ChatTemplateManager
 {
     private readonly List<ChatTemplateModel> _chatTemplateModels = new List<ChatTemplateModel>();
     private readonly IChatTemplateHttpClient _chatTemplateHttpClient;
+    private readonly IConfiguration _configuration;
 
-    public ChatTemplateManager(IChatTemplateHttpClient chatTemplateHttpClient)
+    public ChatTemplateManager(IChatTemplateHttpClient chatTemplateHttpClient,
+        IConfiguration configuration)
     {
         _chatTemplateHttpClient = chatTemplateHttpClient;
+        _configuration = configuration;
     }
 
     public List<ChatTemplateModel> ChatTemplateModels => _chatTemplateModels;
@@ -25,7 +28,7 @@ public class ChatTemplateManager
 
         try
         {
-            var templateName = "default";
+            var templateName = _configuration["ChatTemplate"] ?? "default";
             var httpResult = await _chatTemplateHttpClient.GetChatTemplatesAsync(templateName);
 
             if (httpResult.IsSuccessStatusCode)
