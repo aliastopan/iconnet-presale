@@ -9,6 +9,7 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
     [Inject] public IDialogService DialogService { get; set; } = default!;
     [Inject] public IToastService ToastService { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
+    [Inject] public SqlPushService SqlPushService { get; init; } = default!;
 
     protected FilterForm FilterComponent { get; set; } = default!;
     protected string GridTemplateCols => GetGridTemplateCols();
@@ -151,6 +152,8 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
 
         var message = $"CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been mark as invalid";
         await BroadcastService.BroadcastMessageAsync(message);
+
+        await SqlPushService.SqlPushAsync(workPaper);
 
         IsLoading = false;
     }

@@ -12,6 +12,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
     [Inject] public IWorkloadManager WorkloadManager { get; init; } = default!;
     [Inject] public BroadcastService BroadcastService { get; init; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
+    [Inject] public SqlPushService SqlPushService { get; init; } = default!;
 
     [Parameter]
     public EventCallback UnstageWorkPaper { get; set; }
@@ -310,6 +311,8 @@ public partial class WorkPaperApprovalForm : ComponentBase
         await WorkloadManager.UpdateWorkloadAsync(WorkPaper!);
         await BroadcastService.BroadcastMessageAsync(broadcastMessage);
         LogSwitch.Debug("Broadcast approval {message}", broadcastMessage);
+
+        await SqlPushService.SqlPushAsync(WorkPaper!);
     }
 
     private void ClipboardToast(string clipboard)
