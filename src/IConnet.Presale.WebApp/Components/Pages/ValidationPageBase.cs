@@ -138,8 +138,6 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
     {
         var elementId = "validation-id";
         await JsRuntime.InvokeVoidAsync("scrollToElement", elementId);
-
-        LogSwitch.Debug("Scrolling...");
     }
 
     protected bool IsStillInCharge(WorkPaper workPaper, bool debug = false)
@@ -149,8 +147,8 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
 
         if (debug)
         {
-            var timeRemaining = workPaper.SignatureHelpdeskInCharge.GetDurationRemaining(now, duration);
-            LogSwitch.Debug("Time remaining: {0}", timeRemaining);
+            // var timeRemaining = workPaper.SignatureHelpdeskInCharge.GetDurationRemaining(now, duration);
+            // LogSwitch.Debug("Time remaining: {0}", timeRemaining);
         }
 
         return !workPaper.SignatureHelpdeskInCharge.IsDurationExceeded(now, duration);

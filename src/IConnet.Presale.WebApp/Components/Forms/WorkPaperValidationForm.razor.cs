@@ -200,12 +200,12 @@ public partial class WorkPaperValidationForm : ComponentBase
 
     protected void OpenDialog()
     {
-        LogSwitch.Debug("Chat Template Dialog");
+        // LogSwitch.Debug("Chat Template Dialog");
     }
 
     protected async Task OpenChatTemplateDialogAsync()
     {
-        LogSwitch.Debug("Chat Template Dialog");
+        // LogSwitch.Debug("Chat Template Dialog");
 
         var parameters = new DialogParameters()
         {
@@ -227,7 +227,7 @@ public partial class WorkPaperValidationForm : ComponentBase
     {
         if (!WorkPaper!.ProsesValidasi.SignatureChatCallMulai.IsEmptySignature())
         {
-            LogSwitch.Debug("ChatCallMulai can be only set once");
+            // LogSwitch.Debug("ChatCallMulai can be only set once");
             return;
         }
 

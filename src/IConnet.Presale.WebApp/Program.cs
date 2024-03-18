@@ -52,7 +52,7 @@ builder.Host.ConfigureServices((context, services) =>
         options.HandshakeTimeout = TimeSpan.FromSeconds(5);
     });
 
-    LogSwitch.Debug("HttpClient base address {0}", context.Configuration["HttpClient:BaseAddress"]!);
+    Log.Information("HttpClient base address {0}", context.Configuration["HttpClient:BaseAddress"]!);
 
 });
 

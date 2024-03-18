@@ -218,8 +218,6 @@ public partial class WorkPaperApprovalForm : ComponentBase
 
         await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", latitudeLongitude);
         ClipboardToast(latitudeLongitude);
-
-        LogSwitch.Debug("Copying {0}", latitudeLongitude);
     }
 
     protected async Task OnClipboardShareLocAsync()
@@ -228,8 +226,6 @@ public partial class WorkPaperApprovalForm : ComponentBase
 
         await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", latitudeLongitude);
         ClipboardToast(latitudeLongitude);
-
-        LogSwitch.Debug("Copying {0}", latitudeLongitude);
     }
 
     protected async Task OnClipboardSplitterAsync()
@@ -238,8 +234,6 @@ public partial class WorkPaperApprovalForm : ComponentBase
 
         await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", splitter);
         ClipboardToast(splitter);
-
-        LogSwitch.Debug("Copying {0}", splitter);
     }
 
     protected void OnJarakShareLocChanged(int jarakShareLoc)
@@ -310,7 +304,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
     {
         await WorkloadManager.UpdateWorkloadAsync(WorkPaper!);
         await BroadcastService.BroadcastMessageAsync(broadcastMessage);
-        LogSwitch.Debug("Broadcast approval {message}", broadcastMessage);
+        // LogSwitch.Debug("Broadcast approval {message}", broadcastMessage);
 
         await SqlPushService.SqlPushAsync(WorkPaper!);
     }
