@@ -27,6 +27,7 @@ public class ApprovalProcess : ValueObject
     public string Keterangan { get; init; } = string.Empty;
     public int JarakShareLoc { get; init; }
     public int JarakICrmPlus { get; init; }
+    public string SplitterGanti { get ; init; } = string.Empty;
     public DateTime VaTerbit { get; init; } = default;
 
     public bool IsOnGoing()
@@ -35,6 +36,11 @@ public class ApprovalProcess : ValueObject
         bool isPendingOnExpansion = StatusApproval == ApprovalStatus.Expansion;
 
         return isSignatureEmpty || (!isSignatureEmpty && isPendingOnExpansion);
+    }
+
+    public bool IsSplitterGanti()
+    {
+        return !string.IsNullOrEmpty(SplitterGanti);
     }
 
     public ApprovalProcess WithSignatureApproval(ActionSignature signatureApproval)
@@ -47,6 +53,7 @@ public class ApprovalProcess : ValueObject
             Keterangan = this.Keterangan,
             JarakShareLoc = this.JarakShareLoc,
             JarakICrmPlus = this.JarakICrmPlus,
+            SplitterGanti = this.SplitterGanti,
             VaTerbit = this.VaTerbit
         };
     }
@@ -61,6 +68,7 @@ public class ApprovalProcess : ValueObject
             Keterangan = this.Keterangan,
             JarakShareLoc = this.JarakShareLoc,
             JarakICrmPlus = this.JarakICrmPlus,
+            SplitterGanti = this.SplitterGanti,
             VaTerbit = this.VaTerbit
         };
     }
@@ -75,6 +83,7 @@ public class ApprovalProcess : ValueObject
             Keterangan = this.Keterangan,
             JarakShareLoc = this.JarakShareLoc,
             JarakICrmPlus = this.JarakICrmPlus,
+            SplitterGanti = this.SplitterGanti,
             VaTerbit = this.VaTerbit
         };
     }
@@ -89,6 +98,7 @@ public class ApprovalProcess : ValueObject
             Keterangan = keterangan,
             JarakShareLoc = this.JarakShareLoc,
             JarakICrmPlus = this.JarakICrmPlus,
+            SplitterGanti = this.SplitterGanti,
             VaTerbit = this.VaTerbit
         };
     }
@@ -103,6 +113,7 @@ public class ApprovalProcess : ValueObject
             Keterangan = this.Keterangan,
             JarakShareLoc = jarakShareLoc,
             JarakICrmPlus = this.JarakICrmPlus,
+            SplitterGanti = this.SplitterGanti,
             VaTerbit = this.VaTerbit
         };
     }
@@ -117,6 +128,22 @@ public class ApprovalProcess : ValueObject
             Keterangan = this.Keterangan,
             JarakShareLoc = this.JarakShareLoc,
             JarakICrmPlus = jarakShareLoc,
+            SplitterGanti = this.SplitterGanti,
+            VaTerbit = this.VaTerbit
+        };
+    }
+
+    public ApprovalProcess WithSplitterGanti(string splitterGanti)
+    {
+        return new ApprovalProcess
+        {
+            SignatureApproval = this.SignatureApproval,
+            StatusApproval = this.StatusApproval,
+            RootCause = this.RootCause,
+            Keterangan = this.Keterangan,
+            JarakShareLoc = this.JarakShareLoc,
+            JarakICrmPlus = this.JarakICrmPlus,
+            SplitterGanti = splitterGanti,
             VaTerbit = this.VaTerbit
         };
     }
@@ -131,6 +158,7 @@ public class ApprovalProcess : ValueObject
             Keterangan = this.Keterangan,
             JarakShareLoc = this.JarakShareLoc,
             JarakICrmPlus = this.JarakICrmPlus,
+            SplitterGanti = this.SplitterGanti,
             VaTerbit = vaTerbit
         };
     }
@@ -143,6 +171,7 @@ public class ApprovalProcess : ValueObject
         yield return Keterangan;
         yield return JarakShareLoc;
         yield return JarakICrmPlus;
+        yield return SplitterGanti;
         yield return VaTerbit;
     }
 }
