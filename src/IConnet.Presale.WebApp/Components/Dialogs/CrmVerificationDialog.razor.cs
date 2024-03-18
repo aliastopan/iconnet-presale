@@ -62,6 +62,7 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
 
     private async Task VerifyCrmAsync()
     {
+        Content.Shift = SessionService.GetShift();
         Content.WorkPaperLevel = WorkPaperLevel.ImportVerified;
         Content.ApprovalOpportunity.StatusImport = ImportStatus.Verified;
         Content.ApprovalOpportunity.SignatureVerifikasiImport = new ActionSignature
@@ -78,6 +79,7 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
 
     private async Task RejectCrmAsync()
     {
+        Content.Shift = SessionService.GetShift();
         Content.WorkPaperLevel = WorkPaperLevel.ImportInvalid;
         Content.ApprovalOpportunity.StatusImport = ImportStatus.Invalid;
         Content.ApprovalOpportunity.SignatureVerifikasiImport = new ActionSignature
