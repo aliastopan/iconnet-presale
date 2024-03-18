@@ -47,7 +47,9 @@ public abstract class ColumnWidthBase<T>
     public int HelpdeskInChargePx { get; set; } = DefaultWidth;
     public int ShiftPx { get; set; } = 100;
     public int TglChatCallMulaiPx { get; set; } = DefaultWidth;
+    public int InChargeChatCallMulaiPx { get; set; } = DefaultWidth;
     public int TglChatCallResponsPx { get; set; } = DefaultWidth + 15;
+    public int InChargeChatCallResponsPx { get; set; } = DefaultWidth + 15;
     public int ValidasiNamaPelangganPx { get; set; } = DefaultWidth;
     public int ValidasiNomorTelpPx { get; set; } = DefaultWidth;
     public int ValidasiEmailPx { get; set; } = DefaultWidth;
