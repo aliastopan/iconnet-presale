@@ -263,11 +263,11 @@
                             </div>
                         </div>
 
-                    @if(IsClosedLost())
+                    @if(IsNotResponding())
                     {
-                        <div class="approval-value-bg-closed-lost">
+                        <div class="approval-value-bg-not-responding">
                             <FluentLabel Typo="Typography.Body" style="margin: 0 8px; margin-top: 2px; cursor: default !important;">
-                                @_closedLost.ToUpper()
+                                @_notResponding.ToUpper()
                             </FluentLabel>
                         </div>
                     }
@@ -418,9 +418,9 @@
     private string _infoBadge => ApprovalModel!.DataPelanggan.Keterangan.IsNullOrWhiteSpace()
         ? ""
         : "validation-info-badge";
-    private string _closedLost => "Closed Lost";
+    private string _notResponding => "Tidak Ada Respons";
 
-    private string _pushStyle => IsClosedLost()
+    private string _pushStyle => IsNotResponding()
         ? "margin-top: 30px !important;"
         : "margin-top: 32px !important;";
 }

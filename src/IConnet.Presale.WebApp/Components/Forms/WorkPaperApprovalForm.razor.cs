@@ -34,7 +34,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
     protected bool DisableOnProgress => ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.OnProgress
         || (ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.Approved && !ApprovalModel!.IsValidJarak())
         || (ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.Expansion && !ApprovalModel!.IsValidJarak());
-    protected bool DisableForm => IsClosedLost()
+    protected bool DisableForm => IsNotResponding()
         || ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.Rejected
         || ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.ClosedLost;
     protected bool DisableCommit => !IsCommitReady;
@@ -291,11 +291,11 @@ public partial class WorkPaperApprovalForm : ComponentBase
         ApprovalModel!.Keterangan = Keterangan;
     }
 
-    protected bool IsClosedLost()
+    protected bool IsNotResponding()
     {
         DateTime today = DateTimeService.DateTimeOffsetNow.Date;
 
-        return WorkPaper!.ProsesValidasi.IsClosedLost(today);
+        return WorkPaper!.ProsesValidasi.IsNotResponding(today);
     }
 
     protected async Task OnOpenGoogleMapAsync()
@@ -353,12 +353,12 @@ public partial class WorkPaperApprovalForm : ComponentBase
     private static string GetCssBackgroundColorValueActual(ValidationStatus section,
         string valid = "approval-value-bg-valid",
         string info = "approval-value-bg-info",
-        string closedLost = "approval-value-bg-closed-lost")
+        string notResponding = "approval-value-bg-not-responding")
     {
         switch (section)
         {
             case ValidationStatus.MenungguValidasi:
-                return closedLost;
+                return notResponding;
             case ValidationStatus.TidakSesuai:
                 return info;
             case ValidationStatus.Sesuai:

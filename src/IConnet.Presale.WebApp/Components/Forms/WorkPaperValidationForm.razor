@@ -25,17 +25,17 @@
                 @if(WorkPaper.ProsesValidasi.HasStarted())
                 {
                     <div class="validation-aging-response">
-                        <span style="margin-right: 4px;">
+                        <span style="margin-right: 8px;">
                             Chat/Call mulai:
                         </span>
                         <span class="validation-aging-label" style="margin-right: 4px;">
                             @GetAgingChatCallMulaiString()
                         </span>
                         <span>yang lalu</span>
-                        @if(IsClosedLost())
+                        @if(IsNotResponding())
                         {
-                            <span class="validation-closed-lost" style="margin-right: 4px;">
-                                CLOSED LOST
+                            <span class="validation-not-responding" style="margin-right: 8px;">
+                                TIDAK ADA RESPONS
                             </span>
                         }
                     </div>
@@ -326,13 +326,13 @@
                     </div>
                 </div>
                 <div class="validation-element">
-                    <div class="validation-label-closed-lost">
-                        @if(IsClosedLost())
+                    <div class="validation-label-not-responding">
+                        @if(IsNotResponding())
                         {
                             <FluentButton BackgroundColor="crimson"
                                 Color="white"
-                                OnClick="OnClosedLostAsync">
-                                CLOSED LOST</FluentButton>
+                                OnClick="OnNotRespondingAsync">
+                                TIDAK ADA RESPONS</FluentButton>
                         }
                     </div>
                 </div>

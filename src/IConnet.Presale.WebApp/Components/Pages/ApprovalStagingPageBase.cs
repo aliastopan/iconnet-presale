@@ -150,7 +150,7 @@ public class ApprovalStagingPageBase : WorkloadPageBase, IPageNavigation
     {
         DateTime today = DateTimeService.DateTimeOffsetNow.Date;
 
-        return validationProcess.IsClosedLost(today);
+        return validationProcess.IsNotResponding(today);
     }
 
     private async Task<int> GetStageCountAsync()

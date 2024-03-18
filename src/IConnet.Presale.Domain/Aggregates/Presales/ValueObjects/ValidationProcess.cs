@@ -138,7 +138,7 @@ public class ValidationProcess : ValueObject
         };
     }
 
-    public bool IsClosedLost(DateTime today, int closedLostThreshold = 3)
+    public bool IsNotResponding(DateTime today, int noResponseThreshold = 2)
     {
         if (!HasStarted())
         {
@@ -148,15 +148,14 @@ public class ValidationProcess : ValueObject
         TimeSpan agingChatCallMulai = GetAgingChatCallMulai(today);
         int days = Math.Abs(agingChatCallMulai.Days);
 
-        if (days < closedLostThreshold)
+        if (days < noResponseThreshold)
         {
             return false;
         }
 
-        bool notResponding = SignatureChatCallRespons.IsEmptySignature();
-        bool closedLost = days >= closedLostThreshold;
+        bool notResponding = days >= noResponseThreshold;
 
-        return notResponding && closedLost;
+        return notResponding && SignatureChatCallRespons.IsEmptySignature();
     }
 
     public TimeSpan GetAgingChatCallMulai(DateTime today)

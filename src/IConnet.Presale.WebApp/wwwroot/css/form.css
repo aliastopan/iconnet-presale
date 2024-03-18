@@ -92,14 +92,14 @@
     margin-top: 2px;
 }
 
-.validation-label-closed-lost{
+.validation-label-not-responding{
     display: flex;
     flex-direction: column;
     width: 185px;
     margin-right: 10px;
 }
 
-.validation-label-closed-lost fluent-button::part(control){
+.validation-label-not-responding fluent-button::part(control){
     font-weight: 600 !important;
 }
 
@@ -198,8 +198,8 @@
     font-weight: 700;
 }
 
-.validation-closed-lost{
-    font-weight: 700;
+.validation-not-responding{
+    font-weight: 600;
     background-color: var(--soft-black);
     color: white;
     margin: 4px;
@@ -412,7 +412,7 @@
     -o-border-radius: 5px;
 }
 
-.approval-value-bg-closed-lost{
+.approval-value-bg-not-responding{
     background-color: var(--soft-black);
     height: fit-content;
     border: 1px solid var(--soft-black);
@@ -424,7 +424,7 @@
 }
 
 .approval-value-bg-accent p.fluent-typography,
-.approval-value-bg-closed-lost p.fluent-typography,
+.approval-value-bg-not-responding p.fluent-typography,
 .approval-value-bg-revision p.fluent-typography,
 .approval-value-bg-invalid p.fluent-typography,
 .approval-value-bg-valid p.fluent-typography{

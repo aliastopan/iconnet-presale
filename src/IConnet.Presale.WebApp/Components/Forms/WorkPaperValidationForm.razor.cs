@@ -103,14 +103,14 @@ public partial class WorkPaperValidationForm : ComponentBase
         IsLoading = false;
     }
 
-    protected async Task OnClosedLostAsync()
+    protected async Task OnNotRespondingAsync()
     {
         var prosesValidasi = WorkPaper!.ProsesValidasi.WithKeterangan(ValidationModel!.Keterangan);
 
         WorkPaper!.ProsesValidasi = prosesValidasi;
         WorkPaper!.WorkPaperLevel = WorkPaperLevel.WaitingApproval;
 
-        var message = $"{WorkPaper.ApprovalOpportunity.IdPermohonan} is CLOSED LOST";
+        var message = $"{WorkPaper.ApprovalOpportunity.IdPermohonan} is NOT RESPONDING";
 
         Task[] tasks =
         [
@@ -121,11 +121,11 @@ public partial class WorkPaperValidationForm : ComponentBase
         await Task.WhenAll(tasks);
     }
 
-    protected bool IsClosedLost()
+    protected bool IsNotResponding()
     {
         DateTime today = DateTimeService.DateTimeOffsetNow.Date;
 
-        return WorkPaper!.ProsesValidasi.IsClosedLost(today);
+        return WorkPaper!.ProsesValidasi.IsNotResponding(today);
     }
 
     protected string GetAgingChatCallMulaiString()
