@@ -41,6 +41,16 @@ public class ActionSignature : ValueObject
         return remainingTime > TimeSpan.Zero ? remainingTime : TimeSpan.Zero;
     }
 
+    public static ActionSignature Empty()
+    {
+        return new ActionSignature
+        {
+            AccountIdSignature = Guid.Empty,
+            Alias = string.Empty,
+            TglAksi = DateTime.MinValue
+        };
+    }
+
     protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return AccountIdSignature;
