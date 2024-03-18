@@ -73,7 +73,7 @@ public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.KeteranganPx}px
             {ColumnWidth.TglChatCallMulaiPx}px
             {ColumnWidth.TglChatCallResponsPx}px
-            {ColumnWidth.TglChatCallMulaiPx}px
+            {ColumnWidth.HelpdeskInChargePx}px
             {ColumnWidth.LinkChatHistoryPx}px
             {ColumnWidth.KeteranganValidasiPx}px
             {ColumnWidth.ContactWhatsAppPx}px
