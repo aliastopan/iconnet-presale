@@ -25,4 +25,27 @@ internal sealed class DateTimeProvider : IDateTimeService
     {
         return DateTime.ParseExact(dateTimeString, GetFormat(), System.Globalization.CultureInfo.InvariantCulture);
     }
+
+    public string GetTimeIdentifier()
+    {
+        DateTime currentTime = DateTimeOffset.Now.LocalDateTime;
+        int hour = currentTime.Hour;
+
+        if (hour >= 5 && hour <= 10)
+        {
+            return "Pagi";
+        }
+        else if (hour >= 11 && hour <= 14)
+        {
+            return "Siang";
+        }
+        else if (hour >= 15 && hour <= 18)
+        {
+            return "Sore";
+        }
+        else
+        {
+            return "Malam";
+        }
+    }
 }
