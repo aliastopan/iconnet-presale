@@ -81,7 +81,16 @@
                     <TemplateColumn Title="PIC CHAT/CALL" Style="@GetWidthStyle(ColumnWidth.HelpdeskInChargePx)"
                         SortBy="@SortByHelpdeskInCharge">
                         <div class="">
-                            @context.SignatureHelpdeskInCharge.Alias
+                            @if (context.SignatureHelpdeskInCharge.IsEmptySignature())
+                            {
+                                <span class="staging-waiting">
+                                    KOSONG
+                                </span>
+                            }
+                            else
+                            {
+                                @context.SignatureHelpdeskInCharge.Alias
+                            }
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="SHIFT" Style="@GetWidthStyle(ColumnWidth.ShiftPx)">

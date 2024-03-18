@@ -230,7 +230,6 @@ input:invalid::part(root) {
     z-index: 999;
 }
 
-.staging-waiting,
 .staging-expired{
     width: 100%;
     font-weight: 600;
@@ -246,6 +245,23 @@ input:invalid::part(root) {
     -o-border-radius: 3px;
     z-index: 999;
 }
+
+.staging-waiting{
+    width: 100%;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #bdbdbd;
+    text-align: center;
+    color: white;
+    padding: 0 10px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    z-index: 999;
+}
+
 
 .searchbar-stack{
     display: flex;

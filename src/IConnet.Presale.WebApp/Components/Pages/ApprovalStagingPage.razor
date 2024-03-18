@@ -71,7 +71,16 @@
                     <TemplateColumn Title="PIC APPROVAL" Style="@GetWidthStyle(ColumnWidth.PlanningAssetCoverageInChargePx)"
                         SortBy="@SortByPlanningAssetCoverageInCharge">
                         <div class="" style="display: flex;">
-                            @context.SignaturePlanningAssetCoverageInCharge.Alias
+                            @if (context.SignaturePlanningAssetCoverageInCharge.IsEmptySignature())
+                            {
+                                <span class="staging-waiting">
+                                    KOSONG
+                                </span>
+                            }
+                            else
+                            {
+                                @context.SignaturePlanningAssetCoverageInCharge.Alias
+                            }
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="NAMA PELANGGAN" Style="@GetWidthStyle(ColumnWidth.ValidasiNamaPelangganPx)">
