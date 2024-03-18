@@ -23,8 +23,8 @@ public class ActionSignature : ValueObject
     public bool IsEmptySignature()
     {
         return AccountIdSignature == Guid.Empty
-            && Alias == string.Empty
-            && TglAksi == DateTime.MinValue;
+            || Alias == string.Empty
+            || TglAksi == DateTime.MinValue;
     }
 
     public bool IsDurationExceeded(DateTime dateTimeEnd, TimeSpan duration)
