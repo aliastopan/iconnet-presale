@@ -148,6 +148,14 @@
     -o-border-radius: 5px;
 }
 
+.validation-value-bg-valid div svg{
+    fill: white !important;
+}
+
+.validation-value-bg-warning div svg{
+    fill: var(--soft-black) !important;
+}
+
 .validation-value-bg-warning{
     background-color: var(--warning-yellow);
     height: fit-content;
