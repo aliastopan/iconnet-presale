@@ -131,7 +131,7 @@ internal sealed class DataSeedingProvider : IDataSeedingService
         return await dbContext.SaveChangesAsync();
     }
 
-    public async Task<int> GenerateChatTemplatesAsync()
+    public async Task<int> GenerateDefaultChatTemplatesAsync()
     {
         Log.Information("Generating ChatTemplates");
 
@@ -165,6 +165,54 @@ internal sealed class DataSeedingProvider : IDataSeedingService
         dbContext.ChatTemplates.Add(chatRequest);
         dbContext.ChatTemplates.Add(chatClosing);
         dbContext.ChatTemplates.Add(chatNote);
+
+        return await dbContext.SaveChangesAsync();
+    }
+
+    public async Task<int> GenerateChatTemplatesAsync()
+    {
+        Log.Information("Generating ChatTemplates");
+
+        string templateName = "version_1";
+        string message0 = $"Selamat {PlaceholderText.Waktu} Kami dari Helpdesk *ICONNET* ingin mengkorfimasi pemasangan baru 😊";
+        string message1 = "Konfirmasi Data Calon Pelanggan\n\n" +
+                $"Apakah benar nomor telpon aktif terdaftar *{PlaceholderText.NomorTelepon}*?\n\n" +
+                $"Apakah benar Nama Pelanggan terdaftar atas nama *{PlaceholderText.NamaPelanggan}*?\n\n" +
+                $"Apakah benar alamat email aktif terdaftar *{PlaceholderText.AlamatEmail}*?\n\n" +
+                $"Apakah benar alamat lokasi pemasangan *{PlaceholderText.AlamatPemasangan}*?\n\n" +
+                $"Apakah benar ID PLN terdaftar adalah *{PlaceholderText.IdPln}*?";
+        string message2 = "Konfirmasi Pendaftaran\n\n" +
+                "1. Apakah sebelumnya sudah pernah berlangganan *ICONNET* di alamat terdaftar?\n\n" +
+                "2. Mohon bisa share location dari WhatsApp agar mempermudah tim teknis saat pemasangan Wi-Fi.";
+        string message3 = "Mohon pertanyaan diatas dikonfirmasi dan dijawab yah, Kak. Serta pastikan jawaban tidak ada manipulasi dari pihak-pihak lain, karena akan berpengaruh dengan layanan kakak yang terpasang kedepannya.";
+        string message4 = "Dimohon pastikan datanya sudah sesuai ya kak karena jika tidak sesuai akan menambah kemungkinan refund aktivasi 😊";
+        string message5 = "Tolong dikonfirmasi kak, bahwa titik lokasi pemasangannya ini adalah benar dari kakaknya pribadi, bukan dari arahan orang lain.";
+        string message6 = "Baik kak, setelah ini tim akan melakukan pengecekan ulang terhadap data yang baru divalidasi. Mohon ditunggu selama 1x24 jam untuk menerima kode virtual akun melalui email. setelah itu bisa melakukan pembayaran melalui no. VA tersebut ya kak, bukan ke pihak lain. Jika dalam waktu tersebut tidak ada email masuk, kemungkinan tiket Anda tidak tercover.";
+        string message7 = "Untuk estimasi pemasangan, biasanya memakan waktu 1-3 hari setelah proses pembayaran selesai. Tim teknisi kami akan menghubungi Anda. Jadi, selama belum mencapai 3 hari setelah pembayaran, mohon ditunggu ya, kak.";
+        string message8 = "Mohon jangan lupa install aplikasi *MyICON+* ya, kak agar memudahkan pembayaran billing & laporan gangguan. Bisa login setelah Wi-Fi aktif ya, kak.";
+        string message9 = "Terimah Kasih telah menjawab pertanyaannya, kak. Saya mohon ijin pamit dan tutup chat-nya.";
+
+        ChatTemplate[] chatTemplates =
+        [
+            new ChatTemplate(templateName, 0, message0),
+            new ChatTemplate(templateName, 1, message1),
+            new ChatTemplate(templateName, 2, message2),
+            new ChatTemplate(templateName, 3, message3),
+            new ChatTemplate(templateName, 4, message4),
+            new ChatTemplate(templateName, 5, message5),
+            new ChatTemplate(templateName, 6, message6),
+            new ChatTemplate(templateName, 7, message7),
+            new ChatTemplate(templateName, 8, message8),
+            new ChatTemplate(templateName, 9, message9),
+        ];
+
+
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        foreach (var chatTemplate in chatTemplates)
+        {
+            dbContext.ChatTemplates.Add(chatTemplate);
+        }
 
         return await dbContext.SaveChangesAsync();
     }
