@@ -80,7 +80,8 @@ public partial class WorkPaperApprovalForm : ComponentBase
             ? string.Empty
             : ApprovalModel!.RootCause;
 
-        var prosesApproval = WorkPaper!.ProsesApproval.WithSignatureApproval(signatureApproval)
+        var prosesApproval = WorkPaper!.ProsesApproval
+            .WithSignatureApproval(signatureApproval)
             .WithStatusApproval(approvalStatus)
             .WithVaTerbit(ApprovalModel!.NullableVaTerbit!.Value)
             .WithJarakShareLoc(ApprovalModel!.JarakShareLoc)
