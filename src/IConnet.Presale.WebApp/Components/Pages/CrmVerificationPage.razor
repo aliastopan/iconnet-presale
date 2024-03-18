@@ -74,7 +74,8 @@
                             <DateTimeBadge DateTime="@context.ApprovalOpportunity.TglPermohonan"/>
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="PIC IMPORT" Style="@GetWidthStyle(ColumnWidth.SignatureImportPx)">
+                    <TemplateColumn Title="PIC IMPORT" Style="@GetWidthStyle(ColumnWidth.SignatureImportPx)"
+                        SortBy="@SortByImportSignatureAlias">
                         <div class="">
                             @context.ApprovalOpportunity.SignatureImport.Alias
                         </div>
@@ -84,7 +85,8 @@
                             @DateTimeService.GetElapsedTime(context.ApprovalOpportunity.TglPermohonan).ToReadableDateTime()
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="NAMA PEMOHON" Style="@GetWidthStyle(ColumnWidth.NamaPemohonPx)">
+                    <TemplateColumn Title="NAMA PEMOHON" Style="@GetWidthStyle(ColumnWidth.NamaPemohonPx)"
+                        SortBy="@SortByNamaPemohon">
                         <ColumnOptions>
                             <div class="search-box">
                                 @if (FilterComponent is not null)
@@ -105,7 +107,8 @@
                             </div>
                         </ChildContent>
                     </TemplateColumn>
-                    <TemplateColumn Title="ID PLN" Style="@GetWidthStyle(ColumnWidth.IdPlnPx)">
+                    <TemplateColumn Title="ID PLN" Style="@GetWidthStyle(ColumnWidth.IdPlnPx)"
+                        SortBy="@SortByIdPln">
                         <ColumnOptions>
                             <div class="search-box">
                                 @if (FilterComponent is not null)
@@ -126,42 +129,50 @@
                             </div>
                         </ChildContent>
                     </TemplateColumn>
-                    <TemplateColumn Title="LAYANAN" Style="@GetWidthStyle(ColumnWidth.LayananPx)">
+                    <TemplateColumn Title="LAYANAN" Style="@GetWidthStyle(ColumnWidth.LayananPx)"
+                        SortBy="@SortByLayanan">
                         <div class="">
                             @context.ApprovalOpportunity.Layanan
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="SUMBER PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.SumberPermohonanPx)">
+                    <TemplateColumn Title="SUMBER PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.SumberPermohonanPx)"
+                        SortBy="@SortBySumberPermohonan">
                         <div class="">
                             @context.ApprovalOpportunity.SumberPermohonan
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="STATUS PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.StatusPermohonanPx)">
+                    <TemplateColumn Title="STATUS PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.StatusPermohonanPx)"
+                        SortBy="@SortBySumberPermohonan">
                         <div class="">
                             @context.ApprovalOpportunity.StatusPermohonan
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="NAMA AGEN" Style="@GetWidthStyle(ColumnWidth.NamaAgenPx)">
+                    <TemplateColumn Title="NAMA AGEN" Style="@GetWidthStyle(ColumnWidth.NamaAgenPx)"
+                        SortBy="@SortByNamaAgen">
                         <div class="">
                             @context.ApprovalOpportunity.Agen.NamaLengkap
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="EMAIL AGEN" Style="@GetWidthStyle(ColumnWidth.EmailAgenPx)">
+                    <TemplateColumn Title="EMAIL AGEN" Style="@GetWidthStyle(ColumnWidth.EmailAgenPx)"
+                        SortBy="@SortByEmailAgen">
                         <div class="">
                             @context.ApprovalOpportunity.Agen.Email
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="TELP. AGEN" Style="@GetWidthStyle(ColumnWidth.TelpAgenPx)">
+                    <TemplateColumn Title="TELP. AGEN" Style="@GetWidthStyle(ColumnWidth.TelpAgenPx)"
+                        SortBy="@SortByNomorTeleponAgen">
                         <div class="">
                             @context.ApprovalOpportunity.Agen.NomorTelepon
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="MITRA AGEN" Style="@GetWidthStyle(ColumnWidth.MitraAgenPx)">
+                    <TemplateColumn Title="MITRA AGEN" Style="@GetWidthStyle(ColumnWidth.MitraAgenPx)"
+                        SortBy="@SortByMitraAgen">
                         <div class="">
                             @context.ApprovalOpportunity.Agen.Mitra
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="SPLITTER" Style="@GetWidthStyle(ColumnWidth.SplitterPx)">
+                    <TemplateColumn Title="SPLITTER" Style="@GetWidthStyle(ColumnWidth.SplitterPx)"
+                        SortBy="@SortBySplitter">
                         <ColumnOptions>
                             <div class="search-box">
                                 @if (FilterComponent is not null)
@@ -187,7 +198,8 @@
                             @context.ApprovalOpportunity.JenisPermohonan
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="TELP. PEMOHON" Style="@GetWidthStyle(ColumnWidth.TelpPemohonPx)">
+                    <TemplateColumn Title="TELP. PEMOHON" Style="@GetWidthStyle(ColumnWidth.TelpPemohonPx)"
+                        SortBy="@SortByNomorTeleponPemohon">
                         <ColumnOptions>
                             <div class="search-box">
                                 @if (FilterComponent is not null)
@@ -208,7 +220,8 @@
                             </div>
                         </ChildContent>
                     </TemplateColumn>
-                    <TemplateColumn Title="EMAIL PEMOHON" Style="@GetWidthStyle(ColumnWidth.EmailPemohonPx)">
+                    <TemplateColumn Title="EMAIL PEMOHON" Style="@GetWidthStyle(ColumnWidth.EmailPemohonPx)"
+                        SortBy="@SortByEmailPemohon">
                         <ColumnOptions>
                             <div class="search-box">
                                 @if (FilterComponent is not null)
@@ -229,12 +242,14 @@
                             </div>
                         </ChildContent>
                     </TemplateColumn>
-                    <TemplateColumn Title="NIK PEMOHON" Style="@GetWidthStyle(ColumnWidth.NikPemohonPx)">
+                    <TemplateColumn Title="NIK PEMOHON" Style="@GetWidthStyle(ColumnWidth.NikPemohonPx)"
+                        SortBy="@SortByNikPemohon">
                         <div class="">
                             @context.ApprovalOpportunity.Pemohon.Nik
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="NPWP PEMOHON" Style="@GetWidthStyle(ColumnWidth.NpwpPemohonPx)">
+                    <TemplateColumn Title="NPWP PEMOHON" Style="@GetWidthStyle(ColumnWidth.NpwpPemohonPx)"
+                        SortBy="@SortByNpwpPemohon">
                         <div class="">
                             @context.ApprovalOpportunity.Pemohon.Npwp
                         </div>
@@ -244,7 +259,8 @@
                             @context.ApprovalOpportunity.Pemohon.Keterangan
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="ALAMAT PEMOHON" Style="@GetWidthStyle(ColumnWidth.AlamatPemohonPx)">
+                    <TemplateColumn Title="ALAMAT PEMOHON" Style="@GetWidthStyle(ColumnWidth.AlamatPemohonPx)"
+                        SortBy="@SortByAlamatPemohon">
                         <ColumnOptions>
                             <div class="search-box">
                                 @if (FilterComponent is not null)
@@ -265,32 +281,38 @@
                             </div>
                         </ChildContent>
                     </TemplateColumn>
-                    <TemplateColumn Title="REGIONAL" Style="@GetWidthStyle(ColumnWidth.RegionalPx)">
+                    <TemplateColumn Title="REGIONAL" Style="@GetWidthStyle(ColumnWidth.RegionalPx)"
+                        SortBy="@SortByRegional">
                         <div class="">
                             @context.ApprovalOpportunity.Regional.Bagian
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="KANTOR PERWAKILAN" Style="@GetWidthStyle(ColumnWidth.KantorPerwakilanPx)">
+                    <TemplateColumn Title="KANTOR PERWAKILAN" Style="@GetWidthStyle(ColumnWidth.KantorPerwakilanPx)"
+                        SortBy="@SortByKantorPerwakilan">
                         <div class="">
                             @context.ApprovalOpportunity.Regional.KantorPerwakilan
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="PROVINSI" Style="@GetWidthStyle(ColumnWidth.ProvinsiPx)">
+                    <TemplateColumn Title="PROVINSI" Style="@GetWidthStyle(ColumnWidth.ProvinsiPx)"
+                        SortBy="@SortByProvinsi">
                         <div class="">
                             @context.ApprovalOpportunity.Regional.Provinsi
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="KABUPATEN" Style="@GetWidthStyle(ColumnWidth.KabupatenPx)">
+                    <TemplateColumn Title="KABUPATEN" Style="@GetWidthStyle(ColumnWidth.KabupatenPx)"
+                        SortBy="@SortByKabupaten">
                         <div class="">
                             @context.ApprovalOpportunity.Regional.Kabupaten
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="KECAMATAN" Style="@GetWidthStyle(ColumnWidth.KecamatanPx)">
+                    <TemplateColumn Title="KECAMATAN" Style="@GetWidthStyle(ColumnWidth.KecamatanPx)"
+                        SortBy="@SortByKecamatan">
                         <div class="">
                             @context.ApprovalOpportunity.Regional.Kecamatan
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="KELURAHAN" Style="@GetWidthStyle(ColumnWidth.KelurahanPx)">
+                    <TemplateColumn Title="KELURAHAN" Style="@GetWidthStyle(ColumnWidth.KelurahanPx)"
+                        SortBy="@SortByKelurahan">
                         <div class="">
                             @context.ApprovalOpportunity.Regional.Kelurahan
                         </div>

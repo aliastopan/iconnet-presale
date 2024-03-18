@@ -2,6 +2,11 @@ namespace IConnet.Presale.WebApp.Extensions;
 
 public static class WorkPaperSortingExtensions
 {
+    public static GridSort<WorkPaper> SortByImportSignatureAlias(this IQueryable<WorkPaper>? _)
+    {
+        return GridSort<WorkPaper>.ByAscending(workPaper => workPaper.ApprovalOpportunity.SignatureImport.Alias);
+    }
+
     public static GridSort<WorkPaper> SortByWorkPaperLevel(this IQueryable<WorkPaper>? _)
     {
         return GridSort<WorkPaper>.ByAscending(workPaper => workPaper.WorkPaperLevel);
