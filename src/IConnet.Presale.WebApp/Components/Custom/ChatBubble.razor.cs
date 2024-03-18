@@ -5,6 +5,7 @@ namespace IConnet.Presale.WebApp.Components.Custom;
 public partial class ChatBubble : ComponentBase
 {
     [Inject] public IJSRuntime JsRuntime { get; set; } = default!;
+    [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
 
     [Parameter] public WorkPaper? ActiveWorkPaper { get; set; }
     [Parameter] public ChatTemplateModel ChatTemplate { get; set; } = default!;
@@ -21,6 +22,7 @@ public partial class ChatBubble : ComponentBase
         }
 
         return ChatTemplate.HtmlContent
+            .ReplacePlaceholder(PlaceholderText.Waktu, DateTimeService.GetTimeIdentifier().ToLower())
             .ReplacePlaceholder(PlaceholderText.IdPln, ActiveWorkPaper.ApprovalOpportunity.Pemohon.IdPln)
             .ReplacePlaceholder(PlaceholderText.NamaPelanggan, ActiveWorkPaper.ApprovalOpportunity.Pemohon.NamaPelanggan)
             .ReplacePlaceholder(PlaceholderText.NomorTelepon, ActiveWorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon)
@@ -42,6 +44,7 @@ public partial class ChatBubble : ComponentBase
         IsCopy = true;
 
         await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", ChatTemplate.Content
+            .ReplacePlaceholder(PlaceholderText.Waktu, DateTimeService.GetTimeIdentifier().ToLower())
             .ReplacePlaceholder(PlaceholderText.IdPln, ActiveWorkPaper.ApprovalOpportunity.Pemohon.IdPln)
             .ReplacePlaceholder(PlaceholderText.NamaPelanggan, ActiveWorkPaper.ApprovalOpportunity.Pemohon.NamaPelanggan)
             .ReplacePlaceholder(PlaceholderText.NomorTelepon, ActiveWorkPaper.ApprovalOpportunity.Pemohon.NomorTelepon)
