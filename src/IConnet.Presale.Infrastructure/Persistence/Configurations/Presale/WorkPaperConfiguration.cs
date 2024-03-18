@@ -221,6 +221,9 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
                 prosesApproval.Property(pa => pa.JarakICrmPlus)
                     .HasColumnName("approval_jarak_icrmplus");
 
+                prosesApproval.Property(pa => pa.SplitterGanti)
+                    .HasColumnName("approval_splitter_ganti");
+
                 prosesApproval.Property(pa => pa.VaTerbit)
                     .HasColumnName("approval_va_terbit");
 
