@@ -62,7 +62,8 @@
                             <DateTimeBadge DateTime="@context.ApprovalOpportunity.TglPermohonan"/>
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="PIC CHAT/CALL" Style="@GetWidthStyle(ColumnWidth.HelpdeskInChargePx)">
+                    <TemplateColumn Title="PIC CHAT/CALL" Style="@GetWidthStyle(ColumnWidth.HelpdeskInChargePx)"
+                        SortBy="@SortByHelpdeskInCharge">
                         <div class="" style="display: flex;">
                             @context.SignatureHelpdeskInCharge.Alias
                         </div>
@@ -72,7 +73,8 @@
                             @context.Shift
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="TGL CHAT/CALL MULAI" Style="@GetWidthStyle(ColumnWidth.TglChatCallMulaiPx)">
+                    <TemplateColumn Title="TGL CHAT/CALL MULAI" Style="@GetWidthStyle(ColumnWidth.TglChatCallMulaiPx)"
+                        SortBy="@SortByTglChatCallMulai">
                         <div class="">
                             @if(!context.ProsesValidasi.SignatureChatCallMulai.IsEmptySignature())
                             {
@@ -110,7 +112,8 @@
                             @context.ProsesValidasi.ParameterValidasi.ShareLoc.GetLatitudeLongitude()
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="TGL CHAT/CALL RESPONS" Style="@GetWidthStyle(ColumnWidth.TglChatCallResponsPx)">
+                    <TemplateColumn Title="TGL CHAT/CALL RESPONS" Style="@GetWidthStyle(ColumnWidth.TglChatCallResponsPx)"
+                        SortBy="@SortByTglChatCallRespons">
                         <div class="">
                             @if(!context.ProsesValidasi.SignatureChatCallRespons.IsEmptySignature())
                             {
@@ -138,7 +141,8 @@
                         </a>
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="KANTOR PERWAKILAN" Style="@GetWidthStyle(ColumnWidth.KantorPerwakilanPx)">
+                    <TemplateColumn Title="KANTOR PERWAKILAN" Style="@GetWidthStyle(ColumnWidth.KantorPerwakilanPx)"
+                        SortBy="@SortByKantorPerwakilan">
                         <div class="">
                             @context.ApprovalOpportunity.Regional.KantorPerwakilan
                         </div>

@@ -62,7 +62,8 @@
                             <DateTimeBadge DateTime="@context.ApprovalOpportunity.TglPermohonan"/>
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="APPROVAL" Style="@GetWidthStyle(ColumnWidth.StatusApprovalPx)">
+                    <TemplateColumn Title="APPROVAL" Style="@GetWidthStyle(ColumnWidth.StatusApprovalPx)"
+                        SortBy="@SortByStatusApproval">
                         <div class="">
                             <ApprovalBadge ApprovalStatus="@context.ProsesApproval.StatusApproval"/>
                         </div>
@@ -81,7 +82,8 @@
                             <span class="staging-expired">EXPIRED</span>
                         }
                     </TemplateColumn>
-                    <TemplateColumn Title="PIC APPROVAL" Style="@GetWidthStyle(ColumnWidth.PlanningAssetCoverageInChargePx)">
+                    <TemplateColumn Title="PIC APPROVAL" Style="@GetWidthStyle(ColumnWidth.PlanningAssetCoverageInChargePx)"
+                        SortBy="@SortByPlanningAssetCoverageInCharge">
                         <div class="">
                             @context.SignaturePlanningAssetCoverageInCharge.Alias
                         </div>
@@ -141,7 +143,8 @@
                         </a>
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="KANTOR PERWAKILAN" Style="@GetWidthStyle(ColumnWidth.KantorPerwakilanPx)">
+                    <TemplateColumn Title="KANTOR PERWAKILAN" Style="@GetWidthStyle(ColumnWidth.KantorPerwakilanPx)"
+                        SortBy="@SortByKantorPerwakilan">
                         <div class="">
                             @context.ApprovalOpportunity.Regional.KantorPerwakilan
                         </div>
