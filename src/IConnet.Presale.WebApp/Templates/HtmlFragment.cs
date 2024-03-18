@@ -8,7 +8,7 @@ public static class HtmlFragment
     {
         builder.OpenElement(0, "span");
         builder.AddAttribute(1, "class", "empty-table");
-        builder.AddAttribute(2, "style", "height: 320px");
+        builder.AddAttribute(2, "style", "height: 364px");
         builder.AddContent(3, "");
         builder.CloseElement();
     };
