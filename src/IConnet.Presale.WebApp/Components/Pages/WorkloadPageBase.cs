@@ -12,21 +12,43 @@ public class WorkloadPageBase : ComponentBase
     private readonly WorkloadColumnWidth _columnWidth = new WorkloadColumnWidth();
 
     private IQueryable<WorkPaper>? _workPapers;
-    private readonly GridSort<WorkPaper> _sortByIdPermohonan = GridSort<WorkPaper>
-        .ByAscending(workPaper => workPaper.ApprovalOpportunity.IdPermohonan);
-    private readonly GridSort<WorkPaper> _sortByWorkPaperLevel = GridSort<WorkPaper>
-        .ByAscending(workPaper => workPaper.WorkPaperLevel);
-    private readonly GridSort<WorkPaper> _sortByTglPermohonan = GridSort<WorkPaper>
-        .ByAscending(workPaper => workPaper.ApprovalOpportunity.TglPermohonan);
 
     protected string PaginationItemsPerPageOptions { get; set ;} = default!;
     protected PaginationState Pagination => _pagination;
     protected WorkloadColumnWidth ColumnWidth => _columnWidth;
     protected WorkloadFilter WorkloadFilter { get; set; } = WorkloadFilter.OnlyImportVerified;
     protected virtual IQueryable<WorkPaper>? WorkPapers => _workPapers;
-    protected GridSort<WorkPaper> SortByIdPermohonan => _sortByIdPermohonan;
-    protected GridSort<WorkPaper> SortByWorkPaperLevel => _sortByWorkPaperLevel;
-    protected GridSort<WorkPaper> SortByTglPermohonan => _sortByTglPermohonan;
+
+    protected GridSort<WorkPaper> SortByWorkPaperLevel => _workPapers.SortByWorkPaperLevel();
+    protected GridSort<WorkPaper> SortByIdPermohonan => _workPapers.SortByIdPermohonan();
+    protected GridSort<WorkPaper> SortByTglPermohonan => _workPapers.SortByTglPermohonan();
+    protected GridSort<WorkPaper> SortByNamaPemohon => _workPapers.SortByNamaPemohon();
+    protected GridSort<WorkPaper> SortByNomorTeleponPemohon => _workPapers.SortByNomorTeleponPemohon();
+    protected GridSort<WorkPaper> SortByEmailPemohon => _workPapers.SortByEmailPemohon();
+    protected GridSort<WorkPaper> SortByIdPln => _workPapers.SortByIdPln();
+    protected GridSort<WorkPaper> SortByAlamatPemohon => _workPapers.SortByAlamatPemohon();
+    protected GridSort<WorkPaper> SortByNikPemohon => _workPapers.SortByNikPemohon();
+    protected GridSort<WorkPaper> SortByNpwpPemohon => _workPapers.SortByNpwpPemohon();
+    protected GridSort<WorkPaper> SortByTglChatCallMulai => _workPapers.SortByTglChatCallMulai();
+    protected GridSort<WorkPaper> SortByTglChatCallRespons => _workPapers.SortByTglChatCallRespons();
+    protected GridSort<WorkPaper> SortByHelpdeskInCharge => _workPapers.SortByHelpdeskInCharge();
+    protected GridSort<WorkPaper> SortByStatusApproval => _workPapers.SortByStatusApproval();
+    protected GridSort<WorkPaper> SortByRootCause => _workPapers.SortByRootCause();
+    protected GridSort<WorkPaper> SortByTglApproval => _workPapers.SortByTglApproval();
+    protected GridSort<WorkPaper> SortByPlanningAssetCoverageInCharge => _workPapers.SortByPlanningAssetCoverageInCharge();
+    protected GridSort<WorkPaper> SortByLayanan => _workPapers.SortByLayanan();
+    protected GridSort<WorkPaper> SortBySumberPermohonan => _workPapers.SortBySumberPermohonan();
+    protected GridSort<WorkPaper> SortByNamaAgen => _workPapers.SortByNamaAgen();
+    protected GridSort<WorkPaper> SortByEmailAgen => _workPapers.SortByEmailAgen();
+    protected GridSort<WorkPaper> SortByNomorTeleponAgen => _workPapers.SortByNomorTeleponAgen();
+    protected GridSort<WorkPaper> SortByMitraAgen => _workPapers.SortByMitraAgen();
+    protected GridSort<WorkPaper> SortBySplitter => _workPapers.SortBySplitter();
+    protected GridSort<WorkPaper> SortByRegional => _workPapers.SortByRegional();
+    protected GridSort<WorkPaper> SortByKantorPerwakilan => _workPapers.SortByKantorPerwakilan();
+    protected GridSort<WorkPaper> SortByProvinsi => _workPapers.SortByProvinsi();
+    protected GridSort<WorkPaper> SortByKabupaten => _workPapers.SortByKabupaten();
+    protected GridSort<WorkPaper> SortByKecamatan => _workPapers.SortByKecamatan();
+    protected GridSort<WorkPaper> SortByKelurahan => _workPapers.SortByKelurahan();
 
     protected string PageName { get; set; } = "Workload page (base)";
     protected virtual bool IsLoading { get; set; } = false;
