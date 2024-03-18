@@ -9,4 +9,9 @@ public static class WorkPaperExtensions
     {
         return workPaper.WorkPaperLevel == WorkPaperLevel.DoneProcessing;
     }
+
+    public static bool IsInvalidCrmData(this WorkPaper workPaper)
+    {
+        return workPaper.WorkPaperLevel == WorkPaperLevel.ImportInvalid;
+    }
 }
