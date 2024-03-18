@@ -97,8 +97,8 @@ public partial class WorkPaperApprovalForm : ComponentBase
             WorkPaper.WorkPaperLevel = WorkPaperLevel.DoneProcessing;
         }
 
-        var message = $"{signatureApproval.Alias} has commit chat/call approval to {ApprovalModel!.IdPermohonan}";
-        await UpdateProsesApprovalAsync(message);
+        var broadcastMessage = $"{signatureApproval.Alias} has processed {ApprovalModel!.IdPermohonan}";
+        await UpdateProsesApprovalAsync(broadcastMessage);
 
         await UnstageWorkPaper.InvokeAsync();
 
