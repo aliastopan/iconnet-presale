@@ -80,12 +80,7 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
     private async Task RejectCrmAsync()
     {
         var rootCause = "DATA TIDAK VALID";
-        var rejectSignature = new ActionSignature
-        {
-            AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
-            Alias = await SessionService.GetSessionAliasAsync(),
-            TglAksi = DateTimeService.Zero
-        };
+        var rejectSignature = ActionSignature.Empty();
 
         Content.Shift = SessionService.GetShift();
         Content.WorkPaperLevel = WorkPaperLevel.ImportInvalid;

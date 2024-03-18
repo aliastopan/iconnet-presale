@@ -105,12 +105,7 @@ public partial class WorkPaperValidationForm : ComponentBase
 
     protected async Task OnNotRespondingAsync()
     {
-        var notRespondingSignature = new ActionSignature
-        {
-            AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
-            Alias = await SessionService.GetSessionAliasAsync(),
-            TglAksi = DateTimeService.Zero
-        };
+        var notRespondingSignature = ActionSignature.Empty();
 
         var prosesValidasi = WorkPaper!.ProsesValidasi
             .WithSignatureChatCallRespons(notRespondingSignature)
