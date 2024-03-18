@@ -80,16 +80,12 @@ public partial class WorkPaperApprovalForm : ComponentBase
             ? string.Empty
             : ApprovalModel!.RootCause;
 
-        if (!ApprovalModel!.SplitterChange.IsNullOrWhiteSpace())
-        {
-            WorkPaper!.ChangeSplitter(ApprovalModel!.SplitterChange);
-        }
-
         var prosesApproval = WorkPaper!.ProsesApproval.WithSignatureApproval(signatureApproval)
             .WithStatusApproval(approvalStatus)
             .WithVaTerbit(ApprovalModel!.NullableVaTerbit!.Value)
             .WithJarakShareLoc(ApprovalModel!.JarakShareLoc)
             .WithJarakICrmPlus(ApprovalModel!.JarakICrmPlus)
+            .WithSplitterGanti(ApprovalModel!.SplitterGanti)
             .WithKeterangan(ApprovalModel!.Keterangan)
             .WithRootCause(rootCause);
 
@@ -254,19 +250,19 @@ public partial class WorkPaperApprovalForm : ComponentBase
         ApprovalModel!.JarakICrmPlus = jarakICrmPlus;
     }
 
-    protected void OnIsChangeSplitterChange()
+    protected void OnIsChangeSplitterGanti()
     {
         IsChangeSplitter = !IsChangeSplitter;
 
         if(!IsChangeSplitter)
         {
-            ApprovalModel!.SplitterChange = string.Empty;
+            ApprovalModel!.SplitterGanti = string.Empty;
         }
     }
 
-    protected void OnSplitterChangeChanged(string splitter)
+    protected void OnSplitterGantiChanged(string splitter)
     {
-        ApprovalModel!.SplitterChange = splitter;
+        ApprovalModel!.SplitterGanti = splitter;
     }
 
     protected void OnVaTerbit(DateTime? tanggalVaTerbit)

@@ -32,7 +32,6 @@ public class WorkPaperApprovalModel
     public ValidationParameter HasilValidasi { get; init; } = new();
     public Coordinate DataCrmKoordinat { get; init; } = new();
     public string Splitter { get; set; } = string.Empty;
-    public string SplitterChange { get; set; } = string.Empty;
     public string LinkChatHistory { get; set; } = string.Empty;
     public string KeteranganValidasi { get; init; } = string.Empty;
 
@@ -41,6 +40,7 @@ public class WorkPaperApprovalModel
     public string Keterangan { get; set; } = string.Empty;
     public int JarakShareLoc { get; set; }
     public int JarakICrmPlus { get; set; }
+    public string SplitterGanti { get; set; } = string.Empty;
     public DateTime? NullableVaTerbit { get; set; } = DateTime.Today;
 
     public string DisplayHasilValidasiNamaPelanggan { get; set; } = string.Empty;
