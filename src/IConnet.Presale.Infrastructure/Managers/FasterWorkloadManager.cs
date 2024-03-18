@@ -118,12 +118,18 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
 
         EnqueueForwardingTask(operationId: key, task);
 
-        // if (workPaper.IsDoneProcessing())
-        // {
-        //     _inMemoryWorkloadService.Delete(workPaper);
-        // }
+        bool isDoneProcessing = workPaper.IsDoneProcessing();
+        bool isInvalidCrmData = workPaper.IsInvalidCrmData();
 
-        await Task.CompletedTask;
+        if (isDoneProcessing || isInvalidCrmData)
+        {
+            await _redisService.SetBackupValueAsync(key, jsonWorkPaper);
+            Log.Information("Moving {key} to Backup DB.", key);
+
+            await _redisService.DeleteValueAsync(key);
+            _inMemoryWorkloadService.Delete(workPaper);
+            Log.Information("Deleting {key} real-time access", key);
+        }
     }
 
     public async Task DeleteWorkloadAsync(WorkPaper workPaper)
@@ -251,8 +257,8 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
         var jsonWorkPapers = await _redisService.GetAllValuesAsync();
         var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapers(jsonWorkPapers!, _parallelOptions);
 
-        int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers);
-        // int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers, excludeDoneProcessing);
+        // int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers);
+        int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers, excludeDoneProcessing);
 
         stopwatch.Stop();
         // LogSwitch.Debug("Forward execution took {0} ms", stopwatch.ElapsedMilliseconds);
