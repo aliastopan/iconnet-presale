@@ -180,6 +180,17 @@
                             </FluentNumberField>
                     </td>
                 </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px; vertical-align: top;">
+                        KETERANGAN
+                    </th>
+                    <td>
+                        <FluentTextArea class="approval-textarea" style="width: 200px; padding: 8px 0"
+                            Value="@Keterangan"
+                            ValueChanged="OnKeteranganChanged"
+                            Placeholder="Keterangan"></FluentTextArea>
+                    </td>
+                </tr>
             </thead>
         </table>
     </FluentCard>
@@ -189,7 +200,7 @@
     <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.End">
         <FluentCheckbox @bind-Value="@_isCrmValid" Label="Data CRM telah sesuai" Disabled="@(!_isValidJarakICrmPlus)"/>
         <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync" Disabled="@(!_isCrmValid || !_isValidJarakICrmPlus)" IconStart="@(new Icons.Regular.Size16.Save())">Simpan</FluentButton>
-        <FluentButton BackgroundColor="crimson" Color="white" OnClick="@DeleteAsync" Disabled="@(_isCrmValid)">Hapus</FluentButton>
+        <FluentButton BackgroundColor="crimson" Color="white" OnClick="@DeleteAsync" Disabled="@(_isCrmValid)">Reject</FluentButton>
         @* <FluentButton BackgroundColor="crimson" Color="white" OnClick="@ArchiveAsync" Disabled="@(_isCrmValid)">Archive</FluentButton> *@
         <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Batal</FluentButton>
     </FluentStack>

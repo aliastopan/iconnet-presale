@@ -13,15 +13,27 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
     public FluentDialog Dialog { get; set; } = default!;
 
     public int JarakICrmPlusVerification { get; set; }
+    public string Keterangan { get; set; } = string.Empty;
 
     protected void OnJarakICrmChanged(int jarakShareLoc)
     {
         JarakICrmPlusVerification = jarakShareLoc;
     }
 
+    protected void OnKeteranganChanged(string keterangan)
+    {
+        Keterangan = keterangan;
+    }
+
     protected async Task SaveAsync()
     {
         await VerifyCrmAsync();
+        await Dialog.CloseAsync(Content);
+    }
+
+    protected async Task RejectAsync()
+    {
+        await RejectCrmAsync();
         await Dialog.CloseAsync(Content);
     }
 
@@ -56,6 +68,18 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
         var prosesApproval = Content!.ProsesApproval.WithJarakICrmPlus(JarakICrmPlusVerification);
 
         Content.ProsesApproval = prosesApproval;
+    }
+
+    private async Task RejectCrmAsync()
+    {
+        Content.WorkPaperLevel = WorkPaperLevel.ImportInvalid;
+        Content.ApprovalOpportunity.StatusImport = ImportStatus.Invalid;
+        Content.ApprovalOpportunity.SignatureVerifikasiImport = new ActionSignature
+        {
+            AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
+            Alias = await SessionService.GetSessionAliasAsync(),
+            TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
+        };
     }
 
     private async Task DeleteCrmAsync()
