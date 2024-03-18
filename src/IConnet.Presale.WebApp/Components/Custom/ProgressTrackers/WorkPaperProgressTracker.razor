@@ -139,9 +139,19 @@
                     <span class="splitter-stack-label">
                         SPLITTER -
                     </span>
-                    <span class="splitter-stack-splitter">
-                        @WorkPaper.ApprovalOpportunity.Splitter
-                    </span>
+                    @if (@WorkPaper.ProsesApproval.IsSplitterGanti())
+                    {
+                        <span class="splitter-stack-splitter">
+                            @WorkPaper.ProsesApproval.SplitterGanti
+                        </span>
+                        <span class="splitter-stack-splitter-ganti" style="margin-left: 8px;">GANTI</span>
+                    }
+                    else
+                    {
+                        <span class="splitter-stack-splitter">
+                            @WorkPaper.ApprovalOpportunity.Splitter
+                        </span>
+                    }
                 </div>
                 <table class="progress-report-table-jarak">
                     <thead>
