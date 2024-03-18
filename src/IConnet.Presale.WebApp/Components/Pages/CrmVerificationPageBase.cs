@@ -164,7 +164,7 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
     private string GetGridTemplateCols()
     {
         return $@"
-            {ColumnWidth.IdPermohonanPx + ColumnWidth.OffsetPx}px
+            {ColumnWidth.IdPermohonanPx}px
             {ColumnWidth.TglPermohonanPx}px
             {ColumnWidth.SignatureImportPx}px
             {ColumnWidth.DurasiTidakLanjutPx}px

@@ -28,12 +28,12 @@
             ItemSize="32"
             GridTemplateColumns="@GridTemplateCols">
 
-            <TemplateColumn Title="STATUS KERTAS KERJA" Style="@GetWidthStyle(ColumnWidth.WorkPaperLevelPx, ColumnWidth.OffsetPx)">
+            <TemplateColumn Title="STATUS KERTAS KERJA" Style="@GetWidthStyle(ColumnWidth.WorkPaperLevelPx)">
                 <div class="">
                     <WorkPaperLevelBadge WorkPaperLevel="@context.WorkPaperLevel"/>
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="ID PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.IdPermohonanPx, ColumnWidth.OffsetPx)">
+            <TemplateColumn Title="ID PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.IdPermohonanPx)">
                 <div class="">
                     @context.ApprovalOpportunity.IdPermohonan
                 </div>
