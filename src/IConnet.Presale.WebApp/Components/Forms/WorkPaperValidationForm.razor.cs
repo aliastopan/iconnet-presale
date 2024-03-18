@@ -230,6 +230,12 @@ public partial class WorkPaperValidationForm : ComponentBase
 
     protected async Task UpdateChatCallMulaiSignature()
     {
+        if (!WorkPaper!.ProsesValidasi.SignatureChatCallMulai.IsEmptySignature())
+        {
+            LogSwitch.Debug("ChatCallMulai can be only set once");
+            return;
+        }
+
         var signatureChatCallMulai = new ActionSignature
         {
             AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
