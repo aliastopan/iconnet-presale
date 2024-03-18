@@ -122,7 +122,7 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
                 await VerifyCrmAsync(dialogData);
                 break;
             case ImportStatus.Invalid:
-                await DeleteCrmAsync(dialogData);
+                await MarkCrmInvalidAsync(dialogData);
                 break;
             default:
                 break;
@@ -143,13 +143,13 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
         IsLoading = false;
     }
 
-    private async Task DeleteCrmAsync(WorkPaper workPaper)
+    private async Task MarkCrmInvalidAsync(WorkPaper workPaper)
     {
         IsLoading = true;
 
-        await WorkloadManager.DeleteWorkloadAsync(workPaper);
+        await WorkloadManager.UpdateWorkloadAsync(workPaper);
 
-        var message = $"Invalid CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been deleted";
+        var message = $"CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been mark as invalid";
         await BroadcastService.BroadcastMessageAsync(message);
 
         IsLoading = false;

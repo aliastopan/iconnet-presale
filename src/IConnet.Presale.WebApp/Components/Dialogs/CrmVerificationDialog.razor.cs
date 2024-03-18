@@ -12,8 +12,15 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
     [CascadingParameter]
     public FluentDialog Dialog { get; set; } = default!;
 
+    protected Func<string, bool> OptionDisable => option => option == OptionSelect.StatusVerifikasi.MenungguVerifikasi
+        && StatusVerifikasi != OptionSelect.StatusVerifikasi.MenungguVerifikasi;
+
+    protected bool DisableSaveButton => StatusVerifikasi != OptionSelect.StatusVerifikasi.DataSesuai || JarakICrmPlusVerification <= 0;
+    protected bool DisableRejectButton => StatusVerifikasi != OptionSelect.StatusVerifikasi.DataTidakSesuai;
+
     public int JarakICrmPlusVerification { get; set; }
     public string Keterangan { get; set; } = string.Empty;
+    public string StatusVerifikasi = OptionSelect.StatusVerifikasi.MenungguVerifikasi;
 
     protected void OnJarakICrmChanged(int jarakShareLoc)
     {
@@ -25,6 +32,11 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
         Keterangan = keterangan;
     }
 
+    protected void OnStatusVerifikasiChanged(string statusVerifikasi)
+    {
+        StatusVerifikasi = statusVerifikasi;
+    }
+
     protected async Task SaveAsync()
     {
         await VerifyCrmAsync();
@@ -34,12 +46,6 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
     protected async Task RejectAsync()
     {
         await RejectCrmAsync();
-        await Dialog.CloseAsync(Content);
-    }
-
-    protected async Task DeleteAsync()
-    {
-        await DeleteCrmAsync();
         await Dialog.CloseAsync(Content);
     }
 
@@ -88,18 +94,6 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
             .WithRootCause(rootCause);
 
         Content.ProsesApproval = prosesApproval;
-    }
-
-    private async Task DeleteCrmAsync()
-    {
-        Content.WorkPaperLevel = WorkPaperLevel.ImportInvalid;
-        Content.ApprovalOpportunity.StatusImport = ImportStatus.Invalid;
-        Content.ApprovalOpportunity.SignatureVerifikasiImport = new ActionSignature
-        {
-            AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
-            Alias = await SessionService.GetSessionAliasAsync(),
-            TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
-        };
     }
 
     private async Task ArchiveCrmAsync()

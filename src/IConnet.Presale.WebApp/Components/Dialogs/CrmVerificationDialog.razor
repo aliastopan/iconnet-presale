@@ -196,9 +196,12 @@
                         STATUS
                     </th>
                     <td style="padding: 8px 0;">
-                        <FluentSelect TOption=string Width="200px">
-                            <FluentOption Disabled="true">This option is disabled.</FluentOption>
-                        </FluentSelect>
+                        <FluentSelect Items="@OptionSelect.StatusVerifikasi.StatusVerifikasiOptions"
+                            Value="@StatusVerifikasi"
+                            ValueChanged="OnStatusVerifikasiChanged"
+                            OptionDisabled="@OptionDisable"
+                            Position="SelectPosition.Above"
+                            Width="200px" />
                     </td>
                 </tr>
             </thead>
@@ -208,16 +211,8 @@
 
 <FluentDialogFooter>
     <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.End">
-        <FluentCheckbox @bind-Value="@_isCrmValid" Label="Data CRM telah sesuai" Disabled="@(!_isValidJarakICrmPlus)"/>
-        <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync" Disabled="@(!_isCrmValid || !_isValidJarakICrmPlus)" IconStart="@(new Icons.Regular.Size16.Save())">Simpan</FluentButton>
-        <FluentButton BackgroundColor="crimson" Color="white" OnClick="@RejectCrmAsync" Disabled="@(_isCrmValid)">Reject</FluentButton>
-        @* <FluentButton BackgroundColor="crimson" Color="white" OnClick="@ArchiveAsync" Disabled="@(_isCrmValid)">Archive</FluentButton> *@
+        <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync" Disabled="@DisableSaveButton" IconStart="@(new Icons.Regular.Size16.Save())">Simpan</FluentButton>
+        <FluentButton BackgroundColor="crimson" Color="white" OnClick="@RejectAsync" Disabled="@DisableRejectButton">Reject</FluentButton>
         <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Batal</FluentButton>
     </FluentStack>
 </FluentDialogFooter>
-
-@code
-{
-    private bool _isCrmValid = false;
-    private bool _isValidJarakICrmPlus => JarakICrmPlusVerification > 0;
-}
