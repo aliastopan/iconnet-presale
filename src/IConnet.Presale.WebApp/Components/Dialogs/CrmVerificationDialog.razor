@@ -171,7 +171,7 @@
                     <th style="padding-right: 1rem; width: 200px; vertical-align: middle;">
                         JARAK iCRM+ (meter)
                     </th>
-                    <td style="vertical-align: middle;">
+                    <td style="padding-top: 8px;">
                         <FluentNumberField style="width: 200px;"
                             Min="0"
                             Max="10000"
@@ -191,6 +191,16 @@
                             Placeholder="Keterangan"></FluentTextArea>
                     </td>
                 </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px; vertical-align: middle; font-weight: 700">
+                        STATUS
+                    </th>
+                    <td style="padding: 8px 0;">
+                        <FluentSelect TOption=string Width="200px">
+                            <FluentOption Disabled="true">This option is disabled.</FluentOption>
+                        </FluentSelect>
+                    </td>
+                </tr>
             </thead>
         </table>
     </FluentCard>
@@ -200,7 +210,7 @@
     <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.End">
         <FluentCheckbox @bind-Value="@_isCrmValid" Label="Data CRM telah sesuai" Disabled="@(!_isValidJarakICrmPlus)"/>
         <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync" Disabled="@(!_isCrmValid || !_isValidJarakICrmPlus)" IconStart="@(new Icons.Regular.Size16.Save())">Simpan</FluentButton>
-        <FluentButton BackgroundColor="crimson" Color="white" OnClick="@DeleteAsync" Disabled="@(_isCrmValid)">Reject</FluentButton>
+        <FluentButton BackgroundColor="crimson" Color="white" OnClick="@RejectCrmAsync" Disabled="@(_isCrmValid)">Reject</FluentButton>
         @* <FluentButton BackgroundColor="crimson" Color="white" OnClick="@ArchiveAsync" Disabled="@(_isCrmValid)">Archive</FluentButton> *@
         <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Batal</FluentButton>
     </FluentStack>

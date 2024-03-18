@@ -80,6 +80,14 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
             Alias = await SessionService.GetSessionAliasAsync(),
             TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
         };
+
+        var rootCause = "DATA TIDAK VALID";
+
+        var prosesApproval = Content.ProsesApproval
+            .WithStatusApproval(ApprovalStatus.Rejected)
+            .WithRootCause(rootCause);
+
+        Content.ProsesApproval = prosesApproval;
     }
 
     private async Task DeleteCrmAsync()
