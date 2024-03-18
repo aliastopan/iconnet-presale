@@ -23,7 +23,7 @@ public class ActionSignature : ValueObject
     public bool IsEmptySignature()
     {
         return AccountIdSignature == Guid.Empty
-            || Alias == string.Empty
+            || Alias == "N/A"
             || TglAksi == DateTime.MinValue;
     }
 
@@ -46,7 +46,7 @@ public class ActionSignature : ValueObject
         return new ActionSignature
         {
             AccountIdSignature = Guid.Empty,
-            Alias = string.Empty,
+            Alias = "N/A",
             TglAksi = DateTime.MinValue
         };
     }
