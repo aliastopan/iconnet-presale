@@ -90,42 +90,60 @@
                     </TemplateColumn>
                     <TemplateColumn Title="NAMA PELANGGAN" Style="@GetWidthStyle(ColumnWidth.ValidasiNamaPelangganPx)">
                         <div class="">
-                            <ValidationBadge IncludeClosedLost=true
+                            <ValidationBadge IncludeNotResponding=true
                                 ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiNama"/>
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="NOMOR TELP AKTIF" Style="@GetWidthStyle(ColumnWidth.ValidasiNomorTelpPx)">
                         <div class="">
-                            <ValidationBadge IncludeClosedLost=true
+                            <ValidationBadge IncludeNotResponding=true
                                 ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiNomorTelepon"/>
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="EMAIL AKTIF" Style="@GetWidthStyle(ColumnWidth.ValidasiEmailPx)">
                         <div class="">
-                            <ValidationBadge IncludeClosedLost=true
+                            <ValidationBadge IncludeNotResponding=true
                                 ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiEmail"/>
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="ID PLAN" Style="@GetWidthStyle(ColumnWidth.ValidasiIdPlnPx)">
                         <div class="">
-                            <ValidationBadge IncludeClosedLost=true
+                            <ValidationBadge IncludeNotResponding=true
                                 ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiIdPln"/>
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="ALAMAT PELANGGAN" Style="@GetWidthStyle(ColumnWidth.ValidasiAlamatPx)">
                         <div class="">
-                            <ValidationBadge IncludeClosedLost=true
+                            <ValidationBadge IncludeNotResponding=true
                                 ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiAlamat"/>
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="SHARE LOC" Style="@GetWidthStyle(ColumnWidth.ValidasiShareLocPx)">
                         <div class="">
+                        @if(IsNotResponding(context.ProsesValidasi))
+                        {
+                            <div class="closed-lost-badge">
+                                @_notResponding.ToUpper()
+                            </div>
+                        }
+                        else
+                        {
                             @context.ProsesValidasi.ParameterValidasi.ShareLoc.GetLatitudeLongitude()
+                        }
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="REKAP CHAT HISTORY" Style="@GetWidthStyle(ColumnWidth.LinkChatHistoryPx)">
                         <div class="">
+                        @if(IsNotResponding(context.ProsesValidasi))
+                        {
+                            <div class="closed-lost-badge">
+                                @_notResponding.ToUpper()
+                            </div>
+                        }
+                        else
+                        {
                             @context.ProsesValidasi.LinkChatHistory
+                        }
                         </div>
                     </TemplateColumn>
                     <TemplateColumn Title="KETERANGAN VALIDASI" Style="@GetWidthStyle(ColumnWidth.KeteranganValidasiPx)">
@@ -197,4 +215,5 @@
 @code
 {
     private string _filterSection => SessionService.FilterPreference.ShowFilters ? "enable" : "filter-section-disable";
+    private string _notResponding => "TIDAK ADA RESPONS";
 }

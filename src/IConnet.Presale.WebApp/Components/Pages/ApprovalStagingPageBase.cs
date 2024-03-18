@@ -146,7 +146,7 @@ public class ApprovalStagingPageBase : WorkloadPageBase, IPageNavigation
         await BroadcastService.BroadcastMessageAsync(message);
     }
 
-    protected bool IsClosedLost(ValidationProcess validationProcess)
+    protected bool IsNotResponding(ValidationProcess validationProcess)
     {
         DateTime today = DateTimeService.DateTimeOffsetNow.Date;
 

@@ -151,6 +151,13 @@ public class ApprovalPageBase : WorkloadPageBase, IPageNavigation
         return !workPaper.SignaturePlanningAssetCoverageInCharge.IsDurationExceeded(now, duration);
     }
 
+    protected bool IsNotResponding(ValidationProcess validationProcess)
+    {
+        DateTime today = DateTimeService.DateTimeOffsetNow.Date;
+
+        return validationProcess.IsNotResponding(today);
+    }
+
     private async Task RestageWorkPaperAsync(WorkPaper workPaper)
     {
         ActiveWorkPaper = workPaper;

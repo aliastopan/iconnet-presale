@@ -51,7 +51,7 @@
     -o-border-radius: 3px;
 }
 
-.validation-badge-closed-lost{
+.validation-badge-not-responding{
     font-weight: 600;
     background-color: var(--soft-black);
     text-align: center;

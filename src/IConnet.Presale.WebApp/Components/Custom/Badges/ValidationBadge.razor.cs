@@ -6,7 +6,7 @@ public partial class ValidationBadge : ComponentBase
     public ValidationStatus ValidationStatus { get; set; } = default!;
 
     [Parameter]
-    public bool IncludeClosedLost { get; set; } = false;
+    public bool IncludeNotResponding { get; set; } = false;
 
     [Parameter]
     public bool WidthConstraint { get; set; } = false;
@@ -16,8 +16,8 @@ public partial class ValidationBadge : ComponentBase
         switch (ValidationStatus)
         {
             case ValidationStatus.MenungguValidasi:
-                if(IncludeClosedLost)
-                    return "validation-badge-closed-lost";
+                if(IncludeNotResponding)
+                    return "validation-badge-not-responding";
                 else
                     return "validation-badge-waiting";
             case ValidationStatus.TidakSesuai:
@@ -32,9 +32,9 @@ public partial class ValidationBadge : ComponentBase
     protected string GetValidationStatusString()
     {
         if (ValidationStatus == ValidationStatus.MenungguValidasi
-            && IncludeClosedLost)
+            && IncludeNotResponding)
         {
-            return "Closed Lost";
+            return "TIDAK ADA RESPONS";
         }
 
         return EnumProcessor.EnumToDisplayString(ValidationStatus);
