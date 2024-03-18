@@ -79,6 +79,14 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
 
     private async Task RejectCrmAsync()
     {
+        var rootCause = "DATA TIDAK VALID";
+        var rejectSignature = new ActionSignature
+        {
+            AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
+            Alias = await SessionService.GetSessionAliasAsync(),
+            TglAksi = DateTimeService.Zero
+        };
+
         Content.Shift = SessionService.GetShift();
         Content.WorkPaperLevel = WorkPaperLevel.ImportInvalid;
         Content.ApprovalOpportunity.StatusImport = ImportStatus.Invalid;
@@ -89,12 +97,19 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
             TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
         };
 
-        var rootCause = "DATA TIDAK VALID";
+        Content.SetHelpdeskInCharge(rejectSignature);
+        Content.SetPlanningAssetCoverageInCharge(rejectSignature);
+
+        var prosesValidasi = Content.ProsesValidasi
+            .WithSignatureChatCallMulai(rejectSignature)
+            .WithSignatureChatCallRespons(rejectSignature);
 
         var prosesApproval = Content.ProsesApproval
             .WithStatusApproval(ApprovalStatus.Rejected)
-            .WithRootCause(rootCause);
+            .WithRootCause(rootCause)
+            .WithSignatureApproval(rejectSignature);
 
+        Content.ProsesValidasi = prosesValidasi;
         Content.ProsesApproval = prosesApproval;
     }
 

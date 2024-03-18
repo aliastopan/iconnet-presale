@@ -17,10 +17,18 @@ public class DeveloperPageBase : IndexPageBase
             return;
         }
 
-        if (WorkPaper.WorkPaperLevel < WorkPaperLevel.DoneProcessing)
+        bool isNotDone = WorkPaper.WorkPaperLevel < WorkPaperLevel.DoneProcessing;
+        bool isInvalid = WorkPaper.WorkPaperLevel == WorkPaperLevel.ImportInvalid;
+
+        if (isNotDone && !isInvalid)
         {
             LogSwitch.Debug("Not done yet.");
             return;
+        }
+
+        if (isInvalid)
+        {
+            LogSwitch.Debug("Forwarding invalid (REJECT)");
         }
 
         var jsonModel = new WorkPaperFlatJsonModel(WorkPaper);
