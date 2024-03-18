@@ -9,4 +9,6 @@ public interface IRedisService
     Task<bool> DeleteValueAsync(string key);
     Task<bool> IsKeyExistsAsync(string key);
     Task<HashSet<string>> GetExistingKeysAsync(HashSet<string> keysToCheck);
+
+    Task SetBackupValueAsync(string key, string value, TimeSpan? expiry = null);
 }

@@ -7,6 +7,7 @@ namespace IConnet.Presale.Infrastructure.Services;
 internal sealed class RedisProvider : IRedisService
 {
     private int _dbIndex = 0;
+    private int _backupDbIndex = 1;
     private readonly IConnectionMultiplexer _connectionMultiplexer;
     private readonly AppSecretSettings _appSecretSettings;
 
@@ -17,15 +18,17 @@ internal sealed class RedisProvider : IRedisService
         _appSecretSettings = appSecretOptions.Value;
 
         _dbIndex = _appSecretSettings.RedisDbIndex;
+        _backupDbIndex = _dbIndex + 1;
     }
 
-    public IDatabase Redis => _connectionMultiplexer.GetDatabase(_dbIndex);
+    public IDatabase RedisMain => _connectionMultiplexer.GetDatabase(_dbIndex);
+    public IDatabase RedisBackup => _connectionMultiplexer.GetDatabase(_backupDbIndex);
 
     public async Task<string?> GetValueAsync(string key)
     {
         try
         {
-            return await Redis.StringGetAsync(key);
+            return await RedisMain.StringGetAsync(key);
         }
         catch (TimeoutException exception)
         {
@@ -44,7 +47,7 @@ internal sealed class RedisProvider : IRedisService
 
             foreach (var key in keys)
             {
-                var value = await Redis.StringGetAsync(key);
+                var value = await RedisMain.StringGetAsync(key);
                 values.Add(value);
             }
 
@@ -62,7 +65,7 @@ internal sealed class RedisProvider : IRedisService
     {
         try
         {
-            await Redis.StringSetAsync(key, value, expiry);
+            await RedisMain.StringSetAsync(key, value, expiry);
         }
         catch (TimeoutException exception)
         {
@@ -75,10 +78,10 @@ internal sealed class RedisProvider : IRedisService
     {
         try
         {
-            var exists = await Redis.KeyExistsAsync(key);
+            var exists = await RedisMain.KeyExistsAsync(key);
             if (exists)
             {
-                await Redis.StringSetAsync(key, value, expiry);
+                await RedisMain.StringSetAsync(key, value, expiry);
                 return true;
             }
 
@@ -95,7 +98,7 @@ internal sealed class RedisProvider : IRedisService
     {
         try
         {
-            return await Redis.KeyDeleteAsync(key);
+            return await RedisMain.KeyDeleteAsync(key);
         }
         catch (TimeoutException exception)
         {
@@ -111,7 +114,7 @@ internal sealed class RedisProvider : IRedisService
             // Lua script to check if keys exist
             string luaScript = "return redis.call('EXISTS', KEYS[1]) ==  1";
 
-            var result = await Redis.ScriptEvaluateAsync(luaScript, [(RedisKey)key]);
+            var result = await RedisMain.ScriptEvaluateAsync(luaScript, [(RedisKey)key]);
 
             return (bool)result;
         }
@@ -138,13 +141,26 @@ internal sealed class RedisProvider : IRedisService
             ";
 
             RedisKey[]? redisKeys = keysToCheck.Select(key => (RedisKey)key).ToArray();
-            RedisResult[] redisResult = (RedisResult[])(await Redis.ScriptEvaluateAsync(luaScript, redisKeys))!;
+            RedisResult[] redisResult = (RedisResult[])(await RedisMain.ScriptEvaluateAsync(luaScript, redisKeys))!;
 
             return redisResult.Select(result => result.ToString()).ToHashSet();
         }
         catch (TimeoutException exception)
         {
             Log.Fatal($"Redis operation timed out: {exception.Message}");
+            throw;
+        }
+    }
+
+    public async Task SetBackupValueAsync(string key, string value, TimeSpan? expiry = null)
+    {
+        try
+        {
+            await RedisBackup.StringSetAsync(key, value, expiry);
+        }
+        catch (TimeoutException exception)
+        {
+            Log.Fatal($"Redis backup operation timed out: {exception.Message}");
             throw;
         }
     }
