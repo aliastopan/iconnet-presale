@@ -33,7 +33,7 @@ public abstract class ColumnWidthBase<T>
     public int KeteranganPx { get; set; } = DefaultWidth;
     public int AlamatPemohonPx { get; set; } = DefaultWidth;
     public int RegionalPx { get; set; } = 150;
-    public int KantorPerwakilanPx { get; set; } = 180;
+    public int KantorPerwakilanPx { get; set; } = DefaultWidth;
     public int ProvinsiPx { get; set; } = 150;
     public int KabupatenPx { get; set; } = 150;
     public int KecamatanPx { get; set; } = 150;
