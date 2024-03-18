@@ -82,6 +82,18 @@
                             <span class="staging-expired">EXPIRED</span>
                         }
                     </TemplateColumn>
+                    <TemplateColumn Title="PIC CHAT/CALL MULAI" Style="@GetWidthStyle(ColumnWidth.InChargeChatCallMulaiPx)"
+                        SortBy="@SortByHelpdeskInCharge">
+                        <div class="" style="display: flex;">
+                            @context.ProsesValidasi.SignatureChatCallMulai.Alias
+                        </div>
+                    </TemplateColumn>
+                    <TemplateColumn Title="PIC CHAT/CALL RESPONS" Style="@GetWidthStyle(ColumnWidth.InChargeChatCallResponsPx)"
+                        SortBy="@SortByHelpdeskInCharge">
+                        <div class="" style="display: flex;">
+                            @context.ProsesValidasi.SignatureChatCallRespons.Alias
+                        </div>
+                    </TemplateColumn>
                     <TemplateColumn Title="PIC APPROVAL" Style="@GetWidthStyle(ColumnWidth.PlanningAssetCoverageInChargePx)"
                         SortBy="@SortByPlanningAssetCoverageInCharge">
                         <div class="">
