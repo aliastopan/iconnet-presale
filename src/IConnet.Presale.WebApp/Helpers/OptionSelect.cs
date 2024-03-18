@@ -8,6 +8,14 @@ public static class OptionSelect
         public static List<string> ItemsPerPageOptions => _itemsPerPageOptions;
     }
 
+    public static class StatusVerifikasi
+    {
+        public static IEnumerable<string> StatusVerifikasiOptions => EnumProcessor.GetStringOptions<VerificationStatus>();
+        public static string MenungguVerifikasi => StatusVerifikasiOptions.First();
+        public static string DataTidakSesuai => StatusVerifikasiOptions.Skip(1).First();
+        public static string DataSesuai => StatusVerifikasiOptions.Last();
+    }
+
     public static class StatusValidasi
     {
         public static IEnumerable<string> StatusValidasiOptions => EnumProcessor.GetStringOptions<ValidationStatus>();
