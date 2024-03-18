@@ -90,6 +90,7 @@ public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.TelpAgenPx}px
             {ColumnWidth.MitraAgenPx}px
             {ColumnWidth.SplitterPx}px
+            {ColumnWidth.SplitterGantiPx}px
             {ColumnWidth.RegionalPx}px
             {ColumnWidth.KantorPerwakilanPx}px
             {ColumnWidth.ProvinsiPx}px

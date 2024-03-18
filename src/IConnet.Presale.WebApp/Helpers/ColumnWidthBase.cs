@@ -62,6 +62,7 @@ public abstract class ColumnWidthBase<T>
     public int PlanningAssetCoverageInChargePx { get; set; } = DefaultWidth;
     public int StatusApprovalPx { get; set; } = DefaultWidth;
     public int RootCausePx { get; set; } = DefaultWidth;
+    public int SplitterGantiPx { get; set; } = 165;
     public int TglApprovalPx { get; set; } = DefaultWidth;
     public int KeteranganApprovalPx { get; set; } = DefaultWidth;
 

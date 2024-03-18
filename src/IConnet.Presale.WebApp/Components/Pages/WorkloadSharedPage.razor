@@ -376,9 +376,28 @@
                 </ColumnOptions>
                 <ChildContent>
                     <div class="">
+                    @if (@context.ProsesApproval.IsSplitterGanti())
+                    {
+                        <div class="splitter-ganti">GANTI</div>
+                    }
+                    else
+                    {
                         @context.ApprovalOpportunity.Splitter
+                    }
                     </div>
                 </ChildContent>
+            </TemplateColumn>
+            <TemplateColumn Title="SPLITTER GANTI" Style="@GetWidthStyle(ColumnWidth.SplitterGantiPx)">
+                <div class="">
+                    @if (@context.ProsesApproval.IsSplitterGanti())
+                    {
+                        @context.ProsesApproval.SplitterGanti
+                    }
+                    else
+                    {
+                        <div class="splitter-tetap">TETAP</div>
+                    }
+                </div>
             </TemplateColumn>
             <TemplateColumn Title="REGIONAL" Style="@GetWidthStyle(ColumnWidth.RegionalPx)"
                 SortBy="@SortByRegional">
