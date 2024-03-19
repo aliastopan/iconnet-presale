@@ -55,6 +55,11 @@
                     @PageNavName.Approval</FluentNavLink>
             </AuthorizeView>
 
+            <FluentNavLink Href="@PageRoute.PresaleData"
+                Icon="@(new Icons.Regular.Size20.DocumentDatabase())"
+                IconColor="Color.Accent">
+                @PageNavName.PresaleData</FluentNavLink>
+
             <AuthorizeView Policy="@Policies.AdministratorPrivilege">
                 <FluentNavLink Href="@PageRoute.Settings"
                     Icon="@(new Icons.Regular.Size20.Settings())"

@@ -11,6 +11,7 @@ public static class PageNavName
     public const string Validation = "Validasi";
     public const string ApprovalStaging = "Kertas Kerja (PAC)";
     public const string Approval = "Approval";
+    public const string PresaleData = "Data Presale";
     public const string Settings = "Pengaturan";
     public const string UserManager = "User Manager";
 }

@@ -1,0 +1,31 @@
+@attribute [Route(PageRoute.PresaleData)]
+@inherits PresaleDataPageBase
+@rendermode @(InteractiveServer.DisablePreRender())
+
+<PageTitle>Data Presale</PageTitle>
+
+<div class="d-flex flex-row align-items-center">
+    <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Data Presale</FluentLabel>
+    <div class="filter-toggle">
+        <FluentButton IconEnd="@(new Icons.Filled.Size20.Grid())"
+            OnClick="@SessionService.FilterPreference.ToggleFilters"/>
+    </div>
+</div>
+<div>
+    @if (!IsLoading)
+    {
+        <span class="page-description">Halaman Kertas Kerja yang telah selesai diproses</span>
+    }
+    else
+    {
+        <div class="d-flex flex-row align-items-center">
+            <span class="px-1">Updating</span>
+            <FluentProgressRing style="width: 16px; height: 16px;"></FluentProgressRing>
+        </div>
+    }
+</div>
+
+<div class="@FilterSectionCss">
+    <FilterForm @ref="FilterComponent"
+        OnFilter="@(this.StateHasChanged)"/>
+</div>

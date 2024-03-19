@@ -11,6 +11,7 @@ public static class PageRoute
     public const string Validation = "/validation";
     public const string ApprovalStaging = "/approval-staging";
     public const string Approval = "/approval";
+    public const string PresaleData = "/presale-data";
     public const string Settings = "/settings";
     public const string UserManager = "/user-manager";
 }
