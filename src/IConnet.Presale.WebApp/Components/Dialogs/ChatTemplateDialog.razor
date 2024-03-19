@@ -1,13 +1,15 @@
 <FluentDialogHeader ShowDismiss="false">
     <FluentStack VerticalAlignment="VerticalAlignment.Center">
         <FluentIcon Value="@(new Icons.Regular.Size24.Chat())" />
-        <FluentLabel Typo="Typography.PaneHeader">
-            @Dialog.Instance.Parameters.Title
+        <FluentLabel Typo="Typography.PaneHeader" Id="chat-template-header">
+            <span id="chat-template">
+                @Dialog.Instance.Parameters.Title
+            </span>
         </FluentLabel>
     </FluentStack>
 </FluentDialogHeader>
 
-<div class="chat-box">
+<div class="chat-container">
     @foreach (var chatTemplate in ChatTemplateService.ChatTemplateModels)
     {
         <ChatBubble ActiveWorkPaper="@Content"
