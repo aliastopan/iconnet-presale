@@ -7,7 +7,6 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
 {
     [Inject] public SqlPushService SqlPushService { get; init; } = default!;
 
-    protected FilterForm FilterComponent { get; set; } = default!;
     protected string GridTemplateCols => GetGridTemplateCols();
     protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
 

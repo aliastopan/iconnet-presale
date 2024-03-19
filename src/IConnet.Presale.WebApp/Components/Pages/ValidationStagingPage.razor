@@ -18,7 +18,7 @@
         </div>
         <span class="page-description">Tampung Permohonan</span>
 
-        <div class="@_filterSection">
+        <div class="@FilterSectionCss">
             <FilterForm @ref="FilterComponent"
                 OnFilter="@(this.StateHasChanged)"/>
         </div>
@@ -189,8 +189,3 @@
     </NotAuthorized>
 
 </AuthorizeView>
-
-@code
-{
-    private string _filterSection => SessionService.FilterPreference.ShowFilters ? "enable" : "filter-section-disable";
-}

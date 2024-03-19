@@ -1,3 +1,6 @@
+using IConnet.Presale.WebApp.Components.Dialogs;
+using IConnet.Presale.WebApp.Components.Forms;
+
 namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class WorkloadPageBase : ComponentBase
@@ -17,6 +20,8 @@ public class WorkloadPageBase : ComponentBase
 
     private IQueryable<WorkPaper>? _workPapers;
 
+    protected FilterForm FilterComponent { get; set; } = default!;
+    protected string FilterSectionCss => SessionService.FilterPreference.ShowFilters ? "enable" : "filter-section-disable";
     protected string PaginationItemsPerPageOptions { get; set ;} = default!;
     protected PaginationState Pagination => _pagination;
     protected WorkloadColumnWidth ColumnWidth => _columnWidth;

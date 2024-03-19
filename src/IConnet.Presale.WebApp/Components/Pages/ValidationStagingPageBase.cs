@@ -8,7 +8,6 @@ public class ValidationStagingPageBase : WorkloadPageBase, IPageNavigation
     private readonly static int _stagingLimit = 25;
 
     protected string GridTemplateCols => GetGridTemplateCols();
-    protected FilterForm FilterComponent { get; set; } = default!;
     protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
 
     public TabNavigationModel PageDeclaration()

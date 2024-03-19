@@ -1,11 +1,7 @@
-using IConnet.Presale.WebApp.Components.Dialogs;
-using IConnet.Presale.WebApp.Components.Forms;
-
 namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
 {
-    protected FilterForm FilterComponent { get; set; } = default!;
     protected string GridTemplateCols => GetGridTemplateCols();
     protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
 

@@ -25,7 +25,7 @@
     }
 </div>
 
-<div class="@_filterSection">
+<div class="@FilterSectionCss">
     <FilterForm @ref="FilterComponent"
         OnFilter="@(this.StateHasChanged)"/>
 </div>
@@ -472,8 +472,3 @@
         Hal. <strong>@(Pagination.CurrentPageIndex + 1)</strong> dari <strong>@(Pagination.LastPageIndex + 1)</strong> halaman
     </PaginationTextTemplate>
 </FluentPaginator>
-
-@code
-{
-    private string _filterSection => SessionService.FilterPreference.ShowFilters ? "enable" : "filter-section-disable";
-}

@@ -14,7 +14,6 @@ public class ApprovalPageBase : WorkloadPageBase, IPageNavigation
         .ByAscending(workPaper => workPaper.SignaturePlanningAssetCoverageInCharge.TglAksi);
 
     protected string GridTemplateCols => GetGridTemplateCols();
-    protected FilterForm FilterComponent { get; set; } = default!;
     protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
 
     protected GridSort<WorkPaper> SortByStagingStatus => _sortByStagingStatus;

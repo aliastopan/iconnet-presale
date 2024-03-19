@@ -18,7 +18,7 @@
         </div>
         <span class="page-description">Proses approval permohonan</span>
 
-        <div class="@_filterSection">
+        <div class="@FilterSectionCss">
             <FilterForm @ref="FilterComponent"
                 OnFilter="@(this.StateHasChanged)"/>
         </div>
@@ -226,6 +226,5 @@
 
 @code
 {
-    private string _filterSection => SessionService.FilterPreference.ShowFilters ? "enable" : "filter-section-disable";
     private string _notResponding => "TIDAK ADA RESPONS";
 }
