@@ -66,12 +66,7 @@ internal sealed class WorkPaperFactory
                 TglAksi = importModel.TglImport,
 
             },
-            SignatureVerifikasiImport = new ActionSignature
-            {
-                AccountIdSignature = Guid.Empty,
-                Alias = string.Empty,
-                TglAksi = _dateTimeService.Zero
-            }
+            SignatureVerifikasiImport = ActionSignature.Empty(),
         };
     }
 
@@ -86,32 +81,12 @@ internal sealed class WorkPaperFactory
             FkApprovalOpportunityId = approvalOpportunity.ApprovalOpportunityId,
             ApprovalOpportunity = approvalOpportunity,
             Shift = string.Empty,
-            SignatureHelpdeskInCharge = new ActionSignature
-            {
-                AccountIdSignature = Guid.Empty,
-                Alias = string.Empty,
-                TglAksi = _dateTimeService.Zero
-            },
-            SignaturePlanningAssetCoverageInCharge = new ActionSignature
-            {
-                AccountIdSignature = Guid.Empty,
-                Alias = string.Empty,
-                TglAksi = _dateTimeService.Zero
-            },
+            SignatureHelpdeskInCharge = ActionSignature.Empty(),
+            SignaturePlanningAssetCoverageInCharge = ActionSignature.Empty(),
             ProsesValidasi = new ValidationProcess
             {
-                SignatureChatCallMulai = new ActionSignature
-                {
-                    AccountIdSignature = Guid.Empty,
-                    Alias = string.Empty,
-                    TglAksi = _dateTimeService.Zero
-                },
-                SignatureChatCallRespons = new ActionSignature
-                {
-                    AccountIdSignature = Guid.Empty,
-                    Alias = string.Empty,
-                    TglAksi = _dateTimeService.Zero
-                },
+                SignatureChatCallMulai = ActionSignature.Empty(),
+                SignatureChatCallRespons = ActionSignature.Empty(),
                 WaktuTanggalRespons = _dateTimeService.Zero,
                 LinkChatHistory = string.Empty,
                 ParameterValidasi = new ValidationParameter
@@ -121,22 +96,13 @@ internal sealed class WorkPaperFactory
                     ValidasiNomorTelepon = ValidationStatus.MenungguValidasi,
                     ValidasiEmail = ValidationStatus.MenungguValidasi,
                     ValidasiAlamat = ValidationStatus.MenungguValidasi,
-                    ShareLoc = new Coordinate
-                    {
-                        Latitude = string.Empty,
-                        Longitude = string.Empty
-                    }
+                    ShareLoc = new Coordinate()
                 },
                 Keterangan = string.Empty
             },
             ProsesApproval = new ApprovalProcess
             {
-                SignatureApproval = new ActionSignature
-                {
-                    AccountIdSignature = Guid.Empty,
-                    Alias = string.Empty,
-                    TglAksi = _dateTimeService.Zero
-                },
+                SignatureApproval = ActionSignature.Empty(),
                 StatusApproval = ApprovalStatus.OnProgress,
                 RootCause = string.Empty,
                 Keterangan = string.Empty,
