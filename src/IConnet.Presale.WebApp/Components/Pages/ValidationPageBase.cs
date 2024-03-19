@@ -6,10 +6,7 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class ValidationPageBase : WorkloadPageBase, IPageNavigation
 {
-    [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
-    [Inject] public IDialogService DialogService { get; set; } = default!;
     [Inject] public IJSRuntime JsRuntime { get; set; } = default!;
-    [Inject] public SessionService SessionService { get; set; } = default!;
 
     private Guid _sessionId;
     private readonly List<WorkPaperValidationModel> _validationModels = new List<WorkPaperValidationModel>();

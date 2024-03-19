@@ -5,11 +5,6 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class ValidationStagingPageBase : WorkloadPageBase, IPageNavigation
 {
-    [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
-    [Inject] public IDialogService DialogService { get; set; } = default!;
-    [Inject] public IToastService ToastService { get; set; } = default!;
-    [Inject] public SessionService SessionService { get; set; } = default!;
-
     private readonly static int _stagingLimit = 25;
 
     protected string GridTemplateCols => GetGridTemplateCols();

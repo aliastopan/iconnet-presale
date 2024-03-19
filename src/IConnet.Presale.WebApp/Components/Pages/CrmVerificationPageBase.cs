@@ -5,10 +5,6 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
 {
-    [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
-    [Inject] public IDialogService DialogService { get; set; } = default!;
-    [Inject] public IToastService ToastService { get; set; } = default!;
-    [Inject] public SessionService SessionService { get; set; } = default!;
     [Inject] public SqlPushService SqlPushService { get; init; } = default!;
 
     protected FilterForm FilterComponent { get; set; } = default!;

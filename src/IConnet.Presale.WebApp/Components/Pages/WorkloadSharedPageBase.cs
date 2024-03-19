@@ -5,10 +5,6 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
 {
-    [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
-    [Inject] public IDialogService DialogService { get; set; } = default!;
-    [Inject] public SessionService SessionService { get; set; } = default!;
-
     protected FilterForm FilterComponent { get; set; } = default!;
     protected string GridTemplateCols => GetGridTemplateCols();
     protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
