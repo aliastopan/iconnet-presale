@@ -171,7 +171,7 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
         return $@"
             {ColumnWidth.IdPermohonanPx}px
             {ColumnWidth.TglPermohonanPx}px
-            {ColumnWidth.SignatureImportPx}px
+            {ColumnWidth.InChargeImportPx}px
             {ColumnWidth.DurasiTidakLanjutPx}px
             {ColumnWidth.NamaPemohonPx}px
             {ColumnWidth.IdPlnPx}px

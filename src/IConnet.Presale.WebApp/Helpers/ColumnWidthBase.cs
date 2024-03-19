@@ -41,7 +41,7 @@ public abstract class ColumnWidthBase<T>
     public int LatitudePx { get; set; } = DefaultWidth - 50;
     public int LongitudePx { get; set; } = DefaultWidth - 50;
 
-    public int SignatureImportPx { get; set; } = DefaultWidth;
+    public int InChargeImportPx { get; set; } = DefaultWidth;
     public int StagingStatusPx { get; set; } = DefaultWidth;
 
     public int HelpdeskInChargePx { get; set; } = DefaultWidth;
