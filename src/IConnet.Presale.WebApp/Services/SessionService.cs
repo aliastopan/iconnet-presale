@@ -116,17 +116,22 @@ public sealed class SessionService
         var now = _dateTimeService.DateTimeOffsetNow;
         int currentHour = now.Hour;
 
-        if (currentHour >= 8 && currentHour < 14)
+        int pagiLowerLimit = 8;
+        int pagiUpperLimit = 14;
+        int malamLowerLimit = 14;
+        int malamUpperLimit = 21;
+
+        if (currentHour >= (pagiLowerLimit - 3) && currentHour < pagiUpperLimit)
         {
             return EnumProcessor.EnumToDisplayString(JobShift.Siang);
         }
-        else if (currentHour >= 14 && currentHour < 21)
+        else if (currentHour >= malamLowerLimit && currentHour < (malamUpperLimit + 3))
         {
             return EnumProcessor.EnumToDisplayString(JobShift.Malam);
         }
         else
         {
-            return EnumProcessor.EnumToDisplayString(JobShift.OverShift);
+            return EnumProcessor.EnumToDisplayString(JobShift.Malam);
         }
     }
 
