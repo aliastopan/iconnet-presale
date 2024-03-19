@@ -24,17 +24,14 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
     public IDatabase RedisOnProgress => _connectionMultiplexer.GetDatabase(_onProgressDbIndex);
     public IDatabase RedisArchive => _connectionMultiplexer.GetDatabase(_archiveDbIndex);
 
-    public async Task<string?> GetValueAsync(string key)
+    async Task<string?> IOnProgressPersistenceService.GetValueAsync(string key)
     {
-        try
-        {
-            return await RedisOnProgress.StringGetAsync(key);
-        }
-        catch (TimeoutException exception)
-        {
-            Log.Fatal($"Redis operation timed out: {exception.Message}");
-            throw;
-        }
+        return await GetValueAsync(key, database: RedisOnProgress);
+    }
+
+    async Task<string?> IDoneProcessingPersistenceService.GetValueAsync(string key)
+    {
+        return await GetValueAsync(key, database: RedisArchive);
     }
 
     public async Task<List<string?>> GetAllValuesAsync()
@@ -136,6 +133,19 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
         catch (TimeoutException exception)
         {
             Log.Fatal($"Redis backup operation timed out: {exception.Message}");
+            throw;
+        }
+    }
+
+    public static async Task<string?> GetValueAsync(string key, IDatabase database)
+    {
+        try
+        {
+            return await database.StringGetAsync(key);
+        }
+        catch (TimeoutException exception)
+        {
+            Log.Fatal($"Redis operation timed out: {exception.Message}");
             throw;
         }
     }
