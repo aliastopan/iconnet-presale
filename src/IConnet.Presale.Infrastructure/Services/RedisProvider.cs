@@ -119,13 +119,11 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
 
     async Task<HashSet<string>> IOnProgressPersistenceService.GetExistingKeysAsync(HashSet<string> keysToCheck)
     {
-        LogSwitch.Debug("Checking OnProgress Persistence at {0}", _onProgressDbIndex);
         return await GetExistingKeysAsync(keysToCheck, database: RedisOnProgress);
     }
 
     async Task<HashSet<string>> IDoneProcessingPersistenceService.GetExistingKeysAsync(HashSet<string> keysToCheck)
     {
-        LogSwitch.Debug("Checking Archive Persistence at {0}", _archiveDbIndex);
         return await GetExistingKeysAsync(keysToCheck, database: RedisArchive);
     }
 
