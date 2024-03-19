@@ -13,7 +13,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
 
     private readonly IDateTimeService _dateTimeService;
     private readonly IInMemoryPersistenceService _inMemoryPersistenceService;
-    private readonly IOnProgressWorkloadPersistenceService _onProgressPersistence;
+    private readonly IOnProgressPersistenceService _onProgressPersistenceService;
     private readonly WorkPaperFactory _workloadFactory;
 
     private readonly Queue<(string id, Task task)> _cacheForwardingTasks;
@@ -24,12 +24,12 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
 
     public FasterWorkloadManager(IDateTimeService dateTimeService,
         IInMemoryPersistenceService inMemoryPersistenceService,
-        IOnProgressWorkloadPersistenceService onProgressPersistence,
+        IOnProgressPersistenceService onProgressPersistenceService,
         WorkPaperFactory workloadFactory)
     {
         _dateTimeService = dateTimeService;
         _inMemoryPersistenceService = inMemoryPersistenceService;
-        _onProgressPersistence = onProgressPersistence;
+        _onProgressPersistenceService = onProgressPersistenceService;
         _workloadFactory = workloadFactory;
 
         _cacheForwardingTasks = new Queue<(string id, Task task)>();
@@ -59,7 +59,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
             .ToHashSet();
 
         // check against redis cache
-        existingKeys = await _onProgressPersistence.GetExistingKeysAsync(keysToCheck);
+        existingKeys = await _onProgressPersistenceService.GetExistingKeysAsync(keysToCheck);
 
         // combine both sets
         existingIds.IntersectWith(existingKeys);
@@ -78,7 +78,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
                 var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
                 var key = workPaper.ApprovalOpportunity.IdPermohonan;
 
-                await _onProgressPersistence.SetValueAsync(key, jsonWorkPaper);
+                await _onProgressPersistenceService.SetValueAsync(key, jsonWorkPaper);
                 Interlocked.Increment(ref count);
             });
 
@@ -114,7 +114,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
         var key = workPaper.ApprovalOpportunity.IdPermohonan;
         var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
 
-        var task = _onProgressPersistence.SetValueAsync(key, jsonWorkPaper);
+        var task = _onProgressPersistenceService.SetValueAsync(key, jsonWorkPaper);
 
         EnqueueForwardingTask(operationId: key, task);
 
@@ -123,10 +123,10 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
 
         if (isDoneProcessing || isInvalidCrmData)
         {
-            await _onProgressPersistence.SetBackupValueAsync(key, jsonWorkPaper);
+            await _onProgressPersistenceService.SetBackupValueAsync(key, jsonWorkPaper);
             Log.Information("Moving {key} to Backup DB.", key);
 
-            await _onProgressPersistence.DeleteValueAsync(key);
+            await _onProgressPersistenceService.DeleteValueAsync(key);
             _inMemoryPersistenceService.Delete(workPaper);
             Log.Information("Deleting {key} real-time access", key);
         }
@@ -136,7 +136,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
     {
         var key = workPaper.ApprovalOpportunity.IdPermohonan;
 
-        var task = _onProgressPersistence.DeleteValueAsync(key);
+        var task = _onProgressPersistenceService.DeleteValueAsync(key);
 
         _inMemoryPersistenceService.Delete(workPaper);
         EnqueueForwardingTask(operationId: key, task);
@@ -153,14 +153,14 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
             return workPaper;
         }
 
-        var isKeyExist = await _onProgressPersistence.IsKeyExistsAsync(idPermohonan);
+        var isKeyExist = await _onProgressPersistenceService.IsKeyExistsAsync(idPermohonan);
 
         if (!isKeyExist)
         {
             return null;
         }
 
-        var jsonWorkPaper = await _onProgressPersistence.GetValueAsync(idPermohonan);
+        var jsonWorkPaper = await _onProgressPersistenceService.GetValueAsync(idPermohonan);
 
         return JsonWorkPaperProcessor.DeserializeJsonWorkPaper(jsonWorkPaper!);
     }
@@ -254,7 +254,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
 
         var stopwatch = Stopwatch.StartNew();
 
-        var jsonWorkPapers = await _onProgressPersistence.GetAllValuesAsync();
+        var jsonWorkPapers = await _onProgressPersistenceService.GetAllValuesAsync();
         var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapers(jsonWorkPapers!, _parallelOptions);
 
         // int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers);
