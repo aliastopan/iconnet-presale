@@ -24,7 +24,7 @@ public class IndexPageBase : ComponentBase
         HasSearched = true;
 
         IdPermohonan = idPermohonan.SanitizeOnlyAlphanumeric();
-        WorkPaper = await WorkloadManager.SearchWorkPaper(IdPermohonan);
+        WorkPaper = await WorkloadManager.SearchWorkPaperAsync(IdPermohonan);
 
         await Task.CompletedTask;
 

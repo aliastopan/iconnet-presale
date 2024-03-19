@@ -10,5 +10,5 @@ public interface IWorkloadManager
     Task UpdateWorkloadAsync(WorkPaper workPaper);
     Task DeleteWorkloadAsync(WorkPaper workPaper);
 
-    Task<WorkPaper?> SearchWorkPaper(string idPermohonan);
+    Task<WorkPaper?> SearchWorkPaperAsync(string idPermohonan);
 }

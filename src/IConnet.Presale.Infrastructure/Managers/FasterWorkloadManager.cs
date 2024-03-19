@@ -156,7 +156,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
         await Task.CompletedTask;
     }
 
-    public async Task<WorkPaper?> SearchWorkPaper(string idPermohonan)
+    public async Task<WorkPaper?> SearchWorkPaperAsync(string idPermohonan)
     {
         var workPaper = _inMemoryPersistenceService.Get(idPermohonan);
         if (workPaper is not null)
