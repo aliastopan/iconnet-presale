@@ -122,7 +122,6 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
         return $@"
             {ColumnWidth.IdPermohonanPx}px
             {ColumnWidth.TglPermohonanPx}px
-            {ColumnWidth.SignatureImportPx}px
             {ColumnWidth.DurasiTidakLanjutPx}px
             {ColumnWidth.NamaPemohonPx}px
             {ColumnWidth.IdPlnPx}px
