@@ -96,7 +96,7 @@ input:invalid::part(root) {
 }
 
 .tab-close:hover{
-    background-color: #f04444;
+    background-color: var(soft-red);
 }
 
 .tab-close:hover svg.tab-close-icon{
