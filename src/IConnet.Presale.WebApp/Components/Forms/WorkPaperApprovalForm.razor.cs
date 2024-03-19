@@ -98,6 +98,8 @@ public partial class WorkPaperApprovalForm : ComponentBase
             WorkPaper.WorkPaperLevel = WorkPaperLevel.DoneProcessing;
         }
 
+        WorkPaper.LastModified = DateTimeService.DateTimeOffsetNow;
+
         var broadcastMessage = $"{signatureApproval.Alias} has processed {ApprovalModel!.IdPermohonan}";
         await UpdateProsesApprovalAsync(broadcastMessage);
 

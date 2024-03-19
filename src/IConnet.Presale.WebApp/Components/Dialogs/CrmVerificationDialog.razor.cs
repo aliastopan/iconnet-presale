@@ -75,6 +75,7 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
         var prosesApproval = Content!.ProsesApproval.WithJarakICrmPlus(JarakICrmPlusVerification);
 
         Content.ProsesApproval = prosesApproval;
+        Content.LastModified = DateTimeService.DateTimeOffsetNow;
     }
 
     private async Task RejectCrmAsync()
@@ -106,6 +107,7 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
 
         Content.ProsesValidasi = prosesValidasi;
         Content.ProsesApproval = prosesApproval;
+        Content.LastModified = DateTimeService.DateTimeOffsetNow;
     }
 
     private async Task ArchiveCrmAsync()
@@ -118,6 +120,7 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
             Alias = await SessionService.GetSessionAliasAsync(),
             TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
         };
+        Content.LastModified = DateTimeService.DateTimeOffsetNow;
     }
 
     protected async Task OnOpenGoogleMapAsync()

@@ -93,6 +93,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         WorkPaper.ProsesValidasi = prosesValidasi;
         WorkPaper.WorkPaperLevel = WorkPaperLevel.WaitingApproval;
         WorkPaper.Shift = SessionService.GetShift();
+        WorkPaper.LastModified = DateTimeService.DateTimeOffsetNow;
 
         var message = $"{signatureChatCallRespons.Alias} has commit chat/call validation to {WorkPaper.ApprovalOpportunity.IdPermohonan}";
         await UpdateProsesValidasiAsync(message);
@@ -255,6 +256,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         var prosesValidasi = WorkPaper.ProsesValidasi.WithParameterValidasi(parameterValidasi);
 
         WorkPaper.ProsesValidasi = prosesValidasi;
+        WorkPaper.LastModified = DateTimeService.DateTimeOffsetNow;
 
         var broadcastMessage = $"Validating: [{propertyName}:{WorkPaper.ProsesValidasi.ParameterValidasi.GetValidationStatus(propertyName)}]";
         await UpdateProsesValidasiAsync(broadcastMessage);
@@ -266,6 +268,7 @@ public partial class WorkPaperValidationForm : ComponentBase
         var prosesValidasi = WorkPaper.ProsesValidasi.WithPembetulanValidasi(pembetulanValidasi);
 
         WorkPaper.ProsesValidasi = prosesValidasi;
+        WorkPaper.LastModified = DateTimeService.DateTimeOffsetNow;
 
         var broadcastMessage = $"Correction: [{propertyName}:{WorkPaper.ProsesValidasi.PembetulanValidasi.GetPembetulan(propertyName)}]";
         await UpdateProsesValidasiAsync(broadcastMessage);
