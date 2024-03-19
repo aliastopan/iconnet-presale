@@ -52,6 +52,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
         HashSet<string> keysToCheck = [];
         HashSet<string> existingIds = [];
         HashSet<string> existingKeys = [];
+        HashSet<string> archivedKeys = [];
 
         keysToCheck = importModels.Select(importModel => importModel.IdPermohonan).ToHashSet();
 
@@ -63,18 +64,27 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
 
         // check against redis cache
         existingKeys = await _onProgressPersistenceService.GetExistingKeysAsync(keysToCheck);
+        archivedKeys = await _doneProcessingPersistenceService.GetExistingKeysAsync(keysToCheck);
+
+        LogSwitch.Debug($"Existing Keys: {String.Join(", ", existingKeys)}");
+        LogSwitch.Debug($"Archived Keys: {String.Join(", ", archivedKeys)}");
+
+        HashSet<string> combinedKeys = new HashSet<string>(existingKeys);
+        combinedKeys.UnionWith(archivedKeys);
+        LogSwitch.Debug($"Combined Keys: {String.Join(", ", combinedKeys)}");
 
         // combine both sets
-        existingIds.IntersectWith(existingKeys);
+        existingIds.IntersectWith(combinedKeys);
+        LogSwitch.Debug($"Existing Ids: {String.Join(", ", existingIds)}");
 
         var workPapers = importModels
-            .Where(workPaper => !existingIds.Contains(workPaper.IdPermohonan))
+            .Where(workPaper => !combinedKeys.Contains(workPaper.IdPermohonan))
             .Select(_workloadFactory.CreateWorkPaper);
 
         _inMemoryPersistenceService.InsertRange(workPapers);
 
         var tasks = importModels
-            .Where(importModel => !existingIds.Contains(importModel.IdPermohonan))
+            .Where(importModel => !combinedKeys.Contains(importModel.IdPermohonan))
             .Select(async importModel =>
             {
                 var workPaper = _workloadFactory.CreateWorkPaper(importModel);
