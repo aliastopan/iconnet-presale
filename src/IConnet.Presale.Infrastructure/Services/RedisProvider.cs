@@ -18,7 +18,7 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
         _appSecretSettings = appSecretOptions.Value;
 
         _onProgressDbIndex = _appSecretSettings.RedisDbIndex;
-        _archiveDbIndex = _onProgressDbIndex + 1;
+        _archiveDbIndex = _appSecretSettings.RedisDbIndex + 1;
     }
 
     public IDatabase RedisOnProgress => _connectionMultiplexer.GetDatabase(_onProgressDbIndex);
@@ -107,14 +107,49 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
         }
     }
 
-    public async Task<bool> IsKeyExistsAsync(string key)
+    async Task<bool> IOnProgressPersistenceService.IsKeyExistsAsync(string key)
+    {
+        return await IsKeyExistsAsync(key, database: RedisOnProgress);
+    }
+
+    async Task<bool> IDoneProcessingPersistenceService.IsKeyExistsAsync(string key)
+    {
+        return await IsKeyExistsAsync(key, database: RedisArchive);
+    }
+
+    async Task<HashSet<string>> IOnProgressPersistenceService.GetExistingKeysAsync(HashSet<string> keysToCheck)
+    {
+        LogSwitch.Debug("Checking OnProgress Persistence at {0}", _onProgressDbIndex);
+        return await GetExistingKeysAsync(keysToCheck, database: RedisOnProgress);
+    }
+
+    async Task<HashSet<string>> IDoneProcessingPersistenceService.GetExistingKeysAsync(HashSet<string> keysToCheck)
+    {
+        LogSwitch.Debug("Checking Archive Persistence at {0}", _archiveDbIndex);
+        return await GetExistingKeysAsync(keysToCheck, database: RedisArchive);
+    }
+
+    public async Task ArchiveValueAsync(string key, string value, TimeSpan? expiry = null)
+    {
+        try
+        {
+            await RedisArchive.StringSetAsync(key, value, expiry);
+        }
+        catch (TimeoutException exception)
+        {
+            Log.Fatal($"Redis backup operation timed out: {exception.Message}");
+            throw;
+        }
+    }
+
+    private static async Task<bool> IsKeyExistsAsync(string key, IDatabase database)
     {
         try
         {
             // Lua script to check if keys exist
             string luaScript = "return redis.call('EXISTS', KEYS[1]) ==  1";
 
-            var result = await RedisOnProgress.ScriptEvaluateAsync(luaScript, [(RedisKey)key]);
+            var result = await database.ScriptEvaluateAsync(luaScript, new RedisKey[] { key });
 
             return (bool)result;
         }
@@ -125,7 +160,7 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
         }
     }
 
-    public async Task<HashSet<string>> GetExistingKeysAsync(HashSet<string> keysToCheck)
+    private static async Task<HashSet<string>> GetExistingKeysAsync(HashSet<string> keysToCheck, IDatabase database)
     {
         try
         {
@@ -141,26 +176,13 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
             ";
 
             RedisKey[]? redisKeys = keysToCheck.Select(key => (RedisKey)key).ToArray();
-            RedisResult[] redisResult = (RedisResult[])(await RedisOnProgress.ScriptEvaluateAsync(luaScript, redisKeys))!;
+            RedisResult[] redisResult = (RedisResult[])(await database.ScriptEvaluateAsync(luaScript, redisKeys))!;
 
             return redisResult.Select(result => result.ToString()).ToHashSet();
         }
         catch (TimeoutException exception)
         {
             Log.Fatal($"Redis operation timed out: {exception.Message}");
-            throw;
-        }
-    }
-
-    public async Task ArchiveValueAsync(string key, string value, TimeSpan? expiry = null)
-    {
-        try
-        {
-            await RedisArchive.StringSetAsync(key, value, expiry);
-        }
-        catch (TimeoutException exception)
-        {
-            Log.Fatal($"Redis backup operation timed out: {exception.Message}");
             throw;
         }
     }
