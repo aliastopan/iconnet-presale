@@ -79,7 +79,7 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
             var broadcastMessage = $"Began '{row.Item!.ApprovalOpportunity.IdPermohonan}' verification";
             await BroadcastService.BroadcastMessageAsync(broadcastMessage);
 
-            await OpenDialogAsync(row.Item);
+            await OpenVerificationDialogAsync(row.Item);
         }
     }
 
@@ -96,7 +96,7 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
         return workPapers;
     }
 
-    protected async Task OpenDialogAsync(WorkPaper workPaper)
+    protected async Task OpenVerificationDialogAsync(WorkPaper workPaper)
     {
         // Log.Warning("Import status before: {0}", workPaper.ApprovalOpportunity.StatusImport);
         var parameters = new DialogParameters()
@@ -115,12 +115,27 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
         var dialog = await DialogService.ShowDialogAsync<CrmVerificationDialog>(workPaper, parameters);
         var result = await dialog.Result;
 
-        if (result.Cancelled || result.Data == null)
+        if (result.Data == null)
         {
             return;
         }
 
         var dialogData = (WorkPaper)result.Data;
+
+        if (result.Cancelled)
+        {
+            dialogData.ApprovalOpportunity.SignatureVerifikasiImport = ActionSignature.Empty();
+
+            CancelVerificationToast(dialogData.ApprovalOpportunity.IdPermohonan);
+
+            var broadcastMessage = $"Cancel '{dialogData.ApprovalOpportunity.IdPermohonan}' verification";
+            await BroadcastService.BroadcastMessageAsync(broadcastMessage);
+
+            LogSwitch.Debug("{0} verification has been canceled", dialogData.ApprovalOpportunity.IdPermohonan);
+
+            return;
+        }
+
         switch (dialogData.ApprovalOpportunity.StatusImport)
         {
             case ImportStatus.Verified:
@@ -132,8 +147,6 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
             default:
                 break;
         }
-
-        // Log.Warning("Import status after: {0}", dialogData.ApprovalOpportunity.StatusImport);
     }
 
     private async Task VerifyCrmAsync(WorkPaper workPaper)
@@ -168,6 +181,15 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
         var message = $"Data CRM {idPermohonan} sedang diverifikasi oleh {alias}";
 
         ToastService.ShowToast(intent, message);
+    }
+
+    private void CancelVerificationToast(string idPermohonan)
+    {
+        var intent = ToastIntent.Warning;
+        var message = $"Data CRM {idPermohonan} telah batal diverifikasi";
+        var timeout = 3000;
+
+        ToastService.ShowToast(intent, message, timeout);
     }
 
     private string GetGridTemplateCols()

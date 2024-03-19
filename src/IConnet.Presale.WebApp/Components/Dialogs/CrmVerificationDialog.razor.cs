@@ -57,7 +57,7 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
 
     protected async Task CancelAsync()
     {
-        await Dialog.CancelAsync();
+        await Dialog.CancelAsync(Content);
     }
 
     private async Task VerifyCrmAsync()
