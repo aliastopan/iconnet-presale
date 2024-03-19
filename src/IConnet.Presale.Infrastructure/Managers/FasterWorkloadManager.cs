@@ -44,7 +44,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
         };
     }
 
-    public async Task<int> InsertWorkloadAsync(List<IApprovalOpportunityModel> importModels)
+    public async Task<(int, HashSet<string>)> InsertWorkloadAsync(List<IApprovalOpportunityModel> importModels)
     {
         var stopwatch = Stopwatch.StartNew();
 
@@ -106,7 +106,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
         stopwatch.Stop();
         // LogSwitch.Debug("Import execution took {0} ms", stopwatch.ElapsedMilliseconds);
 
-        return count;
+        return (count, existingIds);
     }
 
     public async Task<IQueryable<WorkPaper>> GetWorkloadAsync(WorkloadFilter filter = WorkloadFilter.All)

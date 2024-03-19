@@ -12,12 +12,14 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
     private readonly ImportModelColumnWidth _columnWidth = new();
     private const int _itemPerPage = 10;
     private readonly PaginationState _pagination = new() { ItemsPerPage = _itemPerPage };
+    private HashSet<string> _duplicateIds = new();
     private IQueryable<IApprovalOpportunityModel>? _importModels;
     private CrmImportMetadata _importMetadata = default!;
 
     protected ImportModelColumnWidth ColumnWidth => _columnWidth;
     protected string PaginationItemsPerPageOptions { get; set ;} = default!;
     protected PaginationState Pagination => _pagination;
+    protected HashSet<string> DuplicateIds => _duplicateIds;
     protected IQueryable<IApprovalOpportunityModel>? ImportModels => _importModels;
     protected CrmImportMetadata ImportMetadata => _importMetadata;
     protected int ImportCount { get; set; }
@@ -48,7 +50,11 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
 
         _importModels = CrmImportService.GetApprovalOpportunities();;
 
-        ImportCount = await WorkloadManager.InsertWorkloadAsync(result.importModels);
+        var (importCount , duplicateIds) = await WorkloadManager.InsertWorkloadAsync(result.importModels);
+
+        ImportCount = importCount;
+        _duplicateIds = duplicateIds;
+
         _importMetadata = result.importMetadata;
 
         _importMetadata.NumberOfDuplicates = _importMetadata.NumberOfRows - ImportCount;
@@ -68,6 +74,12 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
     protected async Task<string> PasteClipboardAsync()
     {
         return await JsRuntime.InvokeAsync<string>("readClipboard");
+    }
+
+    protected bool HasDuplicate(string idPermohonan)
+    {
+
+        return DuplicateIds.Contains(idPermohonan);
     }
 
     private void ImportResultToast()

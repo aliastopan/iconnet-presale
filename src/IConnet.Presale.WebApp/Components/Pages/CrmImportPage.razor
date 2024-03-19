@@ -32,7 +32,21 @@
                     EmptyContent="@HtmlFragment.EmptyContent"
                     GridTemplateColumns="@GridTemplateCols">
 
-                    <PropertyColumn Title="ID PERMOHONAN" Property="@(crm => crm.IdPermohonan)" Style="@GetWidthStyle(ColumnWidth.IdPermohonanPx)"/>
+                    <TemplateColumn Title="ID PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.IdPermohonanPx)">
+                        <div class="d-flex flex-rown align-items-center">
+                            @context.IdPermohonan
+                            <div style="margin-left: 8px">
+                            @if (HasDuplicate(context.IdPermohonan))
+                            {
+                                <FluentIcon Value="@_duplicateWarningIcon" />
+                            }
+                            else
+                            {
+                                <FluentIcon Value="@_validImportIcon" />
+                            }
+                            </div>
+                        </div>
+                    </TemplateColumn>
                     <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.TglPermohonan)" Style="@GetWidthStyle(ColumnWidth.TglPermohonanPx)"/>
                     <PropertyColumn Title="DURASI TIDAK LANJUT" Property="@(crm => crm.DurasiTidakLanjut)" Style="@GetWidthStyle(ColumnWidth.DurasiTidakLanjutPx)"/>
                     <PropertyColumn Title="NAMA PEMOHON" Property="@(crm => crm.NamaPemohon)" Style="@GetWidthStyle(ColumnWidth.NamaPemohonPx)"/>
@@ -97,3 +111,9 @@
     </NotAuthorized>
 
 </AuthorizeView>
+
+@code
+{
+    private Icon _duplicateWarningIcon => new Icons.Filled.Size20.ErrorCircle().WithColor("var(--error-red)");
+    private Icon _validImportIcon => new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success-green)");
+}
