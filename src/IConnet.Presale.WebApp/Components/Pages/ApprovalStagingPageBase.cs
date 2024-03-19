@@ -142,8 +142,8 @@ public class ApprovalStagingPageBase : WorkloadPageBase, IPageNavigation
 
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
 
-        var message = $"PAC {workPaper.SignaturePlanningAssetCoverageInCharge.Alias} has staged '{workPaper.ApprovalOpportunity.IdPermohonan}'";
-        await BroadcastService.BroadcastMessageAsync(message);
+        var broadcastMessage = $"PAC {workPaper.SignaturePlanningAssetCoverageInCharge.Alias} has staged '{workPaper.ApprovalOpportunity.IdPermohonan}'";
+        await BroadcastService.BroadcastMessageAsync(broadcastMessage);
     }
 
     protected bool IsNotResponding(ValidationProcess validationProcess)

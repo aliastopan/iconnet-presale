@@ -160,16 +160,16 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
 
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
 
-        var message = $"Workload '{workPaper.ApprovalOpportunity.IdPermohonan}' staging claim has been extended";
-        await BroadcastService.BroadcastMessageAsync(message);
+        var broadcastMessage = $"Workload '{workPaper.ApprovalOpportunity.IdPermohonan}' staging claim has been extended";
+        await BroadcastService.BroadcastMessageAsync(broadcastMessage);
     }
 
     private async Task UnstageWorkPaperAsync(WorkPaper workPaper)
     {
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
 
-        var message = $"Workload '{workPaper.ApprovalOpportunity.IdPermohonan}' is no longer staged";
-        await BroadcastService.BroadcastMessageAsync(message);
+        var broadcastMessage = $"Workload '{workPaper.ApprovalOpportunity.IdPermohonan}' is no longer staged";
+        await BroadcastService.BroadcastMessageAsync(broadcastMessage);
     }
 
     private string GetGridTemplateCols()

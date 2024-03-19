@@ -61,8 +61,8 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
 
         if (_importMetadata.IsValidImport && ImportCount > 0)
         {
-            var message = $"{ImportCount} CRM data has been imported.";
-            await BroadcastService.BroadcastMessageAsync(message);
+            var broadcastMessage = $"{ImportCount} CRM data has been imported.";
+            await BroadcastService.BroadcastMessageAsync(broadcastMessage);
         }
 
         _columnWidth.SetColumnWidth(ImportModels);

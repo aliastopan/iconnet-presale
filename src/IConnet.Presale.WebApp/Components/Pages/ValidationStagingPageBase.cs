@@ -146,8 +146,8 @@ public class ValidationStagingPageBase : WorkloadPageBase, IPageNavigation
 
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
 
-        var message = $"{workPaper.SignatureHelpdeskInCharge.Alias} has staged '{workPaper.ApprovalOpportunity.IdPermohonan}'";
-        await BroadcastService.BroadcastMessageAsync(message);
+        var broadcastMessage = $"{workPaper.SignatureHelpdeskInCharge.Alias} has staged '{workPaper.ApprovalOpportunity.IdPermohonan}'";
+        await BroadcastService.BroadcastMessageAsync(broadcastMessage);
     }
 
     private async Task<int> GetStageCountAsync()

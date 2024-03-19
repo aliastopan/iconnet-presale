@@ -142,8 +142,8 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
 
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
 
-        var message = $"CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been verified";
-        await BroadcastService.BroadcastMessageAsync(message);
+        var broadcastMessage = $"CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been verified";
+        await BroadcastService.BroadcastMessageAsync(broadcastMessage);
 
         IsLoading = false;
     }
@@ -154,8 +154,8 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
 
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
 
-        var message = $"CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been mark as invalid";
-        await BroadcastService.BroadcastMessageAsync(message);
+        var broadcastMessage = $"CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been mark as invalid";
+        await BroadcastService.BroadcastMessageAsync(broadcastMessage);
 
         await SqlPushService.SqlPushAsync(workPaper);
 
