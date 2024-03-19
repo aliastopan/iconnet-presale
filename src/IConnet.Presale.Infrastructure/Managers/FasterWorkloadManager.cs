@@ -13,7 +13,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
 
     private readonly IDateTimeService _dateTimeService;
     private readonly IInMemoryWorkloadService _inMemoryWorkloadService;
-    private readonly IRedisService _redisService;
+    private readonly IOnProgressWorkloadPersistenceService _onProgressPersistence;
     private readonly WorkPaperFactory _workloadFactory;
 
     private readonly Queue<(string id, Task task)> _cacheForwardingTasks;
@@ -24,12 +24,12 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
 
     public FasterWorkloadManager(IDateTimeService dateTimeService,
         IInMemoryWorkloadService inMemoryWorkloadService,
-        IRedisService redisService,
+        IOnProgressWorkloadPersistenceService onProgressPersistence,
         WorkPaperFactory workloadFactory)
     {
         _dateTimeService = dateTimeService;
         _inMemoryWorkloadService = inMemoryWorkloadService;
-        _redisService = redisService;
+        _onProgressPersistence = onProgressPersistence;
         _workloadFactory = workloadFactory;
 
         _cacheForwardingTasks = new Queue<(string id, Task task)>();
@@ -59,7 +59,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
             .ToHashSet();
 
         // check against redis cache
-        existingKeys = await _redisService.GetExistingKeysAsync(keysToCheck);
+        existingKeys = await _onProgressPersistence.GetExistingKeysAsync(keysToCheck);
 
         // combine both sets
         existingIds.IntersectWith(existingKeys);
@@ -78,7 +78,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
                 var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
                 var key = workPaper.ApprovalOpportunity.IdPermohonan;
 
-                await _redisService.SetValueAsync(key, jsonWorkPaper);
+                await _onProgressPersistence.SetValueAsync(key, jsonWorkPaper);
                 Interlocked.Increment(ref count);
             });
 
@@ -114,7 +114,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
         var key = workPaper.ApprovalOpportunity.IdPermohonan;
         var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
 
-        var task = _redisService.SetValueAsync(key, jsonWorkPaper);
+        var task = _onProgressPersistence.SetValueAsync(key, jsonWorkPaper);
 
         EnqueueForwardingTask(operationId: key, task);
 
@@ -123,10 +123,10 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
 
         if (isDoneProcessing || isInvalidCrmData)
         {
-            await _redisService.SetBackupValueAsync(key, jsonWorkPaper);
+            await _onProgressPersistence.SetBackupValueAsync(key, jsonWorkPaper);
             Log.Information("Moving {key} to Backup DB.", key);
 
-            await _redisService.DeleteValueAsync(key);
+            await _onProgressPersistence.DeleteValueAsync(key);
             _inMemoryWorkloadService.Delete(workPaper);
             Log.Information("Deleting {key} real-time access", key);
         }
@@ -136,7 +136,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
     {
         var key = workPaper.ApprovalOpportunity.IdPermohonan;
 
-        var task = _redisService.DeleteValueAsync(key);
+        var task = _onProgressPersistence.DeleteValueAsync(key);
 
         _inMemoryWorkloadService.Delete(workPaper);
         EnqueueForwardingTask(operationId: key, task);
@@ -153,14 +153,14 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
             return workPaper;
         }
 
-        var isKeyExist = await _redisService.IsKeyExistsAsync(idPermohonan);
+        var isKeyExist = await _onProgressPersistence.IsKeyExistsAsync(idPermohonan);
 
         if (!isKeyExist)
         {
             return null;
         }
 
-        var jsonWorkPaper = await _redisService.GetValueAsync(idPermohonan);
+        var jsonWorkPaper = await _onProgressPersistence.GetValueAsync(idPermohonan);
 
         return JsonWorkPaperProcessor.DeserializeJsonWorkPaper(jsonWorkPaper!);
     }
@@ -254,7 +254,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
 
         var stopwatch = Stopwatch.StartNew();
 
-        var jsonWorkPapers = await _redisService.GetAllValuesAsync();
+        var jsonWorkPapers = await _onProgressPersistence.GetAllValuesAsync();
         var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapers(jsonWorkPapers!, _parallelOptions);
 
         // int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers);

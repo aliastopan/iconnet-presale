@@ -74,7 +74,7 @@ public static class ConfigureServices
             };
             return ConnectionMultiplexer.Connect(options);
         });
-        services.AddSingleton<IRedisService, RedisProvider>();
+        services.AddSingleton<IOnProgressWorkloadPersistenceService, RedisProvider>();
         services.AddSingleton<IInMemoryWorkloadService, InMemoryWorkloadProvider>();
         services.AddSingleton<IWorkloadManager, FasterWorkloadManager>();
         services.AddSingleton<IWorkloadForwardingManager, FasterWorkloadManager>();

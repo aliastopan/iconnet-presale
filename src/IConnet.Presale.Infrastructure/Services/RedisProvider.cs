@@ -4,7 +4,7 @@ using StackExchange.Redis;
 
 namespace IConnet.Presale.Infrastructure.Services;
 
-internal sealed class RedisProvider : IRedisService
+internal sealed class RedisProvider : IOnProgressWorkloadPersistenceService
 {
     private int _dbIndex = 0;
     private int _backupDbIndex = 1;
