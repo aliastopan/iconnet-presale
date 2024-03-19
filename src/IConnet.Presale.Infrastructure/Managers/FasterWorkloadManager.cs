@@ -62,6 +62,8 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
             .Select(x => x.ApprovalOpportunity.IdPermohonan)
             .ToHashSet();
 
+        LogSwitch.Debug($"In-Memory Ids: {String.Join(", ", existingIds)}");
+
         // check against redis cache
         existingKeys = await _onProgressPersistenceService.GetExistingKeysAsync(keysToCheck);
         archivedKeys = await _doneProcessingPersistenceService.GetExistingKeysAsync(keysToCheck);
@@ -69,22 +71,26 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
         LogSwitch.Debug($"Existing Keys: {String.Join(", ", existingKeys)}");
         LogSwitch.Debug($"Archived Keys: {String.Join(", ", archivedKeys)}");
 
-        HashSet<string> combinedKeys = new HashSet<string>(existingKeys);
-        combinedKeys.UnionWith(archivedKeys);
-        LogSwitch.Debug($"Combined Keys: {String.Join(", ", combinedKeys)}");
+        // HashSet<string> combinedKeys = new HashSet<string>(existingKeys);
+        // combinedKeys.UnionWith(archivedKeys);
+        // LogSwitch.Debug($"Combined Keys: {String.Join(", ", combinedKeys)}");
 
-        // combine both sets
-        existingIds.IntersectWith(combinedKeys);
+        // // combine both sets
+        // existingIds.IntersectWith(combinedKeys);
+
+        existingIds.UnionWith(existingKeys);
+        existingIds.UnionWith(archivedKeys);
+
         LogSwitch.Debug($"Existing Ids: {String.Join(", ", existingIds)}");
 
         var workPapers = importModels
-            .Where(workPaper => !combinedKeys.Contains(workPaper.IdPermohonan))
+            .Where(workPaper => !existingIds.Contains(workPaper.IdPermohonan))
             .Select(_workloadFactory.CreateWorkPaper);
 
         _inMemoryPersistenceService.InsertRange(workPapers);
 
         var tasks = importModels
-            .Where(importModel => !combinedKeys.Contains(importModel.IdPermohonan))
+            .Where(importModel => !existingIds.Contains(importModel.IdPermohonan))
             .Select(async importModel =>
             {
                 var workPaper = _workloadFactory.CreateWorkPaper(importModel);
