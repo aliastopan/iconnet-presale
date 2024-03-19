@@ -14,6 +14,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
     private readonly IDateTimeService _dateTimeService;
     private readonly IInMemoryPersistenceService _inMemoryPersistenceService;
     private readonly IOnProgressPersistenceService _onProgressPersistenceService;
+    private readonly IDoneProcessingPersistenceService _doneProcessingPersistenceService;
     private readonly WorkPaperFactory _workloadFactory;
 
     private readonly Queue<(string id, Task task)> _cacheForwardingTasks;
@@ -25,11 +26,13 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
     public FasterWorkloadManager(IDateTimeService dateTimeService,
         IInMemoryPersistenceService inMemoryPersistenceService,
         IOnProgressPersistenceService onProgressPersistenceService,
+        IDoneProcessingPersistenceService doneProcessingPersistenceService,
         WorkPaperFactory workloadFactory)
     {
         _dateTimeService = dateTimeService;
         _inMemoryPersistenceService = inMemoryPersistenceService;
         _onProgressPersistenceService = onProgressPersistenceService;
+        _doneProcessingPersistenceService = doneProcessingPersistenceService;
         _workloadFactory = workloadFactory;
 
         _cacheForwardingTasks = new Queue<(string id, Task task)>();
@@ -123,7 +126,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
 
         if (isDoneProcessing || isInvalidCrmData)
         {
-            await _onProgressPersistenceService.SetBackupValueAsync(key, jsonWorkPaper);
+            await _doneProcessingPersistenceService.SetBackupValueAsync(key, jsonWorkPaper);
             Log.Information("Moving {key} to Backup DB.", key);
 
             await _onProgressPersistenceService.DeleteValueAsync(key);
