@@ -507,7 +507,7 @@ public partial class WorkPaperValidationForm : ComponentBase
     {
         var intent = ToastIntent.Info;
         var message = $"Copy: {clipboard}";
-        var timeout = 2500; // milliseconds
+        var timeout = 3000; // milliseconds
 
         ToastService.ShowToast(intent, message, timeout: timeout);
     }
