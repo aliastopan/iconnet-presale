@@ -62,26 +62,19 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
             .Select(x => x.ApprovalOpportunity.IdPermohonan)
             .ToHashSet();
 
-        LogSwitch.Debug($"In-Memory Ids: {String.Join(", ", existingIds)}");
+        // LogSwitch.Debug($"In-Memory Ids: {String.Join(", ", existingIds)}");
 
         // check against redis cache
         existingKeys = await _onProgressPersistenceService.GetExistingKeysAsync(keysToCheck);
         archivedKeys = await _doneProcessingPersistenceService.GetExistingKeysAsync(keysToCheck);
 
-        LogSwitch.Debug($"Existing Keys: {String.Join(", ", existingKeys)}");
-        LogSwitch.Debug($"Archived Keys: {String.Join(", ", archivedKeys)}");
-
-        // HashSet<string> combinedKeys = new HashSet<string>(existingKeys);
-        // combinedKeys.UnionWith(archivedKeys);
-        // LogSwitch.Debug($"Combined Keys: {String.Join(", ", combinedKeys)}");
-
-        // // combine both sets
-        // existingIds.IntersectWith(combinedKeys);
+        // LogSwitch.Debug($"Existing Keys: {String.Join(", ", existingKeys)}");
+        // LogSwitch.Debug($"Archived Keys: {String.Join(", ", archivedKeys)}");
 
         existingIds.UnionWith(existingKeys);
         existingIds.UnionWith(archivedKeys);
 
-        LogSwitch.Debug($"Existing Ids: {String.Join(", ", existingIds)}");
+        // LogSwitch.Debug($"Existing Ids: {String.Join(", ", existingIds)}");
 
         var workPapers = importModels
             .Where(workPaper => !existingIds.Contains(workPaper.IdPermohonan))
