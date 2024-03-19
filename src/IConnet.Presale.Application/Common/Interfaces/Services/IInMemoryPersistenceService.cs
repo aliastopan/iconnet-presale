@@ -2,7 +2,7 @@ using IConnet.Presale.Domain.Aggregates.Presales;
 
 namespace IConnet.Presale.Application.Common.Interfaces.Services;
 
-public interface IInMemoryWorkloadService
+public interface IInMemoryPersistenceService
 {
     IQueryable<WorkPaper>? WorkPapers { get; }
 

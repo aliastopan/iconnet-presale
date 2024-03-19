@@ -2,13 +2,13 @@ using IConnet.Presale.Domain.Aggregates.Presales;
 
 namespace IConnet.Presale.Infrastructure.Services;
 
-internal sealed class InMemoryWorkloadProvider : IInMemoryWorkloadService
+internal sealed class InMemoryPersistenceProvider : IInMemoryPersistenceService
 {
     private readonly List<WorkPaper> _workPapers = [];
 
     public IQueryable<WorkPaper>? WorkPapers => _workPapers.AsQueryable();
 
-    public InMemoryWorkloadProvider()
+    public InMemoryPersistenceProvider()
     {
 
     }

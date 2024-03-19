@@ -12,7 +12,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
     private const int PartitionSize = 100;
 
     private readonly IDateTimeService _dateTimeService;
-    private readonly IInMemoryWorkloadService _inMemoryWorkloadService;
+    private readonly IInMemoryPersistenceService _inMemoryPersistenceService;
     private readonly IOnProgressWorkloadPersistenceService _onProgressPersistence;
     private readonly WorkPaperFactory _workloadFactory;
 
@@ -23,12 +23,12 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
     private bool _isInitialized = false;
 
     public FasterWorkloadManager(IDateTimeService dateTimeService,
-        IInMemoryWorkloadService inMemoryWorkloadService,
+        IInMemoryPersistenceService inMemoryPersistenceService,
         IOnProgressWorkloadPersistenceService onProgressPersistence,
         WorkPaperFactory workloadFactory)
     {
         _dateTimeService = dateTimeService;
-        _inMemoryWorkloadService = inMemoryWorkloadService;
+        _inMemoryPersistenceService = inMemoryPersistenceService;
         _onProgressPersistence = onProgressPersistence;
         _workloadFactory = workloadFactory;
 
@@ -53,7 +53,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
         keysToCheck = importModels.Select(importModel => importModel.IdPermohonan).ToHashSet();
 
         // check against in-memory cache
-        existingIds = _inMemoryWorkloadService.WorkPapers!
+        existingIds = _inMemoryPersistenceService.WorkPapers!
             .Where(x => keysToCheck.Contains(x.ApprovalOpportunity.IdPermohonan))
             .Select(x => x.ApprovalOpportunity.IdPermohonan)
             .ToHashSet();
@@ -68,7 +68,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
             .Where(workPaper => !existingIds.Contains(workPaper.IdPermohonan))
             .Select(_workloadFactory.CreateWorkPaper);
 
-        _inMemoryWorkloadService.InsertRange(workPapers);
+        _inMemoryPersistenceService.InsertRange(workPapers);
 
         var tasks = importModels
             .Where(importModel => !existingIds.Contains(importModel.IdPermohonan))
@@ -96,7 +96,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
 
         IQueryable<WorkPaper> workPapers;
 
-        var partitions = SplitIntoPartitions(_inMemoryWorkloadService.WorkPapers!, PartitionSize);
+        var partitions = SplitIntoPartitions(_inMemoryPersistenceService.WorkPapers!, PartitionSize);
         var tasks = partitions.Select(partition => FilterPartitionAsync(filter, partition));
 
         workPapers = (await Task.WhenAll(tasks)).SelectMany(partition => partition).AsQueryable();
@@ -127,7 +127,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
             Log.Information("Moving {key} to Backup DB.", key);
 
             await _onProgressPersistence.DeleteValueAsync(key);
-            _inMemoryWorkloadService.Delete(workPaper);
+            _inMemoryPersistenceService.Delete(workPaper);
             Log.Information("Deleting {key} real-time access", key);
         }
     }
@@ -138,7 +138,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
 
         var task = _onProgressPersistence.DeleteValueAsync(key);
 
-        _inMemoryWorkloadService.Delete(workPaper);
+        _inMemoryPersistenceService.Delete(workPaper);
         EnqueueForwardingTask(operationId: key, task);
 
         await Task.CompletedTask;
@@ -146,7 +146,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
 
     public async Task<WorkPaper?> SearchWorkPaper(string idPermohonan)
     {
-        var workPaper = _inMemoryWorkloadService.Get(idPermohonan);
+        var workPaper = _inMemoryPersistenceService.Get(idPermohonan);
 
         if(workPaper is not null)
         {
@@ -258,7 +258,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
         var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapers(jsonWorkPapers!, _parallelOptions);
 
         // int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers);
-        int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers, excludeDoneProcessing);
+        int insertCount = _inMemoryPersistenceService.InsertOverwrite(workPapers, excludeDoneProcessing);
 
         stopwatch.Stop();
         // LogSwitch.Debug("Forward execution took {0} ms", stopwatch.ElapsedMilliseconds);
