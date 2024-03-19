@@ -7,7 +7,8 @@ public class Coordinate : ValueObject
 {
     public Coordinate()
     {
-
+        Latitude = string.Empty;
+        Longitude = string.Empty;
     }
 
     public Coordinate(string latitudeLongitude)
