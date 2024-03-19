@@ -75,6 +75,10 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
         async Task BeginVerification(FluentDataGridRow<WorkPaper> row)
         {
             row.Item!.ApprovalOpportunity.SignatureVerifikasiImport = await SessionService.GenerateActionSignatureAsync();
+
+            var broadcastMessage = $"Began '{row.Item!.ApprovalOpportunity.IdPermohonan}' verification";
+            await BroadcastService.BroadcastMessageAsync(broadcastMessage);
+
             await OpenDialogAsync(row.Item);
         }
     }
