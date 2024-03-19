@@ -172,6 +172,7 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.IdPermohonanPx}px
             {ColumnWidth.TglPermohonanPx}px
             {ColumnWidth.InChargeImportPx}px
+            {ColumnWidth.InChargeVerificationPx}px
             {ColumnWidth.DurasiTidakLanjutPx}px
             {ColumnWidth.NamaPemohonPx}px
             {ColumnWidth.IdPlnPx}px

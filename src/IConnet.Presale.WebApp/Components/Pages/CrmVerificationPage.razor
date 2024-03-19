@@ -80,6 +80,20 @@
                             @context.ApprovalOpportunity.SignatureImport.Alias
                         </div>
                     </TemplateColumn>
+                    <TemplateColumn Title="PIC VERIFIKASI" Style="@GetWidthStyle(ColumnWidth.InChargeVerificationPx)">
+                        <div class="" style="display: flex;">
+                            @if (context.ApprovalOpportunity.SignatureVerifikasiImport.IsEmptySignature())
+                            {
+                                <span class="staging-waiting">
+                                    KOSONG
+                                </span>
+                            }
+                            else
+                            {
+                                @context.ApprovalOpportunity.SignatureVerifikasiImport.Alias
+                            }
+                        </div>
+                    </TemplateColumn>
                     <TemplateColumn Title="DURASI TIDAK LANJUT" Style="@GetWidthStyle(ColumnWidth.DurasiTidakLanjutPx)">
                         <div class="">
                             @DateTimeService.GetElapsedTime(context.ApprovalOpportunity.TglPermohonan).ToReadableDateTime()
