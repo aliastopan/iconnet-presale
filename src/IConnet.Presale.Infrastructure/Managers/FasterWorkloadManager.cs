@@ -65,8 +65,16 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
         // LogSwitch.Debug($"In-Memory Ids: {String.Join(", ", existingIds)}");
 
         // check against redis cache
-        existingKeys = await _onProgressPersistenceService.GetExistingKeysAsync(keysToCheck);
-        archivedKeys = await _doneProcessingPersistenceService.GetExistingKeysAsync(keysToCheck);
+        Task<HashSet<string>>[] getExistingKeysTask =
+        [
+            _onProgressPersistenceService.GetExistingKeysAsync(keysToCheck),
+            _doneProcessingPersistenceService.GetExistingKeysAsync(keysToCheck)
+        ];
+
+        await Task.WhenAll(getExistingKeysTask);
+
+        existingKeys = getExistingKeysTask[0].Result;
+        archivedKeys = getExistingKeysTask[1].Result;
 
         // LogSwitch.Debug($"Existing Keys: {String.Join(", ", existingKeys)}");
         // LogSwitch.Debug($"Archived Keys: {String.Join(", ", archivedKeys)}");
