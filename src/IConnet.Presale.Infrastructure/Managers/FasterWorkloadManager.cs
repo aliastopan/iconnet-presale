@@ -126,7 +126,7 @@ internal sealed class FasterWorkloadManager : IWorkloadManager, IWorkloadForward
 
         if (isDoneProcessing || isInvalidCrmData)
         {
-            await _doneProcessingPersistenceService.SetBackupValueAsync(key, jsonWorkPaper);
+            await _doneProcessingPersistenceService.ArchiveValueAsync(key, jsonWorkPaper);
             Log.Information("Moving {key} to Backup DB.", key);
 
             await _onProgressPersistenceService.DeleteValueAsync(key);

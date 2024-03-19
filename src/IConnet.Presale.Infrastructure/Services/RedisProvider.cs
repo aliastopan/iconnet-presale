@@ -6,8 +6,8 @@ namespace IConnet.Presale.Infrastructure.Services;
 
 internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProcessingPersistenceService
 {
-    private int _dbIndex = 0;
-    private int _backupDbIndex = 1;
+    private int _onProgressDbIndex = 0;
+    private int _archiveDbIndex = 1;
     private readonly IConnectionMultiplexer _connectionMultiplexer;
     private readonly AppSecretSettings _appSecretSettings;
 
@@ -17,18 +17,18 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
         _connectionMultiplexer = connectionMultiplexer;
         _appSecretSettings = appSecretOptions.Value;
 
-        _dbIndex = _appSecretSettings.RedisDbIndex;
-        _backupDbIndex = _dbIndex + 1;
+        _onProgressDbIndex = _appSecretSettings.RedisDbIndex;
+        _archiveDbIndex = _onProgressDbIndex + 1;
     }
 
-    public IDatabase RedisMain => _connectionMultiplexer.GetDatabase(_dbIndex);
-    public IDatabase RedisBackup => _connectionMultiplexer.GetDatabase(_backupDbIndex);
+    public IDatabase RedisOnProgress => _connectionMultiplexer.GetDatabase(_onProgressDbIndex);
+    public IDatabase RedisArchive => _connectionMultiplexer.GetDatabase(_archiveDbIndex);
 
     public async Task<string?> GetValueAsync(string key)
     {
         try
         {
-            return await RedisMain.StringGetAsync(key);
+            return await RedisOnProgress.StringGetAsync(key);
         }
         catch (TimeoutException exception)
         {
@@ -42,12 +42,12 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
         try
         {
             var server = _connectionMultiplexer.GetServer(_connectionMultiplexer.GetEndPoints().First());
-            var keys = server.Keys(_dbIndex);
+            var keys = server.Keys(_onProgressDbIndex);
             var values = new List<string?>();
 
             foreach (var key in keys)
             {
-                var value = await RedisMain.StringGetAsync(key);
+                var value = await RedisOnProgress.StringGetAsync(key);
                 values.Add(value);
             }
 
@@ -65,7 +65,7 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
     {
         try
         {
-            await RedisMain.StringSetAsync(key, value, expiry);
+            await RedisOnProgress.StringSetAsync(key, value, expiry);
         }
         catch (TimeoutException exception)
         {
@@ -78,10 +78,10 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
     {
         try
         {
-            var exists = await RedisMain.KeyExistsAsync(key);
+            var exists = await RedisOnProgress.KeyExistsAsync(key);
             if (exists)
             {
-                await RedisMain.StringSetAsync(key, value, expiry);
+                await RedisOnProgress.StringSetAsync(key, value, expiry);
                 return true;
             }
 
@@ -98,7 +98,7 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
     {
         try
         {
-            return await RedisMain.KeyDeleteAsync(key);
+            return await RedisOnProgress.KeyDeleteAsync(key);
         }
         catch (TimeoutException exception)
         {
@@ -114,7 +114,7 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
             // Lua script to check if keys exist
             string luaScript = "return redis.call('EXISTS', KEYS[1]) ==  1";
 
-            var result = await RedisMain.ScriptEvaluateAsync(luaScript, [(RedisKey)key]);
+            var result = await RedisOnProgress.ScriptEvaluateAsync(luaScript, [(RedisKey)key]);
 
             return (bool)result;
         }
@@ -141,7 +141,7 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
             ";
 
             RedisKey[]? redisKeys = keysToCheck.Select(key => (RedisKey)key).ToArray();
-            RedisResult[] redisResult = (RedisResult[])(await RedisMain.ScriptEvaluateAsync(luaScript, redisKeys))!;
+            RedisResult[] redisResult = (RedisResult[])(await RedisOnProgress.ScriptEvaluateAsync(luaScript, redisKeys))!;
 
             return redisResult.Select(result => result.ToString()).ToHashSet();
         }
@@ -152,11 +152,11 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
         }
     }
 
-    public async Task SetBackupValueAsync(string key, string value, TimeSpan? expiry = null)
+    public async Task ArchiveValueAsync(string key, string value, TimeSpan? expiry = null)
     {
         try
         {
-            await RedisBackup.StringSetAsync(key, value, expiry);
+            await RedisArchive.StringSetAsync(key, value, expiry);
         }
         catch (TimeoutException exception)
         {
