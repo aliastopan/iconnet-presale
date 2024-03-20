@@ -98,6 +98,7 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
         {
             Title = "Verifikasi Import CRM",
             TrapFocus = true,
+            PreventDismissOnOverlayClick = true,
             Width = "500px",
         };
 
