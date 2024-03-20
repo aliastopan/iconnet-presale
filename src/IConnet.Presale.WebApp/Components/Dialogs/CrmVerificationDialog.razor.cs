@@ -55,6 +55,12 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
         await Dialog.CloseAsync(Content);
     }
 
+    protected async Task DeleteAsync()
+    {
+        DeleteCrm();
+        await Dialog.CloseAsync(Content);
+    }
+
     protected async Task CancelAsync()
     {
         await Dialog.CancelAsync(Content);
@@ -121,6 +127,13 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
             TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
         };
         Content.LastModified = DateTimeService.DateTimeOffsetNow;
+    }
+
+    private void DeleteCrm()
+    {
+        Content.WorkPaperLevel = WorkPaperLevel.ImportInvalid;
+        Content.ApprovalOpportunity.StatusImport = ImportStatus.ToBeDeleted;
+        Content.ApprovalOpportunity.SignatureVerifikasiImport = ActionSignature.Empty();
     }
 
     protected async Task OnOpenGoogleMapAsync()
