@@ -3,6 +3,7 @@ namespace IConnet.Presale.WebApp.Components.Dialogs;
 public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
+    [Inject] public IDialogService DialogService { get; set; } = default!;
     [Inject] public IJSRuntime JsRuntime { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
 
@@ -57,8 +58,22 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
 
     protected async Task DeleteAsync()
     {
-        DeleteCrm();
-        await Dialog.CloseAsync(Content);
+        var parameters = new DialogParameters()
+        {
+            Title = Content.ApprovalOpportunity.IdPermohonan,
+            TrapFocus = true,
+            PreventDismissOnOverlayClick = true,
+            Width = "650px",
+        };
+
+        var dialog = await DialogService.ShowDialogAsync<CrmDeleteConfirmationDialog>(parameters);
+        var result = await dialog.Result;
+
+        if (!result.Cancelled)
+        {
+            DeleteCrm();
+            await Dialog.CloseAsync(Content);
+        }
     }
 
     protected async Task CancelAsync()
