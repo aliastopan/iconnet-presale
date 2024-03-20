@@ -7,7 +7,7 @@ using IConnet.Presale.Shared.Interfaces.Models.Presales;
 
 namespace IConnet.Presale.Infrastructure.Managers;
 
-internal sealed class FasterWorkloadManager : PresaleDataOperationBase, IWorkloadManager, IWorkloadForwardingManager
+internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadManager, IWorkloadForwardingManager
 {
     private const int PartitionSize = 100;
 
@@ -23,7 +23,7 @@ internal sealed class FasterWorkloadManager : PresaleDataOperationBase, IWorkloa
     private readonly ParallelOptions _parallelOptions;
     private bool _isInitialized = false;
 
-    public FasterWorkloadManager(IDateTimeService dateTimeService,
+    public PresaleDataManager(IDateTimeService dateTimeService,
         IInMemoryPersistenceService inMemoryPersistenceService,
         IOnProgressPersistenceService onProgressPersistenceService,
         IDoneProcessingPersistenceService doneProcessingPersistenceService,
