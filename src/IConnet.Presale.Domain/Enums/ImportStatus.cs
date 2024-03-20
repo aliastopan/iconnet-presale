@@ -5,5 +5,6 @@ public enum ImportStatus
 {
     Unverified,
     Verified,
-    Invalid
+    Invalid,
+    ToBeDeleted
 }
