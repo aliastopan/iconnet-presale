@@ -30,14 +30,14 @@ public partial class WorkPaperApprovalForm : ComponentBase
     protected Func<string, bool> OptionDisableOnProgress => option => option == OptionSelect.StatusApproval.OnProgress
         && ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.OnProgress;
 
-    protected bool DisableRootCause => ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.Rejected
-        && ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.ClosedLost;
+    protected bool DisableRootCause => ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.Reject
+        && ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.CloseLost;
     protected bool DisableOnProgress => ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.OnProgress
-        || (ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.Approved && !ApprovalModel!.IsValidJarak())
+        || (ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.Approve && !ApprovalModel!.IsValidJarak())
         || (ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.Expansion && !ApprovalModel!.IsValidJarak());
     protected bool DisableForm => IsNotResponding()
-        || ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.Rejected
-        || ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.ClosedLost;
+        || ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.Reject
+        || ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.CloseLost;
     protected bool DisableCommit => !IsCommitReady;
 
     protected Icon LabelIconNamaPelanggan => GetValidationIcon(ApprovalModel!.HasilValidasi.ValidasiNama);
@@ -77,7 +77,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
         };
 
         var approvalStatus = EnumProcessor.StringToEnum<ApprovalStatus>(ApprovalModel!.StatusApproval);
-        var rootCause = approvalStatus == ApprovalStatus.Approved || approvalStatus == ApprovalStatus.Expansion
+        var rootCause = approvalStatus == ApprovalStatus.Approve || approvalStatus == ApprovalStatus.Expansion
             ? string.Empty
             : ApprovalModel!.RootCause;
 
@@ -341,9 +341,9 @@ public partial class WorkPaperApprovalForm : ComponentBase
         return approvalStatus switch
         {
             string status when status == OptionSelect.StatusApproval.OnProgress => new Icons.Filled.Size20.QuestionCircle().WithColor("var(--info-grey)"),
-            string status when status == OptionSelect.StatusApproval.ClosedLost => new Icons.Filled.Size20.ErrorCircle().WithColor("var(--soft-black)"),
-            string status when status == OptionSelect.StatusApproval.Rejected => new Icons.Filled.Size20.ErrorCircle().WithColor("var(--error-red)"),
-            string status when status == OptionSelect.StatusApproval.Approved => new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success-green)"),
+            string status when status == OptionSelect.StatusApproval.CloseLost => new Icons.Filled.Size20.ErrorCircle().WithColor("var(--soft-black)"),
+            string status when status == OptionSelect.StatusApproval.Reject => new Icons.Filled.Size20.ErrorCircle().WithColor("var(--error-red)"),
+            string status when status == OptionSelect.StatusApproval.Approve => new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success-green)"),
             string status when status == OptionSelect.StatusApproval.Expansion => new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success-green)"),
             _ => throw new NotImplementedException(),
         };

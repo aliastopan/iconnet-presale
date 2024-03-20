@@ -159,7 +159,7 @@ public partial class WorkPaperProgressTracker : ComponentBase
 
     private bool IsApproved()
     {
-        return WorkPaper?.ProsesApproval.StatusApproval == ApprovalStatus.Approved
+        return WorkPaper?.ProsesApproval.StatusApproval == ApprovalStatus.Approve
             || WorkPaper?.ProsesApproval.StatusApproval == ApprovalStatus.Expansion;
     }
 }

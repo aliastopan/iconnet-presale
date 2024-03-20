@@ -4,8 +4,8 @@ namespace IConnet.Presale.Domain.Enums;
 public enum ApprovalStatus
 {
     OnProgress = 0,
-    ClosedLost = 1,
-    Rejected = 2,
+    CloseLost = 1,
+    Reject = 2,
     Expansion = 4,
-    Approved = 64
+    Approve = 64
 }

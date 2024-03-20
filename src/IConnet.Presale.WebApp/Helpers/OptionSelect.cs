@@ -28,10 +28,10 @@ public static class OptionSelect
     {
         public static IEnumerable<string> StatusApprovalOptions => EnumProcessor.GetStringOptions<ApprovalStatus>();
         public static string OnProgress => StatusApprovalOptions.First();
-        public static string ClosedLost => StatusApprovalOptions.Skip(1).First();
-        public static string Rejected => StatusApprovalOptions.Skip(2).First();
+        public static string CloseLost => StatusApprovalOptions.Skip(1).First();
+        public static string Reject => StatusApprovalOptions.Skip(2).First();
         public static string Expansion => StatusApprovalOptions.Skip(3).First();
-        public static string Approved => StatusApprovalOptions.Last();
+        public static string Approve => StatusApprovalOptions.Last();
     }
 
     public static class StatusKepegawaian

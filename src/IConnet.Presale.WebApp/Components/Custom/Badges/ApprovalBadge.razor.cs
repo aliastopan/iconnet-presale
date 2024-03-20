@@ -11,13 +11,13 @@ public partial class ApprovalBadge : ComponentBase
         {
             case ApprovalStatus.OnProgress:
                 return "approval-badge-on-progress";
-            case ApprovalStatus.ClosedLost:
+            case ApprovalStatus.CloseLost:
                 return "approval-badge-closed-lost";
-            case ApprovalStatus.Rejected:
+            case ApprovalStatus.Reject:
                 return "approval-badge-reject";
             case ApprovalStatus.Expansion:
                 return "approval-badge-expansion";
-            case ApprovalStatus.Approved:
+            case ApprovalStatus.Approve:
                 return "approval-badge-approved";
             default:
                 return "approval-badge-neutral";
@@ -26,6 +26,20 @@ public partial class ApprovalBadge : ComponentBase
 
     protected string GetApprovalStatusString()
     {
-        return EnumProcessor.EnumToDisplayString(ApprovalStatus);
+        switch (ApprovalStatus)
+        {
+            case ApprovalStatus.OnProgress:
+                return "On Progress";
+            case ApprovalStatus.CloseLost:
+                return "Closed Lost";
+            case ApprovalStatus.Reject:
+                return "Rejected";
+            case ApprovalStatus.Expansion:
+                return "Expansion";
+            case ApprovalStatus.Approve:
+                return "Approved";
+            default:
+                throw new NotImplementedException();;
+        }
     }
 }

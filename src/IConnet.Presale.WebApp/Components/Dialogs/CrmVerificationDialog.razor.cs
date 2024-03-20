@@ -101,7 +101,7 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
             .WithSignatureChatCallRespons(rejectSignature);
 
         var prosesApproval = Content.ProsesApproval
-            .WithStatusApproval(ApprovalStatus.Rejected)
+            .WithStatusApproval(ApprovalStatus.Reject)
             .WithRootCause(rootCause)
             .WithSignatureApproval(rejectSignature);
 
