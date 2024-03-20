@@ -46,7 +46,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
 
     public async Task<(int, HashSet<string>)> InsertWorkloadAsync(List<IApprovalOpportunityModel> importModels)
     {
-        var stopwatch = Stopwatch.StartNew();
+        // var stopwatch = Stopwatch.StartNew();
 
         int count = 0;
         HashSet<string> keysToCheck = [];
@@ -104,7 +104,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
 
         await Task.WhenAll(tasks);
 
-        stopwatch.Stop();
+        // stopwatch.Stop();
         // LogSwitch.Debug("Import execution took {0} ms", stopwatch.ElapsedMilliseconds);
 
         return (count, existingIds);
@@ -112,7 +112,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
 
     public async Task<IQueryable<WorkPaper>> GetWorkloadAsync(PresaleDataFilter filter = PresaleDataFilter.All)
     {
-        var stopwatch = Stopwatch.StartNew();
+        // var stopwatch = Stopwatch.StartNew();
 
         IQueryable<WorkPaper> workPapers;
 
@@ -121,7 +121,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
 
         workPapers = (await Task.WhenAll(tasks)).SelectMany(partition => partition).AsQueryable();
 
-        stopwatch.Stop();
+        // stopwatch.Stop();
         // LogSwitch.Debug("Get execution took {0} ms", stopwatch.ElapsedMilliseconds);
 
         return workPapers;
@@ -231,7 +231,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
             return 0;
         }
 
-        var stopwatch = Stopwatch.StartNew();
+        // var stopwatch = Stopwatch.StartNew();
 
         var jsonWorkPapers = await _onProgressPersistenceService.GetAllValuesAsync();
         var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapers(jsonWorkPapers!, _parallelOptions);
@@ -239,7 +239,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
         // int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers);
         int insertCount = _inMemoryPersistenceService.InsertOverwrite(workPapers, excludeDoneProcessing);
 
-        stopwatch.Stop();
+        // stopwatch.Stop();
         // LogSwitch.Debug("Forward execution took {0} ms", stopwatch.ElapsedMilliseconds);
 
         _isInitialized = true;
