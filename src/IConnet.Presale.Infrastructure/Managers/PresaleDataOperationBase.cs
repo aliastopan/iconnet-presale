@@ -3,7 +3,7 @@ using IConnet.Presale.Domain.Enums;
 
 namespace IConnet.Presale.Infrastructure.Managers;
 
-internal class PresaleDataManager
+internal class PresaleDataOperationBase
 {
     protected static async Task<IQueryable<WorkPaper>> FilterPartitionAsync(PresaleDataFilter filter, IEnumerable<WorkPaper> partition)
     {

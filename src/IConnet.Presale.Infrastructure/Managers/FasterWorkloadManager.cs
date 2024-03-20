@@ -7,7 +7,7 @@ using IConnet.Presale.Shared.Interfaces.Models.Presales;
 
 namespace IConnet.Presale.Infrastructure.Managers;
 
-internal sealed class FasterWorkloadManager : PresaleDataManager, IWorkloadManager, IWorkloadForwardingManager
+internal sealed class FasterWorkloadManager : PresaleDataOperationBase, IWorkloadManager, IWorkloadForwardingManager
 {
     private const int PartitionSize = 100;
 
