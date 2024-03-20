@@ -275,3 +275,12 @@ input:invalid::part(root) {
     font-weight: 600;
     padding: 4px;
 }
+
+.root-cause-options fluent-button.neutral::part(control){
+    justify-content: start !important;
+}
+
+.fluent-popover-content{
+    margin-top: -14px !important;
+    padding: 0 !important;
+}

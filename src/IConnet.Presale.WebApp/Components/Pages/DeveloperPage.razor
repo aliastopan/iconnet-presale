@@ -15,7 +15,7 @@
         <div class="d-flex flex-column align-items-start">
             <span class="page-description">Developer only page</span>
 
-            <div class="searchbar-stack">
+            @* <div class="searchbar-stack">
                 <FluentSearch
                     Value=@IdPermohonan
                     ValueChanged="OnIdPermohonanSearchChanged"
@@ -26,7 +26,57 @@
                     <FluentProgressRing style="width: 16px; height: 16px;"></FluentProgressRing>
                 }
                 </div>
-            </div>
+            </div> *@
+
+    @* <FluentAutocomplete TOption="string"
+        Multiple="false"
+        AutoComplete="true"
+        Autofocus="true"
+        Label="Root Cause"
+        Width="250px"
+        OnOptionsSearch="@OnSearchAsync"
+        @bind-SelectedOption="@_rootCause"
+        MaximumSelectedOptions="1"/> *@
+
+        <FluentPopover Style="width: 300px;"
+            AnchorId="root-cause-popover"
+            VerticalPosition="VerticalPosition.Top"
+            @bind-Open="@IsPopoverVisible">
+            <Body>
+                <FluentListbox TOption="string"
+                    Items="@RootCauses"
+                    Height="@DropdownHeightPx"
+                    Width="300px"
+                    Value="@SelectedRootCause"
+                    ValueChanged="OnRootCauseChanged"/>
+                <FluentSearch style="width: 300px;"
+                    @bind-Value=@RootCauseFilter
+                    Immediate="true"
+                    Placeholder="Root Cause"></FluentSearch>
+            </Body>
+        </FluentPopover>
+
+        <div class="root-cause-options">
+            <FluentButton Appearance="Appearance.Neutral"
+                id="root-cause-popover"
+                style="width: 300px"
+                OnClick="@OpenPopover">
+                @SelectedRootCause</FluentButton>
+        </div>
+        @* <FluentSearch style="width: 300px"
+            @bind-Value=@RootCauseFilter
+            Immediate="true"
+            Placeholder="Root Cause"></FluentSearch>
+        <FluentListbox TOption="string"
+            Items="@RootCauses"
+            Height="@DropdownHeightPx"
+            Width="300px"
+            @bind-Value="@SelectedRootCause" /> *@
+
+
+
+
+
 
         </div>
 
@@ -37,3 +87,8 @@
     </NotAuthorized>
 
 </AuthorizeView>
+
+@code
+{
+    private string _rootCause = string.Empty;
+}
