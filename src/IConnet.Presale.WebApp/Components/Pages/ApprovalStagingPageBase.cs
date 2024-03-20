@@ -18,7 +18,7 @@ public class ApprovalStagingPageBase : WorkloadPageBase, IPageNavigation
     protected override void OnInitialized()
     {
         PageName = PageNavName.ApprovalStaging;
-        WorkloadFilter = WorkloadFilter.OnlyWaitingApproval;
+        PresaleDataFilter = PresaleDataFilter.OnlyWaitingApproval;
 
         TabNavigationManager.SelectTab(this);
 

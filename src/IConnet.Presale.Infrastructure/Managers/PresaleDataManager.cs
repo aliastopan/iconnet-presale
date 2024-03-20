@@ -5,22 +5,22 @@ namespace IConnet.Presale.Infrastructure.Managers;
 
 internal class PresaleDataManager
 {
-    protected static async Task<IQueryable<WorkPaper>> FilterPartitionAsync(WorkloadFilter filter, IEnumerable<WorkPaper> partition)
+    protected static async Task<IQueryable<WorkPaper>> FilterPartitionAsync(PresaleDataFilter filter, IEnumerable<WorkPaper> partition)
     {
         return await Task.Run(() => FilterPresaleData(filter, partition.AsQueryable()));
     }
 
-    protected static IQueryable<WorkPaper> FilterPresaleData(WorkloadFilter filter, IQueryable<WorkPaper> workPapers)
+    protected static IQueryable<WorkPaper> FilterPresaleData(PresaleDataFilter filter, IQueryable<WorkPaper> workPapers)
     {
         return filter switch
         {
-            WorkloadFilter.OnlyImportUnverified => FilterOnly(WorkPaperLevel.ImportUnverified),
-            WorkloadFilter.OnlyImportInvalid => FilterOnly(WorkPaperLevel.ImportInvalid),
-            WorkloadFilter.OnlyImportArchived => FilterOnly(WorkPaperLevel.ImportArchived),
-            WorkloadFilter.OnlyImportVerified => FilterOnly(WorkPaperLevel.ImportVerified),
-            WorkloadFilter.OnlyValidating => FilterOnly(WorkPaperLevel.ImportVerified, WorkPaperLevel.Validating),
-            WorkloadFilter.OnlyWaitingApproval => FilterOnly(WorkPaperLevel.WaitingApproval),
-            WorkloadFilter.OnlyDoneProcessing => FilterOnly(WorkPaperLevel.DoneProcessing),
+            PresaleDataFilter.OnlyImportUnverified => FilterOnly(WorkPaperLevel.ImportUnverified),
+            PresaleDataFilter.OnlyImportInvalid => FilterOnly(WorkPaperLevel.ImportInvalid),
+            PresaleDataFilter.OnlyImportArchived => FilterOnly(WorkPaperLevel.ImportArchived),
+            PresaleDataFilter.OnlyImportVerified => FilterOnly(WorkPaperLevel.ImportVerified),
+            PresaleDataFilter.OnlyValidating => FilterOnly(WorkPaperLevel.ImportVerified, WorkPaperLevel.Validating),
+            PresaleDataFilter.OnlyWaitingApproval => FilterOnly(WorkPaperLevel.WaitingApproval),
+            PresaleDataFilter.OnlyDoneProcessing => FilterOnly(WorkPaperLevel.DoneProcessing),
             _ => workPapers
         };
 

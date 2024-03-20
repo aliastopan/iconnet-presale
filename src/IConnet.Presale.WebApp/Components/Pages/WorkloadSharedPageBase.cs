@@ -13,7 +13,7 @@ public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
     protected override void OnInitialized()
     {
         PageName = PageNavName.WorkloadShared;
-        WorkloadFilter = WorkloadFilter.All;
+        PresaleDataFilter = PresaleDataFilter.All;
 
         TabNavigationManager.SelectTab(this);
 

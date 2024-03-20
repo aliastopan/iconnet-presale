@@ -1,6 +1,6 @@
 namespace IConnet.Presale.Application.Common.Interfaces.Managers.Options;
 
-public enum WorkloadFilter
+public enum PresaleDataFilter
 {
     All,
     OnlyImportUnverified,

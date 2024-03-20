@@ -25,7 +25,7 @@ public class WorkloadPageBase : ComponentBase
     protected string PaginationItemsPerPageOptions { get; set ;} = default!;
     protected PaginationState Pagination => _pagination;
     protected WorkloadColumnWidth ColumnWidth => _columnWidth;
-    protected WorkloadFilter WorkloadFilter { get; set; } = WorkloadFilter.OnlyImportVerified;
+    protected PresaleDataFilter PresaleDataFilter { get; set; } = PresaleDataFilter.OnlyImportVerified;
     protected virtual IQueryable<WorkPaper>? WorkPapers => _workPapers;
 
     protected GridSort<WorkPaper> SortByWorkPaperLevel => _workPapers.SortByWorkPaperLevel();
@@ -66,7 +66,7 @@ public class WorkloadPageBase : ComponentBase
     {
         if (!_isInitialized)
         {
-            _workPapers = await WorkloadManager.GetWorkloadAsync(WorkloadFilter);
+            _workPapers = await WorkloadManager.GetWorkloadAsync(PresaleDataFilter);
             BroadcastService.Subscribe(OnUpdateWorkloadAsync);
 
             _isInitialized = true;
@@ -75,7 +75,7 @@ public class WorkloadPageBase : ComponentBase
 
     protected virtual async Task OnUpdateWorkloadAsync(string message)
     {
-        _workPapers = await WorkloadManager.GetWorkloadAsync(WorkloadFilter);
+        _workPapers = await WorkloadManager.GetWorkloadAsync(PresaleDataFilter);
 
         // Log.Warning(message);
 

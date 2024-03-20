@@ -110,7 +110,7 @@ internal sealed class FasterWorkloadManager : PresaleDataManager, IWorkloadManag
         return (count, existingIds);
     }
 
-    public async Task<IQueryable<WorkPaper>> GetWorkloadAsync(WorkloadFilter filter = WorkloadFilter.All)
+    public async Task<IQueryable<WorkPaper>> GetWorkloadAsync(PresaleDataFilter filter = PresaleDataFilter.All)
     {
         var stopwatch = Stopwatch.StartNew();
 

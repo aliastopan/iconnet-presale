@@ -20,7 +20,7 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
     protected override void OnInitialized()
     {
         PageName = PageNavName.CrmVerification;
-        WorkloadFilter = WorkloadFilter.OnlyImportUnverified;
+        PresaleDataFilter = PresaleDataFilter.OnlyImportUnverified;
 
         TabNavigationManager.SelectTab(this);
 

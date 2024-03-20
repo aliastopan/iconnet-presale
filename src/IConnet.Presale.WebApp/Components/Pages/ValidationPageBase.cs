@@ -28,7 +28,7 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
     protected override void OnInitialized()
     {
         PageName = PageNavName.Validation;
-        WorkloadFilter = WorkloadFilter.OnlyValidating;
+        PresaleDataFilter = PresaleDataFilter.OnlyValidating;
 
         TabNavigationManager.SelectTab(this);
 
