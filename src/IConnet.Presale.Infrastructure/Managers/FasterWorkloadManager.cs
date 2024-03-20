@@ -15,7 +15,7 @@ internal sealed class FasterWorkloadManager : PresaleDataOperationBase, IWorkloa
     private readonly IInMemoryPersistenceService _inMemoryPersistenceService;
     private readonly IOnProgressPersistenceService _onProgressPersistenceService;
     private readonly IDoneProcessingPersistenceService _doneProcessingPersistenceService;
-    private readonly WorkPaperFactory _workloadFactory;
+    private readonly WorkPaperFactory _workPaperFactory;
 
     private readonly Queue<(string id, Task task)> _cacheForwardingTasks;
 
@@ -33,7 +33,7 @@ internal sealed class FasterWorkloadManager : PresaleDataOperationBase, IWorkloa
         _inMemoryPersistenceService = inMemoryPersistenceService;
         _onProgressPersistenceService = onProgressPersistenceService;
         _doneProcessingPersistenceService = doneProcessingPersistenceService;
-        _workloadFactory = workloadFactory;
+        _workPaperFactory = workloadFactory;
 
         _cacheForwardingTasks = new Queue<(string id, Task task)>();
 
@@ -86,7 +86,7 @@ internal sealed class FasterWorkloadManager : PresaleDataOperationBase, IWorkloa
 
         var workPapers = importModels
             .Where(workPaper => !existingIds.Contains(workPaper.IdPermohonan))
-            .Select(_workloadFactory.CreateWorkPaper);
+            .Select(_workPaperFactory.CreateWorkPaper);
 
         _inMemoryPersistenceService.InsertRange(workPapers);
 
@@ -94,7 +94,7 @@ internal sealed class FasterWorkloadManager : PresaleDataOperationBase, IWorkloa
             .Where(importModel => !existingIds.Contains(importModel.IdPermohonan))
             .Select(async importModel =>
             {
-                var workPaper = _workloadFactory.CreateWorkPaper(importModel);
+                var workPaper = _workPaperFactory.CreateWorkPaper(importModel);
                 var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
                 var key = workPaper.ApprovalOpportunity.IdPermohonan;
 
