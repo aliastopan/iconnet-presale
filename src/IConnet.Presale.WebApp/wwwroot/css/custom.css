@@ -187,6 +187,7 @@ input:invalid::part(root) {
     flex-direction: column;
 }
 
+.filter-approval-status label.fluent-input-label,
 .filter-search label.fluent-input-label,
 .filter-office label.fluent-input-label,
 .date-picker label.fluent-input-label{
@@ -204,6 +205,10 @@ input:invalid::part(root) {
 
 .filter-reset{
     margin-left: auto;
+}
+
+.filter-approval-status{
+
 }
 
 /* .staging-table-toggle{

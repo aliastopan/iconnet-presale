@@ -26,6 +26,7 @@ public class FilterModel
     public DateTime FilterDateTimeMin => NullableFilterDateTimeMin!.Value;
     public DateTime FilterDateTimeMax => NullableFilterDateTimeMax!.Value;
     public TimeSpan FilterDateTimeDifference => FilterDateTimeMax - FilterDateTimeMin;
+    public string FilterStatusApproval { get; set; } = string.Empty;
 
     // column filters
     public string IdPermohonan { get; set; } = string.Empty;

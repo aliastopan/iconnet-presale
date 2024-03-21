@@ -7,6 +7,7 @@ public partial class FilterForm : ComponentBase
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
 
     [Parameter] public EventCallback OnFilter { get; set; }
+    [Parameter] public bool IncludeApprovalStatus { get; set; }
 
     private FilterModel _filterModel = default!;
 
@@ -27,6 +28,14 @@ public partial class FilterForm : ComponentBase
         FilterModel.FilterOffice = SessionService.FilterPreference.KantorPerwakilan;
         FilterModel.NullableFilterDateTimeMin = SessionService.FilterPreference.TglPermohonanMin;
         FilterModel.NullableFilterDateTimeMax = SessionService.FilterPreference.TglPermohonanMax;
+
+        await OnFilter.InvokeAsync();
+    }
+
+    protected async Task FilterByStatusApprovalAsync(string filterStatusApproval)
+    {
+        FilterModel.FilterSearch = string.Empty;
+        FilterModel.FilterStatusApproval = filterStatusApproval;
 
         await OnFilter.InvokeAsync();
     }

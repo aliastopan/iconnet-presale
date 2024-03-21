@@ -14,8 +14,7 @@
                     Value="@FilterModel.FilterOffice"
                     ValueChanged="FilterByOfficeAsync"/>
             </div>
-            <FluentSpacer />
-            <div class="filter-search">
+            <div class="filter-search" style="margin-left: 64px;">
                 <FluentSelect TOption="string"
                     Label="Pencarian"
                     Items="@OptionService.SearchFilterOptions"
@@ -54,6 +53,17 @@
                         ValueChanged="SetFilterDateTimeEndAsync"/>
                 </div>
             </div>
+            @if (IncludeApprovalStatus)
+            {
+                <div class="filter-approval-status" style="margin-left: 64px;">
+                    <FluentSelect TOption="string"
+                        Label="Approval Status"
+                        Items="@OptionSelect.StatusApprovalFilter.StatusApprovalFilterOptions"
+                        Width="185px"
+                        Value="@FilterModel.FilterStatusApproval"
+                        ValueChanged="FilterByStatusApprovalAsync"/>
+                </div>
+            }
 
         </FluentStack>
 
