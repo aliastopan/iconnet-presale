@@ -27,8 +27,6 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
     {
         if (!_isInitialized)
         {
-            // await WorkloadManager.GetWorkloadAsync(PresaleDataFilter);
-
             await GetArchivedWorkloadAsync();
 
             BroadcastService.Subscribe(OnUpdateWorkloadAsync);
@@ -41,6 +39,8 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
 
     protected IQueryable<WorkPaper>? FilterWorkPapers()
     {
+        Task.Run(GetArchivedWorkloadAsync);
+
         if (FilterComponent is null)
         {
             return base.WorkPapers;
