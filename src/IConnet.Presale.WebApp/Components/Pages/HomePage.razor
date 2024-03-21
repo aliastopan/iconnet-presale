@@ -30,7 +30,8 @@
 
             <TemplateColumn Title="STATUS KERTAS KERJA" Style="@GetWidthStyle(ColumnWidth.WorkPaperLevelPx)">
                 <div class="">
-                    <WorkPaperLevelBadge WorkPaperLevel="@context.WorkPaperLevel"/>
+                    <WorkPaperLevelBadge WorkPaperLevel="@context.WorkPaperLevel"
+                        ApprovalStatus="@context.ProsesApproval.StatusApproval"/>
                 </div>
             </TemplateColumn>
             <TemplateColumn Title="ID PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.IdPermohonanPx)">

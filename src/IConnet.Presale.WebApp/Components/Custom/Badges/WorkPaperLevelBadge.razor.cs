@@ -2,8 +2,8 @@ namespace IConnet.Presale.WebApp.Components.Custom.Badges;
 
 public partial class WorkPaperLevelBadge : ComponentBase
 {
-    [Parameter]
-    public WorkPaperLevel WorkPaperLevel { get; set; } = default!;
+    [Parameter] public WorkPaperLevel WorkPaperLevel { get; set; } = default!;
+    [Parameter] public ApprovalStatus ApprovalStatus { get; set; } = default!;
 
     protected string GetCssBadge()
     {
@@ -22,7 +22,17 @@ public partial class WorkPaperLevelBadge : ComponentBase
             case WorkPaperLevel.WaitingApproval:
                 return "workpaper-waiting-approval";
             case WorkPaperLevel.DoneProcessing:
-                return "workpaper-done-processing";
+                {
+                    switch (ApprovalStatus)
+                    {
+                        case ApprovalStatus.CloseLost:
+                            return "workpaper-done-processing-closed-lost";
+                        case ApprovalStatus.Reject:
+                            return "workpaper-done-processing-reject";
+                        default:
+                            return "workpaper-done-processing-success";
+                    }
+                }
             default:
                 return "workpaper-neutral";
         }
