@@ -20,34 +20,34 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
         _archiveDbIndex = _appSecretSettings.RedisDbIndex + 1;
     }
 
-    public IDatabase RedisOnProgress => _connectionMultiplexer.GetDatabase(_onProgressDbIndex);
-    public IDatabase RedisArchive => _connectionMultiplexer.GetDatabase(_archiveDbIndex);
+    public IDatabase DatabaseProgress => _connectionMultiplexer.GetDatabase(_onProgressDbIndex);
+    public IDatabase DatabaseArchive => _connectionMultiplexer.GetDatabase(_archiveDbIndex);
 
     async Task<string?> IOnProgressPersistenceService.GetValueAsync(string key)
     {
-        return await GetValueAsync(key, database: RedisOnProgress);
+        return await GetValueAsync(key, DatabaseProgress);
     }
 
     async Task<string?> IDoneProcessingPersistenceService.GetValueAsync(string key)
     {
-        return await GetValueAsync(key, database: RedisArchive);
+        return await GetValueAsync(key, DatabaseArchive);
     }
 
     async Task<List<string?>> IOnProgressPersistenceService.GetAllValuesAsync()
     {
-        return await GetAllValuesAsync(_onProgressDbIndex, database: RedisOnProgress);
+        return await GetAllValuesAsync(_onProgressDbIndex, DatabaseProgress);
     }
 
     async Task<List<string?>> IDoneProcessingPersistenceService.GetAllValuesAsync()
     {
-        return await GetAllValuesAsync(_archiveDbIndex, database: RedisArchive);
+        return await GetAllValuesAsync(_archiveDbIndex, DatabaseArchive);
     }
 
     public async Task SetValueAsync(string key, string value, TimeSpan? expiry = null)
     {
         try
         {
-            await RedisOnProgress.StringSetAsync(key, value, expiry);
+            await DatabaseProgress.StringSetAsync(key, value, expiry);
         }
         catch (TimeoutException exception)
         {
@@ -60,10 +60,10 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
     {
         try
         {
-            var exists = await RedisOnProgress.KeyExistsAsync(key);
+            var exists = await DatabaseProgress.KeyExistsAsync(key);
             if (exists)
             {
-                await RedisOnProgress.StringSetAsync(key, value, expiry);
+                await DatabaseProgress.StringSetAsync(key, value, expiry);
                 return true;
             }
 
@@ -80,7 +80,7 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
     {
         try
         {
-            return await RedisOnProgress.KeyDeleteAsync(key);
+            return await DatabaseProgress.KeyDeleteAsync(key);
         }
         catch (TimeoutException exception)
         {
@@ -91,29 +91,29 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
 
     async Task<bool> IOnProgressPersistenceService.IsKeyExistsAsync(string key)
     {
-        return await IsKeyExistsAsync(key, database: RedisOnProgress);
+        return await IsKeyExistsAsync(key, DatabaseProgress);
     }
 
     async Task<bool> IDoneProcessingPersistenceService.IsKeyExistsAsync(string key)
     {
-        return await IsKeyExistsAsync(key, database: RedisArchive);
+        return await IsKeyExistsAsync(key, DatabaseArchive);
     }
 
     async Task<HashSet<string>> IOnProgressPersistenceService.GetExistingKeysAsync(HashSet<string> keysToCheck)
     {
-        return await GetExistingKeysAsync(keysToCheck, database: RedisOnProgress);
+        return await GetExistingKeysAsync(keysToCheck, DatabaseProgress);
     }
 
     async Task<HashSet<string>> IDoneProcessingPersistenceService.GetExistingKeysAsync(HashSet<string> keysToCheck)
     {
-        return await GetExistingKeysAsync(keysToCheck, database: RedisArchive);
+        return await GetExistingKeysAsync(keysToCheck, DatabaseArchive);
     }
 
     public async Task ArchiveValueAsync(string key, string value, TimeSpan? expiry = null)
     {
         try
         {
-            await RedisArchive.StringSetAsync(key, value, expiry);
+            await DatabaseArchive.StringSetAsync(key, value, expiry);
         }
         catch (TimeoutException exception)
         {
