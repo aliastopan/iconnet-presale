@@ -10,7 +10,7 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
     [Inject] public IToastService ToastService { get; set; } = default!;
 
     private readonly ImportModelColumnWidth _columnWidth = new();
-    private const int _itemPerPage = 10;
+    private const int _itemPerPage = 25;
     private readonly PaginationState _pagination = new() { ItemsPerPage = _itemPerPage };
     private HashSet<string> _duplicateIds = new();
     private IQueryable<IApprovalOpportunityModel>? _importModels;
