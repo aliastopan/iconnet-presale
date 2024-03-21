@@ -10,7 +10,10 @@ public partial class RootCauseSelect : ComponentBase
     public string SelectedRootCause { get; set; } = string.Empty;
 
     [Parameter]
-    public EventCallback<string> OnSelectedRootCause { get; set; }
+    public EventCallback<string> OnSelectedRootCauseChanged { get; set; }
+
+    [Parameter]
+    public bool IsDisabled { get; set; }
 
     protected string RootCauseFilter { get; set; } = string.Empty;
     protected IEnumerable<string> RootCauses => GetFilteredRootCauses();
@@ -29,7 +32,7 @@ public partial class RootCauseSelect : ComponentBase
     protected async Task OnRootCauseChangedAsync(string selectedRootCause)
     {
         SelectedRootCause = selectedRootCause;
-        await OnSelectedRootCause.InvokeAsync(selectedRootCause);
+        await OnSelectedRootCauseChanged.InvokeAsync(selectedRootCause);
 
         IsPopoverVisible = false;
     }

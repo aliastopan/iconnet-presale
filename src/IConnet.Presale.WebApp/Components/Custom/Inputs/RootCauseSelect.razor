@@ -21,6 +21,7 @@
             <label class="fluent-input-label">Root Cause</label>
             <FluentButton Appearance="Appearance.Neutral"
                 id="root-cause-popover"
+                Disabled="@IsDisabled"
                 style="width: 300px"
                 OnClick="@OpenPopover">
                 @SelectedRootCause</FluentButton>
