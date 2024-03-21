@@ -5,7 +5,7 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class ApprovalStagingPageBase : WorkloadPageBase, IPageNavigation
 {
-    private readonly static int _stagingLimit = 25;
+    private readonly static int _stagingLimit = 10;
 
     protected string GridTemplateCols => GetGridTemplateCols();
     protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();

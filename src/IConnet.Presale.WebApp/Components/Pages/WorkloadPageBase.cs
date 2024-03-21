@@ -14,7 +14,7 @@ public class WorkloadPageBase : ComponentBase
     [Inject] public TabNavigationManager TabNavigationManager { get; set; } = default!;
 
     private bool _isInitialized = false;
-    private const int _itemPerPage = 25;
+    private const int _itemPerPage = 10;
     private readonly PaginationState _pagination = new PaginationState { ItemsPerPage = _itemPerPage };
     private readonly WorkloadColumnWidth _columnWidth = new WorkloadColumnWidth();
 

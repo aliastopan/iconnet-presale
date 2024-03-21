@@ -4,7 +4,7 @@ public static class OptionSelect
 {
     public static class Pagination
     {
-        private static readonly List<string> _itemsPerPageOptions = ["25", "50", "75", "100"];
+        private static readonly List<string> _itemsPerPageOptions = ["10", "25", "50", "75", "100"];
         public static List<string> ItemsPerPageOptions => _itemsPerPageOptions;
     }
 
