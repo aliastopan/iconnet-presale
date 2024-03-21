@@ -1,0 +1,26 @@
+        <FluentPopover Style="width: 300px;"
+            AnchorId="root-cause-popover"
+            VerticalPosition="VerticalPosition.Top"
+            @bind-Open="@IsPopoverVisible">
+            <Body>
+                <FluentListbox TOption="string"
+                    Items="@RootCauses"
+                    Height="@DropdownHeightPx"
+                    Width="300px"
+                    Value="@SelectedRootCause"
+                    ValueChanged="OnRootCauseChanged"/>
+                <FluentSearch style="width: 300px;"
+                    @bind-Value=@RootCauseFilter
+                    Immediate="true"
+                    Spellcheck="false"
+                    Placeholder="Root Cause"></FluentSearch>
+            </Body>
+        </FluentPopover>
+
+        <div class="root-cause-options">
+            <FluentButton Appearance="Appearance.Neutral"
+                id="root-cause-popover"
+                style="width: 300px"
+                OnClick="@OpenPopover">
+                @SelectedRootCause</FluentButton>
+        </div>
