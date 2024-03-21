@@ -276,6 +276,15 @@ input:invalid::part(root) {
     padding: 4px;
 }
 
+.root-cause-options{
+    display: flex;
+    flex-direction: column;
+}
+
+.root-cause-options label{
+    font-weight: 600 !important;
+}
+
 .root-cause-options fluent-button.neutral::part(control){
     justify-content: start !important;
 }
