@@ -87,7 +87,7 @@
             <TemplateColumn Title="ROOT CAUSE" Style="@GetWidthStyle(ColumnWidth.RootCausePx)"
                 SortBy="@SortByRootCause">
                 <div class="">
-                    @context.ProsesApproval.RootCause
+                    @context.ProsesApproval.RootCause.ToUpper()
                 </div>
             </TemplateColumn>
             <TemplateColumn Title="NAMA PEMOHON" Style="@GetWidthStyle(ColumnWidth.NamaPemohonPx, 200)"
