@@ -79,6 +79,8 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.WorkPaperLevelPx}px
             {ColumnWidth.IdPermohonanPx}px
             {ColumnWidth.TglPermohonanPx}px
+            {ColumnWidth.StatusApprovalPx}px
+            {ColumnWidth.RootCausePx}px
             {ColumnWidth.NamaPemohonPx + 200}px
             {ColumnWidth.TelpPemohonPx + 180}px
             {ColumnWidth.EmailPemohonPx + 200}px
@@ -94,8 +96,6 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.LinkChatHistoryPx}px
             {ColumnWidth.KeteranganValidasiPx}px
             {ColumnWidth.ContactWhatsAppPx}px
-            {ColumnWidth.StatusApprovalPx}px
-            {ColumnWidth.RootCausePx}px
             {ColumnWidth.TglApprovalPx}px
             {ColumnWidth.PlanningAssetCoverageInChargePx}px
             {ColumnWidth.KeteranganApprovalPx}px

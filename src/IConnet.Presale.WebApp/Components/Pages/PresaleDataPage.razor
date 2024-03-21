@@ -76,6 +76,18 @@
                     <DateTimeBadge DateTime="@context.ApprovalOpportunity.TglPermohonan"/>
                 </div>
             </TemplateColumn>
+            <TemplateColumn Title="APPROVAL" Style="@GetWidthStyle(ColumnWidth.StatusApprovalPx)"
+                SortBy="@SortByStatusApproval">
+                <div class="">
+                    <ApprovalBadge ApprovalStatus="@context.ProsesApproval.StatusApproval"/>
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="ROOT CAUSE" Style="@GetWidthStyle(ColumnWidth.RootCausePx)"
+                SortBy="@SortByRootCause">
+                <div class="">
+                    @context.ProsesApproval.RootCause
+                </div>
+            </TemplateColumn>
             <TemplateColumn Title="NAMA PEMOHON" Style="@GetWidthStyle(ColumnWidth.NamaPemohonPx, 200)"
                 SortBy="@SortByNamaPemohon">
                 <ColumnOptions>
@@ -272,18 +284,6 @@
                     <a href="@url" target="_blank">
                         @context.ApprovalOpportunity.Pemohon.GetWhatsApp()
                     </a>
-                </div>
-            </TemplateColumn>
-            <TemplateColumn Title="APPROVAL" Style="@GetWidthStyle(ColumnWidth.StatusApprovalPx)"
-                SortBy="@SortByStatusApproval">
-                <div class="">
-                    <ApprovalBadge ApprovalStatus="@context.ProsesApproval.StatusApproval"/>
-                </div>
-            </TemplateColumn>
-            <TemplateColumn Title="ROOT CAUSE" Style="@GetWidthStyle(ColumnWidth.RootCausePx)"
-                SortBy="@SortByRootCause">
-                <div class="">
-                    @context.ProsesApproval.RootCause
                 </div>
             </TemplateColumn>
             <TemplateColumn Title="TGL APPROVAL" Style="@GetWidthStyle(ColumnWidth.TglApprovalPx)"
