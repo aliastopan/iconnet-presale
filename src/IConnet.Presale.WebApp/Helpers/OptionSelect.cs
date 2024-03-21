@@ -36,12 +36,17 @@ public static class OptionSelect
 
     public static class StatusApprovalFilter
     {
-        public static IEnumerable<string> StatusApprovalFilterOptions => new List<string> { "Semua" }.Concat(EnumProcessor.GetStringOptions<ApprovalStatus>().Skip(1));
+        public static IEnumerable<string> StatusApprovalFilterOptions =>
+        [
+            "Semua",
+            StatusApproval.CloseLost.ToString(),
+            StatusApproval.Reject.ToString(),
+            StatusApproval.Approve.ToString(),
+        ];
         public static string All => StatusApprovalFilterOptions.First();
-        public static string CloseLost => StatusApprovalFilterOptions.Skip(1).First();
-        public static string Reject => StatusApprovalFilterOptions.Skip(2).First();
-        public static string Expansion => StatusApprovalFilterOptions.Skip(3).First();
-        public static string Approve => StatusApprovalFilterOptions.Last();
+        public static string CloseLost => StatusApproval.CloseLost.ToString();
+        public static string Reject => StatusApproval.Reject.ToString();
+        public static string Approve => StatusApproval.Approve.ToString();
     }
 
     public static class StatusKepegawaian

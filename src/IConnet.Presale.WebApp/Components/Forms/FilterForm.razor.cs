@@ -127,6 +127,16 @@ public partial class FilterForm : ComponentBase
                 workPapers = workPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == FilterModel.FilterOffice);
             }
 
+            if (IncludeApprovalStatus
+                && FilterModel.FilterStatusApproval != OptionSelect.StatusApprovalFilter.All
+                && !FilterModel.FilterStatusApproval.IsNullOrWhiteSpace())
+            {
+                // LogSwitch.Debug("Filter {0}", FilterModel.FilterStatusApproval);
+                var approvalStatus = EnumProcessor.StringToEnum<ApprovalStatus>(FilterModel.FilterStatusApproval);
+
+                workPapers = workPapers?.Where(x => x.ProsesApproval.StatusApproval == approvalStatus);
+            }
+
             // LogSwitch.Debug("Filtering DateTime");
             return workPapers?.Where(x => x.ApprovalOpportunity.TglPermohonan >= FilterModel.FilterDateTimeMin
                         && x.ApprovalOpportunity.TglPermohonan <= FilterModel.FilterDateTimeMax);
