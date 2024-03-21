@@ -1,3 +1,5 @@
+@using IConnet.Presale.WebApp.Components.Custom.Inputs
+
 @if (WorkPaper is not null && ApprovalModel is not null)
 {
     <div style="min-height: 550px;">
@@ -385,14 +387,10 @@
                         </div>
                     </div>
                     <div class="approval-value">
-                        <div class="approval-label-result">
-                            <FluentSelect Items="@OptionService.RootCauseOptions"
-                                Value="@ApprovalModel.RootCause"
-                                ValueChanged="OnRootCauseChanged"
-                                Disabled="@DisableRootCause"
-                                Position="SelectPosition.Above"
-                                Width="300px"
-                                Label="Root Cause"/>
+                        <div class="approval-label-result" style="width: 300px;">
+                            <RootCauseSelect IsDisabled="@DisableRootCause"
+                                SelectedRootCause="@ApprovalModel.RootCause"
+                                OnSelectedRootCauseChanged="OnRootCauseChanged"/>
                         </div>
                         <FluentTextArea class="approval-textarea" style="width: 300px; margin-top: 10px;"
                             Value="@ApprovalModel.Keterangan"
