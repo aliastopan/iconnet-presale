@@ -79,7 +79,6 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.WorkPaperLevelPx}px
             {ColumnWidth.IdPermohonanPx}px
             {ColumnWidth.TglPermohonanPx}px
-            {ColumnWidth.DurasiTidakLanjutPx}px
             {ColumnWidth.NamaPemohonPx + 200}px
             {ColumnWidth.TelpPemohonPx + 180}px
             {ColumnWidth.EmailPemohonPx + 200}px
