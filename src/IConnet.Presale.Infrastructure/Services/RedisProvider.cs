@@ -1,4 +1,3 @@
-using System.Linq;
 using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 
@@ -34,28 +33,14 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
         return await GetValueAsync(key, database: RedisArchive);
     }
 
-    public async Task<List<string?>> GetAllValuesAsync()
+    async Task<List<string?>> IOnProgressPersistenceService.GetAllValuesAsync()
     {
-        try
-        {
-            var server = _connectionMultiplexer.GetServer(_connectionMultiplexer.GetEndPoints().First());
-            var keys = server.Keys(_onProgressDbIndex);
-            var values = new List<string?>();
+        return await GetAllValuesAsync(_onProgressDbIndex, database: RedisOnProgress);
+    }
 
-            foreach (var key in keys)
-            {
-                var value = await RedisOnProgress.StringGetAsync(key);
-                values.Add(value);
-            }
-
-            return values;
-        }
-        catch (TimeoutException exception)
-        {
-            Log.Fatal($"Redis operation timed out: {exception.Message}");
-            throw;
-        }
-
+    async Task<List<string?>> IDoneProcessingPersistenceService.GetAllValuesAsync()
+    {
+        return await GetAllValuesAsync(_archiveDbIndex, database: RedisArchive);
     }
 
     public async Task SetValueAsync(string key, string value, TimeSpan? expiry = null)
@@ -137,11 +122,34 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
         }
     }
 
-    public static async Task<string?> GetValueAsync(string key, IDatabase database)
+    private static async Task<string?> GetValueAsync(string key, IDatabase database)
     {
         try
         {
             return await database.StringGetAsync(key);
+        }
+        catch (TimeoutException exception)
+        {
+            Log.Fatal($"Redis operation timed out: {exception.Message}");
+            throw;
+        }
+    }
+
+    private async Task<List<string?>> GetAllValuesAsync(int dbIndex, IDatabase database)
+    {
+        try
+        {
+            var server = _connectionMultiplexer.GetServer(_connectionMultiplexer.GetEndPoints().First());
+            var keys = server.Keys(dbIndex);
+            var values = new List<string?>();
+
+            foreach (var key in keys)
+            {
+                var value = await database.StringGetAsync(key);
+                values.Add(value);
+            }
+
+            return values;
         }
         catch (TimeoutException exception)
         {
