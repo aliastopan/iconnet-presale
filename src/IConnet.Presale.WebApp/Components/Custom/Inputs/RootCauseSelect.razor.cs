@@ -6,7 +6,7 @@ public partial class RootCauseSelect : ComponentBase
 
     private ICollection<string> _rootCauses = default!;
     private readonly int _maxHeight = 40;
-    private readonly int _maxSelectionHeight = 200 + 8; // with offset hack
+    private readonly int _maxSelectionHeight = 200 + 4; // with offset hack
 
     [Parameter]
     public string SelectedRootCause { get; set; } = string.Empty;
