@@ -87,6 +87,11 @@ public class WorkloadPageBase : ComponentBase
         });
     }
 
+    protected void SetWorkPapers(IQueryable<WorkPaper> workPapers)
+    {
+        _workPapers = workPapers;
+    }
+
     protected void OnItemsPerPageChanged(string ItemsPerPageString)
     {
         int itemsPerPage = int.Parse(ItemsPerPageString);
