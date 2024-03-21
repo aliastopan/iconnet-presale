@@ -35,7 +35,7 @@ public partial class WorkPaperLevelBadge : ComponentBase
             case WorkPaperLevel.ImportUnverified:
                 return "Menunggu Verifikasi";
             case WorkPaperLevel.ImportInvalid:
-                return "Invalid iCRM+ Data";
+                return "Invalid";
             case WorkPaperLevel.ImportArchived:
                 return "Archived";
             case WorkPaperLevel.ImportVerified:
