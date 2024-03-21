@@ -11,4 +11,5 @@ public interface IWorkloadManager
     Task DeleteWorkloadAsync(WorkPaper workPaper);
 
     Task<WorkPaper?> SearchWorkPaperAsync(string idPermohonan);
+    Task<IQueryable<WorkPaper>> GetArchivedWorkloadAsync(DateTime dateTimeMin, DateTime dateTimeMax);
 }

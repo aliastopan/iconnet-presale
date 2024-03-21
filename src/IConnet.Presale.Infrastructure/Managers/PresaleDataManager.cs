@@ -127,6 +127,19 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
         return workPapers;
     }
 
+    public async Task<IQueryable<WorkPaper>> GetArchivedWorkloadAsync(DateTime dateTimeMin, DateTime dateTimeMax)
+    {
+        var jsonWorkPapers = await _doneProcessingPersistenceService.GetAllValuesAsync();
+        var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapersParallel(jsonWorkPapers!, _parallelOptions,
+            workPaper =>
+            {
+                return workPaper.ApprovalOpportunity.TglPermohonan >= dateTimeMin
+                    && workPaper.ApprovalOpportunity.TglPermohonan <= dateTimeMax;
+            });
+
+        return workPapers.AsQueryable();
+    }
+
     public async Task UpdateWorkloadAsync(WorkPaper workPaper)
     {
         workPaper.LastModified = _dateTimeService.DateTimeOffsetNow;
