@@ -127,7 +127,6 @@ fluent-data-grid-cell.column-header:last-child{
 
 .datagrid-wrapper{
     margin-top: 0.5rem;
-    max-height: 364px;
     overflow-x: auto;
     overflow-y: auto;
 }

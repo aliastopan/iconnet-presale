@@ -102,4 +102,14 @@ public class WorkloadPageBase : ComponentBase
     {
         return $"width: {widthPx + offsetPx}px;";
     }
+
+    protected string GetPaginationStyle()
+    {
+        if (_pagination.ItemsPerPage <= 10)
+        {
+            return "max-height: 364px !important";
+        }
+
+        return "min-height: 364px !important";
+    }
 }

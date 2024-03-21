@@ -149,4 +149,14 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
             {ColumnWidth.LatitudePx}px
             {ColumnWidth.LongitudePx}px;";
     }
+
+    protected string GetPaginationStyle()
+    {
+        if (_pagination.ItemsPerPage <= 10)
+        {
+            return "max-height: 364px !important";
+        }
+
+        return "min-height: 364px !important";
+    }
 }

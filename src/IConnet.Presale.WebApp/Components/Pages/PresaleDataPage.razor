@@ -32,7 +32,7 @@
 </div>
 
 
-<div class="datagrid-wrapper">
+<div class="datagrid-wrapper" style="@GetPaginationStyle()">
     @if (WorkPapers is not null)
     {
         <FluentDataGrid Items="@WorkPapers"

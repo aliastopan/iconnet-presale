@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <div class="datagrid-wrapper">
+        <div class="datagrid-wrapper" style="@GetPaginationStyle()">
             @if (ImportModels is not null)
             {
                 <FluentDataGrid Items="@ImportModels"
