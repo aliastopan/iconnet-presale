@@ -137,6 +137,8 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
                     && workPaper.ApprovalOpportunity.TglPermohonan <= dateTimeMax;
             });
 
+        LogSwitch.Debug("Archived count: {0}", workPapers.Count());
+
         return workPapers.AsQueryable();
     }
 
