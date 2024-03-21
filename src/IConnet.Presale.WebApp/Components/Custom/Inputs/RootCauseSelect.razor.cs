@@ -6,8 +6,12 @@ public partial class RootCauseSelect : ComponentBase
 
     private ICollection<string> _rootCauses = default!;
 
-    [CascadingParameter(Name = "CascadeRootCause")]
-    protected string SelectedRootCause { get; set; } = string.Empty;
+    [Parameter]
+    public string SelectedRootCause { get; set; } = string.Empty;
+
+    [Parameter]
+    public EventCallback<string> OnSelectedRootCause { get; set; }
+
     protected string RootCauseFilter { get; set; } = string.Empty;
     protected IEnumerable<string> RootCauses => GetFilteredRootCauses();
     protected int DropdownHeight => Math.Min(RootCauses.Count() * 40, 200);
@@ -22,10 +26,12 @@ public partial class RootCauseSelect : ComponentBase
         _rootCauses = new List<string>(OptionService.RootCauseOptions);
     }
 
-    protected void OnRootCauseChanged(string selectedRootCause)
+    protected async Task OnRootCauseChangedAsync(string selectedRootCause)
     {
-        IsPopoverVisible = false;
         SelectedRootCause = selectedRootCause;
+        await OnSelectedRootCause.InvokeAsync(selectedRootCause);
+
+        IsPopoverVisible = false;
     }
 
     protected void OpenPopover()
