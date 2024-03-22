@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Text.Json;
 using IConnet.Presale.Domain.Aggregates.Presales;
 using IConnet.Presale.Domain.Enums;
@@ -10,8 +9,6 @@ namespace IConnet.Presale.Infrastructure.Managers;
 internal sealed class PresaleDataManager : PresaleDataOperationBase,
     IWorkloadManager, IWorkloadSynchronizationManager
 {
-    private const int PartitionSize = 100;
-
     private readonly IDateTimeService _dateTimeService;
     private readonly IInMemoryPersistenceService _inMemoryPersistenceService;
     private readonly IInProgressPersistenceService _inProgressPersistenceService;
@@ -20,8 +17,6 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase,
 
     private readonly Queue<(string id, Task task)> _cacheSynchronizeTasks;
 
-    private readonly int _processorCount;
-    private readonly ParallelOptions _parallelOptions;
     private bool _isInitialized = false;
 
     public PresaleDataManager(IDateTimeService dateTimeService,
@@ -37,12 +32,6 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase,
         _workPaperFactory = workloadFactory;
 
         _cacheSynchronizeTasks = new Queue<(string id, Task task)>();
-
-        _processorCount = Environment.ProcessorCount;
-        _parallelOptions = new ParallelOptions
-        {
-            MaxDegreeOfParallelism = _processorCount
-        };
     }
 
     public async Task<(int, HashSet<string>)> InsertWorkloadAsync(List<IApprovalOpportunityModel> importModels)
@@ -117,7 +106,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase,
 
         IQueryable<WorkPaper> workPapers;
 
-        var partitions = SplitIntoPartitions(_inMemoryPersistenceService.InProgressWorkPapers!, PartitionSize);
+        var partitions = SplitIntoPartitions(_inMemoryPersistenceService.InProgressWorkPapers!);
         var tasks = partitions.Select(partition => FilterPartitionAsync(filter, partition));
 
         workPapers = (await Task.WhenAll(tasks)).SelectMany(partition => partition).AsQueryable();
@@ -131,7 +120,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase,
     public async Task<IQueryable<WorkPaper>> GetArchivedWorkloadAsync(DateTime dateTimeMin, DateTime dateTimeMax)
     {
         var jsonWorkPapers = await _doneProcessingPersistenceService.GetAllValuesAsync();
-        var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapersParallel(jsonWorkPapers!, _parallelOptions,
+        var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapersParallel(jsonWorkPapers!, ParallelOptions,
             workPaper =>
             {
                 return workPaper.ApprovalOpportunity.TglPermohonan >= dateTimeMin
@@ -248,7 +237,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase,
         // var stopwatch = Stopwatch.StartNew();
 
         var jsonWorkPapers = await _inProgressPersistenceService.GetAllValuesAsync();
-        var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapers(jsonWorkPapers!, _parallelOptions);
+        var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapers(jsonWorkPapers!, ParallelOptions);
 
         // int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers);
         int insertCount = _inMemoryPersistenceService.InsertOverwriteInProgress(workPapers, excludeDoneProcessing);

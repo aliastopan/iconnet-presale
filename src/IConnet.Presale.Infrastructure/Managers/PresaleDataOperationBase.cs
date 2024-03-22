@@ -5,6 +5,19 @@ namespace IConnet.Presale.Infrastructure.Managers;
 
 internal class PresaleDataOperationBase
 {
+    protected const int PartitionSize = 100;
+    protected readonly int ProcessorCount;
+    protected readonly ParallelOptions ParallelOptions;
+
+    public PresaleDataOperationBase()
+    {
+        ProcessorCount = Environment.ProcessorCount;
+        ParallelOptions = new ParallelOptions
+        {
+            MaxDegreeOfParallelism = ProcessorCount
+        };
+    }
+
     protected static async Task<IQueryable<WorkPaper>> FilterPartitionAsync(PresaleDataFilter filter, IEnumerable<WorkPaper> partition)
     {
         return await Task.Run(() => FilterPresaleData(filter, partition.AsQueryable()));
@@ -37,7 +50,7 @@ internal class PresaleDataOperationBase
         }
     }
 
-    protected static List<IEnumerable<WorkPaper>> SplitIntoPartitions(IEnumerable<WorkPaper> source, int partitionSize)
+    protected static List<IEnumerable<WorkPaper>> SplitIntoPartitions(IEnumerable<WorkPaper> source)
     {
         return source
             .Select((workPaper, index) => new
@@ -45,7 +58,7 @@ internal class PresaleDataOperationBase
                 WorkPaper = workPaper,
                 Index = index
             })
-            .GroupBy(partition => partition.Index / partitionSize)
+            .GroupBy(partition => partition.Index / PartitionSize)
             .Select(group => group.Select(x => x.WorkPaper))
             .ToList();
     }
