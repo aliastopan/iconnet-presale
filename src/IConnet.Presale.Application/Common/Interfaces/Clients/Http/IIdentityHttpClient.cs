@@ -7,4 +7,6 @@ public interface IIdentityHttpClient : IHttpClientBase
         bool isManagedByAdministrator);
     Task<HttpResult> SignInAsync(string username, string password);
     Task<HttpResult> RefreshAccessAsync(string accessToken, string refreshTokenStr);
+
+    Task<HttpResult> GetUserOperatorsAsync();
 }

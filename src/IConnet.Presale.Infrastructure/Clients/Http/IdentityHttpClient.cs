@@ -97,4 +97,27 @@ internal sealed class IdentityHttpClient : HttpClientBase, IIdentityHttpClient
             Content = await responseMessage.Content.ReadAsStringAsync()
         };
     }
+
+    public async Task<HttpResult> GetUserOperatorsAsync()
+    {
+        var isResponding = await IsHostRespondingAsync();
+        if (!isResponding)
+        {
+            return new HttpResult
+            {
+                IsSuccessStatusCode = false
+            };
+        }
+
+        var requestUri = UriEndpoint.Identity.GetOperators;
+
+        using var responseMessage = await HttpClient.GetAsync(requestUri);
+
+        return new HttpResult
+        {
+            IsSuccessStatusCode = responseMessage.IsSuccessStatusCode,
+            Headers = responseMessage.Headers,
+            Content = await responseMessage.Content.ReadAsStringAsync()
+        };
+    }
 }
