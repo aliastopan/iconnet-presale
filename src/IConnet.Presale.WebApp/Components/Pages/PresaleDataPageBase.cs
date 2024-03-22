@@ -1,4 +1,3 @@
-
 namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
@@ -27,6 +26,10 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
     {
         if (!_isInitialized)
         {
+            // hack to prevent empty WorkPapers on initialized
+            this.SetWorkPapers(await WorkloadManager
+                .GetWorkloadAsync(PresaleDataFilter));
+
             await GetArchivedWorkloadAsync();
 
             BroadcastService.Subscribe(OnUpdateWorkloadAsync);
