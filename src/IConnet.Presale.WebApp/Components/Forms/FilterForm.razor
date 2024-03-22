@@ -1,3 +1,5 @@
+@using IConnet.Presale.Domain.Enums
+
 <div class="filter-section">
 
     <FluentStack Orientation="Orientation.Vertical">
@@ -58,10 +60,14 @@
                 <div class="filter-approval-status" style="margin-left: 64px;">
                     <FluentSelect TOption="string"
                         Label="Approval Status"
-                        Items="@OptionSelect.StatusApprovalFilter.StatusApprovalFilterOptions"
                         Width="185px"
                         Value="@FilterModel.FilterStatusApproval"
-                        ValueChanged="FilterByStatusApprovalAsync"/>
+                        ValueChanged="FilterByStatusApprovalAsync">
+                            <FluentOption Value=@("")>SEMUA</FluentOption>
+                            <FluentOption Value=@(ApprovalStatus.CloseLost.ToString())>CLOSED LOST</FluentOption>
+                            <FluentOption Value=@(ApprovalStatus.Reject.ToString())>REJECTED</FluentOption>
+                            <FluentOption Value=@(ApprovalStatus.Approve.ToString())>APPROVED</FluentOption>
+                    </FluentSelect>
                 </div>
             }
 

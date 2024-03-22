@@ -127,9 +127,7 @@ public partial class FilterForm : ComponentBase
                 workPapers = workPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == FilterModel.FilterOffice);
             }
 
-            if (IncludeApprovalStatus
-                && FilterModel.FilterStatusApproval != OptionSelect.StatusApprovalFilter.All
-                && !FilterModel.FilterStatusApproval.IsNullOrWhiteSpace())
+            if (IncludeApprovalStatus && !FilterModel.FilterStatusApproval.IsNullOrWhiteSpace())
             {
                 // LogSwitch.Debug("Filter {0}", FilterModel.FilterStatusApproval);
                 var approvalStatus = EnumProcessor.StringToEnum<ApprovalStatus>(FilterModel.FilterStatusApproval);
