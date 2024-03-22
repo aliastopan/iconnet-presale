@@ -237,7 +237,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase,
         // var stopwatch = Stopwatch.StartNew();
 
         var jsonWorkPapers = await _inProgressPersistenceService.GetAllValuesAsync();
-        var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapers(jsonWorkPapers!, ParallelOptions);
+        var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapersParallel(jsonWorkPapers!, ParallelOptions);
 
         // int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers);
         int insertCount = _inMemoryPersistenceService.InsertOverwriteInProgress(workPapers, excludeDoneProcessing);
