@@ -30,4 +30,7 @@ public interface IIdentityAggregateHandler
     // refresh token
     Task InvalidateRefreshTokensAsync(UserAccount userAccount);
     Task RotateRefreshTokenAsync(RefreshToken previous, RefreshToken current);
+
+    // presale specified
+    Task<Result<List<UserAccount>>> TryGetRangeUserOperatorAsync();
 }

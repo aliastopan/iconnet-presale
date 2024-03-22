@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using IConnet.Presale.Domain.Aggregates.Identity;
+using IConnet.Presale.Domain.Enums;
 
 namespace IConnet.Presale.Infrastructure.Extensions.Repository;
 
@@ -36,5 +37,14 @@ internal static class UserAccountRepositoryExtensions
             return await context.UserAccounts
                 .ToListAsync();
         }
+    }
+
+    public static async Task<List<UserAccount>> GetUserOperatorsAsync(this AppDbContext context)
+    {
+        return await context.UserAccounts.Where(userAccount
+                => userAccount.User.UserRole == UserRole.Helpdesk
+                || userAccount.User.UserRole == UserRole.PAC)
+            .AsNoTracking()
+            .ToListAsync();
     }
 }

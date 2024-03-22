@@ -200,6 +200,21 @@ internal sealed class IdentityAggregateHandler : IIdentityAggregateHandler
         await dbContext.SaveChangesAsync();
     }
 
+    public async Task<Result<List<UserAccount>>> TryGetRangeUserOperatorAsync()
+    {
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        List<UserAccount> userOperators = await dbContext.GetUserOperatorsAsync();
+
+        if (userOperators is null)
+        {
+            var error = new Error("Operator(s) not found.", ErrorSeverity.Warning);
+            return Result<List<UserAccount>>.NotFound(error);
+        }
+
+        return Result<List<UserAccount>>.Ok(userOperators);
+    }
+
     private static UserAccount AssignAutoPrivilege(UserAccount userAccount)
     {
         switch (userAccount.User.UserRole)
