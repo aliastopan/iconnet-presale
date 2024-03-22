@@ -17,53 +17,29 @@ internal static class JsonWorkPaperProcessor
         return JsonSerializer.Deserialize<WorkPaper>(json)!;
     }
 
-    internal static IEnumerable<WorkPaper> DeserializeJsonWorkPapers(IEnumerable<string> jsonWorkPapers,
-        ParallelOptions parallelOptions, int parallelThreshold = 100)
+    internal static IEnumerable<WorkPaper> DeserializeJsonWorkPapers(IEnumerable<string> jsonWorkPapers)
     {
-        var concurrentBag = new ConcurrentBag<WorkPaper>();
+        var workPapers = new List<WorkPaper>();
 
-        if (jsonWorkPapers.Count() > parallelThreshold)
+        foreach (var json in jsonWorkPapers)
         {
-            Parallel.ForEach(jsonWorkPapers, parallelOptions, json =>
+            try
             {
-                try
+                if (json is null)
                 {
-                    if (json is null)
-                    {
-                        throw new JsonException();
-                    }
+                    throw new JsonException();
+                }
 
-                    var workPaper = JsonSerializer.Deserialize<WorkPaper>(json);
-                    concurrentBag.Add(workPaper!);
-                }
-                catch (JsonException exception)
-                {
-                    Log.Fatal("Error deserializing JSON: {message}", exception.Message);
-                }
-            });
-        }
-        else
-        {
-            foreach (var json in jsonWorkPapers)
+                var workPaper = JsonSerializer.Deserialize<WorkPaper>(json);
+                workPapers.Add(workPaper!);
+            }
+            catch (JsonException exception)
             {
-                try
-                {
-                    if (json is null)
-                    {
-                        throw new JsonException();
-                    }
-
-                    var workPaper = JsonSerializer.Deserialize<WorkPaper>(json);
-                    concurrentBag.Add(workPaper!);
-                }
-                catch (JsonException exception)
-                {
-                    Log.Fatal("Error deserializing JSON: {message}", exception.Message);
-                }
+                Log.Fatal("Error deserializing JSON: {message}", exception.Message);
             }
         }
 
-        return concurrentBag.ToList();
+        return workPapers;
     }
 
     internal static IEnumerable<WorkPaper> DeserializeJsonWorkPapersParallel(IEnumerable<string> jsonWorkPapers,
