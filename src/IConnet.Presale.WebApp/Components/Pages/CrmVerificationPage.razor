@@ -34,8 +34,6 @@
                 OnFilter="@(this.StateHasChanged)"/>
         </div>
 
-        @if (WorkPapers is not null)
-        {
         <FluentCheckbox class="scroll-mode-checkbox"
             @bind-Value="@IsScrollModeDataGrid"
             Label="Scroll Mode" />
@@ -365,7 +363,7 @@
                         <FluentSelect Items="@OptionSelect.Pagination.ItemsPerPageOptions"
                             Value="@PaginationItemsPerPageOptions"
                             ValueChanged="OnItemsPerPageChanged"
-                            Width="80px"/>
+                            Width="70px"/>
                     </span>
                 </div>
             </SummaryTemplate>

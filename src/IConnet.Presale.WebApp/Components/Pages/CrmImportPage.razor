@@ -21,9 +21,12 @@
             </div>
         </div>
 
-        <FluentCheckbox class="scroll-mode-checkbox"
-            @bind-Value="@IsScrollModeDataGrid"
-            Label="Scroll Mode" />
+        @if (ImportModels is not null)
+        {
+            <FluentCheckbox class="scroll-mode-checkbox"
+                @bind-Value="@IsScrollModeDataGrid"
+                Label="Scroll Mode" />
+        }
 
         <div class="datagrid-wrapper" style="@GetPaginationStyle()">
             @if (ImportModels is not null)
@@ -100,7 +103,7 @@
                         <FluentSelect Items="@OptionSelect.Pagination.ItemsPerPageOptions"
                             Value="@PaginationItemsPerPageOptions"
                             ValueChanged="OnItemsPerPageChanged"
-                            Width="80px"/>
+                            Width="70px"/>
                     </span>
                 </div>
             </SummaryTemplate>
