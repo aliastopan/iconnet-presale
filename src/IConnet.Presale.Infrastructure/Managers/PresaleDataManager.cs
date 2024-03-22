@@ -158,7 +158,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase,
         if (isDoneProcessing || isInvalidCrmData)
         {
             await _doneProcessingPersistenceService.ArchiveValueAsync(key, jsonWorkPaper);
-            Log.Information("Moving {key} to Backup DB.", key);
+            Log.Information("Moving {key} to Archive DB.", key);
 
             await _inProgressPersistenceService.DeleteValueAsync(key);
             _inMemoryPersistenceService.DeleteInProgress(workPaper);
