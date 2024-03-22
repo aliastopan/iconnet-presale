@@ -34,21 +34,6 @@ public static class OptionSelect
         public static string Approve => StatusApprovalOptions.Last();
     }
 
-    public static class StatusApprovalFilter
-    {
-        public static IEnumerable<string> StatusApprovalFilterOptions =>
-        [
-            "Semua",
-            StatusApproval.CloseLost.ToString(),
-            StatusApproval.Reject.ToString(),
-            StatusApproval.Approve.ToString(),
-        ];
-        public static string All => StatusApprovalFilterOptions.First();
-        public static string CloseLost => StatusApproval.CloseLost.ToString();
-        public static string Reject => StatusApproval.Reject.ToString();
-        public static string Approve => StatusApproval.Approve.ToString();
-    }
-
     public static class StatusKepegawaian
     {
         public static IEnumerable<string> StatusKepegawaianOptions => EnumProcessor.GetStringOptions<EmploymentStatus>();
