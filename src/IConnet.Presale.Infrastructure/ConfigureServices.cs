@@ -79,6 +79,7 @@ public static class ConfigureServices
         services.AddSingleton<IInMemoryPersistenceService, InMemoryPersistenceProvider>();
         services.AddSingleton<IWorkloadManager, PresaleDataManager>();
         services.AddSingleton<IWorkloadSynchronizationManager, PresaleDataManager>();
+        services.AddSingleton<ISqlSynchronizationManager, SqlSynchronizationManager>();
 
         return services;
     }
