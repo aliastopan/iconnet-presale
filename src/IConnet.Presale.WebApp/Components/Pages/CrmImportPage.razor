@@ -21,6 +21,10 @@
             </div>
         </div>
 
+        <FluentCheckbox class="scroll-mode-checkbox"
+            @bind-Value="@IsScrollModeDataGrid"
+            Label="Scroll Mode" />
+
         <div class="datagrid-wrapper" style="@GetPaginationStyle()">
             @if (ImportModels is not null)
             {

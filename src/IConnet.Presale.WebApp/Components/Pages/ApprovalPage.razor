@@ -23,6 +23,10 @@
                 OnFilter="@(this.StateHasChanged)"/>
         </div>
 
+        <FluentCheckbox class="scroll-mode-checkbox"
+            @bind-Value="@IsScrollModeDataGrid"
+            Label="Scroll Mode" />
+
         <div class="datagrid-wrapper">
             @if (WorkPapers is not null)
             {

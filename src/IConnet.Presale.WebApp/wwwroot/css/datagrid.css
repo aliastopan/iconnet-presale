@@ -125,8 +125,11 @@ fluent-data-grid-cell.column-header:last-child{
     text-align: center;
 } */
 
+.scroll-mode-checkbox{
+    padding: 10px 8px;
+}
+
 .datagrid-wrapper{
-    margin-top: 0.5rem;
     overflow-x: auto;
     overflow-y: auto;
 }
