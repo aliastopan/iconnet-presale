@@ -6,19 +6,19 @@ namespace IConnet.Presale.WebApp.Services;
 
 public class StartupService : IHostedService
 {
-    private readonly IWorkloadForwardingManager _workloadForwardingManager;
+    private readonly IWorkloadSynchronizationManager _workloadSynchronizationManager;
     private readonly IRepresentativeOfficeHttpClient _representativeOfficeHttpClient;
     private readonly IRootCauseHttpClient _rootCauseHttpClient;
     private readonly ChatTemplateManager _chatTemplateManager;
     private readonly OptionService _optionService;
 
-    public StartupService(IWorkloadForwardingManager workloadForwardingManager,
+    public StartupService(IWorkloadSynchronizationManager workloadSynchronizationManager,
         IRepresentativeOfficeHttpClient representativeOfficeHttpClient,
         IRootCauseHttpClient rootCauseHttpClient,
         ChatTemplateManager chatTemplateManager,
         OptionService optionService)
     {
-        _workloadForwardingManager = workloadForwardingManager;
+        _workloadSynchronizationManager = workloadSynchronizationManager;
         _representativeOfficeHttpClient = representativeOfficeHttpClient;
         _rootCauseHttpClient = rootCauseHttpClient;
         _chatTemplateManager = chatTemplateManager;
@@ -34,7 +34,7 @@ public class StartupService : IHostedService
             GetRepresentativeOfficesAsync(),
             _chatTemplateManager.SetDefaultChatTemplatesAsync(),
             GetRootCausesAsync(),
-            ForwardRedisToInMemoryAsync()
+            PullRedisToInMemoryAsync()
         ];
 
         await Task.WhenAll(tasks);
@@ -113,8 +113,8 @@ public class StartupService : IHostedService
         }
     }
 
-    private async Task ForwardRedisToInMemoryAsync()
+    private async Task PullRedisToInMemoryAsync()
     {
-        await _workloadForwardingManager.ForwardRedisToInMemoryAsync();
+        await _workloadSynchronizationManager.PullRedisToInMemoryAsync();
     }
 }

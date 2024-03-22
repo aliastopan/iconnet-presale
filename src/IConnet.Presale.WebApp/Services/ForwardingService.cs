@@ -3,18 +3,18 @@ namespace IConnet.Presale.WebApp.Services;
 
 public class ForwardingService : BackgroundService
 {
-    private readonly IWorkloadForwardingManager _workloadForwardingManager;
+    private readonly IWorkloadSynchronizationManager _workloadSynchronizationManager;
 
-    public ForwardingService(IWorkloadForwardingManager workloadForwardingManager)
+    public ForwardingService(IWorkloadSynchronizationManager workloadSynchronizationManager)
     {
-        _workloadForwardingManager = workloadForwardingManager;
+        _workloadSynchronizationManager = workloadSynchronizationManager;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            await _workloadForwardingManager.ProcessForwardingTasks();
+            await _workloadSynchronizationManager.ProcessSynchronizeTasks();
             await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
         }
     }

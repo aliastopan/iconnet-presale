@@ -7,7 +7,7 @@ using IConnet.Presale.Shared.Interfaces.Models.Presales;
 
 namespace IConnet.Presale.Infrastructure.Managers;
 
-internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadManager, IWorkloadForwardingManager
+internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadManager, IWorkloadSynchronizationManager
 {
     private const int PartitionSize = 100;
 
@@ -17,7 +17,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
     private readonly IDoneProcessingPersistenceService _doneProcessingPersistenceService;
     private readonly WorkPaperFactory _workPaperFactory;
 
-    private readonly Queue<(string id, Task task)> _cacheForwardingTasks;
+    private readonly Queue<(string id, Task task)> _cacheSynchronizeTasks;
 
     private readonly int _processorCount;
     private readonly ParallelOptions _parallelOptions;
@@ -35,7 +35,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
         _doneProcessingPersistenceService = doneProcessingPersistenceService;
         _workPaperFactory = workloadFactory;
 
-        _cacheForwardingTasks = new Queue<(string id, Task task)>();
+        _cacheSynchronizeTasks = new Queue<(string id, Task task)>();
 
         _processorCount = Environment.ProcessorCount;
         _parallelOptions = new ParallelOptions
@@ -149,7 +149,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
 
         var task = _inProgressPersistenceService.SetValueAsync(key, jsonWorkPaper);
 
-        EnqueueForwardingTask(operationId: key, task);
+        EnqueueSynchronizeTask(operationId: key, task);
 
         bool isDoneProcessing = workPaper.IsDoneProcessing();
         bool isInvalidCrmData = workPaper.IsInvalidCrmData();
@@ -172,7 +172,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
         var task = _inProgressPersistenceService.DeleteValueAsync(key);
 
         _inMemoryPersistenceService.DeleteInProgress(workPaper);
-        EnqueueForwardingTask(operationId: key, task);
+        EnqueueSynchronizeTask(operationId: key, task);
 
         await Task.CompletedTask;
     }
@@ -202,42 +202,42 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
         return null;
     }
 
-    public void EnqueueForwardingTask(string operationId, Task task)
+    public void EnqueueSynchronizeTask(string operationId, Task task)
     {
-        lock (_cacheForwardingTasks)
+        lock (_cacheSynchronizeTasks)
         {
-            _cacheForwardingTasks.Enqueue((operationId, task));
+            _cacheSynchronizeTasks.Enqueue((operationId, task));
         }
     }
 
-    public async Task ProcessForwardingTasks()
+    public async Task ProcessSynchronizeTasks()
     {
         while (true)
         {
-            (string id, Task task) cacheForwardingTask;
+            (string id, Task task) cacheSynchronizeTask;
 
-            lock (_cacheForwardingTasks)
+            lock (_cacheSynchronizeTasks)
             {
-                if (_cacheForwardingTasks.Count == 0)
+                if (_cacheSynchronizeTasks.Count == 0)
                 {
                     break;
                 }
 
-                cacheForwardingTask = _cacheForwardingTasks.Dequeue();
+                cacheSynchronizeTask = _cacheSynchronizeTasks.Dequeue();
             }
 
             try
             {
-                await cacheForwardingTask.task;
+                await cacheSynchronizeTask.task;
             }
             catch (Exception exception)
             {
-                Log.Fatal("Error executing task for operation {0}: {1}", cacheForwardingTask.id, exception.Message);
+                Log.Fatal("Error executing task for operation {0}: {1}", cacheSynchronizeTask.id, exception.Message);
             }
         }
     }
 
-    public async Task<int> ForwardRedisToInMemoryAsync()
+    public async Task<int> PullRedisToInMemoryAsync()
     {
         if (_isInitialized)
         {
