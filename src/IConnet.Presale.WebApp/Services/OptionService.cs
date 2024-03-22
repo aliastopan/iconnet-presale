@@ -22,8 +22,6 @@ public class OptionService
         {
             KantorPerwakilanOptions.Add(dto.Perwakilan);
         }
-
-        // LogSwitch.Debug("Representative Office {count}: ", KantorPerwakilanOptions.Count);
     }
 
     public void PopulateRootCause(ICollection<RootCausesDto> rootCauseDto)
@@ -32,7 +30,5 @@ public class OptionService
         {
             RootCauseOptions.Add(dto.Cause);
         }
-
-        // LogSwitch.Debug("Root Cause {count}: ", RootCauseOptions.Count);
     }
 }

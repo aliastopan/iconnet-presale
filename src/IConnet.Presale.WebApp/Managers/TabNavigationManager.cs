@@ -33,7 +33,6 @@ public class TabNavigationManager
 
         _activeTabId = tabToSelect.Id;
         _visitedTabs.Push(tabToSelect);
-        // LogSwitch.Debug("Select tab: {0}", _activeTabId);
 
         _stateHasChanged();
     }
@@ -47,15 +46,12 @@ public class TabNavigationManager
 
         _navigationManager.NavigateTo(tabToChange.PageUrl);
         _activeTabId = tabToChange.Id;
-
-        // LogSwitch.Debug("Change tab: {0}", _activeTabId);
     }
 
     public void CloseTab(TabNavigationModel tabToClose)
     {
         if (_tabNavigations.Count <=  1 && _activeTabId == tabToClose.Id)
         {
-            // LogSwitch.Debug("Cannot remove the last tab");
             return;
         }
 
@@ -72,7 +68,6 @@ public class TabNavigationManager
         }
 
         _tabNavigations.Remove(tabToClose);
-        // LogSwitch.Debug("Closing tab: {0}", tabToClose.Id);
     }
 
     public void NavigateBack()
@@ -88,7 +83,5 @@ public class TabNavigationManager
         _navigationManager.NavigateTo(previousTab.PageUrl);
         _visitedTabs.Pop(); // pop unintentionally stack.push from `SelectTab` after `NavigateTo`
         _activeTabId = previousTab.Id;
-
-        // LogSwitch.Debug("Previous tab: {0}", previousTab.Id);
     }
 }

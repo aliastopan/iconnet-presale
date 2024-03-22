@@ -199,15 +199,8 @@ public partial class WorkPaperValidationForm : ComponentBase
         ClipboardToast(latitudeLongitude);
     }
 
-    protected void OpenDialog()
-    {
-        // LogSwitch.Debug("Chat Template Dialog");
-    }
-
     protected async Task OpenChatTemplateDialogAsync()
     {
-        // LogSwitch.Debug("Chat Template Dialog");
-
         var parameters = new DialogParameters()
         {
             Title = "Chat Template",
@@ -228,7 +221,6 @@ public partial class WorkPaperValidationForm : ComponentBase
     {
         if (!WorkPaper!.ProsesValidasi.SignatureChatCallMulai.IsEmptySignature())
         {
-            // LogSwitch.Debug("ChatCallMulai can be only set once");
             return;
         }
 
@@ -344,7 +336,6 @@ public partial class WorkPaperValidationForm : ComponentBase
         if (!LatitudeLongitude().IsMatch(shareLoc))
         {
             ValidationModel!.ShareLoc = ValidationModel.ShareLoc;
-            // LogSwitch.Debug("Invalid share loc format: {0}", shareLoc);
 
             return;
         }
@@ -476,7 +467,6 @@ public partial class WorkPaperValidationForm : ComponentBase
     {
         await WorkloadManager.UpdateWorkloadAsync(WorkPaper!);
         await BroadcastService.BroadcastMessageAsync(broadcastMessage);
-        LogSwitch.Debug("Broadcast validation {message}", broadcastMessage);
     }
 
     protected bool IsStillInCharge()

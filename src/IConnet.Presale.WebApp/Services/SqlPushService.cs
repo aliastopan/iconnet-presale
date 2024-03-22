@@ -42,7 +42,5 @@ public class SqlPushService
         var httpResultTask = _workPaperHttpClient.InsertWorkPaperAsync(jsonModel);
 
         _sqlSynchronizationManager.EnqueueSqlPushTask(httpResultTask);
-
-        LogSwitch.Debug("Enqueue SQL Push task");
     }
 }

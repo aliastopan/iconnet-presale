@@ -39,8 +39,6 @@ public partial class ChatBubble : ComponentBase
             return;
         }
 
-        LogSwitch.Debug("Copying clipboard chat {sequence}", ChatTemplate.Sequence);
-
         IsCopy = true;
 
         await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", ChatTemplate.Content

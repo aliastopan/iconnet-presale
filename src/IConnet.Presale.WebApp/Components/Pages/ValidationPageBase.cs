@@ -50,8 +50,6 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
         {
             _validationModels.Add(new WorkPaperValidationModel(workPaper));
         }
-
-        // LogSwitch.Debug("Validation Models {count}", _validationModels.Count);
     }
 
     protected IQueryable<WorkPaper>? FilterWorkPapers()
@@ -88,13 +86,10 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
 
         ActiveValidationModel!.NullableTanggalRespons = DateTimeService.DateTimeOffsetNow.DateTime;
         ActiveValidationModel!.NullableWaktuRespons = DateTimeService.DateTimeOffsetNow.DateTime;
-        // LogSwitch.Debug("Selected: {0}", WorkPaper.ApprovalOpportunity.IdPermohonan);
     }
 
     public void DeselectWorkPaper()
     {
-        LogSwitch.Debug("Deselected: {0}", ActiveWorkPaper!.ApprovalOpportunity.IdPermohonan);
-
         ActiveWorkPaper = null;
         ActiveValidationModel = null;
     }
@@ -120,14 +115,11 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
         if (dialogData.SignatureHelpdeskInCharge.IsEmptySignature())
         {
             await UnstageWorkPaperAsync(dialogData);
-            // LogSwitch.Debug("{0} claim has been removed", dialogData.ApprovalOpportunity.IdPermohonan);
 
             return;
         }
 
         await RestageWorkPaperAsync(dialogData);
-        // await ScrollToValidationForm();
-        // LogSwitch.Debug("{0} claim has been extended", dialogData.ApprovalOpportunity.IdPermohonan);
     }
 
     protected async Task ScrollToValidationForm()

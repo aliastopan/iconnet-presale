@@ -26,14 +26,11 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
 
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {
-        // LogSwitch.Debug("Authenticating...");
-
         var tryGetAccessToken = await TryGetAccessTokenAsync();
         var tryGetRefreshToken = await TryGetRefreshTokenAsync();
 
         if (tryGetAccessToken.IsFailure() || tryGetRefreshToken.IsFailure())
         {
-            // LogSwitch.Debug("Fail to authenticate.");
             return UnauthenticatedState();
         }
 
@@ -43,16 +40,12 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
         var principal = _accessTokenService.GetPrincipalFromToken(accessToken);
         if (principal is null)
         {
-            // LogSwitch.Debug("Authentication has failed.");
             return UnauthenticatedState();
         }
 
         var tryAuthenticate = _accessTokenService.TryValidateAccessToken(accessToken);
         if (tryAuthenticate.IsFailure())
         {
-            // LogSwitch.Debug("Authentication has failed.");
-            // LogSwitch.Debug("{0}", tryAuthenticate.Errors[0].Message);
-            // LogSwitch.Debug("Trying to refresh authentication.");
             var httpResult = await _identityHttpClient.RefreshAccessAsync(accessToken, refreshToken);
             if (httpResult.IsSuccessStatusCode)
             {
@@ -65,16 +58,12 @@ public sealed class CustomAuthenticationStateProvider : AuthenticationStateProvi
                 refreshToken = response!.RefreshTokenStr;
                 await _localStorage.SetAsync("access-token", accessToken);
                 await _localStorage.SetAsync("refresh-token", refreshToken);
-
-                // LogSwitch.Debug("Authentication has successful.");
-
             }
             else
             {
                 await _localStorage.DeleteAsync("access-token");
                 await _localStorage.DeleteAsync("refresh-token");
 
-                // LogSwitch.Debug("Authentication has failed (invalid refresh token).");
                 NotifyAuthenticationStateChanged(Task.FromResult(UnauthenticatedState()));
                 return UnauthenticatedState();
             }

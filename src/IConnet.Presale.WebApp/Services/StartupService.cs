@@ -27,8 +27,6 @@ public class StartupService : IHostedService
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        // LogSwitch.Debug("Starting application");
-
         Task[] tasks =
         [
             GetRepresentativeOfficesAsync(),
@@ -42,7 +40,7 @@ public class StartupService : IHostedService
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        // LogSwitch.Debug("Closing application");
+        Log.Information("Closing application");
 
         return Task.CompletedTask;
     }
@@ -69,8 +67,7 @@ public class StartupService : IHostedService
             {
                 var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
                 var extension = problemDetails.GetProblemDetailsExtension();
-
-                // LogSwitch.Debug("Error {message}: ", extension.Errors.First().Message);
+                Log.Warning("Error {message}: ", extension.Errors.First().Message);
             }
         }
         catch (Exception exception)
@@ -102,8 +99,7 @@ public class StartupService : IHostedService
             {
                 var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
                 var extension = problemDetails.GetProblemDetailsExtension();
-
-                // LogSwitch.Debug("Error {message}: ", extension.Errors.First().Message);
+                Log.Warning("Error {message}: ", extension.Errors.First().Message);
             }
         }
         catch (Exception exception)

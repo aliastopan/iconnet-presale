@@ -9,7 +9,6 @@ public partial class WhatsAppNav : ComponentBase
 
     protected async Task OnContactAsync()
     {
-        // LogSwitch.Debug("WhatsApp: {contact}", Contact);
         var url = $"http://{Contact}";
 
         await JsRuntime.InvokeVoidAsync("open", url, "_blank");

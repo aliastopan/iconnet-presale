@@ -49,7 +49,6 @@ public static class StringExtensions
 
     public static string ReplacePlaceholder(this string input, string placeholder, string value)
     {
-        // LogSwitch.Debug("Replacing {placeholder} with {value}", placeholder, value);
         return input.Replace(placeholder, value);
     }
 

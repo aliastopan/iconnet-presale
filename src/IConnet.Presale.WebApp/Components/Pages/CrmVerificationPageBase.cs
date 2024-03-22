@@ -127,8 +127,6 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
             var broadcastMessage = $"Cancel '{dialogData.ApprovalOpportunity.IdPermohonan}' verification";
             await BroadcastService.BroadcastMessageAsync(broadcastMessage);
 
-            LogSwitch.Debug("{0} verification has been canceled", dialogData.ApprovalOpportunity.IdPermohonan);
-
             return;
         }
 
@@ -169,12 +167,9 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
         var broadcastMessage = $"CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been mark as invalid";
         await BroadcastService.BroadcastMessageAsync(broadcastMessage);
 
-        LogSwitch.Debug("Begin");
-
         SqlPushService.SqlPush(workPaper);
 
         IsLoading = false;
-        LogSwitch.Debug("Done");
     }
 
     private async Task DeleteCrmAsync(WorkPaper workPaper)

@@ -12,7 +12,6 @@ public class ChatTemplateEndpoint : IEndpointDefinition
     internal async Task<IResult> GetChatTemplates([FromServices] ISender sender,
         [FromRoute] string templateName, HttpContext httpContext)
     {
-        // LogSwitch.Debug("Request {0}", templateName);
         var query = new GetChatTemplatesQuery(templateName);
         var result = await sender.Send(query);
 

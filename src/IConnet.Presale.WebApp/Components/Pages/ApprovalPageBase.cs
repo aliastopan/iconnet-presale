@@ -50,8 +50,6 @@ public class ApprovalPageBase : WorkloadPageBase, IPageNavigation
         {
             _approvalModels.Add(new WorkPaperApprovalModel(workPaper));
         }
-
-        // LogSwitch.Debug("Approval Models {count}", _approvalModels.Count);
     }
 
     protected IQueryable<WorkPaper>? FilterWorkPapers()
@@ -85,14 +83,10 @@ public class ApprovalPageBase : WorkloadPageBase, IPageNavigation
         ActiveWorkPaper = row.Item;
         ActiveApprovalModel = _approvalModels
             .FirstOrDefault(x => x.IdPermohonan == row.Item.ApprovalOpportunity.IdPermohonan);
-
-        // LogSwitch.Debug("Selected: {0}", WorkPaper.ApprovalOpportunity.IdPermohonan);
     }
 
     public void DeselectWorkPaper()
     {
-        // LogSwitch.Debug("Deselected: {0}", ActiveWorkPaper!.ApprovalOpportunity.IdPermohonan);
-
         ActiveWorkPaper = null;
         ActiveApprovalModel = null;
     }
@@ -128,9 +122,8 @@ public class ApprovalPageBase : WorkloadPageBase, IPageNavigation
     protected async Task ScrollToApprovalForm()
     {
         var elementId = "approval-id";
-        await JsRuntime.InvokeVoidAsync("scrollToElement", elementId);
 
-        // LogSwitch.Debug("Scrolling...");
+        await JsRuntime.InvokeVoidAsync("scrollToElement", elementId);
     }
 
     protected bool IsStillInCharge(WorkPaper workPaper, bool debug = false)

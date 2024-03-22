@@ -306,7 +306,6 @@ public partial class WorkPaperApprovalForm : ComponentBase
     {
         await WorkloadManager.UpdateWorkloadAsync(WorkPaper!);
         await BroadcastService.BroadcastMessageAsync(broadcastMessage);
-        // LogSwitch.Debug("Broadcast approval {message}", broadcastMessage);
 
         SqlPushService.SqlPush(WorkPaper!);
     }

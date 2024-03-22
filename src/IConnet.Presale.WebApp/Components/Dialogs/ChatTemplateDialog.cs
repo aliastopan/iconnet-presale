@@ -23,9 +23,8 @@ public partial class ChatTemplateDialog : ComponentBase, IDialogContentComponent
         if (firstRender)
         {
             var elementId = "chat-template";
-            await JsRuntime.InvokeVoidAsync("scrollToElement", elementId);
 
-            LogSwitch.Debug("auto-scroll");
+            await JsRuntime.InvokeVoidAsync("scrollToElement", elementId);
         }
     }
 

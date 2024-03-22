@@ -39,11 +39,11 @@ internal sealed class SqlSynchronizationManager : ISqlSynchronizationManager
 
                 if (result.IsSuccessStatusCode)
                 {
-                    LogSwitch.Debug("SQL Push has succeed.");
+                    Log.Information("SQL Push has succeed.");
                 }
                 else
                 {
-                    LogSwitch.Debug("SQL Push has failed.");
+                    Log.Warning("SQL Push has failed.");
                 }
             }
             catch (Exception exception)
