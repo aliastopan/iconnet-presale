@@ -1,11 +1,11 @@
 
 namespace IConnet.Presale.WebApp.Services;
 
-public class ForwardingService : BackgroundService
+public class SynchronizationService : BackgroundService
 {
     private readonly IWorkloadSynchronizationManager _workloadSynchronizationManager;
 
-    public ForwardingService(IWorkloadSynchronizationManager workloadSynchronizationManager)
+    public SynchronizationService(IWorkloadSynchronizationManager workloadSynchronizationManager)
     {
         _workloadSynchronizationManager = workloadSynchronizationManager;
     }
