@@ -169,9 +169,12 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
         var broadcastMessage = $"CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been mark as invalid";
         await BroadcastService.BroadcastMessageAsync(broadcastMessage);
 
-        await SqlPushService.SqlPushAsync(workPaper);
+        LogSwitch.Debug("Begin");
+
+        SqlPushService.SqlPush(workPaper);
 
         IsLoading = false;
+        LogSwitch.Debug("Done");
     }
 
     private async Task DeleteCrmAsync(WorkPaper workPaper)

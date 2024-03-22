@@ -7,13 +7,16 @@ namespace IConnet.Presale.WebApp.Services;
 public class SqlPushService
 {
     private readonly IWorkPaperHttpClient _workPaperHttpClient;
+    private readonly ISqlSynchronizationManager _sqlSynchronizationManager;
 
-    public SqlPushService(IWorkPaperHttpClient workPaperHttpClient)
+    public SqlPushService(IWorkPaperHttpClient workPaperHttpClient,
+        ISqlSynchronizationManager sqlSynchronizationManager)
     {
         _workPaperHttpClient = workPaperHttpClient;
+        _sqlSynchronizationManager = sqlSynchronizationManager;
     }
 
-    public async Task SqlPushAsync(WorkPaper workPaper)
+    public void SqlPush(WorkPaper workPaper)
     {
         if (workPaper is null)
         {
@@ -36,23 +39,10 @@ public class SqlPushService
         }
 
         var jsonModel = new WorkPaperFlatJsonModel(workPaper);
-        var options = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        };
+        var httpResultTask = _workPaperHttpClient.InsertWorkPaperAsync(jsonModel);
 
-        var httpResult = await _workPaperHttpClient.InsertWorkPaperAsync(jsonModel);
+        _sqlSynchronizationManager.EnqueueSqlPushTask(httpResultTask);
 
-        if (httpResult.IsSuccessStatusCode)
-        {
-            Log.Information("{0} has been successfully pushed to MySQL Database.", workPaper.ApprovalOpportunity.ApprovalOpportunityId);
-        }
-        else
-        {
-            var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
-            var extension = problemDetails.GetProblemDetailsExtension();
-
-            Log.Warning("Error {message}: ", extension.Errors.First().Message);
-        }
+        LogSwitch.Debug("Enqueue SQL Push task");
     }
 }

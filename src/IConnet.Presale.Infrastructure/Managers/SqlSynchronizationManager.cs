@@ -2,42 +2,42 @@ namespace IConnet.Presale.Infrastructure.Managers;
 
 internal sealed class SqlSynchronizationManager : ISqlSynchronizationManager
 {
-    private readonly Queue<(string id, Task<bool> task)> _sqlSynchronizeTasks;
+    private readonly Queue<Task<HttpResult>> _sqlPushTasks;
 
-    public SqlSynchronizationManager(IWorkPaperHttpClient workPaperHttpClient)
+    public SqlSynchronizationManager()
     {
-        _sqlSynchronizeTasks = new Queue<(string id, Task<bool> task)>();
+        _sqlPushTasks = new Queue<Task<HttpResult>>();
     }
 
-    public void EnqueueSynchronizeTask(string operationId, Task<bool> task)
+    public void EnqueueSqlPushTask(Task<HttpResult> task)
     {
-        lock (_sqlSynchronizeTasks)
+        lock (_sqlPushTasks)
         {
-            _sqlSynchronizeTasks.Enqueue((operationId, task));
+            _sqlPushTasks.Enqueue(task);
         }
     }
 
-    public async Task ProcessSynchronizeTasks()
+    public async Task ProcessSqlPushTasks()
     {
         while (true)
         {
-            (string id, Task<bool> task) sqlSynchronizeTasks;
+            Task<HttpResult> sqlPushTasks;
 
-            lock (_sqlSynchronizeTasks)
+            lock (_sqlPushTasks)
             {
-                if (_sqlSynchronizeTasks.Count == 0)
+                if (_sqlPushTasks.Count == 0)
                 {
                     break;
                 }
 
-                sqlSynchronizeTasks = _sqlSynchronizeTasks.Dequeue();
+                sqlPushTasks = _sqlPushTasks.Dequeue();
             }
 
             try
             {
-                bool result = await sqlSynchronizeTasks.task;
+                HttpResult result = await sqlPushTasks;
 
-                if (result)
+                if (result.IsSuccessStatusCode)
                 {
                     LogSwitch.Debug("SQL Push has succeed.");
                 }
@@ -48,7 +48,7 @@ internal sealed class SqlSynchronizationManager : ISqlSynchronizationManager
             }
             catch (Exception exception)
             {
-                Log.Fatal("Error executing task for operation {0}: {1}", sqlSynchronizeTasks.id, exception.Message);
+                Log.Fatal("Error executing SQL Push task for operation {0}", exception.Message);
             }
         }
     }

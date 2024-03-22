@@ -308,7 +308,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
         await BroadcastService.BroadcastMessageAsync(broadcastMessage);
         // LogSwitch.Debug("Broadcast approval {message}", broadcastMessage);
 
-        await SqlPushService.SqlPushAsync(WorkPaper!);
+        SqlPushService.SqlPush(WorkPaper!);
     }
 
     private void ClipboardToast(string clipboard)
