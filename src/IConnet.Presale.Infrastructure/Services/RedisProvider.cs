@@ -3,9 +3,9 @@ using StackExchange.Redis;
 
 namespace IConnet.Presale.Infrastructure.Services;
 
-internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProcessingPersistenceService
+internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProcessingPersistenceService
 {
-    private int _onProgressDbIndex = 0;
+    private int _inProgressDbIndex = 0;
     private int _archiveDbIndex = 1;
     private readonly IConnectionMultiplexer _connectionMultiplexer;
     private readonly AppSecretSettings _appSecretSettings;
@@ -16,14 +16,14 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
         _connectionMultiplexer = connectionMultiplexer;
         _appSecretSettings = appSecretOptions.Value;
 
-        _onProgressDbIndex = _appSecretSettings.RedisDbIndex;
+        _inProgressDbIndex = _appSecretSettings.RedisDbIndex;
         _archiveDbIndex = _appSecretSettings.RedisDbIndex + 1;
     }
 
-    public IDatabase DatabaseProgress => _connectionMultiplexer.GetDatabase(_onProgressDbIndex);
+    public IDatabase DatabaseProgress => _connectionMultiplexer.GetDatabase(_inProgressDbIndex);
     public IDatabase DatabaseArchive => _connectionMultiplexer.GetDatabase(_archiveDbIndex);
 
-    async Task<string?> IOnProgressPersistenceService.GetValueAsync(string key)
+    async Task<string?> IInProgressPersistenceService.GetValueAsync(string key)
     {
         return await GetValueAsync(key, DatabaseProgress);
     }
@@ -33,9 +33,9 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
         return await GetValueAsync(key, DatabaseArchive);
     }
 
-    async Task<List<string?>> IOnProgressPersistenceService.GetAllValuesAsync()
+    async Task<List<string?>> IInProgressPersistenceService.GetAllValuesAsync()
     {
-        return await GetAllValuesAsync(_onProgressDbIndex, DatabaseProgress);
+        return await GetAllValuesAsync(_inProgressDbIndex, DatabaseProgress);
     }
 
     async Task<List<string?>> IDoneProcessingPersistenceService.GetAllValuesAsync()
@@ -89,7 +89,7 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
         }
     }
 
-    async Task<bool> IOnProgressPersistenceService.IsKeyExistsAsync(string key)
+    async Task<bool> IInProgressPersistenceService.IsKeyExistsAsync(string key)
     {
         return await IsKeyExistsAsync(key, DatabaseProgress);
     }
@@ -99,7 +99,7 @@ internal sealed class RedisProvider : IOnProgressPersistenceService, IDoneProces
         return await IsKeyExistsAsync(key, DatabaseArchive);
     }
 
-    async Task<HashSet<string>> IOnProgressPersistenceService.GetExistingKeysAsync(HashSet<string> keysToCheck)
+    async Task<HashSet<string>> IInProgressPersistenceService.GetExistingKeysAsync(HashSet<string> keysToCheck)
     {
         return await GetExistingKeysAsync(keysToCheck, DatabaseProgress);
     }

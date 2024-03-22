@@ -103,7 +103,7 @@ internal sealed class WorkPaperFactory
             ProsesApproval = new ApprovalProcess
             {
                 SignatureApproval = ActionSignature.Empty(),
-                StatusApproval = ApprovalStatus.OnProgress,
+                StatusApproval = ApprovalStatus.InProgress,
                 RootCause = string.Empty,
                 Keterangan = string.Empty,
                 JarakShareLoc = 0,

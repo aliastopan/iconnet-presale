@@ -9,8 +9,8 @@ public partial class ApprovalBadge : ComponentBase
     {
         switch (ApprovalStatus)
         {
-            case ApprovalStatus.OnProgress:
-                return "approval-badge-on-progress";
+            case ApprovalStatus.InProgress:
+                return "approval-badge-in-progress";
             case ApprovalStatus.CloseLost:
                 return "approval-badge-closed-lost";
             case ApprovalStatus.Reject:
@@ -28,8 +28,8 @@ public partial class ApprovalBadge : ComponentBase
     {
         switch (ApprovalStatus)
         {
-            case ApprovalStatus.OnProgress:
-                return "On Progress";
+            case ApprovalStatus.InProgress:
+                return "In Progress";
             case ApprovalStatus.CloseLost:
                 return "Closed Lost";
             case ApprovalStatus.Reject:

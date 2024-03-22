@@ -74,7 +74,7 @@ public static class ConfigureServices
             };
             return ConnectionMultiplexer.Connect(options);
         });
-        services.AddSingleton<IOnProgressPersistenceService, RedisProvider>();
+        services.AddSingleton<IInProgressPersistenceService, RedisProvider>();
         services.AddSingleton<IDoneProcessingPersistenceService, RedisProvider>();
         services.AddSingleton<IInMemoryPersistenceService, InMemoryPersistenceProvider>();
         services.AddSingleton<IWorkloadManager, PresaleDataManager>();

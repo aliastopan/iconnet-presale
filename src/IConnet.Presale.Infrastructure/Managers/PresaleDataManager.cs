@@ -13,7 +13,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
 
     private readonly IDateTimeService _dateTimeService;
     private readonly IInMemoryPersistenceService _inMemoryPersistenceService;
-    private readonly IOnProgressPersistenceService _onProgressPersistenceService;
+    private readonly IInProgressPersistenceService _inProgressPersistenceService;
     private readonly IDoneProcessingPersistenceService _doneProcessingPersistenceService;
     private readonly WorkPaperFactory _workPaperFactory;
 
@@ -25,13 +25,13 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
 
     public PresaleDataManager(IDateTimeService dateTimeService,
         IInMemoryPersistenceService inMemoryPersistenceService,
-        IOnProgressPersistenceService onProgressPersistenceService,
+        IInProgressPersistenceService inProgressPersistenceService,
         IDoneProcessingPersistenceService doneProcessingPersistenceService,
         WorkPaperFactory workloadFactory)
     {
         _dateTimeService = dateTimeService;
         _inMemoryPersistenceService = inMemoryPersistenceService;
-        _onProgressPersistenceService = onProgressPersistenceService;
+        _inProgressPersistenceService = inProgressPersistenceService;
         _doneProcessingPersistenceService = doneProcessingPersistenceService;
         _workPaperFactory = workloadFactory;
 
@@ -67,7 +67,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
         // check against redis cache
         Task<HashSet<string>>[] getExistingKeysTask =
         [
-            _onProgressPersistenceService.GetExistingKeysAsync(keysToCheck),
+            _inProgressPersistenceService.GetExistingKeysAsync(keysToCheck),
             _doneProcessingPersistenceService.GetExistingKeysAsync(keysToCheck)
         ];
 
@@ -98,7 +98,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
                 var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
                 var key = workPaper.ApprovalOpportunity.IdPermohonan;
 
-                await _onProgressPersistenceService.SetValueAsync(key, jsonWorkPaper);
+                await _inProgressPersistenceService.SetValueAsync(key, jsonWorkPaper);
                 Interlocked.Increment(ref count);
             });
 
@@ -147,7 +147,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
         var key = workPaper.ApprovalOpportunity.IdPermohonan;
         var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
 
-        var task = _onProgressPersistenceService.SetValueAsync(key, jsonWorkPaper);
+        var task = _inProgressPersistenceService.SetValueAsync(key, jsonWorkPaper);
 
         EnqueueForwardingTask(operationId: key, task);
 
@@ -159,7 +159,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
             await _doneProcessingPersistenceService.ArchiveValueAsync(key, jsonWorkPaper);
             Log.Information("Moving {key} to Backup DB.", key);
 
-            await _onProgressPersistenceService.DeleteValueAsync(key);
+            await _inProgressPersistenceService.DeleteValueAsync(key);
             _inMemoryPersistenceService.Delete(workPaper);
             Log.Information("Deleting {key} real-time access", key);
         }
@@ -169,7 +169,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
     {
         var key = workPaper.ApprovalOpportunity.IdPermohonan;
 
-        var task = _onProgressPersistenceService.DeleteValueAsync(key);
+        var task = _inProgressPersistenceService.DeleteValueAsync(key);
 
         _inMemoryPersistenceService.Delete(workPaper);
         EnqueueForwardingTask(operationId: key, task);
@@ -185,10 +185,10 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
             return workPaper;
         }
 
-        var isKeyExist = await _onProgressPersistenceService.IsKeyExistsAsync(idPermohonan);
+        var isKeyExist = await _inProgressPersistenceService.IsKeyExistsAsync(idPermohonan);
         if (isKeyExist)
         {
-            var jsonWorkPaper = await _onProgressPersistenceService.GetValueAsync(idPermohonan);
+            var jsonWorkPaper = await _inProgressPersistenceService.GetValueAsync(idPermohonan);
             return JsonWorkPaperProcessor.DeserializeJsonWorkPaper(jsonWorkPaper!);
         }
 
@@ -246,7 +246,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
 
         // var stopwatch = Stopwatch.StartNew();
 
-        var jsonWorkPapers = await _onProgressPersistenceService.GetAllValuesAsync();
+        var jsonWorkPapers = await _inProgressPersistenceService.GetAllValuesAsync();
         var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapers(jsonWorkPapers!, _parallelOptions);
 
         // int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers);

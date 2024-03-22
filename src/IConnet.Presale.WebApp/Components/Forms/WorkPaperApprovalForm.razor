@@ -362,7 +362,7 @@
                                 <FluentSelect Items="@OptionSelect.StatusApproval.StatusApprovalOptions"
                                     Value="@ApprovalModel.StatusApproval"
                                     ValueChanged="OnStatusApprovalChanged"
-                                    OptionDisabled="@OptionDisableOnProgress"
+                                    OptionDisabled="@OptionDisableInProgress"
                                     Position="SelectPosition.Below"
                                     Width="145px"
                                     Label="Status"/>
@@ -376,7 +376,7 @@
                         <div class="" style="width: 100%; margin-top: -24px !important;">
                             <FluentCheckbox class="approval-submit"
                                 @bind-Value="@IsCommitReady"
-                                Disabled="@DisableOnProgress"
+                                Disabled="@DisableInProgress"
                                 Label="Selesai" />
                             <FluentButton class="approval-submit-button"
                                 Width="185px"

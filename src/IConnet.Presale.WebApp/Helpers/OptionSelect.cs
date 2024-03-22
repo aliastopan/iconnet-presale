@@ -27,7 +27,7 @@ public static class OptionSelect
     public static class StatusApproval
     {
         public static IEnumerable<string> StatusApprovalOptions => EnumProcessor.GetStringOptions<ApprovalStatus>();
-        public static string OnProgress => StatusApprovalOptions.First();
+        public static string InProgress => StatusApprovalOptions.First();
         public static string CloseLost => StatusApprovalOptions.Skip(1).First();
         public static string Reject => StatusApprovalOptions.Skip(2).First();
         public static string Expansion => StatusApprovalOptions.Skip(3).First();
