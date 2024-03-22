@@ -17,7 +17,7 @@ internal static class JsonWorkPaperProcessor
         return JsonSerializer.Deserialize<WorkPaper>(json)!;
     }
 
-    internal static IEnumerable<WorkPaper> DeserializeJsonWorkPapers(IEnumerable<string> jsonWorkPapers)
+    internal static List<WorkPaper> DeserializeJsonWorkPapers(List<string> jsonWorkPapers)
     {
         var workPapers = new List<WorkPaper>();
 
@@ -42,7 +42,7 @@ internal static class JsonWorkPaperProcessor
         return workPapers;
     }
 
-    internal static IEnumerable<WorkPaper> DeserializeJsonWorkPapersParallel(IEnumerable<string> jsonWorkPapers,
+    internal static List<WorkPaper> DeserializeJsonWorkPapersParallel(List<string> jsonWorkPapers,
         ParallelOptions parallelOptions, Func<WorkPaper, bool>? filterPredicate = null)
     {
         var concurrentBag = new ConcurrentBag<WorkPaper>();
