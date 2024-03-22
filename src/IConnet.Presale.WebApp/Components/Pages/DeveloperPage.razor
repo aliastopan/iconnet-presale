@@ -14,7 +14,17 @@
         </div>
         <div class="d-flex flex-column align-items-start">
             <span class="page-description">Developer only page</span>
+        </div>
 
+        <div>
+            @if (PresaleData is not null)
+            {
+                <span>Presale Data: @PresaleData.Count()</span>
+            }
+            else
+            {
+                <FluentProgressRing />
+            }
         </div>
 
     </Authorized>
@@ -24,8 +34,3 @@
     </NotAuthorized>
 
 </AuthorizeView>
-
-@code
-{
-    private string _rootCause = string.Empty;
-}
