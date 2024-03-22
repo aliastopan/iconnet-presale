@@ -4,14 +4,14 @@ namespace IConnet.Presale.Application.Common.Interfaces.Services;
 
 public interface IInMemoryPersistenceService
 {
-    IQueryable<WorkPaper>? WorkPapers { get; }
+    IQueryable<WorkPaper>? InProgressWorkPapers { get; }
 
-    bool Insert(WorkPaper workPaper);
-    int InsertRange(IEnumerable<WorkPaper> workPapers);
-    int InsertOverwrite(IEnumerable<WorkPaper> workPapers);
-    int InsertOverwrite(IEnumerable<WorkPaper> workPapers, Func<WorkPaper, bool> filter);
+    bool InsertInProgress(WorkPaper workPaper);
+    int InsertRangeInProgress(IEnumerable<WorkPaper> workPapers);
+    int InsertOverwriteInProgress(IEnumerable<WorkPaper> workPapers);
+    int InsertOverwriteInProgress(IEnumerable<WorkPaper> workPapers, Func<WorkPaper, bool> filter);
 
     WorkPaper? Get(string idPermohonan);
 
-    bool Delete(WorkPaper workPaper);
+    bool DeleteInProgress(WorkPaper workPaper);
 }

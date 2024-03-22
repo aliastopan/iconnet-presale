@@ -6,14 +6,14 @@ internal sealed class InMemoryPersistenceProvider : IInMemoryPersistenceService
 {
     private readonly List<WorkPaper> _workPapers = [];
 
-    public IQueryable<WorkPaper>? WorkPapers => _workPapers.AsQueryable();
+    public IQueryable<WorkPaper>? InProgressWorkPapers => _workPapers.AsQueryable();
 
     public InMemoryPersistenceProvider()
     {
 
     }
 
-    public bool Insert(WorkPaper workPaper)
+    public bool InsertInProgress(WorkPaper workPaper)
     {
         try
         {
@@ -27,14 +27,14 @@ internal sealed class InMemoryPersistenceProvider : IInMemoryPersistenceService
         }
     }
 
-    public int InsertRange(IEnumerable<WorkPaper> workPapers)
+    public int InsertRangeInProgress(IEnumerable<WorkPaper> workPapers)
     {
         _workPapers.AddRange(workPapers);
 
         return _workPapers.Count;
     }
 
-    public int InsertOverwrite(IEnumerable<WorkPaper> workPapers)
+    public int InsertOverwriteInProgress(IEnumerable<WorkPaper> workPapers)
     {
         _workPapers.Clear();
         _workPapers.AddRange(workPapers);
@@ -42,7 +42,7 @@ internal sealed class InMemoryPersistenceProvider : IInMemoryPersistenceService
         return _workPapers.Count;
     }
 
-    public int InsertOverwrite(IEnumerable<WorkPaper> workPapers, Func<WorkPaper, bool> filter)
+    public int InsertOverwriteInProgress(IEnumerable<WorkPaper> workPapers, Func<WorkPaper, bool> filter)
     {
         _workPapers.Clear();
         _workPapers.AddRange(workPapers.Where(filter));
@@ -55,7 +55,7 @@ internal sealed class InMemoryPersistenceProvider : IInMemoryPersistenceService
         return _workPapers.FirstOrDefault(x => x.ApprovalOpportunity.IdPermohonan == idPermohonan);
     }
 
-    public bool Delete(WorkPaper workPaper)
+    public bool DeleteInProgress(WorkPaper workPaper)
     {
         return _workPapers.Remove(workPaper);
     }

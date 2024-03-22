@@ -57,7 +57,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
         keysToCheck = importModels.Select(importModel => importModel.IdPermohonan).ToHashSet();
 
         // check against in-memory cache
-        existingIds = _inMemoryPersistenceService.WorkPapers!
+        existingIds = _inMemoryPersistenceService.InProgressWorkPapers!
             .Where(x => keysToCheck.Contains(x.ApprovalOpportunity.IdPermohonan))
             .Select(x => x.ApprovalOpportunity.IdPermohonan)
             .ToHashSet();
@@ -88,7 +88,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
             .Where(workPaper => !existingIds.Contains(workPaper.IdPermohonan))
             .Select(_workPaperFactory.CreateWorkPaper);
 
-        _inMemoryPersistenceService.InsertRange(workPapers);
+        _inMemoryPersistenceService.InsertRangeInProgress(workPapers);
 
         var tasks = importModels
             .Where(importModel => !existingIds.Contains(importModel.IdPermohonan))
@@ -116,7 +116,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
 
         IQueryable<WorkPaper> workPapers;
 
-        var partitions = SplitIntoPartitions(_inMemoryPersistenceService.WorkPapers!, PartitionSize);
+        var partitions = SplitIntoPartitions(_inMemoryPersistenceService.InProgressWorkPapers!, PartitionSize);
         var tasks = partitions.Select(partition => FilterPartitionAsync(filter, partition));
 
         workPapers = (await Task.WhenAll(tasks)).SelectMany(partition => partition).AsQueryable();
@@ -160,7 +160,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
             Log.Information("Moving {key} to Backup DB.", key);
 
             await _inProgressPersistenceService.DeleteValueAsync(key);
-            _inMemoryPersistenceService.Delete(workPaper);
+            _inMemoryPersistenceService.DeleteInProgress(workPaper);
             Log.Information("Deleting {key} real-time access", key);
         }
     }
@@ -171,7 +171,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
 
         var task = _inProgressPersistenceService.DeleteValueAsync(key);
 
-        _inMemoryPersistenceService.Delete(workPaper);
+        _inMemoryPersistenceService.DeleteInProgress(workPaper);
         EnqueueForwardingTask(operationId: key, task);
 
         await Task.CompletedTask;
@@ -250,7 +250,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase, IWorkloadMa
         var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapers(jsonWorkPapers!, _parallelOptions);
 
         // int insertCount = _inMemoryWorkloadService.InsertOverwrite(workPapers);
-        int insertCount = _inMemoryPersistenceService.InsertOverwrite(workPapers, excludeDoneProcessing);
+        int insertCount = _inMemoryPersistenceService.InsertOverwriteInProgress(workPapers, excludeDoneProcessing);
 
         // stopwatch.Stop();
         // LogSwitch.Debug("Forward execution took {0} ms", stopwatch.ElapsedMilliseconds);
