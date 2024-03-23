@@ -11,6 +11,36 @@
         <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Dashboard</FluentLabel>
         <span class="page-description">Laporan data Presale</span>
 
+        <div>
+            @if (MonthlyPresaleData is not null)
+            {
+                <div>Presale Data: @MonthlyPresaleData.Count()</div>
+
+                <div style="margin-top: 8px;">
+                    Data Presale bulan @CurrentMonth @CurrentYear
+                </div>
+                <ApprovalStatusReportTable Models="@MonthlyApprovalStatusReport"/>
+
+                <div style="margin-top: 8px;">
+                    Data Presale minggu ke-@CurrentWeek bulan @CurrentMonth
+                </div>
+                <ApprovalStatusReportTable Models="@WeeklyApprovalStatusReport"/>
+
+
+                <div style="margin-top: 8px;">
+                    Data Presale hari ini
+                </div>
+                <ApprovalStatusReportTable Models="@DailyApprovalStatusReport"/>
+            }
+            else
+            {
+                <div class="d-flex flex-row align-items-center">
+                    <span class="px-1">Loading</span>
+                    <FluentProgressRing style="width: 16px; height: 16px;"></FluentProgressRing>
+                </div>
+            }
+        </div>
+
     </Authorized>
 
     <NotAuthorized>
