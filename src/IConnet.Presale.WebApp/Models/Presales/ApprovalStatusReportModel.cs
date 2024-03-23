@@ -21,9 +21,9 @@ public class ApprovalStatusReportModel
         }
     }
 
-    public ApprovalStatus ApprovalStatus { get; set; }
+    public ApprovalStatus ApprovalStatus { get; init; }
     public string ApprovalStatusDisplay => EnumProcessor.EnumToDisplayString(ApprovalStatus);
-    public Dictionary<string, int> StatusPerOffice { get; set; } = default!;
+    public Dictionary<string, int> StatusPerOffice { get; init; } = default!;
     public int GrandTotal => GetGrandTotal();
 
     private int GetGrandTotal()
