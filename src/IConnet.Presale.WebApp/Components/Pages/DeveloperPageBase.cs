@@ -50,21 +50,25 @@ public class DeveloperPageBase : ComponentBase
 
             await GetUserOperators();
 
-            List<ApprovalStatus> availableStatus = EnumProcessor.GetAllEnumValues<ApprovalStatus>();
-
-            foreach (var status in availableStatus)
-            {
-                var monthlyReport = ReportService.GenerateApprovalStatusReport(status, PresaleDataMonthly!);
-                var weeklyReport = ReportService.GenerateApprovalStatusReport(status, PresaleDataWeekly!);
-                var dailyReport = ReportService.GenerateApprovalStatusReport(status, PresaleDataDaily!);
-
-                _approvalStatusReportMonthly.Add(monthlyReport);
-                _approvalStatusReportWeekly.Add(weeklyReport);
-                _approvalStatusReportDaily.Add(dailyReport);
-
-            }
+            GenerateStatusApprovalReports();
 
             _isInitialized = true;
+        }
+    }
+
+    private void GenerateStatusApprovalReports()
+    {
+        List<ApprovalStatus> availableStatus = EnumProcessor.GetAllEnumValues<ApprovalStatus>();
+
+        foreach (var status in availableStatus)
+        {
+            var monthlyReport = ReportService.GenerateApprovalStatusReport(status, PresaleDataMonthly!);
+            var weeklyReport = ReportService.GenerateApprovalStatusReport(status, PresaleDataWeekly!);
+            var dailyReport = ReportService.GenerateApprovalStatusReport(status, PresaleDataDaily!);
+
+            _approvalStatusReportMonthly.Add(monthlyReport);
+            _approvalStatusReportWeekly.Add(weeklyReport);
+            _approvalStatusReportDaily.Add(dailyReport);
         }
     }
 
