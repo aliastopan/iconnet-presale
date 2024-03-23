@@ -47,10 +47,13 @@ internal sealed class DashboardManager : PresaleDataOperationBase, IDashboardMan
         List<WorkPaper> ProcessJsonWorkPapers(List<string> jsonWorkPapers)
         {
             var currentMonth = _dateTimeService.DateTimeOffsetNow.Month;
-            return JsonWorkPaperProcessor.DeserializeJsonWorkPapersParallel(jsonWorkPapers, ParallelOptions,
+            var currentYear = _dateTimeService.DateTimeOffsetNow.Year;
+
+            return JsonWorkPaperProcessor.DeserializeJsonWorkPapersParallel(jsonWorkPapers, this.ParallelOptions,
                 workPaper =>
                 {
-                    return workPaper.ApprovalOpportunity.TglPermohonan.Month == currentMonth;
+                    return workPaper.ApprovalOpportunity.TglPermohonan.Month == currentMonth
+                        && workPaper.ApprovalOpportunity.TglPermohonan.Month == currentYear;
                 });
         }
     }
