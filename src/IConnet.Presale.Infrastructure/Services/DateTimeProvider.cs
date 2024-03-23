@@ -43,6 +43,14 @@ internal sealed class DateTimeProvider : IDateTimeService
         return calendar.GetWeekOfYear(dateTime, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
     }
 
+    public int GetCurrentWeekOfMonth()
+    {
+        int dayOfMonth = DateTimeOffset.Now.Day;
+        int weekOfMonth = (int)Math.Ceiling((double)dayOfMonth / 7);
+
+        return weekOfMonth;
+    }
+
     public int GetWeekOfMonth(DateTime dateTime)
     {
         int dayOfMonth = dateTime.Day;
