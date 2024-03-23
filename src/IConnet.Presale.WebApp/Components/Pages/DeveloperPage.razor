@@ -17,59 +17,12 @@
         </div>
 
         <div>
-            @if (PresaleData is not null)
+            @if (PresaleDataMonthly is not null)
             {
-                <div>Presale Data: @PresaleData.Count()</div>
+                <div>Presale Data: @PresaleDataMonthly.Count()</div>
                 <div>Operator: @UserOperatorModels.Count</div>
 
-                <table style="width: fit-content;">
-                    <thead>
-                        <tr>
-                            <th rowspan="2">STATUS</th>
-                            <th colspan="@ApprovalStatusReportModels.SelectMany(m => m.StatusPerOffice.Keys).Distinct().Count()">
-                                KANTOR PERWAKILAN
-                            </th>
-                            <th rowspan="2">Grand Total</th>
-                        </tr>
-                        <tr>
-                            @foreach (var office in ApprovalStatusReportModels.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
-                            {
-                                <th>@office</th>
-                            }
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var model in ApprovalStatusReportModels)
-                        {
-                            <tr>
-                                <td>@model.ApprovalStatusDisplay</td>
-                                @foreach (var office in ApprovalStatusReportModels.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
-                                {
-                                    <td>
-                                    @if (model.StatusPerOffice.ContainsKey(office))
-                                    {
-                                        @model.StatusPerOffice[office]
-                                    }
-                                    else
-                                    {
-                                        <span>-</span>
-                                    }
-                                    </td>
-                                }
-                                <td>@model.GrandTotal</td>
-                            </tr>
-                        }
-                        <tr>
-                            <td>Grand Total</td>
-                            @foreach (var office in ApprovalStatusReportModels.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
-                            {
-                                <td>@ApprovalStatusReportModels.Sum(m => m.StatusPerOffice.GetValueOrDefault(office, 0))</td>
-                            }
-                            <td>@ApprovalStatusReportModels.Sum(m => m.GrandTotal)</td>
-                        </tr>
-                    </tbody>
-                </table>
-
+                <ApprovalStatusReportTable Models="@ApprovalStatusReportModels"/>
             }
             else
             {
