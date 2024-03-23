@@ -39,4 +39,9 @@ public class EnumProcessor
             throw new ArgumentException($"The string '{displayString}' could not be converted to enum type '{typeof(T).Name}'.", nameof(displayString));
         }
     }
+
+    public static List<T> GetAllEnumValues<T>() where T : Enum
+    {
+        return new List<T>((T[])Enum.GetValues(typeof(T)));
+    }
 }
