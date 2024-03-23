@@ -19,7 +19,9 @@ public class ReportService
 
         for (int i = 0; i < offices.Count; i++)
         {
-            var count = presaleData.Count(x => x.ProsesApproval.StatusApproval == approvalStatus);
+            var count = presaleData.Count(x => x.ProsesApproval.StatusApproval == approvalStatus
+                && x.ApprovalOpportunity.Regional.KantorPerwakilan.Equals(offices[i], StringComparison.OrdinalIgnoreCase));
+
             statusPerOffice.Add(count);
         }
 
