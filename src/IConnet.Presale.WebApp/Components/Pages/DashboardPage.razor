@@ -44,11 +44,14 @@
                     </FluentTab>
                     <FluentTab Id="tab-2">
                         <Header>
-                            <FluentIcon Value="@(new Icons.Regular.Size16.DocumentData())" Color="@Color.Accent"/>
-                            Data Aging
+                            <FluentIcon Value="@(new Icons.Regular.Size16.DocumentError())" Color="@Color.Accent"/>
+                            Root Cause
                         </Header>
                         <Content>
-                            Data Aging
+                            <div style="margin-top: 8px;">
+                                Root Cause @CurrentMonth @CurrentYear
+                            </div>
+                            <RootCauseReportTable Models="@MonthlyRootCauseReport"/>
                         </Content>
                     </FluentTab>
                 </FluentTabs>

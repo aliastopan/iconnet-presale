@@ -34,9 +34,13 @@ public class DashboardPageBase : ComponentBase
     private readonly List<ApprovalStatusReportModel> _weeklyApprovalStatusReport = [];
     private readonly List<ApprovalStatusReportModel> _dailyApprovalStatusReport = [];
 
+    private List<RootCauseReportModel> _monthlyRootCauseReport = [];
+
     public List<ApprovalStatusReportModel> MonthlyApprovalStatusReport => _monthlyApprovalStatusReport;
     public List<ApprovalStatusReportModel> WeeklyApprovalStatusReport => _weeklyApprovalStatusReport;
     public List<ApprovalStatusReportModel> DailyApprovalStatusReport => _dailyApprovalStatusReport;
+
+    public List<RootCauseReportModel> MonthlyRootCauseReport => _monthlyRootCauseReport;
 
     protected override async Task OnInitializedAsync()
     {
@@ -47,6 +51,7 @@ public class DashboardPageBase : ComponentBase
             _dailyPresaleData = DashboardManager.GetPresaleDataFromToday(_weeklyPresaleData);
 
             GenerateStatusApprovalReport();
+            GenerateRootCauseReport();
 
             _isInitialized = true;
         }
@@ -65,6 +70,18 @@ public class DashboardPageBase : ComponentBase
             _monthlyApprovalStatusReport.Add(monthlyReport);
             _weeklyApprovalStatusReport.Add(weeklyReport);
             _dailyApprovalStatusReport.Add(dailyReport);
+        }
+    }
+
+    private void GenerateRootCauseReport()
+    {
+        List<string> availableRootCauses = OptionService.RootCauseOptions.ToList();
+
+        foreach (var rootCause in availableRootCauses)
+        {
+            var monthlyReport = ReportService.GenerateRootCauseReport(rootCause, MonthlyPresaleData!);
+
+            _monthlyRootCauseReport.Add(monthlyReport);
         }
     }
 }
