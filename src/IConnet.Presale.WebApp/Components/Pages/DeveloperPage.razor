@@ -22,6 +22,64 @@
                 <div>Presale Data: @PresaleData.Count()</div>
                 <div>Operator: @UserOperatorModels.Count</div>
 
+                 @* <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="width: fit-content;">STATUS APPROVAL</th>
+                            @foreach (var header in OptionService.KantorPerwakilanOptions.Skip(1))
+                            {
+                                <th style="width: fit-content;">@header</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Data)
+                        {
+                            <tr>
+                                @foreach (var header in ColumnHeaders)
+                                {
+                                    <td>@item[header]</td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table> *@
+
+                <table style="width: fit-content;">
+                    <thead>
+                        <tr>
+                            <th>STATUS</th>
+                            @foreach (var office in ApprovalStatusReportModels.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
+                            {
+                                <th>@office</th>
+                            }
+                             <th>Grand Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var model in ApprovalStatusReportModels)
+                        {
+                            <tr>
+                                <td>@model.ApprovalStatus</td>
+                                @foreach (var office in ApprovalStatusReportModels.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
+                                {
+                                    <td>
+                                    @if (model.StatusPerOffice.ContainsKey(office))
+                                    {
+                                        @model.StatusPerOffice[office]
+                                    }
+                                    else
+                                    {
+                                        <span>-</span>
+                                    }
+                                    </td>
+                                }
+                                <td>@model.GrandTotal</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
             }
             else
             {
