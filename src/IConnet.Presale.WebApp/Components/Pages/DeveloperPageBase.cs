@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using IConnet.Presale.WebApp.Models.Identity;
 using IConnet.Presale.Shared.Contracts.Identity;
@@ -8,6 +9,7 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class DeveloperPageBase : ComponentBase
 {
+    [Inject] protected IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] protected IDashboardManager DashboardManager { get; set; } = default!;
     [Inject] protected IIdentityHttpClient IdentityHttpClient { get; set; } = default!;
     [Inject] protected OptionService OptionService { get; set; } = default!;
@@ -17,7 +19,10 @@ public class DeveloperPageBase : ComponentBase
     private readonly List<UserOperatorModel> _userOperatorModels = [];
     private IQueryable<WorkPaper>? _presaleDataMonthly;
     private List<ApprovalStatusReportModel> _approvalStatusReportModels = [];
+    private readonly CultureInfo _culture = new CultureInfo("id-ID");
 
+    protected string CurrentMonth => DateTimeService.DateTimeOffsetNow.ToString("MMMM", _culture);
+    protected int CurrentYear => DateTimeService.DateTimeOffsetNow.Year;
 
     public List<UserOperatorModel> UserOperatorModels => _userOperatorModels;
     public IQueryable<WorkPaper>? PresaleDataMonthly => _presaleDataMonthly;
