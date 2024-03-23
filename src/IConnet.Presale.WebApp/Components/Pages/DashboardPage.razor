@@ -9,28 +9,49 @@
 
     <Authorized>
         <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Dashboard</FluentLabel>
-        <span class="page-description">Laporan data Presale</span>
+        @* <span class="page-description">Laporan data Presale</span> *@
 
         <div>
             @if (MonthlyPresaleData is not null)
             {
-                <div>Presale Data: @MonthlyPresaleData.Count()</div>
+                <FluentTabs ActiveTabId="tab-1">
+                    <FluentTab Id="tab-1">
+                        <Header>
+                            <FluentIcon Value="@(new Icons.Regular.Size16.DocumentCheckmark())" Color="@Color.Accent"/>
+                            Status Approval
+                        </Header>
+                        <Content>
 
-                <div style="margin-top: 8px;">
-                    Data Presale bulan @CurrentMonth @CurrentYear
-                </div>
-                <ApprovalStatusReportTable Models="@MonthlyApprovalStatusReport"/>
+                            <div>Presale Data: @MonthlyPresaleData.Count()</div>
 
-                <div style="margin-top: 8px;">
-                    Data Presale minggu ke-@CurrentWeek bulan @CurrentMonth
-                </div>
-                <ApprovalStatusReportTable Models="@WeeklyApprovalStatusReport"/>
+                            <div style="margin-top: 8px;">
+                                Data Presale bulan @CurrentMonth @CurrentYear
+                            </div>
+                            <ApprovalStatusReportTable Models="@MonthlyApprovalStatusReport"/>
+
+                            <div style="margin-top: 8px;">
+                                Data Presale minggu ke-@CurrentWeek bulan @CurrentMonth
+                            </div>
+                            <ApprovalStatusReportTable Models="@WeeklyApprovalStatusReport"/>
 
 
-                <div style="margin-top: 8px;">
-                    Data Presale hari ini
-                </div>
-                <ApprovalStatusReportTable Models="@DailyApprovalStatusReport"/>
+                            <div style="margin-top: 8px;">
+                                Data Presale hari ini
+                            </div>
+                            <ApprovalStatusReportTable Models="@DailyApprovalStatusReport"/>
+
+                        </Content>
+                    </FluentTab>
+                    <FluentTab Id="tab-2">
+                        <Header>
+                            <FluentIcon Value="@(new Icons.Regular.Size16.DocumentData())" Color="@Color.Accent"/>
+                            Data Aging
+                        </Header>
+                        <Content>
+                            Data Aging
+                        </Content>
+                    </FluentTab>
+                </FluentTabs>
             }
             else
             {
