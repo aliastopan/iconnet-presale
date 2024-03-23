@@ -46,20 +46,25 @@ public class DashboardPageBase : ComponentBase
             _weeklyPresaleData = DashboardManager.GetPresaleDataFromCurrentWeek(_monthlyPresaleData);
             _dailyPresaleData = DashboardManager.GetPresaleDataFromToday(_weeklyPresaleData);
 
-            List<ApprovalStatus> availableStatus = EnumProcessor.GetAllEnumValues<ApprovalStatus>();
-
-            foreach (var status in availableStatus)
-            {
-                var monthlyReport = ReportService.GenerateApprovalStatusReport(status, _monthlyPresaleData!);
-                var weeklyReport = ReportService.GenerateApprovalStatusReport(status, _weeklyPresaleData!);
-                var dailyReport = ReportService.GenerateApprovalStatusReport(status, _dailyPresaleData!);
-
-                _monthlyApprovalStatusReport.Add(monthlyReport);
-                _weeklyApprovalStatusReport.Add(weeklyReport);
-                _dailyApprovalStatusReport.Add(dailyReport);
-            }
+            GenerateStatusApprovalReport();
 
             _isInitialized = true;
+        }
+    }
+
+    private void GenerateStatusApprovalReport()
+    {
+        List<ApprovalStatus> availableStatus = EnumProcessor.GetAllEnumValues<ApprovalStatus>();
+
+        foreach (var status in availableStatus)
+        {
+            var monthlyReport = ReportService.GenerateApprovalStatusReport(status, _monthlyPresaleData!);
+            var weeklyReport = ReportService.GenerateApprovalStatusReport(status, _weeklyPresaleData!);
+            var dailyReport = ReportService.GenerateApprovalStatusReport(status, _dailyPresaleData!);
+
+            _monthlyApprovalStatusReport.Add(monthlyReport);
+            _weeklyApprovalStatusReport.Add(weeklyReport);
+            _dailyApprovalStatusReport.Add(dailyReport);
         }
     }
 }
