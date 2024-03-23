@@ -48,12 +48,17 @@
                 <table style="width: fit-content;">
                     <thead>
                         <tr>
-                            <th>STATUS</th>
+                            <th rowspan="2">STATUS</th>
+                            <th colspan="@ApprovalStatusReportModels.SelectMany(m => m.StatusPerOffice.Keys).Distinct().Count()">
+                                KANTOR PERWAKILAN
+                            </th>
+                            <th rowspan="2">Grand Total</th>
+                        </tr>
+                        <tr>
                             @foreach (var office in ApprovalStatusReportModels.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
                             {
                                 <th>@office</th>
                             }
-                             <th>Grand Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,6 +82,14 @@
                                 <td>@model.GrandTotal</td>
                             </tr>
                         }
+                        <tr>
+                            <td>Grand Total</td>
+                            @foreach (var office in ApprovalStatusReportModels.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
+                            {
+                                <td>@ApprovalStatusReportModels.Sum(m => m.StatusPerOffice.GetValueOrDefault(office, 0))</td>
+                            }
+                            <td>@ApprovalStatusReportModels.Sum(m => m.GrandTotal)</td>
+                        </tr>
                     </tbody>
                 </table>
 
