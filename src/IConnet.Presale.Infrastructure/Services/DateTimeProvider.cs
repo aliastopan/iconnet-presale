@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace IConnet.Presale.Infrastructure.Services;
 
 internal sealed class DateTimeProvider : IDateTimeService
@@ -24,6 +26,14 @@ internal sealed class DateTimeProvider : IDateTimeService
     public DateTime ParseExact(string dateTimeString)
     {
         return DateTime.ParseExact(dateTimeString, GetFormat(), System.Globalization.CultureInfo.InvariantCulture);
+    }
+
+    public int GetCurrentWeekOfYear()
+    {
+        var now = DateTimeOffset.Now;
+        var calendar = CultureInfo.CurrentCulture.Calendar;
+
+        return calendar.GetWeekOfYear(now.DateTime, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
     }
 
     public string GetTimeIdentifier()

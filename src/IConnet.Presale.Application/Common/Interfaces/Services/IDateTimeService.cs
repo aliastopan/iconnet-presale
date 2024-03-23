@@ -10,5 +10,6 @@ public interface IDateTimeService
     string GetFormat();
     TimeSpan GetElapsedTime(DateTime startDateTime);
     DateTime ParseExact(string dateTimeString);
+    int GetCurrentWeekOfYear();
     string GetTimeIdentifier();
 }
