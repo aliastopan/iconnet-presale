@@ -1,10 +1,10 @@
+using System.Diagnostics;
 using System.Text.Json;
 using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using IConnet.Presale.WebApp.Models.Identity;
 using IConnet.Presale.Shared.Contracts.Identity;
 using IConnet.Presale.WebApp.Models.Presales;
-using System.Diagnostics;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
 
@@ -20,38 +20,40 @@ public class DeveloperPageBase : ComponentBase
     private readonly CultureInfo _culture = new CultureInfo("id-ID");
     private readonly List<UserOperatorModel> _userOperatorModels = [];
 
-    private IQueryable<WorkPaper>? _presaleDataMonthly;
-    private IQueryable<WorkPaper>? _presaleDataWeekly;
-    private IQueryable<WorkPaper>? _presaleDataDaily;
-
-    private List<ApprovalStatusReportModel> _approvalStatusReportMonthly = [];
-    private List<ApprovalStatusReportModel> _approvalStatusReportWeekly = [];
-    private List<ApprovalStatusReportModel> _approvalStatusReportDaily = [];
-
-    private List<RootCauseReportModel> _rootCauseReportMonthly = [];
-
     protected int CurrentYear => DateTimeService.DateTimeOffsetNow.Year;
     protected string CurrentMonth => DateTimeService.DateTimeOffsetNow.ToString("MMMM", _culture);
     protected int CurrentWeek => DateTimeService.GetCurrentWeekOfMonth();
 
+    private IQueryable<WorkPaper>? _monthlyPresaleData;
+    private IQueryable<WorkPaper>? _weeklyPresaleData;
+    private IQueryable<WorkPaper>? _dailyPresaleData;
+
+    public IQueryable<WorkPaper>? MonthlyPresaleData => _monthlyPresaleData;
+    public IQueryable<WorkPaper>? WeeklyPresaleData => _weeklyPresaleData;
+    public IQueryable<WorkPaper>? DailyPresaleData => _dailyPresaleData;
+
+    private List<ApprovalStatusReportModel> _monthlyApprovalStatusReport = [];
+    private List<ApprovalStatusReportModel> _weeklyApprovalStatusReport = [];
+    private List<ApprovalStatusReportModel> _dailyApprovalStatusReport = [];
+
+    public List<ApprovalStatusReportModel> MonthlyApprovalStatusReport => _monthlyApprovalStatusReport;
+    public List<ApprovalStatusReportModel> WeeklyApprovalStatusReport => _weeklyApprovalStatusReport;
+    public List<ApprovalStatusReportModel> DailyApprovalStatusReport => _dailyApprovalStatusReport;
+
+    private List<RootCauseReportModel> _monthlyRootCauseReport = [];
+
+    public List<RootCauseReportModel> MonthlyRootCauseReport => _monthlyRootCauseReport;
+
     public List<UserOperatorModel> UserOperatorModels => _userOperatorModels;
-    public IQueryable<WorkPaper>? PresaleDataMonthly => _presaleDataMonthly;
-    public IQueryable<WorkPaper>? PresaleDataWeekly => _presaleDataWeekly;
-    public IQueryable<WorkPaper>? PresaleDataDaily => _presaleDataDaily;
 
-    public List<ApprovalStatusReportModel> ApprovalStatusReportMonthly => _approvalStatusReportMonthly;
-    public List<ApprovalStatusReportModel> ApprovalStatusReportWeekly => _approvalStatusReportWeekly;
-    public List<ApprovalStatusReportModel> ApprovalStatusReportDaily => _approvalStatusReportDaily;
-
-    public List<RootCauseReportModel> RootCauseReportMonthly => _rootCauseReportMonthly;
 
     protected override async Task OnInitializedAsync()
     {
         if (!_isInitialized)
         {
-            _presaleDataMonthly = await DashboardManager.GetPresaleDataFromCurrentMonthAsync();
-            _presaleDataWeekly = DashboardManager.GetPresaleDataFromCurrentWeek(_presaleDataMonthly);
-            _presaleDataDaily = DashboardManager.GetPresaleDataFromCurrentWeek(_presaleDataWeekly);
+            _monthlyPresaleData = await DashboardManager.GetPresaleDataFromCurrentMonthAsync();
+            _weeklyPresaleData = DashboardManager.GetPresaleDataFromCurrentWeek(_monthlyPresaleData);
+            _dailyPresaleData = DashboardManager.GetPresaleDataFromCurrentWeek(_weeklyPresaleData);
 
             await GetUserOperators();
 
@@ -74,13 +76,13 @@ public class DeveloperPageBase : ComponentBase
 
         foreach (var status in availableStatus)
         {
-            var monthlyReport = ReportService.GenerateApprovalStatusReport(status, PresaleDataMonthly!);
-            var weeklyReport = ReportService.GenerateApprovalStatusReport(status, PresaleDataWeekly!);
-            var dailyReport = ReportService.GenerateApprovalStatusReport(status, PresaleDataDaily!);
+            var monthlyReport = ReportService.GenerateApprovalStatusReport(status, MonthlyPresaleData!);
+            var weeklyReport = ReportService.GenerateApprovalStatusReport(status, WeeklyPresaleData!);
+            var dailyReport = ReportService.GenerateApprovalStatusReport(status, DailyPresaleData!);
 
-            _approvalStatusReportMonthly.Add(monthlyReport);
-            _approvalStatusReportWeekly.Add(weeklyReport);
-            _approvalStatusReportDaily.Add(dailyReport);
+            _monthlyApprovalStatusReport.Add(monthlyReport);
+            _weeklyApprovalStatusReport.Add(weeklyReport);
+            _dailyApprovalStatusReport.Add(dailyReport);
         }
     }
 
@@ -90,9 +92,9 @@ public class DeveloperPageBase : ComponentBase
 
         foreach (var rootCause in availableRootCauses)
         {
-            var monthlyReport = ReportService.GenerateRootCauseReport(rootCause, PresaleDataMonthly!);
+            var monthlyReport = ReportService.GenerateRootCauseReport(rootCause, MonthlyPresaleData!);
 
-            _rootCauseReportMonthly.Add(monthlyReport);
+            _monthlyRootCauseReport.Add(monthlyReport);
         }
     }
 
