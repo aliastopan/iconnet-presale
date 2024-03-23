@@ -36,6 +36,13 @@ internal sealed class DateTimeProvider : IDateTimeService
         return calendar.GetWeekOfYear(now.DateTime, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
     }
 
+    public int GetWeekOfYear(DateTime date)
+    {
+        var calendar = CultureInfo.CurrentCulture.Calendar;
+
+        return calendar.GetWeekOfYear(date, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
+    }
+
     public string GetTimeIdentifier()
     {
         DateTime currentTime = DateTimeOffset.Now.LocalDateTime;
