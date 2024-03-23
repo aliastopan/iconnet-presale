@@ -1,0 +1,51 @@
+@if (Models is not null)
+{
+    <table style="width: fit-content;">
+        <thead>
+            <tr>
+                <th rowspan="2">STATUS</th>
+                <th colspan="@Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct().Count()">
+                    KANTOR PERWAKILAN
+                </th>
+                <th rowspan="2">Grand Total</th>
+            </tr>
+            <tr>
+                @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
+                {
+                    <th>@office</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var model in Models)
+            {
+                <tr>
+                    <td>@model.ApprovalStatusDisplay</td>
+                    @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
+                    {
+                        <td>
+                        @if (model.StatusPerOffice.ContainsKey(office))
+                        {
+                            @model.StatusPerOffice[office]
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                        </td>
+                    }
+                    <td>@model.GrandTotal</td>
+                </tr>
+            }
+            <tr>
+                <td>Grand Total</td>
+                @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
+                {
+                    <td>@Models.Sum(m => m.StatusPerOffice.GetValueOrDefault(office, 0))</td>
+                }
+                <td>@Models.Sum(m => m.GrandTotal)</td>
+            </tr>
+        </tbody>
+    </table>
+
+}
