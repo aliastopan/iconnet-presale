@@ -65,7 +65,7 @@ internal sealed class DashboardManager : PresaleDataOperationBase, IDashboardMan
         return presaleData.Where(workPaper => _dateTimeService.GetWeekOfYear(workPaper.ApprovalOpportunity.TglPermohonan) == currentWeek);
     }
 
-    public IQueryable<WorkPaper> GetPresaleDataFromCurrentDay(IQueryable<WorkPaper> presaleData)
+    public IQueryable<WorkPaper> GetPresaleDataFromToday(IQueryable<WorkPaper> presaleData)
     {
         var currentDay = _dateTimeService.DateTimeOffsetNow.DayOfYear;
 
