@@ -65,7 +65,7 @@
                         @foreach (var model in ApprovalStatusReportModels)
                         {
                             <tr>
-                                <td>@model.ApprovalStatus</td>
+                                <td>@model.ApprovalStatusDisplay</td>
                                 @foreach (var office in ApprovalStatusReportModels.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
                                 {
                                     <td>
