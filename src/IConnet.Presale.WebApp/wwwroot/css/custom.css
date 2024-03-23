@@ -299,3 +299,21 @@ input:invalid::part(root) {
     margin-top: -14px !important;
     padding: 0 !important;
 }
+
+.table-report-approval-status{
+    padding: 4px;
+}
+
+.table-report-header{
+    padding: 2px 8px;
+    text-align: center;
+}
+
+.table-report-header-row{
+    padding: 2px 8px;
+    text-align:start;
+}
+
+.table-report-content{
+    text-align: center;
+}

@@ -1,18 +1,26 @@
 @if (Models is not null)
 {
-    <table style="width: fit-content;">
+    <table class="table-report-approval-status" style="width: fit-content;">
         <thead>
             <tr>
-                <th rowspan="2">STATUS</th>
-                <th colspan="@Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct().Count()">
-                    KANTOR PERWAKILAN
+                <th rowspan="2" class="table-report-header" style="background-color: cadetblue;">
+                    STATUS
                 </th>
-                <th rowspan="2">Grand Total</th>
+                <th colspan="@Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct().Count()"
+                    class="table-report-header"
+                    style="background-color: beige;">
+                    Kantor Perwakilan
+                </th>
+                <th rowspan="2" class="table-report-header" style="background-color: cadetblue;">
+                    Grand Total
+                </th>
             </tr>
             <tr>
                 @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
                 {
-                    <th>@office</th>
+                    <th style="padding: 2px 8px; text-align: center; background-color: aquamarine;">
+                        @office
+                    </th>
                 }
             </tr>
         </thead>
@@ -20,10 +28,10 @@
             @foreach (var model in Models)
             {
                 <tr>
-                    <td>@model.ApprovalStatusDisplay</td>
+                    <td class="table-report-header-row">@model.ApprovalStatusDisplay</td>
                     @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
                     {
-                        <td>
+                        <td class="table-report-content">
                         @if (model.StatusPerOffice.ContainsKey(office))
                         {
                             @model.StatusPerOffice[office]
@@ -34,16 +42,22 @@
                         }
                         </td>
                     }
-                    <td>@model.GrandTotal</td>
+                    <td class="table-report-content">
+                        @model.GrandTotal
+                    </td>
                 </tr>
             }
             <tr>
-                <td>Grand Total</td>
+                <td class="table-report-header-row">Grand Total</td>
                 @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
                 {
-                    <td>@Models.Sum(m => m.StatusPerOffice.GetValueOrDefault(office, 0))</td>
+                    <td class="table-report-content">
+                        @Models.Sum(m => m.StatusPerOffice.GetValueOrDefault(office, 0))
+                    </td>
                 }
-                <td>@Models.Sum(m => m.GrandTotal)</td>
+                <td class="table-report-content" style="background-color: cadetblue;">
+                    @Models.Sum(m => m.GrandTotal)
+                </td>
             </tr>
         </tbody>
     </table>
