@@ -23,5 +23,17 @@ public class ApprovalStatusReportModel
 
     public ApprovalStatus ApprovalStatus { get; set; }
     public Dictionary<string, int> StatusPerOffice { get; set; } = default!;
+    public int GrandTotal => GetGrandTotal();
 
+    private int GetGrandTotal()
+    {
+        int grandTotal = 0;
+
+        foreach (var value in StatusPerOffice.Values)
+        {
+            grandTotal += value;
+        }
+
+        return grandTotal;
+    }
 }
