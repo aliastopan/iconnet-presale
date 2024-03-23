@@ -19,7 +19,7 @@ public class ReportService
 
         for (int i = 0; i < offices.Count; i++)
         {
-            var count = presaleData.Count(x => x.ProsesApproval.StatusApproval == approvalStatus
+            int count = presaleData.Count(x => x.ProsesApproval.StatusApproval == approvalStatus
                 && x.ApprovalOpportunity.Regional.KantorPerwakilan.Equals(offices[i], StringComparison.OrdinalIgnoreCase));
 
             statusPerOffice.Add(count);
@@ -36,7 +36,7 @@ public class ReportService
 
         for (int i = 0; i < offices.Count; i++)
         {
-            var count = presaleData.Count(x => (x.ProsesApproval.StatusApproval == ApprovalStatus.Reject
+            int count = presaleData.Count(x => (x.ProsesApproval.StatusApproval == ApprovalStatus.Reject
                 || x.ProsesApproval.StatusApproval == ApprovalStatus.CloseLost)
                 && x.ProsesApproval.RootCause.Equals(rootCause, StringComparison.OrdinalIgnoreCase)
                 && x.ApprovalOpportunity.Regional.KantorPerwakilan.Equals(offices[i], StringComparison.OrdinalIgnoreCase));
