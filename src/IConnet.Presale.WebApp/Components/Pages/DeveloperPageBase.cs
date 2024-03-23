@@ -15,32 +15,32 @@ public class DeveloperPageBase : ComponentBase
 
     private bool _isInitialized = false;
     private readonly List<UserOperatorModel> _userOperatorModels = [];
-    private IQueryable<WorkPaper>? _presaleData;
+    private IQueryable<WorkPaper>? _presaleDataMonthly;
     private List<ApprovalStatusReportModel> _approvalStatusReportModels = [];
 
 
     public List<UserOperatorModel> UserOperatorModels => _userOperatorModels;
-    public IQueryable<WorkPaper>? PresaleData => _presaleData;
+    public IQueryable<WorkPaper>? PresaleDataMonthly => _presaleDataMonthly;
     public List<ApprovalStatusReportModel> ApprovalStatusReportModels => _approvalStatusReportModels;
 
     protected override async Task OnInitializedAsync()
     {
         if (!_isInitialized)
         {
-            _presaleData = await DashboardManager.GetPresaleDataFromCurrentMonthAsync();
+            _presaleDataMonthly = await DashboardManager.GetPresaleDataFromCurrentMonthAsync();
 
             await GetUserOperators();
 
-            if (PresaleData is null)
+            if (PresaleDataMonthly is null)
             {
                 return;
             }
 
-            var reportInProgress = ReportService.GenerateApprovalStatusReport(ApprovalStatus.InProgress, PresaleData);
-            var reportClosedLost = ReportService.GenerateApprovalStatusReport(ApprovalStatus.CloseLost, PresaleData);
-            var reportRejected = ReportService.GenerateApprovalStatusReport(ApprovalStatus.Reject, PresaleData);
-            var reportExpansion = ReportService.GenerateApprovalStatusReport(ApprovalStatus.Expansion, PresaleData);
-            var reportApproved = ReportService.GenerateApprovalStatusReport(ApprovalStatus.Approve, PresaleData);
+            var reportInProgress = ReportService.GenerateApprovalStatusReport(ApprovalStatus.InProgress, PresaleDataMonthly);
+            var reportClosedLost = ReportService.GenerateApprovalStatusReport(ApprovalStatus.CloseLost, PresaleDataMonthly);
+            var reportRejected = ReportService.GenerateApprovalStatusReport(ApprovalStatus.Reject, PresaleDataMonthly);
+            var reportExpansion = ReportService.GenerateApprovalStatusReport(ApprovalStatus.Expansion, PresaleDataMonthly);
+            var reportApproved = ReportService.GenerateApprovalStatusReport(ApprovalStatus.Approve, PresaleDataMonthly);
 
             _approvalStatusReportModels.Add(reportInProgress);
             _approvalStatusReportModels.Add(reportClosedLost);
