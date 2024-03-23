@@ -37,6 +37,7 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
     services.AddScoped<BroadcastService>();
     services.AddScoped<SqlPushService>();
+    services.AddScoped<ReportService>();
     services.AddTransient<CrmImportService>();
 
     services.AddRazorComponents()
