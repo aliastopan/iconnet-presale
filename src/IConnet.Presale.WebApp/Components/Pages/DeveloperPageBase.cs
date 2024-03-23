@@ -16,43 +16,53 @@ public class DeveloperPageBase : ComponentBase
     [Inject] protected ReportService ReportService { get; set; } = default!;
 
     private bool _isInitialized = false;
-    private readonly List<UserOperatorModel> _userOperatorModels = [];
-    private IQueryable<WorkPaper>? _presaleDataMonthly;
-    private List<ApprovalStatusReportModel> _approvalStatusReportModels = [];
     private readonly CultureInfo _culture = new CultureInfo("id-ID");
+    private readonly List<UserOperatorModel> _userOperatorModels = [];
 
-    protected string CurrentMonth => DateTimeService.DateTimeOffsetNow.ToString("MMMM", _culture);
+    private IQueryable<WorkPaper>? _presaleDataMonthly;
+    private IQueryable<WorkPaper>? _presaleDataWeekly;
+    private IQueryable<WorkPaper>? _presaleDataDaily;
+
+    private List<ApprovalStatusReportModel> _approvalStatusReportMonthly = [];
+    private List<ApprovalStatusReportModel> _approvalStatusReportWeekly = [];
+    private List<ApprovalStatusReportModel> _approvalStatusReportDaily = [];
+
     protected int CurrentYear => DateTimeService.DateTimeOffsetNow.Year;
+    protected string CurrentMonth => DateTimeService.DateTimeOffsetNow.ToString("MMMM", _culture);
+    protected int CurrentWeek => DateTimeService.GetCurrentWeekOfMonth();
 
     public List<UserOperatorModel> UserOperatorModels => _userOperatorModels;
     public IQueryable<WorkPaper>? PresaleDataMonthly => _presaleDataMonthly;
-    public List<ApprovalStatusReportModel> ApprovalStatusReportModels => _approvalStatusReportModels;
+    public IQueryable<WorkPaper>? PresaleDataWeekly => _presaleDataWeekly;
+    public IQueryable<WorkPaper>? PresaleDataDaily => _presaleDataDaily;
+
+    public List<ApprovalStatusReportModel> ApprovalStatusReportMonthly => _approvalStatusReportMonthly;
+    public List<ApprovalStatusReportModel> ApprovalStatusReportWeekly => _approvalStatusReportWeekly;
+    public List<ApprovalStatusReportModel> ApprovalStatusReportDaily => _approvalStatusReportDaily;
 
     protected override async Task OnInitializedAsync()
     {
         if (!_isInitialized)
         {
             _presaleDataMonthly = await DashboardManager.GetPresaleDataFromCurrentMonthAsync();
+            _presaleDataWeekly = DashboardManager.GetPresaleDataFromCurrentWeek(_presaleDataMonthly);
+            _presaleDataDaily = DashboardManager.GetPresaleDataFromCurrentWeek(_presaleDataWeekly);
 
             await GetUserOperators();
 
-            if (PresaleDataMonthly is null)
+            List<ApprovalStatus> availableStatus = EnumProcessor.GetAllEnumValues<ApprovalStatus>();
+
+            foreach (var status in availableStatus)
             {
-                return;
+                var monthlyReport = ReportService.GenerateApprovalStatusReport(status, PresaleDataMonthly!);
+                var weeklyReport = ReportService.GenerateApprovalStatusReport(status, PresaleDataWeekly!);
+                var dailyReport = ReportService.GenerateApprovalStatusReport(status, PresaleDataDaily!);
+
+                _approvalStatusReportMonthly.Add(monthlyReport);
+                _approvalStatusReportWeekly.Add(weeklyReport);
+                _approvalStatusReportDaily.Add(dailyReport);
+
             }
-
-            var reportInProgress = ReportService.GenerateApprovalStatusReport(ApprovalStatus.InProgress, PresaleDataMonthly);
-            var reportClosedLost = ReportService.GenerateApprovalStatusReport(ApprovalStatus.CloseLost, PresaleDataMonthly);
-            var reportRejected = ReportService.GenerateApprovalStatusReport(ApprovalStatus.Reject, PresaleDataMonthly);
-            var reportExpansion = ReportService.GenerateApprovalStatusReport(ApprovalStatus.Expansion, PresaleDataMonthly);
-            var reportApproved = ReportService.GenerateApprovalStatusReport(ApprovalStatus.Approve, PresaleDataMonthly);
-
-            _approvalStatusReportModels.Add(reportInProgress);
-            _approvalStatusReportModels.Add(reportClosedLost);
-            _approvalStatusReportModels.Add(reportRejected);
-            _approvalStatusReportModels.Add(reportExpansion);
-            _approvalStatusReportModels.Add(reportApproved);
-
 
             _isInitialized = true;
         }

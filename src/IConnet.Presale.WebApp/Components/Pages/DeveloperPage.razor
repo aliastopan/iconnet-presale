@@ -25,7 +25,12 @@
                 <div style="margin-top: 8px;">
                     Data Presale bulan @CurrentMonth @CurrentYear
                 </div>
-                <ApprovalStatusReportTable Models="@ApprovalStatusReportModels"/>
+                <ApprovalStatusReportTable Models="@ApprovalStatusReportMonthly"/>
+
+                <div style="margin-top: 8px;">
+                    Data Presale minggu ke-@CurrentWeek bulan @CurrentMonth
+                </div>
+                <ApprovalStatusReportTable Models="@ApprovalStatusReportWeekly"/>
             }
             else
             {
