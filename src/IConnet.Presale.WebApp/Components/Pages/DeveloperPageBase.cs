@@ -46,6 +46,7 @@ public class DeveloperPageBase : ComponentBase
 
     public List<UserOperatorModel> UserOperatorModels => _userOperatorModels;
 
+    public AgingReportModel AgingImportReport { get; set; } = default!;
 
     protected override async Task OnInitializedAsync()
     {
@@ -61,6 +62,7 @@ public class DeveloperPageBase : ComponentBase
 
             GenerateStatusApprovalReports();
             GenerateRootCauseReport();
+            GenerateAgingReport();
 
             stopwatch.Stop();
 
@@ -96,6 +98,11 @@ public class DeveloperPageBase : ComponentBase
 
             _monthlyRootCauseReport.Add(monthlyReport);
         }
+    }
+
+    private void GenerateAgingReport()
+    {
+        AgingImportReport = ReportService.GenerateAgingImportReport(MonthlyPresaleData!);
     }
 
     private async Task GetUserOperators()

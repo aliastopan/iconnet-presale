@@ -46,4 +46,38 @@ public class ReportService
 
         return new RootCauseReportModel(rootCause, offices, rootCausePerOffice);
     }
+
+    public AgingReportModel GenerateAgingImportReport(IQueryable<WorkPaper> presaleData)
+    {
+        List<TimeSpan> agingReport = [];
+
+        foreach (var data in presaleData)
+        {
+            DateTime requestDate = data.ApprovalOpportunity.TglPermohonan;
+            DateTime importTimestamp = data.ApprovalOpportunity.SignatureImport.TglAksi;
+
+            TimeSpan interval = importTimestamp - requestDate;
+
+            agingReport.Add(interval);
+        }
+
+        var avg = GetAverageTimeSpan(agingReport);
+        var max = agingReport.Max();
+        var min = agingReport.Min();
+
+        return new AgingReportModel(avg, min, max);
+    }
+
+    private static TimeSpan GetAverageTimeSpan(List<TimeSpan> agingReport)
+    {
+        if (agingReport == null || agingReport.Count == 0)
+        {
+            return TimeSpan.Zero;
+        }
+
+        long totalTicks = agingReport.Sum(ts => ts.Ticks);
+        long averageTicks = totalTicks / agingReport.Count;
+
+        return new TimeSpan(averageTicks);
+    }
 }

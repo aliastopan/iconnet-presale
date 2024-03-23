@@ -19,7 +19,18 @@
         <div>
             @if (MonthlyPresaleData is not null)
             {
-
+                <div>
+                    <div>Aging Import</div>
+                    <div>
+                        AVG @AgingImportReport.Average
+                    </div>
+                    <div>
+                        Min @AgingImportReport.Min
+                    </div>
+                    <div>
+                        Max @AgingImportReport.Max
+                    </div>
+                </div>
             }
             else
             {
