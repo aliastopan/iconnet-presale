@@ -27,4 +27,23 @@ public class ReportService
 
         return new ApprovalStatusReportModel(approvalStatus, offices, statusPerOffice);
     }
+
+    public RootCauseReportModel GenerateRootCauseReport(string rootCause,
+        IQueryable<WorkPaper> presaleData)
+    {
+        List<string> offices = _optionService.KantorPerwakilanOptions.Skip(1).ToList();
+        List<int> rootCausePerOffice = [];
+
+        for (int i = 0; i < offices.Count; i++)
+        {
+            var count = presaleData.Count(x => (x.ProsesApproval.StatusApproval == ApprovalStatus.Reject
+                || x.ProsesApproval.StatusApproval == ApprovalStatus.CloseLost)
+                && x.ProsesApproval.RootCause.Equals(rootCause, StringComparison.OrdinalIgnoreCase)
+                && x.ApprovalOpportunity.Regional.KantorPerwakilan.Equals(offices[i], StringComparison.OrdinalIgnoreCase));
+
+            rootCausePerOffice.Add(count);
+        }
+
+        return new RootCauseReportModel(rootCause, offices, rootCausePerOffice);
+    }
 }
