@@ -36,11 +36,19 @@ internal sealed class DateTimeProvider : IDateTimeService
         return calendar.GetWeekOfYear(now.DateTime, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
     }
 
-    public int GetWeekOfYear(DateTime date)
+    public int GetWeekOfYear(DateTime dateTime)
     {
         var calendar = CultureInfo.CurrentCulture.Calendar;
 
-        return calendar.GetWeekOfYear(date, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
+        return calendar.GetWeekOfYear(dateTime, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
+    }
+
+    public int GetWeekOfMonth(DateTime dateTime)
+    {
+        int dayOfMonth = dateTime.Day;
+        int weekOfMonth = (int)Math.Ceiling((double)dayOfMonth / 7);
+
+        return weekOfMonth;
     }
 
     public string GetTimeIdentifier()
