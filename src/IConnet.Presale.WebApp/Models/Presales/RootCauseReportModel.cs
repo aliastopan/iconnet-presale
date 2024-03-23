@@ -8,7 +8,7 @@ public class RootCauseReportModel
         RootCause = rootCause;
         RootCausePerOffice = new Dictionary<string, int>();
 
-        if (offices.Count != RootCausePerOffice.Count)
+        if (offices.Count != rootCausePerOffice.Count)
         {
             throw new ArgumentException();
         }
