@@ -58,4 +58,17 @@ internal sealed class DashboardManager : PresaleDataOperationBase, IDashboardMan
         }
     }
 
+    public IQueryable<WorkPaper> GetPresaleDataFromCurrentWeek(IQueryable<WorkPaper> presaleData)
+    {
+        var currentWeek = _dateTimeService.GetCurrentWeekOfYear();
+
+        return presaleData.Where(workPaper => _dateTimeService.GetWeekOfYear(workPaper.ApprovalOpportunity.TglPermohonan) == currentWeek);
+    }
+
+    public IQueryable<WorkPaper> GetPresaleDataFromCurrentDay(IQueryable<WorkPaper> presaleData)
+    {
+        var currentDay = _dateTimeService.DateTimeOffsetNow.DayOfYear;
+
+        return presaleData.Where(workPaper => workPaper.ApprovalOpportunity.TglPermohonan.DayOfYear == currentDay);
+    }
 }
