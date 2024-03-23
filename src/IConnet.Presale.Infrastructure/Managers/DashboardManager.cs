@@ -53,7 +53,7 @@ internal sealed class DashboardManager : PresaleDataOperationBase, IDashboardMan
                 workPaper =>
                 {
                     return workPaper.ApprovalOpportunity.TglPermohonan.Month == currentMonth
-                        && workPaper.ApprovalOpportunity.TglPermohonan.Month == currentYear;
+                        && workPaper.ApprovalOpportunity.TglPermohonan.Year == currentYear;
                 });
         }
     }
