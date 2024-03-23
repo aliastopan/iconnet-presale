@@ -19,7 +19,10 @@
         <div>
             @if (PresaleDataMonthly is not null)
             {
-
+                <div style="margin-top: 8px;">
+                    Root Cause @CurrentMonth @CurrentYear
+                </div>
+                <RootCauseReportTable Models="@RootCauseReportMonthly"/>
             }
             else
             {

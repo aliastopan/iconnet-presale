@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using IConnet.Presale.WebApp.Models.Identity;
 using IConnet.Presale.Shared.Contracts.Identity;
 using IConnet.Presale.WebApp.Models.Presales;
+using System.Diagnostics;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
 
@@ -27,6 +28,8 @@ public class DeveloperPageBase : ComponentBase
     private List<ApprovalStatusReportModel> _approvalStatusReportWeekly = [];
     private List<ApprovalStatusReportModel> _approvalStatusReportDaily = [];
 
+    private List<RootCauseReportModel> _rootCauseReportMonthly = [];
+
     protected int CurrentYear => DateTimeService.DateTimeOffsetNow.Year;
     protected string CurrentMonth => DateTimeService.DateTimeOffsetNow.ToString("MMMM", _culture);
     protected int CurrentWeek => DateTimeService.GetCurrentWeekOfMonth();
@@ -40,6 +43,8 @@ public class DeveloperPageBase : ComponentBase
     public List<ApprovalStatusReportModel> ApprovalStatusReportWeekly => _approvalStatusReportWeekly;
     public List<ApprovalStatusReportModel> ApprovalStatusReportDaily => _approvalStatusReportDaily;
 
+    public List<RootCauseReportModel> RootCauseReportMonthly => _rootCauseReportMonthly;
+
     protected override async Task OnInitializedAsync()
     {
         if (!_isInitialized)
@@ -50,7 +55,14 @@ public class DeveloperPageBase : ComponentBase
 
             await GetUserOperators();
 
+            var stopwatch = Stopwatch.StartNew();
+
             GenerateStatusApprovalReports();
+            GenerateRootCauseReport();
+
+            stopwatch.Stop();
+
+            LogSwitch.Debug("Execution time {0} ms", stopwatch.ElapsedMilliseconds);
 
             _isInitialized = true;
         }
@@ -69,6 +81,18 @@ public class DeveloperPageBase : ComponentBase
             _approvalStatusReportMonthly.Add(monthlyReport);
             _approvalStatusReportWeekly.Add(weeklyReport);
             _approvalStatusReportDaily.Add(dailyReport);
+        }
+    }
+
+    private void GenerateRootCauseReport()
+    {
+        List<string> availableRootCauses = OptionService.RootCauseOptions.ToList();
+
+        foreach (var rootCause in availableRootCauses)
+        {
+            var monthlyReport = ReportService.GenerateRootCauseReport(rootCause, PresaleDataMonthly!);
+
+            _rootCauseReportMonthly.Add(monthlyReport);
         }
     }
 
