@@ -1,0 +1,21 @@
+@attribute [Route(PageRoute.Dashboard)]
+@inherits DashboardPageBase
+@rendermode @(InteractiveServer.DisablePreRender())
+
+<PageTitle>Dashboard</PageTitle>
+
+<AuthorizeView Policy="@Policies.AdministratorPrivilege"
+    Context="AuthenticationContext">
+
+    <Authorized>
+        <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Dashboard</FluentLabel>
+        <span class="page-description">Laporan data Presale</span>
+
+    </Authorized>
+
+    <NotAuthorized>
+        <AccessDenied />
+    </NotAuthorized>
+
+</AuthorizeView>
+

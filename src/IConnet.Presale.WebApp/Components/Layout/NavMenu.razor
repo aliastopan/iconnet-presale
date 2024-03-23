@@ -14,6 +14,13 @@
                 IconColor="Color.Accent">
                 @PageNavName.Home</FluentNavLink>
 
+            <AuthorizeView Policy="@Policies.AdministratorPrivilege">
+                <FluentNavLink Href="@PageRoute.Dashboard"
+                    Icon="@(new Icons.Filled.Size20.DataHistogram())"
+                    IconColor="Color.Accent">
+                    @PageNavName.Dashboard</FluentNavLink>
+            </AuthorizeView>
+
             <AuthorizeView Policy="@Policies.RolePlanningAssetCoverage">
                 <FluentNavLink Href="@PageRoute.CrmImport"
                     Icon="@(new Icons.Regular.Size20.DocumentAdd())"
