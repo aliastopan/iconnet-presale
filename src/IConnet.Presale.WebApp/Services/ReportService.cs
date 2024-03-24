@@ -302,6 +302,88 @@ public class ReportService
         return new ChatCallResponsAgingReportModel(helpdeskId, username, avg, min, max, chatCallResponsTotal);
     }
 
+    public ApprovalAgingReportModel? GenerateApprovalAgingReport(PresaleOperatorModel presaleOperator,
+        IQueryable<WorkPaper> presaleData)
+    {
+        if (presaleOperator.UserRole != UserRole.PAC)
+        {
+            return null;
+        }
+
+        List<TimeSpan> agingIntervals = [];
+        int totalCloseLost = 0;
+        int totalReject = 0;
+        int totalExpansion = 0;
+        int totalApprove = 0;
+
+        foreach (var data in presaleData)
+        {
+            bool matchInChargeSignature = data.ProsesApproval.SignatureApproval.AccountIdSignature == presaleOperator.UserAccountId;
+            bool isDoneProcessing = data.WorkPaperLevel == WorkPaperLevel.DoneProcessing;
+            bool isPendingExpansion = data.ProsesApproval.StatusApproval == ApprovalStatus.Expansion;
+
+            if (!matchInChargeSignature)
+            {
+                continue;
+            }
+
+            if (!isDoneProcessing && !isPendingExpansion)
+            {
+                continue;
+            }
+
+            if (data.ProsesApproval.StatusApproval == ApprovalStatus.CloseLost)
+            {
+                totalCloseLost++;
+            }
+
+            if (data.ProsesApproval.StatusApproval == ApprovalStatus.Reject)
+            {
+                totalReject++;
+            }
+
+            if (data.ProsesApproval.StatusApproval == ApprovalStatus.Expansion)
+            {
+                totalExpansion++;
+            }
+
+            if (data.ProsesApproval.StatusApproval == ApprovalStatus.Approve)
+            {
+                totalApprove++;
+            }
+
+            DateTime startDateTime = data.ProsesValidasi.SignatureChatCallRespons.TglAksi;
+            DateTime endDateTime = data.ProsesApproval.SignatureApproval.TglAksi;
+
+            TimeSpan interval = _intervalCalculatorService.CalculateInterval(startDateTime, endDateTime, excludeFrozenInterval: true);
+
+            agingIntervals.Add(interval);
+        }
+
+        TimeSpan avg, max, min;
+
+        if (agingIntervals.Count > 0)
+        {
+            avg = GetAverageTimeSpan(agingIntervals);
+            max = agingIntervals.Max();
+            min = agingIntervals.Min();
+        }
+        else
+        {
+            avg = TimeSpan.Zero;
+            max = TimeSpan.Zero;
+            min = TimeSpan.Zero;
+        }
+
+        int approvalTotal = agingIntervals.Count;
+
+        var pacId = presaleOperator.UserAccountId;
+        var username = presaleOperator.Username;
+
+        return new ApprovalAgingReportModel(pacId, username, avg, min, max,
+            approvalTotal, totalCloseLost, totalReject, totalExpansion, totalApprove);
+    }
+
     private static TimeSpan GetAverageTimeSpan(List<TimeSpan> agingReport)
     {
         if (agingReport == null || agingReport.Count == 0)
