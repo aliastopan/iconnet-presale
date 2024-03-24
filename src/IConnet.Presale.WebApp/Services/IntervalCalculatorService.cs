@@ -27,6 +27,16 @@ public class IntervalCalculatorService
     {
         TimeSpan totalInterval = TimeSpan.Zero;
 
+        // handle cases where startDateTime is during the frozen interval
+        if (startDateTime.TimeOfDay < _shiftStart.ToTimeSpan())
+        {
+            startDateTime = startDateTime.Date.Add(_shiftStart.ToTimeSpan());
+        }
+        else if (startDateTime.TimeOfDay >= _shiftEnd.ToTimeSpan())
+        {
+            startDateTime = startDateTime.Date.AddDays(1).Add(_shiftStart.ToTimeSpan());
+        }
+
         DateTime currentStartDateTime = startDateTime;
         DateTime currentEndDateTime = startDateTime.Date.Add(_shiftEnd.ToTimeSpan());
 
