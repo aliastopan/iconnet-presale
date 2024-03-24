@@ -10,8 +10,8 @@ public class IntervalCalculatorService
         // _shiftStart = new TimeOnly(8, 0, 0);
         // _shiftEnd = new TimeOnly(21, 0, 0);
 
-        string startShiftString = configuration["WorkingShift:Pagi:Start"]!;
-        string endShiftString = configuration["WorkingShift:Malam:End"]!;
+        string startShiftString = configuration["OfficeHours:Pagi:Start"]!;
+        string endShiftString = configuration["OfficeHours:Malam:End"]!;
 
         _shiftStart = TimeOnly.ParseExact(startShiftString, "HH:mm:ss", null);
         _shiftEnd = TimeOnly.ParseExact(endShiftString, "HH:mm:ss", null);
