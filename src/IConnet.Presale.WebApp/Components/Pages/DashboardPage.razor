@@ -24,9 +24,9 @@
 
                             <div>Presale Data: @MonthlyPresaleData.Count()</div>
 
-                            <div style="margin-top: 8px;">
+                            <h4 style="margin-top: 8px;">
                                 Data Presale bulan @CurrentMonth @CurrentYear
-                            </div>
+                            </h4>
                             <ApprovalStatusReportTable Models="@MonthlyApprovalStatusReports"/>
 
                             <div style="margin-top: 8px;">
@@ -48,9 +48,9 @@
                             Root Cause
                         </Header>
                         <Content>
-                            <div style="margin-top: 8px;">
+                            <h4 style="margin-top: 8px;">
                                 Root Cause @CurrentMonth @CurrentYear
-                            </div>
+                            </h4>
                             <RootCauseReportTable Models="@MonthlyRootCauseReports"/>
                         </Content>
                     </FluentTab>
@@ -60,8 +60,11 @@
                             Aging Import
                         </Header>
                         <Content>
-                            <div style="margin-top: 8px;">
+                            <h4 style="margin-top: 8px;">
                                 Aging PAC Import bulan @CurrentMonth @CurrentYear
+                            </h4>
+                            <div>
+                                Akumulasi dengan waktu freeze di luar jam kerja 21:00 s/d 08:00
                             </div>
                             <ImportAgingReportTable Models="@MonthlyImportAgingReports"/>
                         </Content>
@@ -72,8 +75,11 @@
                             Aging Verifikasi
                         </Header>
                         <Content>
-                            <div style="margin-top: 8px;">
+                            <h4 style="margin-top: 8px;">
                                 Aging PAC iCRM+ verifikasi bulan @CurrentMonth @CurrentYear
+                            </h4>
+                            <div>
+                                Akumulasi dengan waktu freeze di luar jam kerja 21:00 s/d 08:00
                             </div>
                             <VerificationAgingReportTable Models="@MonthlyVerificationAgingReports"/>
                         </Content>
@@ -84,8 +90,11 @@
                             Aging Chat/Call Mulai
                         </Header>
                         <Content>
-                            <div style="margin-top: 8px;">
+                            <h4 style="margin-top: 8px;">
                                 Aging Helpdesk inisiasi chat/call bulan @CurrentMonth @CurrentYear
+                            </h4>
+                            <div>
+                                Akumulasi dengan waktu freeze di luar jam kerja 21:00 s/d 08:00
                             </div>
                             <ChatCallMulaiAgingReportTable Models="@MonthlyChatCallMulaiAgingReports"/>
                         </Content>
