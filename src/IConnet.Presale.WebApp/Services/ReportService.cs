@@ -1,5 +1,5 @@
 using IConnet.Presale.WebApp.Models.Identity;
-using IConnet.Presale.WebApp.Models.Presales;
+using IConnet.Presale.WebApp.Models.Presales.Reports;
 
 namespace IConnet.Presale.WebApp.Services;
 

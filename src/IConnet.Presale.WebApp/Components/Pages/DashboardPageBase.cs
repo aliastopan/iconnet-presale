@@ -1,6 +1,6 @@
 using System.Globalization;
 using IConnet.Presale.WebApp.Models.Identity;
-using IConnet.Presale.WebApp.Models.Presales;
+using IConnet.Presale.WebApp.Models.Presales.Reports;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
 

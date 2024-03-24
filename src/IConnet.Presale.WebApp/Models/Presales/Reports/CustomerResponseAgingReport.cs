@@ -1,4 +1,4 @@
-namespace IConnet.Presale.WebApp.Models.Presales;
+namespace IConnet.Presale.WebApp.Models.Presales.Reports;
 
 public class CustomerResponseAgingReport
 {

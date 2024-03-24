@@ -1,4 +1,4 @@
-using IConnet.Presale.WebApp.Models.Presales;
+using IConnet.Presale.WebApp.Models.Presales.Reports;
 
 namespace IConnet.Presale.WebApp.Components.Dashboards;
 
