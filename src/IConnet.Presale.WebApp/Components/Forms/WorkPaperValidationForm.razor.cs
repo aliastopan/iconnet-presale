@@ -357,10 +357,18 @@ public partial class WorkPaperValidationForm : ComponentBase
         }
     }
 
-    // TODO: add constraint to possible DateTime
     protected void OnWaktuResponsChanged(DateTime? waktuRespons)
     {
+        // var priorValue = ValidationModel!.NullableWaktuRespons;
+
         ValidationModel!.NullableWaktuRespons = waktuRespons;
+
+        if (ValidationModel!.GetWaktuTanggalRespons() < WorkPaper!.ProsesValidasi.SignatureChatCallMulai.TglAksi)
+        {
+            InvalidWaktuResponsToast();
+
+            ValidationModel!.NullableWaktuRespons = DateTimeService.DateTimeOffsetNow.DateTime;
+        }
 
         if (!IsStillInCharge())
         {
@@ -370,7 +378,21 @@ public partial class WorkPaperValidationForm : ComponentBase
 
     protected void OnTanggalResponsChanged(DateTime? tanggalRespons)
     {
+        var priorValue = ValidationModel!.NullableTanggalRespons;
+
         ValidationModel!.NullableTanggalRespons = tanggalRespons;
+
+        if (ValidationModel!.GetWaktuTanggalRespons() < WorkPaper!.ProsesValidasi.SignatureChatCallMulai.TglAksi)
+        {
+            InvalidWaktuResponsToast();
+
+            ValidationModel!.NullableTanggalRespons = priorValue;
+        }
+
+        if (ValidationModel!.GetWaktuTanggalRespons().Date > DateTimeService.DateTimeOffsetNow.Date)
+        {
+            ValidationModel!.NullableTanggalRespons = priorValue;
+        }
 
         if (!IsStillInCharge())
         {
@@ -522,6 +544,15 @@ public partial class WorkPaperValidationForm : ComponentBase
     {
         var intent = ToastIntent.Success;
         var message = "Masa tampung telah berhasil diperpanjang";
+        var timeout = 3000; // milliseconds
+
+        ToastService.ShowToast(intent, message, timeout: timeout);
+    }
+
+    private void InvalidWaktuResponsToast()
+    {
+        var intent = ToastIntent.Warning;
+        var message = "Waktu/Tanggal respons tidak bisa kurang dari Waktu/Tanggal Chat/Call Mulai";
         var timeout = 3000; // milliseconds
 
         ToastService.ShowToast(intent, message, timeout: timeout);
