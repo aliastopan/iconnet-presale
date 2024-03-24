@@ -1,3 +1,4 @@
+using IConnet.Presale.WebApp.Models.Identity;
 using IConnet.Presale.WebApp.Models.Presales;
 
 namespace IConnet.Presale.WebApp.Services;
@@ -48,6 +49,54 @@ public class ReportService
         }
 
         return new RootCauseReportModel(rootCause, offices, rootCausePerOffice);
+    }
+
+    public ImportAgingReportModel? GenerateImportAgingReport(UserOperatorModel userOperator, IQueryable<WorkPaper> presaleData)
+    {
+        if (userOperator.UserRole != UserRole.PAC)
+        {
+            return null;
+        }
+
+        List<TimeSpan> agingIntervals = [];
+
+        foreach (var data in presaleData)
+        {
+            if (data.ApprovalOpportunity.SignatureImport.AccountIdSignature != userOperator.UserAccountId)
+            {
+                continue;
+            }
+
+            DateTime startDateTime = data.ApprovalOpportunity.TglPermohonan;
+            DateTime endDateTime = data.ApprovalOpportunity.SignatureImport.TglAksi;
+
+            TimeSpan interval = _intervalCalculatorService.CalculateInterval(startDateTime, endDateTime, excludeFrozenInterval: true);
+
+            agingIntervals.Add(interval);
+        }
+
+        TimeSpan avg, max, min;
+
+        if (agingIntervals.Count > 0)
+        {
+            avg = GetAverageTimeSpan(agingIntervals);
+            max = agingIntervals.Max();
+            min = agingIntervals.Min();
+        }
+        else
+        {
+            avg = TimeSpan.Zero;
+            max = TimeSpan.Zero;
+            min = TimeSpan.Zero;
+        }
+
+        int importCount = agingIntervals.Count;
+
+        var pacId = userOperator.UserAccountId;
+        var username = userOperator.Username;
+
+
+        return new ImportAgingReportModel(pacId, username, avg, min, max, importCount);
     }
 
     public AgingReportModel GenerateAgingImportReport(IQueryable<WorkPaper> presaleData)
