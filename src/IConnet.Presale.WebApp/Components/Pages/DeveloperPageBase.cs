@@ -83,7 +83,7 @@ public class DeveloperPageBase : ComponentBase
     {
         foreach (var user in PresaleOperators)
         {
-            var agingReport = ReportService.GenerateAgingVerificationReport(user, MonthlyPresaleData!);
+            var agingReport = ReportService.GenerateVerificationAgingReport(user, MonthlyPresaleData!);
 
             if (agingReport is not null)
             {

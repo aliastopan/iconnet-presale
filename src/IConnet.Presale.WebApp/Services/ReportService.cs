@@ -99,7 +99,7 @@ public class ReportService
         return new ImportAgingReportModel(pacId, username, avg, min, max, importCount);
     }
 
-    public VerificationAgingReportModel? GenerateAgingVerificationReport(PresaleOperatorModel presaleOperator, IQueryable<WorkPaper> presaleData)
+    public VerificationAgingReportModel? GenerateVerificationAgingReport(PresaleOperatorModel presaleOperator, IQueryable<WorkPaper> presaleData)
     {
         if (presaleOperator.UserRole != UserRole.PAC)
         {
