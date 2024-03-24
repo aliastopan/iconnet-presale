@@ -51,7 +51,8 @@ public class ReportService
         return new RootCauseReportModel(rootCause, offices, rootCausePerOffice);
     }
 
-    public ImportAgingReportModel? GenerateImportAgingReport(PresaleOperatorModel presaleOperator, IQueryable<WorkPaper> presaleData)
+    public ImportAgingReportModel? GenerateImportAgingReport(PresaleOperatorModel presaleOperator,
+        IQueryable<WorkPaper> presaleData)
     {
         if (presaleOperator.UserRole != UserRole.PAC)
         {
@@ -99,7 +100,8 @@ public class ReportService
         return new ImportAgingReportModel(pacId, username, avg, min, max, importCount);
     }
 
-    public VerificationAgingReportModel? GenerateVerificationAgingReport(PresaleOperatorModel presaleOperator, IQueryable<WorkPaper> presaleData)
+    public VerificationAgingReportModel? GenerateVerificationAgingReport(PresaleOperatorModel presaleOperator,
+        IQueryable<WorkPaper> presaleData)
     {
         if (presaleOperator.UserRole != UserRole.PAC)
         {
