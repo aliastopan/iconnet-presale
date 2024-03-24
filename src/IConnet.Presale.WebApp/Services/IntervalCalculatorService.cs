@@ -23,8 +23,14 @@ public class IntervalCalculatorService
         _shiftEnd = shiftEnd;
     }
 
-    public TimeSpan CalculateInterval(DateTime startDateTime, DateTime endDateTime)
+    public TimeSpan CalculateInterval(DateTime startDateTime, DateTime endDateTime,
+        bool excludeFrozenInterval = true)
     {
+        if (!excludeFrozenInterval)
+        {
+            return endDateTime - startDateTime;
+        }
+
         TimeSpan totalInterval = TimeSpan.Zero;
 
         // handle cases where startDateTime is during the frozen interval
