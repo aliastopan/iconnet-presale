@@ -78,6 +78,18 @@
                             <VerificationAgingReportTable Models="@MonthlyVerificationAgingReport"/>
                         </Content>
                     </FluentTab>
+                    <FluentTab Id="tab-5">
+                        <Header>
+                            <FluentIcon Value="@(new Icons.Regular.Size16.Timer())" Color="@Color.Accent"/>
+                            Aging Chat/Call Mulai
+                        </Header>
+                        <Content>
+                            <div style="margin-top: 8px;">
+                                Aging Helpdesk inisiasi chat/call bulan @CurrentMonth @CurrentYear
+                            </div>
+                            <ChatCallMulaiAgingReportTable Models="@MonthlyChatCallMulaiAgingReport"/>
+                        </Content>
+                    </FluentTab>
                 </FluentTabs>
             }
             else
