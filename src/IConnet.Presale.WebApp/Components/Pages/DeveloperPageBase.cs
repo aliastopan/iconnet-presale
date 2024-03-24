@@ -120,7 +120,7 @@ public class DeveloperPageBase : ComponentBase
             }
         }
 
-        _importAgingReport.OrderBy(x => x.Average);
+        _importAgingReport = _importAgingReport.OrderByDescending(x => x.Average).ToList();
     }
 
     private async Task GetUserOperators()
