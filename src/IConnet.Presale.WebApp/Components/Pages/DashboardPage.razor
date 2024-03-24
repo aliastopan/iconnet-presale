@@ -54,6 +54,18 @@
                             <RootCauseReportTable Models="@MonthlyRootCauseReport"/>
                         </Content>
                     </FluentTab>
+                    <FluentTab Id="tab-3">
+                        <Header>
+                            <FluentIcon Value="@(new Icons.Regular.Size16.Timer())" Color="@Color.Accent"/>
+                            Aging Import
+                        </Header>
+                        <Content>
+                            <div style="margin-top: 8px;">
+                                Aging PAC Import bulan @CurrentMonth @CurrentYear
+                            </div>
+                            <ImportAgingReportTable Models="@MonthlyImportAgingReport"/>
+                        </Content>
+                    </FluentTab>
                 </FluentTabs>
             }
             else

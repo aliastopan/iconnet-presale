@@ -1,8 +1,5 @@
-using System.Text.Json;
 using System.Globalization;
-using Microsoft.AspNetCore.Mvc;
 using IConnet.Presale.WebApp.Models.Identity;
-using IConnet.Presale.Shared.Contracts.Identity;
 using IConnet.Presale.WebApp.Models.Presales;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
@@ -12,6 +9,7 @@ public class DashboardPageBase : ComponentBase
     [Inject] protected IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] protected IDashboardManager DashboardManager { get; set; } = default!;
     [Inject] protected IIdentityHttpClient IdentityHttpClient { get; set; } = default!;
+    [Inject] protected UserManager UserManager { get; set; } = default!;
     [Inject] protected OptionService OptionService { get; set; } = default!;
     [Inject] protected ReportService ReportService { get; set; } = default!;
 
@@ -21,6 +19,8 @@ public class DashboardPageBase : ComponentBase
     protected int CurrentYear => DateTimeService.DateTimeOffsetNow.Year;
     protected string CurrentMonth => DateTimeService.DateTimeOffsetNow.ToString("MMMM", _cultureIndonesia);
     protected int CurrentWeek => DateTimeService.GetCurrentWeekOfMonth();
+
+    private List<PresaleOperatorModel> _presaleOperators = [];
 
     private IQueryable<WorkPaper>? _monthlyPresaleData;
     private IQueryable<WorkPaper>? _weeklyPresaleData;
@@ -41,16 +41,22 @@ public class DashboardPageBase : ComponentBase
     private List<RootCauseReportModel> _monthlyRootCauseReport = [];
     public List<RootCauseReportModel> MonthlyRootCauseReport => _monthlyRootCauseReport;
 
+    private List<ImportAgingReportModel> _monthlyImportAgingReport = [];
+    public List<ImportAgingReportModel> MonthlyImportAgingReport => _monthlyImportAgingReport;
+
     protected override async Task OnInitializedAsync()
     {
         if (!_isInitialized)
         {
+            _presaleOperators = UserManager.PresaleOperators;
+
             _monthlyPresaleData = await DashboardManager.GetPresaleDataFromCurrentMonthAsync();
             _weeklyPresaleData = DashboardManager.GetPresaleDataFromCurrentWeek(_monthlyPresaleData);
             _dailyPresaleData = DashboardManager.GetPresaleDataFromToday(_weeklyPresaleData);
 
             GenerateStatusApprovalReport();
             GenerateRootCauseReport();
+            GenerateImportAgingReport();
 
             _isInitialized = true;
         }
@@ -82,5 +88,20 @@ public class DashboardPageBase : ComponentBase
 
             _monthlyRootCauseReport.Add(monthlyReport);
         }
+    }
+
+    private void GenerateImportAgingReport()
+    {
+        foreach (var user in _presaleOperators)
+        {
+            var agingReport = ReportService.GenerateImportAgingReport(user, MonthlyPresaleData!);
+
+            if (agingReport is not null)
+            {
+                _monthlyImportAgingReport.Add(agingReport);
+            }
+        }
+
+        _monthlyImportAgingReport = _monthlyImportAgingReport.OrderByDescending(x => x.Average).ToList();
     }
 }
