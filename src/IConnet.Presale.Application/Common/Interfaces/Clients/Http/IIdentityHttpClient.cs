@@ -8,5 +8,5 @@ public interface IIdentityHttpClient : IHttpClientBase
     Task<HttpResult> SignInAsync(string username, string password);
     Task<HttpResult> RefreshAccessAsync(string accessToken, string refreshTokenStr);
 
-    Task<HttpResult> GetUserOperatorsAsync();
+    Task<HttpResult> GetPresaleOperatorsAsync();
 }

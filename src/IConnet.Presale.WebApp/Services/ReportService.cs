@@ -51,9 +51,9 @@ public class ReportService
         return new RootCauseReportModel(rootCause, offices, rootCausePerOffice);
     }
 
-    public ImportAgingReportModel? GenerateImportAgingReport(UserOperatorModel userOperator, IQueryable<WorkPaper> presaleData)
+    public ImportAgingReportModel? GenerateImportAgingReport(PresaleOperatorModel presaleOperator, IQueryable<WorkPaper> presaleData)
     {
-        if (userOperator.UserRole != UserRole.PAC)
+        if (presaleOperator.UserRole != UserRole.PAC)
         {
             return null;
         }
@@ -62,7 +62,7 @@ public class ReportService
 
         foreach (var data in presaleData)
         {
-            if (data.ApprovalOpportunity.SignatureImport.AccountIdSignature != userOperator.UserAccountId)
+            if (data.ApprovalOpportunity.SignatureImport.AccountIdSignature != presaleOperator.UserAccountId)
             {
                 continue;
             }
@@ -92,8 +92,8 @@ public class ReportService
 
         int importCount = agingIntervals.Count;
 
-        var pacId = userOperator.UserAccountId;
-        var username = userOperator.Username;
+        var pacId = presaleOperator.UserAccountId;
+        var username = presaleOperator.Username;
 
 
         return new ImportAgingReportModel(pacId, username, avg, min, max, importCount);

@@ -32,5 +32,5 @@ public interface IIdentityAggregateHandler
     Task RotateRefreshTokenAsync(RefreshToken previous, RefreshToken current);
 
     // presale specified
-    Task<Result<List<UserAccount>>> TryGetRangeUserOperatorAsync();
+    Task<Result<List<UserAccount>>> TryGetRangePresaleOperatorAsync();
 }

@@ -98,7 +98,7 @@ internal sealed class IdentityHttpClient : HttpClientBase, IIdentityHttpClient
         };
     }
 
-    public async Task<HttpResult> GetUserOperatorsAsync()
+    public async Task<HttpResult> GetPresaleOperatorsAsync()
     {
         var isResponding = await IsHostRespondingAsync();
         if (!isResponding)
@@ -109,7 +109,7 @@ internal sealed class IdentityHttpClient : HttpClientBase, IIdentityHttpClient
             };
         }
 
-        var requestUri = UriEndpoint.Identity.GetOperators;
+        var requestUri = UriEndpoint.Identity.GetPresaleOperators;
 
         using var responseMessage = await HttpClient.GetAsync(requestUri);
 

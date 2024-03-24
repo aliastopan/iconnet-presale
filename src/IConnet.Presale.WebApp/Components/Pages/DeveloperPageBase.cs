@@ -19,7 +19,7 @@ public class DeveloperPageBase : ComponentBase
 
     private bool _isInitialized = false;
     private readonly CultureInfo _culture = new CultureInfo("id-ID");
-    private List<UserOperatorModel> _userOperators = [];
+    private List<PresaleOperatorModel> _presaleOperators = [];
 
     protected int CurrentYear => DateTimeService.DateTimeOffsetNow.Year;
     protected string CurrentMonth => DateTimeService.DateTimeOffsetNow.ToString("MMMM", _culture);
@@ -33,7 +33,7 @@ public class DeveloperPageBase : ComponentBase
     public IQueryable<WorkPaper>? WeeklyPresaleData => _weeklyPresaleData;
     public IQueryable<WorkPaper>? DailyPresaleData => _dailyPresaleData;
 
-    public List<UserOperatorModel> UserOperators => _userOperators;
+    public List<PresaleOperatorModel> PresaleOperators => _presaleOperators;
 
     private List<ImportAgingReportModel> _importAgingReport = [];
 
@@ -43,7 +43,7 @@ public class DeveloperPageBase : ComponentBase
     {
         if (!_isInitialized)
         {
-            _userOperators = UserManager.UserOperators;
+            _presaleOperators = UserManager.PresaleOperators;
 
             _monthlyPresaleData = await DashboardManager.GetPresaleDataFromCurrentMonthAsync();
             _weeklyPresaleData = DashboardManager.GetPresaleDataFromCurrentWeek(_monthlyPresaleData);
@@ -63,7 +63,7 @@ public class DeveloperPageBase : ComponentBase
 
     private void GenerateImportAgingReport()
     {
-        foreach (var user in UserOperators)
+        foreach (var user in PresaleOperators)
         {
             var agingReport = ReportService.GenerateImportAgingReport(user, MonthlyPresaleData!);
 

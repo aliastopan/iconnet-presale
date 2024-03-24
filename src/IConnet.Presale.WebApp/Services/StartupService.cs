@@ -34,7 +34,7 @@ public class StartupService : IHostedService
         [
             GetRepresentativeOfficesAsync(),
             _chatTemplateManager.SetDefaultChatTemplatesAsync(),
-            _userManager.SetUserOperatorsAsync(),
+            _userManager.SetPresaleOperatorsAsync(),
             GetRootCausesAsync(),
             PullRedisToInMemoryAsync()
         ];

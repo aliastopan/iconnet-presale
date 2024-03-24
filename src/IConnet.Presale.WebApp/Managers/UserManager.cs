@@ -8,32 +8,32 @@ namespace IConnet.Presale.WebApp.Managers;
 public class UserManager
 {
     private readonly IIdentityHttpClient _identityHttpClient;
-    private List<UserOperatorModel> _userOperatorModels = [];
+    private List<PresaleOperatorModel> _presaleOperatorModels = [];
 
     public UserManager(IIdentityHttpClient identityHttpClient)
     {
         _identityHttpClient = identityHttpClient;
     }
 
-    public List<UserOperatorModel> UserOperators => _userOperatorModels;
+    public List<PresaleOperatorModel> PresaleOperators => _presaleOperatorModels;
 
-    public async Task SetUserOperatorsAsync()
+    public async Task SetPresaleOperatorsAsync()
     {
         var options = new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         };
 
-        var httpResult = await _identityHttpClient.GetUserOperatorsAsync();
+        var httpResult = await _identityHttpClient.GetPresaleOperatorsAsync();
 
         if (httpResult.IsSuccessStatusCode)
         {
-            var response = JsonSerializer.Deserialize<GetUserOperatorsQueryResponse>(httpResult.Content, options);
-            var userOperatorDtos = response!.UserOperatorDtos;
+            var response = JsonSerializer.Deserialize<GetPresaleOperatorsQueryResponse>(httpResult.Content, options);
+            var presaleOperatorDtos = response!.PresaleOperatorDtos;
 
-            foreach (var dto in userOperatorDtos)
+            foreach (var dto in presaleOperatorDtos)
             {
-                _userOperatorModels.Add(new UserOperatorModel(dto));
+                _presaleOperatorModels.Add(new PresaleOperatorModel(dto));
             }
         }
         else

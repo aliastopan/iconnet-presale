@@ -39,7 +39,7 @@ internal static class UserAccountRepositoryExtensions
         }
     }
 
-    public static async Task<List<UserAccount>> GetUserOperatorsAsync(this AppDbContext context)
+    public static async Task<List<UserAccount>> GetPresaleOperatorsAsync(this AppDbContext context)
     {
         return await context.UserAccounts.Where(userAccount
                 => userAccount.User.UserRole == UserRole.Helpdesk

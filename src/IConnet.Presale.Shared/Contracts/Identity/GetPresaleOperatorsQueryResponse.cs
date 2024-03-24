@@ -2,9 +2,9 @@
 
 namespace IConnet.Presale.Shared.Contracts.Identity;
 
-public record GetUserOperatorsQueryResponse(List<UserOperatorDto> UserOperatorDtos);
+public record GetPresaleOperatorsQueryResponse(List<PresaleOperatorDto> PresaleOperatorDtos);
 
-public record UserOperatorDto
+public record PresaleOperatorDto
 {
     public Guid UserAccountId { get; init; }
     public string Username { get; init; }
