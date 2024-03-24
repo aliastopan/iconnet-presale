@@ -89,6 +89,7 @@ public partial class WorkPaperValidationForm : ComponentBase
             .WithLinkChatHistory(ValidationModel.LinkChatHistory)
             .WithKeterangan(ValidationModel.Keterangan);
 
+        // TODO: bug need to set new signature date time
         WorkPaper.SetHelpdeskInCharge(signatureChatCallRespons);
         WorkPaper.ProsesValidasi = prosesValidasi;
         WorkPaper.WorkPaperLevel = WorkPaperLevel.WaitingApproval;
