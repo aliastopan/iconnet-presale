@@ -35,14 +35,8 @@ public class DeveloperPageBase : ComponentBase
 
     public List<PresaleOperatorModel> PresaleOperators => _presaleOperators;
 
-    private List<ImportAgingReportModel> _monthlyImportAgingReport = [];
-    public List<ImportAgingReportModel> MonthlyImportAgingReport => _monthlyImportAgingReport;
-
-    private List<VerificationAgingReportModel> _monthlyVerificationAgingReport = [];
-    public List<VerificationAgingReportModel> MonthlyVerificationAgingReport => _monthlyVerificationAgingReport;
-
-    private List<ChatCallMulaiAgingReportModel> _monthlyChatCallMulaiAgingReport = [];
-    public List<ChatCallMulaiAgingReportModel> MonthlyChatCallMulaiAgingReport => _monthlyChatCallMulaiAgingReport;
+    private CustomerResponseAgingReport _monthlyCustomerResponseAgingReport = default!;
+    public CustomerResponseAgingReport MonthlyCustomerResponseAgingReport => _monthlyCustomerResponseAgingReport;
 
     protected override async Task OnInitializedAsync()
     {
@@ -56,9 +50,7 @@ public class DeveloperPageBase : ComponentBase
 
             var stopwatch = Stopwatch.StartNew();
 
-            GenerateImportAgingReport();
-            GenerateVerificationAgingReport();
-            GenerateChatCallMulaiAgingReport();
+            GenerateCustomerResponseAgingReport();
 
             stopwatch.Stop();
 
@@ -68,48 +60,8 @@ public class DeveloperPageBase : ComponentBase
         }
     }
 
-    private void GenerateImportAgingReport()
+    private void GenerateCustomerResponseAgingReport()
     {
-        foreach (var user in PresaleOperators)
-        {
-            var agingReport = ReportService.GenerateImportAgingReport(user, MonthlyPresaleData!);
-
-            if (agingReport is not null)
-            {
-                _monthlyImportAgingReport.Add(agingReport);
-            }
-        }
-
-        _monthlyImportAgingReport = _monthlyImportAgingReport.OrderByDescending(x => x.Average).ToList();
-    }
-
-    private void GenerateVerificationAgingReport()
-    {
-        foreach (var user in PresaleOperators)
-        {
-            var agingReport = ReportService.GenerateVerificationAgingReport(user, MonthlyPresaleData!);
-
-            if (agingReport is not null)
-            {
-                _monthlyVerificationAgingReport.Add(agingReport);
-            }
-        }
-
-        _monthlyVerificationAgingReport = _monthlyVerificationAgingReport.OrderByDescending(x => x.Average).ToList();
-    }
-
-    private void GenerateChatCallMulaiAgingReport()
-    {
-        foreach (var user in PresaleOperators)
-        {
-            var agingReport = ReportService.GenerateChatCallMulaiAgingReport(user, MonthlyPresaleData!);
-
-            if (agingReport is not null)
-            {
-                _monthlyChatCallMulaiAgingReport.Add(agingReport);
-            }
-        }
-
-        _monthlyChatCallMulaiAgingReport = _monthlyChatCallMulaiAgingReport.OrderByDescending(x => x.Average).ToList();
+        _monthlyCustomerResponseAgingReport = ReportService.GenerateCustomerResponseAgingReport(MonthlyPresaleData!);
     }
 }

@@ -19,9 +19,26 @@
         <div>
             @if (MonthlyPresaleData is not null)
             {
-            <h3>Chat/Call Aging Report</h3>
+            <h3>Customer Response Aging Report</h3>
 
             <table class="table" style="width: fit-content;">
+                <thead>
+                    <tr>
+                        <th>AVG</th>
+                        <th>MIN</th>
+                        <th>MAX</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@MonthlyCustomerResponseAgingReport.GetDisplayAverageAging()</td>
+                        <td>@MonthlyCustomerResponseAgingReport.GetDisplayMinAging()</td>
+                        <td>@MonthlyCustomerResponseAgingReport.GetDisplayMaxAging()</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            @* <table class="table" style="width: fit-content;">
                 <thead>
                     <tr>
                         <th>Username Helpdesk</th>
@@ -43,7 +60,7 @@
                         </tr>
                     }
                 </tbody>
-            </table>
+            </table> *@
             }
             else
             {
