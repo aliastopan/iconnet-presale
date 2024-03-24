@@ -40,6 +40,7 @@ public class ChatCallMulaiAgingReportModel
             ? Max.ToReadableFormat()
             : "Tidak Pernah Chat/Call";
     }
+
     public string GetDisplayChatCallMulaiCount()
     {
         return ChatCallMulaiCount > 0
