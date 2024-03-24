@@ -3,14 +3,14 @@ namespace IConnet.Presale.WebApp.Models.Presales.Reports;
 public class ImportAgingReportModel
 {
     public ImportAgingReportModel(Guid pacId, string username,
-        TimeSpan average, TimeSpan min, TimeSpan max, int importCount)
+        TimeSpan average, TimeSpan min, TimeSpan max, int importTotal)
     {
         PacId = pacId;
         Username = username;
         Average = average;
         Min = min;
         Max = max;
-        ImportCount = importCount;
+        ImportTotal = importTotal;
     }
 
     public Guid PacId { get; init; }
@@ -18,32 +18,32 @@ public class ImportAgingReportModel
     public TimeSpan Average { get; init; }
     public TimeSpan Min { get; init; }
     public TimeSpan Max { get; init; }
-    public int ImportCount { get; init; }
+    public int ImportTotal { get; init; }
 
     public string GetDisplayAverageAging()
     {
-        return ImportCount > 0
+        return ImportTotal > 0
             ? Average.ToReadableFormat()
             : "Tidak Pernah Import";
     }
 
     public string GetDisplayMinAging()
     {
-        return ImportCount > 0
+        return ImportTotal > 0
             ? Min.ToReadableFormat()
             : "Tidak Pernah Import";
     }
 
     public string GetDisplayMaxAging()
     {
-        return ImportCount > 0
+        return ImportTotal > 0
             ? Max.ToReadableFormat()
             : "Tidak Pernah Import";
     }
-    public string GetDisplayImportCount()
+    public string GetDisplayImportTotal()
     {
-        return ImportCount > 0
-            ? ImportCount.ToString()
+        return ImportTotal > 0
+            ? ImportTotal.ToString()
             : "Tidak Pernah Import";
     }
 }

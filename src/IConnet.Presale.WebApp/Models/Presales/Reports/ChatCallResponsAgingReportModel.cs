@@ -41,7 +41,7 @@ public class ChatCallResponsAgingReportModel
             : "Tidak Pernah Validasi";
     }
 
-    public string GetDisplayChatCallResponsCount()
+    public string GetDisplayChatCallResponsTotal()
     {
         return ChatCallResponsCount > 0
             ? ChatCallResponsCount.ToString()

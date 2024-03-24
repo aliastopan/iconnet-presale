@@ -132,12 +132,12 @@ public class ReportService
             min = TimeSpan.Zero;
         }
 
-        int importCount = agingIntervals.Count;
+        int importTotal = agingIntervals.Count;
 
         var pacId = presaleOperator.UserAccountId;
         var username = presaleOperator.Username;
 
-        return new ImportAgingReportModel(pacId, username, avg, min, max, importCount);
+        return new ImportAgingReportModel(pacId, username, avg, min, max, importTotal);
     }
 
     public VerificationAgingReportModel? GenerateVerificationAgingReport(PresaleOperatorModel presaleOperator,
@@ -149,7 +149,7 @@ public class ReportService
         }
 
         List<TimeSpan> agingIntervals = [];
-        int verificationCount = 0;
+        int verificationTotal = 0;
         int totalReject = 0;
 
         foreach (var data in presaleData)
@@ -162,7 +162,7 @@ public class ReportService
                 continue;
             }
 
-            verificationCount++;
+            verificationTotal++;
 
             if (data.WorkPaperLevel == WorkPaperLevel.ImportInvalid)
             {
@@ -199,7 +199,7 @@ public class ReportService
         var username = presaleOperator.Username;
 
         return new VerificationAgingReportModel(pacId, username, avg, min, max,
-            verificationCount, totalReject, totalVerified);
+            verificationTotal, totalReject, totalVerified);
     }
 
     public ChatCallMulaiAgingReportModel? GenerateChatCallMulaiAgingReport(PresaleOperatorModel presaleOperator,
@@ -244,12 +244,12 @@ public class ReportService
             min = TimeSpan.Zero;
         }
 
-        int chatCallMulaiCount = agingIntervals.Count;
+        int chatCallMulaiTotal = agingIntervals.Count;
 
         var helpdeskId = presaleOperator.UserAccountId;
         var username = presaleOperator.Username;
 
-        return new ChatCallMulaiAgingReportModel(helpdeskId, username, avg, min, max, chatCallMulaiCount);
+        return new ChatCallMulaiAgingReportModel(helpdeskId, username, avg, min, max, chatCallMulaiTotal);
     }
 
     public ChatCallResponsAgingReportModel? GenerateChatCallResponsAgingReport(PresaleOperatorModel presaleOperator,
@@ -294,12 +294,12 @@ public class ReportService
             min = TimeSpan.Zero;
         }
 
-        int chatCallResponsCount = agingIntervals.Count;
+        int chatCallResponsTotal = agingIntervals.Count;
 
         var helpdeskId = presaleOperator.UserAccountId;
         var username = presaleOperator.Username;
 
-        return new ChatCallResponsAgingReportModel(helpdeskId, username, avg, min, max, chatCallResponsCount);
+        return new ChatCallResponsAgingReportModel(helpdeskId, username, avg, min, max, chatCallResponsTotal);
     }
 
     private static TimeSpan GetAverageTimeSpan(List<TimeSpan> agingReport)

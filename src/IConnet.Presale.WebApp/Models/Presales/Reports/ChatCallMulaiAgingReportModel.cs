@@ -3,14 +3,14 @@ namespace IConnet.Presale.WebApp.Models.Presales.Reports;
 public class ChatCallMulaiAgingReportModel
 {
     public ChatCallMulaiAgingReportModel(Guid helpdeskId, string username,
-        TimeSpan average, TimeSpan min, TimeSpan max, int chatCallMulaiCount)
+        TimeSpan average, TimeSpan min, TimeSpan max, int chatCallMulaiTotal)
     {
         HelpdeskId = helpdeskId;
         Username = username;
         Average = average;
         Min = min;
         Max = max;
-        ChatCallMulaiCount = chatCallMulaiCount;
+        ChatCallMulaiTotal = chatCallMulaiTotal;
     }
 
     public Guid HelpdeskId { get; init; }
@@ -18,33 +18,33 @@ public class ChatCallMulaiAgingReportModel
     public TimeSpan Average { get; init; }
     public TimeSpan Min { get; init; }
     public TimeSpan Max { get; init; }
-    public int ChatCallMulaiCount { get; init; }
+    public int ChatCallMulaiTotal { get; init; }
 
     public string GetDisplayAverageAging()
     {
-        return ChatCallMulaiCount > 0
+        return ChatCallMulaiTotal > 0
             ? Average.ToReadableFormat()
             : "Tidak Pernah Chat/Call";
     }
 
     public string GetDisplayMinAging()
     {
-        return ChatCallMulaiCount > 0
+        return ChatCallMulaiTotal > 0
             ? Min.ToReadableFormat()
             : "Tidak Pernah Chat/Call";
     }
 
     public string GetDisplayMaxAging()
     {
-        return ChatCallMulaiCount > 0
+        return ChatCallMulaiTotal > 0
             ? Max.ToReadableFormat()
             : "Tidak Pernah Chat/Call";
     }
 
-    public string GetDisplayChatCallMulaiCount()
+    public string GetDisplayChatCallMulaiTotal()
     {
-        return ChatCallMulaiCount > 0
-            ? ChatCallMulaiCount.ToString()
+        return ChatCallMulaiTotal > 0
+            ? ChatCallMulaiTotal.ToString()
             : "Tidak Pernah Chat/Call";
     }
 }
