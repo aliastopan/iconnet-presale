@@ -34,12 +34,11 @@ public class DashboardPageBase : ComponentBase
     private readonly List<ApprovalStatusReportModel> _weeklyApprovalStatusReport = [];
     private readonly List<ApprovalStatusReportModel> _dailyApprovalStatusReport = [];
 
-    private List<RootCauseReportModel> _monthlyRootCauseReport = [];
-
     public List<ApprovalStatusReportModel> MonthlyApprovalStatusReport => _monthlyApprovalStatusReport;
     public List<ApprovalStatusReportModel> WeeklyApprovalStatusReport => _weeklyApprovalStatusReport;
     public List<ApprovalStatusReportModel> DailyApprovalStatusReport => _dailyApprovalStatusReport;
 
+    private List<RootCauseReportModel> _monthlyRootCauseReport = [];
     public List<RootCauseReportModel> MonthlyRootCauseReport => _monthlyRootCauseReport;
 
     protected override async Task OnInitializedAsync()
