@@ -53,6 +53,9 @@ public class DashboardPageBase : ComponentBase
     private List<ChatCallResponsAgingReportModel> _monthlyChatCallResponsAgingReports = [];
     public List<ChatCallResponsAgingReportModel> MonthlyChatCallResponsAgingReports => _monthlyChatCallResponsAgingReports;
 
+    private List<ApprovalAgingReportModel> _monthlyApprovalAgingReportModels = [];
+    public List<ApprovalAgingReportModel> MonthlyApprovalAgingReportModels => _monthlyApprovalAgingReportModels;
+
     protected override async Task OnInitializedAsync()
     {
         if (!_isInitialized)
@@ -69,6 +72,7 @@ public class DashboardPageBase : ComponentBase
             GenerateVerificationAgingReports();
             GenerateChatCallMulaiAgingReports();
             GenerateChatCallResponsAgingReport();
+            GenerateApprovalAgingReport();
 
             _isInitialized = true;
         }
@@ -160,5 +164,20 @@ public class DashboardPageBase : ComponentBase
         }
 
         _monthlyChatCallResponsAgingReports = _monthlyChatCallResponsAgingReports.OrderByDescending(x => x.Average).ToList();
+    }
+
+    private void GenerateApprovalAgingReport()
+    {
+        foreach (var user in _presaleOperators)
+        {
+            var agingReport = ReportService.GenerateApprovalAgingReport(user, MonthlyPresaleData!);
+
+            if (agingReport is not null)
+            {
+                _monthlyApprovalAgingReportModels.Add(agingReport);
+            }
+        }
+
+        _monthlyApprovalAgingReportModels = _monthlyApprovalAgingReportModels.OrderByDescending(x => x.Average).ToList();
     }
 }
