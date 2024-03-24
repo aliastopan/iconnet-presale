@@ -19,18 +19,31 @@
         <div>
             @if (MonthlyPresaleData is not null)
             {
-                <div>
-                    <div>Aging Import</div>
-                    <div>
-                        AVG @AgingImportReport.Average
-                    </div>
-                    <div>
-                        MIN @AgingImportReport.Min
-                    </div>
-                    <div>
-                        MAX @AgingImportReport.Max
-                    </div>
-                </div>
+            <h3>Import Aging Report</h3>
+
+            <table class="table" style="width: fit-content;">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>AVG</th>
+                        <th>MIN</th>
+                        <th>MAX</th>
+                        <th>Import Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var report in ImportAgingReport)
+                    {
+                        <tr>
+                            <td>@report.Username</td>
+                            <td>@report.GetDisplayAverageAging()</td>
+                            <td>@report.GetDisplayMinAging()</td>
+                            <td>@report.GetDisplayMaxAging()</td>
+                            <td>@report.GetDisplayImportCount()</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
             }
             else
             {

@@ -45,9 +45,11 @@ public class DeveloperPageBase : ComponentBase
 
     public List<RootCauseReportModel> MonthlyRootCauseReport => _monthlyRootCauseReport;
 
-    public List<UserOperatorModel> UserOperatorModels => _userOperatorModels;
+    public List<UserOperatorModel> UserOperators => _userOperatorModels;
 
-    public AgingReportModel AgingImportReport { get; set; } = default!;
+    private List<ImportAgingReportModel> _importAgingReport = [];
+
+    public List<ImportAgingReportModel> ImportAgingReport => _importAgingReport;
 
     protected override void OnInitialized()
     {
@@ -68,7 +70,7 @@ public class DeveloperPageBase : ComponentBase
 
             GenerateStatusApprovalReports();
             GenerateRootCauseReport();
-            GenerateAgingReport();
+            GenerateImportAgingReport();
 
             stopwatch.Stop();
 
@@ -106,9 +108,19 @@ public class DeveloperPageBase : ComponentBase
         }
     }
 
-    private void GenerateAgingReport()
+    private void GenerateImportAgingReport()
     {
-        AgingImportReport = ReportService.GenerateAgingImportReport(MonthlyPresaleData!);
+        foreach (var user in UserOperators)
+        {
+            var agingReport = ReportService.GenerateImportAgingReport(user, MonthlyPresaleData!);
+
+            if (agingReport is not null)
+            {
+                _importAgingReport.Add(agingReport);
+            }
+        }
+
+        _importAgingReport.OrderBy(x => x.Average);
     }
 
     private async Task GetUserOperators()
