@@ -33,28 +33,11 @@ public class DeveloperPageBase : ComponentBase
     public IQueryable<WorkPaper>? WeeklyPresaleData => _weeklyPresaleData;
     public IQueryable<WorkPaper>? DailyPresaleData => _dailyPresaleData;
 
-    private List<ApprovalStatusReportModel> _monthlyApprovalStatusReport = [];
-    private List<ApprovalStatusReportModel> _weeklyApprovalStatusReport = [];
-    private List<ApprovalStatusReportModel> _dailyApprovalStatusReport = [];
-
-    public List<ApprovalStatusReportModel> MonthlyApprovalStatusReport => _monthlyApprovalStatusReport;
-    public List<ApprovalStatusReportModel> WeeklyApprovalStatusReport => _weeklyApprovalStatusReport;
-    public List<ApprovalStatusReportModel> DailyApprovalStatusReport => _dailyApprovalStatusReport;
-
-    private List<RootCauseReportModel> _monthlyRootCauseReport = [];
-
-    public List<RootCauseReportModel> MonthlyRootCauseReport => _monthlyRootCauseReport;
-
     public List<UserOperatorModel> UserOperators => _userOperatorModels;
 
     private List<ImportAgingReportModel> _importAgingReport = [];
 
     public List<ImportAgingReportModel> ImportAgingReport => _importAgingReport;
-
-    protected override void OnInitialized()
-    {
-
-    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -68,8 +51,6 @@ public class DeveloperPageBase : ComponentBase
 
             var stopwatch = Stopwatch.StartNew();
 
-            GenerateStatusApprovalReports();
-            GenerateRootCauseReport();
             GenerateImportAgingReport();
 
             stopwatch.Stop();
@@ -77,34 +58,6 @@ public class DeveloperPageBase : ComponentBase
             LogSwitch.Debug("Execution time {0} ms", stopwatch.ElapsedMilliseconds);
 
             _isInitialized = true;
-        }
-    }
-
-    private void GenerateStatusApprovalReports()
-    {
-        List<ApprovalStatus> availableStatus = EnumProcessor.GetAllEnumValues<ApprovalStatus>();
-
-        foreach (var status in availableStatus)
-        {
-            var monthlyReport = ReportService.GenerateApprovalStatusReport(status, MonthlyPresaleData!);
-            var weeklyReport = ReportService.GenerateApprovalStatusReport(status, WeeklyPresaleData!);
-            var dailyReport = ReportService.GenerateApprovalStatusReport(status, DailyPresaleData!);
-
-            _monthlyApprovalStatusReport.Add(monthlyReport);
-            _weeklyApprovalStatusReport.Add(weeklyReport);
-            _dailyApprovalStatusReport.Add(dailyReport);
-        }
-    }
-
-    private void GenerateRootCauseReport()
-    {
-        List<string> availableRootCauses = OptionService.RootCauseOptions.ToList();
-
-        foreach (var rootCause in availableRootCauses)
-        {
-            var monthlyReport = ReportService.GenerateRootCauseReport(rootCause, MonthlyPresaleData!);
-
-            _monthlyRootCauseReport.Add(monthlyReport);
         }
     }
 
