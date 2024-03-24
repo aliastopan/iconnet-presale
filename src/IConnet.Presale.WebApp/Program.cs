@@ -23,6 +23,7 @@ builder.Host.ConfigureServices((context, services) =>
     }));
 
     services.AddSingleton<CircuitHandler, CustomCircuitHandler>();
+    services.AddSingleton<UserManager>();
     services.AddSingleton<ChatTemplateManager>();
     services.AddSingleton<IntervalCalculatorService>();
     services.AddSingleton<OptionService>();
