@@ -1,0 +1,52 @@
+@if (Models is not null)
+{
+    <table class="table" style="width: fit-content;">
+        <thead>
+            <tr>
+                <th class="table-report-header" style="background-color: cadetblue;">
+                    Username PAC
+                </th>
+                <th class="table-report-header" style="background-color: cadetblue;">
+                    AVG
+                </th>
+                <th class="table-report-header" style="background-color: cadetblue;">
+                    MIN
+                </th>
+                <th class="table-report-header" style="background-color: cadetblue;">
+                    MAX
+                </th>
+                <th class="table-report-header" style="background-color: cadetblue;">
+                    Approval Total
+                </th>
+                <th class="table-report-header" style="background-color: cadetblue;">
+                    Total Close Lost
+                </th>
+                <th class="table-report-header" style="background-color: cadetblue;">
+                    Total Reject
+                </th>
+                <th class="table-report-header" style="background-color: cadetblue;">
+                    Total Expansion
+                </th>
+                <th class="table-report-header" style="background-color: cadetblue;">
+                    Total Approve
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var model in Models)
+            {
+                <tr>
+                    <td>@model.Username</td>
+                    <td class="table-report-content">@model.GetDisplayAverageAging()</td>
+                    <td class="table-report-content">@model.GetDisplayMinAging()</td>
+                    <td class="table-report-content">@model.GetDisplayMaxAging()</td>
+                    <td class="table-report-content">@model.GetDisplayApprovalTotal()</td>
+                    <td class="table-report-content">@model.GetDisplayTotalCloseLost()</td>
+                    <td class="table-report-content">@model.GetDisplayTotalReject()</td>
+                    <td class="table-report-content">@model.GetDisplayTotalExpansion()</td>
+                    <td class="table-report-content">@model.GetDisplayTotalApprove()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
