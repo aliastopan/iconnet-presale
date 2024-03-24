@@ -15,6 +15,7 @@ public class DeveloperPageBase : ComponentBase
     [Inject] protected IIdentityHttpClient IdentityHttpClient { get; set; } = default!;
     [Inject] protected OptionService OptionService { get; set; } = default!;
     [Inject] protected ReportService ReportService { get; set; } = default!;
+    [Inject] protected IntervalCalculatorService IntervalCalculatorService { get; set; } = default!;
 
     private bool _isInitialized = false;
     private readonly CultureInfo _culture = new CultureInfo("id-ID");
@@ -47,6 +48,11 @@ public class DeveloperPageBase : ComponentBase
     public List<UserOperatorModel> UserOperatorModels => _userOperatorModels;
 
     public AgingReportModel AgingImportReport { get; set; } = default!;
+
+    protected override void OnInitialized()
+    {
+
+    }
 
     protected override async Task OnInitializedAsync()
     {
