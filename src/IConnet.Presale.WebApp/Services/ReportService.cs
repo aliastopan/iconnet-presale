@@ -51,6 +51,45 @@ public class ReportService
         return new RootCauseReportModel(rootCause, offices, rootCausePerOffice);
     }
 
+    public CustomerResponseAgingReport GenerateCustomerResponseAgingReport(IQueryable<WorkPaper> presaleData)
+    {
+        List<TimeSpan> agingIntervals = [];
+
+        foreach (var data in presaleData)
+        {
+            bool isDoneProcessing = data.WorkPaperLevel == WorkPaperLevel.DoneProcessing;
+
+            if(!isDoneProcessing)
+            {
+                continue;
+            }
+
+            DateTime startDateTime = data.ProsesValidasi.SignatureChatCallMulai.TglAksi;
+            DateTime endDateTime = data.ProsesValidasi.WaktuTanggalRespons;
+
+            TimeSpan interval = _intervalCalculatorService.CalculateInterval(startDateTime, endDateTime, excludeFrozenInterval: false);
+
+            agingIntervals.Add(interval);
+        }
+
+        TimeSpan avg, max, min;
+
+        if (agingIntervals.Count > 0)
+        {
+            avg = GetAverageTimeSpan(agingIntervals);
+            max = agingIntervals.Max();
+            min = agingIntervals.Min();
+        }
+        else
+        {
+            avg = TimeSpan.Zero;
+            max = TimeSpan.Zero;
+            min = TimeSpan.Zero;
+        }
+
+        return new CustomerResponseAgingReport(avg, min, max);
+    }
+
     public ImportAgingReportModel? GenerateImportAgingReport(PresaleOperatorModel presaleOperator,
         IQueryable<WorkPaper> presaleData)
     {
