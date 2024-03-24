@@ -3,7 +3,8 @@ namespace IConnet.Presale.WebApp.Models.Presales;
 public class VerificationAgingReportModel
 {
     public VerificationAgingReportModel(Guid pacId, string username,
-        TimeSpan average, TimeSpan min, TimeSpan max, int verificationCount)
+        TimeSpan average, TimeSpan min, TimeSpan max,
+        int verificationCount, int totalReject, int totalVerified)
     {
         PacId = pacId;
         Username = username;
@@ -11,6 +12,8 @@ public class VerificationAgingReportModel
         Min = min;
         Max = max;
         VerificationCount = verificationCount;
+        TotalReject = totalReject;
+        TotalVerified = totalVerified;
     }
 
     public Guid PacId { get; init; }
@@ -19,6 +22,8 @@ public class VerificationAgingReportModel
     public TimeSpan Min { get; init; }
     public TimeSpan Max { get; init; }
     public int VerificationCount { get; init; }
+    public int TotalReject { get; init; }
+    public int TotalVerified { get; init; }
 
     public string GetDisplayAverageAging()
     {
@@ -40,10 +45,25 @@ public class VerificationAgingReportModel
             ? Max.ToReadableFormat()
             : "Tidak Pernah Verifikasi";
     }
+
     public string GetDisplayVerificationCount()
     {
         return VerificationCount > 0
             ? VerificationCount.ToString()
+            : "Tidak Pernah Verifikasi";
+    }
+
+    public string GetDisplayTotalReject()
+    {
+        return VerificationCount > 0
+            ? TotalReject.ToString()
+            : "Tidak Pernah Verifikasi";
+    }
+
+    public string GetDisplayTotalVerified()
+    {
+        return VerificationCount > 0
+            ? TotalVerified.ToString()
             : "Tidak Pernah Verifikasi";
     }
 }

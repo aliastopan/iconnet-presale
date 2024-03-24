@@ -107,11 +107,24 @@ public class ReportService
         }
 
         List<TimeSpan> agingIntervals = [];
+        int verificationCount = 0;
+        int totalReject = 0;
 
         foreach (var data in presaleData)
         {
-            if (data.ApprovalOpportunity.SignatureImport.AccountIdSignature != presaleOperator.UserAccountId)
+            bool matchInChargeSignature = data.ApprovalOpportunity.SignatureImport.AccountIdSignature == presaleOperator.UserAccountId;
+            bool isDataPastVerification = !data.ApprovalOpportunity.SignatureVerifikasiImport.IsEmptySignature();
+
+            if (!matchInChargeSignature || !isDataPastVerification)
             {
+                continue;
+            }
+
+            verificationCount++;
+
+            if (data.WorkPaperLevel == WorkPaperLevel.ImportInvalid)
+            {
+                totalReject++;
                 continue;
             }
 
@@ -138,13 +151,13 @@ public class ReportService
             min = TimeSpan.Zero;
         }
 
-        int verificationCount = agingIntervals.Count;
+        int totalVerified = agingIntervals.Count;
 
         var pacId = presaleOperator.UserAccountId;
         var username = presaleOperator.Username;
 
-
-        return new VerificationAgingReportModel(pacId, username, avg, min, max, verificationCount);
+        return new VerificationAgingReportModel(pacId, username, avg, min, max,
+            verificationCount, totalReject, totalVerified);
     }
 
     private static TimeSpan GetAverageTimeSpan(List<TimeSpan> agingReport)
