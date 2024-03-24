@@ -63,7 +63,9 @@ public class ReportService
 
         foreach (var data in presaleData)
         {
-            if (data.ApprovalOpportunity.SignatureImport.AccountIdSignature != presaleOperator.UserAccountId)
+            bool matchInChargeSignature = data.ApprovalOpportunity.SignatureImport.AccountIdSignature == presaleOperator.UserAccountId;
+
+            if (!matchInChargeSignature)
             {
                 continue;
             }
@@ -95,7 +97,6 @@ public class ReportService
 
         var pacId = presaleOperator.UserAccountId;
         var username = presaleOperator.Username;
-
 
         return new ImportAgingReportModel(pacId, username, avg, min, max, importCount);
     }
