@@ -12,14 +12,14 @@ public class DeveloperPageBase : ComponentBase
 {
     [Inject] protected IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] protected IDashboardManager DashboardManager { get; set; } = default!;
-    [Inject] protected IIdentityHttpClient IdentityHttpClient { get; set; } = default!;
+    [Inject] protected UserManager UserManager { get; set; } = default!;
     [Inject] protected OptionService OptionService { get; set; } = default!;
     [Inject] protected ReportService ReportService { get; set; } = default!;
     [Inject] protected IntervalCalculatorService IntervalCalculatorService { get; set; } = default!;
 
     private bool _isInitialized = false;
     private readonly CultureInfo _culture = new CultureInfo("id-ID");
-    private readonly List<UserOperatorModel> _userOperatorModels = [];
+    private List<UserOperatorModel> _userOperators = [];
 
     protected int CurrentYear => DateTimeService.DateTimeOffsetNow.Year;
     protected string CurrentMonth => DateTimeService.DateTimeOffsetNow.ToString("MMMM", _culture);
@@ -33,7 +33,7 @@ public class DeveloperPageBase : ComponentBase
     public IQueryable<WorkPaper>? WeeklyPresaleData => _weeklyPresaleData;
     public IQueryable<WorkPaper>? DailyPresaleData => _dailyPresaleData;
 
-    public List<UserOperatorModel> UserOperators => _userOperatorModels;
+    public List<UserOperatorModel> UserOperators => _userOperators;
 
     private List<ImportAgingReportModel> _importAgingReport = [];
 
@@ -43,11 +43,11 @@ public class DeveloperPageBase : ComponentBase
     {
         if (!_isInitialized)
         {
+            _userOperators = UserManager.UserOperators;
+
             _monthlyPresaleData = await DashboardManager.GetPresaleDataFromCurrentMonthAsync();
             _weeklyPresaleData = DashboardManager.GetPresaleDataFromCurrentWeek(_monthlyPresaleData);
             _dailyPresaleData = DashboardManager.GetPresaleDataFromCurrentWeek(_weeklyPresaleData);
-
-            await GetUserOperators();
 
             var stopwatch = Stopwatch.StartNew();
 
@@ -74,32 +74,5 @@ public class DeveloperPageBase : ComponentBase
         }
 
         _importAgingReport = _importAgingReport.OrderByDescending(x => x.Average).ToList();
-    }
-
-    private async Task GetUserOperators()
-    {
-        var options = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        };
-
-        var httpResult = await IdentityHttpClient.GetUserOperatorsAsync();
-
-        if (httpResult.IsSuccessStatusCode)
-        {
-            var response = JsonSerializer.Deserialize<GetUserOperatorsQueryResponse>(httpResult.Content, options);
-            var userOperatorDtos = response!.UserOperatorDtos;
-
-            foreach (var dto in userOperatorDtos)
-            {
-                _userOperatorModels.Add(new UserOperatorModel(dto));
-            }
-        }
-        else
-        {
-            var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
-            var extension = problemDetails.GetProblemDetailsExtension();
-            LogSwitch.Debug("Error: {0}", extension.Errors.First().Message);
-        }
     }
 }

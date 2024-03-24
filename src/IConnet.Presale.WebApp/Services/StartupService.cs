@@ -9,18 +9,21 @@ public class StartupService : IHostedService
     private readonly IWorkloadSynchronizationManager _workloadSynchronizationManager;
     private readonly IRepresentativeOfficeHttpClient _representativeOfficeHttpClient;
     private readonly IRootCauseHttpClient _rootCauseHttpClient;
+    private readonly UserManager _userManager;
     private readonly ChatTemplateManager _chatTemplateManager;
     private readonly OptionService _optionService;
 
     public StartupService(IWorkloadSynchronizationManager workloadSynchronizationManager,
         IRepresentativeOfficeHttpClient representativeOfficeHttpClient,
         IRootCauseHttpClient rootCauseHttpClient,
+        UserManager userManager,
         ChatTemplateManager chatTemplateManager,
         OptionService optionService)
     {
         _workloadSynchronizationManager = workloadSynchronizationManager;
         _representativeOfficeHttpClient = representativeOfficeHttpClient;
         _rootCauseHttpClient = rootCauseHttpClient;
+        _userManager = userManager;
         _chatTemplateManager = chatTemplateManager;
         _optionService = optionService;
     }
@@ -31,6 +34,7 @@ public class StartupService : IHostedService
         [
             GetRepresentativeOfficesAsync(),
             _chatTemplateManager.SetDefaultChatTemplatesAsync(),
+            _userManager.SetUserOperatorsAsync(),
             GetRootCausesAsync(),
             PullRedisToInMemoryAsync()
         ];
