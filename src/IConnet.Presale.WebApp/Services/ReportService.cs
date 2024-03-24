@@ -163,6 +163,56 @@ public class ReportService
             verificationCount, totalReject, totalVerified);
     }
 
+    public ChatCallMulaiAgingReportModel? GenerateChatCallMulaiAgingReport(PresaleOperatorModel presaleOperator,
+        IQueryable<WorkPaper> presaleData)
+    {
+        if (presaleOperator.UserRole != UserRole.Helpdesk)
+        {
+            return null;
+        }
+
+        List<TimeSpan> agingIntervals = [];
+
+        foreach (var data in presaleData)
+        {
+            bool matchInChargeSignature = data.ProsesValidasi.SignatureChatCallMulai.AccountIdSignature == presaleOperator.UserAccountId;
+
+            if (!matchInChargeSignature)
+            {
+                continue;
+            }
+
+            DateTime startDateTime = data.ApprovalOpportunity.SignatureVerifikasiImport.TglAksi;
+            DateTime endDateTime = data.ProsesValidasi.SignatureChatCallMulai.TglAksi;
+
+            TimeSpan interval = _intervalCalculatorService.CalculateInterval(startDateTime, endDateTime, excludeFrozenInterval: true);
+
+            agingIntervals.Add(interval);
+        }
+
+        TimeSpan avg, max, min;
+
+        if (agingIntervals.Count > 0)
+        {
+            avg = GetAverageTimeSpan(agingIntervals);
+            max = agingIntervals.Max();
+            min = agingIntervals.Min();
+        }
+        else
+        {
+            avg = TimeSpan.Zero;
+            max = TimeSpan.Zero;
+            min = TimeSpan.Zero;
+        }
+
+        int chatCallMulaiCount = agingIntervals.Count;
+
+        var helpdeskId = presaleOperator.UserAccountId;
+        var username = presaleOperator.Username;
+
+        return new ChatCallMulaiAgingReportModel(helpdeskId, username, avg, min, max, chatCallMulaiCount);
+    }
+
     private static TimeSpan GetAverageTimeSpan(List<TimeSpan> agingReport)
     {
         if (agingReport == null || agingReport.Count == 0)
