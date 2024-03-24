@@ -5,10 +5,13 @@ namespace IConnet.Presale.WebApp.Services;
 public class ReportService
 {
     private readonly OptionService _optionService;
+    private readonly IntervalCalculatorService _intervalCalculatorService;
 
-    public ReportService(OptionService optionService)
+    public ReportService(OptionService optionService,
+        IntervalCalculatorService intervalCalculatorService)
     {
         _optionService = optionService;
+        _intervalCalculatorService = intervalCalculatorService;
     }
 
     public ApprovalStatusReportModel GenerateApprovalStatusReport(ApprovalStatus approvalStatus,
@@ -53,10 +56,10 @@ public class ReportService
 
         foreach (var data in presaleData)
         {
-            DateTime requestDate = data.ApprovalOpportunity.TglPermohonan;
-            DateTime importTimestamp = data.ApprovalOpportunity.SignatureImport.TglAksi;
+            DateTime start = data.ApprovalOpportunity.TglPermohonan;
+            DateTime end = data.ApprovalOpportunity.SignatureImport.TglAksi;
 
-            TimeSpan interval = importTimestamp - requestDate;
+            TimeSpan interval = _intervalCalculatorService.CalculateInterval(start, end, excludeFrozenInterval: true);
 
             agingReport.Add(interval);
         }
