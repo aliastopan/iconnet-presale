@@ -2,6 +2,18 @@ namespace IConnet.Presale.WebApp.Extensions;
 
 public static class TimeSpanExtensions
 {
+    public static string ToReadableFormat(this TimeSpan timeSpan)
+    {
+        int seconds = (int)timeSpan.TotalSeconds;
+
+        int hours = seconds / 3600;
+        seconds %= 3600;
+        int minutes = seconds / 60;
+        seconds %= 60;
+
+        return $"{hours:D2}:{minutes:D2}:{seconds:D2}";
+    }
+
     public static string ToReadableDateTime(this TimeSpan timeSpan)
     {
         int days = timeSpan.Days;
