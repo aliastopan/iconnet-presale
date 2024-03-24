@@ -45,18 +45,24 @@
                         <th>AVG</th>
                         <th>MIN</th>
                         <th>MAX</th>
-                        <th>Validasi Mulai Total</th>
+                        <th>Approval Total</th>
+                        <th>Total Close Lost</th>
+                        <th>Total Reject</th>
+                        <th>Total Approve</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var report in MonthlyChatCallResponsAgingReport)
+                    @foreach (var report in MonthlyApprovalAgingReportModels)
                     {
                         <tr>
                             <td>@report.Username</td>
                             <td>@report.GetDisplayAverageAging()</td>
                             <td>@report.GetDisplayMinAging()</td>
                             <td>@report.GetDisplayMaxAging()</td>
-                            <td>@report.GetDisplayChatCallResponsTotal()</td>
+                            <td>@report.GetDisplayApprovalTotal()</td>
+                            <td>@report.GetDisplayTotalCloseLost()</td>
+                            <td>@report.GetDisplayTotalReject()</td>
+                            <td>@report.GetDisplayTotalApprove()</td>
                         </tr>
                     }
                 </tbody>
