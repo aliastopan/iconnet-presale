@@ -28,7 +28,11 @@ public class IntervalCalculatorService
     {
         if (!excludeFrozenInterval)
         {
-            return endDateTime - startDateTime;
+            TimeSpan interval = endDateTime - startDateTime;
+
+            return interval < TimeSpan.Zero
+                ? TimeSpan.Zero
+                : interval;
         }
 
         TimeSpan totalInterval = TimeSpan.Zero;
