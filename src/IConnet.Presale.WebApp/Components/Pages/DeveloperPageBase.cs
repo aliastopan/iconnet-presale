@@ -35,9 +35,11 @@ public class DeveloperPageBase : ComponentBase
 
     public List<PresaleOperatorModel> PresaleOperators => _presaleOperators;
 
-    private List<ImportAgingReportModel> _importAgingReport = [];
+    private List<ImportAgingReportModel> _monthlyImportAgingReport = [];
+    public List<ImportAgingReportModel> MonthlyImportAgingReport => _monthlyImportAgingReport;
 
-    public List<ImportAgingReportModel> ImportAgingReport => _importAgingReport;
+    private List<VerificationAgingReportModel> _monthlyVerificationAgingReport = [];
+    public List<VerificationAgingReportModel> MonthlyVerificationAgingReport => _monthlyVerificationAgingReport;
 
     protected override async Task OnInitializedAsync()
     {
@@ -52,6 +54,7 @@ public class DeveloperPageBase : ComponentBase
             var stopwatch = Stopwatch.StartNew();
 
             GenerateImportAgingReport();
+            GenerateVerificationAgingReport();
 
             stopwatch.Stop();
 
@@ -69,10 +72,25 @@ public class DeveloperPageBase : ComponentBase
 
             if (agingReport is not null)
             {
-                _importAgingReport.Add(agingReport);
+                _monthlyImportAgingReport.Add(agingReport);
             }
         }
 
-        _importAgingReport = _importAgingReport.OrderByDescending(x => x.Average).ToList();
+        _monthlyImportAgingReport = _monthlyImportAgingReport.OrderByDescending(x => x.Average).ToList();
+    }
+
+    private void GenerateVerificationAgingReport()
+    {
+        foreach (var user in PresaleOperators)
+        {
+            var agingReport = ReportService.GenerateAgingVerificationReport(user, MonthlyPresaleData!);
+
+            if (agingReport is not null)
+            {
+                _monthlyVerificationAgingReport.Add(agingReport);
+            }
+        }
+
+        _monthlyVerificationAgingReport = _monthlyVerificationAgingReport.OrderByDescending(x => x.Average).ToList();
     }
 }
