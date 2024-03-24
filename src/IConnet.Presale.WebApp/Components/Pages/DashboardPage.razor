@@ -27,18 +27,18 @@
                             <div style="margin-top: 8px;">
                                 Data Presale bulan @CurrentMonth @CurrentYear
                             </div>
-                            <ApprovalStatusReportTable Models="@MonthlyApprovalStatusReport"/>
+                            <ApprovalStatusReportTable Models="@MonthlyApprovalStatusReports"/>
 
                             <div style="margin-top: 8px;">
                                 Data Presale minggu ke-@CurrentWeek bulan @CurrentMonth
                             </div>
-                            <ApprovalStatusReportTable Models="@WeeklyApprovalStatusReport"/>
+                            <ApprovalStatusReportTable Models="@WeeklyApprovalStatusReports"/>
 
 
                             <div style="margin-top: 8px;">
                                 Data Presale hari ini
                             </div>
-                            <ApprovalStatusReportTable Models="@DailyApprovalStatusReport"/>
+                            <ApprovalStatusReportTable Models="@DailyApprovalStatusReports"/>
 
                         </Content>
                     </FluentTab>
@@ -51,7 +51,7 @@
                             <div style="margin-top: 8px;">
                                 Root Cause @CurrentMonth @CurrentYear
                             </div>
-                            <RootCauseReportTable Models="@MonthlyRootCauseReport"/>
+                            <RootCauseReportTable Models="@MonthlyRootCauseReports"/>
                         </Content>
                     </FluentTab>
                     <FluentTab Id="tab-3">
@@ -63,7 +63,7 @@
                             <div style="margin-top: 8px;">
                                 Aging PAC Import bulan @CurrentMonth @CurrentYear
                             </div>
-                            <ImportAgingReportTable Models="@MonthlyImportAgingReport"/>
+                            <ImportAgingReportTable Models="@MonthlyImportAgingReports"/>
                         </Content>
                     </FluentTab>
                     <FluentTab Id="tab-4">
@@ -75,7 +75,7 @@
                             <div style="margin-top: 8px;">
                                 Aging PAC iCRM+ verifikasi bulan @CurrentMonth @CurrentYear
                             </div>
-                            <VerificationAgingReportTable Models="@MonthlyVerificationAgingReport"/>
+                            <VerificationAgingReportTable Models="@MonthlyVerificationAgingReports"/>
                         </Content>
                     </FluentTab>
                     <FluentTab Id="tab-5">
@@ -87,7 +87,7 @@
                             <div style="margin-top: 8px;">
                                 Aging Helpdesk inisiasi chat/call bulan @CurrentMonth @CurrentYear
                             </div>
-                            <ChatCallMulaiAgingReportTable Models="@MonthlyChatCallMulaiAgingReport"/>
+                            <ChatCallMulaiAgingReportTable Models="@MonthlyChatCallMulaiAgingReports"/>
                         </Content>
                     </FluentTab>
                 </FluentTabs>

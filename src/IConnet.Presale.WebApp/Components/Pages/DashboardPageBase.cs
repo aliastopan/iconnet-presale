@@ -30,25 +30,25 @@ public class DashboardPageBase : ComponentBase
     public IQueryable<WorkPaper>? WeeklyPresaleData => _weeklyPresaleData;
     public IQueryable<WorkPaper>? DailyPresaleData => _dailyPresaleData;
 
-    private readonly List<ApprovalStatusReportModel> _monthlyApprovalStatusReport = [];
-    private readonly List<ApprovalStatusReportModel> _weeklyApprovalStatusReport = [];
-    private readonly List<ApprovalStatusReportModel> _dailyApprovalStatusReport = [];
+    private readonly List<ApprovalStatusReportModel> _monthlyApprovalStatusReports = [];
+    private readonly List<ApprovalStatusReportModel> _weeklyApprovalStatusReports = [];
+    private readonly List<ApprovalStatusReportModel> _dailyApprovalStatusReports = [];
 
-    public List<ApprovalStatusReportModel> MonthlyApprovalStatusReport => _monthlyApprovalStatusReport;
-    public List<ApprovalStatusReportModel> WeeklyApprovalStatusReport => _weeklyApprovalStatusReport;
-    public List<ApprovalStatusReportModel> DailyApprovalStatusReport => _dailyApprovalStatusReport;
+    public List<ApprovalStatusReportModel> MonthlyApprovalStatusReports => _monthlyApprovalStatusReports;
+    public List<ApprovalStatusReportModel> WeeklyApprovalStatusReports => _weeklyApprovalStatusReports;
+    public List<ApprovalStatusReportModel> DailyApprovalStatusReports => _dailyApprovalStatusReports;
 
-    private List<RootCauseReportModel> _monthlyRootCauseReport = [];
-    public List<RootCauseReportModel> MonthlyRootCauseReport => _monthlyRootCauseReport;
+    private List<RootCauseReportModel> _monthlyRootCauseReports = [];
+    public List<RootCauseReportModel> MonthlyRootCauseReports => _monthlyRootCauseReports;
 
-    private List<ImportAgingReportModel> _monthlyImportAgingReport = [];
-    public List<ImportAgingReportModel> MonthlyImportAgingReport => _monthlyImportAgingReport;
+    private List<ImportAgingReportModel> _monthlyImportAgingReports = [];
+    public List<ImportAgingReportModel> MonthlyImportAgingReports => _monthlyImportAgingReports;
 
-    private List<VerificationAgingReportModel> _monthlyVerificationAgingReport = [];
-    public List<VerificationAgingReportModel> MonthlyVerificationAgingReport => _monthlyVerificationAgingReport;
+    private List<VerificationAgingReportModel> _monthlyVerificationAgingReports = [];
+    public List<VerificationAgingReportModel> MonthlyVerificationAgingReports => _monthlyVerificationAgingReports;
 
-    private List<ChatCallMulaiAgingReportModel> _monthlyChatCallMulaiAgingReport = [];
-    public List<ChatCallMulaiAgingReportModel> MonthlyChatCallMulaiAgingReport => _monthlyChatCallMulaiAgingReport;
+    private List<ChatCallMulaiAgingReportModel> _monthlyChatCallMulaiAgingReports = [];
+    public List<ChatCallMulaiAgingReportModel> MonthlyChatCallMulaiAgingReports => _monthlyChatCallMulaiAgingReports;
 
     protected override async Task OnInitializedAsync()
     {
@@ -60,17 +60,17 @@ public class DashboardPageBase : ComponentBase
             _weeklyPresaleData = DashboardManager.GetPresaleDataFromCurrentWeek(_monthlyPresaleData);
             _dailyPresaleData = DashboardManager.GetPresaleDataFromToday(_weeklyPresaleData);
 
-            GenerateStatusApprovalReport();
-            GenerateRootCauseReport();
-            GenerateImportAgingReport();
-            GenerateVerificationAgingReport();
-            GenerateChatCallMulaiAgingReport();
+            GenerateStatusApprovalReports();
+            GenerateRootCauseReports();
+            GenerateImportAgingReports();
+            GenerateVerificationAgingReports();
+            GenerateChatCallMulaiAgingReports();
 
             _isInitialized = true;
         }
     }
 
-    private void GenerateStatusApprovalReport()
+    private void GenerateStatusApprovalReports()
     {
         List<ApprovalStatus> availableStatus = EnumProcessor.GetAllEnumValues<ApprovalStatus>();
 
@@ -80,13 +80,13 @@ public class DashboardPageBase : ComponentBase
             var weeklyReport = ReportService.GenerateApprovalStatusReport(status, _weeklyPresaleData!);
             var dailyReport = ReportService.GenerateApprovalStatusReport(status, _dailyPresaleData!);
 
-            _monthlyApprovalStatusReport.Add(monthlyReport);
-            _weeklyApprovalStatusReport.Add(weeklyReport);
-            _dailyApprovalStatusReport.Add(dailyReport);
+            _monthlyApprovalStatusReports.Add(monthlyReport);
+            _weeklyApprovalStatusReports.Add(weeklyReport);
+            _dailyApprovalStatusReports.Add(dailyReport);
         }
     }
 
-    private void GenerateRootCauseReport()
+    private void GenerateRootCauseReports()
     {
         List<string> availableRootCauses = OptionService.RootCauseOptions.ToList();
 
@@ -94,11 +94,11 @@ public class DashboardPageBase : ComponentBase
         {
             var monthlyReport = ReportService.GenerateRootCauseReport(rootCause, MonthlyPresaleData!);
 
-            _monthlyRootCauseReport.Add(monthlyReport);
+            _monthlyRootCauseReports.Add(monthlyReport);
         }
     }
 
-    private void GenerateImportAgingReport()
+    private void GenerateImportAgingReports()
     {
         foreach (var user in _presaleOperators)
         {
@@ -106,14 +106,14 @@ public class DashboardPageBase : ComponentBase
 
             if (agingReport is not null)
             {
-                _monthlyImportAgingReport.Add(agingReport);
+                _monthlyImportAgingReports.Add(agingReport);
             }
         }
 
-        _monthlyImportAgingReport = _monthlyImportAgingReport.OrderByDescending(x => x.Average).ToList();
+        _monthlyImportAgingReports = _monthlyImportAgingReports.OrderByDescending(x => x.Average).ToList();
     }
 
-    private void GenerateVerificationAgingReport()
+    private void GenerateVerificationAgingReports()
     {
         foreach (var user in _presaleOperators)
         {
@@ -121,14 +121,14 @@ public class DashboardPageBase : ComponentBase
 
             if (agingReport is not null)
             {
-                _monthlyVerificationAgingReport.Add(agingReport);
+                _monthlyVerificationAgingReports.Add(agingReport);
             }
         }
 
-        _monthlyVerificationAgingReport = _monthlyVerificationAgingReport.OrderByDescending(x => x.Average).ToList();
+        _monthlyVerificationAgingReports = _monthlyVerificationAgingReports.OrderByDescending(x => x.Average).ToList();
     }
 
-    private void GenerateChatCallMulaiAgingReport()
+    private void GenerateChatCallMulaiAgingReports()
     {
         foreach (var user in _presaleOperators)
         {
@@ -136,10 +136,10 @@ public class DashboardPageBase : ComponentBase
 
             if (agingReport is not null)
             {
-                _monthlyChatCallMulaiAgingReport.Add(agingReport);
+                _monthlyChatCallMulaiAgingReports.Add(agingReport);
             }
         }
 
-        _monthlyChatCallMulaiAgingReport = _monthlyChatCallMulaiAgingReport.OrderByDescending(x => x.Average).ToList();
+        _monthlyChatCallMulaiAgingReports = _monthlyChatCallMulaiAgingReports.OrderByDescending(x => x.Average).ToList();
     }
 }
