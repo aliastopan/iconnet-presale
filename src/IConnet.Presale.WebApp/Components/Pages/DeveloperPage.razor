@@ -38,29 +38,29 @@
                 </tbody>
             </table>
 
-            @* <table class="table" style="width: fit-content;">
+            <table class="table" style="width: fit-content;">
                 <thead>
                     <tr>
                         <th>Username Helpdesk</th>
                         <th>AVG</th>
                         <th>MIN</th>
                         <th>MAX</th>
-                        <th>Chat/Call Mulai Total</th>
+                        <th>Validasi Mulai Total</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var report in MonthlyChatCallMulaiAgingReport)
+                    @foreach (var report in MonthlyChatCallResponsAgingReport)
                     {
                         <tr>
                             <td>@report.Username</td>
                             <td>@report.GetDisplayAverageAging()</td>
                             <td>@report.GetDisplayMinAging()</td>
                             <td>@report.GetDisplayMaxAging()</td>
-                            <td>@report.GetDisplayChatCallMulaiCount()</td>
+                            <td>@report.GetDisplayChatCallResponsCount()</td>
                         </tr>
                     }
                 </tbody>
-            </table> *@
+            </table>
             }
             else
             {

@@ -38,6 +38,9 @@ public class DeveloperPageBase : ComponentBase
     private CustomerResponseAgingReport _monthlyCustomerResponseAgingReport = default!;
     public CustomerResponseAgingReport MonthlyCustomerResponseAgingReport => _monthlyCustomerResponseAgingReport;
 
+    private List<ChatCallResponsAgingReportModel> _monthlyChatCallResponsAgingReport = [];
+    public List<ChatCallResponsAgingReportModel> MonthlyChatCallResponsAgingReport => _monthlyChatCallResponsAgingReport;
+
     protected override async Task OnInitializedAsync()
     {
         if (!_isInitialized)
@@ -51,6 +54,7 @@ public class DeveloperPageBase : ComponentBase
             var stopwatch = Stopwatch.StartNew();
 
             GenerateCustomerResponseAgingReport();
+            GenerateChatCallResponsAgingReport();
 
             stopwatch.Stop();
 
@@ -63,5 +67,20 @@ public class DeveloperPageBase : ComponentBase
     private void GenerateCustomerResponseAgingReport()
     {
         _monthlyCustomerResponseAgingReport = ReportService.GenerateCustomerResponseAgingReport(MonthlyPresaleData!);
+    }
+
+    private void GenerateChatCallResponsAgingReport()
+    {
+        foreach (var user in PresaleOperators)
+        {
+            var agingReport = ReportService.GenerateChatCallResponsAgingReport(user, MonthlyPresaleData!);
+
+            if (agingReport is not null)
+            {
+                _monthlyChatCallResponsAgingReport.Add(agingReport);
+            }
+        }
+
+        _monthlyChatCallResponsAgingReport = _monthlyChatCallResponsAgingReport.OrderByDescending(x => x.Average).ToList();
     }
 }
