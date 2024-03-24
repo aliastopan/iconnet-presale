@@ -99,25 +99,52 @@ public class ReportService
         return new ImportAgingReportModel(pacId, username, avg, min, max, importCount);
     }
 
-    public AgingReportModel GenerateAgingImportReport(IQueryable<WorkPaper> presaleData)
+    public VerificationAgingReportModel? GenerateAgingVerificationReport(PresaleOperatorModel presaleOperator, IQueryable<WorkPaper> presaleData)
     {
-        List<TimeSpan> agingReport = [];
+        if (presaleOperator.UserRole != UserRole.PAC)
+        {
+            return null;
+        }
+
+        List<TimeSpan> agingIntervals = [];
 
         foreach (var data in presaleData)
         {
-            DateTime start = data.ApprovalOpportunity.TglPermohonan;
-            DateTime end = data.ApprovalOpportunity.SignatureImport.TglAksi;
+            if (data.ApprovalOpportunity.SignatureImport.AccountIdSignature != presaleOperator.UserAccountId)
+            {
+                continue;
+            }
 
-            TimeSpan interval = _intervalCalculatorService.CalculateInterval(start, end, excludeFrozenInterval: true);
+            DateTime startDateTime = data.ApprovalOpportunity.SignatureImport.TglAksi;
+            DateTime endDateTime = data.ApprovalOpportunity.SignatureVerifikasiImport.TglAksi;
 
-            agingReport.Add(interval);
+            TimeSpan interval = _intervalCalculatorService.CalculateInterval(startDateTime, endDateTime, excludeFrozenInterval: true);
+
+            agingIntervals.Add(interval);
         }
 
-        var avg = GetAverageTimeSpan(agingReport);
-        var max = agingReport.Max();
-        var min = agingReport.Min();
+        TimeSpan avg, max, min;
 
-        return new AgingReportModel(avg, min, max);
+        if (agingIntervals.Count > 0)
+        {
+            avg = GetAverageTimeSpan(agingIntervals);
+            max = agingIntervals.Max();
+            min = agingIntervals.Min();
+        }
+        else
+        {
+            avg = TimeSpan.Zero;
+            max = TimeSpan.Zero;
+            min = TimeSpan.Zero;
+        }
+
+        int verificationCount = agingIntervals.Count;
+
+        var pacId = presaleOperator.UserAccountId;
+        var username = presaleOperator.Username;
+
+
+        return new VerificationAgingReportModel(pacId, username, avg, min, max, verificationCount);
     }
 
     private static TimeSpan GetAverageTimeSpan(List<TimeSpan> agingReport)
