@@ -19,32 +19,27 @@
         <div>
             @if (MonthlyPresaleData is not null)
             {
-            <h3>Verification Aging Report</h3>
+            <h3>Chat/Call Aging Report</h3>
 
             <table class="table" style="width: fit-content;">
                 <thead>
                     <tr>
-                        <th>Username PAC</th>
+                        <th>Username Helpdesk</th>
                         <th>AVG</th>
                         <th>MIN</th>
                         <th>MAX</th>
-                        <th>Verification Count</th>
-                        <th>Total Reject</th>
-                        <th>Total Verified</th>
-
+                        <th>Chat/Call Mulai Total</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var report in MonthlyVerificationAgingReport)
+                    @foreach (var report in MonthlyChatCallMulaiAgingReport)
                     {
                         <tr>
                             <td>@report.Username</td>
                             <td>@report.GetDisplayAverageAging()</td>
                             <td>@report.GetDisplayMinAging()</td>
                             <td>@report.GetDisplayMaxAging()</td>
-                            <td>@report.GetDisplayVerificationCount()</td>
-                            <td>@report.GetDisplayTotalReject()</td>
-                            <td>@report.GetDisplayTotalVerified()</td>
+                            <td>@report.GetDisplayChatCallMulaiCount()</td>
                         </tr>
                     }
                 </tbody>
