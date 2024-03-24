@@ -24,6 +24,7 @@ builder.Host.ConfigureServices((context, services) =>
 
     services.AddSingleton<CircuitHandler, CustomCircuitHandler>();
     services.AddSingleton<ChatTemplateManager>();
+    services.AddSingleton<IntervalCalculatorService>();
     services.AddSingleton<OptionService>();
 
     services.AddApplicationServices(ServiceScope.WEBAPP_ONLY_SERVICE);
