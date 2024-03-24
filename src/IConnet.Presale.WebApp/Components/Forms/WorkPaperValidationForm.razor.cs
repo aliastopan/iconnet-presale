@@ -74,22 +74,27 @@ public partial class WorkPaperValidationForm : ComponentBase
         IsLoading = true;
 
         var coordinateShareLoc = new Coordinate(ValidationModel!.ShareLoc);
+
+        DateTime waktuTanggalRespons = ValidationModel.GetWaktuTanggalRespons();
+        DateTime validasiTimestamp = DateTimeService.DateTimeOffsetNow.DateTime;
+
         var signatureChatCallRespons = new ActionSignature
         {
             AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
             Alias = await SessionService.GetSessionAliasAsync(),
-            TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
+            TglAksi = validasiTimestamp < waktuTanggalRespons
+                ? waktuTanggalRespons.AddSeconds(30)
+                : validasiTimestamp
         };
 
         var parameterValidasi = WorkPaper!.ProsesValidasi.ParameterValidasi.WithShareLoc(coordinateShareLoc);
         var prosesValidasi = WorkPaper.ProsesValidasi
             .WithParameterValidasi(parameterValidasi)
             .WithSignatureChatCallRespons(signatureChatCallRespons)
-            .WithWaktuTanggalRespons(ValidationModel.GetWaktuTanggalRespons())
+            .WithWaktuTanggalRespons(waktuTanggalRespons)
             .WithLinkChatHistory(ValidationModel.LinkChatHistory)
             .WithKeterangan(ValidationModel.Keterangan);
 
-        // TODO: bug need to set new signature date time
         WorkPaper.SetHelpdeskInCharge(signatureChatCallRespons);
         WorkPaper.ProsesValidasi = prosesValidasi;
         WorkPaper.WorkPaperLevel = WorkPaperLevel.WaitingApproval;
