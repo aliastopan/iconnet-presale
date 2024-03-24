@@ -66,6 +66,18 @@
                             <ImportAgingReportTable Models="@MonthlyImportAgingReport"/>
                         </Content>
                     </FluentTab>
+                    <FluentTab Id="tab-4">
+                        <Header>
+                            <FluentIcon Value="@(new Icons.Regular.Size16.Timer())" Color="@Color.Accent"/>
+                            Aging Verifikasi
+                        </Header>
+                        <Content>
+                            <div style="margin-top: 8px;">
+                                Aging PAC iCRM+ verifikasi bulan @CurrentMonth @CurrentYear
+                            </div>
+                            <VerificationAgingReportTable Models="@MonthlyVerificationAgingReport"/>
+                        </Content>
+                    </FluentTab>
                 </FluentTabs>
             }
             else

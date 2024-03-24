@@ -44,6 +44,9 @@ public class DashboardPageBase : ComponentBase
     private List<ImportAgingReportModel> _monthlyImportAgingReport = [];
     public List<ImportAgingReportModel> MonthlyImportAgingReport => _monthlyImportAgingReport;
 
+    private List<VerificationAgingReportModel> _monthlyVerificationAgingReport = [];
+    public List<VerificationAgingReportModel> MonthlyVerificationAgingReport => _monthlyVerificationAgingReport;
+
     protected override async Task OnInitializedAsync()
     {
         if (!_isInitialized)
@@ -57,6 +60,7 @@ public class DashboardPageBase : ComponentBase
             GenerateStatusApprovalReport();
             GenerateRootCauseReport();
             GenerateImportAgingReport();
+            GenerateVerificationAgingReport();
 
             _isInitialized = true;
         }
@@ -103,5 +107,20 @@ public class DashboardPageBase : ComponentBase
         }
 
         _monthlyImportAgingReport = _monthlyImportAgingReport.OrderByDescending(x => x.Average).ToList();
+    }
+
+    private void GenerateVerificationAgingReport()
+    {
+        foreach (var user in _presaleOperators)
+        {
+            var agingReport = ReportService.GenerateAgingVerificationReport(user, MonthlyPresaleData!);
+
+            if (agingReport is not null)
+            {
+                _monthlyVerificationAgingReport.Add(agingReport);
+            }
+        }
+
+        _monthlyVerificationAgingReport = _monthlyVerificationAgingReport.OrderByDescending(x => x.Average).ToList();
     }
 }
