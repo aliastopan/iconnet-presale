@@ -1,16 +1,16 @@
 
 namespace IConnet.Presale.Application.Presales.Commands;
 
-public class InsertWorkPaperCommandHandler : IRequestHandler<InsertWorkPaperCommand, Result>
+public class PushWorkPaperCommandHandler : IRequestHandler<PushWorkPaperCommand, Result>
 {
     private readonly IWorkPaperAggregateHandler _workPaperAggregateHandler;
 
-    public InsertWorkPaperCommandHandler(IWorkPaperAggregateHandler workPaperAggregateHandler)
+    public PushWorkPaperCommandHandler(IWorkPaperAggregateHandler workPaperAggregateHandler)
     {
         _workPaperAggregateHandler = workPaperAggregateHandler;
     }
 
-    public async ValueTask<Result> Handle(InsertWorkPaperCommand request,
+    public async ValueTask<Result> Handle(PushWorkPaperCommand request,
         CancellationToken cancellationToken)
     {
         bool isValid = request.TryValidate(out var errors);

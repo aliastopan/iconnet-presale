@@ -4,17 +4,17 @@ using Mapster;
 
 namespace IConnet.Presale.Api.Endpoints.Presale;
 
-public class InsertWorkPaperEndpoint : IEndpointDefinition
+public class PushWorkPaperEndpoint : IEndpointDefinition
 {
     public void DefineEndpoints(WebApplication app)
     {
-        app.MapPost(UriEndpoint.Presale.InsertWorkPaper, Insert).AllowAnonymous();
+        app.MapPost(UriEndpoint.Presale.PushWorkPaper, Insert).AllowAnonymous();
     }
 
     internal async Task<IResult> Insert([FromServices] ISender sender,
-        InsertWorkPaperRequest request, HttpContext httpContext)
+        PushWorkPaperRequest request, HttpContext httpContext)
     {
-        var command = request.Adapt<InsertWorkPaperCommand>();
+        var command = request.Adapt<PushWorkPaperCommand>();
         var result = await sender.Send(command);
 
         return result.Match(() => Results.Ok(),

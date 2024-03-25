@@ -15,7 +15,7 @@ internal sealed class WorkPaperHttpClient : HttpClientBase, IWorkPaperHttpClient
 
     }
 
-    public async Task<HttpResult> InsertWorkPaperAsync(IWorkPaperModel workPaperModel)
+    public async Task<HttpResult> PushWorkPaperAsync(IWorkPaperModel workPaperModel)
     {
         bool isResponding = await IsHostRespondingAsync();
 
@@ -27,10 +27,10 @@ internal sealed class WorkPaperHttpClient : HttpClientBase, IWorkPaperHttpClient
             };
         }
 
-        var request = workPaperModel.Adapt<InsertWorkPaperRequest>();
+        var request = workPaperModel.Adapt<PushWorkPaperRequest>();
         var jsonBody = JsonSerializer.Serialize(request);
         var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-        var requestUri = UriEndpoint.Presale.InsertWorkPaper;
+        var requestUri = UriEndpoint.Presale.PushWorkPaper;
 
         using var responseMessage = await HttpClient.PostAsync(requestUri, content);
 

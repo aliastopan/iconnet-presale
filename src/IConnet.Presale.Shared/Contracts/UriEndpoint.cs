@@ -18,7 +18,7 @@ public static class UriEndpoint
 
     public static class Presale
     {
-        public const string InsertWorkPaper = "/api/presale/insert-workpaper";
+        public const string PushWorkPaper = "/api/presale/push-workpaper";
     }
 
     public static class ChatTemplate

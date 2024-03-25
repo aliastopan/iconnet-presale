@@ -4,5 +4,5 @@ namespace IConnet.Presale.Application.Common.Interfaces.Clients.Http;
 
 public interface IWorkPaperHttpClient : IHttpClientBase
 {
-    Task<HttpResult> InsertWorkPaperAsync(IWorkPaperModel workPaperModel);
+    Task<HttpResult> PushWorkPaperAsync(IWorkPaperModel workPaperModel);
 }

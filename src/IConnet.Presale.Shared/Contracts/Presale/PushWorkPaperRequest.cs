@@ -1,11 +1,10 @@
-using System.ComponentModel.DataAnnotations;
 using IConnet.Presale.Shared.Interfaces.Models.Presales;
 
-namespace IConnet.Presale.Application.Presales.Commands;
+namespace IConnet.Presale.Shared.Contracts.Presale;
 
-public class InsertWorkPaperCommand : IWorkPaperModel, IRequest<Result>
+public record PushWorkPaperRequest : IWorkPaperModel
 {
-    public InsertWorkPaperCommand(
+    public PushWorkPaperRequest(
         Guid workPaperId,
         int workPaperLevel,
         string shift,
@@ -162,29 +161,29 @@ public class InsertWorkPaperCommand : IWorkPaperModel, IRequest<Result>
         VerifikasiImportTglAksiSignature = verifikasiImportTglAksiSignature;
     }
 
-    [Required] public Guid WorkPaperId { get; init; }
-    [Required] public int WorkPaperLevel { get; init; }
-    [Required] public string Shift { get; init; }
-    [Required] public Guid HelpdeskInChargeAccountIdSignature { get; init; }
-    [Required] public string HelpdeskInChargeAliasSignature { get; init; }
-    [Required] public DateTime HelpdeskInChargeTglAksiSignature { get; init; }
-    [Required] public Guid PlanningAssetCoverageInChargeAccountIdSignature { get; init; }
-    [Required] public string PlanningAssetCoverageInChargeAliasSignature { get; init; }
-    [Required] public DateTime PlanningAssetCoverageInChargeTglAksiSignature { get; init; }
+    public Guid WorkPaperId { get; init; }
+    public int WorkPaperLevel { get; init; }
+    public string Shift { get; init; }
+    public Guid HelpdeskInChargeAccountIdSignature { get; init; }
+    public string HelpdeskInChargeAliasSignature { get; init; }
+    public DateTime HelpdeskInChargeTglAksiSignature { get; init; }
+    public Guid PlanningAssetCoverageInChargeAccountIdSignature { get; init; }
+    public string PlanningAssetCoverageInChargeAliasSignature { get; init; }
+    public DateTime PlanningAssetCoverageInChargeTglAksiSignature { get; init; }
 
-    [Required] public Guid ChatCallMulaiAccountIdSignature { get; init; }
-    [Required] public string ChatCallMulaiAliasSignature { get; init; }
-    [Required] public DateTime ChatCallMulaiTglAksiSignature { get; init; }
-    [Required] public Guid ChatCallResponsAccountIdSignature { get; init; }
-    [Required] public string ChatCallResponsAliasSignature { get; init; }
-    [Required] public DateTime ChatCallResponsTglAksiSignature { get; init; }
+    public Guid ChatCallMulaiAccountIdSignature { get; init; }
+    public string ChatCallMulaiAliasSignature { get; init; }
+    public DateTime ChatCallMulaiTglAksiSignature { get; init; }
+    public Guid ChatCallResponsAccountIdSignature { get; init; }
+    public string ChatCallResponsAliasSignature { get; init; }
+    public DateTime ChatCallResponsTglAksiSignature { get; init; }
     public DateTime WaktuTanggalRespons { get; init; }
     public string LinkChatHistory { get; init; }
-    [Required] public int ValidasiIdPln { get; init; }
-    [Required] public int ValidasiNama { get; init; }
-    [Required] public int ValidasiNomorTelepon { get; init; }
-    [Required] public int ValidasiEmail { get; init; }
-    [Required] public int ValidasiAlamat { get; init; }
+    public int ValidasiIdPln { get; init; }
+    public int ValidasiNama { get; init; }
+    public int ValidasiNomorTelepon { get; init; }
+    public int ValidasiEmail { get; init; }
+    public int ValidasiAlamat { get; init; }
     public string ShareLocLatitude { get; init; }
     public string ShareLocLongitude { get; init; }
     public string PembetulanIdPln { get; init; }
@@ -194,9 +193,9 @@ public class InsertWorkPaperCommand : IWorkPaperModel, IRequest<Result>
     public string PembetulanAlamat { get; init; }
     public string KeteranganValidasi { get; init; }
 
-    [Required] public Guid ApprovalAccountIdSignature { get; init; }
-    [Required] public string ApprovalAliasSignature { get; init; }
-    [Required] public DateTime ApprovalTglAksiSignature { get; init; }
+    public Guid ApprovalAccountIdSignature { get; init; }
+    public string ApprovalAliasSignature { get; init; }
+    public DateTime ApprovalTglAksiSignature { get; init; }
     public int StatusApproval { get; init; }
     public string DirectApproval { get; init; }
     public string RootCause { get; init; }
@@ -206,39 +205,39 @@ public class InsertWorkPaperCommand : IWorkPaperModel, IRequest<Result>
     public string SplitterGanti { get; init; }
     public DateTime VaTerbit { get; init; }
 
-    [Required] public Guid ApprovalOpportunityId { get; init; }
-    [Required] public string IdPermohonan { get; init; }
-    [Required] public DateTime TglPermohonan { get; init; }
-    [Required] public string StatusPermohonan { get; init; }
-    [Required] public string Layanan { get; init; }
-    [Required] public string SumberPermohonan { get; init; }
+    public Guid ApprovalOpportunityId { get; init; }
+    public string IdPermohonan { get; init; }
+    public DateTime TglPermohonan { get; init; }
+    public string StatusPermohonan { get; init; }
+    public string Layanan { get; init; }
+    public string SumberPermohonan { get; init; }
     public string JenisPermohonan { get; init; }
-    [Required] public string Splitter { get; init; }
-    [Required] public string IdPlnPelanggan { get; init; }
-    [Required] public string NamaPelanggan { get; init; }
-    [Required] public string NomorTeleponPelanggan { get; init; }
-    [Required] public string EmailPelanggan { get; init; }
-    [Required] public string AlamatPelanggan { get; init; }
+    public string Splitter { get; init; }
+    public string IdPlnPelanggan { get; init; }
+    public string NamaPelanggan { get; init; }
+    public string NomorTeleponPelanggan { get; init; }
+    public string EmailPelanggan { get; init; }
+    public string AlamatPelanggan { get; init; }
     public string NikPelanggan { get; init; }
     public string NpwpPelanggan { get; init; }
     public string KeteranganPelanggan { get; init; }
-    [Required] public string NamaAgen { get; init; }
-    [Required] public string EmailAgen { get; init; }
-    [Required] public string NomorTeleponAgen { get; init; }
-    [Required] public string MitraAgen { get; init; }
-    [Required] public string Bagian { get; init; }
-    [Required] public string KantorPerwakilan { get; init; }
-    [Required] public string Provinsi { get; init; }
-    [Required] public string Kabupaten { get; init; }
-    [Required] public string Kecamatan { get; init; }
-    [Required] public string Kelurahan { get; init; }
-    [Required] public string KoordinatLatitude { get; init; }
-    [Required] public string KoordinatLongitude { get; init; }
-    [Required] public int StatusImport { get; init; }
-    [Required] public Guid ImportAccountIdSignature { get; init; }
-    [Required] public string ImportAliasSignature { get; init; }
-    [Required] public DateTime ImportTglAksiSignature { get; init; }
-    [Required] public Guid VerifikasiImportAccountIdSignature { get; init; }
-    [Required] public string VerifikasiImportAliasSignature { get; init; }
-    [Required] public DateTime VerifikasiImportTglAksiSignature { get; init; }
+    public string NamaAgen { get; init; }
+    public string EmailAgen { get; init; }
+    public string NomorTeleponAgen { get; init; }
+    public string MitraAgen { get; init; }
+    public string Bagian { get; init; }
+    public string KantorPerwakilan { get; init; }
+    public string Provinsi { get; init; }
+    public string Kabupaten { get; init; }
+    public string Kecamatan { get; init; }
+    public string Kelurahan { get; init; }
+    public string KoordinatLatitude { get; init; }
+    public string KoordinatLongitude { get; init; }
+    public int StatusImport { get; init; }
+    public Guid ImportAccountIdSignature { get; init; }
+    public string ImportAliasSignature { get; init; }
+    public DateTime ImportTglAksiSignature { get; init; }
+    public Guid VerifikasiImportAccountIdSignature { get; init; }
+    public string VerifikasiImportAliasSignature { get; init; }
+    public DateTime VerifikasiImportTglAksiSignature { get; init; }
 }

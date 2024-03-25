@@ -39,7 +39,7 @@ public class SqlPushService
         }
 
         var jsonModel = new WorkPaperFlatJsonModel(workPaper);
-        var httpResultTask = _workPaperHttpClient.InsertWorkPaperAsync(jsonModel);
+        var httpResultTask = _workPaperHttpClient.PushWorkPaperAsync(jsonModel);
 
         _sqlSynchronizationManager.EnqueueSqlPushTask(httpResultTask);
     }
