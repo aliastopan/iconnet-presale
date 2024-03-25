@@ -111,6 +111,16 @@ public sealed class SessionService
         return UserModel!.UserAccountId;
     }
 
+    public async Task<UserRole> GetUserRoleAsync()
+    {
+        if (UserModel is null)
+        {
+            await SignOutAsync();
+        }
+
+        return UserModel!.Role;
+    }
+
     public string GetShift()
     {
         var now = _dateTimeService.DateTimeOffsetNow;
