@@ -108,6 +108,7 @@ internal sealed class WorkPaperFactory
                 Keterangan = string.Empty,
                 JarakShareLoc = 0,
                 JarakICrmPlus = 0,
+                SplitterGanti = string.Empty,
                 VaTerbit = _dateTimeService.Zero
             },
             LastModified = _dateTimeService.DateTimeOffsetNow

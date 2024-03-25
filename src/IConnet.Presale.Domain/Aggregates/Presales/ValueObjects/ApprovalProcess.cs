@@ -11,13 +11,14 @@ public class ApprovalProcess : ValueObject
     }
 
     public ApprovalProcess(ApprovalStatus statusApproval, string rootCause, string keterangan,
-        int jarakShareLoc, int jarakICrmPlus, DateTime vaTerbit)
+        int jarakShareLoc, int jarakICrmPlus, string splitterGanti, DateTime vaTerbit)
     {
         StatusApproval = statusApproval;
         RootCause = rootCause;
         Keterangan = keterangan;
         JarakShareLoc = jarakShareLoc;
         JarakICrmPlus = jarakICrmPlus;
+        SplitterGanti = splitterGanti;
         VaTerbit = vaTerbit;
     }
 
