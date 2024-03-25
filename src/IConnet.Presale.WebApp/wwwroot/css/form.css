@@ -480,10 +480,13 @@
     margin-top: -26px;
 }
 
-
-.approval-label-result label.fluent-input-label,
+/* .approval-label-result label.fluent-input-label, */
 .approval-value-status div label.fluent-input-label{
     font-weight: 600 !important;
+}
+
+.approval-label-result label.fluent-input-label{
+    font-weight: 400 !important;
 }
 
 .approval-element-push{
@@ -496,10 +499,6 @@
 
 .approval-label-result{
     margin-top: -23px;
-}
-
-.approval-label-result label.fluent-input-label{
-    font-weight: 500;
 }
 
 .approval-splitter-change{
@@ -530,7 +529,7 @@
     color: #939391;
     position: absolute;
     z-index: 99;
-    margin-top: 30px;
+    margin-top: 8px;
     left: 105px;
 }
 
