@@ -4,17 +4,10 @@ namespace IConnet.Presale.Domain.Enums;
 public enum UserRole
 {
     PTL = 0,
-    // Sales,
+    Sales = 1,
     Helpdesk = 8,
     PAC = 16,
-    // Management
+    Management = 30,
     Administrator = 32,
     SuperUser = 64
 }
-
-// original value
-// PTL = 0,
-// Helpdesk = 1,
-// PAC = 2,
-// Administrator = 4,
-// SuperUser = 64
