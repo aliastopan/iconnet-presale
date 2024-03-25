@@ -23,6 +23,15 @@ public static class AccessControl
                 policy.RequireAuthenticatedUser();
                 policy.RequireClaim(JwtClaimTypes.Privileges, UserPrivilege.Administrator.ToString());
             });
+            options.AddPolicy(Policies.ManagementOrHigher, policy =>
+            {
+                policy.RequireAuthenticatedUser();
+                policy.RequireAssertion(context =>
+                {
+                    return context.User.HasClaim(c => c.Type == JwtClaimTypes.Role && c.Value == UserRole.Management.ToString())
+                        || context.User.HasClaim(c => c.Type == JwtClaimTypes.Privileges && c.Value == UserPrivilege.Administrator.ToString());
+                });
+            });
             options.AddPolicy(Policies.RoleHelpdesk, policy =>
             {
                 policy.RequireAuthenticatedUser();
