@@ -14,7 +14,7 @@
                 IconColor="Color.Accent">
                 @PageNavName.Home</FluentNavLink>
 
-            <AuthorizeView Policy="@Policies.AdministratorPrivilege">
+            <AuthorizeView Policy="@Policies.ManagementOrHigher">
                 <FluentNavLink Href="@PageRoute.Dashboard"
                     Icon="@(new Icons.Filled.Size20.DataHistogram())"
                     IconColor="Color.Accent">

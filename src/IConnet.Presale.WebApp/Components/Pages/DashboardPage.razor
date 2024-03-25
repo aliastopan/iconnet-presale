@@ -4,7 +4,7 @@
 
 <PageTitle>Dashboard</PageTitle>
 
-<AuthorizeView Policy="@Policies.AdministratorPrivilege"
+<AuthorizeView Policy="@Policies.ManagementOrHigher"
     Context="AuthenticationContext">
 
     <Authorized>
