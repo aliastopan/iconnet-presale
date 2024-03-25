@@ -42,4 +42,17 @@ public class WorkPaper : IAggregateRoot, IConcurrencyTracking
     {
         ApprovalOpportunity.Splitter = splitter;
     }
+
+    public void UpdateWith(WorkPaper other)
+    {
+        ArgumentNullException.ThrowIfNull(other, nameof(other));
+
+        WorkPaperLevel = other.WorkPaperLevel;
+        Shift = other.Shift;
+        SignatureHelpdeskInCharge = other.SignatureHelpdeskInCharge;
+        SignaturePlanningAssetCoverageInCharge = other.SignaturePlanningAssetCoverageInCharge;
+        ProsesValidasi = other.ProsesValidasi;
+        ProsesApproval = other.ProsesApproval;
+        LastModified = other.LastModified;
+    }
 }
