@@ -40,6 +40,7 @@ public class InsertWorkPaperCommand : IWorkPaperModel, IRequest<Result>
         string approvalAliasSignature,
         DateTime approvalTglAksiSignature,
         int statusApproval,
+        string directApproval,
         string rootCause,
         string keteranganApproval,
         int jarakShareLoc,
@@ -117,6 +118,7 @@ public class InsertWorkPaperCommand : IWorkPaperModel, IRequest<Result>
         ApprovalAliasSignature = approvalAliasSignature;
         ApprovalTglAksiSignature = approvalTglAksiSignature;
         StatusApproval = statusApproval;
+        DirectApproval = directApproval;
         RootCause = rootCause;
         KeteranganApproval = keteranganApproval;
         JarakShareLoc = jarakShareLoc;
@@ -196,6 +198,7 @@ public class InsertWorkPaperCommand : IWorkPaperModel, IRequest<Result>
     [Required] public string ApprovalAliasSignature { get; init; }
     [Required] public DateTime ApprovalTglAksiSignature { get; init; }
     public int StatusApproval { get; init; }
+    public string DirectApproval { get; init; }
     public string RootCause { get; init; }
     public string KeteranganApproval { get; init; }
     public int JarakShareLoc { get; init; }

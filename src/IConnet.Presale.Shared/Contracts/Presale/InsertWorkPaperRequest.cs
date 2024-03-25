@@ -39,6 +39,7 @@ public record InsertWorkPaperRequest : IWorkPaperModel
         string approvalAliasSignature,
         DateTime approvalTglAksiSignature,
         int statusApproval,
+        string directApproval,
         string rootCause,
         string keteranganApproval,
         int jarakShareLoc,
@@ -116,6 +117,7 @@ public record InsertWorkPaperRequest : IWorkPaperModel
         ApprovalAliasSignature = approvalAliasSignature;
         ApprovalTglAksiSignature = approvalTglAksiSignature;
         StatusApproval = statusApproval;
+        DirectApproval = directApproval;
         RootCause = rootCause;
         KeteranganApproval = keteranganApproval;
         JarakShareLoc = jarakShareLoc;
@@ -195,6 +197,7 @@ public record InsertWorkPaperRequest : IWorkPaperModel
     public string ApprovalAliasSignature { get; init; }
     public DateTime ApprovalTglAksiSignature { get; init; }
     public int StatusApproval { get; init; }
+    public string DirectApproval { get; init; }
     public string RootCause { get; init; }
     public string KeteranganApproval { get; init; }
     public int JarakShareLoc { get; init; }

@@ -40,6 +40,7 @@ public interface IWorkPaperModel
     string ApprovalAliasSignature { get; }
     DateTime ApprovalTglAksiSignature { get; }
     int StatusApproval { get; }
+    string DirectApproval { get; }
     string RootCause { get; }
     string KeteranganApproval { get; }
     int JarakShareLoc { get; }

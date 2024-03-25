@@ -40,6 +40,7 @@ public class WorkPaperFlatJsonModel : IWorkPaperModel
         ApprovalAliasSignature = workPaper.ProsesApproval.SignatureApproval.Alias;
         ApprovalTglAksiSignature = workPaper.ProsesApproval.SignatureApproval.TglAksi;
         StatusApproval = (int)workPaper.ProsesApproval.StatusApproval;
+        DirectApproval = workPaper.ProsesApproval.DirectApproval;
         RootCause = workPaper.ProsesApproval.RootCause;
         KeteranganApproval = workPaper.ProsesApproval.Keterangan;
         JarakShareLoc = workPaper.ProsesApproval.JarakShareLoc;
@@ -121,6 +122,7 @@ public class WorkPaperFlatJsonModel : IWorkPaperModel
     public string ApprovalAliasSignature { get; init; }
     public DateTime ApprovalTglAksiSignature { get; init; }
     public int StatusApproval { get; init; }
+    public string DirectApproval { get; init; }
     public string RootCause { get; init; }
     public string KeteranganApproval { get; init; }
     public int JarakShareLoc { get; init; }

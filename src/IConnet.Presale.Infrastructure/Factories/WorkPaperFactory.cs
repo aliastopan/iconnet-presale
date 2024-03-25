@@ -175,6 +175,7 @@ internal sealed class WorkPaperFactory
                     TglAksi = model.ApprovalTglAksiSignature
                 },
                 StatusApproval = (ApprovalStatus)model.StatusApproval,
+                DirectApproval = model.DirectApproval,
                 RootCause = model.RootCause,
                 Keterangan = model.KeteranganApproval,
                 JarakShareLoc = model.JarakShareLoc,
