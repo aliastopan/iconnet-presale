@@ -1,3 +1,8 @@
 .fluent-timepicker {
     min-width: 100px !important;
 }
+
+fluent-button.accent:active::part(control),
+fluent-button.accent:hover::part(control){
+    color: #ffffff;
+}
