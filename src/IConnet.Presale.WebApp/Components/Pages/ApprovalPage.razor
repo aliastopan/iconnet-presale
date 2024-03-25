@@ -23,10 +23,6 @@
                 OnFilter="@(this.StateHasChanged)"/>
         </div>
 
-        <FluentCheckbox class="scroll-mode-checkbox"
-            @bind-Value="@IsScrollModeDataGrid"
-            Label="Scroll Mode" />
-
         <div class="datagrid-wrapper">
             @if (WorkPapers is not null)
             {
@@ -197,7 +193,12 @@
                     <span style="margin-right: 8px;">
                         Terdapat <strong>@(Pagination.TotalItemCount ?? 0)</strong> baris
                     </span>
-                    <span style="margin-left: auto; margin-right: 10px;">
+                    <span style="margin-left: auto;">
+                        <FluentCheckbox class=""
+                            @bind-Value="@IsFullscreenDataGrid"
+                            Label="Fullscreen" />
+                    </span>
+                    <span style="margin-right: 10px;">
                         <FluentSelect Items="@OptionSelect.Pagination.ItemsPerPageOptions"
                             Value="@PaginationItemsPerPageOptions"
                             ValueChanged="OnItemsPerPageChanged"

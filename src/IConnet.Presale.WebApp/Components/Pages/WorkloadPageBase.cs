@@ -22,7 +22,7 @@ public class WorkloadPageBase : ComponentBase
 
     protected FilterForm FilterComponent { get; set; } = default!;
     protected string FilterSectionCss => SessionService.FilterPreference.ShowFilters ? "enable" : "filter-section-disable";
-    protected bool IsScrollModeDataGrid { get; set; } = true;
+    protected bool IsFullscreenDataGrid { get; set; } = false;
     protected string PaginationItemsPerPageOptions { get; set ;} = default!;
     protected PaginationState Pagination => _pagination;
     protected WorkloadColumnWidth ColumnWidth => _columnWidth;
@@ -106,7 +106,7 @@ public class WorkloadPageBase : ComponentBase
 
     protected string GetPaginationStyle()
     {
-        if (_pagination.ItemsPerPage <= 10 || IsScrollModeDataGrid)
+        if (_pagination.ItemsPerPage <= 10 || !IsFullscreenDataGrid)
         {
             return "max-height: 364px !important";
         }
