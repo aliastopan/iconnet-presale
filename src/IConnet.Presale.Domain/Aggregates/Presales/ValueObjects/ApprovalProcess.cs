@@ -10,10 +10,11 @@ public class ApprovalProcess : ValueObject
 
     }
 
-    public ApprovalProcess(ApprovalStatus statusApproval, string rootCause, string keterangan,
+    public ApprovalProcess(ApprovalStatus statusApproval, string directApproval, string rootCause, string keterangan,
         int jarakShareLoc, int jarakICrmPlus, string splitterGanti, DateTime vaTerbit)
     {
         StatusApproval = statusApproval;
+        DirectApproval = directApproval;
         RootCause = rootCause;
         Keterangan = keterangan;
         JarakShareLoc = jarakShareLoc;
@@ -24,6 +25,7 @@ public class ApprovalProcess : ValueObject
 
     public ActionSignature SignatureApproval { get; init;} = new();
     public ApprovalStatus StatusApproval { get; init; } = default;
+    public string DirectApproval { get; init; } = string.Empty;
     public string RootCause { get; init; } = string.Empty;
     public string Keterangan { get; init; } = string.Empty;
     public int JarakShareLoc { get; init; }
@@ -50,6 +52,7 @@ public class ApprovalProcess : ValueObject
         {
             SignatureApproval = signatureApproval,
             StatusApproval = this.StatusApproval,
+            DirectApproval = this.DirectApproval,
             RootCause = this.RootCause,
             Keterangan = this.Keterangan,
             JarakShareLoc = this.JarakShareLoc,
@@ -65,6 +68,23 @@ public class ApprovalProcess : ValueObject
         {
             SignatureApproval = this.SignatureApproval,
             StatusApproval = approvalStatus,
+            DirectApproval = this.DirectApproval,
+            RootCause = this.RootCause,
+            Keterangan = this.Keterangan,
+            JarakShareLoc = this.JarakShareLoc,
+            JarakICrmPlus = this.JarakICrmPlus,
+            SplitterGanti = this.SplitterGanti,
+            VaTerbit = this.VaTerbit
+        };
+    }
+
+    public ApprovalProcess WithDirectApproval(string directApproval)
+    {
+        return new ApprovalProcess
+        {
+            SignatureApproval = this.SignatureApproval,
+            StatusApproval = this.StatusApproval,
+            DirectApproval = directApproval,
             RootCause = this.RootCause,
             Keterangan = this.Keterangan,
             JarakShareLoc = this.JarakShareLoc,
@@ -80,6 +100,7 @@ public class ApprovalProcess : ValueObject
         {
             SignatureApproval = this.SignatureApproval,
             StatusApproval = this.StatusApproval,
+            DirectApproval = this.DirectApproval,
             RootCause = rootCause,
             Keterangan = this.Keterangan,
             JarakShareLoc = this.JarakShareLoc,
@@ -95,6 +116,7 @@ public class ApprovalProcess : ValueObject
         {
             SignatureApproval = this.SignatureApproval,
             StatusApproval = this.StatusApproval,
+            DirectApproval = this.DirectApproval,
             RootCause = this.RootCause,
             Keterangan = keterangan,
             JarakShareLoc = this.JarakShareLoc,
@@ -110,6 +132,7 @@ public class ApprovalProcess : ValueObject
         {
             SignatureApproval = this.SignatureApproval,
             StatusApproval = this.StatusApproval,
+            DirectApproval = this.DirectApproval,
             RootCause = this.RootCause,
             Keterangan = this.Keterangan,
             JarakShareLoc = jarakShareLoc,
@@ -125,6 +148,7 @@ public class ApprovalProcess : ValueObject
         {
             SignatureApproval = this.SignatureApproval,
             StatusApproval = this.StatusApproval,
+            DirectApproval = this.DirectApproval,
             RootCause = this.RootCause,
             Keterangan = this.Keterangan,
             JarakShareLoc = this.JarakShareLoc,
@@ -140,6 +164,7 @@ public class ApprovalProcess : ValueObject
         {
             SignatureApproval = this.SignatureApproval,
             StatusApproval = this.StatusApproval,
+            DirectApproval = this.DirectApproval,
             RootCause = this.RootCause,
             Keterangan = this.Keterangan,
             JarakShareLoc = this.JarakShareLoc,
@@ -155,6 +180,7 @@ public class ApprovalProcess : ValueObject
         {
             SignatureApproval = this.SignatureApproval,
             StatusApproval = this.StatusApproval,
+            DirectApproval = this.DirectApproval,
             RootCause = this.RootCause,
             Keterangan = this.Keterangan,
             JarakShareLoc = this.JarakShareLoc,
@@ -168,6 +194,7 @@ public class ApprovalProcess : ValueObject
     {
         yield return SignatureApproval;
         yield return StatusApproval;
+        yield return DirectApproval;
         yield return RootCause;
         yield return Keterangan;
         yield return JarakShareLoc;

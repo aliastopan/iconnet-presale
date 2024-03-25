@@ -104,6 +104,7 @@ internal sealed class WorkPaperFactory
             {
                 SignatureApproval = ActionSignature.Empty(),
                 StatusApproval = ApprovalStatus.InProgress,
+                DirectApproval = string.Empty,
                 RootCause = string.Empty,
                 Keterangan = string.Empty,
                 JarakShareLoc = 0,

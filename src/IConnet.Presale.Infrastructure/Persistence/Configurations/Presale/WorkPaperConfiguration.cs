@@ -226,6 +226,10 @@ internal sealed class WorkPaperConfiguration : IEntityTypeConfiguration<WorkPape
                     .HasColumnName("approval_status")
                     .IsRequired();
 
+                prosesApproval.Property(pa => pa.DirectApproval)
+                    .HasColumnName("direct_approval")
+                    .HasMaxLength(32);
+
                 prosesApproval.Property(pa => pa.RootCause)
                     .HasColumnName("root_cause")
                     .HasMaxLength(64);
