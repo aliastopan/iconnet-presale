@@ -15,28 +15,31 @@ internal sealed class WorkPaperAggregateHandler : IWorkPaperAggregateHandler
         _workPaperFactory = workPaperFactory;
     }
 
-    public async Task<Result> TryInsertWorkPaperAsync(IWorkPaperModel workPaperModel)
+    public async Task<Result> TryInsertOrUpdateWorkPaperAsync(IWorkPaperModel workPaperModel)
     {
         try
         {
             using var dbContext = _dbContextFactory.CreateDbContext();
 
-            var duplicate = await dbContext.FindApprovalOpportunityAsync(workPaperModel.IdPermohonan);
+            WorkPaper? existingWorkPaper = await dbContext.FindWorkPaperAsync(workPaperModel.IdPermohonan);
+            WorkPaper workPaper = _workPaperFactory.TransformWorkPaperFromModel(workPaperModel);
 
-            if (duplicate is not null)
+            if (existingWorkPaper is not null)
             {
-                var error = new Error($"Duplicate {workPaperModel.IdPermohonan}", ErrorSeverity.Warning);
+                existingWorkPaper.UpdateWith(workPaper);
 
-                return Result.Error(error);
+                dbContext.WorkPapers.Update(existingWorkPaper);
+                await dbContext.SaveChangesAsync();
+
+                return Result.Ok();
             }
+            else
+            {
+                dbContext.WorkPapers.Add(workPaper);
+                await dbContext.SaveChangesAsync();
 
-            var workPaper = _workPaperFactory.TransformWorkPaperFromModel(workPaperModel);
-
-            dbContext.WorkPapers.Add(workPaper);
-            await dbContext.SaveChangesAsync();
-
-            return Result.Ok();
-
+                return Result.Ok();
+            }
         }
         catch (Exception exception)
         {

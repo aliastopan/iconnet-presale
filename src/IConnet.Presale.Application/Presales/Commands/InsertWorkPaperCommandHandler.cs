@@ -20,11 +20,11 @@ public class InsertWorkPaperCommandHandler : IRequestHandler<InsertWorkPaperComm
             return Result.Invalid(errors);
         }
 
-        Result tryInsertWorkPaper = await _workPaperAggregateHandler.TryInsertWorkPaperAsync(request);
+        Result tryInsertOrUpdateWorkPaper = await _workPaperAggregateHandler.TryInsertOrUpdateWorkPaperAsync(request);
 
-        if (tryInsertWorkPaper.IsFailure())
+        if (tryInsertOrUpdateWorkPaper.IsFailure())
         {
-            return Result.Inherit(result: tryInsertWorkPaper);
+            return Result.Inherit(result: tryInsertOrUpdateWorkPaper);
         }
 
         return Result.Ok();
