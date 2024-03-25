@@ -76,17 +76,14 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
         }
     }
 
-    public async Task<bool> DeleteValueAsync(string key)
+    async Task<bool> IInProgressPersistenceService.DeleteValueAsync(string key)
     {
-        try
-        {
-            return await DatabaseProgress.KeyDeleteAsync(key);
-        }
-        catch (TimeoutException exception)
-        {
-            Log.Fatal($"Redis operation timed out: {exception.Message}");
-            throw;
-        }
+        return await DeleteValueAsync(key, DatabaseProgress);
+    }
+
+    async Task<bool> IDoneProcessingPersistenceService.DeleteValueAsync(string key)
+    {
+        return await DeleteValueAsync(key, DatabaseArchive);
     }
 
     async Task<bool> IInProgressPersistenceService.IsKeyExistsAsync(string key)
@@ -150,6 +147,19 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
             }
 
             return values;
+        }
+        catch (TimeoutException exception)
+        {
+            Log.Fatal($"Redis operation timed out: {exception.Message}");
+            throw;
+        }
+    }
+
+    private static async Task<bool> DeleteValueAsync(string key, IDatabase database)
+    {
+        try
+        {
+            return await database.KeyDeleteAsync(key);
         }
         catch (TimeoutException exception)
         {
