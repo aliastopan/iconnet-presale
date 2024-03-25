@@ -4,8 +4,9 @@ using IConnet.Presale.WebApp.Models.Presales.Reports;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
 
-public class DashboardPageBase : ComponentBase
+public class DashboardPageBase : ComponentBase, IPageNavigation
 {
+    [Inject] protected TabNavigationManager TabNavigationManager { get; set; } = default!;
     [Inject] protected IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] protected IDashboardManager DashboardManager { get; set; } = default!;
     [Inject] protected IIdentityHttpClient IdentityHttpClient { get; set; } = default!;
@@ -55,6 +56,16 @@ public class DashboardPageBase : ComponentBase
 
     private List<ApprovalAgingReportModel> _monthlyApprovalAgingReportModels = [];
     public List<ApprovalAgingReportModel> MonthlyApprovalAgingReportModels => _monthlyApprovalAgingReportModels;
+
+    public TabNavigationModel PageDeclaration()
+    {
+        return new TabNavigationModel("dashboard", PageNavName.Dashboard, PageRoute.Dashboard);
+    }
+
+    protected override void OnInitialized()
+    {
+        TabNavigationManager.SelectTab(this);
+    }
 
     protected override async Task OnInitializedAsync()
     {
