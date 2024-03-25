@@ -219,6 +219,14 @@ internal sealed class IdentityAggregateHandler : IIdentityAggregateHandler
     {
         switch (userAccount.User.UserRole)
         {
+            case UserRole.SuperUser:
+                userAccount.User = userAccount.User.AddPrivilege(new List<UserPrivilege>
+                {
+                    UserPrivilege.Viewer,
+                    UserPrivilege.Editor,
+                    UserPrivilege.Administrator
+                });
+                break;
             case UserRole.Administrator:
                 userAccount.User = userAccount.User.AddPrivilege(new List<UserPrivilege>
                 {
@@ -227,7 +235,33 @@ internal sealed class IdentityAggregateHandler : IIdentityAggregateHandler
                     UserPrivilege.Administrator
                 });
                 break;
+            case UserRole.Management:
+                userAccount.User = userAccount.User.AddPrivilege(new List<UserPrivilege>
+                {
+                    UserPrivilege.Viewer,
+                });
+                break;
+            case UserRole.PAC:
+                userAccount.User = userAccount.User.AddPrivilege(new List<UserPrivilege>
+                {
+                    UserPrivilege.Viewer,
+                    UserPrivilege.Editor,
+                });
+                break;
+            case UserRole.Helpdesk:
+                userAccount.User = userAccount.User.AddPrivilege(new List<UserPrivilege>
+                {
+                    UserPrivilege.Viewer,
+                    UserPrivilege.Editor,
+                });
+                break;
             case UserRole.PTL:
+                userAccount.User = userAccount.User.AddPrivilege(new List<UserPrivilege>
+                {
+                    UserPrivilege.Viewer,
+                });
+                break;
+            case UserRole.Sales:
                 userAccount.User = userAccount.User.AddPrivilege(new List<UserPrivilege>
                 {
                     UserPrivilege.Viewer,
@@ -237,7 +271,6 @@ internal sealed class IdentityAggregateHandler : IIdentityAggregateHandler
                 userAccount.User = userAccount.User.AddPrivilege(new List<UserPrivilege>
                 {
                     UserPrivilege.Viewer,
-                    UserPrivilege.Editor
                 });
                 break;
         }
