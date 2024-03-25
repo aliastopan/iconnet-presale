@@ -18,6 +18,7 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
 
     protected ImportModelColumnWidth ColumnWidth => _columnWidth;
     protected bool IsFullscreenDataGrid { get; set; } = false;
+    protected bool EnableFullscreenToggle => _pagination.ItemsPerPage <= 10;
     protected string PaginationItemsPerPageOptions { get; set ;} = default!;
     protected PaginationState Pagination => _pagination;
     protected HashSet<string> DuplicateIds => _duplicateIds;
