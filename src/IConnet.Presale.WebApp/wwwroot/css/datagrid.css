@@ -129,6 +129,10 @@ fluent-data-grid-cell.column-header:last-child{
     padding: 10px 8px;
 }
 
+.enable-selection-checkbox{
+    padding: 10px 8px;
+}
+
 .datagrid-wrapper{
     overflow-x: auto;
     overflow-y: auto;

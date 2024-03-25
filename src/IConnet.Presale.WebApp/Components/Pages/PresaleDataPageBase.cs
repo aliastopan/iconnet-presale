@@ -4,6 +4,10 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
 {
     private bool _isInitialized = false;
 
+    protected UserRole UserRole { get; private set; }
+    protected bool EnableSelection { get; set; }
+    protected bool AllowSelection => (UserRole == UserRole.PAC) | (UserRole == UserRole.Administrator);
+
     protected string GridTemplateCols => GetGridTemplateCols();
     protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
 
@@ -18,14 +22,14 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
         PresaleDataFilter = PresaleDataFilter.OnlyDoneProcessing;
 
         TabNavigationManager.SelectTab(this);
-
-        base.OnInitialized();
     }
 
     protected override async Task OnInitializedAsync()
     {
         if (!_isInitialized)
         {
+            UserRole = await SessionService.GetUserRoleAsync();
+
             // hack to prevent empty WorkPapers on initialized
             this.SetWorkPapers(await WorkloadManager
                 .GetWorkloadAsync(PresaleDataFilter));

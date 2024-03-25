@@ -31,9 +31,18 @@
         IncludeApprovalStatus="true"/>
 </div>
 
-<FluentCheckbox class="scroll-mode-checkbox"
-    @bind-Value="@IsScrollModeDataGrid"
-    Label="Scroll Mode" />
+<div class="d-flex flex-row">
+    <FluentCheckbox class="scroll-mode-checkbox"
+        @bind-Value="@IsScrollModeDataGrid"
+        Label="Scroll Mode" />
+
+    @if (AllowSelection)
+    {
+        <FluentCheckbox class="enable-selection-checkbox"
+            @bind-Value="@EnableSelection"
+            Label="Enable Select" />
+    }
+</div>
 
 <div class="datagrid-wrapper" style="@GetPaginationStyle()">
     @if (WorkPapers is not null)
