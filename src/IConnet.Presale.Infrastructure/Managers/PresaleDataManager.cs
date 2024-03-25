@@ -167,6 +167,23 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase,
         await Task.CompletedTask;
     }
 
+    public async Task ReinstateWorkloadAsync(WorkPaper workPaper)
+    {
+        var key = workPaper.ApprovalOpportunity.IdPermohonan;
+        var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
+
+        Task[] tasks =
+        [
+            _inProgressPersistenceService.DeleteValueAsync(key),
+            _doneProcessingPersistenceService.DeleteValueAsync(key)
+        ];
+
+        await Task.WhenAll(tasks);
+
+        await _inProgressPersistenceService.SetValueAsync(key, jsonWorkPaper);
+        _inMemoryPersistenceService.InsertInProgress(workPaper);
+    }
+
     public async Task<WorkPaper?> SearchWorkPaperAsync(string idPermohonan)
     {
         var workPaper = _inMemoryPersistenceService.Get(idPermohonan);

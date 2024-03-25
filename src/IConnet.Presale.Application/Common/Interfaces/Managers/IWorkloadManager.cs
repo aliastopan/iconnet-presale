@@ -9,6 +9,7 @@ public interface IWorkloadManager
     Task<IQueryable<WorkPaper>> GetWorkloadAsync(PresaleDataFilter filter = PresaleDataFilter.All);
     Task UpdateWorkloadAsync(WorkPaper workPaper);
     Task DeleteWorkloadAsync(WorkPaper workPaper);
+    Task ReinstateWorkloadAsync(WorkPaper workPaper);
 
     Task<WorkPaper?> SearchWorkPaperAsync(string idPermohonan);
     Task<IQueryable<WorkPaper>> GetArchivedWorkloadAsync(DateTime dateTimeMin, DateTime dateTimeMax);
