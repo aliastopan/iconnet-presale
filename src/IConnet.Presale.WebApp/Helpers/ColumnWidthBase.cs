@@ -6,7 +6,7 @@ public abstract class ColumnWidthBase<T>
 {
     private readonly static int _charWidth = 8;         //px
     private readonly static int _padding = 16;          //px
-    private readonly static int _defaultWidth = 200;    //px
+    private readonly static int _defaultWidth = 225;    //px
 
     public static int DefaultWidth => _defaultWidth;
     public int OffsetPx => 32;
