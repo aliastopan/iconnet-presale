@@ -9,6 +9,8 @@
 - Update: Add DataGrid loading indicators
 - Add: Reopen Presale data
 - Add: Reopen indicator icon on Verification page
+- Add: User role `Sales`
+- Add: User role `Management`
 
 ## v1.6.1
 - Add: Dashboard system
