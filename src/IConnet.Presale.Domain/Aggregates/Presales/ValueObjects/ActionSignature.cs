@@ -6,7 +6,9 @@ public class ActionSignature : ValueObject
 {
     public ActionSignature()
     {
-
+        AccountIdSignature = Guid.Empty;
+        Alias = "N/A";
+        TglAksi = DateTime.MinValue;
     }
 
     public ActionSignature(Guid accountIdSignature, string alias, DateTime tglAksi)
