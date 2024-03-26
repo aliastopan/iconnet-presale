@@ -25,9 +25,9 @@
     -o-border-radius: 3px;
 }
 
-.workpaper-import-archived{
+.workpaper-reinstated{
     font-weight: 600;
-    background-color: var(--info-grey);
+    background-color: var(--pending-cyan);
     text-align: center;
     color: white;
     padding: 0 10px;

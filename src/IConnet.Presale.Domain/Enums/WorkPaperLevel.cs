@@ -5,7 +5,7 @@ public enum WorkPaperLevel
 {
     ImportUnverified = 1,
     ImportInvalid = 2,
-    ImportArchived = 4,
+    Reinstated = 4,
     ImportVerified = 8,
     Validating = 16,
     WaitingApproval = 32,

@@ -61,7 +61,7 @@ public class WorkPaper : IAggregateRoot, IConcurrencyTracking
         return new WorkPaper
         {
             WorkPaperId = this.WorkPaperId,
-            WorkPaperLevel = WorkPaperLevel.ImportArchived,
+            WorkPaperLevel = WorkPaperLevel.Reinstated,
             Shift = string.Empty,
             SignatureHelpdeskInCharge = ActionSignature.Empty(),
             SignaturePlanningAssetCoverageInCharge = ActionSignature.Empty(),

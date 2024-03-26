@@ -133,7 +133,7 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
 
     private async Task ArchiveCrmAsync()
     {
-        Content.WorkPaperLevel = WorkPaperLevel.ImportArchived;
+        Content.WorkPaperLevel = WorkPaperLevel.Reinstated;
         Content.ApprovalOpportunity.StatusImport = ImportStatus.Invalid;
         Content.ApprovalOpportunity.SignatureVerifikasiImport = new ActionSignature
         {

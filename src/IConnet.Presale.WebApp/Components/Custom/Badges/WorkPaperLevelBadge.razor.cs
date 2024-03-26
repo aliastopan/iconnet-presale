@@ -13,8 +13,8 @@ public partial class WorkPaperLevelBadge : ComponentBase
                 return "workpaper-import-unverified";
             case WorkPaperLevel.ImportInvalid:
                 return "workpaper-import-invalid";
-            case WorkPaperLevel.ImportArchived:
-                return "workpaper-import-archived";
+            case WorkPaperLevel.Reinstated:
+                return "workpaper-reinstated";
             case WorkPaperLevel.ImportVerified:
                 return "workpaper-import-verified";
             case WorkPaperLevel.Validating:
@@ -46,8 +46,8 @@ public partial class WorkPaperLevelBadge : ComponentBase
                 return "Menunggu Verifikasi";
             case WorkPaperLevel.ImportInvalid:
                 return "Invalid";
-            case WorkPaperLevel.ImportArchived:
-                return "Archived";
+            case WorkPaperLevel.Reinstated:
+                return "Dibuka Ulang";
             case WorkPaperLevel.ImportVerified:
                 return "Menunggu Validasi";
             case WorkPaperLevel.Validating:

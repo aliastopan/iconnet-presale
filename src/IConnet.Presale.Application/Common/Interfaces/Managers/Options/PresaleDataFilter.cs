@@ -5,7 +5,7 @@ public enum PresaleDataFilter
     All,
     OnlyImportUnverified,
     OnlyImportInvalid,
-    OnlyImportArchived,
+    OnlyReinstated,
     OnlyImportVerified,
     OnlyValidating,
     OnlyWaitingApproval,

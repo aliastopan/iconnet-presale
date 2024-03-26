@@ -27,9 +27,9 @@ internal class PresaleDataOperationBase
     {
         return filter switch
         {
-            PresaleDataFilter.OnlyImportUnverified => FilterOnly(WorkPaperLevel.ImportUnverified),
+            PresaleDataFilter.OnlyImportUnverified => FilterOnly(WorkPaperLevel.ImportUnverified, WorkPaperLevel.Reinstated),
             PresaleDataFilter.OnlyImportInvalid => FilterOnly(WorkPaperLevel.ImportInvalid),
-            PresaleDataFilter.OnlyImportArchived => FilterOnly(WorkPaperLevel.ImportArchived),
+            PresaleDataFilter.OnlyReinstated => FilterOnly(WorkPaperLevel.Reinstated),
             PresaleDataFilter.OnlyImportVerified => FilterOnly(WorkPaperLevel.ImportVerified),
             PresaleDataFilter.OnlyValidating => FilterOnly(WorkPaperLevel.ImportVerified, WorkPaperLevel.Validating),
             PresaleDataFilter.OnlyWaitingApproval => FilterOnly(WorkPaperLevel.WaitingApproval),
