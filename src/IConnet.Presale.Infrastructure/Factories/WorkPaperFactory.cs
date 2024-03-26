@@ -98,6 +98,14 @@ internal sealed class WorkPaperFactory
                     ValidasiAlamat = ValidationStatus.MenungguValidasi,
                     ShareLoc = new Coordinate()
                 },
+                PembetulanValidasi = new ValidationCorrection
+                {
+                    PembetulanIdPln = string.Empty,
+                    PembetulanNama = string.Empty,
+                    PembetulanNomorTelepon = string.Empty,
+                    PembetulanEmail  = string.Empty,
+                    PembetulanAlamat = string.Empty,
+                },
                 Keterangan = string.Empty
             },
             ProsesApproval = new ApprovalProcess
@@ -163,6 +171,14 @@ internal sealed class WorkPaperFactory
                         Latitude = model.ShareLocLatitude,
                         Longitude = model.ShareLocLongitude
                     }
+                },
+                PembetulanValidasi = new ValidationCorrection
+                {
+                    PembetulanIdPln = model.PembetulanIdPln,
+                    PembetulanNama = model.PembetulanNama,
+                    PembetulanNomorTelepon = model.PembetulanNomorTelepon,
+                    PembetulanEmail  = model.PembetulanEmail,
+                    PembetulanAlamat = model.PembetulanAlamat,
                 },
                 Keterangan = model.KeteranganValidasi
             },
