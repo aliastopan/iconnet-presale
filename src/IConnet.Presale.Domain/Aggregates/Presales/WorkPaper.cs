@@ -55,4 +55,20 @@ public class WorkPaper : IAggregateRoot, IConcurrencyTracking
         ProsesApproval = other.ProsesApproval;
         LastModified = other.LastModified;
     }
+
+    public WorkPaper ResetPresaleData()
+    {
+        return new WorkPaper
+        {
+            WorkPaperId = this.WorkPaperId,
+            WorkPaperLevel = WorkPaperLevel.ImportArchived,
+            Shift = string.Empty,
+            SignatureHelpdeskInCharge = ActionSignature.Empty(),
+            SignaturePlanningAssetCoverageInCharge = ActionSignature.Empty(),
+            ProsesValidasi = new ValidationProcess(),
+            ProsesApproval = new ApprovalProcess(),
+            FkApprovalOpportunityId = this.FkApprovalOpportunityId,
+            ApprovalOpportunity = this.ApprovalOpportunity
+        };
+    }
 }
