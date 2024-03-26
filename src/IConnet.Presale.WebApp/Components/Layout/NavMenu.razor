@@ -14,12 +14,10 @@
                 IconColor="Color.Accent">
                 @PageNavName.Home</FluentNavLink>
 
-            <AuthorizeView Policy="@Policies.ManagementOrHigher">
-                <FluentNavLink Href="@PageRoute.Dashboard"
-                    Icon="@(new Icons.Filled.Size20.DataHistogram())"
-                    IconColor="Color.Accent">
-                    @PageNavName.Dashboard</FluentNavLink>
-            </AuthorizeView>
+            <FluentNavLink Href="@PageRoute.Dashboard"
+                Icon="@(new Icons.Filled.Size20.DataHistogram())"
+                IconColor="Color.Accent">
+                @PageNavName.Dashboard</FluentNavLink>
 
             <AuthorizeView Policy="@Policies.RolePlanningAssetCoverage">
                 <FluentNavLink Href="@PageRoute.CrmImport"
