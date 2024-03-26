@@ -56,8 +56,11 @@ public class WorkPaper : IAggregateRoot, IConcurrencyTracking
         LastModified = other.LastModified;
     }
 
-    public WorkPaper ResetPresaleData()
+    public WorkPaper ResetPresaleData(ActionSignature resetSignature)
     {
+        this.ApprovalOpportunity.SignatureImport = resetSignature;
+        this.ApprovalOpportunity.SignatureVerifikasiImport = ActionSignature.Empty();
+
         return new WorkPaper
         {
             WorkPaperId = this.WorkPaperId,

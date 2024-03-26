@@ -109,7 +109,14 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
 
     private async Task ResetPresaleDataAsync(WorkPaper workPaper)
     {
-        workPaper = workPaper.ResetPresaleData();
+        var resetSignature = new ActionSignature
+        {
+            AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
+            Alias = await SessionService.GetSessionAliasAsync(),
+            TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
+        };
+
+        workPaper = workPaper.ResetPresaleData(resetSignature);
 
         await WorkloadManager.ReinstateWorkloadAsync(workPaper);
 
