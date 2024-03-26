@@ -116,21 +116,9 @@ fluent-data-grid-cell.column-header:last-child{
     border-right: none;
 }
 
-/* fluent-data-grid-cell.column-header .col-title{
-    border-right: 1px solid #373737;
-    border-left: 1px solid #373737;
-} */
-
-/* fluent-data-grid-row fluent-data-grid-cell.grid-cell-placeholder:after{
-    text-align: center;
-} */
-
-.scroll-mode-checkbox{
-    padding: 10px 8px;
-}
-
 .enable-selection-checkbox{
-    padding: 10px 8px;
+    padding-top: 10px;
+    padding-left: 8px;
 }
 
 .datagrid-wrapper{
