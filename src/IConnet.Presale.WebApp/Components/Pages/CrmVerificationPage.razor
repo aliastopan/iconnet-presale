@@ -63,8 +63,16 @@
                             </div>
                         </ColumnOptions>
                         <ChildContent>
-                            <div class="">
-                                @context.ApprovalOpportunity.IdPermohonan
+                            <div class="d-flex flex-rown align-items-center">
+                                <span style="min-width: 135px;">
+                                    @context.ApprovalOpportunity.IdPermohonan
+                                </span>
+                                <span style="margin-left: 0px">
+                                @if (IsReinstated(@context.WorkPaperLevel))
+                                {
+                                    <FluentIcon Value="@_reinstatedIcon" />
+                                }
+                                </span>
                             </div>
                         </ChildContent>
                     </TemplateColumn>
@@ -383,3 +391,8 @@
     </NotAuthorized>
 
 </AuthorizeView>
+
+@code
+{
+    private Icon _reinstatedIcon = new Icons.Filled.Size20.ErrorCircle().WithColor("var(--info-grey)");
+}
