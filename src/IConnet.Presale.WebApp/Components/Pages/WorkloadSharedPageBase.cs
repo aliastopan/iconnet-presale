@@ -56,6 +56,11 @@ public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
 
         FilterComponent.IsFiltered = true;
 
+        // apply filtering
+        this.SetWorkPapers(workPapers!);
+
+        LogSwitch.Debug("Done Filtering");
+
         return workPapers;
     }
 
