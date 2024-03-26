@@ -1,0 +1,67 @@
+<FluentDialogHeader ShowDismiss="true">
+    <FluentStack VerticalAlignment="VerticalAlignment.Center">
+        <FluentIcon Value="@(new Icons.Regular.Size24.DocumentSync())" />
+        <FluentLabel Typo="Typography.PaneHeader">
+            @Dialog.Instance.Parameters.Title
+        </FluentLabel>
+    </FluentStack>
+</FluentDialogHeader>
+
+<div>
+    <table class="workload-reopen-view mt-3">
+        <thead>
+            <tr>
+                <th style="padding-right: 1rem; width: 200px;">ID PERMOHONAN</th>
+                <td>@Content.ApprovalOpportunity.IdPermohonan</td>
+            </tr>
+            <tr>
+                <th style="padding-right: 1rem; width: 200px;">TGL PERMOHONAN</th>
+                <td>
+                    <DateTimeBadge DateTime="@Content.ApprovalOpportunity.TglPermohonan"/>
+                </td>
+            </tr>
+            <tr>
+                <th style="padding-right: 1rem; width: 200px;">STATUS APPROVAL</th>
+                <td>
+                    <ApprovalBadge ApprovalStatus="@Content.ProsesApproval.StatusApproval"/>
+                </td>
+            </tr>
+            @if (IsRejected)
+            {
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px;">ROOT CAUSE</th>
+                    <td>@Content.ProsesApproval.RootCause</td>
+                </tr>
+            }
+            <tr>
+                <th style="padding-right: 1rem; width: 200px;">NAMA PELANGGAN</th>
+                <td>@Content.ApprovalOpportunity.Pemohon.NamaPelanggan</td>
+            </tr>
+            <tr>
+                <th style="padding-right: 1rem; width: 200px;">ALAMAT PELANGGAN</th>
+                <td>@Content.ApprovalOpportunity.Pemohon.Alamat</td>
+            </tr>
+            <tr>
+                <th style="padding-right: 1rem; width: 200px;">EMAIL</th>
+                <td>@Content.ApprovalOpportunity.Pemohon.Email</td>
+            </tr>
+            <tr>
+                <th style="padding-right: 1rem; width: 200px;">ID PLN</th>
+                <td>@Content.ApprovalOpportunity.Pemohon.IdPln</td>
+            </tr>
+            <tr>
+                <th style="padding-right: 1rem; width: 200px;">NO. TELPON AKTIF</th>
+                <td>
+                    @Content.ApprovalOpportunity.Pemohon.NomorTelepon
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<FluentDialogFooter>
+    <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.End">
+        <FluentButton BackgroundColor="crimson" Color="white" OnClick="@ResetDataPresaleAsync">Reset</FluentButton>
+        <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Batal</FluentButton>
+    </FluentStack>
+</FluentDialogFooter>
