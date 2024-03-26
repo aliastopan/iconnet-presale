@@ -6,7 +6,6 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
 
     protected UserRole UserRole { get; private set; }
     protected bool EnableSelection { get; set; }
-    protected bool AllowSelection => (UserRole == UserRole.PAC) | (UserRole == UserRole.Administrator);
 
     protected string GridTemplateCols => GetGridTemplateCols();
     protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
@@ -42,6 +41,19 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
         }
 
         ColumnWidth.SetColumnWidth(WorkPapers);
+    }
+
+    protected async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
+    {
+        if (!EnableSelection)
+        {
+            return;
+        }
+
+        var workPaper = row.Item;
+        LogSwitch.Debug("Selected: {0}", workPaper!.ApprovalOpportunity.IdPermohonan);
+
+        await Task.CompletedTask;
     }
 
     protected IQueryable<WorkPaper>? FilterWorkPapers()

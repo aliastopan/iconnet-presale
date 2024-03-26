@@ -32,12 +32,13 @@
 </div>
 
 <div class="d-flex flex-row">
-    @if (AllowSelection)
-    {
-        <FluentCheckbox class="enable-selection-checkbox"
-            @bind-Value="@EnableSelection"
-            Label="Enable Select" />
-    }
+
+<AuthorizeView Policy="@Policies.RolePlanningAssetCoverage">
+    <FluentCheckbox class="enable-selection-checkbox"
+        @bind-Value="@EnableSelection"
+        Label="Enable Select" />
+</AuthorizeView>
+
 </div>
 
 <div class="datagrid-wrapper" style="@GetPaginationStyle()">
