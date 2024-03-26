@@ -355,6 +355,14 @@ public class ReportService
             DateTime startDateTime = data.ProsesValidasi.SignatureChatCallRespons.TglAksi;
             DateTime endDateTime = data.ProsesApproval.SignatureApproval.TglAksi;
 
+            // handle (bug) not responding user
+            if (data.ProsesValidasi.SignatureChatCallRespons.IsEmptySignature())
+            {
+                int notRespondingThreshold = 2;
+
+                startDateTime = data.ProsesValidasi.SignatureChatCallMulai.TglAksi.AddDays(notRespondingThreshold);
+            }
+
             TimeSpan interval = _intervalCalculatorService.CalculateInterval(startDateTime, endDateTime, excludeFrozenInterval: true);
 
             agingIntervals.Add(interval);
