@@ -66,7 +66,7 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
         }
 
         IQueryable<WorkPaper>? workPapers = FilterComponent.FilterWorkPapers(base.WorkPapers)?
-            .OrderBy(x => x.ApprovalOpportunity.TglPermohonan);
+            .OrderByDescending(x => x.ApprovalOpportunity.TglPermohonan);
 
         ColumnWidth.SetColumnWidth(workPapers);
 

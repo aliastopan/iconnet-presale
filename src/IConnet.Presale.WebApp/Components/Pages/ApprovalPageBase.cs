@@ -61,9 +61,11 @@ public class ApprovalPageBase : WorkloadPageBase, IPageNavigation
 
         IQueryable<WorkPaper>? workPapers = FilterComponent.FilterWorkPapers(base.WorkPapers)?
             .Where(x => x.SignaturePlanningAssetCoverageInCharge.AccountIdSignature == _sessionId
-                && x.ProsesApproval.IsOnGoing());
+                && x.ProsesApproval.IsOnGoing())
+            .OrderByDescending(x => x.ApprovalOpportunity.TglPermohonan);
 
         ColumnWidth.SetColumnWidth(workPapers);
+
         return workPapers;
     }
 

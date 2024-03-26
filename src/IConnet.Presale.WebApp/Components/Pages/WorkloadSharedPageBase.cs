@@ -41,9 +41,11 @@ public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
             return base.WorkPapers;
         }
 
-        IQueryable<WorkPaper>? workPapers = FilterComponent.FilterWorkPapers(base.WorkPapers);
+        IQueryable<WorkPaper>? workPapers = FilterComponent.FilterWorkPapers(base.WorkPapers)?
+            .OrderByDescending(x => x.ApprovalOpportunity.TglPermohonan);
 
         ColumnWidth.SetColumnWidth(workPapers);
+
         return workPapers;
     }
 
