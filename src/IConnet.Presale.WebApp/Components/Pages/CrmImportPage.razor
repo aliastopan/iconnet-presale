@@ -34,8 +34,10 @@
 
                     <TemplateColumn Title="ID PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.IdPermohonanPx)">
                         <div class="d-flex flex-rown align-items-center">
-                            @context.IdPermohonan
-                            <div style="margin-left: 8px">
+                            <span style="min-width: 135px;">
+                                @context.IdPermohonan
+                            </span>
+                            <span style="margin-left: 0px">
                             @if (HasDuplicate(context.IdPermohonan))
                             {
                                 <FluentIcon Value="@_duplicateWarningIcon" />
@@ -44,7 +46,7 @@
                             {
                                 <FluentIcon Value="@_validImportIcon" />
                             }
-                            </div>
+                            </span>
                         </div>
                     </TemplateColumn>
                     <PropertyColumn Title="TGL PERMOHONAN" Property="@(crm => crm.TglPermohonan)" Style="@GetWidthStyle(ColumnWidth.TglPermohonanPx)"/>
