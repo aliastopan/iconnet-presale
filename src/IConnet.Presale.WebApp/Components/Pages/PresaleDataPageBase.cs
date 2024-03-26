@@ -1,3 +1,5 @@
+using IConnet.Presale.WebApp.Components.Dialogs;
+
 namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
@@ -45,13 +47,14 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
 
     protected async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
     {
-        if (!EnableSelection)
+        if (!EnableSelection || row.Item is null)
         {
             return;
         }
 
         var workPaper = row.Item;
         LogSwitch.Debug("Selected: {0}", workPaper!.ApprovalOpportunity.IdPermohonan);
+        await OpenReopenWorkloadDialogAsync(row.Item!);
 
         await Task.CompletedTask;
     }
@@ -82,6 +85,24 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
             ColumnWidth.SetColumnWidth(WorkPapers);
             StateHasChanged();
         });
+    }
+
+    protected async Task OpenReopenWorkloadDialogAsync(WorkPaper workPaper)
+    {
+        var parameters = new DialogParameters()
+        {
+            Title = "Reopen Kertas Kerja (Reset)",
+            TrapFocus = true,
+            Width = "500px",
+        };
+
+        var dialog = await DialogService.ShowDialogAsync<ResetPresaleDataDialog>(workPaper, parameters);
+        var result = await dialog.Result;
+
+        if (result.Cancelled || result.Data == null)
+        {
+            return;
+        }
     }
 
     private async Task GetArchivedWorkloadAsync()

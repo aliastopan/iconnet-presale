@@ -34,9 +34,12 @@
 <div class="d-flex flex-row">
 
 <AuthorizeView Policy="@Policies.RolePlanningAssetCoverage">
-    <FluentCheckbox class="enable-selection-checkbox"
-        @bind-Value="@EnableSelection"
-        Label="Enable Select" />
+    @if (WorkPapers is not null)
+    {
+        <FluentCheckbox class="enable-selection-checkbox"
+            @bind-Value="@EnableSelection"
+            Label="Enable Selection" />
+    }
 </AuthorizeView>
 
 </div>
