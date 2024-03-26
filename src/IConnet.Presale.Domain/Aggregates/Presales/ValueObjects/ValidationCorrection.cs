@@ -6,7 +6,11 @@ public class ValidationCorrection : ValueObject
 {
     public ValidationCorrection()
     {
-
+        PembetulanIdPln = string.Empty;
+        PembetulanNama = string.Empty;
+        PembetulanNomorTelepon = string.Empty;
+        PembetulanEmail  = string.Empty;
+        PembetulanAlamat = string.Empty;
     }
 
     public ValidationCorrection(string idPln, string namaPelanggan,

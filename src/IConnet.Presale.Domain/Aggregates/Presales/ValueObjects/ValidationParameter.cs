@@ -6,7 +6,12 @@ public class ValidationParameter : ValueObject
 {
     public ValidationParameter()
     {
-
+        ValidasiIdPln = ValidationStatus.MenungguValidasi;
+        ValidasiNama = ValidationStatus.MenungguValidasi;
+        ValidasiNomorTelepon = ValidationStatus.MenungguValidasi;
+        ValidasiEmail = ValidationStatus.MenungguValidasi;
+        ValidasiAlamat = ValidationStatus.MenungguValidasi;
+        ShareLoc = new Coordinate();
     }
 
     public ValidationParameter(ValidationStatus validasiIdPln, ValidationStatus validasiNama, ValidationStatus validasiNomorTelepon,

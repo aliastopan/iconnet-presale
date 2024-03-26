@@ -7,7 +7,15 @@ public class ApprovalProcess : ValueObject
 {
     public ApprovalProcess()
     {
-
+        SignatureApproval = ActionSignature.Empty();
+        StatusApproval = ApprovalStatus.InProgress;
+        DirectApproval = string.Empty;
+        RootCause = string.Empty;
+        Keterangan = string.Empty;
+        JarakShareLoc = 0;
+        JarakICrmPlus = 0;
+        SplitterGanti = string.Empty;
+        VaTerbit = DateTime.MinValue;
     }
 
     public ApprovalProcess(ApprovalStatus statusApproval, string directApproval, string rootCause, string keterangan,

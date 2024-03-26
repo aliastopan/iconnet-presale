@@ -7,7 +7,13 @@ public class ValidationProcess : ValueObject
 {
     public ValidationProcess()
     {
-
+        SignatureChatCallMulai = ActionSignature.Empty();
+        SignatureChatCallRespons = ActionSignature.Empty();
+        WaktuTanggalRespons = DateTime.MinValue;
+        LinkChatHistory = string.Empty;
+        ParameterValidasi = new ValidationParameter();
+        PembetulanValidasi = new ValidationCorrection();
+        Keterangan = string.Empty;
     }
 
     public ValidationProcess(ActionSignature signatureChatCallMulai, ActionSignature signatureChatCallRespons, DateTime waktuTanggalRespons,
