@@ -36,15 +36,25 @@ public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
 
     protected IQueryable<WorkPaper>? FilterWorkPapers()
     {
+
         if (FilterComponent is null)
         {
             return base.WorkPapers;
         }
 
+        if (FilterComponent.IsFiltered)
+        {
+            return base.WorkPapers;
+        }
+
+        LogSwitch.Debug("Filtering");
+
         IQueryable<WorkPaper>? workPapers = FilterComponent.FilterWorkPapers(base.WorkPapers)?
             .OrderByDescending(x => x.ApprovalOpportunity.TglPermohonan);
 
         ColumnWidth.SetColumnWidth(workPapers);
+
+        FilterComponent.IsFiltered = true;
 
         return workPapers;
     }

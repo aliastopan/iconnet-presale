@@ -11,6 +11,8 @@ public partial class FilterForm : ComponentBase
 
     private FilterModel _filterModel = default!;
 
+    public bool IsFiltered { get; set; }
+
     public FilterModel FilterModel => _filterModel;
     public string FilterDateTimeRangeLabel => GetDaysRangeLabel();
 
@@ -29,6 +31,8 @@ public partial class FilterForm : ComponentBase
         FilterModel.NullableFilterDateTimeMin = SessionService.FilterPreference.TglPermohonanMin;
         FilterModel.NullableFilterDateTimeMax = SessionService.FilterPreference.TglPermohonanMax;
 
+        IsFiltered = false;
+
         await OnFilter.InvokeAsync();
     }
 
@@ -36,6 +40,8 @@ public partial class FilterForm : ComponentBase
     {
         FilterModel.FilterSearch = string.Empty;
         FilterModel.FilterStatusApproval = filterStatusApproval;
+
+        IsFiltered = false;
 
         await OnFilter.InvokeAsync();
     }
@@ -46,6 +52,8 @@ public partial class FilterForm : ComponentBase
         FilterModel.FilterOffice = filterOffice;
         SessionService.FilterPreference.KantorPerwakilan = filterOffice;
 
+        IsFiltered = false;
+
         await OnFilter.InvokeAsync();
     }
 
@@ -55,6 +63,8 @@ public partial class FilterForm : ComponentBase
         FilterModel.FilterOffice = FilterModel.FilterOfficeDefault;
         SessionService.FilterPreference.KantorPerwakilan = FilterModel.FilterOffice;
         FilterModel.FilterSearch = filterSearch;
+
+        IsFiltered = false;
 
         await OnFilter.InvokeAsync();
     }
@@ -77,6 +87,8 @@ public partial class FilterForm : ComponentBase
         FilterModel.NullableFilterDateTimeMin = dateTime;
         SessionService.FilterPreference.TglPermohonanMin = dateTime;
 
+        IsFiltered = false;
+
         await OnFilter.InvokeAsync();
     }
 
@@ -98,6 +110,8 @@ public partial class FilterForm : ComponentBase
         FilterModel.NullableFilterDateTimeMax = dateTime;
         SessionService.FilterPreference.TglPermohonanMax = dateTime;
 
+        IsFiltered = false;
+
         await OnFilter.InvokeAsync();
     }
 
@@ -107,6 +121,8 @@ public partial class FilterForm : ComponentBase
 
         var today = DateTimeService.DateTimeOffsetNow.DateTime;
         FilterModel.ResetFilters(today, SessionService.FilterPreference);
+
+        IsFiltered = false;
 
         await OnFilter.InvokeAsync();
     }
