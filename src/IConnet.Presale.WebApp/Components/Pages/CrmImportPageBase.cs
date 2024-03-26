@@ -80,7 +80,6 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
 
     protected bool HasDuplicate(string idPermohonan)
     {
-
         return DuplicateIds.Contains(idPermohonan);
     }
 
