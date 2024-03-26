@@ -28,6 +28,7 @@ internal sealed class WorkPaperAggregateHandler : IWorkPaperAggregateHandler
             {
                 existingWorkPaper.UpdateWith(workPaper);
 
+                dbContext.ApprovalOpportunities.Update(existingWorkPaper.ApprovalOpportunity);
                 dbContext.WorkPapers.Update(existingWorkPaper);
                 await dbContext.SaveChangesAsync();
 

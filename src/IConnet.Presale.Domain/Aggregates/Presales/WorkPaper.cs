@@ -53,6 +53,8 @@ public class WorkPaper : IAggregateRoot, IConcurrencyTracking
         SignaturePlanningAssetCoverageInCharge = other.SignaturePlanningAssetCoverageInCharge;
         ProsesValidasi = other.ProsesValidasi;
         ProsesApproval = other.ProsesApproval;
+        ApprovalOpportunity.SignatureImport = other.ApprovalOpportunity.SignatureImport;
+        ApprovalOpportunity.SignatureVerifikasiImport = other.ApprovalOpportunity.SignatureVerifikasiImport;
         LastModified = other.LastModified;
     }
 
