@@ -37,9 +37,6 @@ public partial class ResetPresaleDataDialog : IDialogContentComponent<WorkPaper>
 
         if (!result.Cancelled)
         {
-            // Reinstate();
-            LogSwitch.Debug("Resetting...");
-
             await Dialog.CloseAsync(Content);
         }
     }

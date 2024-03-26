@@ -52,8 +52,6 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
             return;
         }
 
-        var workPaper = row.Item;
-        LogSwitch.Debug("Selected: {0}", workPaper!.ApprovalOpportunity.IdPermohonan);
         await OpenReopenWorkloadDialogAsync(row.Item!);
 
         await Task.CompletedTask;
@@ -103,6 +101,20 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
         {
             return;
         }
+
+        var dialogData = (WorkPaper)result.Data;
+
+        await ResetPresaleDataAsync(dialogData);
+    }
+
+    private async Task ResetPresaleDataAsync(WorkPaper workPaper)
+    {
+        workPaper = workPaper.ResetPresaleData();
+
+        await WorkloadManager.ReinstateWorkloadAsync(workPaper);
+
+        var broadcastMessage = $"Reinstating '{workPaper.ApprovalOpportunity.IdPermohonan}' presale negotiation";
+        await BroadcastService.BroadcastMessageAsync(broadcastMessage);
     }
 
     private async Task GetArchivedWorkloadAsync()
