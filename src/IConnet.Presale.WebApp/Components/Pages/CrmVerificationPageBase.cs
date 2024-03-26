@@ -95,7 +95,6 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
 
     protected async Task OpenVerificationDialogAsync(WorkPaper workPaper)
     {
-        // Log.Warning("Import status before: {0}", workPaper.ApprovalOpportunity.StatusImport);
         var parameters = new DialogParameters()
         {
             Title = "Verifikasi Import CRM",
@@ -105,7 +104,9 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
         };
 
         var isImportVerified = workPaper.ApprovalOpportunity.StatusImport == ImportStatus.Verified;
-        if (isImportVerified)
+        var IsReinstated = workPaper.WorkPaperLevel == WorkPaperLevel.Reinstated;
+
+        if (isImportVerified && !IsReinstated)
         {
             return;
         }
