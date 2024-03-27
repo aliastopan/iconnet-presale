@@ -22,6 +22,8 @@ public partial class FilterForm : ComponentBase
         var filterPreference = SessionService.FilterPreference;
         var kantorPerwakilanOptions = OptionService.KantorPerwakilanOptions;
 
+        IsFiltered = false;
+
         _filterModel = new FilterModel(today, filterPreference, kantorPerwakilanOptions);
     }
 
@@ -117,8 +119,6 @@ public partial class FilterForm : ComponentBase
 
     protected async Task ResetFilterAsync()
     {
-        LogSwitch.Debug("Resetting filters");
-
         var today = DateTimeService.DateTimeOffsetNow.DateTime;
         FilterModel.ResetFilters(today, SessionService.FilterPreference);
 
@@ -159,9 +159,7 @@ public partial class FilterForm : ComponentBase
 
     public IQueryable<WorkPaper>? FilterWorkPapers(IQueryable<WorkPaper>? workPapers)
     {
-        workPapers = BaseFilter(workPapers);
-
-        return workPapers?
+        return BaseFilter(workPapers)?
             .Where(x =>
                 (!FilterModel.IdPermohonan.HasValue() || x.ApprovalOpportunity.IdPermohonan
                     .Contains(FilterModel.IdPermohonan, StringComparison.CurrentCultureIgnoreCase)) &&
@@ -178,7 +176,6 @@ public partial class FilterForm : ComponentBase
                 (!FilterModel.Splitter.HasValue() || x.ApprovalOpportunity.Splitter
                     .Contains(FilterModel.Splitter, StringComparison.CurrentCultureIgnoreCase))
             );
-
     }
 
     private string GetDaysRangeLabel()
@@ -190,5 +187,4 @@ public partial class FilterForm : ComponentBase
             ? $"{FilterModel.FilterDateTimeDifference.Days} Hari Terakhir"
             : $"Rentang {FilterModel.FilterDateTimeDifference.Days} Hari";
     }
-
 }
