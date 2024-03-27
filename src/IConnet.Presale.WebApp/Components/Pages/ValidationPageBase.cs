@@ -8,6 +8,9 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
 {
     [Inject] public IJSRuntime JsRuntime { get; set; } = default!;
 
+    private bool _firstLoad = true;
+    private IQueryable<WorkPaper>? _filteredWorkPapers;
+
     private Guid _sessionId;
     private readonly List<WorkPaperValidationModel> _validationModels = new List<WorkPaperValidationModel>();
     private readonly GridSort<WorkPaper> _sortByStagingStatus = GridSort<WorkPaper>
@@ -59,14 +62,33 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
             return base.WorkPapers;
         }
 
-        IQueryable<WorkPaper>? workPapers = FilterComponent.FilterWorkPapers(base.WorkPapers)?
+        if (FilterComponent.IsFiltered)
+        {
+            if (_filteredWorkPapers is null || _firstLoad)
+            {
+                _firstLoad = false;
+
+                return FilterComponent.FilterWorkPapers(base.WorkPapers)?
+                    .Where(x => x.SignatureHelpdeskInCharge.AccountIdSignature == _sessionId
+                        && x.ProsesValidasi.IsOnGoing())
+                    .OrderByDescending(x => x.ApprovalOpportunity.TglPermohonan);
+            }
+
+            return _filteredWorkPapers;
+        }
+
+        LogSwitch.Debug("Filtering");
+
+        _filteredWorkPapers = FilterComponent.FilterWorkPapers(base.WorkPapers)?
             .Where(x => x.SignatureHelpdeskInCharge.AccountIdSignature == _sessionId
                 && x.ProsesValidasi.IsOnGoing())
             .OrderByDescending(x => x.ApprovalOpportunity.TglPermohonan);
 
-        ColumnWidth.SetColumnWidth(workPapers);
+        ColumnWidth.SetColumnWidth(_filteredWorkPapers);
 
-        return workPapers;
+        FilterComponent.IsFiltered = true;
+
+        return _filteredWorkPapers;
     }
 
     protected async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)

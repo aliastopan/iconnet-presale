@@ -7,6 +7,9 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
 {
     [Inject] public SqlPushService SqlPushService { get; init; } = default!;
 
+    private bool _firstLoad = true;
+    private IQueryable<WorkPaper>? _filteredWorkPapers;
+
     protected string GridTemplateCols => GetGridTemplateCols();
     protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
 
@@ -85,12 +88,29 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
             return base.WorkPapers;
         }
 
-        IQueryable<WorkPaper>? workPapers = FilterComponent.FilterWorkPapers(base.WorkPapers)?
-            .OrderByDescending(x => x.ApprovalOpportunity.TglPermohonan);
+        if (FilterComponent.IsFiltered)
+        {
+            if (_filteredWorkPapers is null || _firstLoad)
+            {
+                _firstLoad = false;
 
-        ColumnWidth.SetColumnWidth(workPapers);
+                return FilterComponent.FilterWorkPapers(base.WorkPapers)?
+                    .OrderByDescending(x => x.ApprovalOpportunity.TglPermohonan);
+            }
 
-        return workPapers;
+            return _filteredWorkPapers;
+        }
+
+        LogSwitch.Debug("Filtering");
+
+        _filteredWorkPapers = FilterComponent.FilterWorkPapers(base.WorkPapers)?
+                .OrderByDescending(x => x.ApprovalOpportunity.TglPermohonan);
+
+        ColumnWidth.SetColumnWidth(_filteredWorkPapers);
+
+        FilterComponent.IsFiltered = true;
+
+        return _filteredWorkPapers;
     }
 
     protected async Task OpenVerificationDialogAsync(WorkPaper workPaper)

@@ -6,6 +6,8 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 public class ApprovalStagingPageBase : WorkloadPageBase, IPageNavigation
 {
     private readonly static int _stagingLimit = 10;
+    private bool _firstLoad = true;
+    private IQueryable<WorkPaper>? _filteredWorkPapers;
 
     protected string GridTemplateCols => GetGridTemplateCols();
     protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
@@ -39,12 +41,29 @@ public class ApprovalStagingPageBase : WorkloadPageBase, IPageNavigation
             return base.WorkPapers;
         }
 
-        IQueryable<WorkPaper>? workPapers = FilterComponent.FilterWorkPapers(base.WorkPapers)?
+        if (FilterComponent.IsFiltered)
+        {
+            if (_filteredWorkPapers is null || _firstLoad)
+            {
+                _firstLoad = false;
+
+                return FilterComponent.FilterWorkPapers(base.WorkPapers)?
+                    .OrderByDescending(x => x.ApprovalOpportunity.TglPermohonan);
+            }
+
+            return _filteredWorkPapers;
+        }
+
+        LogSwitch.Debug("Filtering");
+
+        _filteredWorkPapers = FilterComponent.FilterWorkPapers(base.WorkPapers)?
             .OrderByDescending(x => x.ApprovalOpportunity.TglPermohonan);
 
-        ColumnWidth.SetColumnWidth(workPapers);
+        ColumnWidth.SetColumnWidth(_filteredWorkPapers);
 
-        return workPapers;
+        FilterComponent.IsFiltered = true;
+
+        return _filteredWorkPapers;
     }
 
     protected async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
