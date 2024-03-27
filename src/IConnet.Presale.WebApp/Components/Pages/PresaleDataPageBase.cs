@@ -5,6 +5,7 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
 {
     private bool _isInitialized = false;
+    private bool _firstLoad = true;
     private IQueryable<WorkPaper>? _presaleData;
     private IQueryable<WorkPaper>? _filteredPresaleData;
 
@@ -65,9 +66,12 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
 
         if (FilterComponent.IsFiltered)
         {
-            if (_filteredPresaleData is null)
+            if (_filteredPresaleData is null || _firstLoad)
             {
-                return _presaleData;
+                _firstLoad = false;
+
+                return FilterComponent.FilterWorkPapers(_presaleData)?
+                    .OrderByDescending(x => x.ApprovalOpportunity.TglPermohonan);
             }
 
             return _filteredPresaleData;

@@ -2,6 +2,7 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
 {
+    private bool _firstLoad = true;
     private IQueryable<WorkPaper>? _filteredWorkPapers;
 
     protected string GridTemplateCols => GetGridTemplateCols();
@@ -45,9 +46,12 @@ public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
 
         if (FilterComponent.IsFiltered)
         {
-            if (_filteredWorkPapers is null)
+            if (_filteredWorkPapers is null || _firstLoad)
             {
-                return base.WorkPapers;
+                _firstLoad = false;
+
+                return FilterComponent.FilterWorkPapers(base.WorkPapers)?
+                    .OrderByDescending(x => x.ApprovalOpportunity.TglPermohonan);
             }
 
             return _filteredWorkPapers;
