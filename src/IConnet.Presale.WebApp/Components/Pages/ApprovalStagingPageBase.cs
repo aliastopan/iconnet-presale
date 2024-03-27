@@ -5,7 +5,7 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class ApprovalStagingPageBase : WorkloadPageBase, IPageNavigation
 {
-    private readonly static int _stagingLimit = 10;
+    private readonly static int _stagingLimit = 25;
     private bool _firstLoad = true;
     private IQueryable<WorkPaper>? _filteredWorkPapers;
 
