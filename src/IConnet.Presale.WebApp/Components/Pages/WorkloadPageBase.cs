@@ -22,6 +22,7 @@ public class WorkloadPageBase : ComponentBase
 
     protected FilterForm FilterComponent { get; set; } = default!;
     protected string FilterSectionCss => SessionService.FilterPreference.ShowFilters ? "enable" : "filter-section-disable";
+    protected string DisplayNoneStyle => WorkPapers is null ? "display: none;" : "";
     protected bool IsFullscreenDataGrid { get; set; } = false;
     protected bool EnableFullscreenToggle => _pagination.ItemsPerPage <= 10;
     protected string PaginationItemsPerPageOptions { get; set ;} = default!;
