@@ -2,6 +2,8 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
 {
+    private IQueryable<WorkPaper>? _filteredWorkPapers;
+
     protected string GridTemplateCols => GetGridTemplateCols();
     protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
 
@@ -36,7 +38,6 @@ public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
 
     protected IQueryable<WorkPaper>? FilterWorkPapers()
     {
-
         if (FilterComponent is null)
         {
             return base.WorkPapers;
@@ -44,24 +45,24 @@ public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
 
         if (FilterComponent.IsFiltered)
         {
-            return base.WorkPapers;
+            if (_filteredWorkPapers is null)
+            {
+                return base.WorkPapers;
+            }
+
+            return _filteredWorkPapers;
         }
 
         LogSwitch.Debug("Filtering");
 
-        IQueryable<WorkPaper>? workPapers = FilterComponent.FilterWorkPapers(base.WorkPapers)?
+        _filteredWorkPapers = FilterComponent.FilterWorkPapers(base.WorkPapers)?
             .OrderByDescending(x => x.ApprovalOpportunity.TglPermohonan);
 
-        ColumnWidth.SetColumnWidth(workPapers);
+        ColumnWidth.SetColumnWidth(_filteredWorkPapers);
 
         FilterComponent.IsFiltered = true;
 
-        // apply filtering
-        this.SetWorkPapers(workPapers!);
-
-        LogSwitch.Debug("Done Filtering");
-
-        return workPapers;
+        return _filteredWorkPapers;
     }
 
     private string GetGridTemplateCols()
