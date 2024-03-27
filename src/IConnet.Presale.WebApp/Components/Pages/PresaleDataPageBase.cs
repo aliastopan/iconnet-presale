@@ -140,7 +140,7 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
         var dateTimeMin = SessionService.FilterPreference.TglPermohonanMin;
         var dateTimeMax = SessionService.FilterPreference.TglPermohonanMax;
 
-        _presaleData = await WorkloadManager.GetArchivedWorkloadAsync(dateTimeMin, dateTimeMax);
+        _presaleData = await WorkloadManager.GetArchivedPresaleDataAsync(dateTimeMin, dateTimeMax);
     }
 
     private string GetGridTemplateCols()

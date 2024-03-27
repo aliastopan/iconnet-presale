@@ -117,7 +117,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase,
         return workPapers;
     }
 
-    public async Task<IQueryable<WorkPaper>> GetArchivedWorkloadAsync(DateTime dateTimeMin, DateTime dateTimeMax)
+    public async Task<IQueryable<WorkPaper>> GetArchivedPresaleDataAsync(DateTime dateTimeMin, DateTime dateTimeMax)
     {
         var jsonWorkPapers = await _doneProcessingPersistenceService.GetAllValuesAsync();
         var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapersParallel(jsonWorkPapers!, ParallelOptions,

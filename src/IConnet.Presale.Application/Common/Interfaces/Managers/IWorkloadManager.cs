@@ -12,5 +12,5 @@ public interface IWorkloadManager
     Task ReinstateWorkloadAsync(WorkPaper workPaper);
 
     Task<WorkPaper?> SearchWorkPaperAsync(string idPermohonan);
-    Task<IQueryable<WorkPaper>> GetArchivedWorkloadAsync(DateTime dateTimeMin, DateTime dateTimeMax);
+    Task<IQueryable<WorkPaper>> GetArchivedPresaleDataAsync(DateTime dateTimeMin, DateTime dateTimeMax);
 }
