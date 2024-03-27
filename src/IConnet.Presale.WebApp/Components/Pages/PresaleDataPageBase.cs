@@ -5,6 +5,8 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
 {
     private bool _isInitialized = false;
+    private IQueryable<WorkPaper>? _presaleData;
+    private IQueryable<WorkPaper>? _filteredPresaleData;
 
     protected UserRole UserRole { get; private set; }
     protected bool EnableSelection { get; set; }
@@ -31,11 +33,13 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
         {
             UserRole = await SessionService.GetUserRoleAsync();
 
-            // hack to prevent empty WorkPapers on initialized
-            this.SetWorkPapers(await WorkloadManager
-                .GetWorkloadAsync(PresaleDataFilter));
+            // // hack to prevent empty WorkPapers on initialized
+            // this.SetWorkPapers(await WorkloadManager
+            //     .GetWorkloadAsync(PresaleDataFilter));
 
-            await GetArchivedWorkloadAsync();
+            _presaleData = await WorkloadManager.GetWorkloadAsync(PresaleDataFilter);
+
+            await LoadArchivedWorkloadAsync();
 
             BroadcastService.Subscribe(OnUpdateWorkloadAsync);
 
@@ -59,24 +63,38 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
 
     protected IQueryable<WorkPaper>? FilterWorkPapers()
     {
-        Task.Run(GetArchivedWorkloadAsync);
+        // Task.Run(LoadArchivedWorkloadAsync);
 
         if (FilterComponent is null)
         {
-            return base.WorkPapers;
+            return _presaleData;
         }
 
-        IQueryable<WorkPaper>? workPapers = FilterComponent.FilterWorkPapers(base.WorkPapers)?
+        if (FilterComponent.IsFiltered)
+        {
+            if (_filteredPresaleData is null)
+            {
+                return _presaleData;
+            }
+
+            return _filteredPresaleData;
+        }
+
+        LogSwitch.Debug("Filtering");
+
+        _filteredPresaleData = FilterComponent.FilterWorkPapers(_presaleData)?
             .OrderByDescending(x => x.ApprovalOpportunity.TglPermohonan);
 
-        ColumnWidth.SetColumnWidth(workPapers);
+        ColumnWidth.SetColumnWidth(_filteredPresaleData);
 
-        return workPapers;
+        FilterComponent.IsFiltered = true;
+
+        return _filteredPresaleData;
     }
 
     protected override async Task OnUpdateWorkloadAsync(string message)
     {
-        await GetArchivedWorkloadAsync();
+        await LoadArchivedWorkloadAsync();
 
         await InvokeAsync(() =>
         {
@@ -124,14 +142,12 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
         await BroadcastService.BroadcastMessageAsync(broadcastMessage);
     }
 
-    private async Task GetArchivedWorkloadAsync()
+    private async Task LoadArchivedWorkloadAsync()
     {
         var dateTimeMin = SessionService.FilterPreference.TglPermohonanMin;
         var dateTimeMax = SessionService.FilterPreference.TglPermohonanMax;
 
-        var workPapers = await WorkloadManager.GetArchivedWorkloadAsync(dateTimeMin, dateTimeMax);
-
-        this.SetWorkPapers(workPapers);
+        _presaleData = await WorkloadManager.GetArchivedWorkloadAsync(dateTimeMin, dateTimeMax);
     }
 
     private string GetGridTemplateCols()
