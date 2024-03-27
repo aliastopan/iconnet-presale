@@ -32,14 +32,9 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
         if (!_isInitialized)
         {
             UserRole = await SessionService.GetUserRoleAsync();
-
-            // // hack to prevent empty WorkPapers on initialized
-            // this.SetWorkPapers(await WorkloadManager
-            //     .GetWorkloadAsync(PresaleDataFilter));
-
             _presaleData = await WorkloadManager.GetWorkloadAsync(PresaleDataFilter);
 
-            await LoadArchivedWorkloadAsync();
+            await LoadPresaleDataAsync();
 
             BroadcastService.Subscribe(OnUpdateWorkloadAsync);
 
@@ -63,8 +58,6 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
 
     protected IQueryable<WorkPaper>? FilterWorkPapers()
     {
-        // Task.Run(LoadArchivedWorkloadAsync);
-
         if (FilterComponent is null)
         {
             return _presaleData;
@@ -94,7 +87,7 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
 
     protected override async Task OnUpdateWorkloadAsync(string message)
     {
-        await LoadArchivedWorkloadAsync();
+        await LoadPresaleDataAsync();
 
         await InvokeAsync(() =>
         {
@@ -142,7 +135,7 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
         await BroadcastService.BroadcastMessageAsync(broadcastMessage);
     }
 
-    private async Task LoadArchivedWorkloadAsync()
+    private async Task LoadPresaleDataAsync()
     {
         var dateTimeMin = SessionService.FilterPreference.TglPermohonanMin;
         var dateTimeMax = SessionService.FilterPreference.TglPermohonanMax;
