@@ -83,8 +83,11 @@ public sealed class SessionService
     {
         return UserModel switch
         {
+            { Role: UserRole.PTL } => $"{UserModel!.Username} {SetRoleString("PTL")}",
+            { Role: UserRole.Sales } => $"{UserModel!.Username} {SetRoleString("SALES")}",
             { Role: UserRole.Helpdesk } => $"{UserModel!.Username} {SetRoleString("PH")}",
             { Role: UserRole.PAC } => $"{UserModel!.Username} {SetRoleString("PAC")}",
+            { Role: UserRole.Management } => $"{UserModel!.Username} {SetRoleString("MANAGEMENT")}",
             { Role: UserRole.Administrator } => $"{UserModel!.Username} {SetRoleString("ADMIN")}",
             { Role: UserRole.SuperUser } => $"{UserModel!.Username} {SetRoleString("SUPER ADMIN")}",
             _ => $"{UserModel!.Username} (GUEST)"
