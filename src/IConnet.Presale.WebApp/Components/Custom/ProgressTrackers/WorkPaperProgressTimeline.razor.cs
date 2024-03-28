@@ -10,12 +10,13 @@ public partial class WorkPaperProgressTimeline : ComponentBase
     protected bool IsAtLeastImportUnverified => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.ImportUnverified;
     // protected bool IsAtLeastReinstated => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.Reinstated;
     protected bool IsAtLeastImportVerified => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.ImportVerified;
-    protected bool IsAtLeastValidating => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.Validating;
+    // protected bool IsAtLeastValidating => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.Validating;
     protected bool IsAtLeastWaitingApproval => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.WaitingApproval;
     protected bool IsAtLeastDoneProcessing => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.DoneProcessing;
 
     protected bool HasChatCallMulaiSignature => !WorkPaper!.ProsesValidasi.SignatureChatCallMulai.IsEmptySignature();
     protected bool HasChatCallResponsSignature => !WorkPaper!.ProsesValidasi.SignatureChatCallRespons.IsEmptySignature();
+    protected bool HasApprovalSignature => !WorkPaper!.ProsesApproval.SignatureApproval.IsEmptySignature();
 
     protected string GetPicImport()
     {
@@ -53,6 +54,13 @@ public partial class WorkPaperProgressTimeline : ComponentBase
         return $"{username} - {role}";
     }
 
+    protected string GetPicApproval()
+    {
+        string username = WorkPaper!.ProsesApproval.SignatureApproval.ExtractUsernameFromAlias(out string role);
+
+        return $"{username} - {role}";
+    }
+
     public string GetImportElapsedTime()
     {
         DateTime importDateTime = WorkPaper!.ApprovalOpportunity.SignatureImport.TglAksi;
@@ -81,6 +89,14 @@ public partial class WorkPaperProgressTimeline : ComponentBase
     {
         DateTime chatCallResponsDateTime = WorkPaper!.ProsesValidasi.SignatureChatCallRespons.TglAksi;
         TimeSpan elapsedTime = DateTimeService.GetElapsedTime(chatCallResponsDateTime);
+
+        return elapsedTime.ToReadableDateTime(useLowerCaseNotation: true);
+    }
+
+    public string GetApprovalElapsedTime()
+    {
+        DateTime approvalDateTime = WorkPaper!.ProsesApproval.SignatureApproval.TglAksi;
+        TimeSpan elapsedTime = DateTimeService.GetElapsedTime(approvalDateTime);
 
         return elapsedTime.ToReadableDateTime(useLowerCaseNotation: true);
     }

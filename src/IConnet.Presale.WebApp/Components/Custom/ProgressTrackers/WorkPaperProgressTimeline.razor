@@ -104,7 +104,21 @@
             </div>
         </div>
         <div class="timeline-content">
-            stack 4
+            @if (IsAtLeastWaitingApproval)
+            {
+                if (HasApprovalSignature)
+                {
+                    <div>
+                        Data presale telah selesai diproses oleh <span class="fw-bold">@GetPicApproval()</span> pada <span class="fw-bold">@GetApprovalElapsedTime()</span> yang lalu.
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        Data presale akan segera diproses oleh <span class="fw-bold">PAC</span>.
+                    </div>
+                }
+            }
         </div>
     </div>
 
@@ -120,7 +134,10 @@
             </div>
         </div>
         <div class="timeline-content">
-            stack 5
+            @if (IsAtLeastDoneProcessing)
+            {
+
+            }
         </div>
     </div>
 </div>
