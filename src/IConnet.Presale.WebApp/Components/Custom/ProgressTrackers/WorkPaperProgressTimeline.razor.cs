@@ -108,7 +108,7 @@ public partial class WorkPaperProgressTimeline : ComponentBase
 
     protected Icon GetApprovalHeaderIcon()
     {
-        string color = IsAtLeastImportVerified
+        string color = IsAtLeastWaitingApproval
             ? "var(--accent-blue)"
             : "var(--inactive-grey)";
 
