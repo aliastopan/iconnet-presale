@@ -2,8 +2,13 @@
     <div style="padding: 8px;">Timeline: @WorkPaper!.WorkPaperLevel</div>
 
     <div class="@GetImportTimelineStepCss()">
-        <div class="timeline-header" style="font-weight: 700; padding-left: 16px;">
-            IMPORT
+        <div class="timeline-header" style="padding-left: 16px;">
+            <span style="font-weight: 700;">
+                IMPORT
+            </span>
+            <span style="margin-left: auto; padding-right: 8px;">
+                @GetImportTimestamp()
+            </span>
         </div>
         <div class="timeline-content">
             stack 1
@@ -11,8 +16,13 @@
     </div>
 
     <div class="@GetVerificationTimelineStepCss()">
-        <div class="timeline-header" style="font-weight: 700; padding-left: 16px;">
-            VERIFIKASI
+        <div class="timeline-header" style="padding-left: 16px;">
+            <span style="font-weight: 700;">
+                VERIFIKASI
+            </span>
+            <span style="margin-left: auto; padding-right: 8px;">
+                @GetVerificationTimestamp()
+            </span>
         </div>
         <div class="timeline-content">
             stack 2
@@ -20,8 +30,13 @@
     </div>
 
     <div class="@GetValidatingTimelineStepCss()">
-        <div class="timeline-header" style="font-weight: 700; padding-left: 16px;">
-            VALIDASI HELPDESK
+        <div class="timeline-header" style="padding-left: 16px;">
+            <span style="font-weight: 700;">
+                VALIDASI HELPDESK
+            </span>
+            <span style="margin-left: auto; padding-right: 8px;">
+                @GetValidationTimestamp()
+            </span>
         </div>
         <div class="timeline-content">
             stack 3
@@ -29,8 +44,13 @@
     </div>
 
     <div class="@GetWaitingApprovalTimelineStepCss()">
-        <div class="timeline-header" style="font-weight: 700; padding-left: 16px;">
-            APPROVAL
+        <div class="timeline-header" style="padding-left: 16px;">
+            <span style="font-weight: 700;">
+                APPROVAL
+            </span>
+            <span style="margin-left: auto; padding-right: 8px;">
+                @GetApprovalTimestamp()
+            </span>
         </div>
         <div class="timeline-content">
             stack 4

@@ -334,8 +334,8 @@ input:invalid::part(root) {
 
 .timeline-header{
     /* background-color: cornflowerblue; */
-    font-weight: 700;
-    padding-left: 16px;
+    display: flex;
+    flex-direction: row;
 }
 
 .timeline-content{
