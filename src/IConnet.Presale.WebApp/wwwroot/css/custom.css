@@ -357,10 +357,12 @@ input:invalid::part(root) {
 
 .timeline-step-active .timeline-header{
     /* background-color: var(--accent-blue) !important; */
+    color: var(--soft-black);
 }
 
 .timeline-step-pending .timeline-header{
     /* background-color: #919191 !important; */
+    color: var(--inactive-grey);
 }
 
 .timeline-step-active .timeline-content{

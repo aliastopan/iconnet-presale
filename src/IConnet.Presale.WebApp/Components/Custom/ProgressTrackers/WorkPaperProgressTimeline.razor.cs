@@ -12,13 +12,6 @@ public partial class WorkPaperProgressTimeline : ComponentBase
     protected bool IsAtLeastWaitingApproval => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.WaitingApproval;
     protected bool IsAtLeastDoneProcessing => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.DoneProcessing;
 
-    protected string GetImportTimelineStepCss()
-    {
-        return IsAtLeastImportUnverified
-            ? "timeline-step timeline-step-active"
-            : "timeline-step timeline-step-pending";
-    }
-
     protected string GetImportTimestamp()
     {
         string dateTimeString = $"{WorkPaper!.ApprovalOpportunity.SignatureImport.TglAksi.ToReadableFormat()}";
@@ -58,6 +51,13 @@ public partial class WorkPaperProgressTimeline : ComponentBase
             : dateTimeString;
     }
 
+    protected string GetImportTimelineStepCss()
+    {
+        return IsAtLeastImportUnverified
+            ? "timeline-step timeline-step-active"
+            : "timeline-step timeline-step-pending";
+    }
+
     protected string GetVerificationTimelineStepCss()
     {
         return IsAtLeastReinstated
@@ -72,15 +72,51 @@ public partial class WorkPaperProgressTimeline : ComponentBase
             : "timeline-step timeline-step-pending";
     }
 
-    protected string GetWaitingApprovalTimelineStepCss()
+    protected string GetApprovalTimelineStepCss()
     {
         return IsAtLeastWaitingApproval
             ? "timeline-step timeline-step-active"
             : "timeline-step timeline-step-pending";
     }
 
-    protected Icon GetHeaderIcon()
+    protected Icon GetImportHeaderIcon()
     {
-        return new Icons.Filled.Size20.Circle().WithColor("var(--soft-black)");
+        string color = IsAtLeastImportUnverified
+            ? "var(--accent-blue)"
+            : "var(--inactive-grey)";
+
+        return new Icons.Filled.Size20.Circle().WithColor(color);
     }
+
+    protected Icon GetVerificationHeaderIcon()
+    {
+        string color = IsAtLeastReinstated
+            ? "var(--accent-blue)"
+            : "var(--inactive-grey)";
+
+        return new Icons.Filled.Size20.Circle().WithColor(color);
+    }
+
+    protected Icon GetValidatingHeaderIcon()
+    {
+        string color = IsAtLeastImportVerified
+            ? "var(--accent-blue)"
+            : "var(--inactive-grey)";
+
+        return new Icons.Filled.Size20.Circle().WithColor(color);
+    }
+
+    protected Icon GetApprovalHeaderIcon()
+    {
+        string color = IsAtLeastImportVerified
+            ? "var(--accent-blue)"
+            : "var(--inactive-grey)";
+
+        return new Icons.Filled.Size20.Circle().WithColor(color);
+    }
+
+    // protected Icon GetHeaderIcon()
+    // {
+    //     return new Icons.Filled.Size20.Circle().WithColor("var(--soft-black)");
+    // }
 }
