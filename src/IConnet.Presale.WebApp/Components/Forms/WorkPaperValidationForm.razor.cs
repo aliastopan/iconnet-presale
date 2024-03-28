@@ -146,20 +146,10 @@ public partial class WorkPaperValidationForm : ComponentBase
 
     protected string GetAgingChatCallMulaiString()
     {
-        DateTime today = DateTimeService.DateTimeOffsetNow.Date;
+        DateTime today = DateTimeService.DateTimeOffsetNow.DateTime;
         TimeSpan agingChatCallMulai = WorkPaper!.ProsesValidasi.GetAgingChatCallMulai(today);
 
-        if (agingChatCallMulai.TotalHours < 1)
-        {
-            return "kurang dari 1 Jam";
-        }
-        else
-        {
-            int totalDays = (int)agingChatCallMulai.TotalDays;
-            int hours = agingChatCallMulai.Hours;
-
-            return $"{totalDays} Hari {hours} Jam";
-        }
+        return agingChatCallMulai.ToReadableDateTime();
     }
 
     protected async Task OnClipboardNamaPelangganAsync()
