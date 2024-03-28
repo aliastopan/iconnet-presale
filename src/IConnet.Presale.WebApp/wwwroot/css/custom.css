@@ -372,3 +372,12 @@ input:invalid::part(root) {
 .timeline-step-pending .timeline-content{
     border-left: 4px solid var(--inactive-grey) !important;
 }
+
+
+.timeline-step-active .timeline-header .timeline-title{
+    font-weight: 700;
+}
+
+.timeline-step-pending .timeline-header .timeline-title{
+    font-weight: 600;
+}
