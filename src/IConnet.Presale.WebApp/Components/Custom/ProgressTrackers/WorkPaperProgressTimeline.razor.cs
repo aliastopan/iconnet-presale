@@ -142,78 +142,100 @@ public partial class WorkPaperProgressTimeline : ComponentBase
 
     protected string GetImportTimelineStepCss()
     {
-        return IsAtLeastImportUnverified
-            ? "timeline-step timeline-step-active"
-            : "timeline-step timeline-step-pending";
+        return GetTimelineStepCss(IsAtLeastImportUnverified);
     }
 
     protected string GetVerificationTimelineStepCss()
     {
-        return IsAtLeastImportUnverified
-            ? "timeline-step timeline-step-active"
-            : "timeline-step timeline-step-pending";
+        return GetTimelineStepCss(IsAtLeastImportUnverified);
     }
 
     protected string GetValidatingTimelineStepCss()
     {
-        return IsAtLeastImportVerified
-            ? "timeline-step timeline-step-active"
-            : "timeline-step timeline-step-pending";
+        return GetTimelineStepCss(IsAtLeastImportVerified);
     }
 
     protected string GetApprovalTimelineStepCss()
     {
-        return IsAtLeastWaitingApproval
-            ? "timeline-step timeline-step-active"
-            : "timeline-step timeline-step-pending";
+        return GetTimelineStepCss(IsAtLeastWaitingApproval);
     }
 
     protected string GetResultTimelineStepCss()
     {
-        return IsAtLeastDoneProcessing
+        return GetTimelineStepCss(IsAtLeastDoneProcessing);
+    }
+
+    private string GetTimelineStepCss(bool atLeastStep)
+    {
+        if (IsAtLeastDoneProcessing)
+        {
+            if (WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.CloseLost)
+            {
+                return "timeline-step timeline-step-closed-lost";
+            }
+
+            if (WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.Reject)
+            {
+                return "timeline-step timeline-step-rejected";
+            }
+
+            if (WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.Approve)
+            {
+                return "timeline-step timeline-step-approved";
+            }
+        }
+
+        return atLeastStep
             ? "timeline-step timeline-step-active"
             : "timeline-step timeline-step-pending";
     }
 
     protected Icon GetImportHeaderIcon()
     {
-        string color = IsAtLeastImportUnverified
-            ? "var(--accent-blue)"
-            : "var(--inactive-grey)";
-
-        return new Icons.Filled.Size20.Circle().WithColor(color);
+        return GetHeaderIcon(IsAtLeastImportUnverified);
     }
 
     protected Icon GetVerificationHeaderIcon()
     {
-        string color = IsAtLeastImportUnverified
-            ? "var(--accent-blue)"
-            : "var(--inactive-grey)";
-
-        return new Icons.Filled.Size20.Circle().WithColor(color);
+        return GetHeaderIcon(IsAtLeastImportUnverified);
     }
 
     protected Icon GetValidatingHeaderIcon()
     {
-        string color = IsAtLeastImportVerified
-            ? "var(--accent-blue)"
-            : "var(--inactive-grey)";
-
-        return new Icons.Filled.Size20.Circle().WithColor(color);
+        return GetHeaderIcon(IsAtLeastImportVerified);
     }
 
     protected Icon GetApprovalHeaderIcon()
     {
-        string color = IsAtLeastWaitingApproval
-            ? "var(--accent-blue)"
-            : "var(--inactive-grey)";
-
-        return new Icons.Filled.Size20.Circle().WithColor(color);
+        return GetHeaderIcon(IsAtLeastWaitingApproval);
     }
 
     protected Icon GetResultHeaderIcon()
     {
-        string color = IsAtLeastDoneProcessing
+        return GetHeaderIcon(IsAtLeastDoneProcessing);
+    }
+
+    private Icon GetHeaderIcon(bool atLeastStep)
+    {
+        if (IsAtLeastDoneProcessing)
+        {
+            if (WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.CloseLost)
+            {
+                return new Icons.Filled.Size20.SubtractCircle().WithColor("var(--soft-black)");
+            }
+
+            if (WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.Reject)
+            {
+                return new Icons.Filled.Size20.DismissCircle().WithColor("var(--error-red)");
+            }
+
+            if (WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.Approve)
+            {
+                return new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success-green)");
+            }
+        }
+
+        string color = atLeastStep
             ? "var(--accent-blue)"
             : "var(--inactive-grey)";
 
