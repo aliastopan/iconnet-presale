@@ -317,3 +317,8 @@ input:invalid::part(root) {
 .table-report-content{
     text-align: center;
 }
+
+.timeline-stack{
+    width: 600px;
+    background-color: cadetblue;
+}

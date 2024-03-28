@@ -29,6 +29,10 @@
             </div>
         </div>
 
+<FluentStack Orientation="Orientation.Horizontal"
+    HorizontalAlignment="HorizontalAlignment.Start"
+    VerticalAlignment="VerticalAlignment.Top">
+
         <div class="datagrid-wrapper">
             @if (WorkPapers is not null && HasSearched)
             {
@@ -305,11 +309,11 @@
 
         </div>
 
-        <div>
+        <div class="tracker">
 
             @if (WorkPaper is not null)
             {
-                <WorkPaperProgressTracker WorkPaper="@WorkPaper"/>
+                <WorkPaperProgressTimeline WorkPaper="@WorkPaper"/>
             }
             else
             {
@@ -321,6 +325,9 @@
                 }
             }
         </div>
+
+</FluentStack>
+
 
     </Authorized>
 
