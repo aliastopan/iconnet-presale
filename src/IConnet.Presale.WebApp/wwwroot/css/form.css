@@ -342,9 +342,9 @@
 }
 
 .approval-value-bg-accent{
-    background-color: var(--accent-base-color);
+    background-color: var(--accent-blue);
     height: fit-content;
-    border: 1px solid var(--accent-base-color);
+    border: 1px solid var(--accent-blue);
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -399,9 +399,9 @@
 
 .approval-value-bg-revision{
     cursor: pointer !important;
-    background-color: var(--accent-base-color);
+    background-color: var(--accent-blue);
     height: fit-content;
-    border: 1px solid var(--accent-base-color);
+    border: 1px solid var(--accent-blue);
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
