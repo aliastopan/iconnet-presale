@@ -5,21 +5,21 @@ public partial class WorkPaperProgressTimeline : ComponentBase
     [Parameter]
     public WorkPaper? WorkPaper { get; set; }
 
-    public bool IsAtLeastImportUnverified => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.ImportUnverified;
-    public bool IsAtLeastReinstated => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.Reinstated;
-    public bool IsAtLeastImportVerified => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.ImportVerified;
-    public bool IsAtLeastValidating => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.Validating;
-    public bool IsAtLeastWaitingApproval => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.WaitingApproval;
-    public bool IsAtLeastDoneProcessing => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.DoneProcessing;
+    protected bool IsAtLeastImportUnverified => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.ImportUnverified;
+    protected bool IsAtLeastReinstated => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.Reinstated;
+    protected bool IsAtLeastImportVerified => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.ImportVerified;
+    protected bool IsAtLeastValidating => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.Validating;
+    protected bool IsAtLeastWaitingApproval => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.WaitingApproval;
+    protected bool IsAtLeastDoneProcessing => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.DoneProcessing;
 
-    public string GetImportTimelineStepCss()
+    protected string GetImportTimelineStepCss()
     {
         return IsAtLeastImportUnverified
             ? "timeline-step timeline-step-active"
             : "timeline-step timeline-step-pending";
     }
 
-    public string GetImportTimestamp()
+    protected string GetImportTimestamp()
     {
         string dateTimeString = $"{WorkPaper!.ApprovalOpportunity.SignatureImport.TglAksi.ToReadableFormat()}";
 
@@ -28,7 +28,7 @@ public partial class WorkPaperProgressTimeline : ComponentBase
             : dateTimeString;
     }
 
-    public string GetVerificationTimestamp()
+    protected string GetVerificationTimestamp()
     {
         bool hasSignatureVerification = !WorkPaper!.ApprovalOpportunity.SignatureVerifikasiImport.IsEmptySignature();
         string dateTimeString = $"{WorkPaper!.ApprovalOpportunity.SignatureVerifikasiImport.TglAksi.ToReadableFormat()}";
@@ -38,7 +38,7 @@ public partial class WorkPaperProgressTimeline : ComponentBase
             : dateTimeString;
     }
 
-    public string GetValidationTimestamp()
+    protected string GetValidationTimestamp()
     {
         bool hasSignatureChatCallRespons = !WorkPaper!.ProsesValidasi.SignatureChatCallRespons.IsEmptySignature();
         string dateTimeString = $"{WorkPaper!.ProsesValidasi.SignatureChatCallRespons.TglAksi.ToReadableFormat()}";
@@ -48,7 +48,7 @@ public partial class WorkPaperProgressTimeline : ComponentBase
             : dateTimeString;
     }
 
-    public string GetApprovalTimestamp()
+    protected string GetApprovalTimestamp()
     {
         bool hasSignatureApproval = !WorkPaper!.ProsesApproval.SignatureApproval.IsEmptySignature();
         string dateTimeString = $"{WorkPaper!.ProsesApproval.SignatureApproval.TglAksi.ToReadableFormat()}";
@@ -58,24 +58,29 @@ public partial class WorkPaperProgressTimeline : ComponentBase
             : dateTimeString;
     }
 
-    public string GetVerificationTimelineStepCss()
+    protected string GetVerificationTimelineStepCss()
     {
         return IsAtLeastReinstated
             ? "timeline-step timeline-step-active"
             : "timeline-step timeline-step-pending";
     }
 
-    public string GetValidatingTimelineStepCss()
+    protected string GetValidatingTimelineStepCss()
     {
         return IsAtLeastImportVerified
             ? "timeline-step timeline-step-active"
             : "timeline-step timeline-step-pending";
     }
 
-    public string GetWaitingApprovalTimelineStepCss()
+    protected string GetWaitingApprovalTimelineStepCss()
     {
         return IsAtLeastWaitingApproval
             ? "timeline-step timeline-step-active"
             : "timeline-step timeline-step-pending";
+    }
+
+    protected Icon GetHeaderIcon()
+    {
+        return new Icons.Filled.Size20.Circle().WithColor("var(--soft-black)");
     }
 }

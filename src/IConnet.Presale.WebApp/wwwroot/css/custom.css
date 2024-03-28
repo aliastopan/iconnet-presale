@@ -343,6 +343,7 @@ input:invalid::part(root) {
     height: 100%;
     border-left: 4px solid;
     margin-left: 8px;
+    padding: 4px 8px;
 }
 
 
