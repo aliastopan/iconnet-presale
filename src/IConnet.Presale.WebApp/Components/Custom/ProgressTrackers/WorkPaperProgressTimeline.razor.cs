@@ -79,6 +79,13 @@ public partial class WorkPaperProgressTimeline : ComponentBase
             : "timeline-step timeline-step-pending";
     }
 
+    protected string GetResultTimelineStepCss()
+    {
+        return IsAtLeastDoneProcessing
+            ? "timeline-step timeline-step-active"
+            : "timeline-step timeline-step-pending";
+    }
+
     protected Icon GetImportHeaderIcon()
     {
         string color = IsAtLeastImportUnverified
@@ -115,8 +122,32 @@ public partial class WorkPaperProgressTimeline : ComponentBase
         return new Icons.Filled.Size20.Circle().WithColor(color);
     }
 
-    // protected Icon GetHeaderIcon()
-    // {
-    //     return new Icons.Filled.Size20.Circle().WithColor("var(--soft-black)");
-    // }
+    protected Icon GetResultHeaderIcon()
+    {
+        string color = IsAtLeastDoneProcessing
+            ? "var(--accent-blue)"
+            : "var(--inactive-grey)";
+
+        return new Icons.Filled.Size20.Circle().WithColor(color);
+    }
+
+    protected string GetResultString()
+    {
+        if (!IsAtLeastDoneProcessing)
+        {
+            return "STATUS PERMOHONAN";
+        }
+
+        switch (WorkPaper!.ProsesApproval.StatusApproval)
+        {
+            case ApprovalStatus.CloseLost:
+                return "CLOSED LOST";
+            case ApprovalStatus.Reject:
+                return "REJECTED";
+            case ApprovalStatus.Approve:
+                return "APPROVED";
+            default:
+                return "STATUS PERMOHONAN";
+        }
+    }
 }
