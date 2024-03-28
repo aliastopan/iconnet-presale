@@ -326,21 +326,38 @@ input:invalid::part(root) {
 }
 
 .timeline-step{
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
     height: 100px;
     display: flex;
     flex-direction: column;
 }
 
 .timeline-header{
-    background-color: cornflowerblue;
+    /* background-color: cornflowerblue; */
     font-weight: 700;
     padding-left: 16px;
 }
 
 .timeline-content{
-    background-color: beige;
+    /* background-color: beige; */
     height: 100%;
     border-left: 4px solid;
     margin-left: 8px;
+}
+
+
+.timeline-step-active{
+    background-color: var(--accent-blue) !important;
+}
+
+.timeline-step-pending{
+    background-color: #919191 !important;
+}
+
+.timeline-step-active .timeline-header{
+    background-color: var(--accent-blue) !important;
+}
+
+.timeline-step-pending .timeline-header{
+    background-color: #919191 !important;
 }
