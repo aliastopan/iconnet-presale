@@ -14,7 +14,12 @@
             </div>
         </div>
         <div class="timeline-content">
-            stack 1
+            @if (IsAtLeastImportUnverified)
+            {
+                <div>
+                    Data presale telah di-import oleh <span class="fw-bold">@GetPicImport()</span>
+                </div>
+            }
         </div>
     </div>
 
@@ -31,7 +36,12 @@
             </div>
         </div>
         <div class="timeline-content">
-            stack 2
+            @if (IsAtLeastImportVerified)
+            {
+                <div>
+                    Permohonan telah diverikasi oleh <span class="fw-bold">@GetPicVerification()</span>
+                </div>
+            }
         </div>
     </div>
 

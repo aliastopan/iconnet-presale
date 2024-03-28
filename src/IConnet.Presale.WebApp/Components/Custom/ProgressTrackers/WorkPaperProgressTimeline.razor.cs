@@ -6,11 +6,21 @@ public partial class WorkPaperProgressTimeline : ComponentBase
     public WorkPaper? WorkPaper { get; set; }
 
     protected bool IsAtLeastImportUnverified => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.ImportUnverified;
-    protected bool IsAtLeastReinstated => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.Reinstated;
+    // protected bool IsAtLeastReinstated => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.Reinstated;
     protected bool IsAtLeastImportVerified => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.ImportVerified;
     protected bool IsAtLeastValidating => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.Validating;
     protected bool IsAtLeastWaitingApproval => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.WaitingApproval;
     protected bool IsAtLeastDoneProcessing => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.DoneProcessing;
+
+    protected string GetPicImport()
+    {
+        return $"{WorkPaper!.ApprovalOpportunity.SignatureImport.Alias}";
+    }
+
+    protected string GetPicVerification()
+    {
+        return $"{WorkPaper!.ApprovalOpportunity.SignatureVerifikasiImport.Alias}";
+    }
 
     protected string GetImportTimestamp()
     {
@@ -26,7 +36,7 @@ public partial class WorkPaperProgressTimeline : ComponentBase
         bool hasSignatureVerification = !WorkPaper!.ApprovalOpportunity.SignatureVerifikasiImport.IsEmptySignature();
         string dateTimeString = $"{WorkPaper!.ApprovalOpportunity.SignatureVerifikasiImport.TglAksi.ToReadableFormat()}";
 
-        return !(IsAtLeastValidating && hasSignatureVerification)
+        return !(IsAtLeastImportVerified && hasSignatureVerification)
             ? ""
             : dateTimeString;
     }
