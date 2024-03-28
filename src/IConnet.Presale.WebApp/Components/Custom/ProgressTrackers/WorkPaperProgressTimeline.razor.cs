@@ -2,6 +2,8 @@ namespace IConnet.Presale.WebApp.Components.Custom.ProgressTrackers;
 
 public partial class WorkPaperProgressTimeline : ComponentBase
 {
+    [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
+
     [Parameter]
     public WorkPaper? WorkPaper { get; set; }
 
@@ -15,6 +17,22 @@ public partial class WorkPaperProgressTimeline : ComponentBase
     protected string GetPicImport()
     {
         return $"{WorkPaper!.ApprovalOpportunity.SignatureImport.Alias}";
+    }
+
+    public string GetImportElapsedTime()
+    {
+        DateTime importDateTime = WorkPaper!.ApprovalOpportunity.SignatureImport.TglAksi;
+        TimeSpan elapsedTime = DateTimeService.GetElapsedTime(importDateTime);
+
+        return elapsedTime.ToReadableDateTime();
+    }
+
+    public string GetVerificationElapsedTime()
+    {
+        DateTime verificationDateTime = WorkPaper!.ApprovalOpportunity.SignatureVerifikasiImport.TglAksi;
+        TimeSpan elapsedTime = DateTimeService.GetElapsedTime(verificationDateTime);
+
+        return elapsedTime.ToReadableDateTime();
     }
 
     protected string GetPicVerification()
