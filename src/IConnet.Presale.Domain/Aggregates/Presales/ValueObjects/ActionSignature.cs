@@ -29,6 +29,21 @@ public class ActionSignature : ValueObject
             || TglAksi == DateTime.MinValue;
     }
 
+    public string ExtractUsernameFromAlias(out string role)
+    {
+        string[] parts = Alias.Split(' ', 2);
+        if (parts.Length == 2)
+        {
+            role = parts[1].Trim('(', ')');
+            return parts[0];
+        }
+        else
+        {
+            role = string.Empty;
+            return Alias;
+        }
+    }
+
     public bool IsDurationExceeded(DateTime dateTimeEnd, TimeSpan duration)
     {
         var elapsedTime = dateTimeEnd - TglAksi;
