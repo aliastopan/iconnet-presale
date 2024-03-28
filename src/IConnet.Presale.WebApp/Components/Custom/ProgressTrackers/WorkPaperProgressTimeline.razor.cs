@@ -60,7 +60,7 @@ public partial class WorkPaperProgressTimeline : ComponentBase
 
     protected string GetVerificationTimelineStepCss()
     {
-        return IsAtLeastReinstated
+        return IsAtLeastImportUnverified
             ? "timeline-step timeline-step-active"
             : "timeline-step timeline-step-pending";
     }
@@ -90,7 +90,7 @@ public partial class WorkPaperProgressTimeline : ComponentBase
 
     protected Icon GetVerificationHeaderIcon()
     {
-        string color = IsAtLeastReinstated
+        string color = IsAtLeastImportUnverified
             ? "var(--accent-blue)"
             : "var(--inactive-grey)";
 
