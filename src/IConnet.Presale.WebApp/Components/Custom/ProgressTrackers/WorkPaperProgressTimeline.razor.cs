@@ -7,6 +7,7 @@ public partial class WorkPaperProgressTimeline : ComponentBase
     [Parameter]
     public WorkPaper? WorkPaper { get; set; }
 
+    protected bool IsInvalid => WorkPaper!.WorkPaperLevel == WorkPaperLevel.ImportInvalid;
     protected bool IsAtLeastImportUnverified => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.ImportUnverified;
     // protected bool IsAtLeastReinstated => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.Reinstated;
     protected bool IsAtLeastImportVerified => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.ImportVerified;
@@ -147,11 +148,21 @@ public partial class WorkPaperProgressTimeline : ComponentBase
 
     protected string GetImportTimelineStepCss()
     {
+        if (IsInvalid)
+        {
+            return "timeline-step timeline-step-rejected";
+        }
+
         return GetTimelineStepCss(IsAtLeastImportUnverified);
     }
 
     protected string GetVerificationTimelineStepCss()
     {
+        if (IsInvalid)
+        {
+            return "timeline-step timeline-step-rejected";
+        }
+
         return GetTimelineStepCss(IsAtLeastImportUnverified);
     }
 
@@ -197,11 +208,21 @@ public partial class WorkPaperProgressTimeline : ComponentBase
 
     protected Icon GetImportHeaderIcon()
     {
+        if (IsInvalid)
+        {
+            return new Icons.Filled.Size20.DismissCircle().WithColor("var(--error-red)");
+        }
+
         return GetHeaderIcon(IsAtLeastImportUnverified);
     }
 
     protected Icon GetVerificationHeaderIcon()
     {
+        if (IsInvalid)
+        {
+            return new Icons.Filled.Size20.DismissCircle().WithColor("var(--error-red)");
+        }
+
         return GetHeaderIcon(IsAtLeastImportUnverified);
     }
 

@@ -44,9 +44,21 @@
             }
             else
             {
-                <div>
-                    Data presale akan segera diproses oleh <span class="fw-bold">PAC</span>.
-                </div>
+                if (IsInvalid)
+                {
+                    <div>
+                        Data presale ditolak <span class="tracker-label-rejected">REJECTED</span> oleh <span class="fw-bold">@GetPicVerification()</span> pada <span class="fw-bold">@GetVerificationElapsedTime()</span> yang lalu.
+                    </div>
+                    <div>
+                        Dengan root cause: <span class="fw-bold">@GetRootCause()</span>
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        Data presale akan segera diproses oleh <span class="fw-bold">PAC</span>.
+                    </div>
+                }
             }
         </div>
     </div>
