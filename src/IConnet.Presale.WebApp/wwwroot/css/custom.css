@@ -319,7 +319,7 @@ input:invalid::part(root) {
 }
 
 .timeline-stack{
-    background-color: cadetblue;
+    /* background-color: cadetblue; */
     width: 600px;
     display: flex;
     flex-direction: column;
@@ -348,17 +348,25 @@ input:invalid::part(root) {
 
 
 .timeline-step-active{
-    background-color: var(--accent-blue) !important;
+    /* background-color: var(--accent-blue) !important; */
 }
 
 .timeline-step-pending{
-    background-color: #919191 !important;
+    /* background-color: #919191 !important; */
 }
 
 .timeline-step-active .timeline-header{
-    background-color: var(--accent-blue) !important;
+    /* background-color: var(--accent-blue) !important; */
 }
 
 .timeline-step-pending .timeline-header{
-    background-color: #919191 !important;
+    /* background-color: #919191 !important; */
+}
+
+.timeline-step-active .timeline-content{
+    border-left: 4px solid var(--accent-blue) !important;
+}
+
+.timeline-step-pending .timeline-content{
+    border-left: 4px solid var(--inactive-grey) !important;
 }
