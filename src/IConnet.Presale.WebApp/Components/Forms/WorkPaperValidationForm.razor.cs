@@ -364,15 +364,24 @@ public partial class WorkPaperValidationForm : ComponentBase
 
     protected void OnWaktuResponsChanged(DateTime? waktuRespons)
     {
-        // var priorValue = ValidationModel!.NullableWaktuRespons;
+        var priorValue = ValidationModel!.NullableWaktuRespons;
 
         ValidationModel!.NullableWaktuRespons = waktuRespons;
 
         if (ValidationModel!.GetWaktuTanggalRespons() < WorkPaper!.ProsesValidasi.SignatureChatCallMulai.TglAksi)
         {
-            InvalidWaktuResponsToast();
+            string message = "Jam respons tidak valid";
+            InvalidWaktuResponsToast(message);
 
             ValidationModel!.NullableWaktuRespons = DateTimeService.DateTimeOffsetNow.DateTime;
+        }
+
+        if (ValidationModel!.GetWaktuTanggalRespons() > DateTimeService.DateTimeOffsetNow.DateTime)
+        {
+            string message = "Jam respons tidak valid (melebihi waktu sekarang)";
+            InvalidWaktuResponsToast(message);
+
+            ValidationModel!.NullableWaktuRespons = priorValue;
         }
 
         if (!IsStillInCharge())
@@ -389,13 +398,17 @@ public partial class WorkPaperValidationForm : ComponentBase
 
         if (ValidationModel!.GetWaktuTanggalRespons() < WorkPaper!.ProsesValidasi.SignatureChatCallMulai.TglAksi)
         {
-            InvalidWaktuResponsToast();
+            string message = "Tanggal respons tidak valid";
+            InvalidWaktuResponsToast(message);
 
             ValidationModel!.NullableTanggalRespons = priorValue;
         }
 
-        if (ValidationModel!.GetWaktuTanggalRespons().Date > DateTimeService.DateTimeOffsetNow.Date)
+        if (ValidationModel!.GetWaktuTanggalRespons() > DateTimeService.DateTimeOffsetNow.DateTime)
         {
+            string message = "Tanggal respons tidak valid (melebihi tanggal sekarang)";
+            InvalidWaktuResponsToast(message);
+
             ValidationModel!.NullableTanggalRespons = priorValue;
         }
 
@@ -554,10 +567,9 @@ public partial class WorkPaperValidationForm : ComponentBase
         ToastService.ShowToast(intent, message, timeout: timeout);
     }
 
-    private void InvalidWaktuResponsToast()
+    private void InvalidWaktuResponsToast(string message)
     {
         var intent = ToastIntent.Warning;
-        var message = "Waktu/Tanggal respons tidak bisa kurang dari Waktu/Tanggal Chat/Call Mulai";
         var timeout = 3000; // milliseconds
 
         ToastService.ShowToast(intent, message, timeout: timeout);
