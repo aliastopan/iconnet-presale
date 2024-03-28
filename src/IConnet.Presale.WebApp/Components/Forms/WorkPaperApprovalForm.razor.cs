@@ -82,8 +82,6 @@ public partial class WorkPaperApprovalForm : ComponentBase
             : ApprovalModel!.RootCause;
 
         var prosesApproval = WorkPaper!.ProsesApproval
-            .WithSignatureApproval(signatureApproval)
-            .WithStatusApproval(approvalStatus)
             .WithVaTerbit(ApprovalModel!.NullableVaTerbit!.Value)
             .WithJarakShareLoc(ApprovalModel!.JarakShareLoc)
             .WithJarakICrmPlus(ApprovalModel!.JarakICrmPlus)
@@ -91,7 +89,13 @@ public partial class WorkPaperApprovalForm : ComponentBase
             .WithKeterangan(ApprovalModel!.Keterangan)
             .WithRootCause(rootCause);
 
-        WorkPaper.ProsesApproval = prosesApproval;
+        // only assign signature once, keep the previous signature if Expansion
+        if (prosesApproval.StatusApproval != ApprovalStatus.Expansion)
+        {
+            prosesApproval = prosesApproval.WithSignatureApproval(signatureApproval);
+        }
+
+        WorkPaper.ProsesApproval = prosesApproval.WithStatusApproval(approvalStatus);
 
         if (WorkPaper.ProsesApproval.StatusApproval != ApprovalStatus.Expansion)
         {
