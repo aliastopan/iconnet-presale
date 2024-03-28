@@ -14,7 +14,7 @@ public static class TimeSpanExtensions
         return $"{hours:D2}:{minutes:D2}:{seconds:D2}";
     }
 
-    public static string ToReadableDateTime(this TimeSpan timeSpan)
+    public static string ToReadableDateTime(this TimeSpan timeSpan, bool useLowerCaseNotation = false)
     {
         int days = timeSpan.Days;
         int hours = timeSpan.Hours;
@@ -22,29 +22,36 @@ public static class TimeSpanExtensions
 
         if (days >= 365)
         {
-            return "Lebih dari 1 tahun";
+            return !useLowerCaseNotation
+                ? "Lebih dari 1 Tahun"
+                : "lebih dari 1 tahun";
         }
 
         if (timeSpan.TotalMinutes < 1)
         {
-            return "Kurang dari 1 menit";
+            return !useLowerCaseNotation
+                ? "Kurang dari 1 Menit"
+                : "kurang dari 1 menit";
         }
 
         string result = "";
+        string dayUnit = !useLowerCaseNotation ? "Hari" : "hari";
+        string hourUnit = !useLowerCaseNotation ? "Jam" : "jam";
+        string minuteUnit = !useLowerCaseNotation ? "Menit" : "menit";
 
         if (days > 0)
         {
-            result += $"{days} Hari ";
+            result += $"{days} {dayUnit} ";
         }
 
         if (hours > 0)
         {
-            result += $"{hours} Jam ";
+            result += $"{hours} {hourUnit} ";
         }
 
         if (minutes > 0)
         {
-            result += $"{minutes} Menit";
+            result += $"{minutes} {minuteUnit}";
         }
         else
         {
