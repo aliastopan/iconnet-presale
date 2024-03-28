@@ -20,6 +20,7 @@ public partial class WorkPaperProgressTimeline : ComponentBase
 
     protected bool IsClosedLost => WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.CloseLost;
     protected bool IsRejected => WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.Reject;
+    protected bool IsExpansion => WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.Expansion;
     protected bool IsApproved => WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.Approve;
 
     protected string GetPicImport()

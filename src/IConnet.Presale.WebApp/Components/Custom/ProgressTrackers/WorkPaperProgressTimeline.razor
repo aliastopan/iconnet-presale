@@ -111,6 +111,13 @@
                     <div>
                         Data presale telah selesai diproses oleh <span class="fw-bold">@GetPicApproval()</span> pada <span class="fw-bold">@GetApprovalElapsedTime()</span> yang lalu.
                     </div>
+
+                    if (IsExpansion)
+                    {
+                        <div>
+                            Pending approval karena <span class="tracker-label-expansion">EXPANSION</span>
+                        </div>
+                    }
                 }
                 else
                 {
