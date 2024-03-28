@@ -319,6 +319,23 @@ input:invalid::part(root) {
 }
 
 .timeline-stack{
-    width: 600px;
     background-color: cadetblue;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.timeline-step{
+    background-color: aquamarine;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.timeline-header{
+    background-color: cornflowerblue;
+}
+
+.timeline-content{
+    background-color: beige;
 }
