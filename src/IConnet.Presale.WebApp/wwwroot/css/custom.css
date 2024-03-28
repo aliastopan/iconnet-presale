@@ -334,8 +334,13 @@ input:invalid::part(root) {
 
 .timeline-header{
     background-color: cornflowerblue;
+    font-weight: 700;
+    padding-left: 16px;
 }
 
 .timeline-content{
     background-color: beige;
+    height: 100%;
+    border-left: 4px solid;
+    margin-left: 8px;
 }
