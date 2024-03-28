@@ -404,3 +404,39 @@ input:invalid::part(root) {
 .timeline-step-approved .timeline-content{
     border-left: 4px solid var(--success-green) !important;
 }
+
+.tracker-label-closed-lost{
+    background-color: var(--soft-black);
+    color: white;
+    font-weight: 600;
+    padding: 2px 4px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+.tracker-label-rejected{
+    background-color: var(--error-red);
+    color: white;
+    font-weight: 600;
+    padding: 2px 4px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+.tracker-label-approved{
+    background-color: var(--success-green);
+    color: white;
+    font-weight: 600;
+    padding: 2px 4px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}

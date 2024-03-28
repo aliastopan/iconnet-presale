@@ -18,6 +18,10 @@ public partial class WorkPaperProgressTimeline : ComponentBase
     protected bool HasChatCallResponsSignature => !WorkPaper!.ProsesValidasi.SignatureChatCallRespons.IsEmptySignature();
     protected bool HasApprovalSignature => !WorkPaper!.ProsesApproval.SignatureApproval.IsEmptySignature();
 
+    protected bool IsClosedLost => WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.CloseLost;
+    protected bool IsRejected => WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.Reject;
+    protected bool IsApproved => WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.Approve;
+
     protected string GetPicImport()
     {
         string username = WorkPaper!.ApprovalOpportunity.SignatureImport.ExtractUsernameFromAlias(out string role);
@@ -169,17 +173,17 @@ public partial class WorkPaperProgressTimeline : ComponentBase
     {
         if (IsAtLeastDoneProcessing)
         {
-            if (WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.CloseLost)
+            if (IsClosedLost)
             {
                 return "timeline-step timeline-step-closed-lost";
             }
 
-            if (WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.Reject)
+            if (IsRejected)
             {
                 return "timeline-step timeline-step-rejected";
             }
 
-            if (WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.Approve)
+            if (IsApproved)
             {
                 return "timeline-step timeline-step-approved";
             }
@@ -219,17 +223,17 @@ public partial class WorkPaperProgressTimeline : ComponentBase
     {
         if (IsAtLeastDoneProcessing)
         {
-            if (WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.CloseLost)
+            if (IsClosedLost)
             {
                 return new Icons.Filled.Size20.SubtractCircle().WithColor("var(--soft-black)");
             }
 
-            if (WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.Reject)
+            if (IsRejected)
             {
                 return new Icons.Filled.Size20.DismissCircle().WithColor("var(--error-red)");
             }
 
-            if (WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.Approve)
+            if (IsApproved)
             {
                 return new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success-green)");
             }
@@ -260,5 +264,10 @@ public partial class WorkPaperProgressTimeline : ComponentBase
             default:
                 return "STATUS PERMOHONAN";
         }
+    }
+
+    protected string GetRootCause()
+    {
+        return WorkPaper!.ProsesApproval.RootCause.ToUpper();
     }
 }

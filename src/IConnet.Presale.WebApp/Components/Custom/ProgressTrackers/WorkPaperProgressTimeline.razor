@@ -136,7 +136,32 @@
         <div class="timeline-content">
             @if (IsAtLeastDoneProcessing)
             {
+                @if (IsClosedLost)
+                {
+                    <div>
+                        Data presale telah dinyatakan <span class="tracker-label-closed-lost">CLOSED LOST</span> oleh <span class="fw-bold">@GetPicApproval()</span>
+                    </div>
+                    <div>
+                        Dengan root cause: <span class="fw-bold">@GetRootCause()</span>
+                    </div>
+                }
 
+                @if (IsRejected)
+                {
+                    <div>
+                        Data presale telah ditolak <span class="tracker-label-rejected">REJECTED</span> oleh <span class="fw-bold">@GetPicApproval()</span>
+                    </div>
+                    <div>
+                        Dengan root cause: <span class="fw-bold">@GetRootCause()</span>
+                    </div>
+                }
+
+                @if (IsApproved)
+                {
+                    <div>
+                        Data presale telah diterima <span class="tracker-label-approved">APPROVED</span> oleh <span class="fw-bold">@GetPicApproval()</span>
+                    </div>
+                }
             }
         </div>
     </div>
