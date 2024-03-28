@@ -9,7 +9,8 @@
     --accent-blue: #1e6bc9;
     --error-red: #ff0033;
     --success-green: #0e700e;
-    --pending-cyan: #0e7067
+    --pending-cyan: #0e7067;
+    --inactive-grey: #e0e0e0;
   }
 
 body {
