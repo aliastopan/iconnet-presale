@@ -14,9 +14,43 @@ public partial class WorkPaperProgressTimeline : ComponentBase
     protected bool IsAtLeastWaitingApproval => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.WaitingApproval;
     protected bool IsAtLeastDoneProcessing => WorkPaper!.WorkPaperLevel >= WorkPaperLevel.DoneProcessing;
 
+    protected bool HasChatCallMulaiSignature => !WorkPaper!.ProsesValidasi.SignatureChatCallMulai.IsEmptySignature();
+    protected bool HasChatCallResponsSignature => !WorkPaper!.ProsesValidasi.SignatureChatCallRespons.IsEmptySignature();
+
     protected string GetPicImport()
     {
-        return $"{WorkPaper!.ApprovalOpportunity.SignatureImport.Alias}";
+        string username = WorkPaper!.ApprovalOpportunity.SignatureImport.ExtractUsernameFromAlias(out string role);
+
+        return $"{username} - {role}";
+    }
+
+    protected string GetPicVerification()
+    {
+        string username = WorkPaper!.ApprovalOpportunity.SignatureVerifikasiImport.ExtractUsernameFromAlias(out string role);
+
+        return $"{username} - {role}";
+    }
+
+    protected string GetPicChatCallMulai()
+    {
+        string username = WorkPaper!.ProsesValidasi.SignatureChatCallMulai.ExtractUsernameFromAlias(out string role);
+
+        role = role == "PH"
+            ? "Helpdesk Presale"
+            : role;
+
+        return $"{username} - {role}";
+    }
+
+    protected string GetPicChatCallRespons()
+    {
+        string username = WorkPaper!.ProsesValidasi.SignatureChatCallRespons.ExtractUsernameFromAlias(out string role);
+
+        role = role == "PH"
+            ? "Helpdesk Presale"
+            : role;
+
+        return $"{username} - {role}";
     }
 
     public string GetImportElapsedTime()
@@ -24,7 +58,7 @@ public partial class WorkPaperProgressTimeline : ComponentBase
         DateTime importDateTime = WorkPaper!.ApprovalOpportunity.SignatureImport.TglAksi;
         TimeSpan elapsedTime = DateTimeService.GetElapsedTime(importDateTime);
 
-        return elapsedTime.ToReadableDateTime();
+        return elapsedTime.ToReadableDateTime(useLowerCaseNotation: true);
     }
 
     public string GetVerificationElapsedTime()
@@ -32,12 +66,23 @@ public partial class WorkPaperProgressTimeline : ComponentBase
         DateTime verificationDateTime = WorkPaper!.ApprovalOpportunity.SignatureVerifikasiImport.TglAksi;
         TimeSpan elapsedTime = DateTimeService.GetElapsedTime(verificationDateTime);
 
-        return elapsedTime.ToReadableDateTime();
+        return elapsedTime.ToReadableDateTime(useLowerCaseNotation: true);
     }
 
-    protected string GetPicVerification()
+    public string GetChatCallMulaiElapsedTime()
     {
-        return $"{WorkPaper!.ApprovalOpportunity.SignatureVerifikasiImport.Alias}";
+        DateTime chatCallMulaiDateTime = WorkPaper!.ProsesValidasi.SignatureChatCallMulai.TglAksi;
+        TimeSpan elapsedTime = DateTimeService.GetElapsedTime(chatCallMulaiDateTime);
+
+        return elapsedTime.ToReadableDateTime(useLowerCaseNotation: true);
+    }
+
+    public string GetChatCallResponsElapsedTime()
+    {
+        DateTime chatCallResponsDateTime = WorkPaper!.ProsesValidasi.SignatureChatCallRespons.TglAksi;
+        TimeSpan elapsedTime = DateTimeService.GetElapsedTime(chatCallResponsDateTime);
+
+        return elapsedTime.ToReadableDateTime(useLowerCaseNotation: true);
     }
 
     protected string GetImportTimestamp()
