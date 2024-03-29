@@ -1,3 +1,14 @@
+## v1.8.0
+- Fix: Filter performance overhead
+- Fix: Page loading indicator
+- Fix: Validation page aging display
+- Fix: `WaktuRespons` time constraint
+- Fix: Missing Session alias "Sales" and "Management"
+- Fix: Access color scheme
+- Update: Home as default Dashboard
+- Update: Timeline tracker
+- Add: Status Tracker page
+
 ## v1.7.1
 - Fix: Approval aging calculation on user not responding
 - Fix: greyed out disabled label (Root Cause) on  Approval page
