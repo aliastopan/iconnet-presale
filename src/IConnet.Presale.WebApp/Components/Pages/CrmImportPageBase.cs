@@ -17,8 +17,8 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
     private CrmImportMetadata _importMetadata = default!;
 
     protected ImportModelColumnWidth ColumnWidth => _columnWidth;
-    protected bool IsFullscreenDataGrid { get; set; } = false;
-    protected bool EnableFullscreenToggle => _pagination.ItemsPerPage <= 10;
+    protected bool IsPageScrollDataGrid { get; set; } = false;
+    protected bool EnablePageScrollToggle => _pagination.ItemsPerPage <= 10;
     protected string PaginationItemsPerPageOptions { get; set ;} = default!;
     protected PaginationState Pagination => _pagination;
     protected HashSet<string> DuplicateIds => _duplicateIds;
@@ -153,7 +153,7 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
 
     protected string GetPaginationStyle()
     {
-        if (_pagination.ItemsPerPage <= 10 || !IsFullscreenDataGrid)
+        if (_pagination.ItemsPerPage <= 10 || !IsPageScrollDataGrid)
         {
             return "max-height: 364px !important";
         }
