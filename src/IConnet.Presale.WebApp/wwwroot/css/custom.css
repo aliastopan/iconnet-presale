@@ -318,6 +318,31 @@ input:invalid::part(root) {
     text-align: center;
 }
 
+
+.tracker-container{
+    overflow-y: scroll;
+    min-width: 350px;
+}
+
+
+.tracker-container::-webkit-scrollbar{
+    width: 8px;
+    height: 8px;
+}
+
+.tracker-container::-webkit-scrollbar-track{
+    background-color: #cccccc;
+}
+
+.tracker-container::-webkit-scrollbar-thumb{
+    background-color: #646464;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
 .status-tracker-left{
     /* width: calc(100% - 210px); */
     width: 450px;

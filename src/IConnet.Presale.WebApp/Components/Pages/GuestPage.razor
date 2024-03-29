@@ -2,15 +2,18 @@
 @rendermode @(InteractiveServer.DisablePreRender())
 
 <div class="searchbar-stack">
-    <FluentSearch
-        Value=@IdPermohonan
-        ValueChanged="OnIdPermohonanSearchChanged"
-        Placeholder="ID PERMOHONAN"/>
+    <div class=""d-flex flex-row>
+        <div style="font-weight: 600; margin-bottom: 4px" >Lacak Status Permohonan</div>
+        <FluentSearch
+            Value=@IdPermohonan
+            ValueChanged="OnIdPermohonanSearchChanged"
+            Placeholder="ID PERMOHONAN"/>
+    </div>
     <div class="p-2">
-    @if (IsLoading)
-    {
-        <FluentProgressRing style="width: 16px; height: 16px;"></FluentProgressRing>
-    }
+        @if (IsLoading)
+        {
+            <FluentProgressRing style="width: 16px; height: 16px;"></FluentProgressRing>
+        }
     </div>
 </div>
 <div class="guest-page-content">
@@ -292,7 +295,14 @@
 <div>
     @if (WorkPaper is not null)
     {
-        <WorkPaperProgressTracker WorkPaper="@WorkPaper"/>
+        <div class="guest-page-tracker">
+            <div style="margin-right: 8px;">
+                <WorkPaperProgressDetail WorkPaper="@WorkPaper"/>
+            </div>
+            <div style="margin-left: 8px;">
+                <WorkPaperProgressTimeline WorkPaper="@WorkPaper"/>
+            </div>
+        </div>
     }
     else
     {
