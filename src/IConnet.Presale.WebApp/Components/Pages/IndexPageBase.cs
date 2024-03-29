@@ -4,7 +4,7 @@ using IConnet.Presale.WebApp.Models.Presales.Reports;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
 
-public class HomePageBase : ComponentBase, IPageNavigation
+public class IndexPageBase : ComponentBase, IPageNavigation
 {
     [Inject] protected TabNavigationManager TabNavigationManager { get; set; } = default!;
     [Inject] protected IDateTimeService DateTimeService { get; set; } = default!;
@@ -59,7 +59,7 @@ public class HomePageBase : ComponentBase, IPageNavigation
 
     public TabNavigationModel PageDeclaration()
     {
-        return new TabNavigationModel("home", PageNavName.Home, PageRoute.Home);
+        return new TabNavigationModel("home", PageNavName.Index, PageRoute.Index);
     }
 
     protected override void OnInitialized()

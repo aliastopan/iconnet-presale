@@ -3,7 +3,7 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 public static class PageNavName
 {
     public const string Developer = "Developer Access";
-    public const string Home = "Home";
+    public const string Index = "Home";
     public const string Dashboard = "Dashboard";
     public const string StatusTracker = "Status Tracker";
     public const string CrmImport = "Import CRM";

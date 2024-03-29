@@ -8,11 +8,11 @@
             Title="Navigation menu"
             @bind-Expanded="IsExpanded">
 
-            <FluentNavLink Href="@PageRoute.Home"
+            <FluentNavLink Href="@PageRoute.Index"
                 Match="NavLinkMatch.All"
                 Icon="@(new Icons.Regular.Size20.Home())"
                 IconColor="Color.Accent">
-                @PageNavName.Home</FluentNavLink>
+                @PageNavName.Index</FluentNavLink>
 
             <FluentNavLink Href="@PageRoute.StatusTracker"
                 Icon="@(new Icons.Regular.Size20.Timeline())"

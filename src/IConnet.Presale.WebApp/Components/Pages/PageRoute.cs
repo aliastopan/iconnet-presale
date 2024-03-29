@@ -3,7 +3,7 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 public static class PageRoute
 {
     public const string Developer = "/developer";
-    public const string Home = "/";
+    public const string Index = "/";
     public const string Dashboard = "/dashboard";
     public const string StatusTracker = "/status-tracker";
     public const string CrmImport = "/crm-import";
