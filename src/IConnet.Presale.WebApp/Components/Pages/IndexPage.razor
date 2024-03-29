@@ -5,7 +5,18 @@
 <PageTitle>Home</PageTitle>
 
 <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Home</FluentLabel>
-<span class="page-description">Halaman utama Presale App</span>
+
+@if  (MonthlyPresaleData is not null)
+{
+    <span  span class="page-description">Halaman utama Presale App</span>
+}
+else
+{
+    <div class="d-flex flex-row align-items-center">
+        <span class="px-1">Loading</span>
+        <FluentProgressRing style="width: 16px; height: 16px;"></FluentProgressRing>
+    </div>
+}
 
 <div>
     @if (MonthlyPresaleData is not null)
@@ -127,11 +138,5 @@
             </FluentTab>
         </FluentTabs>
     }
-    else
-    {
-        <div class="d-flex flex-row align-items-center">
-            <span class="px-1">Loading</span>
-            <FluentProgressRing style="width: 16px; height: 16px;"></FluentProgressRing>
-        </div>
-    }
+
 </div>

@@ -12,14 +12,14 @@
     </div>
 </div>
 <div>
-    @if (!IsLoading)
+    @if (WorkPapers is not null)
     {
         <span class="page-description">Halaman Kertas Kerja yang telah selesai diproses</span>
     }
     else
     {
         <div class="d-flex flex-row align-items-center">
-            <span class="px-1">Updating</span>
+            <span class="px-1">Loading</span>
             <FluentProgressRing style="width: 16px; height: 16px;"></FluentProgressRing>
         </div>
     }
@@ -457,13 +457,6 @@
                 </div>
             </TemplateColumn>
         </FluentDataGrid>
-    }
-    else
-    {
-        <div class="d-flex flex-row align-items-center">
-            <span class="px-1">Loading</span>
-            <FluentProgressRing style="width: 16px; height: 16px;"></FluentProgressRing>
-        </div>
     }
 
 </div>
