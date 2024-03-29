@@ -1,12 +1,13 @@
 ## v1.8.0
-- Fix: Filter performance overhead
+- Fix: Filter performance overhead. Improved page loading time.
 - Fix: Page loading indicator
 - Fix: Validation page aging display
 - Fix: `WaktuRespons` time constraint
 - Fix: Missing Session alias "Sales" and "Management"
 - Fix: Accent color scheme
-- Update: Home as default Dashboard
-- Update: Timeline tracker
+- Change: Progress tracking layout
+- Change: Home as default Dashboard
+- Update: Timeline (progress tracker)
 - Add: Status Tracker page
 
 ## v1.7.1
