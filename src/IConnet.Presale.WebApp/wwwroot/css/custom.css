@@ -318,11 +318,41 @@ input:invalid::part(root) {
     text-align: center;
 }
 
+.status-tracker-left{
+    /* width: calc(100% - 210px); */
+    width: 450px;
+}
+
+.status-tracker-right{
+    /* width: calc(50% - 210px); */
+}
+
 .timeline-stack{
     /* background-color: cadetblue; */
-    width: 600px;
+    min-width: 350px;
+    margin-top: -60px;
     display: flex;
     flex-direction: column;
+    max-height: 480px;
+    overflow-y: scroll;
+}
+
+.timeline-stack::-webkit-scrollbar{
+    width: 8px;
+    height: 8px;
+}
+
+.timeline-stack::-webkit-scrollbar-track{
+    background-color: #cccccc;
+}
+
+.timeline-stack::-webkit-scrollbar-thumb{
+    background-color: #646464;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
 }
 
 .timeline-step{
