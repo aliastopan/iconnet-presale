@@ -1,0 +1,87 @@
+ <div class="progress-report">
+    <div class="progress-report-id-permohonan-stack">
+        <span>
+            ID PERMOHONAN -
+        </span>
+        <span class="progress-report-id-permohonan">
+            @GetIdPermohonan()
+        </span>
+    </div>
+    <div class="progress-report-nama">
+        @GetNamaPemohon()
+    </div>
+    <div class="progress-report-id-pln-stack">
+        <span>
+            ID PLN -
+        </span>
+        <span class="progress-report-id-pln">
+            @GetIdPln()
+        </span>
+    </div>
+    <div class="progress-report-alamat">
+        @GetAlamat()
+    </div>
+    <div class="d-flex flex-column">
+        <div class="splitter-stack">
+            <span class="splitter-stack-label">
+                SPLITTER -
+            </span>
+            @if (IsSplitterGanti)
+            {
+                <span class="splitter-stack-splitter">
+                    @GetSplitterGanti()
+                </span>
+                <span class="splitter-stack-splitter-ganti" style="margin-left: 8px;">GANTI</span>
+            }
+            else
+            {
+                <span class="splitter-stack-splitter">
+                    @GetSplitter()
+                </span>
+            }
+        </div>
+        <table class="progress-report-table-jarak">
+            <thead>
+                <tr>
+                    <th style="margin-right: 16px;">Jarak Share Loc</th>
+                    <td class="distance">
+                        <span>@GetJarakShareLoc()</span>
+                        <span style="margin-left: 4px;">meter</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="margin-right: 16px;">Jarak iCRM+</th>
+                    <td class="distance">
+                        <span>@GetJarakICrmPlus()</span>
+                        <span style="margin-left: 4px;">meter</span>
+                    </td>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    @if (HasShareLoc)
+    {
+        <div class="progress-report-shareloc">
+            @{
+                var url = @GetGoogleMapLink();
+            }
+            <span style="font-weight: 700;">SHARE LOC -</span>
+            <a href="@url" target="_blank">
+                @GetShareLoc()
+            </a>
+        </div>
+    }
+    @if (IsApproved)
+    {
+        <div class="progress-report-va-terbit">
+            <span style="font-weight: 700;">
+                VA TERBIT -
+            </span>
+            <span class="progress-report-va-terbit-date">
+                @GetVaTerbit()
+            </span>
+        </div>
+    }
+
+</div>
+
