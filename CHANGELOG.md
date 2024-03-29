@@ -4,7 +4,7 @@
 - Fix: Validation page aging display
 - Fix: `WaktuRespons` time constraint
 - Fix: Missing Session alias "Sales" and "Management"
-- Fix: Access color scheme
+- Fix: Accent color scheme
 - Update: Home as default Dashboard
 - Update: Timeline tracker
 - Add: Status Tracker page
