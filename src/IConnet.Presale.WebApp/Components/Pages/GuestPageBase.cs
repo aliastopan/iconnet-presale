@@ -1,6 +1,6 @@
 namespace IConnet.Presale.WebApp.Components.Pages;
 
-public class GuestPageBase : IndexPageBase
+public class GuestPageBase : TrackerPageBase
 {
 
 }

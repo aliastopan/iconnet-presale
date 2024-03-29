@@ -1,6 +1,6 @@
 namespace IConnet.Presale.WebApp.Components.Pages;
 
-public class StatusTrackerPageBase : IndexPageBase, IPageNavigation
+public class StatusTrackerPageBase : TrackerPageBase, IPageNavigation
 {
     public TabNavigationModel PageDeclaration()
     {
