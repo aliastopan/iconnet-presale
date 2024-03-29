@@ -57,8 +57,6 @@ public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
             return _filteredWorkPapers;
         }
 
-        LogSwitch.Debug("Filtering");
-
         _filteredWorkPapers = FilterComponent.FilterWorkPapers(base.WorkPapers)?
             .OrderByDescending(x => x.ApprovalOpportunity.TglPermohonan);
 

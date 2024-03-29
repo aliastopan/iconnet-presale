@@ -77,8 +77,6 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
             return _filteredWorkPapers;
         }
 
-        LogSwitch.Debug("Filtering");
-
         _filteredWorkPapers = FilterComponent.FilterWorkPapers(base.WorkPapers)?
             .Where(x => x.SignatureHelpdeskInCharge.AccountIdSignature == _sessionId
                 && x.ProsesValidasi.IsOnGoing())

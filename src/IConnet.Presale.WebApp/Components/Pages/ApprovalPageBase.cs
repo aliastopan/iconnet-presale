@@ -77,8 +77,6 @@ public class ApprovalPageBase : WorkloadPageBase, IPageNavigation
             return _filteredWorkPapers;
         }
 
-        LogSwitch.Debug("Filtering");
-
         _filteredWorkPapers = FilterComponent.FilterWorkPapers(base.WorkPapers)?
             .Where(x => x.SignaturePlanningAssetCoverageInCharge.AccountIdSignature == _sessionId
                 && x.ProsesApproval.IsOnGoing())

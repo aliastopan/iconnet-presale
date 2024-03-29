@@ -77,8 +77,6 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
             return _filteredPresaleData;
         }
 
-        LogSwitch.Debug("Filtering");
-
         _filteredPresaleData = FilterComponent.FilterWorkPapers(_presaleData)?
             .OrderByDescending(x => x.ApprovalOpportunity.TglPermohonan);
 
