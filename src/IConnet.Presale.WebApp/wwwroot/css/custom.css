@@ -55,7 +55,6 @@ input:invalid::part(root) {
 }
 
 .tab{
-    /* padding: 0 10px; */
     margin: 0 5px;
     height: 100%;
     width: max-content;
@@ -65,8 +64,6 @@ input:invalid::part(root) {
 
 .tab-content{
     border-radius: 3px;
-    /* border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px; */
     cursor: pointer;
     padding: 0 4px;
     border: none;
@@ -82,8 +79,6 @@ input:invalid::part(root) {
 
 .tab-close{
     border-radius: 3px;
-    /* border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px; */
     cursor: pointer;
     padding: 0 5px;
     border: none;
@@ -170,11 +165,6 @@ input:invalid::part(root) {
     white-space: nowrap;
 }
 
-/* fluent-text-field.fluent-datepicker, */
-/* .fluent-datepicker::part(root){
-    width: 150px !important;
-} */
-
 .filter-date{
     display: flex;
     flex-direction: row;
@@ -208,16 +198,8 @@ input:invalid::part(root) {
 }
 
 .filter-approval-status{
-
+    color: inherit;
 }
-
-/* .staging-table-toggle{
-    margin-left: auto;
-}
-
-.staging-table{
-    margin-left: auto;
-} */
 
 .staging-active{
     width: 100%;
@@ -266,7 +248,6 @@ input:invalid::part(root) {
     -o-border-radius: 3px;
     z-index: 999;
 }
-
 
 .searchbar-stack{
     display: flex;
@@ -318,7 +299,6 @@ input:invalid::part(root) {
     text-align: center;
 }
 
-
 .tracker-container{
     overflow-y: scroll;
     min-width: 350px;
@@ -349,20 +329,4 @@ input:invalid::part(root) {
 
 .status-tracker-right{
     /* width: calc(50% - 210px); */
-}
-
-.report-detail{
-    margin-top: 10px;
-}
-
-.report-detail thead tr th{
-    font-weight: 600;
-}
-
-.report-detail thead tr th,
-.report-detail thead tr td{
-    vertical-align: top;
-    border-bottom: 1px solid #dfdfdf;
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
 }
