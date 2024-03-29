@@ -5,6 +5,7 @@ public static class PageRoute
     public const string Developer = "/developer";
     public const string Home = "/";
     public const string Dashboard = "/dashboard";
+    public const string StatusTracker = "/status-tracker";
     public const string CrmImport = "/crm-import";
     public const string CrmVerification = "/crm-verification";
     public const string WorkloadShared = "/workload-shared";

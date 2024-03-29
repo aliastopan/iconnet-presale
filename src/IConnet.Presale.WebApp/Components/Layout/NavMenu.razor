@@ -19,6 +19,11 @@
                 IconColor="Color.Accent">
                 @PageNavName.Dashboard</FluentNavLink>
 
+            <FluentNavLink Href="@PageRoute.StatusTracker"
+                Icon="@(new Icons.Regular.Size20.Timeline())"
+                IconColor="Color.Accent">
+                @PageNavName.StatusTracker</FluentNavLink>
+
             <AuthorizeView Policy="@Policies.RolePlanningAssetCoverage">
                 <FluentNavLink Href="@PageRoute.CrmImport"
                     Icon="@(new Icons.Regular.Size20.DocumentAdd())"
