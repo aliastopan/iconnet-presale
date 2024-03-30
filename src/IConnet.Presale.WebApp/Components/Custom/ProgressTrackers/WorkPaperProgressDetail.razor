@@ -3,7 +3,7 @@
         <span>
             ID PERMOHONAN -
         </span>
-        <span class="progress-report-id-permohonan">
+        <span class="progress-report-id-permohonan" style="@GetBadgeColorStyle()">
             @GetIdPermohonan()
         </span>
     </div>
@@ -14,7 +14,7 @@
         <span>
             ID PLN -
         </span>
-        <span class="progress-report-id-pln">
+        <span class="progress-report-id-pln" style="@GetBadgeColorStyle()">
             @GetIdPln()
         </span>
     </div>
@@ -28,14 +28,14 @@
             </span>
             @if (IsSplitterGanti)
             {
-                <span class="splitter-stack-splitter">
+                <span class="splitter-stack-splitter" style="@GetBadgeColorStyle()">
                     @GetSplitterGanti()
                 </span>
                 <span class="splitter-stack-splitter-ganti" style="margin-left: 8px;">GANTI</span>
             }
             else
             {
-                <span class="splitter-stack-splitter">
+                <span class="splitter-stack-splitter" style="@GetBadgeColorStyle()">
                     @GetSplitter()
                 </span>
             }

@@ -66,4 +66,19 @@ public partial class WorkPaperProgressDetail
         var cultureInfo = new CultureInfo("id-ID");
         return WorkPaper!.ProsesApproval.VaTerbit.ToString("dd MMM yyyy", cultureInfo);
     }
+
+    protected string GetBadgeColorStyle()
+    {
+        switch (WorkPaper!.ProsesApproval.StatusApproval)
+        {
+            case ApprovalStatus.CloseLost:
+                return "background-color: var(--soft-black) !important;";
+            case ApprovalStatus.Reject:
+                return "background-color: var(--error-red) !important;";
+            case ApprovalStatus.Approve:
+                return "background-color: var(--success-green) !important;";
+            default:
+                return "";
+        }
+    }
 }
