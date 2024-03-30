@@ -1,6 +1,6 @@
 namespace IConnet.Presale.WebApp.Components.Pages;
 
-public class TrackerPageBase : ComponentBase
+public class StatusTrackingPageBase : ComponentBase
 {
     [Inject] public TabNavigationManager TabNavigationManager { get; set; } = default!;
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
