@@ -152,6 +152,11 @@ public static class ConfigureServices
             httpClient.BaseAddress = new Uri(configuration["HttpClient:BaseAddress"]!);
         });
 
+        services.AddHttpClient<IDirectApprovalHttpClient, DirectApprovalHttpClient>((_, httpClient) =>
+        {
+            httpClient.BaseAddress = new Uri(configuration["HttpClient:BaseAddress"]!);
+        });
+
         services.AddHttpClient<IRepresentativeOfficeHttpClient, RepresentativeOfficeHttpClient>((_, httpClient) =>
         {
             httpClient.BaseAddress = new Uri(configuration["HttpClient:BaseAddress"]!);
