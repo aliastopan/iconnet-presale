@@ -25,6 +25,7 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddSingleton<CircuitHandler, CustomCircuitHandler>();
     services.AddSingleton<UserManager>();
     services.AddSingleton<ChatTemplateManager>();
+    services.AddSingleton<DirectApprovalManager>();
     services.AddSingleton<RepresentativeOfficeManager>();
     services.AddSingleton<RootCauseManager>();
     services.AddSingleton<IntervalCalculatorService>();
