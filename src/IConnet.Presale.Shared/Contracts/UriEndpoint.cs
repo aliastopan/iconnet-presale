@@ -26,6 +26,11 @@ public static class UriEndpoint
         public const string GetChatTemplates = "/api/chat-templates/get-{templateName}";
     }
 
+    public static class DirectApproval
+    {
+        public const string GetDirectApprovals = "/api/direct-approvals/get";
+    }
+
     public static class RepresentativeOffice
     {
         public const string GetRepresentativeOffices = "/api/representative-offices/get";
