@@ -32,7 +32,7 @@ public class RootCauseManager
                 var response = JsonSerializer.Deserialize<GetRootCausesQueryResponse>(httpResult.Content, options);
                 ICollection<RootCausesDto> rootCauseDtos = response!.RootCausesDtos;
 
-                _optionService.PopulateRootCause(rootCauseDtos);
+                _optionService.PopulateRootCauseOptions(rootCauseDtos);
             }
             else
             {

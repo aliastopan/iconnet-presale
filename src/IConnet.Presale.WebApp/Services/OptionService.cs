@@ -16,7 +16,7 @@ public class OptionService
     public ICollection<string> KantorPerwakilanOptions { get; init; } = [];
     public ICollection<string> RootCauseOptions { get; init; } = [];
 
-    public void PopulateKantorPerwakilan(ICollection<RepresentativeOfficeDto> representativeOfficeDtos)
+    public void PopulateKantorPerwakilanOptions(ICollection<RepresentativeOfficeDto> representativeOfficeDtos)
     {
         foreach (var dto in representativeOfficeDtos)
         {
@@ -24,7 +24,7 @@ public class OptionService
         }
     }
 
-    public void PopulateRootCause(ICollection<RootCausesDto> rootCauseDto)
+    public void PopulateRootCauseOptions(ICollection<RootCausesDto> rootCauseDto)
     {
         foreach (var dto in rootCauseDto)
         {

@@ -32,7 +32,7 @@ public class RepresentativeOfficeManager
                 var response = JsonSerializer.Deserialize<GetRepresentativeOfficesQueryResponse>(httpResult.Content, options);
                 ICollection<RepresentativeOfficeDto> representativeOfficeDtos = response!.RepresentativeOfficeDtos;
 
-                _optionService.PopulateKantorPerwakilan(representativeOfficeDtos);
+                _optionService.PopulateKantorPerwakilanOptions(representativeOfficeDtos);
             }
             else
             {
