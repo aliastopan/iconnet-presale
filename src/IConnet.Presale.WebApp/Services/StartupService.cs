@@ -7,24 +7,24 @@ namespace IConnet.Presale.WebApp.Services;
 public class StartupService : IHostedService
 {
     private readonly IWorkloadSynchronizationManager _workloadSynchronizationManager;
-    private readonly IRepresentativeOfficeHttpClient _representativeOfficeHttpClient;
     private readonly IRootCauseHttpClient _rootCauseHttpClient;
     private readonly UserManager _userManager;
     private readonly ChatTemplateManager _chatTemplateManager;
+    private readonly RepresentativeOfficeManager _representativeOfficeManager;
     private readonly OptionService _optionService;
 
     public StartupService(IWorkloadSynchronizationManager workloadSynchronizationManager,
-        IRepresentativeOfficeHttpClient representativeOfficeHttpClient,
         IRootCauseHttpClient rootCauseHttpClient,
         UserManager userManager,
         ChatTemplateManager chatTemplateManager,
+        RepresentativeOfficeManager representativeOfficeManager,
         OptionService optionService)
     {
         _workloadSynchronizationManager = workloadSynchronizationManager;
-        _representativeOfficeHttpClient = representativeOfficeHttpClient;
         _rootCauseHttpClient = rootCauseHttpClient;
         _userManager = userManager;
         _chatTemplateManager = chatTemplateManager;
+        _representativeOfficeManager = representativeOfficeManager;
         _optionService = optionService;
     }
 
@@ -32,8 +32,8 @@ public class StartupService : IHostedService
     {
         Task[] tasks =
         [
-            GetRepresentativeOfficesAsync(),
             _chatTemplateManager.SetDefaultChatTemplatesAsync(),
+            _representativeOfficeManager.SetRepresentativeOfficesAsync(),
             _userManager.SetPresaleOperatorsAsync(),
             GetRootCausesAsync(),
             PullRedisToInMemoryAsync()
@@ -47,38 +47,6 @@ public class StartupService : IHostedService
         Log.Information("Closing application");
 
         return Task.CompletedTask;
-    }
-
-    private async Task GetRepresentativeOfficesAsync()
-    {
-        var options = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        };
-
-        try
-        {
-            var httpResult = await _representativeOfficeHttpClient.GetRepresentativeOfficesAsync();
-
-            if (httpResult.IsSuccessStatusCode)
-            {
-                var response = JsonSerializer.Deserialize<GetRepresentativeOfficesQueryResponse>(httpResult.Content, options);
-                ICollection<RepresentativeOfficeDto> representativeOfficeDtos = response!.RepresentativeOfficeDtos;
-
-                _optionService.PopulateKantorPerwakilan(representativeOfficeDtos);
-            }
-            else
-            {
-                var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
-                var extension = problemDetails.GetProblemDetailsExtension();
-                Log.Warning("Error {message}: ", extension.Errors.First().Message);
-            }
-        }
-        catch (Exception exception)
-        {
-            Log.Fatal("Fatal error occurred: {message}", exception.Message);
-            Environment.Exit(1);
-        }
     }
 
     private async Task GetRootCausesAsync()
