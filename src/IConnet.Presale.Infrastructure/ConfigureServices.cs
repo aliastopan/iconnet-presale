@@ -46,6 +46,7 @@ public static class ConfigureServices
 
         // entity handlers
         services.AddScoped<IChatTemplateHandler, ChatTemplateHandler>();
+        services.AddScoped<IDirectApprovalHandler, DirectApprovalHandler>();
         services.AddScoped<IRepresentativeOfficeHandler, RepresentativeOfficeHandler>();
         services.AddScoped<IRootCauseHandler, RootCauseHandler>();
         services.AddScoped<IRefreshTokenService, RefreshTokenProvider>();
