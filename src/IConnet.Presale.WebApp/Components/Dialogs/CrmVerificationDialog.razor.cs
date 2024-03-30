@@ -61,7 +61,15 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
 
     protected async Task SaveAsync()
     {
-        await VerifyCrmAsync();
+        if (IsDirectApproval && !DirectApproval.IsNullOrWhiteSpace())
+        {
+            await DirectApprovalAsync();
+        }
+        else
+        {
+            await VerifyCrmAsync();
+        }
+
         await Dialog.CloseAsync(Content);
     }
 
@@ -117,6 +125,33 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
         var prosesApproval = Content!.ProsesApproval.WithJarakICrmPlus(JarakICrmPlusVerification);
 
         Content.ProsesApproval = prosesApproval;
+        Content.LastModified = DateTimeService.DateTimeOffsetNow;
+    }
+
+    private async Task DirectApprovalAsync()
+    {
+        var directApprovalSignature = new ActionSignature
+        {
+            AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
+            Alias = await SessionService.GetSessionAliasAsync(),
+            TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
+        };
+
+        Content.Shift = SessionService.GetShift();
+        Content.WorkPaperLevel = WorkPaperLevel.ImportVerified;
+        Content.ApprovalOpportunity.StatusImport = ImportStatus.Verified;
+        Content.ApprovalOpportunity.SignatureVerifikasiImport = directApprovalSignature;
+
+        var prosesApproval = Content!.ProsesApproval
+            .WithVaTerbit(DateTimeService.DateTimeOffsetNow.DateTime)
+            .WithJarakICrmPlus(JarakICrmPlusVerification)
+            .WithJarakShareLoc(JarakICrmPlusVerification)
+            .WithStatusApproval(ApprovalStatus.Approve)
+            .WithDirectApproval(DirectApproval)
+            .WithSignatureApproval(directApprovalSignature);
+
+        Content.ProsesApproval = prosesApproval;
+        Content.WorkPaperLevel = WorkPaperLevel.DoneProcessing;
         Content.LastModified = DateTimeService.DateTimeOffsetNow;
     }
 

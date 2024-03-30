@@ -154,7 +154,19 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
         switch (dialogData.ApprovalOpportunity.StatusImport)
         {
             case ImportStatus.Verified:
-                await VerifyCrmAsync(dialogData);
+                {
+                    bool isDoneProcessing = dialogData.WorkPaperLevel == WorkPaperLevel.DoneProcessing;
+                    bool isDirectlyApproved = !dialogData.ProsesApproval.DirectApproval.IsNullOrWhiteSpace();
+
+                    if (isDoneProcessing && isDirectlyApproved)
+                    {
+                        await DirectApprovalAsync(dialogData);
+                    }
+                    else
+                    {
+                        await VerifyCrmAsync(dialogData);
+                    }
+                }
                 break;
             case ImportStatus.Invalid:
                 await MarkCrmInvalidAsync(dialogData);
@@ -180,6 +192,20 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
 
         var broadcastMessage = $"CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been verified";
         await BroadcastService.BroadcastMessageAsync(broadcastMessage);
+
+        IsLoading = false;
+    }
+
+    private async Task DirectApprovalAsync(WorkPaper workPaper)
+    {
+        IsLoading = true;
+
+        await WorkloadManager.UpdateWorkloadAsync(workPaper);
+
+        var broadcastMessage = $"CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been directly approved";
+        await BroadcastService.BroadcastMessageAsync(broadcastMessage);
+
+        SqlPushService.SqlPush(workPaper);
 
         IsLoading = false;
     }
