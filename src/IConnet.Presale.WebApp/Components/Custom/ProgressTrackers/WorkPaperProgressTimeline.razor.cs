@@ -70,7 +70,7 @@ public partial class WorkPaperProgressTimeline : ComponentBase
         return $"{username} - {role}";
     }
 
-    public string GetImportElapsedTime()
+    protected string GetImportElapsedTime()
     {
         DateTime importDateTime = WorkPaper!.ApprovalOpportunity.SignatureImport.TglAksi;
         TimeSpan elapsedTime = DateTimeService.GetElapsedTime(importDateTime);
@@ -78,7 +78,7 @@ public partial class WorkPaperProgressTimeline : ComponentBase
         return elapsedTime.ToReadableDateTime(useLowerCaseNotation: true);
     }
 
-    public string GetVerificationElapsedTime()
+    protected string GetVerificationElapsedTime()
     {
         DateTime verificationDateTime = WorkPaper!.ApprovalOpportunity.SignatureVerifikasiImport.TglAksi;
         TimeSpan elapsedTime = DateTimeService.GetElapsedTime(verificationDateTime);
@@ -86,7 +86,7 @@ public partial class WorkPaperProgressTimeline : ComponentBase
         return elapsedTime.ToReadableDateTime(useLowerCaseNotation: true);
     }
 
-    public string GetChatCallMulaiElapsedTime()
+    protected string GetChatCallMulaiElapsedTime()
     {
         DateTime chatCallMulaiDateTime = WorkPaper!.ProsesValidasi.SignatureChatCallMulai.TglAksi;
         TimeSpan elapsedTime = DateTimeService.GetElapsedTime(chatCallMulaiDateTime);
@@ -94,7 +94,7 @@ public partial class WorkPaperProgressTimeline : ComponentBase
         return elapsedTime.ToReadableDateTime(useLowerCaseNotation: true);
     }
 
-    public string GetChatCallResponsElapsedTime()
+    protected string GetChatCallResponsElapsedTime()
     {
         DateTime chatCallResponsDateTime = WorkPaper!.ProsesValidasi.SignatureChatCallRespons.TglAksi;
         TimeSpan elapsedTime = DateTimeService.GetElapsedTime(chatCallResponsDateTime);
@@ -102,7 +102,7 @@ public partial class WorkPaperProgressTimeline : ComponentBase
         return elapsedTime.ToReadableDateTime(useLowerCaseNotation: true);
     }
 
-    public string GetApprovalElapsedTime()
+    protected string GetApprovalElapsedTime()
     {
         DateTime approvalDateTime = WorkPaper!.ProsesApproval.SignatureApproval.TglAksi;
         TimeSpan elapsedTime = DateTimeService.GetElapsedTime(approvalDateTime);
