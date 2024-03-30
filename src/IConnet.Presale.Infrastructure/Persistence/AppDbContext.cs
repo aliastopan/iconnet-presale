@@ -24,6 +24,7 @@ internal sealed class AppDbContext : DbContext
     public DbSet<ApprovalOpportunity> ApprovalOpportunities => Set<ApprovalOpportunity>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
     public DbSet<ChatTemplate> ChatTemplates => Set<ChatTemplate>();
+    public DbSet<DirectApproval> DirectApprovals => Set<DirectApproval>();
     public DbSet<RepresentativeOffice> RepresentativeOffices => Set<RepresentativeOffice>();
     public DbSet<RootCause> RootCauses => Set<RootCause>();
 
