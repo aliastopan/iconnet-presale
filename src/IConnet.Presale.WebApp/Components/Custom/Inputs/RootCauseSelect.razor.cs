@@ -29,7 +29,17 @@ public partial class RootCauseSelect : ComponentBase
 
         IsPopoverVisible = true;
         _rootCauses = new List<string>(OptionService.RootCauseOptions);
+
     }
+
+    // protected override void OnAfterRender(bool firstRender)
+    // {
+    //     if (firstRender)
+    //     {
+    //         SelectedRootCause = _rootCauses.First();
+    //         LogSwitch.Debug("First render root cause");
+    //     }
+    // }
 
     protected async Task OnRootCauseChangedAsync(string selectedRootCause)
     {
@@ -52,5 +62,12 @@ public partial class RootCauseSelect : ComponentBase
         }
 
         return _rootCauses.Where(option => option.Contains(RootCauseFilter, StringComparison.OrdinalIgnoreCase));
+    }
+
+    protected string GetDisplayRootCause()
+    {
+        return SelectedRootCause.IsNullOrWhiteSpace()
+            ? _rootCauses.First()
+            : SelectedRootCause;
     }
 }
