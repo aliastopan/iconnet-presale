@@ -26,6 +26,7 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddSingleton<UserManager>();
     services.AddSingleton<ChatTemplateManager>();
     services.AddSingleton<RepresentativeOfficeManager>();
+    services.AddSingleton<RootCauseManager>();
     services.AddSingleton<IntervalCalculatorService>();
     services.AddSingleton<OptionService>();
 
