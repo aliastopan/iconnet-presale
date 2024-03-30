@@ -19,6 +19,9 @@ public partial class WorkPaperProgressTimeline : ComponentBase
     protected bool HasChatCallResponsSignature => !WorkPaper!.ProsesValidasi.SignatureChatCallRespons.IsEmptySignature();
     protected bool HasApprovalSignature => !WorkPaper!.ProsesApproval.SignatureApproval.IsEmptySignature();
 
+    protected bool IsDirectlyApproved => WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.Approve
+        && !WorkPaper!.ProsesApproval.DirectApproval.IsNullOrWhiteSpace();
+
     protected bool IsClosedLost => WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.CloseLost;
     protected bool IsRejected => WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.Reject;
     protected bool IsExpansion => WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.Expansion;
@@ -107,6 +110,11 @@ public partial class WorkPaperProgressTimeline : ComponentBase
         return elapsedTime.ToReadableDateTime(useLowerCaseNotation: true);
     }
 
+    protected string GetDirectApproval()
+    {
+        return WorkPaper!.ProsesApproval.DirectApproval;
+    }
+
     protected string GetImportTimestamp()
     {
         string dateTimeString = $"{WorkPaper!.ApprovalOpportunity.SignatureImport.TglAksi.ToReadableFormat()}";
@@ -168,6 +176,11 @@ public partial class WorkPaperProgressTimeline : ComponentBase
 
     protected string GetValidatingTimelineStepCss()
     {
+        if (IsDirectlyApproved)
+        {
+            return "timeline-step timeline-step-pending";
+        }
+
         return GetTimelineStepCss(IsAtLeastImportVerified);
     }
 
@@ -228,6 +241,11 @@ public partial class WorkPaperProgressTimeline : ComponentBase
 
     protected Icon GetValidatingHeaderIcon()
     {
+        if (IsDirectlyApproved)
+        {
+            return new Icons.Filled.Size20.Circle().WithColor("var(--inactive-grey)");
+        }
+
         return GetHeaderIcon(IsAtLeastImportVerified);
     }
 
@@ -282,7 +300,16 @@ public partial class WorkPaperProgressTimeline : ComponentBase
             case ApprovalStatus.Reject:
                 return "REJECTED";
             case ApprovalStatus.Approve:
-                return "APPROVED";
+                {
+                    if (IsDirectlyApproved)
+                    {
+                        return "APPROVED (DIRECT)";
+                    }
+                    else
+                    {
+                        return "APPROVED";
+                    }
+                }
             default:
                 return "STATUS PERMOHONAN";
         }

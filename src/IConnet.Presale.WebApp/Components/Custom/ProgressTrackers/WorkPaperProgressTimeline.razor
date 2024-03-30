@@ -75,7 +75,7 @@
             </div>
         </div>
         <div class="timeline-content">
-            @if (IsAtLeastImportVerified)
+            @if (IsAtLeastImportVerified && !IsDirectlyApproved)
             {
                 if (HasChatCallMulaiSignature)
                 {
@@ -179,6 +179,12 @@
                     <div>
                         Data presale telah diterima <span class="tracker-label-approved">APPROVED</span> oleh <span class="fw-bold">@GetPicApproval()</span>.
                     </div>
+                    if (IsDirectlyApproved)
+                    {
+                        <div>
+                            Direct approval: <span class="fw-bold">@GetDirectApproval()</span>.
+                        </div>
+                    }
                 }
             }
         </div>
