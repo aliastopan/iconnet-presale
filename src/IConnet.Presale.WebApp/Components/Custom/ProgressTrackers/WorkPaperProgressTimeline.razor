@@ -16,7 +16,7 @@
             @if (IsAtLeastImportUnverified)
             {
                 <div>
-                    Data presale telah di-import oleh <span class="fw-bold">@GetPicImport()</span>
+                    Data presale telah di-import oleh <span class="fw-bold">@GetPicImport()</span>.
                 </div>
             }
         </div>
@@ -38,7 +38,7 @@
             @if (IsAtLeastImportVerified)
             {
                 <div>
-                    Data presale telah diverikasi oleh <span class="fw-bold">@GetPicVerification()</span>
+                    Data presale telah diverikasi oleh <span class="fw-bold">@GetPicVerification()</span>.
                 </div>
             }
             else
@@ -46,10 +46,10 @@
                 if (IsInvalid)
                 {
                     <div>
-                        Data presale ditolak <span class="tracker-label-rejected">REJECTED</span> oleh <span class="fw-bold">@GetPicVerification()</span>
+                        Data presale ditolak <span class="tracker-label-rejected">REJECTED</span> oleh <span class="fw-bold">@GetPicVerification()</span>.
                     </div>
                     <div>
-                        Dengan root cause: <span class="fw-bold">@GetRootCause()</span>
+                        Karena <span class="fw-bold">@GetRootCause()</span>.
                     </div>
                 }
                 else
@@ -82,13 +82,13 @@
                     if (HasChatCallResponsSignature)
                     {
                         <div>
-                            Data presale telah diproses oleh <span class="fw-bold">@GetPicChatCallRespons()</span>
+                            Data presale telah diproses oleh <span class="fw-bold">@GetPicChatCallRespons()</span>.
                         </div>
                     }
                     else
                     {
                         <div>
-                            Menunggu respons pemohon. Telah dihubungi oleh <span class="fw-bold">@GetPicChatCallMulai()</span>
+                            Menunggu respons pemohon. Telah dihubungi oleh <span class="fw-bold">@GetPicChatCallMulai()</span>.
                         </div>
                     }
                 }
@@ -120,7 +120,7 @@
                 if (HasApprovalSignature)
                 {
                     <div>
-                        Data presale telah selesai diproses oleh <span class="fw-bold">@GetPicApproval()</span>
+                        Data presale telah selesai diproses oleh <span class="fw-bold">@GetPicApproval()</span>.
                     </div>
 
                     if (IsExpansion)
@@ -157,17 +157,17 @@
                 @if (IsClosedLost)
                 {
                     <div>
-                        Data presale telah dinyatakan <span class="tracker-label-closed-lost">CLOSED LOST</span> oleh <span class="fw-bold">@GetPicApproval()</span>
+                        Data presale telah dinyatakan <span class="tracker-label-closed-lost">CLOSED LOST</span> oleh <span class="fw-bold">@GetPicApproval()</span>.
                     </div>
                     <div>
-                        Karena <span class="fw-bold">@GetRootCause()</span>
+                        Karena <span class="fw-bold">@GetRootCause()</span>.
                     </div>
                 }
 
                 @if (IsRejected)
                 {
                     <div>
-                        Data presale telah ditolak <span class="tracker-label-rejected">REJECTED</span> oleh <span class="fw-bold">@GetPicApproval()</span>
+                        Data presale telah ditolak <span class="tracker-label-rejected">REJECTED</span> oleh <span class="fw-bold">@GetPicApproval()</span>.
                     </div>
                     <div>
                         Karena <span class="fw-bold">@GetRootCause()</span>
@@ -177,7 +177,7 @@
                 @if (IsApproved)
                 {
                     <div>
-                        Data presale telah diterima <span class="tracker-label-approved">APPROVED</span> oleh <span class="fw-bold">@GetPicApproval()</span>
+                        Data presale telah diterima <span class="tracker-label-approved">APPROVED</span> oleh <span class="fw-bold">@GetPicApproval()</span>.
                     </div>
                 }
             }
