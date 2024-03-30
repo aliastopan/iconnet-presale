@@ -1,3 +1,12 @@
+## v1.9.0
+- Fix: Root cause display glitch
+- Change: Tracker margin (spacer) to auto
+- Change: "Status Tracker" tab name to "Tracking"
+- Remove: Tracking interval time display information
+- Update: Match tracking detail report badge element with approval status
+- Add: Direct approval feature
+- Add: Database options for Direct Approval "ODS," "SARMA," "GREBEK," and "EVENT"
+
 ## v1.8.0
 - Fix: Filter performance overhead. Improved page loading time.
 - Fix: Page loading indicator
