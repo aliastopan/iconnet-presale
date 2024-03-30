@@ -13,8 +13,17 @@ public class OptionService
     }
 
     public ICollection<string> SearchFilterOptions { get ; init; } = [];
+    public ICollection<string> DirectApprovalOptions { get; init; } = [];
     public ICollection<string> KantorPerwakilanOptions { get; init; } = [];
     public ICollection<string> RootCauseOptions { get; init; } = [];
+
+    public void PopulateDirectApproval(ICollection<DirectApprovalDto> directApprovalDto)
+    {
+        foreach (var dto in directApprovalDto)
+        {
+            DirectApprovalOptions.Add(dto.Description);
+        }
+    }
 
     public void PopulateKantorPerwakilanOptions(ICollection<RepresentativeOfficeDto> representativeOfficeDtos)
     {

@@ -1,7 +1,3 @@
-using System.Text.Json;
-using Microsoft.AspNetCore.Mvc;
-using IConnet.Presale.Shared.Contracts.Common;
-
 namespace IConnet.Presale.WebApp.Services;
 
 public class StartupService : IHostedService
@@ -9,18 +5,21 @@ public class StartupService : IHostedService
     private readonly IWorkloadSynchronizationManager _workloadSynchronizationManager;
     private readonly UserManager _userManager;
     private readonly ChatTemplateManager _chatTemplateManager;
+    private readonly DirectApprovalManager _directApprovalManager;
     private readonly RepresentativeOfficeManager _representativeOfficeManager;
     private readonly RootCauseManager _rootCauseManager;
 
     public StartupService(IWorkloadSynchronizationManager workloadSynchronizationManager,
         UserManager userManager,
         ChatTemplateManager chatTemplateManager,
+        DirectApprovalManager directApprovalManager,
         RepresentativeOfficeManager representativeOfficeManager,
         RootCauseManager rootCauseManager)
     {
         _workloadSynchronizationManager = workloadSynchronizationManager;
         _userManager = userManager;
         _chatTemplateManager = chatTemplateManager;
+        _directApprovalManager = directApprovalManager;
         _representativeOfficeManager = representativeOfficeManager;
         _rootCauseManager = rootCauseManager;
     }
@@ -30,6 +29,7 @@ public class StartupService : IHostedService
         Task[] tasks =
         [
             _chatTemplateManager.SetDefaultChatTemplatesAsync(),
+            _directApprovalManager.SetDirectApprovalsAsync(),
             _representativeOfficeManager.SetRepresentativeOfficesAsync(),
             _rootCauseManager.SetRootCausesAsync(),
             _userManager.SetPresaleOperatorsAsync(),
