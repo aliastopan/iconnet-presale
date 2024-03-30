@@ -60,7 +60,8 @@
                 SortBy="@SortByWorkPaperLevel">
                 <div class="">
                     <WorkPaperLevelBadge WorkPaperLevel="@context.WorkPaperLevel"
-                        ApprovalStatus="@context.ProsesApproval.StatusApproval"/>
+                        ApprovalStatus="@context.ProsesApproval.StatusApproval"
+                        DirectApproval="@context.ProsesApproval.DirectApproval"/>
                 </div>
             </TemplateColumn>
             <TemplateColumn Title="ID PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.IdPermohonanPx)"

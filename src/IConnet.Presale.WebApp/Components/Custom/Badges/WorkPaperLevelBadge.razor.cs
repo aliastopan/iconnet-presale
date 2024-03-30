@@ -4,6 +4,9 @@ public partial class WorkPaperLevelBadge : ComponentBase
 {
     [Parameter] public WorkPaperLevel WorkPaperLevel { get; set; } = default!;
     [Parameter] public ApprovalStatus ApprovalStatus { get; set; } = default!;
+    [Parameter] public string DirectApproval { get; set; } = default!;
+
+    protected bool IsDirectApproval => !DirectApproval.IsNullOrWhiteSpace();
 
     protected string GetCssBadge()
     {
@@ -55,7 +58,16 @@ public partial class WorkPaperLevelBadge : ComponentBase
             case WorkPaperLevel.WaitingApproval:
                 return "Menunggu Approval";
             case WorkPaperLevel.DoneProcessing:
-                return "Selesai";
+                {
+                    if (IsDirectApproval)
+                    {
+                        return "Direct Approval";
+                    }
+                    else
+                    {
+                        return "Selesai";
+                    }
+                }
             default:
                 return string.Empty;
         }
