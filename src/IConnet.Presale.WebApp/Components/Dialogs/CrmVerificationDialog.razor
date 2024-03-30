@@ -206,6 +206,26 @@
                             Width="200px" />
                     </td>
                 </tr>
+                <tr>
+                    <th style="padding-right: 1rem; width: 200px; vertical-align: middle;">
+                        <div class="d-flex flex-row align-items-center">
+                            <FluentCheckbox
+                                Value="@IsDirectApproval"
+                                ValueChanged="@OnIsDirectApprovalChanged"/>
+                            <span class="@GetDirectApprovalToggleCss()">
+                                DIRECT APPROVAL
+                            </span>
+                        </div>
+                    </th>
+                    <td style="padding: 8px 0;">
+                        <FluentSelect Items="@OptionService.DirectApprovalOptions"
+                            Position="SelectPosition.Above"
+                            Value="@DirectApproval"
+                            ValueChanged="OnDirectApprovalChanged"
+                            Disabled="@(!IsDirectApproval)"
+                            Width="200px" />
+                    </td>
+                </tr>
             </thead>
         </table>
     </FluentCard>

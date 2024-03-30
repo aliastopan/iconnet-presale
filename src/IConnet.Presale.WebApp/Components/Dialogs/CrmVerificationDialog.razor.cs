@@ -5,6 +5,7 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public IDialogService DialogService { get; set; } = default!;
     [Inject] public IJSRuntime JsRuntime { get; set; } = default!;
+    [Inject] public OptionService OptionService { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
 
     [Parameter]
@@ -12,6 +13,8 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
 
     [CascadingParameter]
     public FluentDialog Dialog { get; set; } = default!;
+
+    private bool _isInitialized;
 
     protected Func<string, bool> OptionDisable => option => option == OptionSelect.StatusVerifikasi.MenungguVerifikasi
         && StatusVerifikasi != OptionSelect.StatusVerifikasi.MenungguVerifikasi;
@@ -22,6 +25,8 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
     public int JarakICrmPlusVerification { get; set; }
     public string Keterangan { get; set; } = string.Empty;
     public string StatusVerifikasi = OptionSelect.StatusVerifikasi.MenungguVerifikasi;
+    public string DirectApproval { get; set; } = string.Empty;
+    public bool IsDirectApproval { get; set; }
 
     protected void OnJarakICrmChanged(int jarakShareLoc)
     {
@@ -36,6 +41,22 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
     protected void OnStatusVerifikasiChanged(string statusVerifikasi)
     {
         StatusVerifikasi = statusVerifikasi;
+    }
+
+    protected void OnIsDirectApprovalChanged(bool isDirectApproval)
+    {
+        if (!_isInitialized)
+        {
+            DirectApproval = OptionService.DirectApprovalOptions.First();
+        }
+
+        _isInitialized = true;
+        IsDirectApproval = isDirectApproval;
+    }
+
+    protected void OnDirectApprovalChanged(string directApproval)
+    {
+        DirectApproval = directApproval;
     }
 
     protected async Task SaveAsync()
@@ -156,5 +177,12 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
         var url = Content.ApprovalOpportunity.Regional.Koordinat.GetGoogleMapLink();
 
         await JsRuntime.InvokeVoidAsync("open", url, "_blank");
+    }
+
+    protected string GetDirectApprovalToggleCss()
+    {
+        return IsDirectApproval
+            ? "direct-approval-enable"
+            : "direct-approval-disable";
     }
 }
