@@ -1,17 +1,17 @@
-@attribute [Route(PageRoute.StatusTracker)]
-@inherits StatusTrackerPageBase
+@attribute [Route(PageRoute.Tracking)]
+@inherits TrackingPageBase
 @rendermode @(InteractiveServer.DisablePreRender())
 
-<PageTitle>Status Tracker</PageTitle>
+<PageTitle>Tracking</PageTitle>
 
-<FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Status Tracker</FluentLabel>
+<FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Tracking Opportunity</FluentLabel>
 <span class="page-description">Lacak status permohonan</span>
 
 <FluentStack Orientation="Orientation.Horizontal"
     HorizontalAlignment="HorizontalAlignment.Start"
     VerticalAlignment="VerticalAlignment.Top">
 
-    <div class="status-tracker-left">
+    <div class="tracking-opportunity-left">
         <div class="searchbar-stack">
             <FluentSearch
                 Value=@IdPermohonan
@@ -307,7 +307,7 @@
 
     <FluentSpacer />
 
-    <div class="status-tracker-right">
+    <div class="tracking-opportunity-right">
         <div class="tracker-container" style="margin-top: -60px">
             @if (WorkPaper is not null)
             {

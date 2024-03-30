@@ -1,10 +1,10 @@
 namespace IConnet.Presale.WebApp.Components.Pages;
 
-public class StatusTrackerPageBase : TrackerPageBase, IPageNavigation
+public class TrackingPageBase : TrackerPageBase, IPageNavigation
 {
     public TabNavigationModel PageDeclaration()
     {
-        return new TabNavigationModel("status-tracker", PageNavName.StatusTracker, PageRoute.StatusTracker);
+        return new TabNavigationModel("tracking-opportunity", PageNavName.Tracking, PageRoute.Tracking);
     }
 
     protected override void OnInitialized()

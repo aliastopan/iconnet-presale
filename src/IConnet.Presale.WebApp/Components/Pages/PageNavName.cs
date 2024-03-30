@@ -5,7 +5,7 @@ public static class PageNavName
     public const string Developer = "Developer Access";
     public const string Index = "Home";
     public const string Dashboard = "Dashboard";
-    public const string StatusTracker = "Status Tracker";
+    public const string Tracking = "Tracking";
     public const string CrmImport = "Import CRM";
     public const string CrmVerification = "Verifikasi CRM";
     public const string WorkloadShared = "Kertas Kerja";
