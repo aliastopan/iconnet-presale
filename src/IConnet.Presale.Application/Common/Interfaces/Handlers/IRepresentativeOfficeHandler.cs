@@ -4,5 +4,5 @@ namespace IConnet.Presale.Application.Common.Interfaces.Handlers;
 
 public interface IRepresentativeOfficeHandler
 {
-    Result<ICollection<RepresentativeOffice>> TryGetRepresentativesOffice();
+    Result<ICollection<RepresentativeOffice>> TryGetRepresentativesOffices();
 }
