@@ -16,7 +16,7 @@
             @if (IsAtLeastImportUnverified)
             {
                 <div>
-                    Data presale telah di-import oleh <span class="fw-bold">@GetPicImport()</span> pada <span class="fw-bold">@GetImportElapsedTime()</span> yang lalu.
+                    Data presale telah di-import oleh <span class="fw-bold">@GetPicImport()</span>
                 </div>
             }
         </div>
@@ -38,7 +38,7 @@
             @if (IsAtLeastImportVerified)
             {
                 <div>
-                    Data presale telah diverikasi oleh <span class="fw-bold">@GetPicVerification()</span> pada <span class="fw-bold">@GetVerificationElapsedTime()</span> yang lalu.
+                    Data presale telah diverikasi oleh <span class="fw-bold">@GetPicVerification()</span>
                 </div>
             }
             else
@@ -46,7 +46,7 @@
                 if (IsInvalid)
                 {
                     <div>
-                        Data presale ditolak <span class="tracker-label-rejected">REJECTED</span> oleh <span class="fw-bold">@GetPicVerification()</span> pada <span class="fw-bold">@GetVerificationElapsedTime()</span> yang lalu.
+                        Data presale ditolak <span class="tracker-label-rejected">REJECTED</span> oleh <span class="fw-bold">@GetPicVerification()</span>
                     </div>
                     <div>
                         Dengan root cause: <span class="fw-bold">@GetRootCause()</span>
@@ -82,13 +82,13 @@
                     if (HasChatCallResponsSignature)
                     {
                         <div>
-                            Data presale telah diproses oleh <span class="fw-bold">@GetPicChatCallRespons()</span> pada <span class="fw-bold">@GetChatCallResponsElapsedTime()</span> yang lalu.
+                            Data presale telah diproses oleh <span class="fw-bold">@GetPicChatCallRespons()</span>
                         </div>
                     }
                     else
                     {
                         <div>
-                            Menunggu respons pemohon. Telah dihubungi oleh <span class="fw-bold">@GetPicChatCallMulai()</span> pada <span class="fw-bold">@GetChatCallMulaiElapsedTime()</span> yang lalu.
+                            Menunggu respons pemohon. Telah dihubungi oleh <span class="fw-bold">@GetPicChatCallMulai()</span>
                         </div>
                     }
                 }
@@ -120,7 +120,7 @@
                 if (HasApprovalSignature)
                 {
                     <div>
-                        Data presale telah selesai diproses oleh <span class="fw-bold">@GetPicApproval()</span> pada <span class="fw-bold">@GetApprovalElapsedTime()</span> yang lalu.
+                        Data presale telah selesai diproses oleh <span class="fw-bold">@GetPicApproval()</span>
                     </div>
 
                     if (IsExpansion)
@@ -160,7 +160,7 @@
                         Data presale telah dinyatakan <span class="tracker-label-closed-lost">CLOSED LOST</span> oleh <span class="fw-bold">@GetPicApproval()</span>
                     </div>
                     <div>
-                        Dengan root cause: <span class="fw-bold">@GetRootCause()</span>
+                        Karena <span class="fw-bold">@GetRootCause()</span>
                     </div>
                 }
 
@@ -170,7 +170,7 @@
                         Data presale telah ditolak <span class="tracker-label-rejected">REJECTED</span> oleh <span class="fw-bold">@GetPicApproval()</span>
                     </div>
                     <div>
-                        Dengan root cause: <span class="fw-bold">@GetRootCause()</span>
+                        Karena <span class="fw-bold">@GetRootCause()</span>
                     </div>
                 }
 
