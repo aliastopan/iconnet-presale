@@ -217,6 +217,25 @@ internal sealed class DataSeedingProvider : IDataSeedingService
         return await dbContext.SaveChangesAsync();
     }
 
+    public async Task<int> GenerateDirectApprovalsAsync()
+    {
+        Log.Information("Generating DirectApprovals");
+
+        var directApprovals = new List<DirectApproval>
+        {
+            new DirectApproval(0, "ODS"),
+            new DirectApproval(1, "SARMA"),
+            new DirectApproval(2, "GREBEK"),
+            new DirectApproval(3, "EVENT")
+        };
+
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        dbContext.DirectApprovals.AddRange(directApprovals);
+
+        return await dbContext.SaveChangesAsync();
+    }
+
     public async Task<int> GenerateRepresentativeOfficesAsync()
     {
         Log.Information("Generating RepresentativeOffices");

@@ -20,6 +20,7 @@ public static class WebApplicationExtensions
             // dataSeedingService.GenerateSuperUserAsync()
             // dataSeedingService.GenerateUsersAsync(),
             // dataSeedingService.GenerateChatTemplatesAsync(),
+            // dataSeedingService.GenerateDirectApprovalsAsync(),
             // dataSeedingService.GenerateRepresentativeOfficesAsync(),
             // dataSeedingService.GenerateRootCausesAsync()
         ];
