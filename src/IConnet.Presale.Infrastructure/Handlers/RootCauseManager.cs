@@ -18,7 +18,7 @@ internal class RootCauseHandler : IRootCauseHandler
         var rootCauses = dbContext.GetRootCauses();
         if (rootCauses is null || rootCauses.Count == 0)
         {
-            var error = new Error($" Not found.", ErrorSeverity.Error);
+            var error = new Error($" Root Cause(s) not found.", ErrorSeverity.Error);
             return Result<ICollection<RootCause>>.NotFound(error);
         }
 

@@ -18,7 +18,7 @@ internal sealed class RepresentativeOfficeHandler : IRepresentativeOfficeHandler
         var representativeOffice = dbContext.GetRepresentativeOffices();
         if (representativeOffice is null || representativeOffice.Count == 0)
         {
-            var error = new Error($" Not found.", ErrorSeverity.Error);
+            var error = new Error($"Representative Office(s) not found.", ErrorSeverity.Error);
             return Result<ICollection<RepresentativeOffice>>.NotFound(error);
         }
 
