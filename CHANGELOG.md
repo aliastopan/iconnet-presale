@@ -1,3 +1,6 @@
+## v1.9.2
+- Fix: Parallel batch operation (Redis). Improved page loading time.
+
 ## v1.9.1
 - Update: aging approval includes direct approval count
 
