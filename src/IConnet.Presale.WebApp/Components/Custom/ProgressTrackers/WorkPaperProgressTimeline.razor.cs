@@ -19,8 +19,7 @@ public partial class WorkPaperProgressTimeline : ComponentBase
     protected bool HasChatCallResponsSignature => !WorkPaper!.ProsesValidasi.SignatureChatCallRespons.IsEmptySignature();
     protected bool HasApprovalSignature => !WorkPaper!.ProsesApproval.SignatureApproval.IsEmptySignature();
 
-    protected bool IsDirectlyApproved => WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.Approve
-        && !WorkPaper!.ProsesApproval.DirectApproval.IsNullOrWhiteSpace();
+    protected bool IsDirectlyApproved => WorkPaper!.ProsesApproval.IsDirectlyApproved();
 
     protected bool IsClosedLost => WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.CloseLost;
     protected bool IsRejected => WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.Reject;
