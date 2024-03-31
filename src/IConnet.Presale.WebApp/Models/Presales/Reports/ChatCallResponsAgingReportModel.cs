@@ -24,27 +24,27 @@ public class ChatCallResponsAgingReportModel
     {
         return ChatCallResponsCount > 0
             ? Average.ToReadableFormat()
-            : "Tidak Pernah Validasi";
+            : "Kosong";
     }
 
     public string GetDisplayMinAging()
     {
         return ChatCallResponsCount > 0
             ? Min.ToReadableFormat()
-            : "Tidak Pernah Validasi";
+            : "Kosong";
     }
 
     public string GetDisplayMaxAging()
     {
         return ChatCallResponsCount > 0
             ? Max.ToReadableFormat()
-            : "Tidak Pernah Validasi";
+            : "Kosong";
     }
 
     public string GetDisplayChatCallResponsTotal()
     {
         return ChatCallResponsCount > 0
             ? ChatCallResponsCount.ToString()
-            : "Tidak Pernah Validasi";
+            : "Kosong";
     }
 }

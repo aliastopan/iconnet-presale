@@ -24,26 +24,26 @@ public class ImportAgingReportModel
     {
         return ImportTotal > 0
             ? Average.ToReadableFormat()
-            : "Tidak Pernah Import";
+            : "Kosong";
     }
 
     public string GetDisplayMinAging()
     {
         return ImportTotal > 0
             ? Min.ToReadableFormat()
-            : "Tidak Pernah Import";
+            : "Kosong";
     }
 
     public string GetDisplayMaxAging()
     {
         return ImportTotal > 0
             ? Max.ToReadableFormat()
-            : "Tidak Pernah Import";
+            : "Kosong";
     }
     public string GetDisplayImportTotal()
     {
         return ImportTotal > 0
             ? ImportTotal.ToString()
-            : "Tidak Pernah Import";
+            : "Kosong";
     }
 }

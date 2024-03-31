@@ -29,41 +29,41 @@ public class VerificationAgingReportModel
     {
         return VerificationTotal > 0
             ? Average.ToReadableFormat()
-            : "Tidak Pernah Verifikasi";
+            : "Kosong";
     }
 
     public string GetDisplayMinAging()
     {
         return VerificationTotal > 0
             ? Min.ToReadableFormat()
-            : "Tidak Pernah Verifikasi";
+            : "Kosong";
     }
 
     public string GetDisplayMaxAging()
     {
         return VerificationTotal > 0
             ? Max.ToReadableFormat()
-            : "Tidak Pernah Verifikasi";
+            : "Kosong";
     }
 
     public string GetDisplayVerificationTotal()
     {
         return VerificationTotal > 0
             ? VerificationTotal.ToString()
-            : "Tidak Pernah Verifikasi";
+            : "Kosong";
     }
 
     public string GetDisplayTotalReject()
     {
         return VerificationTotal > 0
             ? TotalReject.ToString()
-            : "Tidak Pernah Verifikasi";
+            : "Kosong";
     }
 
     public string GetDisplayTotalVerified()
     {
         return VerificationTotal > 0
             ? TotalVerified.ToString()
-            : "Tidak Pernah Verifikasi";
+            : "Kosong";
     }
 }

@@ -24,27 +24,27 @@ public class ChatCallMulaiAgingReportModel
     {
         return ChatCallMulaiTotal > 0
             ? Average.ToReadableFormat()
-            : "Tidak Pernah Chat/Call";
+            : "Kosong";
     }
 
     public string GetDisplayMinAging()
     {
         return ChatCallMulaiTotal > 0
             ? Min.ToReadableFormat()
-            : "Tidak Pernah Chat/Call";
+            : "Kosong";
     }
 
     public string GetDisplayMaxAging()
     {
         return ChatCallMulaiTotal > 0
             ? Max.ToReadableFormat()
-            : "Tidak Pernah Chat/Call";
+            : "Kosong";
     }
 
     public string GetDisplayChatCallMulaiTotal()
     {
         return ChatCallMulaiTotal > 0
             ? ChatCallMulaiTotal.ToString()
-            : "Tidak Pernah Chat/Call";
+            : "Kosong";
     }
 }
