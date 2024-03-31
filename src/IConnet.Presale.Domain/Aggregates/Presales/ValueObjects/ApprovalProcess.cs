@@ -51,7 +51,7 @@ public class ApprovalProcess : ValueObject
 
     public bool IsSplitterGanti()
     {
-        return !string.IsNullOrEmpty(SplitterGanti);
+        return !string.IsNullOrWhiteSpace(SplitterGanti);
     }
 
     public ApprovalProcess WithSignatureApproval(ActionSignature signatureApproval)
