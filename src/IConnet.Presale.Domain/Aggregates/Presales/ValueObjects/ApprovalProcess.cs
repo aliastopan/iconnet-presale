@@ -54,6 +54,12 @@ public class ApprovalProcess : ValueObject
         return !string.IsNullOrWhiteSpace(SplitterGanti);
     }
 
+    public bool IsDirectlyApproved()
+    {
+        return StatusApproval == ApprovalStatus.Approve
+            && !string.IsNullOrWhiteSpace(DirectApproval);
+    }
+
     public ApprovalProcess WithSignatureApproval(ActionSignature signatureApproval)
     {
         return new ApprovalProcess
