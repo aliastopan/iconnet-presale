@@ -148,7 +148,7 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
             {
                 var batchKeys = keys.Skip(i * batchSize).Take(batchSize).ToList();
 
-                Log.Information("Batch: {0}", i);
+                Log.Information("Batch: {0}/{1}", i, numberOfBatches - 1);
 
                 var tasks = batchKeys.Select(key => database.StringGetAsync(key));
                 var batchValues = await Task.WhenAll(tasks);
