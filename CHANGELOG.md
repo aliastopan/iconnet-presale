@@ -1,3 +1,6 @@
+## v1.9.1
+- Update: aging approval includes direct approval count
+
 ## v1.9.0
 - Fix: Root cause display glitch
 - Change: Tracker margin (spacer) to auto
