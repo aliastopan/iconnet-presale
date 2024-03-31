@@ -35,12 +35,12 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
 
     async Task<List<string?>> IInProgressPersistenceService.GetAllValuesAsync()
     {
-        return await GetAllValuesAsync(_inProgressDbIndex, DatabaseProgress);
+        return await GetAllValuesAsync(_inProgressDbIndex, DatabaseProgress, batchSize: 10);
     }
 
     async Task<List<string?>> IDoneProcessingPersistenceService.GetAllValuesAsync()
     {
-        return await GetAllValuesAsync(_archiveDbIndex, DatabaseArchive);
+        return await GetAllValuesAsync(_archiveDbIndex, DatabaseArchive, batchSize: 10);
     }
 
     public async Task SetValueAsync(string key, string value, TimeSpan? expiry = null)
@@ -132,7 +132,7 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
         }
     }
 
-    private async Task<List<string?>> GetAllValuesAsync(int dbIndex, IDatabase database)
+    private async Task<List<string?>> GetAllValuesAsync(int dbIndex, IDatabase database, int batchSize = 10)
     {
         try
         {
@@ -140,10 +140,23 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
             var keys = server.Keys(dbIndex);
             var values = new List<string?>();
 
-            foreach (var key in keys)
+            LogSwitch.Debug("Count: {0}", keys.Count());
+
+            int numberOfBatches = (int)Math.Ceiling((double)keys.Count() / batchSize);
+
+            for (int i = 0; i < numberOfBatches; i++)
             {
-                var value = await database.StringGetAsync(key);
-                values.Add(value);
+                var batchKeys = keys.Skip(i * batchSize).Take(batchSize).ToList();
+
+                LogSwitch.Debug("Batch: {0}", i);
+
+                foreach (var key in batchKeys)
+                {
+                    var value = await database.StringGetAsync(key);
+                    values.Add(value);
+                }
+
+                await Task.Delay(100);
             }
 
             return values;
