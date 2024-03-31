@@ -140,25 +140,35 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
             var keys = server.Keys(dbIndex);
             var values = new List<string?>();
 
-            Log.Information("Count: {0}", keys.Count());
+            LogSwitch.Debug("Count: {0}", keys.Count());
 
             int numberOfBatches = (int)Math.Ceiling((double)keys.Count() / batchSize);
+
+            var batchTasks = new List<Task>();
 
             for (int i = 0; i < numberOfBatches; i++)
             {
                 var batchKeys = keys.Skip(i * batchSize).Take(batchSize).ToList();
 
-                Log.Information("Batch: {0}/{1}", i, numberOfBatches - 1);
+                var batchTask = Task.Run(async () =>
+                {
+                    Log.Information("Batch: {0}/{1}", i, numberOfBatches - 1);
 
-                var tasks = batchKeys.Select(key => database.StringGetAsync(key));
-                var batchValues = await Task.WhenAll(tasks);
+                    var tasks = batchKeys.Select(key => database.StringGetAsync(key));
+                    var batchValues = await Task.WhenAll(tasks);
 
-                var stringValues = batchValues.Select(value => value.ToString());
+                    var stringValues = batchValues.Select(value => value.ToString());
 
-                values.AddRange(stringValues);
+                    lock (values)
+                    {
+                        values.AddRange(stringValues);
+                    }
+                });
 
-                await Task.Delay(100);
+                batchTasks.Add(batchTask);
             }
+
+            await Task.WhenAll(batchTasks);
 
             return values;
         }
