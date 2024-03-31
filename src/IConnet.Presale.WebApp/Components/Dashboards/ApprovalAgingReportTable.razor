@@ -30,6 +30,9 @@
                 <th class="table-report-header" style="background-color: cadetblue;">
                     Total Approve
                 </th>
+                <th class="table-report-header" style="background-color: cadetblue;">
+                    Total Direct Approval
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -45,6 +48,7 @@
                     <td class="table-report-content">@model.GetDisplayTotalReject()</td>
                     <td class="table-report-content">@model.GetDisplayTotalExpansion()</td>
                     <td class="table-report-content">@model.GetDisplayTotalApprove()</td>
+                    <td class="table-report-content">@model.GetDisplayTotalDirectApproval()</td>
                 </tr>
             }
         </tbody>

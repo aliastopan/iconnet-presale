@@ -315,15 +315,32 @@ public class ReportService
         int totalReject = 0;
         int totalExpansion = 0;
         int totalApprove = 0;
+        int totalDirectApproval = 0;
 
         foreach (var data in presaleData)
         {
             bool matchInChargeSignature = data.ProsesApproval.SignatureApproval.AccountIdSignature == presaleOperator.UserAccountId;
             bool isDoneProcessing = data.WorkPaperLevel == WorkPaperLevel.DoneProcessing;
             bool isPendingExpansion = data.ProsesApproval.StatusApproval == ApprovalStatus.Expansion;
+            bool isDirectlyApproved = data.ProsesApproval.IsDirectlyApproved();
 
             if (!matchInChargeSignature)
             {
+                continue;
+            }
+
+            if (isDirectlyApproved)
+            {
+                // using aging verification as direct approval calculation
+                // DateTime _startDateTime = data.ApprovalOpportunity.SignatureImport.TglAksi;
+                // DateTime _endDateTime = data.ApprovalOpportunity.SignatureVerifikasiImport.TglAksi;
+                // TimeSpan _interval = _intervalCalculatorService.CalculateInterval(_startDateTime, _endDateTime, excludeFrozenInterval: true);
+
+                TimeSpan fixedInterval = new TimeSpan(0, 10, 0);
+
+                agingIntervals.Add(fixedInterval);
+                totalDirectApproval++;
+
                 continue;
             }
 
@@ -389,7 +406,7 @@ public class ReportService
         var username = presaleOperator.Username;
 
         return new ApprovalAgingReportModel(pacId, username, avg, min, max,
-            approvalTotal, totalCloseLost, totalReject, totalExpansion, totalApprove);
+            approvalTotal, totalCloseLost, totalReject, totalExpansion, totalApprove, totalDirectApproval);
     }
 
     private static TimeSpan GetAverageTimeSpan(List<TimeSpan> agingReport)

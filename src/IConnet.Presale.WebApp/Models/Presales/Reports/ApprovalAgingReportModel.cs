@@ -4,7 +4,7 @@ public class ApprovalAgingReportModel
 {
     public ApprovalAgingReportModel(Guid pacId, string username,
         TimeSpan average, TimeSpan min, TimeSpan max,
-        int approvalTotal, int totalCloseLost, int totalReject, int totalExpansion, int totalApprove)
+        int approvalTotal, int totalCloseLost, int totalReject, int totalExpansion, int totalApprove, int totalDirectApproval)
     {
         PacId = pacId;
         Username = username;
@@ -16,6 +16,7 @@ public class ApprovalAgingReportModel
         TotalReject = totalReject;
         TotalExpansion = totalExpansion;
         TotalApprove = totalApprove;
+        TotalDirectApproval = totalDirectApproval;
     }
 
     public Guid PacId { get; init; }
@@ -28,6 +29,7 @@ public class ApprovalAgingReportModel
     public int TotalReject { get; init; }
     public int TotalExpansion { get; init; }
     public int TotalApprove { get; init; }
+    public int TotalDirectApproval { get; init; }
 
     public string GetDisplayAverageAging()
     {
@@ -82,6 +84,13 @@ public class ApprovalAgingReportModel
     {
         return ApprovalTotal > 0
             ? TotalApprove.ToString()
+            : "Kosong";
+    }
+
+    public string GetDisplayTotalDirectApproval()
+    {
+        return ApprovalTotal > 0
+            ? TotalDirectApproval.ToString()
             : "Kosong";
     }
 }
