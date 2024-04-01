@@ -8,8 +8,8 @@ public class FilterPreference
     }
 
     public string KantorPerwakilan { get; set; } = string.Empty;
-    public DateTime TglPermohonanMin { get; set; } = DateTime.MinValue;
-    public DateTime TglPermohonanMax { get; set; } = DateTime.MinValue;
+    public DateTime TglPermohonanMin { get; set; } = DateTime.Now.AddDays(-31);
+    public DateTime TglPermohonanMax { get; set; } = DateTime.Now;
     public bool ShowFilters { get; set; } = true;
 
     public void ToggleFilters()
