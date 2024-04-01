@@ -8,7 +8,11 @@ public class DeveloperPageBase : StatusTrackingPageBase
 
     protected async Task ReformatAsync()
     {
+        IsLoading = true;
+
         FormattingCount = await RedisFormatter.ReformatArchiveAsync();
+
+        IsLoading = false;
     }
 
     public string GetFormattingResult()
