@@ -119,13 +119,11 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase,
 
     public async Task<IQueryable<WorkPaper>> GetArchivedPresaleDataAsync(DateTime dateTimeMin, DateTime dateTimeMax)
     {
-        var jsonWorkPapers = await _doneProcessingPersistenceService.GetAllValuesAsync();
-        var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapersParallel(jsonWorkPapers!, ParallelOptions,
-            workPaper =>
-            {
-                return workPaper.ApprovalOpportunity.TglPermohonan >= dateTimeMin
-                    && workPaper.ApprovalOpportunity.TglPermohonan <= dateTimeMax;
-            });
+        long startUnixTime = _dateTimeService.GetUnixTime(dateTimeMin);
+        long endUnixTime = _dateTimeService.GetUnixTime(dateTimeMax);
+
+        var jsonWorkPapers = await _doneProcessingPersistenceService.GetAllScoredValuesAsync(startUnixTime, endUnixTime);
+        var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapersParallel(jsonWorkPapers!, ParallelOptions);
 
         return workPapers.AsQueryable();
     }
@@ -204,7 +202,7 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase,
         var isKeyArchived = await _doneProcessingPersistenceService.IsKeyExistsAsync(idPermohonan);
         if (isKeyArchived)
         {
-            var jsonWorkPaper = await _doneProcessingPersistenceService.GetValueAsync(idPermohonan);
+            var jsonWorkPaper = await _doneProcessingPersistenceService.GetScoredValueAsync(idPermohonan);
             return JsonWorkPaperProcessor.DeserializeJsonWorkPaper(jsonWorkPaper!);
         }
 

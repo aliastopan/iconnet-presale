@@ -19,10 +19,13 @@ internal sealed class DashboardManager : PresaleDataOperationBase, IDashboardMan
 
     public async Task<IQueryable<WorkPaper>> GetPresaleDataFromCurrentMonthAsync()
     {
+        long startUnixTime = _dateTimeService.GetUnixTime(_dateTimeService.DateTimeOffsetNow.DateTime.AddDays(-31));
+        long endUnixTime = _dateTimeService.GetUnixTime(_dateTimeService.DateTimeOffsetNow.DateTime);
+
         Task<List<string?>>[] getJsonWorkPapers =
         [
             _inProgressPersistenceService.GetAllValuesAsync(),
-            _doneProcessingPersistenceService.GetAllValuesAsync()
+            _doneProcessingPersistenceService.GetAllScoredValuesAsync(startUnixTime, endUnixTime)
         ];
 
         await Task.WhenAll(getJsonWorkPapers);

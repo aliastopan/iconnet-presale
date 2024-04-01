@@ -33,6 +33,25 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
         return await GetValueAsync(key, DatabaseArchive);
     }
 
+    async Task<string?> IDoneProcessingPersistenceService.GetScoredValueAsync(string key)
+    {
+        try
+        {
+            LogSwitch.Debug("Attempting to get scored value.");
+
+            var values = await DatabaseArchive.SortedSetRangeByScoreAsync(key,
+                double.NegativeInfinity,
+                double.PositiveInfinity);
+
+            return values.FirstOrDefault().ToString();
+        }
+        catch (TimeoutException exception)
+        {
+            Log.Fatal($"Redis operation timed out: {exception.Message}");
+            throw;
+        }
+    }
+
     async Task<List<string?>> IInProgressPersistenceService.GetAllValuesAsync()
     {
         return await GetAllValuesAsync(_inProgressDbIndex, DatabaseProgress, batchSize: 10);
@@ -41,6 +60,14 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
     async Task<List<string?>> IDoneProcessingPersistenceService.GetAllValuesAsync()
     {
         return await GetAllValuesAsync(_archiveDbIndex, DatabaseArchive, batchSize: 50);
+    }
+
+    public async Task<List<string?>> GetAllScoredValuesAsync(long startUnixTime, long endUnixTime)
+    {
+        LogSwitch.Debug("Fetching all scored values");
+
+        return await GetAllScoredValuesAsync(_archiveDbIndex, DatabaseArchive,
+            startUnixTime, endUnixTime, batchSize: 50);
     }
 
     public async Task SetValueAsync(string key, string value, TimeSpan? expiry = null)
@@ -184,6 +211,44 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
         try
         {
             return await database.KeyDeleteAsync(key);
+        }
+        catch (TimeoutException exception)
+        {
+            Log.Fatal($"Redis operation timed out: {exception.Message}");
+            throw;
+        }
+    }
+
+    private async Task<List<string?>> GetAllScoredValuesAsync(int dbIndex, IDatabase database,
+        long startUnixTime, long endUnixTime, int batchSize = 10)
+    {
+        try
+        {
+            var server = _connectionMultiplexer.GetServer(_connectionMultiplexer.GetEndPoints().First());
+            var keys = server.Keys(dbIndex);
+            var values = new List<string?>();
+
+            int numberOfBatches = (int)Math.Ceiling((double)keys.Count() / batchSize);
+
+            for (int i = 0; i < numberOfBatches; i++)
+            {
+                Log.Information("Batch: {0}/{1}", i, numberOfBatches - 1);
+
+                var batchKeys = keys.Skip(i * batchSize).Take(batchSize).ToList();
+                var tasks = batchKeys.Select(key => database.SortedSetRangeByScoreAsync(key, startUnixTime, endUnixTime));
+                var batchValues = await Task.WhenAll(tasks);
+
+                Parallel.ForEach(batchValues, elements =>
+                {
+                    var stringValues = elements.Select(value => value.ToString());
+                    lock (values)
+                    {
+                        values.AddRange(stringValues);
+                    }
+                });
+            }
+
+            return values;
         }
         catch (TimeoutException exception)
         {
