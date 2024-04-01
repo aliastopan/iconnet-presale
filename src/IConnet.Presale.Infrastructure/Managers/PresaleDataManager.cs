@@ -7,7 +7,7 @@ using IConnet.Presale.Shared.Interfaces.Models.Presales;
 namespace IConnet.Presale.Infrastructure.Managers;
 
 internal sealed class PresaleDataManager : PresaleDataOperationBase,
-    IWorkloadManager, IWorkloadSynchronizationManager
+    IWorkloadManager, IWorkloadSynchronizationManager, IRedisFormatter
 {
     private readonly IDateTimeService _dateTimeService;
     private readonly IInMemoryPersistenceService _inMemoryPersistenceService;
@@ -146,7 +146,9 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase,
 
         if (isDoneProcessing || isInvalidCrmData)
         {
-            await _doneProcessingPersistenceService.ArchiveValueAsync(key, jsonWorkPaper);
+            var unixTimestamp =  _dateTimeService.GetUnixTime(workPaper.ApprovalOpportunity.TglPermohonan);
+
+            await _doneProcessingPersistenceService.ArchiveValueAsync(key, jsonWorkPaper, unixTimestamp);
             Log.Information("Moving {key} to Archive DB.", key);
 
             await _inProgressPersistenceService.DeleteValueAsync(key);
@@ -270,5 +272,44 @@ internal sealed class PresaleDataManager : PresaleDataOperationBase,
         {
             return workPaper.WorkPaperLevel != WorkPaperLevel.DoneProcessing;
         }
+    }
+
+    public async Task<int> ReformatArchiveAsync()
+    {
+        Log.Warning("Fetching Data.");
+
+        var jsonWorkPapers = await _doneProcessingPersistenceService.GetAllValuesAsync();
+        var workPapers = JsonWorkPaperProcessor.DeserializeJsonWorkPapersParallel(jsonWorkPapers!, ParallelOptions);
+
+        Log.Warning("Data Fetched.");
+        Log.Warning("Now Deleting.");
+
+        int deleteCounter = 1;
+        foreach (var workPaper in workPapers)
+        {
+            var key = workPaper.ApprovalOpportunity.IdPermohonan;
+            await _doneProcessingPersistenceService.DeleteValueAsync(key);
+
+            Log.Warning("Deleting: {0}/{1}", deleteCounter++, workPapers.Count);
+        }
+
+        Log.Warning("Delete Complete. Began Formatting");
+
+        int counter = 1;
+
+        foreach (var workPaper in workPapers)
+        {
+            var jsonWorkPaper = JsonSerializer.Serialize<WorkPaper>(workPaper);
+            var key = workPaper.ApprovalOpportunity.IdPermohonan;
+            var unixTimestamp =  _dateTimeService.GetUnixTime(workPaper.ApprovalOpportunity.TglPermohonan);
+
+            await _doneProcessingPersistenceService.ArchiveValueAsync(key, jsonWorkPaper, unixTimestamp);
+
+            Log.Warning("Formatting: {0}/{1}", counter++, workPapers.Count);
+        }
+
+        Log.Warning("Formatting Complete.");
+
+        return counter;
     }
 }

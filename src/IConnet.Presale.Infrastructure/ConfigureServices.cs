@@ -79,6 +79,7 @@ public static class ConfigureServices
         services.AddSingleton<IDoneProcessingPersistenceService, RedisProvider>();
         services.AddSingleton<IInMemoryPersistenceService, InMemoryPersistenceProvider>();
         services.AddSingleton<IWorkloadManager, PresaleDataManager>();
+        services.AddSingleton<IRedisFormatter, PresaleDataManager>();
         services.AddSingleton<IWorkloadSynchronizationManager, PresaleDataManager>();
         services.AddSingleton<ISqlSynchronizationManager, SqlSynchronizationManager>();
         services.AddSingleton<IDashboardManager, DashboardManager>();

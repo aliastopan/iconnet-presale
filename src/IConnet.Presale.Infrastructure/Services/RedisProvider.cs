@@ -40,7 +40,7 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
 
     async Task<List<string?>> IDoneProcessingPersistenceService.GetAllValuesAsync()
     {
-        return await GetAllValuesAsync(_archiveDbIndex, DatabaseArchive, batchSize: 10);
+        return await GetAllValuesAsync(_archiveDbIndex, DatabaseArchive, batchSize: 50);
     }
 
     public async Task SetValueAsync(string key, string value, TimeSpan? expiry = null)
@@ -106,11 +106,11 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
         return await GetExistingKeysAsync(keysToCheck, DatabaseArchive);
     }
 
-    public async Task ArchiveValueAsync(string key, string value, TimeSpan? expiry = null)
+    public async Task ArchiveValueAsync(string key, string value, long timestamp, TimeSpan? expiry = null)
     {
         try
         {
-            await DatabaseArchive.StringSetAsync(key, value, expiry);
+            await DatabaseArchive.SortedSetAddAsync(key, value, timestamp);
         }
         catch (TimeoutException exception)
         {
@@ -152,7 +152,7 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
 
                 var batchTask = Task.Run(async () =>
                 {
-                    Log.Information("Batch: {0}/{1}", i, numberOfBatches - 1);
+                    Log.Information("Batch: {0}/{1}", i, numberOfBatches);
 
                     var tasks = batchKeys.Select(key => database.StringGetAsync(key));
                     var batchValues = await Task.WhenAll(tasks);
