@@ -37,7 +37,7 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
     {
         try
         {
-            LogSwitch.Debug("Attempting to get scored value.");
+            Log.Warning("Attempting to get scored value.");
 
             var values = await DatabaseArchive.SortedSetRangeByScoreAsync(key,
                 double.NegativeInfinity,
@@ -59,15 +59,15 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
 
     async Task<List<string?>> IDoneProcessingPersistenceService.GetAllValuesAsync()
     {
-        return await GetAllValuesAsync(_archiveDbIndex, DatabaseArchive, batchSize: 50);
+        return await GetAllValuesAsync(_archiveDbIndex, DatabaseArchive, batchSize: 25);
     }
 
     public async Task<List<string?>> GetAllScoredValuesAsync(long startUnixTime, long endUnixTime)
     {
-        LogSwitch.Debug("Fetching all scored values");
+        Log.Warning("Fetching all scored values");
 
         return await GetAllScoredValuesAsync(_archiveDbIndex, DatabaseArchive,
-            startUnixTime, endUnixTime, batchSize: 50);
+            startUnixTime, endUnixTime, batchSize: 25);
     }
 
     public async Task SetValueAsync(string key, string value, TimeSpan? expiry = null)
@@ -167,7 +167,7 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
             var keys = server.Keys(dbIndex);
             var values = new List<string?>();
 
-            LogSwitch.Debug("Count: {0}", keys.Count());
+            Log.Warning("Count: {0}", keys.Count());
 
             int numberOfBatches = (int)Math.Ceiling((double)keys.Count() / batchSize);
 
