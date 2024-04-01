@@ -1,3 +1,8 @@
+## v2.0.0
+- Fix: Redis caching for filtered items. Improved page loading time.
+- Fix: (major): Redis caching with Sorted Set for archived Presale Data. Prevent future memory leak if Presale data reaches 100MB per 1 active filtering.
+- Fix: Limit fetch filtering to ~8MB. Prevent memory leak.
+
 ## v1.9.2
 - Fix: Parallel batch operation (Redis). Improved page loading time.
 
