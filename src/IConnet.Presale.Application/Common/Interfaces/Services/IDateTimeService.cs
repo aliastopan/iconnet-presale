@@ -6,6 +6,7 @@ public interface IDateTimeService
     DateTimeOffset DateTimeOffsetNow { get; }
     DateTime Zero { get; }
 
+    long GetUnixTime(DateTime dateTime);
     string GetClockTime();
     string GetFormat();
     TimeSpan GetElapsedTime(DateTime startDateTime);
