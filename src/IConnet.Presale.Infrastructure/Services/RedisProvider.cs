@@ -28,10 +28,10 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
         return await GetValueAsync(key, DatabaseProgress);
     }
 
-    async Task<string?> IDoneProcessingPersistenceService.GetValueAsync(string key)
-    {
-        return await GetValueAsync(key, DatabaseArchive);
-    }
+    // async Task<string?> IDoneProcessingPersistenceService.GetValueAsync(string key)
+    // {
+    //     return await GetValueAsync(key, DatabaseArchive);
+    // }
 
     async Task<string?> IDoneProcessingPersistenceService.GetScoredValueAsync(string key)
     {
