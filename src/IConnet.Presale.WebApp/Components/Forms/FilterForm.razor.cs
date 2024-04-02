@@ -7,6 +7,7 @@ public partial class FilterForm : ComponentBase
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
 
     [Parameter] public EventCallback OnFilter { get; set; }
+    [Parameter] public EventCallback OnDateRangeFilterChanged { get; set; }
     [Parameter] public bool IncludeApprovalStatus { get; set; }
 
     private FilterModel _filterModel = default!;
@@ -92,6 +93,11 @@ public partial class FilterForm : ComponentBase
         IsFiltered = false;
 
         await OnFilter.InvokeAsync();
+
+        if (OnDateRangeFilterChanged.HasDelegate)
+        {
+            await OnDateRangeFilterChanged.InvokeAsync();
+        }
     }
 
     protected async Task SetFilterDateTimeEndAsync(DateTime? nullableDateTime)
@@ -115,6 +121,11 @@ public partial class FilterForm : ComponentBase
         IsFiltered = false;
 
         await OnFilter.InvokeAsync();
+
+        if (OnDateRangeFilterChanged.HasDelegate)
+        {
+            await OnDateRangeFilterChanged.InvokeAsync();
+        }
     }
 
     protected async Task ResetFilterAsync()

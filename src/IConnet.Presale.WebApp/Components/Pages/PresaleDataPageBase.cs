@@ -87,6 +87,11 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
         return _filteredPresaleData;
     }
 
+    protected void FilterRangeDateChanged()
+    {
+        LogSwitch.Debug("Changing Filter Date Range.");
+    }
+
     protected override async Task OnUpdateWorkloadAsync(string message)
     {
         await LoadPresaleDataAsync();
