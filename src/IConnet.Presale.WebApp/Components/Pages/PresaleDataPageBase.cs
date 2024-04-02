@@ -9,6 +9,9 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
     private IQueryable<WorkPaper>? _presaleData;
     private IQueryable<WorkPaper>? _filteredPresaleData;
 
+    private DateTime _previousDateTimeMin;
+    private DateTime _previousDateTimeMax;
+
     protected UserRole UserRole { get; private set; }
     protected bool EnableSelection { get; set; }
 
@@ -34,6 +37,9 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
         {
             UserRole = await SessionService.GetUserRoleAsync();
             _presaleData = await WorkloadManager.GetWorkloadAsync(PresaleDataFilter);
+
+            _previousDateTimeMin = SessionService.FilterPreference.TglPermohonanMin;
+            _previousDateTimeMax = SessionService.FilterPreference.TglPermohonanMax;
 
             await LoadPresaleDataAsync();
 
@@ -87,9 +93,18 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
         return _filteredPresaleData;
     }
 
-    protected void FilterRangeDateChanged()
+    protected async Task FilterRangeDateChangedAsync()
     {
-        LogSwitch.Debug("Changing Filter Date Range.");
+        if (!IsCurrentRangeWithinPreviousRange())
+        {
+            _presaleData = null;
+            await LoadPresaleDataAsync();
+
+            _previousDateTimeMin = SessionService.FilterPreference.TglPermohonanMin;
+            _previousDateTimeMax = SessionService.FilterPreference.TglPermohonanMax;
+
+            this.StateHasChanged();
+        }
     }
 
     protected override async Task OnUpdateWorkloadAsync(string message)
@@ -148,6 +163,23 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
         var dateTimeMax = SessionService.FilterPreference.TglPermohonanMax;
 
         _presaleData = await WorkloadManager.GetArchivedPresaleDataAsync(dateTimeMin, dateTimeMax);
+    }
+
+    private bool IsCurrentRangeWithinPreviousRange()
+    {
+        var currentDateTimeMin = SessionService.FilterPreference.TglPermohonanMin;
+        var currentDateTimeMax = SessionService.FilterPreference.TglPermohonanMax;
+
+        if (currentDateTimeMin < _previousDateTimeMin)
+        {
+            LogSwitch.Debug("DateTime Min is older than previous.");
+            return false;
+        }
+        else
+        {
+            LogSwitch.Debug("DateTime within acceptable range.");
+            return true;
+        }
     }
 
     private string GetGridTemplateCols()
