@@ -11,7 +11,7 @@
                 <FluentDatePicker style="width: 135px;"
                     Label="Tgl. Permohonan"
                     Value="@NullableUpperBoundaryDateTimeMin"
-                    ValueChanged="OnUpperBoundaryDateMinChanged"/>
+                    ValueChanged="OnUpperBoundaryDateMinChangedAsync"/>
             </div>
             <div class="date-until">
                 <span>s.d</span>
@@ -20,7 +20,7 @@
                 <FluentDatePicker style="width: 135px;"
                     Label="@FilterDateTimeRangeLabel"
                     Value="@NullableUpperBoundaryDateTimeMax"
-                    ValueChanged="OnUpperBoundaryDateMaxChanged"/>
+                    ValueChanged="OnUpperBoundaryDateMaxChangedAsync"/>
             </div>
         </div>
 

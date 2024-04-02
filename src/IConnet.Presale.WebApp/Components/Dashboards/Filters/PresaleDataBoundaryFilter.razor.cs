@@ -5,7 +5,7 @@ public partial class PresaleDataBoundaryFilter : ComponentBase
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
 
-    // private readonly int _filterDaysRangeDefault = 10; // 31
+    [Parameter] public EventCallback OnUpperBoundaryChanged { get; set; }
 
     public DateTime? NullableUpperBoundaryDateTimeMin { get; set; }
     public DateTime? NullableUpperBoundaryDateTimeMax { get; set; }
@@ -25,7 +25,7 @@ public partial class PresaleDataBoundaryFilter : ComponentBase
         NullableUpperBoundaryDateTimeMax = SessionService.FilterPreference.UpperBoundaryDateTimeMax;
     }
 
-    protected void OnUpperBoundaryDateMinChanged(DateTime? nullableDateTime)
+    protected async Task OnUpperBoundaryDateMinChangedAsync(DateTime? nullableDateTime)
     {
         if (nullableDateTime is null)
         {
@@ -35,9 +35,11 @@ public partial class PresaleDataBoundaryFilter : ComponentBase
         NullableUpperBoundaryDateTimeMin = nullableDateTime.Value;
 
         LogSwitch.Debug("Changing upper boundary MIN");
+
+        await OnUpperBoundaryChanged.InvokeAsync();
     }
 
-    protected void OnUpperBoundaryDateMaxChanged(DateTime? nullableDateTime)
+    protected async Task OnUpperBoundaryDateMaxChangedAsync(DateTime? nullableDateTime)
     {
         if (nullableDateTime is null)
         {
@@ -47,6 +49,8 @@ public partial class PresaleDataBoundaryFilter : ComponentBase
         NullableUpperBoundaryDateTimeMax = nullableDateTime.Value;
 
         LogSwitch.Debug("Changing upper boundary MAX");
+
+        await OnUpperBoundaryChanged.InvokeAsync();
     }
 
     private string GetDaysRangeLabel()
