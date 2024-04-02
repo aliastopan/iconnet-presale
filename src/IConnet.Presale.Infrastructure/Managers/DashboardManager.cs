@@ -74,4 +74,80 @@ internal sealed class DashboardManager : PresaleDataOperationBase, IDashboardMan
 
         return presaleData.Where(workPaper => workPaper.ApprovalOpportunity.TglPermohonan.DayOfYear == currentDay);
     }
+
+    public async Task<IQueryable<WorkPaper>?> GetUpperBoundaryPresaleDataAsync(DateTime dateTimeMin, DateTime dateTimeMax)
+    {
+        long startUnixTime = _dateTimeService.GetUnixTime(dateTimeMin);
+        long endUnixTime = _dateTimeService.GetUnixTime(dateTimeMax);
+
+        Task<List<string?>>[] getJsonWorkPapers =
+        [
+            _inProgressPersistenceService.GetAllValuesAsync(),
+            _doneProcessingPersistenceService.GetAllScoredValuesAsync(startUnixTime, endUnixTime)
+        ];
+
+        await Task.WhenAll(getJsonWorkPapers);
+
+        var inProgressJsonWorkPapers = getJsonWorkPapers[0].Result;
+        var doneProcessingJsonWorkPaper = getJsonWorkPapers[1].Result;
+
+        Task<List<WorkPaper>>[] workPaperTasks =
+        {
+            Task.Run(() => ProcessJsonWorkPapers(inProgressJsonWorkPapers!)),
+            Task.Run(() => ProcessJsonWorkPapers(doneProcessingJsonWorkPaper!))
+        };
+
+        await Task.WhenAll(workPaperTasks);
+
+        List<WorkPaper> inProgressWorkPapers = workPaperTasks[0].Result;
+        List<WorkPaper> doneProcessingWorkPapers = workPaperTasks[1].Result;
+
+        return doneProcessingWorkPapers.Concat(inProgressWorkPapers).AsQueryable();
+
+        // local function
+        List<WorkPaper> ProcessJsonWorkPapers(List<string> jsonWorkPapers)
+        {
+            var currentMonth = _dateTimeService.DateTimeOffsetNow.Month;
+            var currentYear = _dateTimeService.DateTimeOffsetNow.Year;
+
+            return JsonWorkPaperProcessor.DeserializeJsonWorkPapersParallel(jsonWorkPapers, this.ParallelOptions,
+                workPaper =>
+                {
+                    return workPaper.ApprovalOpportunity.TglPermohonan.Month == currentMonth
+                        && workPaper.ApprovalOpportunity.TglPermohonan.Year == currentYear;
+                });
+        }
+    }
+
+    public IQueryable<WorkPaper>? GetMiddleBoundaryPresaleData(IQueryable<WorkPaper> presaleData, DateTime dateTimeMin, DateTime dateTimeMax)
+    {
+        DateTime tglPermohonanMin = presaleData.Min(workPaper => workPaper.ApprovalOpportunity.TglPermohonan);
+        DateTime tglPermohonanMax = presaleData.Max(workPaper => workPaper.ApprovalOpportunity.TglPermohonan);
+
+        // bool isOutOfRange = dateTimeMin.Date < tglPermohonanMin.Date || dateTimeMax.Date < tglPermohonanMin.Date;
+        bool isOutOfRange = dateTimeMin.Date < tglPermohonanMin.Date || dateTimeMax.Date > tglPermohonanMax.Date;
+
+        if (isOutOfRange)
+        {
+            return null;
+        }
+
+        return presaleData.Where(workPaper => workPaper.ApprovalOpportunity.TglPermohonan.Date >= dateTimeMin.Date
+            && workPaper.ApprovalOpportunity.TglPermohonan.Date <= dateTimeMax.Date);
+    }
+
+    public IQueryable<WorkPaper>? GetLowerBoundaryPresaleData(IQueryable<WorkPaper> presaleData, DateTime dateTime)
+    {
+        DateTime tglPermohonanMin = presaleData.Min(workPaper => workPaper.ApprovalOpportunity.TglPermohonan);
+        DateTime tglPermohonanMax = presaleData.Max(workPaper => workPaper.ApprovalOpportunity.TglPermohonan);
+
+        bool isOutOfRange = dateTime.Date < tglPermohonanMin.Date || dateTime.Date > tglPermohonanMax.Date;
+
+        if (isOutOfRange)
+        {
+            return null;
+        }
+
+        throw new NotImplementedException();
+    }
 }
