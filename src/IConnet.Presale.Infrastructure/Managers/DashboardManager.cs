@@ -113,11 +113,10 @@ internal sealed class DashboardManager : PresaleDataOperationBase, IDashboardMan
 
     public IQueryable<WorkPaper>? GetMiddleBoundaryPresaleData(IQueryable<WorkPaper> presaleData, DateTime dateTimeMin, DateTime dateTimeMax)
     {
-        DateTime tglPermohonanMin = presaleData.Min(workPaper => workPaper.ApprovalOpportunity.TglPermohonan);
-        DateTime tglPermohonanMax = presaleData.Max(workPaper => workPaper.ApprovalOpportunity.TglPermohonan);
+        DateTime tglPermohonanMin = presaleData.Min(workPaper => workPaper.ApprovalOpportunity.TglPermohonan.Date);
+        DateTime tglPermohonanMax = presaleData.Max(workPaper => workPaper.ApprovalOpportunity.TglPermohonan.Date);
 
-        // bool isOutOfRange = dateTimeMin.Date < tglPermohonanMin.Date || dateTimeMax.Date < tglPermohonanMin.Date;
-        bool isOutOfRange = dateTimeMin.Date < tglPermohonanMin.Date || dateTimeMax.Date > tglPermohonanMax.Date;
+        bool isOutOfRange = dateTimeMin.Date >= tglPermohonanMin && dateTimeMax.Date <= tglPermohonanMax;
 
         if (isOutOfRange)
         {
@@ -133,13 +132,13 @@ internal sealed class DashboardManager : PresaleDataOperationBase, IDashboardMan
         DateTime tglPermohonanMin = presaleData.Min(workPaper => workPaper.ApprovalOpportunity.TglPermohonan);
         DateTime tglPermohonanMax = presaleData.Max(workPaper => workPaper.ApprovalOpportunity.TglPermohonan);
 
-        bool isOutOfRange = dateTime.Date < tglPermohonanMin.Date || dateTime.Date > tglPermohonanMax.Date;
+        bool isOutOfRange = dateTime >= tglPermohonanMin && dateTime <= tglPermohonanMax;
 
         if (isOutOfRange)
         {
             return null;
         }
 
-        throw new NotImplementedException();
+        return presaleData.Where(workPaper => workPaper.ApprovalOpportunity.TglPermohonan.Date == dateTime.Date);
     }
 }
