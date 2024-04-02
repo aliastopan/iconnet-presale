@@ -7,7 +7,7 @@ public class FilterModel
     {
         FilterOfficeDefault = kantorPerwakilanOptions.First();
         FilterOffice = kantorPerwakilanOptions.First();
-        FilterDaysRangeDefault = 30;
+        FilterDaysRangeDefault = 31;
 
         NullableFilterDateTimeMin = today.AddDays(-FilterDaysRangeDefault);
         NullableFilterDateTimeMax = today;
