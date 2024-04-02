@@ -518,11 +518,18 @@
 
 .approval-chat-history-link{
     margin: 4px 0;
+    width: 500px;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .approval-chat-history-link a{
     border-radius: 3px;
     padding: 2px 4px;
+    display: inline-block;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .meter-unit {
