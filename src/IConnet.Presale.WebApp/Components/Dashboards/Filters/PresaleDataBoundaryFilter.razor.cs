@@ -4,7 +4,7 @@ public partial class PresaleDataBoundaryFilter : ComponentBase
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
 
-    private readonly int _filterDaysRangeDefault = 31;
+    private readonly int _filterDaysRangeDefault = 10; // 31
 
     public DateTime? NullableFilterDateTimeMin { get; set; }
     public DateTime? NullableFilterDateTimeMax { get; set; }
