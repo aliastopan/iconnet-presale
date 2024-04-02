@@ -323,10 +323,9 @@ input:invalid::part(root) {
 }
 
 .tracking-opportunity-left{
-    /* width: calc(100% - 210px); */
     width: 450px;
 }
 
 .tracking-opportunity-right{
-    /* width: calc(50% - 210px); */
+    margin-right: 4px;
 }
