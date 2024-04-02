@@ -28,4 +28,13 @@ public class FilterPreference
         TglPermohonanMin = TglPermohonanMin == DateTime.MinValue ? dateTimeMin : TglPermohonanMin;
         TglPermohonanMax = TglPermohonanMax == DateTime.MinValue ? dateTimeMax : TglPermohonanMax;
     }
+
+    public void SetBoundaryDateTimeDefault(DateTime today)
+    {
+        UpperBoundaryDateTimeMin = today.AddDays(-15);
+        UpperBoundaryDateTimeMax = today;
+        MiddleBoundaryDateTimeMin = today.AddDays(-(int)today.DayOfWeek);
+        MiddleBoundaryDateTimeMax = today;
+        LowerBoundaryDateTime = today;
+    }
 }

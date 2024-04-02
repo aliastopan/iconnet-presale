@@ -3,14 +3,15 @@ namespace IConnet.Presale.WebApp.Components.Dashboards.Filters;
 public partial class PresaleDataBoundaryFilter : ComponentBase
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
+    [Inject] public SessionService SessionService { get; set; } = default!;
 
-    private readonly int _filterDaysRangeDefault = 10; // 31
+    // private readonly int _filterDaysRangeDefault = 10; // 31
 
-    public DateTime? NullableFilterDateTimeMin { get; set; }
-    public DateTime? NullableFilterDateTimeMax { get; set; }
-    public DateTime FilterDateTimeMin => NullableFilterDateTimeMin!.Value;
-    public DateTime FilterDateTimeMax => NullableFilterDateTimeMax!.Value;
-    public TimeSpan FilterDateTimeDifference => FilterDateTimeMax - FilterDateTimeMin;
+    public DateTime? NullableUpperBoundaryDateTimeMin { get; set; }
+    public DateTime? NullableUpperBoundaryDateTimeMax { get; set; }
+    public DateTime UpperBoundaryDateTimeMin => NullableUpperBoundaryDateTimeMin!.Value;
+    public DateTime UpperBoundaryDateTimeMax => NullableUpperBoundaryDateTimeMax!.Value;
+    public TimeSpan UpperBoundaryRange => UpperBoundaryDateTimeMax - UpperBoundaryDateTimeMin;
 
     public string FilterDateTimeRangeLabel => GetDaysRangeLabel();
 
@@ -18,37 +19,43 @@ public partial class PresaleDataBoundaryFilter : ComponentBase
     {
         var today = DateTimeService.DateTimeOffsetNow.DateTime;
 
-        NullableFilterDateTimeMin = today.AddDays(-_filterDaysRangeDefault);
-        NullableFilterDateTimeMax = today;
+        SessionService.FilterPreference.SetBoundaryDateTimeDefault(today);
+
+        NullableUpperBoundaryDateTimeMin = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
+        NullableUpperBoundaryDateTimeMax = SessionService.FilterPreference.UpperBoundaryDateTimeMax;
     }
 
-    protected void SetFilterDateTimeMin(DateTime? nullableDateTime)
+    protected void OnUpperBoundaryDateMinChanged(DateTime? nullableDateTime)
     {
         if (nullableDateTime is null)
         {
             return;
         }
 
-        NullableFilterDateTimeMin = nullableDateTime.Value;
+        NullableUpperBoundaryDateTimeMin = nullableDateTime.Value;
+
+        LogSwitch.Debug("Changing upper boundary MIN");
     }
 
-    protected void SetFilterDateTimeMax(DateTime? nullableDateTime)
+    protected void OnUpperBoundaryDateMaxChanged(DateTime? nullableDateTime)
     {
         if (nullableDateTime is null)
         {
             return;
         }
 
-        NullableFilterDateTimeMax = nullableDateTime.Value;
+        NullableUpperBoundaryDateTimeMax = nullableDateTime.Value;
+
+        LogSwitch.Debug("Changing upper boundary MAX");
     }
 
     private string GetDaysRangeLabel()
     {
         var today = DateTimeService.DateTimeOffsetNow.Date;
-        var isToday = FilterDateTimeMax.Date == today;
+        var isToday = UpperBoundaryDateTimeMax.Date == today;
 
         return isToday
-            ? $"{FilterDateTimeDifference.Days} Hari Terakhir"
-            : $"Rentang {FilterDateTimeDifference.Days} Hari";
+            ? $"{UpperBoundaryRange.Days} Hari Terakhir"
+            : $"Rentang {UpperBoundaryRange.Days} Hari";
     }
 }

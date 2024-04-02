@@ -1,5 +1,7 @@
 <div class="dashboard-filter-section">
 
+    <h4>Rentang Observasi (Filter)</h4>
+
     <FluentStack Orientation="Orientation.Horizontal"
         HorizontalAlignment="HorizontalAlignment.Start"
         VerticalAlignment="VerticalAlignment.Bottom">
@@ -8,8 +10,8 @@
             <div class="date-picker">
                 <FluentDatePicker style="width: 135px;"
                     Label="Tgl. Permohonan"
-                    Value="@NullableFilterDateTimeMin"
-                    ValueChanged="SetFilterDateTimeMin"/>
+                    Value="@NullableUpperBoundaryDateTimeMin"
+                    ValueChanged="OnUpperBoundaryDateMinChanged"/>
             </div>
             <div class="date-until">
                 <span>s.d</span>
@@ -17,8 +19,8 @@
             <div class="date-picker">
                 <FluentDatePicker style="width: 135px;"
                     Label="@FilterDateTimeRangeLabel"
-                    Value="@NullableFilterDateTimeMax"
-                    ValueChanged="SetFilterDateTimeMax"/>
+                    Value="@NullableUpperBoundaryDateTimeMax"
+                    ValueChanged="OnUpperBoundaryDateMaxChanged"/>
             </div>
         </div>
 
