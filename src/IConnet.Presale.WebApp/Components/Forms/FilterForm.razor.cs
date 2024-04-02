@@ -163,8 +163,8 @@ public partial class FilterForm : ComponentBase
             }
 
             // LogSwitch.Debug("Filtering DateTime");
-            return workPapers?.Where(x => x.ApprovalOpportunity.TglPermohonan >= FilterModel.FilterDateTimeMin
-                        && x.ApprovalOpportunity.TglPermohonan <= FilterModel.FilterDateTimeMax);
+            return workPapers?.Where(x => x.ApprovalOpportunity.TglPermohonan.Date >= FilterModel.FilterDateTimeMin.Date
+                && x.ApprovalOpportunity.TglPermohonan.Date <= FilterModel.FilterDateTimeMax.Date);
         }
     }
 
@@ -191,7 +191,7 @@ public partial class FilterForm : ComponentBase
 
     private string GetDaysRangeLabel()
     {
-        var currentDate = DateTime.Today;
+        var currentDate = DateTimeService.DateTimeOffsetNow.Date;
         var isToday = FilterModel.FilterDateTimeMax.Date == currentDate;
 
         return isToday

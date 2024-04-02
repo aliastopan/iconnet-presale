@@ -167,10 +167,10 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
 
     private bool IsCurrentRangeWithinPreviousRange()
     {
-        var currentDateTimeMin = SessionService.FilterPreference.TglPermohonanMin;
-        var currentDateTimeMax = SessionService.FilterPreference.TglPermohonanMax;
+        var currentDateTimeMin = SessionService.FilterPreference.TglPermohonanMin.Date;
+        var currentDateTimeMax = SessionService.FilterPreference.TglPermohonanMax.Date;
 
-        if (currentDateTimeMin < _previousDateTimeMin)
+        if (currentDateTimeMin.Date < _previousDateTimeMin.Date)
         {
             LogSwitch.Debug("DateTime Min is older than previous.");
             return false;
