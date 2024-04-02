@@ -14,6 +14,7 @@ public class DeveloperPageBase : ComponentBase
     [Inject] protected UserManager UserManager { get; set; } = default!;
     [Inject] protected OptionService OptionService { get; set; } = default!;
     [Inject] protected ReportService ReportService { get; set; } = default!;
+    [Inject] protected SessionService SessionService { get; set; } = default!;
 
     private bool _isInitialized = false;
     private readonly CultureInfo _cultureIndonesia = new CultureInfo("id-ID");
@@ -44,9 +45,15 @@ public class DeveloperPageBase : ComponentBase
     {
         if (!_isInitialized)
         {
-            _upperBoundaryPresaleData = await DashboardManager.GetPresaleDataFromCurrentMonthAsync();
-            _middleBoundaryPresaleData = DashboardManager.GetPresaleDataFromCurrentWeek(_upperBoundaryPresaleData);
-            _lowerBoundaryPresaleData = DashboardManager.GetPresaleDataFromToday(_upperBoundaryPresaleData);
+            var upperBoundaryMin = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
+            var upperBoundaryMax = SessionService.FilterPreference.UpperBoundaryDateTimeMax;
+            var middleBoundaryMin = SessionService.FilterPreference.MiddleBoundaryDateTimeMin;
+            var middleBoundaryMax = SessionService.FilterPreference.MiddleBoundaryDateTimeMax;
+            var lowerBoundary = SessionService.FilterPreference.LowerBoundaryDateTime;
+
+            _upperBoundaryPresaleData = await DashboardManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
+            _middleBoundaryPresaleData = DashboardManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
+            _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
 
             GenerateStatusApprovalReports();
 
@@ -60,13 +67,13 @@ public class DeveloperPageBase : ComponentBase
 
         foreach (var status in availableStatus)
         {
-            var monthlyReport = ReportService.GenerateApprovalStatusReport(status, _upperBoundaryPresaleData!);
-            var weeklyReport = ReportService.GenerateApprovalStatusReport(status, _middleBoundaryPresaleData!);
-            var dailyReport = ReportService.GenerateApprovalStatusReport(status, _lowerBoundaryPresaleData!);
+            var upperBoundaryReport = ReportService.GenerateApprovalStatusReport(status, _upperBoundaryPresaleData!);
+            var middleBoundaryReport = ReportService.GenerateApprovalStatusReport(status, _middleBoundaryPresaleData!);
+            var lowerBoundaryReport = ReportService.GenerateApprovalStatusReport(status, _lowerBoundaryPresaleData!);
 
-            _upperBoundaryApprovalStatusReports.Add(monthlyReport);
-            _middleBoundaryApprovalStatusReports.Add(weeklyReport);
-            _lowerBoundaryApprovalStatusReports.Add(dailyReport);
+            _upperBoundaryApprovalStatusReports.Add(upperBoundaryReport);
+            _middleBoundaryApprovalStatusReports.Add(middleBoundaryReport);
+            _lowerBoundaryApprovalStatusReports.Add(lowerBoundaryReport);
         }
     }
 }
