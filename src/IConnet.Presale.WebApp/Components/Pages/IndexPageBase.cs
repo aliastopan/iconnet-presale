@@ -1,6 +1,7 @@
 using System.Globalization;
 using IConnet.Presale.WebApp.Models.Identity;
 using IConnet.Presale.WebApp.Models.Presales.Reports;
+using IConnet.Presale.WebApp.Components.Dashboards.Filters;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
 
@@ -20,6 +21,8 @@ public class IndexPageBase : ComponentBase, IPageNavigation
     protected int CurrentYear => DateTimeService.DateTimeOffsetNow.Year;
     protected string CurrentMonth => DateTimeService.DateTimeOffsetNow.ToString("MMMM", _cultureIndonesia);
     protected int CurrentWeek => DateTimeService.GetCurrentWeekOfMonth();
+
+    protected PresaleDataBoundaryFilter PresaleDataBoundaryFilter { get; set; } = default!;
 
     private List<PresaleOperatorModel> _presaleOperators = [];
 
