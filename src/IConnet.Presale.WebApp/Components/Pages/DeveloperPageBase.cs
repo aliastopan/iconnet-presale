@@ -23,6 +23,8 @@ public class DeveloperPageBase : ComponentBase
     protected string CurrentMonth => DateTimeService.DateTimeOffsetNow.ToString("MMMM", _cultureIndonesia);
     protected int CurrentWeek => DateTimeService.GetCurrentWeekOfMonth();
 
+    protected bool IsLoading { get; set; } = false;
+
     protected PresaleDataBoundaryFilter PresaleDataBoundaryFilter { get; set; } = default!;
 
     private IQueryable<WorkPaper>? _upperBoundaryPresaleData;
@@ -40,6 +42,13 @@ public class DeveloperPageBase : ComponentBase
     public List<ApprovalStatusReportModel> UpperBoundaryApprovalStatusReports => _upperBoundaryApprovalStatusReports;
     public List<ApprovalStatusReportModel> MiddleBoundaryApprovalStatusReports => _middleBoundaryApprovalStatusReports;
     public List<ApprovalStatusReportModel> LowerBoundaryApprovalStatusReports => _lowerBoundaryApprovalStatusReports;
+
+    protected override void OnInitialized()
+    {
+        var today = DateTimeService.DateTimeOffsetNow.DateTime;
+
+        SessionService.FilterPreference.SetBoundaryDateTimeDefault(today);
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -59,6 +68,52 @@ public class DeveloperPageBase : ComponentBase
 
             _isInitialized = true;
         }
+    }
+
+    public async Task OnUpperBoundaryChangedAsync()
+    {
+        LogSwitch.Debug("Checking new upper boundary");
+        var upperBoundaryMin = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
+        var upperBoundaryMax = SessionService.FilterPreference.UpperBoundaryDateTimeMax;
+        var middleBoundaryMin = SessionService.FilterPreference.MiddleBoundaryDateTimeMin;
+        var middleBoundaryMax = SessionService.FilterPreference.MiddleBoundaryDateTimeMax;
+        var lowerBoundary = SessionService.FilterPreference.LowerBoundaryDateTime;
+
+        LogSwitch.Debug("Upper Boundary Min {0}", upperBoundaryMin.Date);
+        LogSwitch.Debug("Upper Boundary Max {0}", upperBoundaryMax.Date);
+
+        // _upperBoundaryPresaleData = null;
+        // _middleBoundaryPresaleData = null;
+        // _lowerBoundaryPresaleData = null;
+
+        // _upperBoundaryApprovalStatusReports.Clear();
+        // _middleBoundaryApprovalStatusReports.Clear();
+        // _lowerBoundaryApprovalStatusReports.Clear();
+
+        // _upperBoundaryPresaleData = await DashboardManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
+        // _middleBoundaryPresaleData = DashboardManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
+        // _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
+
+        // GenerateStatusApprovalReports();
+
+        // this.StateHasChanged();
+
+        // await LoadPresaleDataAsync();
+
+        await Task.CompletedTask;
+
+        this.StateHasChanged();
+    }
+
+    public async Task ReloadPresaleDataAsync()
+    {
+        LogSwitch.Debug("Loading");
+        IsLoading = true;
+
+        await Task.Delay(3000);
+
+        IsLoading = false;
+        LogSwitch.Debug("Finish");
     }
 
     private void GenerateStatusApprovalReports()

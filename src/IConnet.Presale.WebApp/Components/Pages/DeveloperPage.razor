@@ -16,7 +16,7 @@
             <span class="page-description">Developer only page</span>
         </div> *@
 
-        @if  (UpperBoundaryPresaleData is not null)
+        @if  (UpperBoundaryPresaleData is not null || !IsLoading)
         {
             <span  span class="page-description">Dashboard</span>
         }
@@ -29,10 +29,12 @@
         }
 
         <div>
-            <PresaleDataBoundaryFilter @ref="PresaleDataBoundaryFilter"/>
-
             @if (UpperBoundaryPresaleData is not null)
             {
+                <PresaleDataBoundaryFilter @ref="PresaleDataBoundaryFilter"
+                    OnUpperBoundaryChanged="OnUpperBoundaryChangedAsync"
+                    OnReload="ReloadPresaleDataAsync"/>
+
                 <FluentTabs ActiveTabId="tab-1">
                     <FluentTab Id="tab-1">
                         <Header>
@@ -54,6 +56,13 @@
                 </FluentTabs>
             }
         </div>
+
+        <FluentOverlay @bind-Visible=@IsLoading
+            Opacity="0.4"
+            Alignment="@Align.Center"
+            Justification="@JustifyContent.Center">
+            <FluentProgressRing />
+        </FluentOverlay>
 
     </Authorized>
 

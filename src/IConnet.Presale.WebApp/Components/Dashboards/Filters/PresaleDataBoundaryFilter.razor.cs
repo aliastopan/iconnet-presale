@@ -6,6 +6,7 @@ public partial class PresaleDataBoundaryFilter : ComponentBase
     [Inject] public SessionService SessionService { get; set; } = default!;
 
     [Parameter] public EventCallback OnUpperBoundaryChanged { get; set; }
+    [Parameter] public EventCallback OnReload { get; set; }
 
     public DateTime? NullableUpperBoundaryDateTimeMin { get; set; }
     public DateTime? NullableUpperBoundaryDateTimeMax { get; set; }
@@ -23,6 +24,11 @@ public partial class PresaleDataBoundaryFilter : ComponentBase
 
         NullableUpperBoundaryDateTimeMin = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
         NullableUpperBoundaryDateTimeMax = SessionService.FilterPreference.UpperBoundaryDateTimeMax;
+    }
+
+    protected async Task ReloadAsync()
+    {
+        await OnReload.InvokeAsync();
     }
 
     protected async Task OnUpperBoundaryDateMinChangedAsync(DateTime? nullableDateTime)
