@@ -1,0 +1,65 @@
+@if (Models is not null)
+{
+    <table class="approval-status-tabulation" style="width: fit-content;">
+        <thead>
+            <tr>
+                <th rowspan="2" class="tabulation-header" style="">
+                    STATUS
+                </th>
+                <th colspan="@Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct().Count()"
+                    class="tabulation-header"
+                    style="">
+                    Kantor Perwakilan
+                </th>
+                <th rowspan="2" class="tabulation-header" style="">
+                    Grand Total
+                </th>
+            </tr>
+            <tr>
+                @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
+                {
+                    <th class="" style="padding: 2px 8px; text-align: center;">
+                        @office
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var model in Models)
+            {
+                <tr>
+                    <td class="tabulation-header-row">@model.ApprovalStatusDisplay</td>
+                    @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
+                    {
+                        <td class="tabulation-content">
+                        @if (model.StatusPerOffice.ContainsKey(office))
+                        {
+                            @model.StatusPerOffice[office]
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                        </td>
+                    }
+                    <td class="tabulation-content">
+                        @model.GrandTotal
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td class="tabulation-header">Grand Total</td>
+                @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
+                {
+                    <td class="tabulation-content">
+                        @Models.Sum(m => m.StatusPerOffice.GetValueOrDefault(office, 0))
+                    </td>
+                }
+                <td class="tabulation-content-summary" style="">
+                    @Models.Sum(m => m.GrandTotal)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+}

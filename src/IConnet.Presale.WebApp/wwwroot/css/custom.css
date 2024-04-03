@@ -337,3 +337,43 @@ input:invalid::part(root) {
     padding: 10px;
     padding-right: 0;
 }
+
+
+.approval-status-tabulation{
+    border: 1px solid #e6e6e6;
+}
+
+.approval-status-tabulation thead tr th,
+.approval-status-tabulation tbody tr td{
+    height: 32px;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.tabulation-header{
+    color: white;
+    background-color: #214b5a;
+    padding: 2px 8px;
+    text-align: center;
+}
+
+.tabulation-header-secondary{
+    color: white;
+    background-color: #214b5a;
+    padding: 2px 8px;
+    text-align: center;
+}
+
+.tabulation-header-row{
+    padding: 2px 8px;
+    text-align:start;
+}
+
+.tabulation-content{
+    text-align: center;
+}
+
+.tabulation-content-summary{
+    text-align: center;
+    color: white;
+    background-color: #00a2b9;
+}
