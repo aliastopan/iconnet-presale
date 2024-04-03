@@ -60,13 +60,19 @@
                                         Daily</FluentButton>
                                 </div>
 
-                                <div>
-                                    <div>Presale Data: @UpperBoundaryPresaleData.Count()</div>
+                                <div class="d-flex flex-column">
+                                    <div style="@_monthlyToggleDislayStyle">
+                                        <div>Presale Data: @UpperBoundaryPresaleData.Count()</div>
 
-                                    @* <h4 style="margin-top: 8px;">
-                                        Data Presale bulan @CurrentMonth @CurrentYear
-                                    </h4> *@
-                                    <ApprovalStatusReportTable Models="@UpperBoundaryApprovalStatusReports"/>
+                                        <ApprovalStatusReportTable Models="@UpperBoundaryApprovalStatusReports"/>
+                                    </div>
+                                    <div style="@_weeklyToggleDislayStyle">
+                                        <div>Presale Data: @MiddleBoundaryPresaleData!.Count()</div>
+                                        <ApprovalStatusReportTable Models="@MiddleBoundaryApprovalStatusReports"/>
+                                    </div>
+                                    <div style="@_dialyToggleDislayStyle">
+                                        <ApprovalStatusReportTable Models="@LowerBoundaryApprovalStatusReports"/>
+                                    </div>
                                 </div>
 
                             </div>
@@ -99,4 +105,9 @@
     private Appearance _monthlyToggleAppearance => IsMonthlySelected ? Appearance.Accent : Appearance.Neutral;
     private Appearance _weeklyToggleAppearance => IsWeeklySelected ? Appearance.Accent : Appearance.Neutral;
     private Appearance _dailyToggleAppearance => IsDailySelected ? Appearance.Accent : Appearance.Neutral;
+
+    private string _monthlyToggleDislayStyle => IsMonthlySelected ? "" : "display: none";
+    private string _weeklyToggleDislayStyle => IsWeeklySelected ? "" : "display: none";
+    private string _dialyToggleDislayStyle => IsDailySelected ? "" : "display: none";
+
 }
