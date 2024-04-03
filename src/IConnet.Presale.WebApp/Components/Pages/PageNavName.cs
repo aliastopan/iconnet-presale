@@ -4,7 +4,7 @@ public static class PageNavName
 {
     public const string Developer = "Developer Access";
     public const string Index = "Home";
-    public const string Dashboard = "Dashboard";
+    public const string Dashboard = "Dashboard WIP";
     public const string Tracking = "Tracking";
     public const string CrmImport = "Import CRM";
     public const string CrmVerification = "Verifikasi CRM";

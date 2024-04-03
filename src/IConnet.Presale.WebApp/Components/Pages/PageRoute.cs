@@ -4,7 +4,7 @@ public static class PageRoute
 {
     public const string Developer = "/developer";
     public const string Index = "/";
-    public const string Dashboard = "/dashboard";
+    public const string Dashboard = "/dashboard-wip";
     public const string Tracking = "/tracking-opportunity";
     public const string CrmImport = "/crm-import";
     public const string CrmVerification = "/crm-verification";
