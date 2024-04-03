@@ -11,7 +11,14 @@
     --success-green: #0e700e;
     --pending-cyan: #0e7067;
     --inactive-grey: #e0e0e0;
-  }
+}
+
+@font-face {
+    font-family: 'inter-semibold';
+    src: url('../fonts/Inter-SemiBold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
 
 body {
     --body-font: "Inter", "Segoe UI Variable", "Segoe UI", 'Open Sans', sans-serif;
