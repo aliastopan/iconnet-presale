@@ -39,7 +39,10 @@ public partial class PresaleDataBoundaryFilter : ComponentBase
 
         LogSwitch.Debug("Changing upper boundary MIN");
 
-        await OnUpperBoundaryChanged.InvokeAsync();
+        if (OnUpperBoundaryChanged.HasDelegate)
+        {
+            await OnUpperBoundaryChanged.InvokeAsync();
+        }
     }
 
     protected async Task OnUpperBoundaryDateMaxChangedAsync(DateTime? nullableDateTime)
@@ -54,7 +57,10 @@ public partial class PresaleDataBoundaryFilter : ComponentBase
 
         LogSwitch.Debug("Changing upper boundary MAX");
 
-        await OnUpperBoundaryChanged.InvokeAsync();
+        if (OnUpperBoundaryChanged.HasDelegate)
+        {
+            await OnUpperBoundaryChanged.InvokeAsync();
+        }
     }
 
     private string GetDaysRangeLabel()
