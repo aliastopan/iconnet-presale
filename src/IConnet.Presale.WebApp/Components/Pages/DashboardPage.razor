@@ -4,4 +4,36 @@
 
 <PageTitle>Dashboard WIP</PageTitle>
 
-<FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Dashboard Versi 2.0 (WIP)</FluentLabel>
+@if (UpperBoundaryPresaleData is not null)
+{
+    <span  span class="page-description">Dashboard Versi 2.0 (WIP)</span>
+}
+else
+{
+    <div class="d-flex flex-row align-items-center">
+        <span class="px-1">Loading</span>
+        <FluentProgressRing style="width: 16px; height: 16px;"></FluentProgressRing>
+    </div>
+}
+
+<div>
+    @if (UpperBoundaryPresaleData is not null)
+    {
+        <PresaleDataBoundaryFilter @ref="PresaleDataBoundaryFilter"
+            OnUpperBoundaryChanged="OnUpperBoundaryChangedAsync"
+            OnReload="ReloadPresaleDataAsync"/>
+
+        <FluentTabs ActiveTabId="tab-1">
+            <FluentTab Id="tab-1">
+                <Header>
+                    <FluentIcon Value="@(new Icons.Regular.Size16.DocumentCheckmark())" Color="@Color.Accent"/>
+                    Status Approval
+                </Header>
+                <Content>
+
+                </Content>
+            </FluentTab>
+
+        </FluentTabs>
+    }
+</div>

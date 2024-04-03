@@ -9,6 +9,33 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 public class DashboardPageBase : ComponentBase, IPageNavigation
 {
     [Inject] protected TabNavigationManager TabNavigationManager { get; set; } = default!;
+    [Inject] protected IDateTimeService DateTimeService { get; set; } = default!;
+    [Inject] protected IDashboardManager DashboardManager { get; set; } = default!;
+    [Inject] protected IIdentityHttpClient IdentityHttpClient { get; set; } = default!;
+    [Inject] protected UserManager UserManager { get; set; } = default!;
+    [Inject] protected OptionService OptionService { get; set; } = default!;
+    [Inject] protected ReportService ReportService { get; set; } = default!;
+    [Inject] protected SessionService SessionService { get; set; } = default!;
+
+    private bool _isInitialized = false;
+
+    protected PresaleDataBoundaryFilter PresaleDataBoundaryFilter { get; set; } = default!;
+
+    private IQueryable<WorkPaper>? _upperBoundaryPresaleData;
+    private IQueryable<WorkPaper>? _middleBoundaryPresaleData;
+    private IQueryable<WorkPaper>? _lowerBoundaryPresaleData;
+
+    public IQueryable<WorkPaper>? UpperBoundaryPresaleData => _upperBoundaryPresaleData;
+    public IQueryable<WorkPaper>? MiddleBoundaryPresaleData => _middleBoundaryPresaleData;
+    public IQueryable<WorkPaper>? LowerBoundaryPresaleData => _lowerBoundaryPresaleData;
+
+    private readonly List<ApprovalStatusReportModel> _upperBoundaryApprovalStatusReports = [];
+    private readonly List<ApprovalStatusReportModel> _middleBoundaryApprovalStatusReports = [];
+    private readonly List<ApprovalStatusReportModel> _lowerBoundaryApprovalStatusReports = [];
+
+    public List<ApprovalStatusReportModel> UpperBoundaryApprovalStatusReports => _upperBoundaryApprovalStatusReports;
+    public List<ApprovalStatusReportModel> MiddleBoundaryApprovalStatusReports => _middleBoundaryApprovalStatusReports;
+    public List<ApprovalStatusReportModel> LowerBoundaryApprovalStatusReports => _lowerBoundaryApprovalStatusReports;
 
     public TabNavigationModel PageDeclaration()
     {
@@ -17,7 +44,87 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
 
     protected override void OnInitialized()
     {
+        var currentDate = DateTimeService.DateTimeOffsetNow.DateTime.Date;
+
+        SessionService.FilterPreference.SetBoundaryDateTimeDefault(currentDate);
+
         TabNavigationManager.SelectTab(this);
     }
 
+    protected override async Task OnInitializedAsync()
+    {
+        if (!_isInitialized)
+        {
+            var upperBoundaryMin = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
+            var upperBoundaryMax = SessionService.FilterPreference.UpperBoundaryDateTimeMax;
+            var middleBoundaryMin = SessionService.FilterPreference.MiddleBoundaryDateTimeMin;
+            var middleBoundaryMax = SessionService.FilterPreference.MiddleBoundaryDateTimeMax;
+            var lowerBoundary = SessionService.FilterPreference.LowerBoundaryDateTime;
+
+            _upperBoundaryPresaleData = await DashboardManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
+            _middleBoundaryPresaleData = DashboardManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
+            _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
+
+            GenerateStatusApprovalReports();
+
+            _isInitialized = true;
+        }
+    }
+
+    public async Task OnUpperBoundaryChangedAsync()
+    {
+        LogSwitch.Debug("Checking new upper boundary");
+        var upperBoundaryMin = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
+        var upperBoundaryMax = SessionService.FilterPreference.UpperBoundaryDateTimeMax;
+        var middleBoundaryMin = SessionService.FilterPreference.MiddleBoundaryDateTimeMin;
+        var middleBoundaryMax = SessionService.FilterPreference.MiddleBoundaryDateTimeMax;
+        var lowerBoundary = SessionService.FilterPreference.LowerBoundaryDateTime;
+
+        LogSwitch.Debug("Upper Boundary Min {0}", upperBoundaryMin.Date);
+        LogSwitch.Debug("Upper Boundary Max {0}", upperBoundaryMax.Date);
+        LogSwitch.Debug("Middle Boundary Min {0}", middleBoundaryMin.Date);
+        LogSwitch.Debug("Middle Boundary Max {0}", middleBoundaryMax.Date);
+        LogSwitch.Debug("Lower Boundary {0}", lowerBoundary.Date);
+
+        await Task.CompletedTask;
+    }
+
+    public async Task ReloadPresaleDataAsync()
+    {
+        var upperBoundaryMin = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
+        var upperBoundaryMax = SessionService.FilterPreference.UpperBoundaryDateTimeMax;
+        var middleBoundaryMin = SessionService.FilterPreference.MiddleBoundaryDateTimeMin;
+        var middleBoundaryMax = SessionService.FilterPreference.MiddleBoundaryDateTimeMax;
+        var lowerBoundary = SessionService.FilterPreference.LowerBoundaryDateTime;
+
+        _upperBoundaryPresaleData = null;
+        _middleBoundaryPresaleData = null;
+        _lowerBoundaryPresaleData = null;
+
+        _upperBoundaryApprovalStatusReports.Clear();
+        _middleBoundaryApprovalStatusReports.Clear();
+        _lowerBoundaryApprovalStatusReports.Clear();
+
+        _upperBoundaryPresaleData = await DashboardManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
+        _middleBoundaryPresaleData = DashboardManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
+        _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
+
+        GenerateStatusApprovalReports();
+    }
+
+    private void GenerateStatusApprovalReports()
+    {
+        List<ApprovalStatus> availableStatus = EnumProcessor.GetAllEnumValues<ApprovalStatus>();
+
+        foreach (var status in availableStatus)
+        {
+            var upperBoundaryReport = ReportService.GenerateApprovalStatusReport(status, _upperBoundaryPresaleData!);
+            var middleBoundaryReport = ReportService.GenerateApprovalStatusReport(status, _middleBoundaryPresaleData!);
+            var lowerBoundaryReport = ReportService.GenerateApprovalStatusReport(status, _lowerBoundaryPresaleData!);
+
+            _upperBoundaryApprovalStatusReports.Add(upperBoundaryReport);
+            _middleBoundaryApprovalStatusReports.Add(middleBoundaryReport);
+            _lowerBoundaryApprovalStatusReports.Add(lowerBoundaryReport);
+        }
+    }
 }
