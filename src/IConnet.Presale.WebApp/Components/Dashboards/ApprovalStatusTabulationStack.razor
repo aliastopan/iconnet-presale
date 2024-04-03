@@ -1,0 +1,40 @@
+<div class="d-flex flex-row align-items-top">
+
+    <div class="d-flex flex-column" style="margin-left: 4px; margin-right: 8px;">
+        <FluentButton Appearance="@_monthlyToggleAppearance"
+            style="width: 135px; margin-bottom: 8px;"
+            OnClick="ToggleToMonthlyView">
+            Monthly</FluentButton>
+        <FluentButton Appearance="@_weeklyToggleAppearance"
+            style="width: 135px; margin-bottom: 8px;"
+            OnClick="ToggleToWeeklyView">
+            Weekly</FluentButton>
+        <FluentButton Appearance="@_dailyToggleAppearance"
+            style="width: 135px ;margin-bottom: 8px;"
+            OnClick="ToggleToDailyView">
+            Daily</FluentButton>
+    </div>
+
+    <div class="d-flex flex-column">
+        <div style="@_monthlyToggleDislayStyle">
+            <ApprovalStatusReportTable Models="@UpperBoundaryModels"/>
+        </div>
+        <div style="@_weeklyToggleDislayStyle">
+            <ApprovalStatusReportTable Models="@MiddleBoundaryModels"/>
+        </div>
+        <div style="@_dialyToggleDislayStyle">
+            <ApprovalStatusReportTable Models="@LowerBoundaryModels"/>
+        </div>
+    </div>
+
+</div>
+@code
+{
+    private Appearance _monthlyToggleAppearance => IsMonthlySelected ? Appearance.Accent : Appearance.Neutral;
+    private Appearance _weeklyToggleAppearance => IsWeeklySelected ? Appearance.Accent : Appearance.Neutral;
+    private Appearance _dailyToggleAppearance => IsDailySelected ? Appearance.Accent : Appearance.Neutral;
+
+    private string _monthlyToggleDislayStyle => IsMonthlySelected ? "" : "display: none";
+    private string _weeklyToggleDislayStyle => IsWeeklySelected ? "" : "display: none";
+    private string _dialyToggleDislayStyle => IsDailySelected ? "" : "display: none";
+}

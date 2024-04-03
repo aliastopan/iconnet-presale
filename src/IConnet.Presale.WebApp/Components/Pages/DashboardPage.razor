@@ -30,7 +30,10 @@ else
                     Status Approval
                 </Header>
                 <Content>
-
+                    <ApprovalStatusTabulationStack
+                        UpperBoundaryModels="@UpperBoundaryApprovalStatusReports"
+                        MiddleBoundaryModels="@MiddleBoundaryApprovalStatusReports"
+                        LowerBoundaryModels="@LowerBoundaryApprovalStatusReports"/>
                 </Content>
             </FluentTab>
 
