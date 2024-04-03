@@ -1,4 +1,5 @@
 using System.Globalization;
+using Microsoft.AspNetCore.Components.Web;
 using IConnet.Presale.WebApp.Models.Identity;
 using IConnet.Presale.WebApp.Models.Presales.Reports;
 using IConnet.Presale.WebApp.Components.Dashboards.Filters;
@@ -24,6 +25,9 @@ public class DeveloperPageBase : ComponentBase
     protected int CurrentWeek => DateTimeService.GetCurrentWeekOfMonth();
 
     protected bool IsLoading { get; set; } = false;
+    public bool IsMonthlySelected { get; set; } = false;
+    public bool IsWeeklySelected { get; set; } = false;
+    public bool IsDailySelected { get; set; } = false;
 
     protected PresaleDataBoundaryFilter PresaleDataBoundaryFilter { get; set; } = default!;
 
@@ -48,6 +52,8 @@ public class DeveloperPageBase : ComponentBase
         var today = DateTimeService.DateTimeOffsetNow.DateTime;
 
         SessionService.FilterPreference.SetBoundaryDateTimeDefault(today);
+
+        IsMonthlySelected = true;
     }
 
     protected override async Task OnInitializedAsync()
@@ -139,5 +145,32 @@ public class DeveloperPageBase : ComponentBase
             _middleBoundaryApprovalStatusReports.Add(middleBoundaryReport);
             _lowerBoundaryApprovalStatusReports.Add(lowerBoundaryReport);
         }
+    }
+
+    protected void ToggleToMonthlyView(MouseEventArgs _)
+    {
+        LogSwitch.Debug("Monthly");
+
+        IsMonthlySelected = true;
+        IsWeeklySelected = false;
+        IsDailySelected = false;
+    }
+
+    protected void ToggleToWeeklyView(MouseEventArgs _)
+    {
+        LogSwitch.Debug("Weekly");
+
+        IsMonthlySelected = false;
+        IsWeeklySelected = true;
+        IsDailySelected = false;
+    }
+
+    protected void ToggleToDailyView(MouseEventArgs _)
+    {
+        LogSwitch.Debug("Daily");
+
+        IsMonthlySelected = false;
+        IsWeeklySelected = false;
+        IsDailySelected = true;
     }
 }
