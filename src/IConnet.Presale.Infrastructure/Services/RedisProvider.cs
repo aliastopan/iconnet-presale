@@ -54,12 +54,12 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
 
     async Task<List<string?>> IInProgressPersistenceService.GetAllValuesAsync()
     {
-        return await GetAllValuesAsync(_inProgressDbIndex, DatabaseProgress, batchSize: 10);
+        return await GetAllValuesAsync(_inProgressDbIndex, DatabaseProgress, batchSize: 50);
     }
 
     async Task<List<string?>> IDoneProcessingPersistenceService.GetAllValuesAsync()
     {
-        return await GetAllValuesAsync(_archiveDbIndex, DatabaseArchive, batchSize: 25);
+        return await GetAllValuesAsync(_archiveDbIndex, DatabaseArchive, batchSize: 100);
     }
 
     public async Task<List<string?>> GetAllScoredValuesAsync(long startUnixTime, long endUnixTime)
@@ -67,7 +67,7 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
         Log.Warning("Fetching all scored values");
 
         return await GetAllScoredValuesAsync(_archiveDbIndex, DatabaseArchive,
-            startUnixTime, endUnixTime, batchSize: 25);
+            startUnixTime, endUnixTime, batchSize: 100);
     }
 
     public async Task SetValueAsync(string key, string value, TimeSpan? expiry = null)
