@@ -29,12 +29,12 @@ public class FilterPreference
         TglPermohonanMax = TglPermohonanMax == DateTime.MinValue ? dateTimeMax : TglPermohonanMax;
     }
 
-    public void SetBoundaryDateTimeDefault(DateTime today)
+    public void SetBoundaryDateTimeDefault(DateTime baselineDate)
     {
-        UpperBoundaryDateTimeMin = today.AddDays(-5);
-        UpperBoundaryDateTimeMax = today;
-        MiddleBoundaryDateTimeMin = today.AddDays(-(int)today.DayOfWeek);
-        MiddleBoundaryDateTimeMax = today;
-        LowerBoundaryDateTime = today;
+        UpperBoundaryDateTimeMin = baselineDate.AddDays(-5);
+        UpperBoundaryDateTimeMax = baselineDate;
+        MiddleBoundaryDateTimeMin = baselineDate.AddDays(-(int)baselineDate.DayOfWeek);
+        MiddleBoundaryDateTimeMax = baselineDate;
+        LowerBoundaryDateTime = baselineDate;
     }
 }
