@@ -82,20 +82,6 @@ public class DeveloperPageBase : ComponentBase
         LogSwitch.Debug("Upper Boundary Min {0}", upperBoundaryMin.Date);
         LogSwitch.Debug("Upper Boundary Max {0}", upperBoundaryMax.Date);
 
-        // _upperBoundaryPresaleData = null;
-        // _middleBoundaryPresaleData = null;
-        // _lowerBoundaryPresaleData = null;
-
-        // _upperBoundaryApprovalStatusReports.Clear();
-        // _middleBoundaryApprovalStatusReports.Clear();
-        // _lowerBoundaryApprovalStatusReports.Clear();
-
-        // _upperBoundaryPresaleData = await DashboardManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
-        // _middleBoundaryPresaleData = DashboardManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
-        // _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
-
-        // GenerateStatusApprovalReports();
-
         // this.StateHasChanged();
 
         // await LoadPresaleDataAsync();
@@ -110,7 +96,30 @@ public class DeveloperPageBase : ComponentBase
         LogSwitch.Debug("Loading");
         IsLoading = true;
 
-        await Task.Delay(3000);
+        var upperBoundaryMin = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
+        var upperBoundaryMax = SessionService.FilterPreference.UpperBoundaryDateTimeMax;
+        var middleBoundaryMin = SessionService.FilterPreference.MiddleBoundaryDateTimeMin;
+        var middleBoundaryMax = SessionService.FilterPreference.MiddleBoundaryDateTimeMax;
+        var lowerBoundary = SessionService.FilterPreference.LowerBoundaryDateTime;
+
+        LogSwitch.Debug("Upper Boundary Min {0}", upperBoundaryMin.Date);
+        LogSwitch.Debug("Upper Boundary Max {0}", upperBoundaryMax.Date);
+
+        _upperBoundaryPresaleData = null;
+        _middleBoundaryPresaleData = null;
+        _lowerBoundaryPresaleData = null;
+
+        _upperBoundaryApprovalStatusReports.Clear();
+        _middleBoundaryApprovalStatusReports.Clear();
+        _lowerBoundaryApprovalStatusReports.Clear();
+
+        _upperBoundaryPresaleData = await DashboardManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
+        _middleBoundaryPresaleData = DashboardManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
+        _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
+
+        LogSwitch.Debug("Upper Boundary Count {0}", _upperBoundaryPresaleData!.Count());
+
+        GenerateStatusApprovalReports();
 
         IsLoading = false;
         LogSwitch.Debug("Finish");

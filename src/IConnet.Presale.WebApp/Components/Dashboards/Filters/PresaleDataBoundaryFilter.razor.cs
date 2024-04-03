@@ -18,10 +18,6 @@ public partial class PresaleDataBoundaryFilter : ComponentBase
 
     protected override void OnInitialized()
     {
-        var today = DateTimeService.DateTimeOffsetNow.DateTime;
-
-        SessionService.FilterPreference.SetBoundaryDateTimeDefault(today);
-
         NullableUpperBoundaryDateTimeMin = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
         NullableUpperBoundaryDateTimeMax = SessionService.FilterPreference.UpperBoundaryDateTimeMax;
     }
@@ -39,6 +35,7 @@ public partial class PresaleDataBoundaryFilter : ComponentBase
         }
 
         NullableUpperBoundaryDateTimeMin = nullableDateTime.Value;
+        SessionService.FilterPreference.UpperBoundaryDateTimeMin = UpperBoundaryDateTimeMin;
 
         LogSwitch.Debug("Changing upper boundary MIN");
 
@@ -53,6 +50,7 @@ public partial class PresaleDataBoundaryFilter : ComponentBase
         }
 
         NullableUpperBoundaryDateTimeMax = nullableDateTime.Value;
+        SessionService.FilterPreference.UpperBoundaryDateTimeMax = UpperBoundaryDateTimeMax;
 
         LogSwitch.Debug("Changing upper boundary MAX");
 

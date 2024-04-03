@@ -31,7 +31,7 @@ public class FilterPreference
 
     public void SetBoundaryDateTimeDefault(DateTime today)
     {
-        UpperBoundaryDateTimeMin = today.AddDays(-15);
+        UpperBoundaryDateTimeMin = today.AddDays(-5);
         UpperBoundaryDateTimeMax = today;
         MiddleBoundaryDateTimeMin = today.AddDays(-(int)today.DayOfWeek);
         MiddleBoundaryDateTimeMax = today;

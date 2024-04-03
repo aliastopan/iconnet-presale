@@ -16,7 +16,7 @@
             <span class="page-description">Developer only page</span>
         </div> *@
 
-        @if  (UpperBoundaryPresaleData is not null || !IsLoading)
+        @if  (UpperBoundaryPresaleData is not null)
         {
             <span  span class="page-description">Dashboard</span>
         }
@@ -57,12 +57,12 @@
             }
         </div>
 
-        <FluentOverlay @bind-Visible=@IsLoading
+        @* <FluentOverlay @bind-Visible=@IsLoading
             Opacity="0.4"
             Alignment="@Align.Center"
             Justification="@JustifyContent.Center">
             <FluentProgressRing />
-        </FluentOverlay>
+        </FluentOverlay> *@
 
     </Authorized>
 
