@@ -23,6 +23,18 @@ input:invalid::part(root) {
     margin-bottom: 0.5rem;
 }
 
+.date-only-badge{
+    margin-left: 4px;
+    width: fit-content;
+    background-color: #d1e4eb;
+    padding: 0 4px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
 #main-menu-expander.fluent-nav-item.expander .positioning-region:hover{
     background-color: var(--neutral-fill-stealth-rest) !important;
 }
@@ -347,6 +359,10 @@ input:invalid::part(root) {
 .approval-status-tabulation tbody tr td{
     height: 32px;
     border-bottom: 1px solid #e6e6e6;
+}
+
+.tabulation-report{
+    padding: 2px;
 }
 
 .tabulation-header{

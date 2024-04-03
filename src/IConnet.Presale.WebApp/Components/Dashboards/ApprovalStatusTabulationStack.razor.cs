@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Components.Web;
 using IConnet.Presale.WebApp.Models.Presales.Reports;
 
@@ -5,6 +6,8 @@ namespace IConnet.Presale.WebApp.Components.Dashboards;
 
 public partial class ApprovalStatusTabulationStack : ComponentBase
 {
+    [Inject] protected SessionService SessionService { get; set; } = default!;
+
     [Parameter]
     public List<ApprovalStatusReportModel> UpperBoundaryModels { get; set; } = [];
 
@@ -14,6 +17,8 @@ public partial class ApprovalStatusTabulationStack : ComponentBase
     [Parameter]
     public List<ApprovalStatusReportModel> LowerBoundaryModels { get; set; } = [];
 
+    private CultureInfo _cultureInfo = new CultureInfo("id-ID");
+
     public bool IsMonthlySelected { get; set; } = false;
     public bool IsWeeklySelected { get; set; } = false;
     public bool IsDailySelected { get; set; } = false;
@@ -21,6 +26,41 @@ public partial class ApprovalStatusTabulationStack : ComponentBase
     protected override void OnInitialized()
     {
         IsMonthlySelected = true;
+    }
+
+    protected string GetUpperBoundaryDateMin()
+    {
+        var upperBoundaryMin = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
+
+        return upperBoundaryMin.ToString("dd MMM yyyy", _cultureInfo);
+    }
+
+    protected string GetUpperBoundaryDateMax()
+    {
+        var upperBoundaryMax = SessionService.FilterPreference.UpperBoundaryDateTimeMax;
+
+        return upperBoundaryMax.ToString("dd MMM yyyy", _cultureInfo);
+    }
+
+    protected string GetMiddleBoundaryDateMin()
+    {
+        var middleBoundaryMin = SessionService.FilterPreference.MiddleBoundaryDateTimeMin;
+
+        return middleBoundaryMin.ToString("dd MMM yyyy", _cultureInfo);
+    }
+
+    protected string GetMiddleBoundaryDateMax()
+    {
+        var middleBoundaryMax = SessionService.FilterPreference.MiddleBoundaryDateTimeMax;
+
+        return middleBoundaryMax.ToString("dd MMM yyyy", _cultureInfo);
+    }
+
+    protected string GetLowerBoundaryDate()
+    {
+        var lowerBoundary = SessionService.FilterPreference.LowerBoundaryDateTime;
+
+        return lowerBoundary.ToString("dd MMM yyyy", _cultureInfo);
     }
 
     protected void ToggleToMonthlyView(MouseEventArgs _)
