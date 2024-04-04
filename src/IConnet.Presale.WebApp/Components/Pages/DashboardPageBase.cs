@@ -32,10 +32,16 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
     private readonly List<ApprovalStatusReportModel> _upperBoundaryApprovalStatusReports = [];
     private readonly List<ApprovalStatusReportModel> _middleBoundaryApprovalStatusReports = [];
     private readonly List<ApprovalStatusReportModel> _lowerBoundaryApprovalStatusReports = [];
+    private readonly List<RootCauseReportModel> _upperBoundaryRootCauseReports = [];
+    private readonly List<RootCauseReportModel> _middleBoundaryRootCauseReports = [];
+    private readonly List<RootCauseReportModel> _lowerBoundaryRootCauseReports = [];
 
     public List<ApprovalStatusReportModel> UpperBoundaryApprovalStatusReports => _upperBoundaryApprovalStatusReports;
     public List<ApprovalStatusReportModel> MiddleBoundaryApprovalStatusReports => _middleBoundaryApprovalStatusReports;
     public List<ApprovalStatusReportModel> LowerBoundaryApprovalStatusReports => _lowerBoundaryApprovalStatusReports;
+    public List<RootCauseReportModel> UpperBoundaryCauseReports => _upperBoundaryRootCauseReports;
+    public List<RootCauseReportModel> MiddleBoundaryRootCauseReports => _middleBoundaryRootCauseReports;
+    public List<RootCauseReportModel> LowerRootCauseReports => _lowerBoundaryRootCauseReports;
 
     public TabNavigationModel PageDeclaration()
     {
@@ -66,6 +72,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
             _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
 
             GenerateStatusApprovalReports(includeUpper: true, includeMiddle: true, includeLower: true);
+            GenerateRootCauseReports(includeUpper: true, includeMiddle: true, includeLower: true);
 
             _isInitialized = true;
         }
@@ -104,12 +111,16 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         _upperBoundaryApprovalStatusReports.Clear();
         _middleBoundaryApprovalStatusReports.Clear();
         _lowerBoundaryApprovalStatusReports.Clear();
+        _upperBoundaryRootCauseReports.Clear();
+        _middleBoundaryRootCauseReports.Clear();
+        _lowerBoundaryRootCauseReports.Clear();
 
         _upperBoundaryPresaleData = await DashboardManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
         _middleBoundaryPresaleData = DashboardManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
         _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
 
         GenerateStatusApprovalReports(includeUpper: true, includeMiddle: true, includeLower: true);
+        GenerateRootCauseReports(includeUpper: true, includeMiddle: true, includeLower: true);
     }
 
     public async Task ReloadMiddleBoundaryAsync()
@@ -122,10 +133,12 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         _middleBoundaryPresaleData = null;
 
         _middleBoundaryApprovalStatusReports.Clear();
+        _middleBoundaryRootCauseReports.Clear();
 
         _middleBoundaryPresaleData = DashboardManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
 
         GenerateStatusApprovalReports(includeMiddle: true);
+        GenerateRootCauseReports(includeMiddle: true);
 
         await Task.CompletedTask;
     }
@@ -139,10 +152,12 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         _lowerBoundaryPresaleData = null;
 
         _lowerBoundaryApprovalStatusReports.Clear();
+        _lowerBoundaryRootCauseReports.Clear();
 
         _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
 
         GenerateStatusApprovalReports(includeLower: true);
+        GenerateRootCauseReports(includeLower: true);
 
         await Task.CompletedTask;
     }
@@ -172,6 +187,35 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
                 var lowerBoundaryReport = ReportService.GenerateApprovalStatusReport(status, _lowerBoundaryPresaleData!);
 
                 _lowerBoundaryApprovalStatusReports.Add(lowerBoundaryReport);
+            }
+        }
+    }
+
+    private void GenerateRootCauseReports(bool includeUpper = false, bool includeMiddle = false, bool includeLower = false)
+    {
+        List<string> availableRootCauses = OptionService.RootCauseOptions.ToList();
+
+        foreach (var rootCause in availableRootCauses)
+        {
+            if (includeUpper)
+            {
+                var upperBoundaryReport = ReportService.GenerateRootCauseReport(rootCause, _upperBoundaryPresaleData!);
+
+                _upperBoundaryRootCauseReports.Add(upperBoundaryReport);
+            }
+
+            if (includeMiddle)
+            {
+                var middleBoundaryReport = ReportService.GenerateRootCauseReport(rootCause, _middleBoundaryPresaleData!);
+
+                _middleBoundaryRootCauseReports.Add(middleBoundaryReport);
+            }
+
+            if (includeLower)
+            {
+                var lowerBoundaryReport = ReportService.GenerateRootCauseReport(rootCause, _lowerBoundaryPresaleData!);
+
+                _lowerBoundaryRootCauseReports.Add(lowerBoundaryReport);
             }
         }
     }

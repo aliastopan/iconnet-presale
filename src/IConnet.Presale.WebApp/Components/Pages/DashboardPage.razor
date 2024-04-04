@@ -38,6 +38,20 @@ else
                         OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"/>
                 </Content>
             </FluentTab>
+            <FluentTab Id="tab-2">
+                <Header>
+                    <FluentIcon Value="@(new Icons.Regular.Size16.DocumentError())" Color="@Color.Accent"/>
+                    Root Cause
+                </Header>
+                <Content>
+                    <RootCauseTabulationStack
+                        UpperBoundaryModels="@UpperBoundaryCauseReports"
+                        MiddleBoundaryModels="@MiddleBoundaryRootCauseReports"
+                        LowerBoundaryModels="@LowerRootCauseReports"
+                        OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
+                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"/>
+                </Content>
+            </FluentTab>
 
         </FluentTabs>
     }
