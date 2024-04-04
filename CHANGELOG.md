@@ -1,3 +1,17 @@
+## v2.1.0
+- Fix: Chat history link max-width element
+- Update: Reload `PresaleData` on outbound `DataTime` filter range
+- Add: Secondary Dashboard page (WIP for Dashboard version 2)
+- Add: "Upper Boundary" Dashboard filter (monthly)
+- Add: "Middle Boundary" Dashboard filter (weekly)
+- Add: "Lower Boundary" Dashboard filter (daily)
+- Add: Monthly, Weekly, Daily tabulation report options
+- Add: Monthly Approval Status tabulation report
+- Add: Weekly Approval Status tabulation report
+- Add: Daily Approval Status tabulation report
+- Add: "Middle Boundary" filter options to change days range report
+- Add: "Lower Boundary" filter options to change day report
+
 ## v2.0.0
 - Fix: Redis caching for filtered items. Improved page loading time.
 - Fix: Redis caching with Sorted Set for archived Presale Data. Prevent future memory leak if Presale data reaches 100MB per 1 active filtering.
