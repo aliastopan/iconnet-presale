@@ -16,14 +16,16 @@
     </div>
 
     <div class="d-flex flex-column">
-        <h5 style="font-family: 'inter-semibold';">Laporan Opportunity Negatiation Approval</h5>
+        @* <h5 style="font-family: 'inter-semibold';">Laporan Opportunity Negatiation Approval</h5> *@
         <div style="@_monthlyToggleDislayStyle">
+            <h5 style="font-family: 'inter-semibold';">Laporan Opportunity Negatiation Approval <span class="">@CurrentMonthIndicator()</span></h5>
             <div class="tabulation-report">
                 <span class="">@GetUpperBoundaryDateMin()</span> s.d <span class="">@GetUpperBoundaryDateMax()</span>
             </div>
             <ApprovalStatusTabulation Models="@UpperBoundaryModels"/>
         </div>
         <div style="@_weeklyToggleDislayStyle">
+            <h5 style="font-family: 'inter-semibold';">Laporan Opportunity Negatiation Approval <span class="">@CurrentWeekIndicator()</span></h5>
             <div class="tabulation-report">
                 Data <span class="">@GetMiddleBoundaryDateMin()</span> s.d <span class="">@GetMiddleBoundaryDateMax()</span>
             </div>

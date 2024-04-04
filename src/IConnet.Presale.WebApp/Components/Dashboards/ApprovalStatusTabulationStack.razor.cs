@@ -6,6 +6,7 @@ namespace IConnet.Presale.WebApp.Components.Dashboards;
 
 public partial class ApprovalStatusTabulationStack : ComponentBase
 {
+    [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] protected SessionService SessionService { get; set; } = default!;
 
     [Parameter] public List<ApprovalStatusReportModel> UpperBoundaryModels { get; set; } = [];
@@ -85,5 +86,29 @@ public partial class ApprovalStatusTabulationStack : ComponentBase
         IsMonthlySelected = false;
         IsWeeklySelected = false;
         IsDailySelected = true;
+    }
+
+    protected string CurrentWeekIndicator()
+    {
+        var middleBoundaryMin = SessionService.FilterPreference.MiddleBoundaryDateTimeMin;
+        var middleBoundaryMax = SessionService.FilterPreference.MiddleBoundaryDateTimeMax;
+
+        bool isCurrentWeek = DateTimeService.IsWithinCurrentWeek(middleBoundaryMin, middleBoundaryMax);
+
+        return isCurrentWeek
+            ? "Minggu Ini"
+            : "";
+    }
+
+    protected string CurrentMonthIndicator()
+    {
+        var upperBoundaryMin = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
+        var upperBoundaryMax = SessionService.FilterPreference.UpperBoundaryDateTimeMax;
+
+        bool isCurrentMonth = DateTimeService.IsWithinCurrentWeek(upperBoundaryMin, upperBoundaryMax);
+
+        return isCurrentMonth
+            ? "Bulan Ini"
+            : "";
     }
 }
