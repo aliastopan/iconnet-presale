@@ -130,6 +130,23 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         await Task.CompletedTask;
     }
 
+    public async Task ReloadLowerBoundaryAsync()
+    {
+        LogSwitch.Debug("Reloading lower boundary");
+
+        var lowerBoundary = SessionService.FilterPreference.LowerBoundaryDateTime;
+
+        _lowerBoundaryPresaleData = null;
+
+        _lowerBoundaryApprovalStatusReports.Clear();
+
+        _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
+
+        GenerateStatusApprovalReports(includeLower: true);
+
+        await Task.CompletedTask;
+    }
+
     private void GenerateStatusApprovalReports(bool includeUpper = false, bool includeMiddle = false, bool includeLower = false)
     {
         List<ApprovalStatus> availableStatus = EnumProcessor.GetAllEnumValues<ApprovalStatus>();

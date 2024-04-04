@@ -361,6 +361,10 @@ input:invalid::part(root) {
     margin-left: 16px;
 }
 
+.lower-boundary-filter-section{
+    margin-left: 16px;
+}
+
 .approval-status-tabulation{
     border: 1px solid #e6e6e6;
 }

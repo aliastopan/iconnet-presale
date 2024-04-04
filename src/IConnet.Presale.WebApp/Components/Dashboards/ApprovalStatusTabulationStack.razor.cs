@@ -14,6 +14,7 @@ public partial class ApprovalStatusTabulationStack : ComponentBase
     [Parameter] public List<ApprovalStatusReportModel> LowerBoundaryModels { get; set; } = [];
 
     [Parameter] public EventCallback OnMiddleBoundaryChanged { get; set; }
+    [Parameter] public EventCallback OnLowerBoundaryChanged { get; set; }
 
     private CultureInfo _cultureInfo = new CultureInfo("id-ID");
 
@@ -109,6 +110,15 @@ public partial class ApprovalStatusTabulationStack : ComponentBase
 
         return isCurrentMonth
             ? "Bulan Ini"
+            : "";
+    }
+
+    protected string TodayIndicator()
+    {
+        var lowerBoundaryMin = SessionService.FilterPreference.LowerBoundaryDateTime;
+
+        return DateTimeService.IsToday(lowerBoundaryMin)
+            ? "Hari Ini"
             : "";
     }
 }
