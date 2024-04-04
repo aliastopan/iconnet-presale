@@ -1,0 +1,24 @@
+<div class="dashboard-filter-section">
+    <FluentStack Orientation="Orientation.Horizontal"
+        HorizontalAlignment="HorizontalAlignment.Start"
+        VerticalAlignment="VerticalAlignment.Bottom">
+
+        <div class="filter-date">
+            <div class="date-picker">
+                <FluentDatePicker style="width: 135px;"
+                    Label="Rentang Weekly"
+                    Value="@NullableMiddleBoundaryDateTimeMin"
+                    ValueChanged="OnMiddleBoundaryDateMinChangedAsync"/>
+            </div>
+            <div class="date-until">
+                <span>s.d</span>
+            </div>
+            <div class="date-picker">
+                <FluentDatePicker style="width: 135px;"
+                    Label="@FilterDateTimeRangeLabel"
+                    Value="@NullableMiddleBoundaryDateTimeMax"
+                    ValueChanged="OnMiddleBoundaryDateMaxChangedAsync"/>
+            </div>
+        </div>
+    </FluentStack>
+</div>
