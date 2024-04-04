@@ -366,6 +366,7 @@ input:invalid::part(root) {
 }
 
 .tabulation-wrapper{
+    border: 1px solid #e6e6e6;
     height: 256px;
     overflow-y: auto;
 }
@@ -397,17 +398,22 @@ input:invalid::part(root) {
     border: 1px solid #e6e6e6;
 }
 
-.approval-status-tabulation thead tr th,
+.approval-status-tabulation thead tr th{
+    height: 32px;
+}
 .approval-status-tabulation tbody tr td{
     height: 32px;
     border-bottom: 1px solid #e6e6e6;
 }
 
 .root-cause-tabulation{
-    border: 1px solid #e6e6e6;
+    margin-bottom: 0 !important;
 }
 
-.root-cause-tabulation thead tr th,
+.root-cause-tabulation thead tr th{
+    height: 32px;
+}
+
 .root-cause-tabulation tbody tr td{
     height: 32px;
     border-bottom: 1px solid #e6e6e6;

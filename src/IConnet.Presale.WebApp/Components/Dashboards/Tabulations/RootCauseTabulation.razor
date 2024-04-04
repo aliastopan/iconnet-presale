@@ -49,14 +49,14 @@
                     </tr>
                 }
                 <tr>
-                    <td class="tabulation-header-row">Grand Total</td>
+                    <td class="tabulation-header">Grand Total</td>
                     @foreach (var office in Models.SelectMany(m => m.RootCausePerOffice.Keys).Distinct())
                     {
                         <td class="tabulation-content">
                             @Models.Sum(m => m.RootCausePerOffice.GetValueOrDefault(office, 0))
                         </td>
                     }
-                    <td class="tabulation-content" style="">
+                    <td class="tabulation-content-summary" style="">
                         @Models.Sum(m => m.GrandTotal)
                     </td>
                 </tr>
