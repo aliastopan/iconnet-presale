@@ -28,9 +28,11 @@ public partial class MiddleBoundaryFilter : ComponentBase
             return;
         }
 
-        if (nullableDateTime.Value.Date > MiddleBoundaryDateTimeMax.Date)
+        bool isOutOfRange = nullableDateTime.Value.Date > MiddleBoundaryDateTimeMax.Date;
+
+        if (isOutOfRange)
         {
-            LogSwitch.Debug("Invalid middle boundary MIN on MAX. Returning.");
+            LogSwitch.Debug("Invalid middle boundary out of range.");
             return;
         }
 
@@ -62,9 +64,11 @@ public partial class MiddleBoundaryFilter : ComponentBase
             return;
         }
 
-        if (nullableDateTime.Value.Date < MiddleBoundaryDateTimeMin.Date)
+        bool isOutOfRange = nullableDateTime.Value.Date < MiddleBoundaryDateTimeMin.Date;
+
+        if (isOutOfRange)
         {
-            LogSwitch.Debug("Invalid middle boundary MAX on MIN. Returning.");
+            LogSwitch.Debug("Invalid middle boundary out of range.");
             return;
         }
 
