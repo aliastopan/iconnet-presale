@@ -89,7 +89,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         await Task.CompletedTask;
     }
 
-    public async Task ReloadPresaleDataAsync()
+    public async Task ReloadUpperBoundaryAsync()
     {
         var upperBoundaryMin = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
         var upperBoundaryMax = SessionService.FilterPreference.UpperBoundaryDateTimeMax;
