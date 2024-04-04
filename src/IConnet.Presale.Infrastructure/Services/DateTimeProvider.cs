@@ -1,3 +1,4 @@
+using System.Data;
 using System.Globalization;
 
 namespace IConnet.Presale.Infrastructure.Services;
@@ -31,6 +32,11 @@ internal sealed class DateTimeProvider : IDateTimeService
     public DateTime ParseExact(string dateTimeString)
     {
         return DateTime.ParseExact(dateTimeString, GetFormat(), System.Globalization.CultureInfo.InvariantCulture);
+    }
+
+    public bool IsToday(DateTime dateTime)
+    {
+        return dateTime.Date == DateTime.Today;
     }
 
     public bool IsWithinCurrentWeek(DateTime dateTimeMin, DateTime dateTimeMax)
