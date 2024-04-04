@@ -14,16 +14,33 @@ public partial class PresaleDataBoundaryFilter : ComponentBase
     public DateTime UpperBoundaryDateTimeMax => NullableUpperBoundaryDateTimeMax!.Value;
     public TimeSpan UpperBoundaryRange => UpperBoundaryDateTimeMax - UpperBoundaryDateTimeMin;
 
+    public DateTime PreviousUpperBoundaryDateTimeMin { get; set; }
+    public DateTime PreviousUpperBoundaryDateTimeMax { get; set; }
+
+    public bool IsReloadRequired => !UpperBoundaryUpdateCheck();
+
     public string FilterDateTimeRangeLabel => GetDaysRangeLabel();
 
     protected override void OnInitialized()
     {
         NullableUpperBoundaryDateTimeMin = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
         NullableUpperBoundaryDateTimeMax = SessionService.FilterPreference.UpperBoundaryDateTimeMax;
+
+        PreviousUpperBoundaryDateTimeMin = UpperBoundaryDateTimeMin;
+        PreviousUpperBoundaryDateTimeMax = UpperBoundaryDateTimeMax;
+    }
+
+    protected bool UpperBoundaryUpdateCheck()
+    {
+        return UpperBoundaryDateTimeMin < PreviousUpperBoundaryDateTimeMin
+            || UpperBoundaryDateTimeMax < PreviousUpperBoundaryDateTimeMax;
     }
 
     protected async Task ReloadAsync()
     {
+        PreviousUpperBoundaryDateTimeMin = UpperBoundaryDateTimeMin;
+        PreviousUpperBoundaryDateTimeMax = UpperBoundaryDateTimeMax;
+
         await OnReload.InvokeAsync();
     }
 

@@ -23,7 +23,10 @@
                     ValueChanged="OnUpperBoundaryDateMaxChangedAsync"/>
             </div>
             <div style="margin-left: 8px;">
-                <FluentButton Appearance="Appearance.Neutral" OnClick="ReloadAsync">Reload</FluentButton>
+                <FluentButton BackgroundColor="crimson"
+                    Color="white"
+                    Disabled="@IsReloadRequired"
+                    OnClick="ReloadAsync">Reload</FluentButton>
             </div>
         </div>
 
