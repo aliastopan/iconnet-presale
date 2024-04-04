@@ -33,6 +33,17 @@ internal sealed class DateTimeProvider : IDateTimeService
         return DateTime.ParseExact(dateTimeString, GetFormat(), System.Globalization.CultureInfo.InvariantCulture);
     }
 
+    public bool IsWithinCurrentWeek(DateTime dateTimeMin, DateTime dateTimeMax)
+    {
+        int firstDayOfWeek = (int)CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
+        int dayOfWeek = (int)DateTime.Today.DayOfWeek;
+
+        DateTime currentWeekStart = DateTime.Today.AddDays(firstDayOfWeek - dayOfWeek);
+        DateTime currentWeekEnd = currentWeekStart.AddDays(6);
+
+        return dateTimeMin >= currentWeekStart && dateTimeMax <= currentWeekEnd;
+    }
+
     public int GetCurrentWeekOfYear()
     {
         var now = DateTimeOffset.Now;

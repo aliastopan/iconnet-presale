@@ -11,6 +11,7 @@ public interface IDateTimeService
     string GetFormat();
     TimeSpan GetElapsedTime(DateTime startDateTime);
     DateTime ParseExact(string dateTimeString);
+    bool IsWithinCurrentWeek(DateTime dateTimeMin, DateTime dateTimeMax);
     int GetCurrentWeekOfYear();
     int GetCurrentWeekOfMonth();
     int GetWeekOfMonth(DateTime dateTime);
