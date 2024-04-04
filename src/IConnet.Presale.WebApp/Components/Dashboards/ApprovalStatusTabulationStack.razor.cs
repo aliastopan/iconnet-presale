@@ -8,14 +8,11 @@ public partial class ApprovalStatusTabulationStack : ComponentBase
 {
     [Inject] protected SessionService SessionService { get; set; } = default!;
 
-    [Parameter]
-    public List<ApprovalStatusReportModel> UpperBoundaryModels { get; set; } = [];
+    [Parameter] public List<ApprovalStatusReportModel> UpperBoundaryModels { get; set; } = [];
+    [Parameter] public List<ApprovalStatusReportModel> MiddleBoundaryModels { get; set; } = [];
+    [Parameter] public List<ApprovalStatusReportModel> LowerBoundaryModels { get; set; } = [];
 
-    [Parameter]
-    public List<ApprovalStatusReportModel> MiddleBoundaryModels { get; set; } = [];
-
-    [Parameter]
-    public List<ApprovalStatusReportModel> LowerBoundaryModels { get; set; } = [];
+    [Parameter] public EventCallback OnMiddleBoundaryChanged { get; set; }
 
     private CultureInfo _cultureInfo = new CultureInfo("id-ID");
 

@@ -33,7 +33,8 @@ else
                     <ApprovalStatusTabulationStack
                         UpperBoundaryModels="@UpperBoundaryApprovalStatusReports"
                         MiddleBoundaryModels="@MiddleBoundaryApprovalStatusReports"
-                        LowerBoundaryModels="@LowerBoundaryApprovalStatusReports"/>
+                        LowerBoundaryModels="@LowerBoundaryApprovalStatusReports"
+                        OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"/>
                 </Content>
             </FluentTab>
 

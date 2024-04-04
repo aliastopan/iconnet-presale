@@ -27,7 +27,10 @@
             <div class="tabulation-report">
                 Data <span class="">@GetMiddleBoundaryDateMin()</span> s.d <span class="">@GetMiddleBoundaryDateMax()</span>
             </div>
-            <ApprovalStatusTabulation Models="@MiddleBoundaryModels"/>
+            <div class="d-flex flex-row">
+                <ApprovalStatusTabulation Models="@MiddleBoundaryModels"/>
+                <MiddleBoundaryFilter OnMiddleBoundaryChanged="@OnMiddleBoundaryChanged"/>
+            </div>
         </div>
         <div style="@_dialyToggleDislayStyle">
             <div class="tabulation-report">

@@ -112,6 +112,24 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         GenerateStatusApprovalReports(includeUpper: true, includeMiddle: true, includeLower: true);
     }
 
+    public async Task ReloadMiddleBoundaryAsync()
+    {
+        LogSwitch.Debug("Reloading middle boundary");
+
+        var middleBoundaryMin = SessionService.FilterPreference.MiddleBoundaryDateTimeMin;
+        var middleBoundaryMax = SessionService.FilterPreference.MiddleBoundaryDateTimeMax;
+
+        _middleBoundaryPresaleData = null;
+
+        _middleBoundaryApprovalStatusReports.Clear();
+
+        _middleBoundaryPresaleData = DashboardManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
+
+        GenerateStatusApprovalReports(includeMiddle: true);
+
+        await Task.CompletedTask;
+    }
+
     private void GenerateStatusApprovalReports(bool includeUpper = false, bool includeMiddle = false, bool includeLower = false)
     {
         List<ApprovalStatus> availableStatus = EnumProcessor.GetAllEnumValues<ApprovalStatus>();
