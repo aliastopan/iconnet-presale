@@ -1,17 +1,12 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Components.Web;
-using IConnet.Presale.WebApp.Models.Presales.Reports;
 
 namespace IConnet.Presale.WebApp.Components.Dashboards;
 
-public partial class ApprovalStatusTabulationStack : ComponentBase
+public class ReportTabulationStackBase : ComponentBase
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] protected SessionService SessionService { get; set; } = default!;
-
-    [Parameter] public List<ApprovalStatusReportModel> UpperBoundaryModels { get; set; } = [];
-    [Parameter] public List<ApprovalStatusReportModel> MiddleBoundaryModels { get; set; } = [];
-    [Parameter] public List<ApprovalStatusReportModel> LowerBoundaryModels { get; set; } = [];
 
     [Parameter] public EventCallback OnMiddleBoundaryChanged { get; set; }
     [Parameter] public EventCallback OnLowerBoundaryChanged { get; set; }
