@@ -15,6 +15,9 @@
             style="width: 135px ;margin-bottom: 8px;"
             OnClick="ToggleToDailyView">
             Daily</FluentButton>
+        <FluentCheckbox class=""
+            @bind-Value="@IsPageView"
+            Label="Page View"/>
     </div>
 
     <div class="d-flex flex-column">
@@ -23,7 +26,8 @@
             <div class="tabulation-report">
                 <span class="date-only-badge">@GetUpperBoundaryDateMin()</span> s.d <span class="date-only-badge">@GetUpperBoundaryDateMax()</span>
             </div>
-            <RootCauseTabulation Models="@UpperBoundaryModels"/>
+            <RootCauseTabulation Models="@UpperBoundaryModels"
+                IsPageView="@IsPageView"/>
         </div>
         <div style="@_weeklyToggleDislayStyle">
             <h5 style="font-family: 'inter-semibold';">Laporan Root Cause <span class="">@CurrentWeekIndicator()</span></h5>

@@ -7,4 +7,6 @@ public class RootCauseTabulationStackBase : ReportTabulationStackBase
     [Parameter] public List<RootCauseReportModel> UpperBoundaryModels { get; set; } = [];
     [Parameter] public List<RootCauseReportModel> MiddleBoundaryModels { get; set; } = [];
     [Parameter] public List<RootCauseReportModel> LowerBoundaryModels { get; set; } = [];
+
+    public bool IsPageView { get; set; }
 }

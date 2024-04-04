@@ -367,8 +367,12 @@ input:invalid::part(root) {
 
 .tabulation-wrapper{
     border: 1px solid #e6e6e6;
-    height: 256px;
+    height: 260px;
     overflow-y: auto;
+}
+
+.tabulation-wrapper-page-view{
+    border: 1px solid #e6e6e6;
 }
 
 .tabulation-wrapper thead{

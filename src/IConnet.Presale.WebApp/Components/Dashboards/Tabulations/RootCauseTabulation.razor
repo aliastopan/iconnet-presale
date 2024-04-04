@@ -1,6 +1,6 @@
 @if (Models is not null)
 {
-    <div class="tabulation-wrapper">
+    <div class="@_wrapperStyle">
         <table class="root-cause-tabulation" style="width: fit-content;">
             <thead>
                 <tr>
@@ -63,4 +63,11 @@
             </tbody>
         </table>
     </div>
+}
+
+@code
+{
+    private string _wrapperStyle => IsPageView
+        ? "tabulation-wrapper-page-view"
+        : "tabulation-wrapper";
 }
