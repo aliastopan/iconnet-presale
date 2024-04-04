@@ -129,16 +129,6 @@ internal sealed class DashboardManager : PresaleDataOperationBase, IDashboardMan
 
     public IQueryable<WorkPaper>? GetLowerBoundaryPresaleData(IQueryable<WorkPaper> presaleData, DateTime dateTime)
     {
-        DateTime tglPermohonanMin = presaleData.Min(workPaper => workPaper.ApprovalOpportunity.TglPermohonan);
-        DateTime tglPermohonanMax = presaleData.Max(workPaper => workPaper.ApprovalOpportunity.TglPermohonan);
-
-        bool isOutOfRange = dateTime >= tglPermohonanMin && dateTime <= tglPermohonanMax;
-
-        if (isOutOfRange)
-        {
-            return null;
-        }
-
         return presaleData.Where(workPaper => workPaper.ApprovalOpportunity.TglPermohonan.Date == dateTime.Date);
     }
 }
