@@ -31,7 +31,9 @@ public class FilterPreference
 
     public void SetBoundaryDateTimeDefault(DateTime baselineDate)
     {
-        UpperBoundaryDateTimeMin = baselineDate.AddDays(-5);
+        // UpperBoundaryDateTimeMin = baselineDate.AddDays(-baselineDate.Day);
+        // UpperBoundaryDateTimeMin = new DateTime(baselineDate.Year, baselineDate.Month, 1);
+        UpperBoundaryDateTimeMin = baselineDate.AddDays(-31);
         UpperBoundaryDateTimeMax = baselineDate;
         MiddleBoundaryDateTimeMin = baselineDate.AddDays(-(int)baselineDate.DayOfWeek);
         MiddleBoundaryDateTimeMax = baselineDate;
