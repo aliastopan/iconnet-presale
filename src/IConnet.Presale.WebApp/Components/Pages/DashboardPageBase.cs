@@ -65,7 +65,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
             _middleBoundaryPresaleData = DashboardManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
             _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
 
-            GenerateStatusApprovalReports();
+            GenerateStatusApprovalReports(includeUpper: true, includeMiddle: true, includeLower: true);
 
             _isInitialized = true;
         }
@@ -109,22 +109,35 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         _middleBoundaryPresaleData = DashboardManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
         _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
 
-        GenerateStatusApprovalReports();
+        GenerateStatusApprovalReports(includeUpper: true, includeMiddle: true, includeLower: true);
     }
 
-    private void GenerateStatusApprovalReports()
+    private void GenerateStatusApprovalReports(bool includeUpper = false, bool includeMiddle = false, bool includeLower = false)
     {
         List<ApprovalStatus> availableStatus = EnumProcessor.GetAllEnumValues<ApprovalStatus>();
 
         foreach (var status in availableStatus)
         {
-            var upperBoundaryReport = ReportService.GenerateApprovalStatusReport(status, _upperBoundaryPresaleData!);
-            var middleBoundaryReport = ReportService.GenerateApprovalStatusReport(status, _middleBoundaryPresaleData!);
-            var lowerBoundaryReport = ReportService.GenerateApprovalStatusReport(status, _lowerBoundaryPresaleData!);
+            if (includeUpper)
+            {
+                var upperBoundaryReport = ReportService.GenerateApprovalStatusReport(status, _upperBoundaryPresaleData!);
 
-            _upperBoundaryApprovalStatusReports.Add(upperBoundaryReport);
-            _middleBoundaryApprovalStatusReports.Add(middleBoundaryReport);
-            _lowerBoundaryApprovalStatusReports.Add(lowerBoundaryReport);
+                _upperBoundaryApprovalStatusReports.Add(upperBoundaryReport);
+            }
+
+            if (includeMiddle)
+            {
+                var middleBoundaryReport = ReportService.GenerateApprovalStatusReport(status, _middleBoundaryPresaleData!);
+
+                _middleBoundaryApprovalStatusReports.Add(middleBoundaryReport);
+            }
+
+            if (includeLower)
+            {
+                var lowerBoundaryReport = ReportService.GenerateApprovalStatusReport(status, _lowerBoundaryPresaleData!);
+
+                _lowerBoundaryApprovalStatusReports.Add(lowerBoundaryReport);
+            }
         }
     }
 }
