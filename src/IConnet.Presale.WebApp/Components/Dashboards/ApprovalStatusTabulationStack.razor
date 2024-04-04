@@ -19,14 +19,14 @@
         <div style="@_monthlyToggleDislayStyle">
             <h5 style="font-family: 'inter-semibold';">Laporan Opportunity Negatiation Approval <span class="">@CurrentMonthIndicator()</span></h5>
             <div class="tabulation-report">
-                <span class="">@GetUpperBoundaryDateMin()</span> s.d <span class="">@GetUpperBoundaryDateMax()</span>
+                <span class="date-only-badge">@GetUpperBoundaryDateMin()</span> s.d <span class="date-only-badge">@GetUpperBoundaryDateMax()</span>
             </div>
             <ApprovalStatusTabulation Models="@UpperBoundaryModels"/>
         </div>
         <div style="@_weeklyToggleDislayStyle">
             <h5 style="font-family: 'inter-semibold';">Laporan Opportunity Negatiation Approval <span class="">@CurrentWeekIndicator()</span></h5>
             <div class="tabulation-report">
-                Data <span class="">@GetMiddleBoundaryDateMin()</span> s.d <span class="">@GetMiddleBoundaryDateMax()</span>
+                <span class="date-only-badge">@GetMiddleBoundaryDateMin()</span> s.d <span class="date-only-badge">@GetMiddleBoundaryDateMax()</span>
             </div>
             <div class="d-flex flex-row">
                 <ApprovalStatusTabulation Models="@MiddleBoundaryModels"/>
@@ -36,7 +36,7 @@
         <div style="@_dialyToggleDislayStyle">
             <h5 style="font-family: 'inter-semibold';">Laporan Opportunity Negatiation Approval <span class="">@TodayIndicator()</span></h5>
             <div class="tabulation-report">
-                Data <span class="">@GetLowerBoundaryDate()</span>
+                <span class="date-only-badge">@GetLowerBoundaryDate()</span>
             </div>
             <div class="d-flex flex-row">
                 <ApprovalStatusTabulation Models="@LowerBoundaryModels"/>
