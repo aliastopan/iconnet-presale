@@ -64,8 +64,6 @@ public partial class ApprovalStatusTabulationStack : ComponentBase
 
     protected void ToggleToMonthlyView(MouseEventArgs _)
     {
-        LogSwitch.Debug("Monthly");
-
         IsMonthlySelected = true;
         IsWeeklySelected = false;
         IsDailySelected = false;
@@ -73,8 +71,6 @@ public partial class ApprovalStatusTabulationStack : ComponentBase
 
     protected void ToggleToWeeklyView(MouseEventArgs _)
     {
-        LogSwitch.Debug("Weekly");
-
         IsMonthlySelected = false;
         IsWeeklySelected = true;
         IsDailySelected = false;
@@ -82,8 +78,6 @@ public partial class ApprovalStatusTabulationStack : ComponentBase
 
     protected void ToggleToDailyView(MouseEventArgs _)
     {
-        LogSwitch.Debug("Daily");
-
         IsMonthlySelected = false;
         IsWeeklySelected = false;
         IsDailySelected = true;
