@@ -41,7 +41,7 @@ internal sealed class DateTimeProvider : IDateTimeService
         DateTime currentWeekStart = DateTime.Today.AddDays(firstDayOfWeek - dayOfWeek);
         DateTime currentWeekEnd = currentWeekStart.AddDays(6);
 
-        return dateTimeMin >= currentWeekStart && dateTimeMax <= currentWeekEnd;
+        return dateTimeMin.Date >= currentWeekStart.Date && dateTimeMax <= currentWeekEnd;
     }
 
     public bool IsWithinCurrentMonth(DateTime dateTimeMin, DateTime dateTimeMax)
@@ -49,7 +49,7 @@ internal sealed class DateTimeProvider : IDateTimeService
         DateTime currentMonthStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
         DateTime currentMonthEnd = currentMonthStart.AddMonths(1).AddDays(-1);
 
-        return dateTimeMin >= currentMonthStart && dateTimeMax <= currentMonthEnd;
+        return dateTimeMin.Date >= currentMonthStart.Date && dateTimeMax.Date <= currentMonthEnd.Date;
     }
 
     public int GetCurrentWeekOfYear()
