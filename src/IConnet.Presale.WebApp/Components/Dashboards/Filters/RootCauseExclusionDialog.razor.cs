@@ -17,4 +17,16 @@ public partial class RootCauseExclusionDialog : IDialogContentComponent<RootCaus
     {
         await Dialog.CancelAsync();
     }
+
+    protected void OnExclusionChanged(string rootCauses, bool inclusion)
+    {
+        if (inclusion)
+        {
+            Content.Inclusion.Add(rootCauses);
+        }
+        else
+        {
+            Content.Inclusion.Remove(rootCauses);
+        }
+    }
 }
