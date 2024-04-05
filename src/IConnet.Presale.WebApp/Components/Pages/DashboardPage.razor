@@ -6,7 +6,13 @@
 
 @if (UpperBoundaryPresaleData is not null)
 {
-    <span  span class="page-description">Dashboard Versi 2.0 (WIP)</span>
+    <div class="d-flex flex-row align-items-center">
+        <span  span class="page-description">Dashboard Versi 2.0 (WIP)</span>
+        <div class="filter-toggle">
+            <FluentButton IconEnd="@(new Icons.Filled.Size20.Grid())"
+                OnClick="@SessionService.FilterPreference.ToggleFilters"/>
+        </div>
+    </div>
 }
 else
 {
@@ -19,9 +25,11 @@ else
 <div>
     @if (UpperBoundaryPresaleData is not null)
     {
-        <PresaleDataBoundaryFilter @ref="PresaleDataBoundaryFilter"
-            OnUpperBoundaryChanged="OnUpperBoundaryChangedAsync"
-            OnReload="ReloadUpperBoundaryAsync"/>
+        <div class="@FilterSectionCss">
+            <PresaleDataBoundaryFilter @ref="PresaleDataBoundaryFilter"
+                OnUpperBoundaryChanged="OnUpperBoundaryChangedAsync"
+                OnReload="ReloadUpperBoundaryAsync"/>
+        </div>
 
         <FluentTabs @bind-ActiveTabId="@_activeTabId">
             <FluentTab Id="tab-1">
