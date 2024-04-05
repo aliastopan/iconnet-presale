@@ -49,6 +49,13 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         return new TabNavigationModel("dashboard-wip", PageNavName.Dashboard, PageRoute.Dashboard);
     }
 
+    public void ApplyFilters()
+    {
+        this.StateHasChanged();
+
+        LogSwitch.Debug("Apply Filters");
+    }
+
     protected override void OnInitialized()
     {
         var currentDate = DateTimeService.DateTimeOffsetNow.DateTime.Date;

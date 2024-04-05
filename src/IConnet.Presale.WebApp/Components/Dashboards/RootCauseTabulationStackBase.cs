@@ -12,6 +12,8 @@ public class RootCauseTabulationStackBase : ReportTabulationStackBase
     [Parameter] public List<RootCauseReportModel> MiddleBoundaryModels { get; set; } = [];
     [Parameter] public List<RootCauseReportModel> LowerBoundaryModels { get; set; } = [];
 
+    [Parameter] public EventCallback OnExclusionFilter { get; set; }
+
     public bool IsPageView { get; set; }
 
     protected override void OnInitialized()
@@ -51,7 +53,12 @@ public class RootCauseTabulationStackBase : ReportTabulationStackBase
 
         var dialogData = (RootCauseExclusionModel)result.Data;
 
-        LogSwitch.Debug("Filtering root cause exclusion");
+        SessionService.FilterPreference.RootCauseExclusion = dialogData;
+
+        if (OnExclusionFilter.HasDelegate)
+        {
+            await OnExclusionFilter.InvokeAsync();
+        }
     }
 
 }
