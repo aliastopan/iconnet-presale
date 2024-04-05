@@ -23,7 +23,7 @@ else
             OnUpperBoundaryChanged="OnUpperBoundaryChangedAsync"
             OnReload="ReloadUpperBoundaryAsync"/>
 
-        <FluentTabs ActiveTabId="tab-1">
+        <FluentTabs @bind-ActiveTabId="@_activeTabId">
             <FluentTab Id="tab-1">
                 <Header>
                     <FluentIcon Value="@(new Icons.Regular.Size16.DocumentCheckmark())" Color="@Color.Accent"/>
@@ -56,3 +56,8 @@ else
         </FluentTabs>
     }
 </div>
+
+@code
+{
+    private string _activeTabId = "tab-1";
+}
