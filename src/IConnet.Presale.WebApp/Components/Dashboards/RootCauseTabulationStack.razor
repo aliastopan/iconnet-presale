@@ -35,8 +35,9 @@
                 <span class="date-only-badge">@GetMiddleBoundaryDateMin()</span> s.d <span class="date-only-badge">@GetMiddleBoundaryDateMax()</span>
             </div>
             <div class="d-flex flex-row">
-                @* <ApprovalStatusTabulation Models="@MiddleBoundaryModels"/> *@
-                @* <MiddleBoundaryFilter OnMiddleBoundaryChanged="@OnMiddleBoundaryChanged"/> *@
+                <RootCauseTabulation Models="@MiddleBoundaryModels"
+                    IsPageView="@IsPageView"/>
+                <MiddleBoundaryFilter OnMiddleBoundaryChanged="@OnMiddleBoundaryChanged"/>
             </div>
         </div>
         <div style="@_dialyToggleDislayStyle">
@@ -45,8 +46,9 @@
                 <span class="date-only-badge">@GetLowerBoundaryDate()</span>
             </div>
             <div class="d-flex flex-row">
-                @* <ApprovalStatusTabulation Models="@LowerBoundaryModels"/> *@
-                @* <LowerBoundaryFilter OnLowerBoundaryChanged="@OnLowerBoundaryChanged"/> *@
+                <RootCauseTabulation Models="@LowerBoundaryModels"
+                    IsPageView="@IsPageView"/>
+                <LowerBoundaryFilter OnLowerBoundaryChanged="@OnLowerBoundaryChanged"/>
             </div>
         </div>
     </div>
