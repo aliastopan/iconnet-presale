@@ -18,6 +18,8 @@ public class FilterPreference
     public DateTime MiddleBoundaryDateTimeMax { get; set; } = DateTime.Now;
     public DateTime LowerBoundaryDateTime { get; set; } = DateTime.Now;
 
+    public RootCauseExclusionModel RootCauseExclusion { get; set; } = default!;
+
     public void ToggleFilters()
     {
         ShowFilters = !ShowFilters;
