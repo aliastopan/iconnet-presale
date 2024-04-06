@@ -375,8 +375,9 @@ input:invalid::part(root) {
 
 .tabulation-wrapper{
     border: 1px solid #e6e6e6;
-    max-height: 260px;
+    max-height: 256px;
     overflow-y: auto;
+    border-bottom: none;
 }
 
 .tabulation-wrapper-page-view{
@@ -404,6 +405,17 @@ input:invalid::part(root) {
     -moz-border-radius: 3px;
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
+}
+
+.tabulation-summary{
+    height: 32px;
+    width: fit-content;
+    margin-top: -1px;
+    border: 1px solid #e6e6e6;
+}
+
+.tabulation-summary table{
+    height: 32px;
 }
 
 .approval-status-tabulation{

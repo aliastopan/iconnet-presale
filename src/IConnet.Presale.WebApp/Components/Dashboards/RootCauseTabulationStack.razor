@@ -2,7 +2,7 @@
 
 <div class="d-flex flex-row align-items-top">
 
-    <div class="d-flex flex-column" style="margin-left: 4px; margin-right: 8px;">
+    <div class="d-flex flex-column" style="margin-left: 4px; margin-right: 32px;">
         <FluentButton Appearance="@_monthlyToggleAppearance"
             style="width: 135px; margin-bottom: 8px;"
             OnClick="ToggleToMonthlyView">
@@ -28,32 +28,33 @@
     <div class="d-flex flex-column">
         <div style="@_monthlyToggleDislayStyle">
             <h5 style="font-family: 'inter-semibold';">Laporan Root Cause <span class="">@CurrentMonthIndicator()</span></h5>
-            <div class="tabulation-report">
+            @* <div class="tabulation-report">
                 <span class="date-only-badge">@GetUpperBoundaryDateMin()</span> s.d <span class="date-only-badge">@GetUpperBoundaryDateMax()</span>
-            </div>
+            </div> *@
+            <UpperBoundaryFilter />
             <RootCauseTabulation Models="@UpperBoundaryModels"
                 IsPageView="@IsPageView"/>
         </div>
         <div style="@_weeklyToggleDislayStyle">
             <h5 style="font-family: 'inter-semibold';">Laporan Root Cause <span class="">@CurrentWeekIndicator()</span></h5>
-            <div class="tabulation-report">
+            @* <div class="tabulation-report">
                 <span class="date-only-badge">@GetMiddleBoundaryDateMin()</span> s.d <span class="date-only-badge">@GetMiddleBoundaryDateMax()</span>
-            </div>
+            </div> *@
+            <MiddleBoundaryFilter OnMiddleBoundaryChanged="@OnMiddleBoundaryChanged"/>
             <div class="d-flex flex-row">
                 <RootCauseTabulation Models="@MiddleBoundaryModels"
                     IsPageView="@IsPageView"/>
-                <MiddleBoundaryFilter OnMiddleBoundaryChanged="@OnMiddleBoundaryChanged"/>
             </div>
         </div>
         <div style="@_dialyToggleDislayStyle">
             <h5 style="font-family: 'inter-semibold';">Laporan Root Cause <span class="">@TodayIndicator()</span></h5>
-            <div class="tabulation-report">
+            @* <div class="tabulation-report">
                 <span class="date-only-badge">@GetLowerBoundaryDate()</span>
-            </div>
+            </div> *@
+            <LowerBoundaryFilter OnLowerBoundaryChanged="@OnLowerBoundaryChanged"/>
             <div class="d-flex flex-row">
                 <RootCauseTabulation Models="@LowerBoundaryModels"
                     IsPageView="@IsPageView"/>
-                <LowerBoundaryFilter OnLowerBoundaryChanged="@OnLowerBoundaryChanged"/>
             </div>
         </div>
     </div>
