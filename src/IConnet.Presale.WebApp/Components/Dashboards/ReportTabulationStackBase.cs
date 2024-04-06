@@ -13,6 +13,14 @@ public class ReportTabulationStackBase : ComponentBase
 
     private CultureInfo _cultureInfo = new CultureInfo("id-ID");
 
+    protected Appearance MonthlyToggleAppearance => IsMonthlySelected ? Appearance.Accent : Appearance.Neutral;
+    protected Appearance WeeklyToggleAppearance => IsWeeklySelected ? Appearance.Accent : Appearance.Neutral;
+    protected Appearance DailyToggleAppearance => IsDailySelected ? Appearance.Accent : Appearance.Neutral;
+
+    protected string MonthlyToggleDisplayStyle => IsMonthlySelected ? "" : "display: none";
+    protected string WeeklyToggleDisplayStyle => IsWeeklySelected ? "" : "display: none";
+    protected string DailyToggleDisplayStyle => IsDailySelected ? "" : "display: none";
+
     public bool IsMonthlySelected { get; set; } = false;
     public bool IsWeeklySelected { get; set; } = false;
     public bool IsDailySelected { get; set; } = false;

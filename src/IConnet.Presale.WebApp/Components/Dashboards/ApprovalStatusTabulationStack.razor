@@ -3,22 +3,22 @@
 <div class="d-flex flex-row align-items-top">
 
     <div class="d-flex flex-column" style="margin-left: 4px; margin-right: 32px;">
-        <FluentButton Appearance="@_monthlyToggleAppearance"
+        <FluentButton Appearance="@MonthlyToggleAppearance"
             style="width: 135px; margin-bottom: 8px;"
             OnClick="ToggleToMonthlyView">
             Monthly</FluentButton>
-        <FluentButton Appearance="@_weeklyToggleAppearance"
+        <FluentButton Appearance="@WeeklyToggleAppearance"
             style="width: 135px; margin-bottom: 8px;"
             OnClick="ToggleToWeeklyView">
             Weekly</FluentButton>
-        <FluentButton Appearance="@_dailyToggleAppearance"
+        <FluentButton Appearance="@DailyToggleAppearance"
             style="width: 135px ;margin-bottom: 8px;"
             OnClick="ToggleToDailyView">
             Daily</FluentButton>
     </div>
 
     <div class="d-flex flex-column">
-        <div style="@_monthlyToggleDislayStyle">
+        <div style="@MonthlyToggleDisplayStyle">
             <h5 style="font-family: 'inter-semibold';">Laporan Opportunity Negatiation Approval <span class="">@CurrentMonthIndicator()</span></h5>
             @* <div class="tabulation-report">
                 <span class="date-only-badge">@GetUpperBoundaryDateMin()</span> s.d <span class="date-only-badge">@GetUpperBoundaryDateMax()</span>
@@ -26,7 +26,7 @@
             <UpperBoundaryFilter />
             <ApprovalStatusTabulation Models="@UpperBoundaryModels"/>
         </div>
-        <div style="@_weeklyToggleDislayStyle">
+        <div style="@WeeklyToggleDisplayStyle">
             <h5 style="font-family: 'inter-semibold';">Laporan Opportunity Negatiation Approval <span class="">@CurrentWeekIndicator()</span></h5>
             @* <div class="tabulation-report">
                 <span class="date-only-badge">@GetMiddleBoundaryDateMin()</span> s.d <span class="date-only-badge">@GetMiddleBoundaryDateMax()</span>
@@ -36,7 +36,7 @@
                 <ApprovalStatusTabulation Models="@MiddleBoundaryModels"/>
             </div>
         </div>
-        <div style="@_dialyToggleDislayStyle">
+        <div style="@DailyToggleDisplayStyle">
             <h5 style="font-family: 'inter-semibold';">Laporan Opportunity Negatiation Approval <span class="">@TodayIndicator()</span></h5>
             @* <div class="tabulation-report">
                 <span class="date-only-badge">@GetLowerBoundaryDate()</span>
@@ -49,14 +49,3 @@
     </div>
 
 </div>
-
-@code
-{
-    private Appearance _monthlyToggleAppearance => IsMonthlySelected ? Appearance.Accent : Appearance.Neutral;
-    private Appearance _weeklyToggleAppearance => IsWeeklySelected ? Appearance.Accent : Appearance.Neutral;
-    private Appearance _dailyToggleAppearance => IsDailySelected ? Appearance.Accent : Appearance.Neutral;
-
-    private string _monthlyToggleDislayStyle => IsMonthlySelected ? "" : "display: none";
-    private string _weeklyToggleDislayStyle => IsWeeklySelected ? "" : "display: none";
-    private string _dialyToggleDislayStyle => IsDailySelected ? "" : "display: none";
-}
