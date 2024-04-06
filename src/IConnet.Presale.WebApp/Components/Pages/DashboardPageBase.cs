@@ -184,27 +184,22 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
     {
         List<ApprovalStatus> availableStatus = EnumProcessor.GetAllEnumValues<ApprovalStatus>();
 
-        foreach (var status in availableStatus)
+        GenerateReports(includeUpper, _upperBoundaryApprovalStatusReports, _upperBoundaryPresaleData!);
+        GenerateReports(includeMiddle, _middleBoundaryApprovalStatusReports, _middleBoundaryPresaleData!);
+        GenerateReports(includeLower, _lowerBoundaryApprovalStatusReports, _lowerBoundaryPresaleData!);
+
+        // local function
+        void GenerateReports(bool include, List<ApprovalStatusReportModel> reportModels, IQueryable<WorkPaper> boundaryData)
         {
-            if (includeUpper)
+            if (!include)
             {
-                var upperBoundaryReport = ReportService.GenerateApprovalStatusReport(status, _upperBoundaryPresaleData!);
-
-                _upperBoundaryApprovalStatusReports.Add(upperBoundaryReport);
+                return;
             }
 
-            if (includeMiddle)
+            foreach (var status in availableStatus)
             {
-                var middleBoundaryReport = ReportService.GenerateApprovalStatusReport(status, _middleBoundaryPresaleData!);
-
-                _middleBoundaryApprovalStatusReports.Add(middleBoundaryReport);
-            }
-
-            if (includeLower)
-            {
-                var lowerBoundaryReport = ReportService.GenerateApprovalStatusReport(status, _lowerBoundaryPresaleData!);
-
-                _lowerBoundaryApprovalStatusReports.Add(lowerBoundaryReport);
+                var report = ReportService.GenerateApprovalStatusReport(status, boundaryData!);
+                reportModels.Add(report);
             }
         }
     }
@@ -213,27 +208,22 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
     {
         List<string> availableRootCauses = OptionService.RootCauseOptions.ToList();
 
-        foreach (var rootCause in availableRootCauses)
+        GenerateReports(includeUpper, _upperBoundaryRootCauseReports, _upperBoundaryPresaleData!);
+        GenerateReports(includeMiddle, _middleBoundaryRootCauseReports, _middleBoundaryPresaleData!);
+        GenerateReports(includeLower, _lowerBoundaryRootCauseReports, _lowerBoundaryPresaleData!);
+
+        // local function
+        void GenerateReports(bool include, List<RootCauseReportModel> reportModels, IQueryable<WorkPaper> boundaryData)
         {
-            if (includeUpper)
+            if (!include)
             {
-                var upperBoundaryReport = ReportService.GenerateRootCauseReport(rootCause, _upperBoundaryPresaleData!);
-
-                _upperBoundaryRootCauseReports.Add(upperBoundaryReport);
+                return;
             }
 
-            if (includeMiddle)
+            foreach (var rootCause in availableRootCauses)
             {
-                var middleBoundaryReport = ReportService.GenerateRootCauseReport(rootCause, _middleBoundaryPresaleData!);
-
-                _middleBoundaryRootCauseReports.Add(middleBoundaryReport);
-            }
-
-            if (includeLower)
-            {
-                var lowerBoundaryReport = ReportService.GenerateRootCauseReport(rootCause, _lowerBoundaryPresaleData!);
-
-                _lowerBoundaryRootCauseReports.Add(lowerBoundaryReport);
+                var report = ReportService.GenerateRootCauseReport(rootCause, boundaryData);
+                reportModels.Add(report);
             }
         }
     }
