@@ -40,9 +40,9 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
     public List<ApprovalStatusReportModel> UpperBoundaryApprovalStatusReports => _upperBoundaryApprovalStatusReports;
     public List<ApprovalStatusReportModel> MiddleBoundaryApprovalStatusReports => _middleBoundaryApprovalStatusReports;
     public List<ApprovalStatusReportModel> LowerBoundaryApprovalStatusReports => _lowerBoundaryApprovalStatusReports;
-    public List<RootCauseReportModel> UpperBoundaryCauseReports => _upperBoundaryRootCauseReports;
-    public List<RootCauseReportModel> MiddleBoundaryRootCauseReports => _middleBoundaryRootCauseReports;
-    public List<RootCauseReportModel> LowerRootCauseReports => _lowerBoundaryRootCauseReports;
+    public List<RootCauseReportModel> UpperBoundaryCauseReports => FilterCauseReports(_upperBoundaryRootCauseReports);
+    public List<RootCauseReportModel> MiddleBoundaryRootCauseReports => FilterCauseReports(_middleBoundaryRootCauseReports);
+    public List<RootCauseReportModel> LowerRootCauseReports => FilterCauseReports(_lowerBoundaryRootCauseReports);
 
     public TabNavigationModel PageDeclaration()
     {
@@ -67,8 +67,10 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
     protected override void OnInitialized()
     {
         var currentDate = DateTimeService.DateTimeOffsetNow.DateTime.Date;
+        var rootCauses = OptionService.RootCauseOptions;
 
         SessionService.FilterPreference.SetBoundaryDateTimeDefault(currentDate);
+        SessionService.FilterPreference.SetRootCauseExclusion(rootCauses);
 
         TabNavigationManager.SelectTab(this);
     }
@@ -234,5 +236,19 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
                 _lowerBoundaryRootCauseReports.Add(lowerBoundaryReport);
             }
         }
+    }
+
+    private List<RootCauseReportModel> FilterCauseReports(List<RootCauseReportModel> rootCauseReports)
+    {
+        if (SessionService.FilterPreference.RootCauseExclusion is null)
+        {
+            return rootCauseReports;
+        }
+
+        HashSet<string> exclusions = SessionService.FilterPreference.RootCauseExclusion.Exclusion;
+
+        return rootCauseReports
+            .Where(report => !exclusions.Contains(report.RootCause, StringComparer.OrdinalIgnoreCase))
+            .ToList();
     }
 }

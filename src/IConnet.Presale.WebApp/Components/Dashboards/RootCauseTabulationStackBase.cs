@@ -16,18 +16,6 @@ public class RootCauseTabulationStackBase : ReportTabulationStackBase
 
     public bool IsPageView { get; set; }
 
-    protected override void OnInitialized()
-    {
-        var rootCauses = OptionService.RootCauseOptions;
-        var rootCauseExclusion = new RootCauseExclusionModel(rootCauses);
-
-        SessionService.FilterPreference.RootCauseExclusion = rootCauseExclusion;
-
-        LogSwitch.Debug("Root Cause (exclusion) {0}", rootCauseExclusion.RootCauses.Count);
-
-        base.OnInitialized();
-    }
-
     protected async Task OpenRootCauseExclusionDialogFilter()
     {
         await FilterAsync();

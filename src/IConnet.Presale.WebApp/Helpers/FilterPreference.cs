@@ -41,4 +41,14 @@ public class FilterPreference
         MiddleBoundaryDateTimeMax = baselineDate;
         LowerBoundaryDateTime = baselineDate;
     }
+
+    public void SetRootCauseExclusion(ICollection<string> rootCauses)
+    {
+        if (RootCauseExclusion is not null)
+        {
+            return;
+        }
+
+        RootCauseExclusion = new RootCauseExclusionModel(rootCauses);
+    }
 }

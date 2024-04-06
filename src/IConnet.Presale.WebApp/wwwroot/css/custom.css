@@ -366,7 +366,7 @@ input:invalid::part(root) {
 
 .tabulation-wrapper{
     border: 1px solid #e6e6e6;
-    height: 260px;
+    max-height: 260px;
     overflow-y: auto;
 }
 
