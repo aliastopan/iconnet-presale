@@ -349,19 +349,28 @@ input:invalid::part(root) {
     padding-right: 0;
 }
 
-
 .upper-boundary-filter-section{
     border-bottom: 1px solid #e6e6e6;
     padding: 10px;
     padding-right: 0;
 }
 
+
+.boundary-filter-section{
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
 .middle-boundary-filter-section{
-    margin-left: 16px;
+    /* margin-left: 16px; */
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 .lower-boundary-filter-section{
-    margin-left: 16px;
+    /* margin-left: 16px; */
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 .tabulation-wrapper{
