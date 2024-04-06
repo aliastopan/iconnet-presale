@@ -51,9 +51,17 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
 
     public void ApplyFilters()
     {
-        this.StateHasChanged();
-
         LogSwitch.Debug("Apply Filters");
+
+        var exclusions = SessionService.FilterPreference.RootCauseExclusion.Exclusion;
+        LogSwitch.Debug("Exclusion count {0}", exclusions.Count);
+
+        foreach (var exclusion in exclusions)
+        {
+            LogSwitch.Debug("Exclude: {0}", exclusion);
+        }
+
+        this.StateHasChanged();
     }
 
     protected override void OnInitialized()
