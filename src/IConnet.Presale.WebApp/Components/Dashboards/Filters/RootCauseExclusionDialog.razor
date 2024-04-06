@@ -11,9 +11,11 @@
     @foreach (string rootCause in Content.RootCauses)
     {
         bool isChecked = Content.Inclusion.Contains(rootCause);
-        <FluentCheckbox Label="@rootCause"
-            @bind-Value:get="@isChecked"
-            @bind-Value:set="value => OnExclusionChanged(rootCause, value)"/>
+        <div style="margin: 0 2px;">
+            <FluentCheckbox Label="@rootCause"
+                @bind-Value:get="@isChecked"
+                @bind-Value:set="value => OnExclusionChanged(rootCause, value)"/>
+        </div>
     }
 </div>
 
