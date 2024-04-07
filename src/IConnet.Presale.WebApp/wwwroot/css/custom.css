@@ -377,7 +377,6 @@ input:invalid::part(root) {
     border: 1px solid #e6e6e6;
     max-height: 256px;
     overflow-y: auto;
-    border-bottom: none;
 }
 
 .tabulation-wrapper-page-view{
