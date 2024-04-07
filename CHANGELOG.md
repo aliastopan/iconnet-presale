@@ -1,3 +1,6 @@
+## v2.2.1
+- Fix: (Dashboard) reload presale operators on new user creation.
+
 ## v2.2.0
 - Change: Page header margin styling
 - Change: middle and lower boundary filter layout position
