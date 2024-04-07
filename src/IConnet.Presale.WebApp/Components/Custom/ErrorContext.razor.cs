@@ -9,7 +9,7 @@ public partial class ErrorContext : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        await JsRuntime.InvokeVoidAsync("console.error", Exception.ToString());
+        await JsRuntime.InvokeVoidAsync("console.error", Exception.StackTrace);
     }
 
     protected void ReloadCurrentPage()
