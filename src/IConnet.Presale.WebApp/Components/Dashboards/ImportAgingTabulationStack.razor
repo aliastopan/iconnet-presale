@@ -1,0 +1,32 @@
+@inherits ImportAgingTabulationStackBase
+
+<div class="d-flex flex-row align-items-top">
+
+    <div class="d-flex flex-column" style="margin-left: 4px; margin-right: 32px;">
+        <FluentButton Appearance="@MonthlyToggleAppearance"
+            style="width: 135px; margin-bottom: 8px;"
+            OnClick="ToggleToMonthlyView">
+            Monthly</FluentButton>
+        <FluentButton Appearance="@WeeklyToggleAppearance"
+            style="width: 135px; margin-bottom: 8px;"
+            OnClick="ToggleToWeeklyView">
+            Weekly</FluentButton>
+        <FluentButton Appearance="@DailyToggleAppearance"
+            style="width: 135px ;margin-bottom: 8px;"
+            OnClick="ToggleToDailyView">
+            Daily</FluentButton>
+    </div>
+
+    <div class="d-flex flex-column">
+        <div style="@MonthlyToggleDisplayStyle">
+
+        </div>
+        <div style="@WeeklyToggleDisplayStyle">
+
+        </div>
+        <div style="@DailyToggleDisplayStyle">
+
+        </div>
+    </div>
+
+</div>
