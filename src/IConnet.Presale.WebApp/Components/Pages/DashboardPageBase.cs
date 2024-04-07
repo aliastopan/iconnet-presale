@@ -1,5 +1,3 @@
-using System.Globalization;
-using Microsoft.AspNetCore.Components.Web;
 using IConnet.Presale.WebApp.Models.Identity;
 using IConnet.Presale.WebApp.Models.Presales.Reports;
 using IConnet.Presale.WebApp.Components.Dashboards.Filters;
@@ -20,6 +18,9 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
     private bool _isInitialized = false;
 
     protected PresaleDataBoundaryFilter PresaleDataBoundaryFilter { get; set; } = default!;
+    protected string FilterSectionCss => SessionService.FilterPreference.ShowFilters ? "enable" : "filter-section-disable";
+
+    private List<PresaleOperatorModel> _presaleOperators = [];
 
     private IQueryable<WorkPaper>? _upperBoundaryPresaleData;
     private IQueryable<WorkPaper>? _middleBoundaryPresaleData;
@@ -32,21 +33,50 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
     private readonly List<ApprovalStatusReportModel> _upperBoundaryApprovalStatusReports = [];
     private readonly List<ApprovalStatusReportModel> _middleBoundaryApprovalStatusReports = [];
     private readonly List<ApprovalStatusReportModel> _lowerBoundaryApprovalStatusReports = [];
+    private readonly List<RootCauseReportModel> _upperBoundaryRootCauseReports = [];
+    private readonly List<RootCauseReportModel> _middleBoundaryRootCauseReports = [];
+    private readonly List<RootCauseReportModel> _lowerBoundaryRootCauseReports = [];
+    private readonly List<ImportAgingReportModel> _upperBoundaryImportAgingReports = [];
+    private readonly List<ImportAgingReportModel> _middleBoundaryImportAgingReports = [];
+    private readonly List<ImportAgingReportModel> _lowerBoundaryImportAgingReports = [];
 
     public List<ApprovalStatusReportModel> UpperBoundaryApprovalStatusReports => _upperBoundaryApprovalStatusReports;
     public List<ApprovalStatusReportModel> MiddleBoundaryApprovalStatusReports => _middleBoundaryApprovalStatusReports;
     public List<ApprovalStatusReportModel> LowerBoundaryApprovalStatusReports => _lowerBoundaryApprovalStatusReports;
+    public List<RootCauseReportModel> UpperBoundaryCauseReports => FilterCauseReports(_upperBoundaryRootCauseReports);
+    public List<RootCauseReportModel> MiddleBoundaryRootCauseReports => FilterCauseReports(_middleBoundaryRootCauseReports);
+    public List<RootCauseReportModel> LowerRootCauseReports => FilterCauseReports(_lowerBoundaryRootCauseReports);
+    public List<ImportAgingReportModel> UpperBoundaryImportAgingReports => _upperBoundaryImportAgingReports.OrderByDescending(x => x.Average).ToList();
+    public List<ImportAgingReportModel> MiddleBoundaryImportAgingReports => _middleBoundaryImportAgingReports.OrderByDescending(x => x.Average).ToList();
+    public List<ImportAgingReportModel> LowerBoundaryImportAgingReports => _lowerBoundaryImportAgingReports.OrderByDescending(x => x.Average).ToList();
 
     public TabNavigationModel PageDeclaration()
     {
         return new TabNavigationModel("dashboard-wip", PageNavName.Dashboard, PageRoute.Dashboard);
     }
 
+    public void ApplyFilters()
+    {
+        LogSwitch.Debug("Apply Filters");
+
+        var exclusions = SessionService.FilterPreference.RootCauseExclusion.Exclusion;
+        LogSwitch.Debug("Exclusion count {0}", exclusions.Count);
+
+        foreach (var exclusion in exclusions)
+        {
+            LogSwitch.Debug("Exclude: {0}", exclusion);
+        }
+
+        this.StateHasChanged();
+    }
+
     protected override void OnInitialized()
     {
         var currentDate = DateTimeService.DateTimeOffsetNow.DateTime.Date;
+        var rootCauses = OptionService.RootCauseOptions;
 
         SessionService.FilterPreference.SetBoundaryDateTimeDefault(currentDate);
+        SessionService.FilterPreference.SetRootCauseExclusion(rootCauses);
 
         TabNavigationManager.SelectTab(this);
     }
@@ -55,6 +85,8 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
     {
         if (!_isInitialized)
         {
+            _presaleOperators = UserManager.PresaleOperators;
+
             var upperBoundaryMin = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
             var upperBoundaryMax = SessionService.FilterPreference.UpperBoundaryDateTimeMax;
             var middleBoundaryMin = SessionService.FilterPreference.MiddleBoundaryDateTimeMin;
@@ -66,6 +98,8 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
             _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
 
             GenerateStatusApprovalReports(includeUpper: true, includeMiddle: true, includeLower: true);
+            GenerateRootCauseReports(includeUpper: true, includeMiddle: true, includeLower: true);
+            GenerateImportAgingReports(includeUpper: true, includeMiddle: true, includeLower: true);
 
             _isInitialized = true;
         }
@@ -105,11 +139,21 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         _middleBoundaryApprovalStatusReports.Clear();
         _lowerBoundaryApprovalStatusReports.Clear();
 
+        _upperBoundaryRootCauseReports.Clear();
+        _middleBoundaryRootCauseReports.Clear();
+        _lowerBoundaryRootCauseReports.Clear();
+
+        _upperBoundaryImportAgingReports.Clear();
+        _middleBoundaryImportAgingReports.Clear();
+        _lowerBoundaryImportAgingReports.Clear();
+
         _upperBoundaryPresaleData = await DashboardManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
         _middleBoundaryPresaleData = DashboardManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
         _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
 
         GenerateStatusApprovalReports(includeUpper: true, includeMiddle: true, includeLower: true);
+        GenerateRootCauseReports(includeUpper: true, includeMiddle: true, includeLower: true);
+        GenerateImportAgingReports(includeUpper: true, includeMiddle: true, includeLower: true);
     }
 
     public async Task ReloadMiddleBoundaryAsync()
@@ -122,10 +166,14 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         _middleBoundaryPresaleData = null;
 
         _middleBoundaryApprovalStatusReports.Clear();
+        _middleBoundaryRootCauseReports.Clear();
+        _middleBoundaryImportAgingReports.Clear();
 
         _middleBoundaryPresaleData = DashboardManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
 
         GenerateStatusApprovalReports(includeMiddle: true);
+        GenerateRootCauseReports(includeMiddle: true);
+        GenerateImportAgingReports(includeMiddle: true);
 
         await Task.CompletedTask;
     }
@@ -139,10 +187,14 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         _lowerBoundaryPresaleData = null;
 
         _lowerBoundaryApprovalStatusReports.Clear();
+        _lowerBoundaryRootCauseReports.Clear();
+        _lowerBoundaryImportAgingReports.Clear();
 
         _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
 
         GenerateStatusApprovalReports(includeLower: true);
+        GenerateRootCauseReports(includeLower: true);
+        GenerateImportAgingReports(includeLower: true);
 
         await Task.CompletedTask;
     }
@@ -151,27 +203,86 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
     {
         List<ApprovalStatus> availableStatus = EnumProcessor.GetAllEnumValues<ApprovalStatus>();
 
-        foreach (var status in availableStatus)
+        GenerateReports(includeUpper, _upperBoundaryApprovalStatusReports, _upperBoundaryPresaleData!);
+        GenerateReports(includeMiddle, _middleBoundaryApprovalStatusReports, _middleBoundaryPresaleData!);
+        GenerateReports(includeLower, _lowerBoundaryApprovalStatusReports, _lowerBoundaryPresaleData!);
+
+        // local function
+        void GenerateReports(bool include, List<ApprovalStatusReportModel> reportModels, IQueryable<WorkPaper> boundaryData)
         {
-            if (includeUpper)
+            if (!include)
             {
-                var upperBoundaryReport = ReportService.GenerateApprovalStatusReport(status, _upperBoundaryPresaleData!);
-
-                _upperBoundaryApprovalStatusReports.Add(upperBoundaryReport);
+                return;
             }
 
-            if (includeMiddle)
+            foreach (var status in availableStatus)
             {
-                var middleBoundaryReport = ReportService.GenerateApprovalStatusReport(status, _middleBoundaryPresaleData!);
+                var report = ReportService.GenerateApprovalStatusReport(status, boundaryData!);
+                reportModels.Add(report);
+            }
+        }
+    }
 
-                _middleBoundaryApprovalStatusReports.Add(middleBoundaryReport);
+    private void GenerateRootCauseReports(bool includeUpper = false, bool includeMiddle = false, bool includeLower = false)
+    {
+        List<string> availableRootCauses = OptionService.RootCauseOptions.ToList();
+
+        GenerateReports(includeUpper, _upperBoundaryRootCauseReports, _upperBoundaryPresaleData!);
+        GenerateReports(includeMiddle, _middleBoundaryRootCauseReports, _middleBoundaryPresaleData!);
+        GenerateReports(includeLower, _lowerBoundaryRootCauseReports, _lowerBoundaryPresaleData!);
+
+        // local function
+        void GenerateReports(bool include, List<RootCauseReportModel> reportModels, IQueryable<WorkPaper> boundaryData)
+        {
+            if (!include)
+            {
+                return;
             }
 
-            if (includeLower)
+            foreach (var rootCause in availableRootCauses)
             {
-                var lowerBoundaryReport = ReportService.GenerateApprovalStatusReport(status, _lowerBoundaryPresaleData!);
+                var report = ReportService.GenerateRootCauseReport(rootCause, boundaryData);
+                reportModels.Add(report);
+            }
+        }
+    }
 
-                _lowerBoundaryApprovalStatusReports.Add(lowerBoundaryReport);
+    private List<RootCauseReportModel> FilterCauseReports(List<RootCauseReportModel> rootCauseReports)
+    {
+        if (SessionService.FilterPreference.RootCauseExclusion is null)
+        {
+            return rootCauseReports;
+        }
+
+        HashSet<string> exclusions = SessionService.FilterPreference.RootCauseExclusion.Exclusion;
+
+        return rootCauseReports
+            .Where(report => !exclusions.Contains(report.RootCause, StringComparer.OrdinalIgnoreCase))
+            .ToList();
+    }
+
+    private void GenerateImportAgingReports(bool includeUpper = false, bool includeMiddle = false, bool includeLower = false)
+    {
+        GenerateReports(includeUpper, _upperBoundaryImportAgingReports, _upperBoundaryPresaleData!);
+        GenerateReports(includeMiddle, _middleBoundaryImportAgingReports, _middleBoundaryPresaleData!);
+        GenerateReports(includeLower, _lowerBoundaryImportAgingReports, _lowerBoundaryPresaleData!);
+
+        // local function
+        void GenerateReports(bool include, List<ImportAgingReportModel> reportModels, IQueryable<WorkPaper> boundaryData)
+        {
+            if (!include)
+            {
+                return;
+            }
+
+            foreach (var user in _presaleOperators)
+            {
+                var report = ReportService.GenerateImportAgingReport(user, boundaryData!);
+
+                if (report is not null)
+                {
+                    reportModels.Add(report);
+                }
             }
         }
     }

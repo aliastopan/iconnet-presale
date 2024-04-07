@@ -1,4 +1,4 @@
-@inherits ApprovalStatusTabulationStackBase
+@inherits RootCauseTabulationStackBase
 
 <div class="d-flex flex-row align-items-top">
 
@@ -15,28 +15,40 @@
             style="width: 135px ;margin-bottom: 8px;"
             OnClick="ToggleToDailyView">
             Daily</FluentButton>
+
+        <FluentCheckbox class=""
+            @bind-Value="@IsPageView"
+            Label="Page View"/>
+
+        <FluentButton Appearance="Appearance.Accent"
+            style="width: 135px ;margin-top: 8px;"
+            OnClick="OpenRootCauseExclusionDialogFilter">
+            Exclusion Filter</FluentButton>
     </div>
 
     <div class="d-flex flex-column">
         <div style="@MonthlyToggleDisplayStyle">
-            <h5 style="font-family: 'inter-semibold';">Laporan Opportunity Negatiation Approval <span class="">@CurrentMonthIndicator()</span></h5>
+            <h5 style="font-family: 'inter-semibold';">Laporan Root Cause <span class="">@CurrentMonthIndicator()</span></h5>
             <UpperBoundaryFilter />
             <div class="d-flex flex-row">
-                <ApprovalStatusTabulation Models="@UpperBoundaryModels"/>
+                <RootCauseTabulation Models="@UpperBoundaryModels"
+                    IsPageView="@IsPageView"/>
             </div>
         </div>
         <div style="@WeeklyToggleDisplayStyle">
-            <h5 style="font-family: 'inter-semibold';">Laporan Opportunity Negatiation Approval <span class="">@CurrentWeekIndicator()</span></h5>
+            <h5 style="font-family: 'inter-semibold';">Laporan Root Cause <span class="">@CurrentWeekIndicator()</span></h5>
             <MiddleBoundaryFilter OnMiddleBoundaryChanged="@OnMiddleBoundaryChanged"/>
             <div class="d-flex flex-row">
-                <ApprovalStatusTabulation Models="@MiddleBoundaryModels"/>
+                <RootCauseTabulation Models="@MiddleBoundaryModels"
+                    IsPageView="@IsPageView"/>
             </div>
         </div>
         <div style="@DailyToggleDisplayStyle">
-            <h5 style="font-family: 'inter-semibold';">Laporan Opportunity Negatiation Approval <span class="">@TodayIndicator()</span></h5>
+            <h5 style="font-family: 'inter-semibold';">Laporan Root Cause <span class="">@TodayIndicator()</span></h5>
             <LowerBoundaryFilter OnLowerBoundaryChanged="@OnLowerBoundaryChanged"/>
             <div class="d-flex flex-row">
-                <ApprovalStatusTabulation Models="@LowerBoundaryModels"/>
+                <RootCauseTabulation Models="@LowerBoundaryModels"
+                    IsPageView="@IsPageView"/>
             </div>
         </div>
     </div>

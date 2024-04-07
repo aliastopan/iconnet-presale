@@ -6,3 +6,7 @@ fluent-button.accent:active::part(control),
 fluent-button.accent:hover::part(control){
     color: #ffffff;
 }
+
+fluent-typography{
+    margin-block: 0;
+}

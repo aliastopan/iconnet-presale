@@ -1,4 +1,5 @@
 <div class="boundary-filter-section">
+
     <FluentStack Orientation="Orientation.Horizontal"
         HorizontalAlignment="HorizontalAlignment.Start"
         VerticalAlignment="VerticalAlignment.Bottom">
@@ -6,17 +7,19 @@
         <div class="filter-date">
             <div class="date-picker">
                 <FluentDatePicker style="width: 135px;"
-                    Value="@NullableMiddleBoundaryDateTimeMin"
-                    ValueChanged="OnMiddleBoundaryDateMinChangedAsync"/>
+                    Disabled="true"
+                    Value="@NullableUpperBoundaryDateTimeMin"/>
             </div>
             <div class="date-until">
-                <span>s.d</span>
+                <span style="color: var(--inactive-grey);">s.d</span>
             </div>
             <div class="date-picker">
                 <FluentDatePicker style="width: 135px;"
-                    Value="@NullableMiddleBoundaryDateTimeMax"
-                    ValueChanged="OnMiddleBoundaryDateMaxChangedAsync"/>
+                    Disabled="true"
+                    Value="@NullableUpperBoundaryDateTimeMax"/>
             </div>
         </div>
+
     </FluentStack>
+
 </div>

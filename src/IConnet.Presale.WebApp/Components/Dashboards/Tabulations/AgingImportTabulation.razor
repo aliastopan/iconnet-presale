@@ -1,0 +1,48 @@
+<div>
+    @if (Models is not null)
+    {
+        <div class="@_wrapperStyle">
+            <table class="aging-tabulation" style="width: fit-content;">
+                <thead>
+                    <tr>
+                        <th class="tabulation-header" style="width: 150px;">
+                            PAC
+                        </th>
+                        <th class="tabulation-header" style="width: 100px;">
+                            AVG
+                        </th>
+                        <th class="tabulation-header" style="width: 100px;">
+                            MIN
+                        </th>
+                        <th class="tabulation-header" style="width: 100px;">
+                            MAX
+                        </th>
+                        <th class="tabulation-header" style="width: 125px;">
+                            Import Total
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var model in Models)
+                    {
+                        <tr>
+                            <td class="tabulation-header-row">@model.Username</td>
+                            <td class="tabulation-content">@model.GetDisplayAverageAging()</td>
+                            <td class="tabulation-content">@model.GetDisplayMinAging()</td>
+                            <td class="tabulation-content">@model.GetDisplayMaxAging()</td>
+                            <td class="tabulation-content">@model.GetDisplayImportTotal()</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    }
+</div>
+
+@code
+{
+    private string _wrapperStyle => IsPageView
+        ? "tabulation-wrapper-page-view"
+        : "tabulation-wrapper";
+}

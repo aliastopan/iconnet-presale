@@ -6,7 +6,13 @@
 
 @if (UpperBoundaryPresaleData is not null)
 {
-    <span  span class="page-description">Dashboard Versi 2.0 (WIP)</span>
+    <div class="d-flex flex-row align-items-center">
+        <span  span class="page-description">Dashboard Versi 2.0 (WIP)</span>
+        <div class="filter-toggle">
+            <FluentButton IconEnd="@(new Icons.Filled.Size20.Grid())"
+                OnClick="@SessionService.FilterPreference.ToggleFilters"/>
+        </div>
+    </div>
 }
 else
 {
@@ -19,11 +25,13 @@ else
 <div>
     @if (UpperBoundaryPresaleData is not null)
     {
-        <PresaleDataBoundaryFilter @ref="PresaleDataBoundaryFilter"
-            OnUpperBoundaryChanged="OnUpperBoundaryChangedAsync"
-            OnReload="ReloadUpperBoundaryAsync"/>
+        <div class="@FilterSectionCss">
+            <PresaleDataBoundaryFilter @ref="PresaleDataBoundaryFilter"
+                OnUpperBoundaryChanged="OnUpperBoundaryChangedAsync"
+                OnReload="ReloadUpperBoundaryAsync"/>
+        </div>
 
-        <FluentTabs ActiveTabId="tab-1">
+        <FluentTabs @bind-ActiveTabId="@_activeTabId">
             <FluentTab Id="tab-1">
                 <Header>
                     <FluentIcon Value="@(new Icons.Regular.Size16.DocumentCheckmark())" Color="@Color.Accent"/>
@@ -38,7 +46,41 @@ else
                         OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"/>
                 </Content>
             </FluentTab>
+            <FluentTab Id="tab-2">
+                <Header>
+                    <FluentIcon Value="@(new Icons.Regular.Size16.DocumentError())" Color="@Color.Accent"/>
+                    Root Cause
+                </Header>
+                <Content>
+                    <RootCauseTabulationStack
+                        UpperBoundaryModels="@UpperBoundaryCauseReports"
+                        MiddleBoundaryModels="@MiddleBoundaryRootCauseReports"
+                        LowerBoundaryModels="@LowerRootCauseReports"
+                        OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
+                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"
+                        OnExclusionFilter="ApplyFilters"/>
+                </Content>
+            </FluentTab>
+            <FluentTab Id="tab-3">
+                <Header>
+                    <FluentIcon Value="@(new Icons.Regular.Size16.Timer())" Color="@Color.Accent"/>
+                    Aging Import
+                </Header>
+                <Content>
+                    <ImportAgingTabulationStack
+                        UpperBoundaryModels="@UpperBoundaryImportAgingReports"
+                        MiddleBoundaryModels="@MiddleBoundaryImportAgingReports"
+                        LowerBoundaryModels="@LowerBoundaryImportAgingReports"
+                        OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
+                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"/>
+                </Content>
+            </FluentTab>
 
         </FluentTabs>
     }
 </div>
+
+@code
+{
+    private string _activeTabId = "tab-1";
+}

@@ -1,4 +1,4 @@
-@inherits ApprovalStatusTabulationStackBase
+@inherits ImportAgingTabulationStackBase
 
 <div class="d-flex flex-row align-items-top">
 
@@ -15,28 +15,45 @@
             style="width: 135px ;margin-bottom: 8px;"
             OnClick="ToggleToDailyView">
             Daily</FluentButton>
+
+        <FluentCheckbox class=""
+            @bind-Value="@IsPageView"
+            Label="Page View"/>
+
     </div>
 
     <div class="d-flex flex-column">
         <div style="@MonthlyToggleDisplayStyle">
-            <h5 style="font-family: 'inter-semibold';">Laporan Opportunity Negatiation Approval <span class="">@CurrentMonthIndicator()</span></h5>
+            <h5 style="font-family: 'inter-semibold';">Laporan Aging Import <span class="">@CurrentMonthIndicator()</span></h5>
             <UpperBoundaryFilter />
+            <div>
+                Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
+            </div>
             <div class="d-flex flex-row">
-                <ApprovalStatusTabulation Models="@UpperBoundaryModels"/>
+                <AgingImportTabulation Models="@UpperBoundaryModels"
+                    IsPageView="@IsPageView" />
             </div>
         </div>
         <div style="@WeeklyToggleDisplayStyle">
-            <h5 style="font-family: 'inter-semibold';">Laporan Opportunity Negatiation Approval <span class="">@CurrentWeekIndicator()</span></h5>
+            <h5 style="font-family: 'inter-semibold';">Laporan Aging Import <span class="">@CurrentWeekIndicator()</span></h5>
             <MiddleBoundaryFilter OnMiddleBoundaryChanged="@OnMiddleBoundaryChanged"/>
+            <div>
+                Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
+            </div>
             <div class="d-flex flex-row">
-                <ApprovalStatusTabulation Models="@MiddleBoundaryModels"/>
+                <AgingImportTabulation Models="@MiddleBoundaryModels"
+                    IsPageView="@IsPageView" />
             </div>
         </div>
         <div style="@DailyToggleDisplayStyle">
-            <h5 style="font-family: 'inter-semibold';">Laporan Opportunity Negatiation Approval <span class="">@TodayIndicator()</span></h5>
+            <h5 style="font-family: 'inter-semibold';">Laporan Aging Import <span class="">@TodayIndicator()</span></h5>
             <LowerBoundaryFilter OnLowerBoundaryChanged="@OnLowerBoundaryChanged"/>
+            <div>
+                Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
+            </div>
             <div class="d-flex flex-row">
-                <ApprovalStatusTabulation Models="@LowerBoundaryModels"/>
+                <AgingImportTabulation Models="@LowerBoundaryModels"
+                    IsPageView="@IsPageView" />
             </div>
         </div>
     </div>

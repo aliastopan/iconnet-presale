@@ -18,6 +18,8 @@ public class FilterPreference
     public DateTime MiddleBoundaryDateTimeMax { get; set; } = DateTime.Now;
     public DateTime LowerBoundaryDateTime { get; set; } = DateTime.Now;
 
+    public RootCauseExclusionModel RootCauseExclusion { get; set; } = default!;
+
     public void ToggleFilters()
     {
         ShowFilters = !ShowFilters;
@@ -38,5 +40,15 @@ public class FilterPreference
         MiddleBoundaryDateTimeMin = baselineDate.AddDays(-(int)baselineDate.DayOfWeek);
         MiddleBoundaryDateTimeMax = baselineDate;
         LowerBoundaryDateTime = baselineDate;
+    }
+
+    public void SetRootCauseExclusion(ICollection<string> rootCauses)
+    {
+        if (RootCauseExclusion is not null)
+        {
+            return;
+        }
+
+        RootCauseExclusion = new RootCauseExclusionModel(rootCauses);
     }
 }

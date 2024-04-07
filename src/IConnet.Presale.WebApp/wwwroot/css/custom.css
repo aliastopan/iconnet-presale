@@ -349,28 +349,108 @@ input:invalid::part(root) {
     padding-right: 0;
 }
 
-
 .upper-boundary-filter-section{
     border-bottom: 1px solid #e6e6e6;
-    margin-top: 10px;
     padding: 10px;
     padding-right: 0;
 }
 
+
+.boundary-filter-section{
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
 .middle-boundary-filter-section{
-    margin-left: 16px;
+    /* margin-left: 16px; */
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 .lower-boundary-filter-section{
-    margin-left: 16px;
+    /* margin-left: 16px; */
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.tabulation-wrapper{
+    border: 1px solid #e6e6e6;
+    max-height: 256px;
+    overflow-y: auto;
+}
+
+.tabulation-wrapper-page-view{
+    border: 1px solid #e6e6e6;
+}
+
+.tabulation-wrapper thead{
+    position: sticky;
+    top: 0;
+}
+
+.tabulation-wrapper::-webkit-scrollbar{
+    width: 8px;
+    height: 8px;
+}
+
+.tabulation-wrapper::-webkit-scrollbar-track{
+    background-color: #cccccc;
+}
+
+.tabulation-wrapper::-webkit-scrollbar-thumb{
+    background-color: #646464;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+.tabulation-summary{
+    height: 32px;
+    width: fit-content;
+    margin-top: -1px;
+    border: 1px solid #e6e6e6;
+}
+
+.tabulation-summary table{
+    height: 32px;
 }
 
 .approval-status-tabulation{
     border: 1px solid #e6e6e6;
 }
 
-.approval-status-tabulation thead tr th,
+.approval-status-tabulation thead tr th{
+    height: 32px;
+}
 .approval-status-tabulation tbody tr td{
+    height: 32px;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.root-cause-tabulation{
+    margin-bottom: 0 !important;
+}
+
+.root-cause-tabulation thead tr th{
+    height: 32px;
+}
+
+.root-cause-tabulation tbody tr td{
+    height: 32px;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.aging-tabulation{
+    margin-bottom: 0 !important;
+}
+
+.aging-tabulation thead tr th{
+    height: 32px;
+}
+
+.aging-tabulation tbody tr td{
     height: 32px;
     border-bottom: 1px solid #e6e6e6;
 }
@@ -387,8 +467,7 @@ input:invalid::part(root) {
 }
 
 .tabulation-header-secondary{
-    color: white;
-    background-color: #214b5a;
+    background-color: white;
     padding: 2px 8px;
     text-align: center;
 }

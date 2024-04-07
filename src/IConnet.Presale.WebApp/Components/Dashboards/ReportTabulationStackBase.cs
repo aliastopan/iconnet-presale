@@ -1,22 +1,25 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Components.Web;
-using IConnet.Presale.WebApp.Models.Presales.Reports;
 
 namespace IConnet.Presale.WebApp.Components.Dashboards;
 
-public partial class ApprovalStatusTabulationStack : ComponentBase
+public class ReportTabulationStackBase : ComponentBase
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] protected SessionService SessionService { get; set; } = default!;
-
-    [Parameter] public List<ApprovalStatusReportModel> UpperBoundaryModels { get; set; } = [];
-    [Parameter] public List<ApprovalStatusReportModel> MiddleBoundaryModels { get; set; } = [];
-    [Parameter] public List<ApprovalStatusReportModel> LowerBoundaryModels { get; set; } = [];
 
     [Parameter] public EventCallback OnMiddleBoundaryChanged { get; set; }
     [Parameter] public EventCallback OnLowerBoundaryChanged { get; set; }
 
     private CultureInfo _cultureInfo = new CultureInfo("id-ID");
+
+    protected Appearance MonthlyToggleAppearance => IsMonthlySelected ? Appearance.Accent : Appearance.Neutral;
+    protected Appearance WeeklyToggleAppearance => IsWeeklySelected ? Appearance.Accent : Appearance.Neutral;
+    protected Appearance DailyToggleAppearance => IsDailySelected ? Appearance.Accent : Appearance.Neutral;
+
+    protected string MonthlyToggleDisplayStyle => IsMonthlySelected ? "" : "display: none";
+    protected string WeeklyToggleDisplayStyle => IsWeeklySelected ? "" : "display: none";
+    protected string DailyToggleDisplayStyle => IsDailySelected ? "" : "display: none";
 
     public bool IsMonthlySelected { get; set; } = false;
     public bool IsWeeklySelected { get; set; } = false;
