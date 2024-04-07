@@ -29,18 +29,12 @@
     <div class="d-flex flex-column">
         <div style="@MonthlyToggleDisplayStyle">
             <h5 style="font-family: 'inter-semibold';">Laporan Root Cause <span class="">@CurrentMonthIndicator()</span></h5>
-            @* <div class="tabulation-report">
-                <span class="date-only-badge">@GetUpperBoundaryDateMin()</span> s.d <span class="date-only-badge">@GetUpperBoundaryDateMax()</span>
-            </div> *@
             <UpperBoundaryFilter />
             <RootCauseTabulation Models="@UpperBoundaryModels"
                 IsPageView="@IsPageView"/>
         </div>
         <div style="@WeeklyToggleDisplayStyle">
             <h5 style="font-family: 'inter-semibold';">Laporan Root Cause <span class="">@CurrentWeekIndicator()</span></h5>
-            @* <div class="tabulation-report">
-                <span class="date-only-badge">@GetMiddleBoundaryDateMin()</span> s.d <span class="date-only-badge">@GetMiddleBoundaryDateMax()</span>
-            </div> *@
             <MiddleBoundaryFilter OnMiddleBoundaryChanged="@OnMiddleBoundaryChanged"/>
             <div class="d-flex flex-row">
                 <RootCauseTabulation Models="@MiddleBoundaryModels"
@@ -49,9 +43,6 @@
         </div>
         <div style="@DailyToggleDisplayStyle">
             <h5 style="font-family: 'inter-semibold';">Laporan Root Cause <span class="">@TodayIndicator()</span></h5>
-            @* <div class="tabulation-report">
-                <span class="date-only-badge">@GetLowerBoundaryDate()</span>
-            </div> *@
             <LowerBoundaryFilter OnLowerBoundaryChanged="@OnLowerBoundaryChanged"/>
             <div class="d-flex flex-row">
                 <RootCauseTabulation Models="@LowerBoundaryModels"
