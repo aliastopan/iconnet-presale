@@ -1,3 +1,15 @@
+## v2.2.0
+- Change: Page header margin styling
+- Change: middle and lower boundary filter layout position
+- Add: Stacktrace exception console logging
+- Add: Monthly Root Cause tabulation report
+- Add: Weekly Root Cause tabulation report
+- Add: Daily Root Cause tabulation report
+- Add: Root Cause tabulation exclusion filter
+- Add: Monthly Import Aging tabulation report
+- Add: Weekly Import Aging tabulation report
+- Add: Daily Import Aging tabulation report
+
 ## v2.1.0
 - Fix: Chat history link max-width element
 - Update: Reload `PresaleData` on outbound `DataTime` filter range
