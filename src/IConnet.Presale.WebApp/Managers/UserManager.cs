@@ -31,10 +31,19 @@ public class UserManager
             var response = JsonSerializer.Deserialize<GetPresaleOperatorsQueryResponse>(httpResult.Content, options);
             var presaleOperatorDtos = response!.PresaleOperatorDtos;
 
+            _presaleOperatorModels.Clear();
+
             foreach (var dto in presaleOperatorDtos)
             {
                 _presaleOperatorModels.Add(new PresaleOperatorModel(dto));
             }
+
+            var helpdeskOperators = _presaleOperatorModels.Where(x => x.UserRole == UserRole.Helpdesk);
+            var pacOperators = _presaleOperatorModels.Where(x => x.UserRole == UserRole.PAC);
+
+            Log.Information("Setting Presale Operators");
+            Log.Information("Presale Operators - Helpdesk: {0}", helpdeskOperators.Count());
+            Log.Information("Presale Operators - PAC: {0}", pacOperators.Count());
         }
         else
         {

@@ -7,8 +7,9 @@ namespace IConnet.Presale.WebApp.Components.Forms;
 
 public partial class CreateUserForm : ComponentBase
 {
-    [Inject] public IIdentityHttpClient IdentityHttpClient { get; set; } = default!;
-    [Inject] public IToastService ToastService { get; set; } = default!;
+    [Inject] protected IIdentityHttpClient IdentityHttpClient { get; set; } = default!;
+    [Inject] protected IToastService ToastService { get; set; } = default!;
+    [Inject] protected UserManager UserManager { get; set; } = default!;
 
     private readonly List<Error> _errors = [];
 
@@ -84,6 +85,8 @@ public partial class CreateUserForm : ComponentBase
         {
             var intent = ToastIntent.Success;
             var message = $"User ({CreateUserModel.Username}) telah berhasil dibuat.";
+
+            await UserManager.SetPresaleOperatorsAsync();
 
             ToastService.ShowToast(intent, message);
             CreateUserModel.Reset();
