@@ -46,9 +46,9 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
     public List<RootCauseReportModel> UpperBoundaryCauseReports => FilterCauseReports(_upperBoundaryRootCauseReports);
     public List<RootCauseReportModel> MiddleBoundaryRootCauseReports => FilterCauseReports(_middleBoundaryRootCauseReports);
     public List<RootCauseReportModel> LowerRootCauseReports => FilterCauseReports(_lowerBoundaryRootCauseReports);
-    public List<ImportAgingReportModel> UpperBoundaryImportAgingReports => _upperBoundaryImportAgingReports;
-    public List<ImportAgingReportModel> MiddleBoundaryImportAgingReports => _middleBoundaryImportAgingReports;
-    public List<ImportAgingReportModel> LowerBoundaryImportAgingReports => _lowerBoundaryImportAgingReports;
+    public List<ImportAgingReportModel> UpperBoundaryImportAgingReports => _upperBoundaryImportAgingReports.OrderByDescending(x => x.Average).ToList();
+    public List<ImportAgingReportModel> MiddleBoundaryImportAgingReports => _middleBoundaryImportAgingReports.OrderByDescending(x => x.Average).ToList();
+    public List<ImportAgingReportModel> LowerBoundaryImportAgingReports => _lowerBoundaryImportAgingReports.OrderByDescending(x => x.Average).ToList();
 
     public TabNavigationModel PageDeclaration()
     {

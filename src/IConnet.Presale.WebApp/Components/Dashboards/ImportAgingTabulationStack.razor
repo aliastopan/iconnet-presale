@@ -15,11 +15,22 @@
             style="width: 135px ;margin-bottom: 8px;"
             OnClick="ToggleToDailyView">
             Daily</FluentButton>
+
+        <FluentCheckbox class=""
+            @bind-Value="@IsPageView"
+            Label="Page View"/>
+
     </div>
 
     <div class="d-flex flex-column">
         <div style="@MonthlyToggleDisplayStyle">
-
+            <h5 style="font-family: 'inter-semibold';">Laporan Aging Import <span class="">@CurrentMonthIndicator()</span></h5>
+            <div>
+                Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
+            </div>
+            <UpperBoundaryFilter />
+            <AgingImportTabulation Models="@UpperBoundaryModels"
+                IsPageView="@IsPageView" />
         </div>
         <div style="@WeeklyToggleDisplayStyle">
 
