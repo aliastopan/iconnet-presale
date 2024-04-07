@@ -21,7 +21,9 @@
         <div style="@MonthlyToggleDisplayStyle">
             <h5 style="font-family: 'inter-semibold';">Laporan Opportunity Negatiation Approval <span class="">@CurrentMonthIndicator()</span></h5>
             <UpperBoundaryFilter />
-            <ApprovalStatusTabulation Models="@UpperBoundaryModels"/>
+            <div class="d-flex flex-row">
+                <ApprovalStatusTabulation Models="@UpperBoundaryModels"/>
+            </div>
         </div>
         <div style="@WeeklyToggleDisplayStyle">
             <h5 style="font-family: 'inter-semibold';">Laporan Opportunity Negatiation Approval <span class="">@CurrentWeekIndicator()</span></h5>

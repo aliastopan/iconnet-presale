@@ -30,8 +30,10 @@
         <div style="@MonthlyToggleDisplayStyle">
             <h5 style="font-family: 'inter-semibold';">Laporan Root Cause <span class="">@CurrentMonthIndicator()</span></h5>
             <UpperBoundaryFilter />
-            <RootCauseTabulation Models="@UpperBoundaryModels"
-                IsPageView="@IsPageView"/>
+            <div class="d-flex flex-row">
+                <RootCauseTabulation Models="@UpperBoundaryModels"
+                    IsPageView="@IsPageView"/>
+            </div>
         </div>
         <div style="@WeeklyToggleDisplayStyle">
             <h5 style="font-family: 'inter-semibold';">Laporan Root Cause <span class="">@CurrentWeekIndicator()</span></h5>
