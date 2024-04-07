@@ -443,6 +443,19 @@ input:invalid::part(root) {
     border-bottom: 1px solid #e6e6e6;
 }
 
+.aging-tabulation{
+    margin-bottom: 0 !important;
+}
+
+.aging-tabulation thead tr th{
+    height: 32px;
+}
+
+.aging-tabulation tbody tr td{
+    height: 32px;
+    border-bottom: 1px solid #e6e6e6;
+}
+
 .tabulation-report{
     padding: 2px;
 }
