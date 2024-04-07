@@ -61,6 +61,20 @@ else
                         OnExclusionFilter="ApplyFilters"/>
                 </Content>
             </FluentTab>
+            <FluentTab Id="tab-3">
+                <Header>
+                    <FluentIcon Value="@(new Icons.Regular.Size16.Timer())" Color="@Color.Accent"/>
+                    Aging Import
+                </Header>
+                <Content>
+                    <ImportAgingTabulationStack
+                        UpperBoundaryModels="@UpperBoundaryImportAgingReports"
+                        MiddleBoundaryModels="@MiddleBoundaryImportAgingReports"
+                        LowerBoundaryModels="@LowerBoundaryImportAgingReports"
+                        OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
+                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"/>
+                </Content>
+            </FluentTab>
 
         </FluentTabs>
     }
