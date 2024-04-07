@@ -81,7 +81,12 @@ else
                     Aging Verification
                 </Header>
                 <Content>
-
+                    <VerificationAgingTabulationStack
+                        UpperBoundaryModels="@UpperBoundaryVerificationAgingReports"
+                        MiddleBoundaryModels="@MiddleBoundaryVerificationAgingReports"
+                        LowerBoundaryModels="@LowerBoundaryVerificationAgingReports"
+                        OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
+                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"/>
                 </Content>
             </FluentTab>
 
