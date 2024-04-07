@@ -116,11 +116,12 @@ internal sealed class DashboardManager : PresaleDataOperationBase, IDashboardMan
         DateTime tglPermohonanMin = presaleData.Min(workPaper => workPaper.ApprovalOpportunity.TglPermohonan.Date);
         DateTime tglPermohonanMax = presaleData.Max(workPaper => workPaper.ApprovalOpportunity.TglPermohonan.Date);
 
-        bool isOutOfRange = dateTimeMin.Date >= tglPermohonanMin && dateTimeMax.Date <= tglPermohonanMax;
+        bool isOutOfRange = dateTimeMin.Date < tglPermohonanMin.Date || dateTimeMax.Date > tglPermohonanMax.Date;
 
         if (isOutOfRange)
         {
-            return null;
+            dateTimeMax = tglPermohonanMax;
+            dateTimeMin = tglPermohonanMax.AddDays(-(int)tglPermohonanMax.DayOfWeek);
         }
 
         return presaleData.Where(workPaper => workPaper.ApprovalOpportunity.TglPermohonan.Date >= dateTimeMin.Date
