@@ -1,3 +1,19 @@
+## v2.3.0
+- Fix: Weekly presale data filter
+- Change (minor): Dashboard layout
+- Add: Monthly Verikasi Aging tabulation report
+- Add: Weekly Verikasi Aging tabulation report
+- Add: Daily Verikasi Aging tabulation report
+- Add: Monthly Chat/Call Mulai Aging tabulation report
+- Add: Weekly Chat/Call Mulai Aging tabulation report
+- Add: Daily Chat/Call Mulai Aging tabulation report
+- Add: Monthly Chat/Call Respons Aging tabulation report
+- Add: Weekly Chat/Call Respons Aging tabulation report
+- Add: Daily Chat/Call Respons Aging tabulation report
+- Add: Monthly Approval Aging tabulation report
+- Add: Weekly Approval ApprovalAging tabulation report
+- Add: Daily Approval Aging tabulation report
+
 ## v2.2.1
 - Fix: (Dashboard) reload presale operators on new user creation.
 
