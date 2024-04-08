@@ -89,7 +89,20 @@ else
                         OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"/>
                 </Content>
             </FluentTab>
-
+            <FluentTab Id="tab-5">
+                <Header>
+                    <FluentIcon Value="@(new Icons.Regular.Size16.Timer())" Color="@Color.Accent"/>
+                    Aging Chat/Call Mulai
+                </Header>
+                <Content>
+                    <ChatCallMulaiAgingTabulationStack
+                        UpperBoundaryModels="@UpperBoundaryChatCallMulaiAgingReports"
+                        MiddleBoundaryModels="@MiddleBoundaryChatCallMulaiAgingReports"
+                        LowerBoundaryModels="@LowerBoundaryChatCallMulaiAgingReports"
+                        OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
+                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"/>
+                </Content>
+            </FluentTab>
         </FluentTabs>
     }
 </div>
