@@ -1,7 +1,24 @@
 @attribute [Route(PageRoute.Settings)]
 @rendermode @(InteractiveServer.DisablePreRender())
+@inherits SettingsPageBase
 
 <PageTitle>Settings</PageTitle>
 
 <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Settings</FluentLabel>
-<span class="page-description">Configure App Settings.</span>
+<span class="page-description">Configure App Settings</span>
+
+@if (IsInitialized)
+{
+    <FluentTabs ActiveTabId="tab-1">
+        <FluentTab Id="tab-1">
+            <Header>
+                <FluentIcon Value="@(new Icons.Regular.Size16.DocumentError())" Color="@Color.Accent"/>
+                Root Cause
+            </Header>
+            <Content>
+
+
+            </Content>
+        </FluentTab>
+    </FluentTabs>
+}
