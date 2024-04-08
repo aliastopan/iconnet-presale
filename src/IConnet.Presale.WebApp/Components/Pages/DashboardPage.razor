@@ -117,6 +117,20 @@ else
                         OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"/>
                 </Content>
             </FluentTab>
+            <FluentTab Id="tab-7">
+                <Header>
+                    <FluentIcon Value="@(new Icons.Regular.Size16.Timer())" Color="@Color.Accent"/>
+                    Aging Approval
+                </Header>
+                <Content>
+                    <ApprovalAgingTabulationStack
+                        UpperBoundaryModels="@UpperBoundaryApprovalAgingReportModels"
+                        MiddleBoundaryModels="@MiddleBoundaryApprovalAgingReportModels"
+                        LowerBoundaryModels="@LowerBoundaryApprovalAgingReportModels"
+                        OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
+                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"/>
+                </Content>
+            </FluentTab>
         </FluentTabs>
     }
 </div>
