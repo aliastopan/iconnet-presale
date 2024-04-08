@@ -32,6 +32,7 @@ public class GetRepresentativeOfficesQueryHandler
         {
             representativeOfficeDtos.Add(new RepresentativeOfficeDto
             {
+                RepresentativeOfficeId = representativeOffice.KantorPerwakilanId,
                 Order = representativeOffice.Order,
                 Perwakilan = representativeOffice.Perwakilan,
                 IsDeleted = representativeOffice.IsDeleted

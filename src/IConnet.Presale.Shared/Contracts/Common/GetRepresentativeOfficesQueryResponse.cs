@@ -6,7 +6,8 @@ public record GetRepresentativeOfficesQueryResponse(ICollection<RepresentativeOf
 
 public record RepresentativeOfficeDto
 {
-    public int Order { get; set; }
+    public Guid RepresentativeOfficeId { get; init; }
+    public int Order { get; init; }
     public string Perwakilan { get; init; }
     public bool IsDeleted { get; init; }
 }
