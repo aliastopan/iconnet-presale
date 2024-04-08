@@ -32,6 +32,7 @@ public class GetDirectApprovalsQueryHandler
         {
             directApprovalDtos.Add(new DirectApprovalDto
             {
+                DirectApprovalId = directApproval.DirectApprovalId,
                 Order = directApproval.Order,
                 Description = directApproval.Description,
                 IsDeleted = directApproval.IsDeleted

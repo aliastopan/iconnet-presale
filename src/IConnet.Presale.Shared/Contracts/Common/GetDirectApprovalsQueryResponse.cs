@@ -6,7 +6,8 @@ public record GetDirectApprovalsQueryResponse(ICollection<DirectApprovalDto> Dir
 
 public record DirectApprovalDto
 {
-    public int Order { get; set; }
+    public Guid DirectApprovalId { get; init; }
+    public int Order { get; init; }
     public string Description { get; init; }
     public bool IsDeleted { get; init; }
 }
