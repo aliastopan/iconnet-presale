@@ -9,7 +9,7 @@ public class IndexPageBase : ComponentBase, IPageNavigation
 {
     [Inject] protected TabNavigationManager TabNavigationManager { get; set; } = default!;
     [Inject] protected IDateTimeService DateTimeService { get; set; } = default!;
-    [Inject] protected IDashboardManager DashboardManager { get; set; } = default!;
+    [Inject] protected IPresaleDataBoundaryManager PresaleDataBoundaryManager { get; set; } = default!;
     [Inject] protected IIdentityHttpClient IdentityHttpClient { get; set; } = default!;
     [Inject] protected UserManager UserManager { get; set; } = default!;
     [Inject] protected OptionService OptionService { get; set; } = default!;
@@ -76,9 +76,9 @@ public class IndexPageBase : ComponentBase, IPageNavigation
         {
             _presaleOperators = UserManager.PresaleOperators;
 
-            _monthlyPresaleData = await DashboardManager.GetPresaleDataFromCurrentMonthAsync();
-            _weeklyPresaleData = DashboardManager.GetPresaleDataFromCurrentWeek(_monthlyPresaleData);
-            _dailyPresaleData = DashboardManager.GetPresaleDataFromToday(_weeklyPresaleData);
+            _monthlyPresaleData = await PresaleDataBoundaryManager.GetPresaleDataFromCurrentMonthAsync();
+            _weeklyPresaleData = PresaleDataBoundaryManager.GetPresaleDataFromCurrentWeek(_monthlyPresaleData);
+            _dailyPresaleData = PresaleDataBoundaryManager.GetPresaleDataFromToday(_weeklyPresaleData);
 
             GenerateStatusApprovalReports();
             GenerateRootCauseReports();

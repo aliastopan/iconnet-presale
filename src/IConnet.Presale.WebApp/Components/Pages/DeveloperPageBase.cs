@@ -10,7 +10,7 @@ public class DeveloperPageBase : ComponentBase
 {
     [Inject] protected TabNavigationManager TabNavigationManager { get; set; } = default!;
     [Inject] protected IDateTimeService DateTimeService { get; set; } = default!;
-    [Inject] protected IDashboardManager DashboardManager { get; set; } = default!;
+    [Inject] protected IPresaleDataBoundaryManager PresaleDataBoundaryManager { get; set; } = default!;
     [Inject] protected IIdentityHttpClient IdentityHttpClient { get; set; } = default!;
     [Inject] protected UserManager UserManager { get; set; } = default!;
     [Inject] protected OptionService OptionService { get; set; } = default!;
@@ -66,9 +66,9 @@ public class DeveloperPageBase : ComponentBase
             var middleBoundaryMax = SessionService.FilterPreference.MiddleBoundaryDateTimeMax;
             var lowerBoundary = SessionService.FilterPreference.LowerBoundaryDateTime;
 
-            _upperBoundaryPresaleData = await DashboardManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
-            _middleBoundaryPresaleData = DashboardManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
-            _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
+            _upperBoundaryPresaleData = await PresaleDataBoundaryManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
+            _middleBoundaryPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
+            _lowerBoundaryPresaleData = PresaleDataBoundaryManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
 
             GenerateStatusApprovalReports();
 
@@ -119,9 +119,9 @@ public class DeveloperPageBase : ComponentBase
         _middleBoundaryApprovalStatusReports.Clear();
         _lowerBoundaryApprovalStatusReports.Clear();
 
-        _upperBoundaryPresaleData = await DashboardManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
-        _middleBoundaryPresaleData = DashboardManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
-        _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
+        _upperBoundaryPresaleData = await PresaleDataBoundaryManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
+        _middleBoundaryPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
+        _lowerBoundaryPresaleData = PresaleDataBoundaryManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
 
         LogSwitch.Debug("Upper Boundary Count {0}", _upperBoundaryPresaleData!.Count());
 

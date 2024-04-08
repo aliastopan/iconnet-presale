@@ -8,7 +8,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
 {
     [Inject] protected TabNavigationManager TabNavigationManager { get; set; } = default!;
     [Inject] protected IDateTimeService DateTimeService { get; set; } = default!;
-    [Inject] protected IDashboardManager DashboardManager { get; set; } = default!;
+    [Inject] protected IPresaleDataBoundaryManager PresaleDataBoundaryManager { get; set; } = default!;
     [Inject] protected IIdentityHttpClient IdentityHttpClient { get; set; } = default!;
     [Inject] protected UserManager UserManager { get; set; } = default!;
     [Inject] protected OptionService OptionService { get; set; } = default!;
@@ -117,9 +117,9 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
             var middleBoundaryMax = SessionService.FilterPreference.MiddleBoundaryDateTimeMax;
             var lowerBoundary = SessionService.FilterPreference.LowerBoundaryDateTime;
 
-            _upperBoundaryPresaleData = await DashboardManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
-            _middleBoundaryPresaleData = DashboardManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
-            _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
+            _upperBoundaryPresaleData = await PresaleDataBoundaryManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
+            _middleBoundaryPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
+            _lowerBoundaryPresaleData = PresaleDataBoundaryManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
 
             GenerateStatusApprovalReports(includeUpper: true, includeMiddle: true, includeLower: true);
             GenerateRootCauseReports(includeUpper: true, includeMiddle: true, includeLower: true);
@@ -191,9 +191,9 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         _middleBoundaryApprovalAgingReportModels.Clear();
         _lowerBoundaryApprovalAgingReportModels.Clear();
 
-        _upperBoundaryPresaleData = await DashboardManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
-        _middleBoundaryPresaleData = DashboardManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
-        _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
+        _upperBoundaryPresaleData = await PresaleDataBoundaryManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
+        _middleBoundaryPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
+        _lowerBoundaryPresaleData = PresaleDataBoundaryManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
 
         GenerateStatusApprovalReports(includeUpper: true, includeMiddle: true, includeLower: true);
         GenerateRootCauseReports(includeUpper: true, includeMiddle: true, includeLower: true);
@@ -221,7 +221,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         _middleBoundaryChatCallResponsAgingReports.Clear();
         _middleBoundaryApprovalAgingReportModels.Clear();
 
-        _middleBoundaryPresaleData = DashboardManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
+        _middleBoundaryPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
 
         GenerateStatusApprovalReports(includeMiddle: true);
         GenerateRootCauseReports(includeMiddle: true);
@@ -250,7 +250,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         _lowerBoundaryChatCallResponsAgingReports.Clear();
         _lowerBoundaryApprovalAgingReportModels.Clear();
 
-        _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
+        _lowerBoundaryPresaleData = PresaleDataBoundaryManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
 
         GenerateStatusApprovalReports(includeLower: true);
         GenerateRootCauseReports(includeLower: true);

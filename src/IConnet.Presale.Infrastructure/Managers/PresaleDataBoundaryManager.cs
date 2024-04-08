@@ -2,13 +2,13 @@ using IConnet.Presale.Domain.Aggregates.Presales;
 
 namespace IConnet.Presale.Infrastructure.Managers;
 
-internal sealed class DashboardManager : PresaleDataOperationBase, IDashboardManager
+internal sealed class PresaleDataBoundaryManager : PresaleDataOperationBase, IPresaleDataBoundaryManager
 {
     private readonly IDateTimeService _dateTimeService;
     private readonly IInProgressPersistenceService _inProgressPersistenceService;
     private readonly IDoneProcessingPersistenceService _doneProcessingPersistenceService;
 
-    public DashboardManager(IDateTimeService dateTimeService,
+    public PresaleDataBoundaryManager(IDateTimeService dateTimeService,
         IInProgressPersistenceService inProgressPersistenceService,
         IDoneProcessingPersistenceService doneProcessingPersistenceService)
     {

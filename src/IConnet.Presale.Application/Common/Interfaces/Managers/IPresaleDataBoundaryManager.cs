@@ -2,7 +2,7 @@ using IConnet.Presale.Domain.Aggregates.Presales;
 
 namespace IConnet.Presale.Application.Common.Interfaces.Managers;
 
-public interface IDashboardManager
+public interface IPresaleDataBoundaryManager
 {
     Task<IQueryable<WorkPaper>> GetPresaleDataFromCurrentMonthAsync();
     IQueryable<WorkPaper> GetPresaleDataFromCurrentWeek(IQueryable<WorkPaper> presaleData);
