@@ -103,6 +103,20 @@ else
                         OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"/>
                 </Content>
             </FluentTab>
+            <FluentTab Id="tab-6">
+                <Header>
+                    <FluentIcon Value="@(new Icons.Regular.Size16.Timer())" Color="@Color.Accent"/>
+                    Aging Chat/Call Validasi
+                </Header>
+                <Content>
+                    <ChatCallResponsAgingTabulationStack
+                        UpperBoundaryModels="@UpperBoundaryChatCallResponsAgingReports"
+                        MiddleBoundaryModels="@MiddleBoundaryChatCallResponsAgingReports"
+                        LowerBoundaryModels="@LowerBoundaryChatCallResponsAgingReports"
+                        OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
+                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"/>
+                </Content>
+            </FluentTab>
         </FluentTabs>
     }
 </div>
