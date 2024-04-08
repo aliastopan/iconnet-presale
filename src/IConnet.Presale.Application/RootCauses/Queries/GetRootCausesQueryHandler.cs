@@ -32,6 +32,7 @@ public class GetRootCausesQueryHandler
         {
             rootCauseDtos.Add(new RootCausesDto
             {
+                RootCauseId = rootCause.RootCauseId,
                 Order = rootCause.Order,
                 Cause = rootCause.Cause,
                 IsDeleted = rootCause.IsDeleted
