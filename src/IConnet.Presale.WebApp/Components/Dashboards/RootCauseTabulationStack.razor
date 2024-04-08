@@ -28,7 +28,7 @@
             <h5 style="font-family: 'inter-semibold';">Laporan Root Cause <span class="">@CurrentMonthIndicator()</span></h5>
             <div class="d-flex flex-row">
                 <UpperBoundaryFilter />
-                <FluentCheckbox class=""
+                <FluentCheckbox style="margin-left: 8px;"
                     @bind-Value="@IsPageView"
                     Label="Page View"/>
             </div>
@@ -41,7 +41,7 @@
             <h5 style="font-family: 'inter-semibold';">Laporan Root Cause <span class="">@CurrentWeekIndicator()</span></h5>
             <div class="d-flex flex-row">
                 <MiddleBoundaryFilter OnMiddleBoundaryChanged="@OnMiddleBoundaryChanged"/>
-                <FluentCheckbox class=""
+                <FluentCheckbox style="margin-left: 8px;"
                     @bind-Value="@IsPageView"
                     Label="Page View"/>
             </div>
@@ -54,7 +54,7 @@
             <h5 style="font-family: 'inter-semibold';">Laporan Root Cause <span class="">@TodayIndicator()</span></h5>
             <div class="d-flex flex-row">
                 <LowerBoundaryFilter OnLowerBoundaryChanged="@OnLowerBoundaryChanged"/>
-                <FluentCheckbox class=""
+                <FluentCheckbox style="margin-left: 8px;"
                     @bind-Value="@IsPageView"
                     Label="Page View"/>
             </div>
