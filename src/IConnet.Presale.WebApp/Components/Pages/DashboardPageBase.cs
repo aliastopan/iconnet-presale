@@ -42,6 +42,9 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
     private readonly List<VerificationAgingReportModel> _upperBoundaryVerificationAgingReports = [];
     private readonly List<VerificationAgingReportModel> _middleBoundaryVerificationAgingReports = [];
     private readonly List<VerificationAgingReportModel> _lowerBoundaryVerificationAgingReports = [];
+    private readonly List<ChatCallMulaiAgingReportModel> _upperBoundaryChatCallMulaiAgingReports = [];
+    private readonly List<ChatCallMulaiAgingReportModel> _middleBoundaryChatCallMulaiAgingReports = [];
+    private readonly List<ChatCallMulaiAgingReportModel> _lowerBoundaryChatCallMulaiAgingReports = [];
 
     public List<ApprovalStatusReportModel> UpperBoundaryApprovalStatusReports => _upperBoundaryApprovalStatusReports;
     public List<ApprovalStatusReportModel> MiddleBoundaryApprovalStatusReports => _middleBoundaryApprovalStatusReports;
@@ -55,6 +58,9 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
     public List<VerificationAgingReportModel> UpperBoundaryVerificationAgingReports => _upperBoundaryVerificationAgingReports.OrderByDescending(x => x.Average).ToList();
     public List<VerificationAgingReportModel> MiddleBoundaryVerificationAgingReports => _middleBoundaryVerificationAgingReports.OrderByDescending(x => x.Average).ToList();
     public List<VerificationAgingReportModel> LowerBoundaryVerificationAgingReports => _lowerBoundaryVerificationAgingReports.OrderByDescending(x => x.Average).ToList();
+    public List<ChatCallMulaiAgingReportModel> UpperBoundaryChatCallMulaiAgingReports => _upperBoundaryChatCallMulaiAgingReports.OrderByDescending(x => x.Average).ToList();
+    public List<ChatCallMulaiAgingReportModel> MiddleBoundaryChatCallMulaiAgingReports => _middleBoundaryChatCallMulaiAgingReports.OrderByDescending(x => x.Average).ToList();
+    public List<ChatCallMulaiAgingReportModel> LowerBoundaryChatCallMulaiAgingReports => _lowerBoundaryChatCallMulaiAgingReports.OrderByDescending(x => x.Average).ToList();
 
     public TabNavigationModel PageDeclaration()
     {
@@ -107,6 +113,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
             GenerateRootCauseReports(includeUpper: true, includeMiddle: true, includeLower: true);
             GenerateImportAgingReports(includeUpper: true, includeMiddle: true, includeLower: true);
             GenerateVerificationAgingReports(includeUpper: true, includeMiddle: true, includeLower: true);
+            GenerateChatCallMulaiAgingReports(includeUpper: true, includeMiddle: true, includeLower: true);
 
             _isInitialized = true;
         }
@@ -158,6 +165,10 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         _middleBoundaryVerificationAgingReports.Clear();
         _lowerBoundaryVerificationAgingReports.Clear();
 
+        _upperBoundaryChatCallMulaiAgingReports.Clear();
+        _middleBoundaryChatCallMulaiAgingReports.Clear();
+        _lowerBoundaryChatCallMulaiAgingReports.Clear();
+
         _upperBoundaryPresaleData = await DashboardManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
         _middleBoundaryPresaleData = DashboardManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
         _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
@@ -166,6 +177,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         GenerateRootCauseReports(includeUpper: true, includeMiddle: true, includeLower: true);
         GenerateImportAgingReports(includeUpper: true, includeMiddle: true, includeLower: true);
         GenerateVerificationAgingReports(includeUpper: true, includeMiddle: true, includeLower: true);
+        GenerateChatCallMulaiAgingReports(includeUpper: true, includeMiddle: true, includeLower: true);
     }
 
     public async Task ReloadMiddleBoundaryAsync()
@@ -181,6 +193,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         _middleBoundaryRootCauseReports.Clear();
         _middleBoundaryImportAgingReports.Clear();
         _middleBoundaryVerificationAgingReports.Clear();
+        _middleBoundaryChatCallMulaiAgingReports.Clear();
 
         _middleBoundaryPresaleData = DashboardManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
 
@@ -188,6 +201,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         GenerateRootCauseReports(includeMiddle: true);
         GenerateImportAgingReports(includeMiddle: true);
         GenerateVerificationAgingReports(includeMiddle: true);
+        GenerateChatCallMulaiAgingReports(includeMiddle: true);
 
         await Task.CompletedTask;
     }
@@ -204,6 +218,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         _lowerBoundaryRootCauseReports.Clear();
         _lowerBoundaryImportAgingReports.Clear();
         _lowerBoundaryVerificationAgingReports.Clear();
+        _lowerBoundaryChatCallMulaiAgingReports.Clear();
 
         _lowerBoundaryPresaleData = DashboardManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
 
@@ -211,6 +226,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         GenerateRootCauseReports(includeLower: true);
         GenerateImportAgingReports(includeLower: true);
         GenerateVerificationAgingReports(includeLower: true);
+        GenerateChatCallMulaiAgingReports(includeLower: true);
 
         await Task.CompletedTask;
     }
@@ -320,6 +336,32 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
             foreach (var user in _presaleOperators)
             {
                 var report = ReportService.GenerateVerificationAgingReport(user, boundaryData!);
+
+                if (report is not null)
+                {
+                    reportModels.Add(report);
+                }
+            }
+        }
+    }
+
+    private void GenerateChatCallMulaiAgingReports(bool includeUpper = false, bool includeMiddle = false, bool includeLower = false)
+    {
+        GenerateReports(includeUpper, _upperBoundaryChatCallMulaiAgingReports, _upperBoundaryPresaleData!);
+        GenerateReports(includeMiddle, _middleBoundaryChatCallMulaiAgingReports, _middleBoundaryPresaleData!);
+        GenerateReports(includeLower, _lowerBoundaryChatCallMulaiAgingReports, _lowerBoundaryPresaleData!);
+
+        // local function
+        void GenerateReports(bool include, List<ChatCallMulaiAgingReportModel> reportModels, IQueryable<WorkPaper> boundaryData)
+        {
+            if (!include)
+            {
+                return;
+            }
+
+            foreach (var user in _presaleOperators)
+            {
+                var report = ReportService.GenerateChatCallMulaiAgingReport(user, boundaryData!);
 
                 if (report is not null)
                 {
