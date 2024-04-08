@@ -11,6 +11,7 @@ public class FilterPreference
     public DateTime TglPermohonanMin { get; set; } = DateTime.Now.AddDays(-31);
     public DateTime TglPermohonanMax { get; set; } = DateTime.Now;
     public bool ShowFilters { get; set; } = true;
+    public bool ShowDashboardBoundary { get; set; } = false;
 
     public DateTime UpperBoundaryDateTimeMin { get; set; } = DateTime.Now.AddDays(-31);
     public DateTime UpperBoundaryDateTimeMax { get; set; } = DateTime.Now;
@@ -23,6 +24,11 @@ public class FilterPreference
     public void ToggleFilters()
     {
         ShowFilters = !ShowFilters;
+    }
+
+    public void ToggleDashboardBoundary()
+    {
+        ShowDashboardBoundary = !ShowDashboardBoundary;
     }
 
     public void SetFilterTglPermohonanDefault(DateTime dateTimeMin, DateTime dateTimeMax)

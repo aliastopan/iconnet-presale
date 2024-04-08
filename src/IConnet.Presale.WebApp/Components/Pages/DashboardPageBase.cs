@@ -18,7 +18,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
     private bool _isInitialized = false;
 
     protected PresaleDataBoundaryFilter PresaleDataBoundaryFilter { get; set; } = default!;
-    protected string FilterSectionCss => SessionService.FilterPreference.ShowFilters ? "enable" : "filter-section-disable";
+    protected string UpperBoundarySectionCss => SessionService.FilterPreference.ShowDashboardBoundary ? "enable" : "filter-section-disable";
 
     private List<PresaleOperatorModel> _presaleOperators = [];
 

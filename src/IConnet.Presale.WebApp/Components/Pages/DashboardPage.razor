@@ -10,7 +10,7 @@
         <span  span class="page-description">Dashboard Versi 2.0 (WIP)</span>
         <div class="filter-toggle">
             <FluentButton IconEnd="@(new Icons.Filled.Size20.Grid())"
-                OnClick="@SessionService.FilterPreference.ToggleFilters"/>
+                OnClick="@SessionService.FilterPreference.ToggleDashboardBoundary"/>
         </div>
     </div>
 }
@@ -25,7 +25,7 @@ else
 <div>
     @if (UpperBoundaryPresaleData is not null)
     {
-        <div class="@FilterSectionCss">
+        <div class="@UpperBoundarySectionCss">
             <PresaleDataBoundaryFilter @ref="PresaleDataBoundaryFilter"
                 OnUpperBoundaryChanged="OnUpperBoundaryChangedAsync"
                 OnReload="ReloadUpperBoundaryAsync"/>
