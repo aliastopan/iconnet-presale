@@ -6,6 +6,7 @@ public record GetChatTemplatesQueryResponse(ICollection<ChatTemplateDto> ChatTem
 
 public record ChatTemplateDto
 {
+    public Guid ChatTemplateId { get; init; }
     public string TemplateName { get; init; }
     public int Sequence { get; init; }
     public string Content { get; init; }

@@ -39,6 +39,7 @@ public class GetChatTemplatesQueryHandler : IRequestHandler<GetChatTemplatesQuer
         {
             chatTemplateDtos.Add(new ChatTemplateDto
             {
+                ChatTemplateId = chatTemplate.ChatTemplateId,
                 TemplateName = chatTemplate.TemplateName,
                 Sequence = chatTemplate.Sequence,
                 Content = chatTemplate.Content
