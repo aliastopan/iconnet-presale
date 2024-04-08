@@ -19,7 +19,7 @@
 
     <div class="d-flex flex-column">
         <div style="@MonthlyToggleDisplayStyle">
-            <h5 style="font-family: 'inter-semibold';">Laporan Aging Approval <span class="">@CurrentMonthIndicator()</span></h5>
+            <h5 class="app-font">Laporan Aging Approval <span class="">@CurrentMonthIndicator()</span></h5>
             <div class="d-flex flex-row">
                 <UpperBoundaryFilter />
                 <FluentCheckbox style="margin-left: 8px;"
@@ -35,7 +35,7 @@
             </div>
         </div>
         <div style="@WeeklyToggleDisplayStyle">
-            <h5 style="font-family: 'inter-semibold';">Laporan Aging Verifkasi <span class="">@CurrentWeekIndicator()</span></h5>
+            <h5 class="app-font">Laporan Aging Verifkasi <span class="">@CurrentWeekIndicator()</span></h5>
             <div class="d-flex flex-row">
                 <MiddleBoundaryFilter OnMiddleBoundaryChanged="@OnMiddleBoundaryChanged"/>
                 <FluentCheckbox style="margin-left: 8px;"
@@ -51,7 +51,7 @@
             </div>
         </div>
         <div style="@DailyToggleDisplayStyle">
-            <h5 style="font-family: 'inter-semibold';">Laporan Aging Verifkasi <span class="">@TodayIndicator()</span></h5>
+            <h5 class="app-font">Laporan Aging Verifkasi <span class="">@TodayIndicator()</span></h5>
             <div class="d-flex flex-row">
                 <LowerBoundaryFilter OnLowerBoundaryChanged="@OnLowerBoundaryChanged"/>
                 <FluentCheckbox style="margin-left: 8px;"
