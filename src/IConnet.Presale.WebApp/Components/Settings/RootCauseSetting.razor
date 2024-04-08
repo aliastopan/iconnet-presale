@@ -1,0 +1,13 @@
+@if (Models is not null)
+{
+    <FluentDataGrid Items="@Models"
+        TGridItem="RootCauseSettingModel"
+        Virtualize="true"
+        ItemSize="32">
+
+        <PropertyColumn Title="ROOT CAUSE" Property="@(model => model.Cause)"/>
+        <PropertyColumn Title="STATUS" Property="@(model => model.IsDeleted)"/>
+
+    </FluentDataGrid>
+}
+
