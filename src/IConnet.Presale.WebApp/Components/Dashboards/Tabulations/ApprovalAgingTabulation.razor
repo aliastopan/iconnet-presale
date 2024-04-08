@@ -1,7 +1,7 @@
 <div>
     @if (Models is not null)
     {
-        <div class="@_wrapperStyle" style="@_wrapperOffsetStyle">
+        <div class="@_wrapperCss" style="@_wrapperOffsetStyle">
             <table class="aging-tabulation" style="width: fit-content;">
                 <thead>
                     <tr>
@@ -61,7 +61,7 @@
 
 @code
 {
-    private string _wrapperStyle => IsPageView
+    private string _wrapperCss => IsPageView
         ? "tabulation-wrapper-page-view"
         : "tabulation-wrapper";
 
