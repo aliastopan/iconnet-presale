@@ -1,5 +1,11 @@
 @if (Models is not null)
 {
+    <div style="margin: 8px 4px">
+        <FluentButton Appearance="Appearance.Accent"
+            IconStart="@(new Icons.Filled.Size20.Add())">
+            Root Cause</FluentButton>
+    </div>
+
     <div class="root-cause-settings">
         <FluentDataGrid Items="@Models"
             TGridItem="RootCauseSettingModel"
