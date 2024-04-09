@@ -39,5 +39,6 @@ public static class UriEndpoint
     public static class RootCauses
     {
         public const string GetRootCauses = "/api/root-causes/get";
+        public const string AddRootCauses = "/api/root-cause/add";
     }
 }

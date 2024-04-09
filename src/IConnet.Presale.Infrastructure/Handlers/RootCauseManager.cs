@@ -24,4 +24,14 @@ internal class RootCauseHandler : IRootCauseHandler
 
         return Result<ICollection<RootCause>>.Ok(rootCauses);
     }
+
+    public async Task AddRootCauseAsync(int order, string cause)
+    {
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        var rootCause = new RootCause(order, cause);
+
+        dbContext.RootCauses.Add(rootCause);
+        await dbContext.SaveChangesAsync();
+    }
 }
