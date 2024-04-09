@@ -64,13 +64,7 @@ public class RootCauseManager
 
                 foreach (var dto in rootCauseDtos)
                 {
-                    rootCauseSettingModels.Add(new RootCauseSettingModel
-                    {
-                        RootCauseId = dto.RootCauseId,
-                        Order = dto.Order,
-                        Cause = dto.Cause,
-                        IsDeleted = dto.IsDeleted
-                    });
+                    rootCauseSettingModels.Add(new RootCauseSettingModel(dto));
                 }
             }
             else
