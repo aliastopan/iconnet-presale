@@ -8,4 +8,11 @@ public record RootCauseSettingModel
     public int Order { get; init; }
     public string Cause { get; init; }
     public bool IsDeleted { get; init; }
+
+    public string GetStatus()
+    {
+        return !IsDeleted
+            ? "Enabled"
+            : "Disabled";
+    }
 }

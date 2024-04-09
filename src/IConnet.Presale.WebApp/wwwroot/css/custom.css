@@ -342,3 +342,6 @@ input:invalid::part(root) {
     margin-right: 4px;
 }
 
+.root-cause-settings{
+    width: 500px;
+}

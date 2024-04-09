@@ -1,13 +1,33 @@
 @if (Models is not null)
 {
-    <FluentDataGrid Items="@Models"
-        TGridItem="RootCauseSettingModel"
-        Virtualize="true"
-        ItemSize="32">
+    <div class="root-cause-settings">
+        <FluentDataGrid Items="@Models"
+            TGridItem="RootCauseSettingModel"
+            Virtualize="true"
+            ItemSize="32"
+            GridTemplateColumns="@GridTemplateCols">
 
-        <PropertyColumn Title="ROOT CAUSE" Property="@(model => model.Cause)"/>
-        <PropertyColumn Title="STATUS" Property="@(model => model.IsDeleted)"/>
-
-    </FluentDataGrid>
+            <TemplateColumn Title="ROOT CAUSE" Style="@GetWidthStyle(300)">
+                <div class="">
+                    @context.Cause
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="STATUS" Style="@GetWidthStyle(100)">
+                <div class="">
+                    @context.GetStatus()
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="ENABLE" Style="@GetWidthStyle(100)">
+                <div class="" style="text-align: center; margin-top: 4px;">
+                    <FluentCheckbox style=""/>
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="INCLUDE" Style="@GetWidthStyle(100)">
+                <div class="" style="text-align: center; margin-top: 4px;">
+                    <FluentCheckbox style=""/>
+                </div>
+            </TemplateColumn>
+        </FluentDataGrid>
+    </div>
 }
 
