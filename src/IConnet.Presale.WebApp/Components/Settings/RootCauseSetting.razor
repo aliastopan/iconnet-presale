@@ -19,7 +19,9 @@
             </TemplateColumn>
             <TemplateColumn Title="ENABLE" Style="@GetWidthStyle(100)">
                 <div class="" style="text-align: center; margin-top: 4px;">
-                    <FluentCheckbox style=""/>
+                    <FluentCheckbox style=""
+                        Value="@context.IsEnabled"
+                        ValueChanged="@context.OnIsEnabledChanged"/>
                 </div>
             </TemplateColumn>
             <TemplateColumn Title="INCLUDE" Style="@GetWidthStyle(100)">

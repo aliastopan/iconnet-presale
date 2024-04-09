@@ -31,11 +31,16 @@ public class RootCauseSettingModel
 
     public bool IsEnabled { get; set; }
 
-
     public string GetStatus()
     {
         return !IsDeleted
             ? "Enabled"
             : "Disabled";
+    }
+
+    public void OnIsEnabledChanged(bool isEnabled)
+    {
+        IsEnabled = isEnabled;
+        // LogSwitch.Debug("IsEnabled: {0}", IsEnabled);
     }
 }
