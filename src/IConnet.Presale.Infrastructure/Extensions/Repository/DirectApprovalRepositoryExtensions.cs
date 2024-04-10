@@ -10,4 +10,9 @@ internal static class DirectApprovalRepositoryExtensions
             .OrderBy(x => x.Order)
             .ToList();
     }
+
+    public static DirectApproval? GetDirectApproval(this AppDbContext context, Guid directApprovalId)
+    {
+        return context.DirectApprovals.FirstOrDefault(x => x.DirectApprovalId == directApprovalId);
+    }
 }

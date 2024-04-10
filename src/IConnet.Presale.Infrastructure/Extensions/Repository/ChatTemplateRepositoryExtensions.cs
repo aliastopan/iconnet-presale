@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using IConnet.Presale.Domain.Entities;
 
 namespace IConnet.Presale.Infrastructure.Extensions.Repository;
@@ -10,5 +9,10 @@ internal static class ChatTemplateRepositoryExtensions
         return context.ChatTemplates.Where(x => x.TemplateName == templateName)
             .OrderBy(x => x.Sequence)
             .ToList();
+    }
+
+    public static List<ChatTemplate> GetAllChatTemplates(this AppDbContext context)
+    {
+        return context.ChatTemplates.ToList();
     }
 }
