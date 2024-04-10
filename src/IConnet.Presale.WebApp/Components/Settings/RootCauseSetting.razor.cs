@@ -5,6 +5,8 @@ public partial class RootCauseSetting
     [Parameter]
     public IQueryable<RootCauseSettingModel>? Models { get; set; }
 
+    public bool EnableAddRootCause { get; set; }
+
     protected string GridTemplateCols => GetGridTemplateCols();
 
     protected string GetWidthStyle(int widthPx, int offsetPx = 0)
