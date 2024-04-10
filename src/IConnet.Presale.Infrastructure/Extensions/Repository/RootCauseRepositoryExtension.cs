@@ -10,4 +10,9 @@ internal static class RootCauseRepositoryExtension
             .OrderBy(x => x.Order)
             .ToList();
     }
+
+    public static RootCause? GetRootCause(this AppDbContext context, Guid rootCauseId)
+    {
+        return context.RootCauses.FirstOrDefault(x => x.RootCauseId == rootCauseId);
+    }
 }

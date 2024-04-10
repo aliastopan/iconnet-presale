@@ -34,4 +34,40 @@ internal class RootCauseHandler : IRootCauseHandler
         dbContext.RootCauses.Add(rootCause);
         await dbContext.SaveChangesAsync();
     }
+
+    public async Task<Result> UpdateRootCauseAsync(Guid rootCauseId, string cause)
+    {
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        var rootCause = dbContext.GetRootCause(rootCauseId);
+
+        if (rootCause is null)
+        {
+            var error = new Error("Root Cause not found.", ErrorSeverity.Warning);
+            return Result.NotFound(error);
+        }
+
+        rootCause.Cause = cause;
+        await dbContext.SaveChangesAsync();
+
+        return Result.Ok();
+    }
+
+    public async Task<Result> ToggleSoftDeletionAsync(Guid rootCauseId, bool isDeleted)
+    {
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        var rootCause = dbContext.GetRootCause(rootCauseId);
+
+        if (rootCause is null)
+        {
+            var error = new Error("Root Cause not found.", ErrorSeverity.Warning);
+            return Result.NotFound(error);
+        }
+
+        rootCause.IsDeleted = isDeleted;
+        await dbContext.SaveChangesAsync();
+
+        return Result.Ok();
+    }
 }
