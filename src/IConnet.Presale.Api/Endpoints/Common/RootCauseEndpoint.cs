@@ -9,7 +9,7 @@ public class RootCauseEndpoint : IEndpointDefinition
     public void DefineEndpoints(WebApplication app)
     {
         app.MapGet(UriEndpoint.RootCauses.GetRootCauses, GetRootCauses).AllowAnonymous();
-        app.MapPost(UriEndpoint.RootCauses.AddRootCauses, AddRootCause).AllowAnonymous();
+        app.MapPost(UriEndpoint.RootCauses.AddRootCause, AddRootCause).AllowAnonymous();
     }
 
     internal async Task<IResult> GetRootCauses([FromServices] ISender sender,
