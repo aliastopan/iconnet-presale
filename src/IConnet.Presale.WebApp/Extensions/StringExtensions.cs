@@ -17,9 +17,21 @@ public static class StringExtensions
     public static string SanitizeOnlyAlphanumeric(this string input)
     {
         if (string.IsNullOrEmpty(input))
+        {
             return string.Empty;
+        }
 
         return new string(input.Where(char.IsLetterOrDigit).ToArray());
+    }
+
+    public static string SanitizeOnlyAlphanumericAndSpaces(this string input)
+    {
+            if (string.IsNullOrEmpty(input))
+            {
+                return string.Empty;
+            }
+
+        return new string(input.Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c)).ToArray());
     }
 
     public static string CapitalizeFirstLetterOfEachWord(this string input)
