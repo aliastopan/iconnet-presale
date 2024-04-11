@@ -1,4 +1,5 @@
 using IConnet.Presale.Application.RootCauses.Commands.AddRootCause;
+using IConnet.Presale.Application.RootCauses.Commands.ToggleSoftDeletion;
 using IConnet.Presale.Application.RootCauses.Queries;
 using IConnet.Presale.Shared.Contracts.Common;
 
@@ -41,6 +42,20 @@ public class RootCauseEndpoint : IEndpointDefinition
             error => error.AsProblem(new ProblemDetails
             {
                 Title = "Failed to add Root Cause"
+            },
+            context: httpContext));
+    }
+
+    internal async Task<IResult> ToggleSoftDeletion([FromServices] ISender sender,
+        ToggleRootCauseSoftDeletionRequest request, HttpContext httpContext)
+    {
+        var command = new ToggleRootCauseSoftDeletionCommand(request.RootCauseId, request.IsDeleted);
+        var result = await sender.Send(command);
+
+        return result.Match(() => Results.Ok(),
+            error => error.AsProblem(new ProblemDetails
+            {
+                Title = "Failed to Toggle Soft Deletion"
             },
             context: httpContext));
     }
