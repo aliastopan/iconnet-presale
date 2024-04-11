@@ -13,10 +13,18 @@
                 Disabled="@(!EnableAddRootCause)"
                 Placeholder="Root Cause Baru"></FluentTextField>
 
-            <FluentButton Appearance="Appearance.Accent"
+            <FluentButton style="width: 135px; margin-right: 8px;"
+                Appearance="Appearance.Accent"
                 Disabled="@(!EnableAddRootCause)"
                 OnClick="SubmitNewRootCauseAsync">
                 Simpan</FluentButton>
+
+            <FluentButton style="width: 135px; margin-right: 8px;"
+                BackgroundColor="crimson"
+                Color="white"
+                Disabled="@(!EnableApplyToggleSoftDeletion)"
+                OnClick="ApplyToggleSoftDeletionAsync">
+                Apply</FluentButton>
         </div>
     </div>
 

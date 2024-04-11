@@ -11,6 +11,7 @@ public class RootCauseEndpoint : IEndpointDefinition
     {
         app.MapGet(UriEndpoint.RootCauses.GetRootCauses, GetRootCauses).AllowAnonymous();
         app.MapPost(UriEndpoint.RootCauses.AddRootCause, AddRootCause).AllowAnonymous();
+        app.MapPost(UriEndpoint.RootCauses.ToggleSoftDeletion, ToggleSoftDeletion).AllowAnonymous();
     }
 
     internal async Task<IResult> GetRootCauses([FromServices] ISender sender,

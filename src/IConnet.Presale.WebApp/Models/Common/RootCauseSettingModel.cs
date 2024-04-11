@@ -30,6 +30,8 @@ public class RootCauseSettingModel
     public bool IsDeleted { get; init; }
 
     public bool IsEnabled { get; set; }
+    public bool IsToggledSoftDeletion => IsDeleted == IsEnabled;
+    public bool SoftDeletionToggleValue => !IsEnabled;
 
     public string GetStatus()
     {

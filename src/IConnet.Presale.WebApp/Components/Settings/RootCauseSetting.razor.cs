@@ -13,12 +13,18 @@ public partial class RootCauseSetting
     public bool IsLoading { get; set; } = false;
     public bool EnableAddRootCause { get; set; }
     public string NewRootCause { get; set; } = string.Empty;
+    public bool EnableApplyToggleSoftDeletion => ToggleCheck();
 
     protected string GridTemplateCols => GetGridTemplateCols();
 
     protected void OnNewRootCauseChanged(string newRootCause)
     {
         NewRootCause = newRootCause.SanitizeOnlyAlphanumericAndSpaces();
+    }
+
+    protected bool ToggleCheck()
+    {
+        return Models!.Any(x => x.IsToggledSoftDeletion);
     }
 
     protected async Task SubmitNewRootCauseAsync()
@@ -36,6 +42,44 @@ public partial class RootCauseSetting
         bool isSuccess = await RootCauseManager.AddRootCauseAsync(highestOrder, rootCause);
 
         if (isSuccess)
+        {
+            await RootCauseManager.SetRootCausesAsync();
+
+            if (OnRootCauseAdded.HasDelegate)
+            {
+                await OnRootCauseAdded.InvokeAsync();
+            }
+        }
+
+        IsLoading = false;
+    }
+
+    protected async Task ApplyToggleSoftDeletionAsync()
+    {
+        if (Models is null)
+        {
+            return;
+        }
+
+        IsLoading = true;
+
+        List<Task<bool>> tasks = [];
+
+        foreach (var model in Models)
+        {
+            if (!model.IsToggledSoftDeletion)
+            {
+                continue;
+            }
+
+            Task<bool> toggleSoftDeletionTask = RootCauseManager.ToggleSoftDeletionAsync(model.RootCauseId, model.SoftDeletionToggleValue);
+
+            tasks.Add(toggleSoftDeletionTask);
+        }
+
+        bool[] results = await Task.WhenAll(tasks);
+
+        if (results.Any(result => result))
         {
             await RootCauseManager.SetRootCausesAsync();
 
