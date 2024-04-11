@@ -1,4 +1,4 @@
-namespace IConnet.Presale.Application.RootCauses.Commands;
+namespace IConnet.Presale.Application.RootCauses.Commands.AddRootCause;
 
 public class AddRootCauseCommandHandler : IRequestHandler<AddRootCauseCommand, Result>
 {

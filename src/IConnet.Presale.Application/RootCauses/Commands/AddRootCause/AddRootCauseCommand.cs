@@ -1,6 +1,6 @@
 using IConnet.Presale.Shared.Interfaces.Models.Common;
 
-namespace IConnet.Presale.Application.RootCauses.Commands;
+namespace IConnet.Presale.Application.RootCauses.Commands.AddRootCause;
 
 public class AddRootCauseCommand : IAddRootCauseModel, IRequest<Result>
 {

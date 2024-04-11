@@ -1,4 +1,4 @@
-using IConnet.Presale.Application.RootCauses.Commands;
+using IConnet.Presale.Application.RootCauses.Commands.AddRootCause;
 using IConnet.Presale.Application.RootCauses.Queries;
 using IConnet.Presale.Shared.Contracts.Common;
 
