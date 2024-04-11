@@ -12,9 +12,13 @@ public class SettingsPageBase : ComponentBase
     {
         IsInitialized = false;
 
-        RootCauseSettingModels = await RootCauseManager.GetRootCauseSettingModelsAsync();
+        await ReloadRootCauseAsync();
 
         IsInitialized = true;
     }
 
+    protected async Task ReloadRootCauseAsync()
+    {
+        RootCauseSettingModels = await RootCauseManager.GetRootCauseSettingModelsAsync();
+    }
 }
