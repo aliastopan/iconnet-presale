@@ -19,6 +19,8 @@ public class OptionService
 
     public void PopulateDirectApproval(ICollection<DirectApprovalDto> directApprovalDto)
     {
+        DirectApprovalOptions.Clear();
+
         foreach (var dto in directApprovalDto)
         {
             DirectApprovalOptions.Add(dto.Description);
@@ -27,6 +29,8 @@ public class OptionService
 
     public void PopulateKantorPerwakilanOptions(ICollection<RepresentativeOfficeDto> representativeOfficeDtos)
     {
+        KantorPerwakilanOptions.Clear();
+
         foreach (var dto in representativeOfficeDtos)
         {
             KantorPerwakilanOptions.Add(dto.Perwakilan);
@@ -35,6 +39,8 @@ public class OptionService
 
     public void PopulateRootCauseOptions(ICollection<RootCausesDto> rootCauseDto)
     {
+        RootCauseOptions.Clear();
+
         foreach (var dto in rootCauseDto)
         {
             RootCauseOptions.Add(dto.Cause);
