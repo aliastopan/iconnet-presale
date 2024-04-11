@@ -110,4 +110,29 @@ public class RootCauseManager
         }
     }
 
+    public async Task<bool> ToggleSoftDeletionAsync(Guid rootCauseId, bool isDeleted)
+    {
+        try
+        {
+            var httpResult = await _rootCauseHttpClient.ToggleSoftDeletionAsync(rootCauseId, isDeleted);
+
+            if (httpResult.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, _jsonSerializerOptions);
+                var extension = problemDetails.GetProblemDetailsExtension();
+
+                return false;
+            }
+        }
+        catch (Exception exception)
+        {
+            Log.Fatal("Fatal error occurred: {message}", exception.Message);
+
+            return false;
+        }
+    }
 }

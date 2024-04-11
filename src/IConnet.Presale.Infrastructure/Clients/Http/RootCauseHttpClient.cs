@@ -62,4 +62,31 @@ internal sealed class RootCauseHttpClient : HttpClientBase, IRootCauseHttpClient
             Content = await responseMessage.Content.ReadAsStringAsync()
         };
     }
+
+    public async Task<HttpResult> ToggleSoftDeletionAsync(Guid rootCauseId, bool isDeleted)
+    {
+        var isResponding = await IsHostRespondingAsync();
+        if (!isResponding)
+        {
+            return new HttpResult
+            {
+                IsSuccessStatusCode = false
+            };
+        }
+
+        var request = new ToggleRootCauseSoftDeletionRequest(rootCauseId, isDeleted);
+
+        var jsonBody = JsonSerializer.Serialize(request);
+        var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+        var requestUri = UriEndpoint.RootCauses.ToggleSoftDeletion;
+
+        using var responseMessage = await HttpClient.PostAsync(requestUri, content);
+
+        return new HttpResult
+        {
+            IsSuccessStatusCode = responseMessage.IsSuccessStatusCode,
+            Headers = responseMessage.Headers,
+            Content = await responseMessage.Content.ReadAsStringAsync()
+        };
+    }
 }
