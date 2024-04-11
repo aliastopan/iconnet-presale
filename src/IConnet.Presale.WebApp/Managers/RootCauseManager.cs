@@ -83,4 +83,31 @@ public class RootCauseManager
             return rootCauseSettingModels.AsQueryable();
         }
     }
+
+    public async Task<bool> AddRootCauseAsync(int order, string cause)
+    {
+        try
+        {
+            var httpResult = await _rootCauseHttpClient.AddRootCauseAsync(order, cause);
+
+            if (httpResult.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, _jsonSerializerOptions);
+                var extension = problemDetails.GetProblemDetailsExtension();
+
+                return false;
+            }
+        }
+        catch (Exception exception)
+        {
+            Log.Fatal("Fatal error occurred: {message}", exception.Message);
+
+            return false;
+        }
+    }
+
 }
