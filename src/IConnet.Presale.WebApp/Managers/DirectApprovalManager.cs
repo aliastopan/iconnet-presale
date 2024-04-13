@@ -114,4 +114,30 @@ public class DirectApprovalManager
             return false;
         }
     }
+
+    public async Task<bool> ToggleSoftDeletionAsync(Guid directApprovalId, bool isDeleted)
+    {
+        try
+        {
+            var httpResult = await _directApprovalHttpClient.ToggleSoftDeletionAsync(directApprovalId, isDeleted);
+
+            if (httpResult.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, _jsonSerializerOptions);
+                var extension = problemDetails.GetProblemDetailsExtension();
+
+                return false;
+            }
+        }
+        catch (Exception exception)
+        {
+            Log.Fatal("Fatal error occurred: {message}", exception.Message);
+
+            return false;
+        }
+    }
 }
