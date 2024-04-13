@@ -24,4 +24,18 @@ internal sealed class ChatTemplateHandler : IChatTemplateHandler
 
         return Result<ICollection<ChatTemplate>>.Ok(chatTemplates);
     }
+
+    public Result<ICollection<ChatTemplate>> TryGetAvailableChatTemplates()
+    {
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        var chatTemplates = dbContext.GetAvailableChatTemplates();
+        if (chatTemplates.Count == 0)
+        {
+            var error = new Error($"No Chat Template were found.", ErrorSeverity.Warning);
+            return Result<ICollection<ChatTemplate>>.NotFound(error);
+        }
+
+        return Result<ICollection<ChatTemplate>>.Ok(chatTemplates);
+    }
 }

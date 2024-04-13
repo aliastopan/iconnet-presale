@@ -11,7 +11,7 @@ internal static class ChatTemplateRepositoryExtensions
             .ToList();
     }
 
-    public static List<ChatTemplate> GetAllChatTemplates(this AppDbContext context)
+    public static List<ChatTemplate> GetAvailableChatTemplates(this AppDbContext context)
     {
         return context.ChatTemplates.ToList();
     }
