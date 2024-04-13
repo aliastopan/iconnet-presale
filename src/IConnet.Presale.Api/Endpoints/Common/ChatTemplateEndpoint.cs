@@ -1,4 +1,5 @@
 using IConnet.Presale.Application.ChatTemplates.Queries.GetChatTemplates;
+using IConnet.Presale.Application.ChatTemplates.Queries.GetAvailableChatTemplates;
 
 namespace IConnet.Presale.Api.Endpoints.Common;
 
@@ -13,6 +14,26 @@ public class ChatTemplateEndpoint : IEndpointDefinition
         [FromRoute] string templateName, HttpContext httpContext)
     {
         var query = new GetChatTemplatesQuery(templateName);
+        var result = await sender.Send(query);
+
+        return result.Match(
+            value =>
+            {
+                return Results.Ok(value);
+            },
+            fault => fault.AsProblem(new ProblemDetails
+            {
+                Title = "Chat Templates Query Failed",
+                Instance = httpContext.Request.Path
+            },
+            context: httpContext));;
+    }
+
+
+    internal async Task<IResult> GetAvailableChatTemplates([FromServices] ISender sender,
+        HttpContext httpContext)
+    {
+        var query = new GetAvailableChatTemplatesQuery();
         var result = await sender.Send(query);
 
         return result.Match(
