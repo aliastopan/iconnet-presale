@@ -78,7 +78,7 @@ internal sealed class DirectApprovalHttpClient : HttpClientBase, IDirectApproval
 
         var jsonBody = JsonSerializer.Serialize(request);
         var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
-        var requestUri = UriEndpoint.RootCauses.ToggleSoftDeletion;
+        var requestUri = UriEndpoint.DirectApproval.ToggleSoftDeletion;
 
         using var responseMessage = await HttpClient.PostAsync(requestUri, content);
 
