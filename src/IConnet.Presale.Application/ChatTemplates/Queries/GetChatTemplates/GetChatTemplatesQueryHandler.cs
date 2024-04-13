@@ -1,6 +1,6 @@
 using IConnet.Presale.Shared.Contracts.Common;
 
-namespace IConnet.Presale.Application.ChatTemplates.Queries;
+namespace IConnet.Presale.Application.ChatTemplates.Queries.GetChatTemplates;
 
 public class GetChatTemplatesQueryHandler : IRequestHandler<GetChatTemplatesQuery, Result<GetChatTemplatesQueryResponse>>
 {
