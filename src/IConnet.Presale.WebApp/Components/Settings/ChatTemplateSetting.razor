@@ -1,0 +1,16 @@
+
+        <div class="direct-approval-settings">
+        <FluentDataGrid Items="@ModelAvailable"
+            TGridItem="string"
+            Virtualize="true"
+            ItemSize="32"
+            GridTemplateColumns="@GridTemplateCols">
+
+            <TemplateColumn Title="CHAT TEMPLATE" Style="@GetWidthStyle(350)">
+                <div class="">
+                    @context
+                </div>
+            </TemplateColumn>
+
+        </FluentDataGrid>
+    </div>
