@@ -31,6 +31,15 @@
                     OnDirectApprovalAdded="ReloadDirectApprovalAsync"/>
             </Content>
         </FluentTab>
+        <FluentTab Id="tab-3">
+            <Header>
+                <FluentIcon Value="@(new Icons.Regular.Size16.Chat())" Color="@Color.Accent"/>
+                Chat Templates
+            </Header>
+            <Content>
+                <ChatTemplateSetting ModelAvailable="@ChatTemplateAvailable"/>
+            </Content>
+        </FluentTab>
     </FluentTabs>
 }
 else
