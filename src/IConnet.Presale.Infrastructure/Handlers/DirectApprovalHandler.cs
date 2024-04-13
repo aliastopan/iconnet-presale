@@ -24,4 +24,32 @@ internal sealed class DirectApprovalHandler : IDirectApprovalHandler
 
         return Result<ICollection<DirectApproval>>.Ok(directApprovals);
     }
+
+    public async Task AddDirectApprovalAsync(int order, string description)
+    {
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        var directApproval = new DirectApproval(order, description);
+
+        dbContext.DirectApprovals.Add(directApproval);
+        await dbContext.SaveChangesAsync();
+    }
+
+    public async Task<Result> ToggleSoftDeletionAsync(Guid directApprovalId, bool isDeleted)
+    {
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        var directApproval = dbContext.GetDirectApproval(directApprovalId);
+
+        if (directApproval is null)
+        {
+            var error = new Error("Direct Approval not found.", ErrorSeverity.Warning);
+            return Result.NotFound(error);
+        }
+
+        directApproval.IsDeleted = isDeleted;
+        await dbContext.SaveChangesAsync();
+
+        return Result.Ok();
+    }
 }
