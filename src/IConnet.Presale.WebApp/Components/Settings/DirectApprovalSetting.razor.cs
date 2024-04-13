@@ -37,7 +37,7 @@ public partial class DirectApprovalSetting
         IsLoading = true;
 
         int highestOrder = Models.Max(x => x.Order) + 1;
-        string directApproval = NewDirectApproval.CapitalizeFirstLetterOfEachWord();
+        string directApproval = NewDirectApproval.ToUpper();
 
         bool isSuccess = await DirectApprovalManager.AddDirectApprovalAsync(highestOrder, directApproval);
 
@@ -49,8 +49,9 @@ public partial class DirectApprovalSetting
             {
                 await OnDirectApprovalAdded.InvokeAsync();
             }
-        }
 
+            NewDirectApproval = string.Empty;
+        }
 
         IsLoading = false;
     }

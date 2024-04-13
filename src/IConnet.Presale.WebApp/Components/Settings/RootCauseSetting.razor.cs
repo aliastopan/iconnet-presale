@@ -49,6 +49,8 @@ public partial class RootCauseSetting
             {
                 await OnRootCauseAdded.InvokeAsync();
             }
+
+            NewRootCause = string.Empty;
         }
 
         IsLoading = false;
