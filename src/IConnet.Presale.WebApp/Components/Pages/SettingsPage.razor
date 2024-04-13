@@ -10,7 +10,7 @@
 {
     <span class="page-description">Configure App Settings</span>
 
-    <FluentTabs ActiveTabId="tab-1">
+    <FluentTabs @bind-ActiveTabId="@_activeTabId">
         <FluentTab Id="tab-1">
             <Header>
                 <FluentIcon Value="@(new Icons.Regular.Size16.DocumentError())" Color="@Color.Accent"/>
@@ -21,6 +21,16 @@
                     OnRootCauseAdded="ReloadRootCauseAsync"/>
             </Content>
         </FluentTab>
+        <FluentTab Id="tab-2">
+            <Header>
+                <FluentIcon Value="@(new Icons.Regular.Size16.DocumentCheckmark())" Color="@Color.Accent"/>
+                Direct Approval
+            </Header>
+            <Content>
+                <DirectApprovalSetting Models="DirectApprovalSettingModels"
+                    OnDirectApprovalAdded="ReloadDirectApprovalAsync"/>
+            </Content>
+        </FluentTab>
     </FluentTabs>
 }
 else
@@ -29,4 +39,9 @@ else
         <span class="px-1">Loading</span>
         <FluentProgressRing style="width: 16px; height: 16px;"></FluentProgressRing>
     </div>
+}
+
+@code
+{
+    private string _activeTabId = "tab-1";
 }
