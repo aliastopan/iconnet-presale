@@ -346,6 +346,11 @@ input:invalid::part(root) {
     width: 500px;
 }
 
+.direct-approval-settings{
+    width: 500px;
+}
+
+
 .root-cause-setting-options{
     border-top: 1px solid #e6e6e6;
     border-bottom: 1px solid #e6e6e6;
