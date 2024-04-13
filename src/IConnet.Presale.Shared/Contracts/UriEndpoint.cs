@@ -29,6 +29,8 @@ public static class UriEndpoint
     public static class DirectApproval
     {
         public const string GetDirectApprovals = "/api/direct-approvals/get";
+        public const string AddDirectApproval = "/api/direct-approval/add";
+        public const string ToggleSoftDeletion = "/api/direct-approval/toggle-soft-deletion";
     }
 
     public static class RepresentativeOffice
