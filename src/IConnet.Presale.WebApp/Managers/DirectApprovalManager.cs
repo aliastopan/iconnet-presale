@@ -88,4 +88,30 @@ public class DirectApprovalManager
             return directApprovalSettingModels.AsQueryable();
         }
     }
+
+    public async Task<bool> AddDirectApprovalAsync(int order, string description)
+    {
+        try
+        {
+            var httpResult = await _directApprovalHttpClient.AddDirectApprovalAsync(order, description);
+
+            if (httpResult.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, _jsonSerializerOptions);
+                var extension = problemDetails.GetProblemDetailsExtension();
+
+                return false;
+            }
+        }
+        catch (Exception exception)
+        {
+            Log.Fatal("Fatal error occurred: {message}", exception.Message);
+
+            return false;
+        }
+    }
 }
