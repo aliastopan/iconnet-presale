@@ -14,6 +14,6 @@ public partial class ChatTemplateSetting
 
     private string GetGridTemplateCols()
     {
-        return $"{350}px";
+        return $"{150}px";
     }
 }
