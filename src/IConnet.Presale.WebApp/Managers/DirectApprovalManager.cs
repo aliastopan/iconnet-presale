@@ -8,12 +8,18 @@ public class DirectApprovalManager
 {
     private readonly IDirectApprovalHttpClient _directApprovalHttpClient;
     private readonly OptionService _optionService;
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
 
     public DirectApprovalManager(IDirectApprovalHttpClient directApprovalHttpClient,
         OptionService optionService)
     {
         _directApprovalHttpClient = directApprovalHttpClient;
         _optionService = optionService;
+
+        _jsonSerializerOptions = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
     }
 
     public async Task SetDirectApprovalsAsync()
@@ -45,6 +51,41 @@ public class DirectApprovalManager
         {
             Log.Fatal("Fatal error occurred: {message}", exception.Message);
             Environment.Exit(1);
+        }
+    }
+
+    public async Task<IQueryable<DirectApprovalSettingModel>> GetDirectApprovalSettingModelsAsync()
+    {
+        List<DirectApprovalSettingModel> directApprovalSettingModels = [];
+
+        try
+        {
+            var httpResult = await _directApprovalHttpClient.GetDirectApprovalsAsync();
+
+            if (httpResult.IsSuccessStatusCode)
+            {
+                var response = JsonSerializer.Deserialize<GetDirectApprovalsQueryResponse>(httpResult.Content, _jsonSerializerOptions);
+                ICollection<DirectApprovalDto> directApprovalDtos = response!.DirectApprovalDto;
+
+                foreach (var dto in directApprovalDtos)
+                {
+                    directApprovalSettingModels.Add(new DirectApprovalSettingModel(dto));
+                }
+            }
+            else
+            {
+                var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, _jsonSerializerOptions);
+                var extension = problemDetails.GetProblemDetailsExtension();
+                Log.Warning("Error {message}: ", extension.Errors.First().Message);
+            }
+
+            return directApprovalSettingModels.AsQueryable();
+        }
+        catch (Exception exception)
+        {
+            Log.Fatal("Fatal error occurred: {message}", exception.Message);
+
+            return directApprovalSettingModels.AsQueryable();
         }
     }
 }
