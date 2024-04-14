@@ -17,6 +17,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
 
     private bool _isInitialized = false;
 
+    protected string ActiveTabId { get; set; } = "tab-1";
     protected PresaleDataBoundaryFilter PresaleDataBoundaryFilter { get; set; } = default!;
     protected string UpperBoundarySectionCss => SessionService.FilterPreference.ShowDashboardBoundary ? "enable" : "filter-section-disable";
 
@@ -94,6 +95,21 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         this.StateHasChanged();
     }
 
+    public void OnActiveTabIdChanged(string tabId)
+    {
+        ActiveTabId = tabId;
+        SessionService.FilterPreference.RefreshBoundaryFilters(ActiveTabId);
+
+        LogSwitch.Debug("Changing Tab: {0}", ActiveTabId);
+    }
+
+    public void OnTabChanged(FluentTab _)
+    {
+        // SessionService.FilterPreference.RefreshBoundaryFilters();
+
+        // this.StateHasChanged();
+    }
+
     protected override void OnInitialized()
     {
         var currentDate = DateTimeService.DateTimeOffsetNow.DateTime.Date;
@@ -101,6 +117,15 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
 
         SessionService.FilterPreference.SetBoundaryDateTimeDefault(currentDate);
         SessionService.FilterPreference.SetRootCauseExclusion(rootCauses);
+
+        SessionService.FilterPreference.BoundaryFilters.Clear();
+        SessionService.FilterPreference.BoundaryFilters.Add("tab-1", BoundaryFilterMode.Monthly);
+        SessionService.FilterPreference.BoundaryFilters.Add("tab-2", BoundaryFilterMode.Monthly);
+        SessionService.FilterPreference.BoundaryFilters.Add("tab-3", BoundaryFilterMode.Monthly);
+        SessionService.FilterPreference.BoundaryFilters.Add("tab-4", BoundaryFilterMode.Monthly);
+        SessionService.FilterPreference.BoundaryFilters.Add("tab-5", BoundaryFilterMode.Monthly);
+        SessionService.FilterPreference.BoundaryFilters.Add("tab-6", BoundaryFilterMode.Monthly);
+        SessionService.FilterPreference.BoundaryFilters.Add("tab-7", BoundaryFilterMode.Monthly);
 
         TabNavigationManager.SelectTab(this);
     }

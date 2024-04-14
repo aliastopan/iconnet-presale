@@ -19,9 +19,34 @@ public class FilterPreference
     public DateTime MiddleBoundaryDateTimeMax { get; set; } = DateTime.Now;
     public DateTime LowerBoundaryDateTime { get; set; } = DateTime.Now;
 
+    public Dictionary<string, BoundaryFilterMode> BoundaryFilters { get; set; } = [];
     public bool IsMonthlySelected { get; set; } = false;
     public bool IsWeeklySelected { get; set; } = false;
     public bool IsDailySelected { get; set; } = false;
+
+    public void RefreshBoundaryFilters(string activeTabId)
+    {
+        LogSwitch.Debug("Refreshing Boundary Filters on {0}", activeTabId);
+
+        switch (BoundaryFilters[activeTabId])
+        {
+            case BoundaryFilterMode.Monthly:
+                ToggleToMonthlyView();
+                break;
+            case BoundaryFilterMode.Weekly:
+                ToggleToWeeklyView();
+                break;
+            case BoundaryFilterMode.Daily:
+                ToggleToDailyView();
+                break;
+            default:
+                break;
+        }
+
+        LogSwitch.Debug("Monthly {0}", IsMonthlySelected);
+        LogSwitch.Debug("WeekLy {0}", IsWeeklySelected);
+        LogSwitch.Debug("Daily {0}", IsDailySelected);
+    }
 
     public RootCauseExclusionModel RootCauseExclusion { get; set; } = default!;
 

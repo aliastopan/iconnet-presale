@@ -8,8 +8,10 @@ public class ReportTabulationStackBase : ComponentBase
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] protected SessionService SessionService { get; set; } = default!;
 
+    [Parameter] public string TabulationId { get; set; } = default!;
     [Parameter] public EventCallback OnMiddleBoundaryChanged { get; set; }
     [Parameter] public EventCallback OnLowerBoundaryChanged { get; set; }
+    [Parameter] public EventCallback PageRefresh { get; set; }
 
     private CultureInfo _cultureInfo = new CultureInfo("id-ID");
 
@@ -67,31 +69,55 @@ public class ReportTabulationStackBase : ComponentBase
         return lowerBoundary.ToString("dd MMM yyyy", _cultureInfo);
     }
 
-    protected void ToggleToMonthlyView(MouseEventArgs _)
+    protected async Task ToggleToMonthlyView(MouseEventArgs _)
     {
         IsMonthlySelected = true;
         IsWeeklySelected = false;
         IsDailySelected = false;
 
         SessionService.FilterPreference.ToggleToMonthlyView();
+        SessionService.FilterPreference.BoundaryFilters[TabulationId] = BoundaryFilterMode.Monthly;
+
+        LogSwitch.Debug("Monthly on {0}", TabulationId);
+
+        if (PageRefresh.HasDelegate)
+        {
+            await PageRefresh.InvokeAsync();
+        }
     }
 
-    protected void ToggleToWeeklyView(MouseEventArgs _)
+    protected async Task ToggleToWeeklyView(MouseEventArgs _)
     {
         IsMonthlySelected = false;
         IsWeeklySelected = true;
         IsDailySelected = false;
 
         SessionService.FilterPreference.ToggleToWeeklyView();
+        SessionService.FilterPreference.BoundaryFilters[TabulationId] = BoundaryFilterMode.Weekly;
+
+        LogSwitch.Debug("Weekly on {0}", TabulationId);
+
+        if (PageRefresh.HasDelegate)
+        {
+            await PageRefresh.InvokeAsync();
+        }
     }
 
-    protected void ToggleToDailyView(MouseEventArgs _)
+    protected async Task ToggleToDailyView(MouseEventArgs _)
     {
         IsMonthlySelected = false;
         IsWeeklySelected = false;
         IsDailySelected = true;
 
         SessionService.FilterPreference.ToggleToDailyView();
+        SessionService.FilterPreference.BoundaryFilters[TabulationId] = BoundaryFilterMode.Daily;
+
+        LogSwitch.Debug("Daily on {0}", TabulationId);
+
+        if (PageRefresh.HasDelegate)
+        {
+            await PageRefresh.InvokeAsync();
+        }
     }
 
     protected string CurrentWeekIndicator()

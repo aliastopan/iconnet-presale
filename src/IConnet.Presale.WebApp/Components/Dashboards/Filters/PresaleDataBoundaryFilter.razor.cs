@@ -19,6 +19,25 @@ public partial class PresaleDataBoundaryFilter : ComponentBase
 
     public bool IsReloadRequired => !UpperBoundaryUpdateCheck();
 
+    protected bool IsMonthlyView => IsMonthlySelected();
+    protected bool IsWeeklyView => IsWeeklySelected();
+    protected bool IsDailyView => IsDailySelected();
+
+    public bool IsMonthlySelected()
+    {
+        return SessionService.FilterPreference.IsMonthlySelected;
+    }
+
+    public bool IsWeeklySelected()
+    {
+        return SessionService.FilterPreference.IsWeeklySelected;
+    }
+
+    public bool IsDailySelected()
+    {
+        return SessionService.FilterPreference.IsDailySelected;
+    }
+
     public string FilterDateTimeRangeLabel => GetDaysRangeLabel();
 
     protected override void OnInitialized()

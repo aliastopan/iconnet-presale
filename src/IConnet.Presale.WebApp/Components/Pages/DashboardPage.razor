@@ -31,7 +31,9 @@ else
                 OnReload="ReloadUpperBoundaryAsync"/>
         </div>
 
-        <FluentTabs @bind-ActiveTabId="@_activeTabId">
+        <FluentTabs ActiveTabId="@ActiveTabId"
+            ActiveTabIdChanged="OnActiveTabIdChanged"
+            OnTabChange="OnTabChanged">
             <FluentTab Id="tab-1">
                 <Header>
                     <FluentIcon Value="@(new Icons.Regular.Size16.DocumentCheckmark())" Color="@Color.Accent"/>
@@ -39,11 +41,13 @@ else
                 </Header>
                 <Content>
                     <ApprovalStatusTabulationStack
+                        TabulationId="tab-1"
                         UpperBoundaryModels="@UpperBoundaryApprovalStatusReports"
                         MiddleBoundaryModels="@MiddleBoundaryApprovalStatusReports"
                         LowerBoundaryModels="@LowerBoundaryApprovalStatusReports"
                         OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
-                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"/>
+                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"
+                        PageRefresh="@(this.StateHasChanged)"/>
                 </Content>
             </FluentTab>
             <FluentTab Id="tab-2">
@@ -53,11 +57,13 @@ else
                 </Header>
                 <Content>
                     <RootCauseTabulationStack
+                        TabulationId="tab-2"
                         UpperBoundaryModels="@UpperBoundaryCauseReports"
                         MiddleBoundaryModels="@MiddleBoundaryRootCauseReports"
                         LowerBoundaryModels="@LowerRootCauseReports"
                         OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
                         OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"
+                        PageRefresh="@(this.StateHasChanged)"
                         OnExclusionFilter="ApplyFilters"/>
                 </Content>
             </FluentTab>
@@ -68,11 +74,13 @@ else
                 </Header>
                 <Content>
                     <ImportAgingTabulationStack
+                        TabulationId="tab-3"
                         UpperBoundaryModels="@UpperBoundaryImportAgingReports"
                         MiddleBoundaryModels="@MiddleBoundaryImportAgingReports"
                         LowerBoundaryModels="@LowerBoundaryImportAgingReports"
                         OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
-                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"/>
+                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"
+                        PageRefresh="@(this.StateHasChanged)"/>
                 </Content>
             </FluentTab>
             <FluentTab Id="tab-4">
@@ -82,11 +90,13 @@ else
                 </Header>
                 <Content>
                     <VerificationAgingTabulationStack
+                        TabulationId="tab-4"
                         UpperBoundaryModels="@UpperBoundaryVerificationAgingReports"
                         MiddleBoundaryModels="@MiddleBoundaryVerificationAgingReports"
                         LowerBoundaryModels="@LowerBoundaryVerificationAgingReports"
                         OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
-                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"/>
+                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"
+                        PageRefresh="@(this.StateHasChanged)"/>
                 </Content>
             </FluentTab>
             <FluentTab Id="tab-5">
@@ -96,11 +106,13 @@ else
                 </Header>
                 <Content>
                     <ChatCallMulaiAgingTabulationStack
+                        TabulationId="tab-5"
                         UpperBoundaryModels="@UpperBoundaryChatCallMulaiAgingReports"
                         MiddleBoundaryModels="@MiddleBoundaryChatCallMulaiAgingReports"
                         LowerBoundaryModels="@LowerBoundaryChatCallMulaiAgingReports"
                         OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
-                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"/>
+                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"
+                        PageRefresh="@(this.StateHasChanged)"/>
                 </Content>
             </FluentTab>
             <FluentTab Id="tab-6">
@@ -110,11 +122,13 @@ else
                 </Header>
                 <Content>
                     <ChatCallResponsAgingTabulationStack
+                        TabulationId="tab-6"
                         UpperBoundaryModels="@UpperBoundaryChatCallResponsAgingReports"
                         MiddleBoundaryModels="@MiddleBoundaryChatCallResponsAgingReports"
                         LowerBoundaryModels="@LowerBoundaryChatCallResponsAgingReports"
                         OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
-                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"/>
+                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"
+                        PageRefresh="@(this.StateHasChanged)"/>
                 </Content>
             </FluentTab>
             <FluentTab Id="tab-7">
@@ -124,18 +138,15 @@ else
                 </Header>
                 <Content>
                     <ApprovalAgingTabulationStack
+                        TabulationId="tab-7"
                         UpperBoundaryModels="@UpperBoundaryApprovalAgingReportModels"
                         MiddleBoundaryModels="@MiddleBoundaryApprovalAgingReportModels"
                         LowerBoundaryModels="@LowerBoundaryApprovalAgingReportModels"
                         OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
-                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"/>
+                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"
+                        PageRefresh="@(this.StateHasChanged)"/>
                 </Content>
             </FluentTab>
         </FluentTabs>
     }
 </div>
-
-@code
-{
-    private string _activeTabId = "tab-1";
-}

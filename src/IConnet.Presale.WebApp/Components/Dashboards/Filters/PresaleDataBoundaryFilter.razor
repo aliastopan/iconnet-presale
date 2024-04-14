@@ -7,27 +7,41 @@
         VerticalAlignment="VerticalAlignment.Bottom">
 
         <div class="filter-date">
-            <div class="date-picker">
-                <FluentDatePicker style="width: 135px;"
-                    Label="Tgl. Permohonan"
-                    Value="@NullableUpperBoundaryDateTimeMin"
-                    ValueChanged="OnUpperBoundaryDateMinChangedAsync"/>
-            </div>
-            <div class="date-until">
-                <span>s.d</span>
-            </div>
-            <div class="date-picker">
-                <FluentDatePicker style="width: 135px;"
-                    Label="@FilterDateTimeRangeLabel"
-                    Value="@NullableUpperBoundaryDateTimeMax"
-                    ValueChanged="OnUpperBoundaryDateMaxChangedAsync"/>
-            </div>
-            <div style="margin-left: 8px;">
-                <FluentButton BackgroundColor="crimson"
-                    Color="white"
-                    Disabled="@IsReloadRequired"
-                    OnClick="ReloadAsync">Reload</FluentButton>
-            </div>
+            @if (IsMonthlyView)
+            {
+                <div class="date-picker">
+                    <FluentDatePicker style="width: 135px;"
+                        Label="Tgl. Permohonan"
+                        Value="@NullableUpperBoundaryDateTimeMin"
+                        ValueChanged="OnUpperBoundaryDateMinChangedAsync"/>
+                </div>
+                <div class="date-until">
+                    <span>s.d</span>
+                </div>
+                <div class="date-picker">
+                    <FluentDatePicker style="width: 135px;"
+                        Label="@FilterDateTimeRangeLabel"
+                        Value="@NullableUpperBoundaryDateTimeMax"
+                        ValueChanged="OnUpperBoundaryDateMaxChangedAsync"/>
+                </div>
+                <div style="margin-left: 8px;">
+                    <FluentButton BackgroundColor="crimson"
+                        Color="white"
+                        Disabled="@IsReloadRequired"
+                        OnClick="ReloadAsync">Reload</FluentButton>
+                </div>
+            }
+
+            @if (IsWeeklyView)
+            {
+                <div>Middle Boundary</div>
+            }
+
+            @if (IsDailyView)
+            {
+                <div>Lower Boundary</div>
+            }
+
         </div>
 
     </FluentStack>
