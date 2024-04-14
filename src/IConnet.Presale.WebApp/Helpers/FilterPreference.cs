@@ -19,6 +19,10 @@ public class FilterPreference
     public DateTime MiddleBoundaryDateTimeMax { get; set; } = DateTime.Now;
     public DateTime LowerBoundaryDateTime { get; set; } = DateTime.Now;
 
+    public bool IsMonthlySelected { get; set; } = false;
+    public bool IsWeeklySelected { get; set; } = false;
+    public bool IsDailySelected { get; set; } = false;
+
     public RootCauseExclusionModel RootCauseExclusion { get; set; } = default!;
 
     public void ToggleFilters()
@@ -56,5 +60,26 @@ public class FilterPreference
         }
 
         RootCauseExclusion = new RootCauseExclusionModel(rootCauses);
+    }
+
+    public void ToggleToMonthlyView()
+    {
+        IsMonthlySelected = true;
+        IsWeeklySelected = false;
+        IsDailySelected = false;
+    }
+
+    public void ToggleToWeeklyView()
+    {
+        IsMonthlySelected = false;
+        IsWeeklySelected = true;
+        IsDailySelected = false;
+    }
+
+    public void ToggleToDailyView()
+    {
+        IsMonthlySelected = false;
+        IsWeeklySelected = false;
+        IsDailySelected = true;
     }
 }

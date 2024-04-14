@@ -28,6 +28,8 @@ public class ReportTabulationStackBase : ComponentBase
     protected override void OnInitialized()
     {
         IsMonthlySelected = true;
+
+        SessionService.FilterPreference.ToggleToMonthlyView();
     }
 
     protected string GetUpperBoundaryDateMin()
@@ -70,6 +72,8 @@ public class ReportTabulationStackBase : ComponentBase
         IsMonthlySelected = true;
         IsWeeklySelected = false;
         IsDailySelected = false;
+
+        SessionService.FilterPreference.ToggleToMonthlyView();
     }
 
     protected void ToggleToWeeklyView(MouseEventArgs _)
@@ -77,6 +81,8 @@ public class ReportTabulationStackBase : ComponentBase
         IsMonthlySelected = false;
         IsWeeklySelected = true;
         IsDailySelected = false;
+
+        SessionService.FilterPreference.ToggleToWeeklyView();
     }
 
     protected void ToggleToDailyView(MouseEventArgs _)
@@ -84,6 +90,8 @@ public class ReportTabulationStackBase : ComponentBase
         IsMonthlySelected = false;
         IsWeeklySelected = false;
         IsDailySelected = true;
+
+        SessionService.FilterPreference.ToggleToDailyView();
     }
 
     protected string CurrentWeekIndicator()
