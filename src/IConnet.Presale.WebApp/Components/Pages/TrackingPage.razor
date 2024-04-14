@@ -4,14 +4,11 @@
 
 <PageTitle>Tracking</PageTitle>
 
-<FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Tracking Opportunity</FluentLabel>
-<span class="page-description">Lacak status permohonan</span>
-
-<FluentStack Orientation="Orientation.Horizontal"
-    HorizontalAlignment="HorizontalAlignment.Start"
-    VerticalAlignment="VerticalAlignment.Top">
-
+<div class="tracking-opportunity-stack">
     <div class="tracking-opportunity-left">
+        <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Tracking Opportunity</FluentLabel>
+        <span class="page-description">Lacak status permohonan</span>
+
         <div class="searchbar-stack">
             <FluentSearch
                 Value=@IdPermohonan
@@ -306,10 +303,8 @@
         }
     </div>
 
-    <FluentSpacer />
-
     <div class="tracking-opportunity-right">
-        <div class="tracker-container" style="margin-top: -60px">
+        <div class="tracker-container" style="">
             @if (WorkPaper is not null)
             {
                 <WorkPaperProgressTimeline WorkPaper="@WorkPaper"/>
@@ -325,7 +320,7 @@
             }
         </div>
     </div>
+</div>
 
-</FluentStack>
 
 
