@@ -37,7 +37,7 @@
         <div style="@WeeklyToggleDisplayStyle">
             <h5 class="app-font">Laporan Aging Verifkasi <span class="">@CurrentWeekIndicator()</span></h5>
             <div class="d-flex flex-row">
-                <MiddleBoundaryFilter OnMiddleBoundaryChanged="@OnMiddleBoundaryChanged"/>
+                @* <MiddleBoundaryFilter OnMiddleBoundaryChanged="@OnMiddleBoundaryChanged"/> *@
                 <FluentCheckbox style="margin-left: 8px;"
                     @bind-Value="@IsPageView"
                     Label="Page View"/>
@@ -53,7 +53,7 @@
         <div style="@DailyToggleDisplayStyle">
             <h5 class="app-font">Laporan Aging Verifkasi <span class="">@TodayIndicator()</span></h5>
             <div class="d-flex flex-row">
-                <LowerBoundaryFilter OnLowerBoundaryChanged="@OnLowerBoundaryChanged"/>
+                @* <LowerBoundaryFilter OnLowerBoundaryChanged="@OnLowerBoundaryChanged"/> *@
                 <FluentCheckbox style="margin-left: 8px;"
                     @bind-Value="@IsPageView"
                     Label="Page View"/>
