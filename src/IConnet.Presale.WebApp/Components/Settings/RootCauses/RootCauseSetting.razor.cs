@@ -1,4 +1,4 @@
-namespace IConnet.Presale.WebApp.Components.Settings;
+namespace IConnet.Presale.WebApp.Components.Settings.RootCauses;
 
 public partial class RootCauseSetting
 {
