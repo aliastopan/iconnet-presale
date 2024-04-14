@@ -1,6 +1,6 @@
 using IConnet.Presale.WebApp.Models.Presales.Reports;
 
-namespace IConnet.Presale.WebApp.Components.Dashboards;
+namespace IConnet.Presale.WebApp.Components.Dashboards.Stacks;
 
 public class ApprovalStatusTabulationStackBase : ReportTabulationStackBase
 {
