@@ -1,3 +1,12 @@
+## v2.4.0
+- Add: Root Cause setting page
+- Add: Add new Root Cause
+- Add: Toggle enable/disable Root Cause
+- Add: Direct Approval setting page
+- Add: Add new Direct Approval
+- Add: Toggle enable/disable Direct Approval
+- Add: Chat Template setting page
+
 ## v2.3.0
 - Fix: Weekly presale data filter
 - Change (minor): Dashboard layout
