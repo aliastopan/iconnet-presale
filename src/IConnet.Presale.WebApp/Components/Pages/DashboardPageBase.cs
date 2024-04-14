@@ -103,18 +103,12 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         LogSwitch.Debug("Changing Tab: {0}", ActiveTabId);
     }
 
-    public void OnTabChanged(FluentTab _)
-    {
-        // SessionService.FilterPreference.RefreshBoundaryFilters();
-
-        // this.StateHasChanged();
-    }
-
     protected override void OnInitialized()
     {
         var currentDate = DateTimeService.DateTimeOffsetNow.DateTime.Date;
         var rootCauses = OptionService.RootCauseOptions;
 
+        SessionService.FilterPreference.ToggleToMonthlyView();
         SessionService.FilterPreference.SetBoundaryDateTimeDefault(currentDate);
         SessionService.FilterPreference.SetRootCauseExclusion(rootCauses);
 
