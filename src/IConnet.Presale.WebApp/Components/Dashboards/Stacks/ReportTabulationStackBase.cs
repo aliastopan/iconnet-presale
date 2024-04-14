@@ -1,7 +1,7 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Components.Web;
 
-namespace IConnet.Presale.WebApp.Components.Dashboards;
+namespace IConnet.Presale.WebApp.Components.Dashboards.Stacks;
 
 public class ReportTabulationStackBase : ComponentBase
 {
