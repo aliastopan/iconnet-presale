@@ -9,8 +9,6 @@ public class ReportTabulationStackBase : ComponentBase
     [Inject] protected SessionService SessionService { get; set; } = default!;
 
     [Parameter] public string TabulationId { get; set; } = default!;
-    [Parameter] public EventCallback OnMiddleBoundaryChanged { get; set; }
-    [Parameter] public EventCallback OnLowerBoundaryChanged { get; set; }
     [Parameter] public EventCallback PageRefresh { get; set; }
 
     private CultureInfo _cultureInfo = new CultureInfo("id-ID");

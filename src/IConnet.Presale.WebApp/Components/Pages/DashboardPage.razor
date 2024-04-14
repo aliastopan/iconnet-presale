@@ -7,7 +7,7 @@
 @if (UpperBoundaryPresaleData is not null)
 {
     <div class="d-flex flex-row align-items-center">
-        <span  span class="page-description">Dashboard Versi 2.0 (WIP)</span>
+        <span  span class="page-description">Dashboard Versi 3.0 (WIP)</span>
         <div class="filter-toggle">
             <FluentButton IconEnd="@(new Icons.Filled.Size20.Grid())"
                 OnClick="@SessionService.FilterPreference.ToggleDashboardBoundary"/>
@@ -47,8 +47,6 @@ else
                         UpperBoundaryModels="@UpperBoundaryApprovalStatusReports"
                         MiddleBoundaryModels="@MiddleBoundaryApprovalStatusReports"
                         LowerBoundaryModels="@LowerBoundaryApprovalStatusReports"
-                        OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
-                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"
                         PageRefresh="@(this.StateHasChanged)"/>
                 </Content>
             </FluentTab>
@@ -63,8 +61,6 @@ else
                         UpperBoundaryModels="@UpperBoundaryCauseReports"
                         MiddleBoundaryModels="@MiddleBoundaryRootCauseReports"
                         LowerBoundaryModels="@LowerRootCauseReports"
-                        OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
-                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"
                         PageRefresh="@(this.StateHasChanged)"
                         OnExclusionFilter="ApplyFilters"/>
                 </Content>
@@ -80,8 +76,6 @@ else
                         UpperBoundaryModels="@UpperBoundaryImportAgingReports"
                         MiddleBoundaryModels="@MiddleBoundaryImportAgingReports"
                         LowerBoundaryModels="@LowerBoundaryImportAgingReports"
-                        OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
-                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"
                         PageRefresh="@(this.StateHasChanged)"/>
                 </Content>
             </FluentTab>
@@ -96,8 +90,6 @@ else
                         UpperBoundaryModels="@UpperBoundaryVerificationAgingReports"
                         MiddleBoundaryModels="@MiddleBoundaryVerificationAgingReports"
                         LowerBoundaryModels="@LowerBoundaryVerificationAgingReports"
-                        OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
-                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"
                         PageRefresh="@(this.StateHasChanged)"/>
                 </Content>
             </FluentTab>
@@ -112,8 +104,6 @@ else
                         UpperBoundaryModels="@UpperBoundaryChatCallMulaiAgingReports"
                         MiddleBoundaryModels="@MiddleBoundaryChatCallMulaiAgingReports"
                         LowerBoundaryModels="@LowerBoundaryChatCallMulaiAgingReports"
-                        OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
-                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"
                         PageRefresh="@(this.StateHasChanged)"/>
                 </Content>
             </FluentTab>
@@ -128,8 +118,6 @@ else
                         UpperBoundaryModels="@UpperBoundaryChatCallResponsAgingReports"
                         MiddleBoundaryModels="@MiddleBoundaryChatCallResponsAgingReports"
                         LowerBoundaryModels="@LowerBoundaryChatCallResponsAgingReports"
-                        OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
-                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"
                         PageRefresh="@(this.StateHasChanged)"/>
                 </Content>
             </FluentTab>
@@ -144,8 +132,6 @@ else
                         UpperBoundaryModels="@UpperBoundaryApprovalAgingReportModels"
                         MiddleBoundaryModels="@MiddleBoundaryApprovalAgingReportModels"
                         LowerBoundaryModels="@LowerBoundaryApprovalAgingReportModels"
-                        OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
-                        OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"
                         PageRefresh="@(this.StateHasChanged)"/>
                 </Content>
             </FluentTab>
