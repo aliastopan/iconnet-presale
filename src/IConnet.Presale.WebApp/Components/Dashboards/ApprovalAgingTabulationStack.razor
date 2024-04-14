@@ -21,7 +21,9 @@
         <div style="@MonthlyToggleDisplayStyle">
             <h5 class="app-font">Laporan Aging Approval <span class="">@CurrentMonthIndicator()</span></h5>
             <div class="d-flex flex-row">
-                <UpperBoundaryFilter />
+                <div style="height: 32px;">
+                    &nbsp
+                </div>
                 <FluentCheckbox style="margin-left: 8px;"
                     @bind-Value="@IsPageView"
                     Label="Page View"/>
