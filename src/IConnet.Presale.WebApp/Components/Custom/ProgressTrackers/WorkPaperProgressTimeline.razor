@@ -1,5 +1,24 @@
 <div class="timeline-stack">
 
+    <div class="@GetInitialTimelineStepCss()">
+        <div class="timeline-header" style="">
+            <div>
+                <FluentIcon Value="@GetInitialHeaderIcon()" />
+                <span class="timeline-title" style="">
+                    PERMOHONAN
+                </span>
+            </div>
+            <div style="margin-left: auto; padding-right: 8px;">
+                @GetInitialTimestamp()
+            </div>
+        </div>
+        <div class="timeline-content">
+            <div>
+                Permohonan di-submit oleh sales agen <span class="fw-bold">@GetSalesAgent()</span>.
+            </div>
+        </div>
+    </div>
+
     <div class="@GetImportTimelineStepCss()">
         <div class="timeline-header" style="">
             <div>

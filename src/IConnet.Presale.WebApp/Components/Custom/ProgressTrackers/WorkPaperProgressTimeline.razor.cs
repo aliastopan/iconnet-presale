@@ -26,6 +26,11 @@ public partial class WorkPaperProgressTimeline : ComponentBase
     protected bool IsExpansion => WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.Expansion;
     protected bool IsApproved => WorkPaper!.ProsesApproval.StatusApproval == ApprovalStatus.Approve;
 
+    protected string GetSalesAgent()
+    {
+        return WorkPaper!.ApprovalOpportunity.Agen.NamaLengkap;
+    }
+
     protected string GetPicImport()
     {
         string username = WorkPaper!.ApprovalOpportunity.SignatureImport.ExtractUsernameFromAlias(out string role);
@@ -114,6 +119,11 @@ public partial class WorkPaperProgressTimeline : ComponentBase
         return WorkPaper!.ProsesApproval.DirectApproval;
     }
 
+    protected string GetInitialTimestamp()
+    {
+        return $"{WorkPaper!.ApprovalOpportunity.TglPermohonan.ToReadableFormat()}";
+    }
+
     protected string GetImportTimestamp()
     {
         string dateTimeString = $"{WorkPaper!.ApprovalOpportunity.SignatureImport.TglAksi.ToReadableFormat()}";
@@ -151,6 +161,16 @@ public partial class WorkPaperProgressTimeline : ComponentBase
         return !(IsAtLeastDoneProcessing && hasSignatureApproval)
             ? ""
             : dateTimeString;
+    }
+
+    protected string GetInitialTimelineStepCss()
+    {
+        if (IsInvalid)
+        {
+            return "timeline-step timeline-step-rejected";
+        }
+
+        return GetTimelineStepCss(IsAtLeastImportUnverified);
     }
 
     protected string GetImportTimelineStepCss()
@@ -216,6 +236,16 @@ public partial class WorkPaperProgressTimeline : ComponentBase
         return atLeastStep
             ? "timeline-step timeline-step-active"
             : "timeline-step timeline-step-pending";
+    }
+
+    protected Icon GetInitialHeaderIcon()
+    {
+        if (IsInvalid)
+        {
+            return new Icons.Filled.Size20.DismissCircle().WithColor("var(--error-red)");
+        }
+
+        return GetHeaderIcon(IsAtLeastImportUnverified);
     }
 
     protected Icon GetImportHeaderIcon()
