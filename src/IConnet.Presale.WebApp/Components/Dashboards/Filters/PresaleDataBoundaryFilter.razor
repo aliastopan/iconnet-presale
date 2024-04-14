@@ -20,7 +20,7 @@
                 </div>
                 <div class="date-picker">
                     <FluentDatePicker style="width: 135px;"
-                        Label="@FilterDateTimeRangeLabel"
+                        Label="@UpperBoundaryTimeRangeLabel"
                         Value="@NullableUpperBoundaryDateTimeMax"
                         ValueChanged="OnUpperBoundaryDateMaxChangedAsync"/>
                 </div>
@@ -34,12 +34,31 @@
 
             @if (IsWeeklyView)
             {
-                <div>Middle Boundary</div>
+                <div class="date-picker">
+                    <FluentDatePicker style="width: 135px;"
+                        Label="Ganti Rentang"
+                        Value="@NullableMiddleBoundaryDateTimeMin"
+                        ValueChanged="OnMiddleBoundaryDateMinChangedAsync"/>
+                </div>
+                <div class="date-until">
+                    <span>s.d</span>
+                </div>
+                <div class="date-picker">
+                    <FluentDatePicker style="width: 135px;"
+                        Label="Weekly"
+                        Value="@NullableMiddleBoundaryDateTimeMax"
+                        ValueChanged="OnMiddleBoundaryDateMaxChangedAsync"/>
+                </div>
             }
 
             @if (IsDailyView)
             {
-                <div>Lower Boundary</div>
+                <div class="date-picker">
+                    <FluentDatePicker style="width: 135px;"
+                        Label="Ganti Hari"
+                        Value="@NullableLowerBoundaryDateTime"
+                        ValueChanged="OnLowerBoundaryDateChangedAsync"/>
+                </div>
             }
 
         </div>

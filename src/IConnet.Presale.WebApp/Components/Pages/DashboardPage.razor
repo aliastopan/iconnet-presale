@@ -28,6 +28,8 @@ else
         <div class="@UpperBoundarySectionCss">
             <PresaleDataBoundaryFilter @ref="PresaleDataBoundaryFilter"
                 OnUpperBoundaryChanged="OnUpperBoundaryChangedAsync"
+                OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
+                OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"
                 OnReload="ReloadUpperBoundaryAsync"/>
         </div>
 
