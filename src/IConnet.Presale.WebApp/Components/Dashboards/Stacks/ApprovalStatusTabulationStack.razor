@@ -22,19 +22,19 @@
             <h5 class="app-font">Laporan Opportunity Negatiation Approval <span class="">@CurrentMonthIndicator()</span></h5>
 
             <div class="d-flex flex-row">
-                <ApprovalStatusTabulation Models="@UpperBoundaryModels"/>
+                <ApprovalStatusMetric Models="@UpperBoundaryModels"/>
             </div>
         </div>
         <div style="@WeeklyToggleDisplayStyle">
             <h5 class="app-font">Laporan Opportunity Negatiation Approval <span class="">@CurrentWeekIndicator()</span></h5>
             <div class="d-flex flex-row">
-                <ApprovalStatusTabulation Models="@MiddleBoundaryModels"/>
+                <ApprovalStatusMetric Models="@MiddleBoundaryModels"/>
             </div>
         </div>
         <div style="@DailyToggleDisplayStyle">
             <h5 class="app-font">Laporan Opportunity Negatiation Approval <span class="">@TodayIndicator()</span></h5>
             <div class="d-flex flex-row">
-                <ApprovalStatusTabulation Models="@LowerBoundaryModels"/>
+                <ApprovalStatusMetric Models="@LowerBoundaryModels"/>
             </div>
         </div>
     </div>
