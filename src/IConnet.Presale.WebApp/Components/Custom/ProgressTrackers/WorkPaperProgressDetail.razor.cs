@@ -21,6 +21,16 @@ public partial class WorkPaperProgressDetail
         return WorkPaper!.ApprovalOpportunity.Pemohon.NamaPelanggan;
     }
 
+    protected string GetNoTelp()
+    {
+        return WorkPaper!.ApprovalOpportunity.Pemohon.NomorTelepon;
+    }
+
+    protected string GetEmail()
+    {
+        return WorkPaper!.ApprovalOpportunity.Pemohon.Email;
+    }
+
     protected string GetIdPln()
     {
         return WorkPaper!.ApprovalOpportunity.Pemohon.IdPln;
@@ -29,6 +39,16 @@ public partial class WorkPaperProgressDetail
     protected string GetAlamat()
     {
         return WorkPaper!.ApprovalOpportunity.Pemohon.Alamat;
+    }
+
+    protected string GetNamaAgen()
+    {
+        return WorkPaper!.ApprovalOpportunity.Agen.NamaLengkap;
+    }
+
+    protected string GetKantorPerwakilan()
+    {
+        return WorkPaper!.ApprovalOpportunity.Regional.KantorPerwakilan;
     }
 
     protected string GetSplitter()

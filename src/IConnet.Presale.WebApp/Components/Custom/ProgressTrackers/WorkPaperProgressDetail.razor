@@ -1,87 +1,124 @@
- <div class="progress-report">
-    <div class="progress-report-id-permohonan-stack">
-        <span>
-            ID PERMOHONAN -
-        </span>
-        <span class="progress-report-id-permohonan" style="@GetBadgeColorStyle()">
-            @GetIdPermohonan()
-        </span>
-    </div>
-    <div class="progress-report-nama">
-        @GetNamaPemohon()
-    </div>
-    <div class="progress-report-id-pln-stack">
-        <span>
-            ID PLN -
-        </span>
-        <span class="progress-report-id-pln" style="@GetBadgeColorStyle()">
-            @GetIdPln()
-        </span>
-    </div>
-    <div class="progress-report-alamat">
-        @GetAlamat()
-    </div>
-    <div class="d-flex flex-column">
-        <div class="splitter-stack">
-            <span class="splitter-stack-label">
-                SPLITTER -
-            </span>
-            @if (IsSplitterGanti)
-            {
-                <span class="splitter-stack-splitter" style="@GetBadgeColorStyle()">
-                    @GetSplitterGanti()
-                </span>
-                <span class="splitter-stack-splitter-ganti" style="margin-left: 8px;">GANTI</span>
-            }
-            else
-            {
-                <span class="splitter-stack-splitter" style="@GetBadgeColorStyle()">
-                    @GetSplitter()
-                </span>
-            }
+<div class="progress-report-stack">
+    <div class="left-stack-progress-report">
+
+        <div class="progress-report-fragment">
+            <div class="progress-report-label">
+                ID PERMOHONAN
+            </div>
+            <div class="progress-report-id-permohonan" style="@GetBadgeColorStyle()">
+                @GetIdPermohonan()
+            </div>
         </div>
-        <table class="progress-report-table-jarak">
-            <thead>
-                <tr>
-                    <th style="margin-right: 16px;">Jarak Share Loc</th>
-                    <td class="distance">
-                        <span>@GetJarakShareLoc()</span>
-                        <span style="margin-left: 4px;">meter</span>
-                    </td>
-                </tr>
-                <tr>
-                    <th style="margin-right: 16px;">Jarak iCRM+</th>
-                    <td class="distance">
-                        <span>@GetJarakICrmPlus()</span>
-                        <span style="margin-left: 4px;">meter</span>
-                    </td>
-                </tr>
-            </thead>
-        </table>
+
+        <div class="progress-report-fragment">
+            <div class="progress-report-label">
+                NAMA PEMOHON
+            </div>
+            <div class="" style="">
+                @GetNamaPemohon()
+            </div>
+        </div>
+
+        <div class="progress-report-fragment">
+            <div class="progress-report-label">
+                NO. TELEPON PEMOHON
+            </div>
+            <div class="" style="">
+                @GetNoTelp()
+            </div>
+        </div>
+
+        <div class="progress-report-fragment" style="margin-bottom: 0 !important;">
+            <div class="progress-report-label">
+                EMAIL PEMOHON
+            </div>
+            <div class="" style="">
+                @GetEmail()
+            </div>
+        </div>
+
     </div>
-    @if (HasShareLoc)
-    {
-        <div class="progress-report-shareloc">
-            @{
-                var url = @GetGoogleMapLink();
-            }
-            <span style="font-weight: 700;">SHARE LOC -</span>
-            <a href="@url" target="_blank">
-                @GetShareLoc()
-            </a>
+
+    <div class="right-stack-progress-report">
+
+        <div class="progress-report-fragment">
+            <div class="progress-report-label">
+                ID PLN
+            </div>
+            <div class="progress-report-id-pln" style="@GetBadgeColorStyle()">
+                @GetIdPln()
+            </div>
         </div>
-    }
-    @if (IsApproved)
-    {
-        <div class="progress-report-va-terbit">
-            <span style="font-weight: 700;">
-                VA TERBIT -
-            </span>
-            <span class="progress-report-va-terbit-date">
-                @GetVaTerbit()
-            </span>
+
+        <div class="progress-report-fragment">
+            <div class="progress-report-label">
+                NAMA AGEN
+            </div>
+            <div class="" style="">
+                @GetNamaAgen()
+            </div>
         </div>
-    }
+
+        <div class="progress-report-fragment">
+            <div class="progress-report-label">
+                KANTOR PERWAKILAN
+            </div>
+            <div class="progress-report-kantor-perwakilan" style="@GetBadgeColorStyle()">
+                @GetKantorPerwakilan()
+            </div>
+        </div>
+
+        <div class="progress-report-fragment" style="margin-bottom: 0 !important;">
+            <div class="splitter-stack" style="flex-direction: column;">
+                <div class="progress-report-label">
+                    SPLITTER
+                </div>
+                <div class="" style="">
+                    @if (IsSplitterGanti)
+                    {
+                        <span class="splitter-stack-splitter" style="@GetBadgeColorStyle()">
+                            @GetSplitterGanti()
+                        </span>
+                        <span class="splitter-stack-splitter-ganti" style="margin-left: 8px;">GANTI</span>
+                    }
+                    else
+                    {
+                        <span class="splitter-stack-splitter" style="@GetBadgeColorStyle()">
+                            @GetSplitter()
+                        </span>
+                    }
+                </div>
+            </div>
+
+            <table class="progress-report-table-jarak" style="margin-bottom: 0 !important;">
+                <thead>
+                    <tr>
+                        <th style="margin-right: 16px;">Jarak Share Loc</th>
+                        <td class="distance">
+                            <span>@GetJarakShareLoc()</span>
+                            <span style="margin-left: 4px;">meter</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="margin-right: 16px;">Jarak iCRM+</th>
+                        <td class="distance">
+                            <span>@GetJarakICrmPlus()</span>
+                            <span style="margin-left: 4px;">meter</span>
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+    </div>
 
 </div>
 
+<div class="progress-report-fragment" style="padding-left: 8px; max-width: 600px;">
+    <div class="progress-report-label">
+        ALAMAT
+    </div>
+    <div class="" style="">
+        @GetAlamat()
+    </div>
+</div>

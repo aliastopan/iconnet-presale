@@ -8,24 +8,9 @@
     font-weight: 700;
 }
 
-.progress-report-id-permohonan{
-    width: fit-content;
-    font-weight: 600;
-    background-color: var(--accent-blue);
-    padding: 0 4px;
-    color: white;
-    border-radius: 3px;
-}
-
-.progress-report-nama{
-    margin-bottom: 16px;
-}
-
-.progress-report-id-pln-stack{
-    font-weight: 700;
-}
-
-.progress-report-id-pln{
+.progress-report-id-permohonan,
+.progress-report-id-pln,
+.progress-report-kantor-perwakilan{
     width: fit-content;
     font-weight: 600;
     background-color: var(--accent-blue);
@@ -36,6 +21,14 @@
     -moz-border-radius: 3px;
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
+}
+
+.progress-report-nama{
+    margin-bottom: 16px;
+}
+
+.progress-report-id-pln-stack{
+    font-weight: 700;
 }
 
 .progress-report-alamat{
@@ -109,4 +102,35 @@
     -moz-border-radius: 3px;
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
+}
+
+.progress-report-stack{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.left-stack-progress-report{
+    width: 350px;
+    margin-right: auto;
+    padding: 8px;
+    margin-top: 16px;
+    padding-bottom: 0 !important;
+}
+
+.right-stack-progress-report{
+    width: 350px;
+    margin-left: auto;
+    padding: 8px;
+    margin-top: 16px;
+    margin-right: 10%;
+    padding-bottom: 0 !important;
+}
+
+.progress-report-label{
+    font-weight: 700;
+}
+
+.progress-report-fragment{
+    margin-bottom: 16px;
 }
