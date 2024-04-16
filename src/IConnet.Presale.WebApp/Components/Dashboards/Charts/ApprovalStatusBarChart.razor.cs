@@ -1,9 +1,9 @@
 using ApexCharts;
 using IConnet.Presale.WebApp.Models.Presales.Reports;
 
-namespace IConnet.Presale.WebApp.Components.Dashboards.Metrics;
+namespace IConnet.Presale.WebApp.Components.Dashboards.Charts;
 
-public partial class ApprovalStatusMetric : ComponentBase
+public partial class ApprovalStatusBarChart : ComponentBase
 {
     [Parameter]
     public List<ApprovalStatusMetricModel> Models { get; set; } = [];
