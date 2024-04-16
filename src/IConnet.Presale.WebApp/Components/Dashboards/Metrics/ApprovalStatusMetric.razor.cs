@@ -8,7 +8,7 @@ public partial class ApprovalStatusMetric : ComponentBase
     [Parameter]
     public List<ApprovalStatusReportModel> Models { get; set; } = [];
 
-    protected List<ApprovalStatusMetricModel> Metrics { get; set; } = [];
+    protected List<ApprovalStatusMetricModel> Metrics => ConvertToMetrics(Models);
     protected ApexChartOptions<ApprovalStatusMetricModel> Options { get; set; } = default!;
 
     protected override void OnInitialized()
@@ -24,13 +24,20 @@ public partial class ApprovalStatusMetric : ComponentBase
             },
             Chart = new Chart
             {
-                Toolbar = new Toolbar { Show = false }
+                Toolbar = new Toolbar { Show = false },
+                Stacked = true
+            },
+            Xaxis = new XAxis
+            {
+                AxisTicks = new AxisTicks
+                {
+                    Height = 10,
+                    Show = false
+                }
             },
             Colors = ["#1e6bc9", "#202020", "#ff0033", "#ff7300", "#0e700e"]
         };
-
-        Metrics = ConvertToMetrics(Models);
-        PrintFirstMetric();
+        // Metrics = ConvertToMetrics(Models);
     }
 
     public List<ApprovalStatusMetricModel> ConvertToMetrics(List<ApprovalStatusReportModel> models)
@@ -43,7 +50,6 @@ public partial class ApprovalStatusMetric : ComponentBase
                                 Status = group.ToDictionary(x => x.ApprovalStatus, x => x.Count)
                             })
                             .ToList();
-
         return metrics;
     }
 

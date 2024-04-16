@@ -409,6 +409,23 @@ public class ReportService
             approvalTotal, totalCloseLost, totalReject, totalExpansion, totalApprove, totalDirectApproval);
     }
 
+    public List<ApprovalStatusMetricModel> ConvertToMetrics(List<ApprovalStatusReportModel> models)
+    {
+        return models.SelectMany(model => model.StatusPerOffice.Select(status => new
+            {
+                model.ApprovalStatus,
+                Office = status.Key,
+                Count = status.Value
+            }))
+            .GroupBy(x => x.Office)
+            .Select(group => new ApprovalStatusMetricModel
+            {
+                Office = group.Key,
+                Status = group.ToDictionary(x => x.ApprovalStatus, x => x.Count)
+            })
+            .ToList();
+    }
+
     private static TimeSpan GetAverageTimeSpan(List<TimeSpan> agingReport)
     {
         if (agingReport == null || agingReport.Count == 0)

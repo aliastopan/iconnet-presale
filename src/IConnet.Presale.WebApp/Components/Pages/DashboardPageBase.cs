@@ -225,6 +225,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
 
     public async Task ReloadMiddleBoundaryAsync()
     {
+        // await ReloadUpperBoundaryAsync();
         // LogSwitch.Debug("Reloading middle boundary");
 
         var middleBoundaryMin = SessionService.FilterPreference.MiddleBoundaryDateTimeMin;
@@ -251,6 +252,8 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         GenerateApprovalAgingReport(includeMiddle: true);
 
         await Task.CompletedTask;
+
+        StateHasChanged();
     }
 
     public async Task ReloadLowerBoundaryAsync()
@@ -280,6 +283,8 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         GenerateApprovalAgingReport(includeLower: true);
 
         await Task.CompletedTask;
+
+        StateHasChanged();
     }
 
     private void GenerateStatusApprovalReports(bool includeUpper = false, bool includeMiddle = false, bool includeLower = false)

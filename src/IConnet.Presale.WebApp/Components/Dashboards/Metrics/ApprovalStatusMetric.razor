@@ -19,21 +19,4 @@
         }
 
     </ApexChart>
-
-    @* <ApexChart TItem="ApprovalStatusReportModel"
-        Height="300"
-        Width="800"
-        Options="Options">
-
-        @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
-        {
-            <ApexPointSeries TItem="ApprovalStatusReportModel"
-                Items="Models"
-                Name="@office"
-                XValue="@(e => e.ApprovalStatusDisplay)"
-                SeriesType="SeriesType.Bar"
-                YAggregate="@(Models => Models.Sum(x => x.StatusPerOffice[office]))"/>
-        }
-
-    </ApexChart> *@
 }
