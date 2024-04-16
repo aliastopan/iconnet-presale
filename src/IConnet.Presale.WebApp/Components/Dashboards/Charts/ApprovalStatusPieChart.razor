@@ -13,7 +13,7 @@
             Name=""
             SeriesType="SeriesType.Pie"
             XValue="@(e => e.ApprovalStatusDisplay)"
-            YAggregate="@(e => e.Sum(e => e.GrandTotal))"
+            YAggregate="@(e => e.Sum(x => x.GrandTotal))"
             PointColor="@(e => GetPointColor(e))"
             ShowDataLabels />
 

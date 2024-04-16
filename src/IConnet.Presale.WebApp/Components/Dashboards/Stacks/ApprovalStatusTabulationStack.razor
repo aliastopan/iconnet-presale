@@ -25,7 +25,7 @@
                 @if (!IsBufferLoading)
                 {
                     @* <ApprovalStatusTabulation Models="@UpperBoundaryModels"/> *@
-                    <ApprovalStatusBarChart Models="@UpperBoundaryMetrics"/>
+                    <ApprovalStatusBarChart Models="@UpperBoundaryTransposeModels"/>
                     <ApprovalStatusPieChart Models="@UpperBoundaryModels" />
                 }
             </div>
@@ -36,7 +36,7 @@
                 @if (!IsBufferLoading)
                 {
                     @* <ApprovalStatusTabulation Models="@MiddleBoundaryModels"/> *@
-                    <ApprovalStatusBarChart Models="@MiddleBoundaryMetrics"/>
+                    <ApprovalStatusBarChart Models="@MiddleBoundaryTransposeModels"/>
                     <ApprovalStatusPieChart Models="@MiddleBoundaryModels" />
                 }
             </div>
@@ -46,7 +46,8 @@
             <div class="d-flex flex-row">
                 @if (!IsBufferLoading)
                 {
-                    <ApprovalStatusTabulation Models="@LowerBoundaryModels"/>
+                    @* <ApprovalStatusTabulation Models="@LowerBoundaryModels"/> *@
+                    <ApprovalStatusBarChart Models="@LowerBoundaryTransposeModels"/>
                     <ApprovalStatusPieChart Models="@LowerBoundaryModels" />
                 }
             </div>

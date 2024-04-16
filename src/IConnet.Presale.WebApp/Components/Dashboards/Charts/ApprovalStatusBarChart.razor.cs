@@ -6,13 +6,13 @@ namespace IConnet.Presale.WebApp.Components.Dashboards.Charts;
 public partial class ApprovalStatusBarChart : ComponentBase
 {
     [Parameter]
-    public List<ApprovalStatusMetricModel> Models { get; set; } = [];
+    public List<ApprovalStatusTransposeModel> Models { get; set; } = [];
 
-    protected ApexChartOptions<ApprovalStatusMetricModel> Options { get; set; } = default!;
+    protected ApexChartOptions<ApprovalStatusTransposeModel> Options { get; set; } = default!;
 
     protected override void OnInitialized()
     {
-        Options = new ApexChartOptions<ApprovalStatusMetricModel>
+        Options = new ApexChartOptions<ApprovalStatusTransposeModel>
         {
             PlotOptions = new PlotOptions
             {

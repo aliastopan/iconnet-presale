@@ -75,9 +75,6 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
     public List<ApprovalAgingReportModel> MiddleBoundaryApprovalAgingReportModels => _middleBoundaryApprovalAgingReportModels.OrderByDescending(x => x.Average).ToList();
     public List<ApprovalAgingReportModel> LowerBoundaryApprovalAgingReportModels => _lowerBoundaryApprovalAgingReportModels.OrderByDescending(x => x.Average).ToList();
 
-    public List<ApprovalStatusMetricModel> UpperApprovalStatusMetrics { get; set; } = [];
-    public List<ApprovalStatusMetricModel> MiddleApprovalStatusMetrics { get; set; } = [];
-    public List<ApprovalStatusMetricModel> LowerApprovalStatusMetrics { get; set; } = [];
 
     public TabNavigationModel PageDeclaration()
     {
@@ -308,10 +305,6 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         GenerateReports(includeUpper, _upperBoundaryApprovalStatusReports, _upperBoundaryPresaleData!);
         GenerateReports(includeMiddle, _middleBoundaryApprovalStatusReports, _middleBoundaryPresaleData!);
         GenerateReports(includeLower, _lowerBoundaryApprovalStatusReports, _lowerBoundaryPresaleData!);
-
-        UpperApprovalStatusMetrics = ReportService.ConvertToMetrics(_upperBoundaryApprovalStatusReports);
-        MiddleApprovalStatusMetrics = ReportService.ConvertToMetrics(_middleBoundaryApprovalStatusReports);
-        LowerApprovalStatusMetrics = ReportService.ConvertToMetrics(_lowerBoundaryApprovalStatusReports);
 
         // local function
         void GenerateReports(bool include, List<ApprovalStatusReportModel> reportModels, IQueryable<WorkPaper> boundaryData)

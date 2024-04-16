@@ -3,19 +3,19 @@
 
 @if (Models.Count != 0)
 {
-    <ApexChart TItem="ApprovalStatusMetricModel"
+    <ApexChart TItem="ApprovalStatusTransposeModel"
         Height="300"
         Width="600"
         Options="Options">
 
         @foreach (var approvalStatus in Models.First().Status.Keys)
         {
-            <ApexPointSeries TItem="ApprovalStatusMetricModel"
+            <ApexPointSeries TItem="ApprovalStatusTransposeModel"
                 Items="Models"
                 Name="@EnumProcessor.EnumToDisplayString(approvalStatus)"
                 XValue="@(e => e.Office)"
                 SeriesType="SeriesType.Bar"
-                YAggregate="@(Metrics => Metrics.Sum(x => x.Status[approvalStatus]))"
+                YAggregate="@(e => e.Sum(x => x.Status[approvalStatus]))"
                 ShowDataLabels/>
         }
 

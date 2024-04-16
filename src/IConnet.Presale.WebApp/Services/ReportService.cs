@@ -409,7 +409,7 @@ public class ReportService
             approvalTotal, totalCloseLost, totalReject, totalExpansion, totalApprove, totalDirectApproval);
     }
 
-    public List<ApprovalStatusMetricModel> ConvertToMetrics(List<ApprovalStatusReportModel> models)
+    public List<ApprovalStatusTransposeModel> TransposeModel(List<ApprovalStatusReportModel> models)
     {
         return models.SelectMany(model => model.StatusPerOffice.Select(status => new
             {
@@ -418,7 +418,7 @@ public class ReportService
                 Count = status.Value
             }))
             .GroupBy(x => x.Office)
-            .Select(group => new ApprovalStatusMetricModel
+            .Select(group => new ApprovalStatusTransposeModel
             {
                 Office = group.Key,
                 Status = group.ToDictionary(x => x.ApprovalStatus, x => x.Count)

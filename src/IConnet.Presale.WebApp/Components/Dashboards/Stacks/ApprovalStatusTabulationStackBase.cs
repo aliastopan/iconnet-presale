@@ -10,7 +10,7 @@ public class ApprovalStatusTabulationStackBase : ReportTabulationStackBase
     [Parameter] public List<ApprovalStatusReportModel> MiddleBoundaryModels { get; set; } = [];
     [Parameter] public List<ApprovalStatusReportModel> LowerBoundaryModels { get; set; } = [];
 
-    public List<ApprovalStatusMetricModel> UpperBoundaryMetrics => ReportService.ConvertToMetrics(UpperBoundaryModels);
-    public List<ApprovalStatusMetricModel> MiddleBoundaryMetrics => ReportService.ConvertToMetrics(MiddleBoundaryModels);
-    public List<ApprovalStatusMetricModel> LowerBoundaryMetrics => ReportService.ConvertToMetrics(LowerBoundaryModels);
+    public List<ApprovalStatusTransposeModel> UpperBoundaryTransposeModels => ReportService.TransposeModel(UpperBoundaryModels);
+    public List<ApprovalStatusTransposeModel> MiddleBoundaryTransposeModels => ReportService.TransposeModel(MiddleBoundaryModels);
+    public List<ApprovalStatusTransposeModel> LowerBoundaryTransposeModels => ReportService.TransposeModel(LowerBoundaryModels);
 }
