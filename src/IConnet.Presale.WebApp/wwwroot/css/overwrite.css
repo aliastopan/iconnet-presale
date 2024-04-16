@@ -14,3 +14,7 @@ fluent-typography{
 g.apexcharts-data-labels text.apexcharts-datalabel{
     fill: #231f20 !important;
 }
+
+.fluent-nav-text{
+    width: calc(100% - 20px) !important;
+}
