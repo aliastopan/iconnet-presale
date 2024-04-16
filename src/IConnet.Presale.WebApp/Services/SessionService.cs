@@ -23,7 +23,10 @@ public sealed class SessionService
         _localStorage = localStorage;
         _navigationManager = navigationManager;
         _optionService = optionService;
-        _filterPreference = new FilterPreference(optionService.KantorPerwakilanOptions);
+        _filterPreference = new FilterPreference(optionService.KantorPerwakilanOptions)
+        {
+            IsMonthlySelected = true
+        };
     }
 
     public UserModel? UserModel { get; private set; }

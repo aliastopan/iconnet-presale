@@ -13,6 +13,10 @@ public class ReportTabulationStackBase : ComponentBase
 
     private CultureInfo _cultureInfo = new CultureInfo("id-ID");
 
+    public bool IsMonthlySelected => SessionService.FilterPreference.IsMonthlySelected;
+    public bool IsWeeklySelected => SessionService.FilterPreference.IsWeeklySelected;
+    public bool IsDailySelected => SessionService.FilterPreference.IsDailySelected;
+
     protected Appearance MonthlyToggleAppearance => IsMonthlySelected ? Appearance.Accent : Appearance.Neutral;
     protected Appearance WeeklyToggleAppearance => IsWeeklySelected ? Appearance.Accent : Appearance.Neutral;
     protected Appearance DailyToggleAppearance => IsDailySelected ? Appearance.Accent : Appearance.Neutral;
@@ -21,14 +25,8 @@ public class ReportTabulationStackBase : ComponentBase
     protected string WeeklyToggleDisplayStyle => IsWeeklySelected ? "" : "display: none";
     protected string DailyToggleDisplayStyle => IsDailySelected ? "" : "display: none";
 
-    public bool IsMonthlySelected { get; set; } = false;
-    public bool IsWeeklySelected { get; set; } = false;
-    public bool IsDailySelected { get; set; } = false;
-
     protected override void OnInitialized()
     {
-        IsMonthlySelected = true;
-
         SessionService.FilterPreference.ToggleToMonthlyView();
     }
 
@@ -69,10 +67,6 @@ public class ReportTabulationStackBase : ComponentBase
 
     protected async Task ToggleToMonthlyView(MouseEventArgs _)
     {
-        IsMonthlySelected = true;
-        IsWeeklySelected = false;
-        IsDailySelected = false;
-
         SessionService.FilterPreference.ToggleToMonthlyView();
         SessionService.FilterPreference.BoundaryFilters[TabulationId] = BoundaryFilterMode.Monthly;
 
@@ -86,10 +80,6 @@ public class ReportTabulationStackBase : ComponentBase
 
     protected async Task ToggleToWeeklyView(MouseEventArgs _)
     {
-        IsMonthlySelected = false;
-        IsWeeklySelected = true;
-        IsDailySelected = false;
-
         SessionService.FilterPreference.ToggleToWeeklyView();
         SessionService.FilterPreference.BoundaryFilters[TabulationId] = BoundaryFilterMode.Weekly;
 
@@ -103,10 +93,6 @@ public class ReportTabulationStackBase : ComponentBase
 
     protected async Task ToggleToDailyView(MouseEventArgs _)
     {
-        IsMonthlySelected = false;
-        IsWeeklySelected = false;
-        IsDailySelected = true;
-
         SessionService.FilterPreference.ToggleToDailyView();
         SessionService.FilterPreference.BoundaryFilters[TabulationId] = BoundaryFilterMode.Daily;
 
