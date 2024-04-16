@@ -12,7 +12,22 @@ public partial class ApprovalStatusPieChart
 
     protected override void OnInitialized()
     {
-        Options = new ApexChartOptions<ApprovalStatusReportModel>();
+        Options = new ApexChartOptions<ApprovalStatusReportModel>()
+        {
+            DataLabels = new DataLabels
+            {
+                Enabled = true,
+                Style = new DataLabelsStyle
+                {
+                    FontSize = "16px",
+                    Colors = ["#202020"]
+                },
+                DropShadow = new DropShadow
+                {
+                    Enabled = false
+                }
+            }
+        };
     }
 
     protected string GetPointColor(ApprovalStatusReportModel model)
@@ -22,13 +37,13 @@ public partial class ApprovalStatusPieChart
         switch (model.ApprovalStatus)
         {
             case ApprovalStatus.InProgress:
-                return "#909295";
+                return "#b2ce60";
             case ApprovalStatus.CloseLost:
-                return "#231f20";
-            case ApprovalStatus.Reject:
                 return "#02768f";
-            case ApprovalStatus.Expansion:
+            case ApprovalStatus.Reject:
                 return "#1c94ad";
+            case ApprovalStatus.Expansion:
+                return "#8fab3c";
             case ApprovalStatus.Approve:
                 return "#0bd0d9";
             default:

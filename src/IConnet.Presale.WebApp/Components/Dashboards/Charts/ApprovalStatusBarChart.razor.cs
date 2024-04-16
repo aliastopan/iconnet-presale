@@ -19,6 +19,8 @@ public partial class ApprovalStatusBarChart : ComponentBase
                 Bar = new PlotOptionsBar
                 {
                     Horizontal = false,
+                    // BarHeight = "24px",
+                    // ColumnWidth = "32px",
                     DataLabels = new PlotOptionsBarDataLabels
                     {
                         Total = new BarTotalDataLabels
@@ -26,6 +28,7 @@ public partial class ApprovalStatusBarChart : ComponentBase
                             Style = new BarDataLabelsStyle
                             {
                                 FontWeight = "800",
+                                FontSize = "16px",
                                 Color = "#231f20"
                             }
                         }
@@ -46,8 +49,8 @@ public partial class ApprovalStatusBarChart : ComponentBase
                 }
             },
             // Colors = ["#1e6bc9", "#202020", "#ff0033", "#ff7300", "#0e700e"]
-            Colors = ["#909295", "#231f20", "#02768f", "#1c94ad", "#0bd0d9"]
-
+            // Colors = ["#909295", "#231f20", "#02768f", "#1c94ad", "#0bd0d9"]
+            Colors = ["#b2ce60", "#02768f", "#1c94ad", "#8fab3c", "#0bd0d9"]
         };
     }
 }

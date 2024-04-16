@@ -11,13 +11,18 @@ fluent-typography{
     margin-block: 0;
 }
 
-g.apexcharts-data-labels text.apexcharts-datalabel{
-    fill: #231f20 !important;
+g.apexcharts-datalabels.apexcharts-hidden-element-shown g.apexcharts-data-labels{
+    transform: translateY(-16px);
 }
 
-g.apexcharts-datalabels text.apexcharts-text.apexcharts-pie-label{
+g.apexcharts-data-labels text.apexcharts-datalabel{
     fill: #231f20 !important;
+    font-size: 16px !important;
 }
+
+/* g.apexcharts-datalabels text.apexcharts-text.apexcharts-pie-label{
+    fill: #231f20 !important;
+} */
 
 .apexcharts-legend.apexcharts-align-center.apx-legend-position-right{
     right: 35px !important;
