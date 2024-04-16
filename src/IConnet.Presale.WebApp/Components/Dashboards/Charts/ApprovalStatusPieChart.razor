@@ -1,0 +1,21 @@
+@using ApexCharts
+@using IConnet.Presale.WebApp.Models.Presales.Reports
+
+@if (Models.Count != 0)
+{
+    <ApexChart TItem="ApprovalStatusReportModel"
+        Height="450"
+        Width="450"
+        Options="Options">
+
+        <ApexPointSeries TItem="ApprovalStatusReportModel"
+            Items="Models"
+            Name=""
+            SeriesType="SeriesType.Pie"
+            XValue="@(e => e.ApprovalStatusDisplay)"
+            YAggregate="@(e => e.Sum(e => e.GrandTotal))"
+            PointColor="@(e => GetPointColor(e))"
+            ShowDataLabels />
+
+    </ApexChart>
+}
