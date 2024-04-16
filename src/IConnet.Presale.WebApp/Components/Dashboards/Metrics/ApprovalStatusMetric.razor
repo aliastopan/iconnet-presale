@@ -8,7 +8,7 @@
         Width="800"
         Options="Options">
 
-        @foreach (var approvalStatus in Models.Select(m => m.ApprovalStatus).Distinct())
+        @foreach (var approvalStatus in Metrics.First().Status.Keys)
         {
             <ApexPointSeries TItem="ApprovalStatusMetricModel"
                 Items="Metrics"

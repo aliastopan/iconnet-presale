@@ -17,6 +17,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
 
     private bool _isInitialized = false;
 
+    protected bool IsLoading { get; set; } = false;
     protected string ActiveTabId { get; set; } = "tab-1";
     protected PresaleDataBoundaryFilter PresaleDataBoundaryFilter { get; set; } = default!;
     protected string UpperBoundarySectionCss => SessionService.FilterPreference.ShowDashboardBoundary ? "enable" : "filter-section-disable";
@@ -74,6 +75,10 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
     public List<ApprovalAgingReportModel> UpperBoundaryApprovalAgingReportModels => _upperBoundaryApprovalAgingReportModels.OrderByDescending(x => x.Average).ToList();
     public List<ApprovalAgingReportModel> MiddleBoundaryApprovalAgingReportModels => _middleBoundaryApprovalAgingReportModels.OrderByDescending(x => x.Average).ToList();
     public List<ApprovalAgingReportModel> LowerBoundaryApprovalAgingReportModels => _lowerBoundaryApprovalAgingReportModels.OrderByDescending(x => x.Average).ToList();
+
+    public List<ApprovalStatusMetricModel> UpperApprovalStatusMetrics { get; set; } = [];
+    public List<ApprovalStatusMetricModel> MiddleApprovalStatusMetrics { get; set; } = [];
+    public List<ApprovalStatusMetricModel> LowerApprovalStatusMetrics { get; set; } = [];
 
     public TabNavigationModel PageDeclaration()
     {
@@ -225,9 +230,6 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
 
     public async Task ReloadMiddleBoundaryAsync()
     {
-        // await ReloadUpperBoundaryAsync();
-        // LogSwitch.Debug("Reloading middle boundary");
-
         var middleBoundaryMin = SessionService.FilterPreference.MiddleBoundaryDateTimeMin;
         var middleBoundaryMax = SessionService.FilterPreference.MiddleBoundaryDateTimeMax;
 
@@ -251,15 +253,20 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         GenerateChatCallResponsAgingReport(includeMiddle: true);
         GenerateApprovalAgingReport(includeMiddle: true);
 
-        await Task.CompletedTask;
+        // var stash = _upperBoundaryPresaleData?.ToList();
+        // _upperBoundaryPresaleData = null!;
+        IsLoading = true;
 
+        await Task.Delay(500);
+
+        // _upperBoundaryPresaleData = stash?.AsQueryable();;
+        IsLoading = false;
         StateHasChanged();
+        LogSwitch.Debug("Finish: {0}", _upperBoundaryPresaleData is null);
     }
 
     public async Task ReloadLowerBoundaryAsync()
     {
-        // LogSwitch.Debug("Reloading lower boundary");
-
         var lowerBoundary = SessionService.FilterPreference.LowerBoundaryDateTime;
 
         _lowerBoundaryPresaleData = null;
@@ -282,8 +289,14 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         GenerateChatCallResponsAgingReport(includeLower: true);
         GenerateApprovalAgingReport(includeLower: true);
 
-        await Task.CompletedTask;
+        // var stash = _upperBoundaryPresaleData?.ToList();
+        // _upperBoundaryPresaleData = null!;
+        IsLoading = true;
 
+        await Task.Delay(500);
+
+        // _upperBoundaryPresaleData = stash?.AsQueryable();;
+        IsLoading = false;
         StateHasChanged();
     }
 
@@ -294,6 +307,10 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         GenerateReports(includeUpper, _upperBoundaryApprovalStatusReports, _upperBoundaryPresaleData!);
         GenerateReports(includeMiddle, _middleBoundaryApprovalStatusReports, _middleBoundaryPresaleData!);
         GenerateReports(includeLower, _lowerBoundaryApprovalStatusReports, _lowerBoundaryPresaleData!);
+
+        UpperApprovalStatusMetrics = ReportService.ConvertToMetrics(_upperBoundaryApprovalStatusReports);
+        MiddleApprovalStatusMetrics = ReportService.ConvertToMetrics(_middleBoundaryApprovalStatusReports);
+        LowerApprovalStatusMetrics = ReportService.ConvertToMetrics(_lowerBoundaryApprovalStatusReports);
 
         // local function
         void GenerateReports(bool include, List<ApprovalStatusReportModel> reportModels, IQueryable<WorkPaper> boundaryData)
