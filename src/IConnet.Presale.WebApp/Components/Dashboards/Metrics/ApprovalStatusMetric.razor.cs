@@ -6,10 +6,7 @@ namespace IConnet.Presale.WebApp.Components.Dashboards.Metrics;
 public partial class ApprovalStatusMetric : ComponentBase
 {
     [Parameter]
-    public List<ApprovalStatusReportModel> Models { get; set; } = [];
-
-    [Parameter]
-    public List<ApprovalStatusMetricModel> Metrics { get; set; } = [];
+    public List<ApprovalStatusMetricModel> Models { get; set; } = [];
 
     protected ApexChartOptions<ApprovalStatusMetricModel> Options { get; set; } = default!;
 
@@ -21,13 +18,24 @@ public partial class ApprovalStatusMetric : ComponentBase
             {
                 Bar = new PlotOptionsBar
                 {
-                    Horizontal = true
+                    Horizontal = false,
+                    DataLabels = new PlotOptionsBarDataLabels
+                    {
+                        Total = new BarTotalDataLabels
+                        {
+                            Style = new BarDataLabelsStyle
+                            {
+                                FontWeight = "800",
+                                Color = "#231f20"
+                            }
+                        }
+                    }
                 }
             },
             Chart = new Chart
             {
                 Toolbar = new Toolbar { Show = false },
-                Stacked = true
+                Stacked = false
             },
             Xaxis = new XAxis
             {
@@ -37,7 +45,9 @@ public partial class ApprovalStatusMetric : ComponentBase
                     Show = false
                 }
             },
-            Colors = ["#1e6bc9", "#202020", "#ff0033", "#ff7300", "#0e700e"]
+            // Colors = ["#1e6bc9", "#202020", "#ff0033", "#ff7300", "#0e700e"]
+            Colors = ["#909295", "#231f20", "#02768f", "#1c94ad", "#0bd0d9"]
+
         };
     }
 }

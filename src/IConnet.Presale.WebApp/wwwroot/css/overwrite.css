@@ -10,3 +10,7 @@ fluent-button.accent:hover::part(control){
 fluent-typography{
     margin-block: 0;
 }
+
+g.apexcharts-data-labels text.apexcharts-datalabel{
+    fill: #231f20 !important;
+}

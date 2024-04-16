@@ -1,21 +1,22 @@
 @using ApexCharts
 @using IConnet.Presale.WebApp.Models.Presales.Reports
 
-@if (Metrics.Count != 0)
+@if (Models.Count != 0)
 {
     <ApexChart TItem="ApprovalStatusMetricModel"
-        Height="350"
-        Width="800"
+        Height="300"
+        Width="600"
         Options="Options">
 
-        @foreach (var approvalStatus in Metrics.First().Status.Keys)
+        @foreach (var approvalStatus in Models.First().Status.Keys)
         {
             <ApexPointSeries TItem="ApprovalStatusMetricModel"
-                Items="Metrics"
+                Items="Models"
                 Name="@EnumProcessor.EnumToDisplayString(approvalStatus)"
                 XValue="@(e => e.Office)"
                 SeriesType="SeriesType.Bar"
-                YAggregate="@(Metrics => Metrics.Sum(x => x.Status[approvalStatus]))"/>
+                YAggregate="@(Metrics => Metrics.Sum(x => x.Status[approvalStatus]))"
+                ShowDataLabels/>
         }
 
     </ApexChart>
