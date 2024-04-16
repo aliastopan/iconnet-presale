@@ -16,6 +16,7 @@ public class ReportTabulationStackBase : ComponentBase
     public bool IsMonthlySelected => SessionService.FilterPreference.IsMonthlySelected;
     public bool IsWeeklySelected => SessionService.FilterPreference.IsWeeklySelected;
     public bool IsDailySelected => SessionService.FilterPreference.IsDailySelected;
+    public bool IsBufferLoading => SessionService.FilterPreference.IsBufferLoading;
 
     protected Appearance MonthlyToggleAppearance => IsMonthlySelected ? Appearance.Accent : Appearance.Neutral;
     protected Appearance WeeklyToggleAppearance => IsWeeklySelected ? Appearance.Accent : Appearance.Neutral;

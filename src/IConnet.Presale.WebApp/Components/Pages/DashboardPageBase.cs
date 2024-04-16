@@ -17,7 +17,6 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
 
     private bool _isInitialized = false;
 
-    protected bool IsLoading { get; set; } = false;
     protected string ActiveTabId { get; set; } = "tab-1";
     protected PresaleDataBoundaryFilter PresaleDataBoundaryFilter { get; set; } = default!;
     protected string UpperBoundarySectionCss => SessionService.FilterPreference.ShowDashboardBoundary ? "enable" : "filter-section-disable";
@@ -113,7 +112,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         var currentDate = DateTimeService.DateTimeOffsetNow.DateTime.Date;
         var rootCauses = OptionService.RootCauseOptions;
 
-        SessionService.FilterPreference.ToggleToMonthlyView();
+        // SessionService.FilterPreference.ToggleToMonthlyView();
         SessionService.FilterPreference.SetBoundaryDateTimeDefault(currentDate);
         SessionService.FilterPreference.SetRootCauseExclusion(rootCauses);
 
@@ -255,14 +254,15 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
 
         // var stash = _upperBoundaryPresaleData?.ToList();
         // _upperBoundaryPresaleData = null!;
-        IsLoading = true;
+        SessionService.FilterPreference.IsBufferLoading = true;
 
         await Task.Delay(500);
+        SessionService.FilterPreference.RefreshBoundaryFilters(ActiveTabId);
 
         // _upperBoundaryPresaleData = stash?.AsQueryable();;
-        IsLoading = false;
+        SessionService.FilterPreference.IsBufferLoading = false;
         StateHasChanged();
-        LogSwitch.Debug("Finish: {0}", _upperBoundaryPresaleData is null);
+        // LogSwitch.Debug("Finish: {0}", _upperBoundaryPresaleData is null);
     }
 
     public async Task ReloadLowerBoundaryAsync()
@@ -291,12 +291,13 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
 
         // var stash = _upperBoundaryPresaleData?.ToList();
         // _upperBoundaryPresaleData = null!;
-        IsLoading = true;
+        SessionService.FilterPreference.IsBufferLoading = true;
 
         await Task.Delay(500);
+        SessionService.FilterPreference.RefreshBoundaryFilters(ActiveTabId);
 
         // _upperBoundaryPresaleData = stash?.AsQueryable();;
-        IsLoading = false;
+        SessionService.FilterPreference.IsBufferLoading = false;
         StateHasChanged();
     }
 

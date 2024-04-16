@@ -41,19 +41,12 @@ else
                     Status Approval
                 </Header>
                 <Content>
-                    @if (!IsLoading)
-                    {
-                        <ApprovalStatusTabulationStack
-                            TabulationId="tab-1"
-                            UpperBoundaryModels="@UpperBoundaryApprovalStatusReports"
-                            MiddleBoundaryModels="@MiddleBoundaryApprovalStatusReports"
-                            LowerBoundaryModels="@LowerBoundaryApprovalStatusReports"
-                            PageRefresh="@(this.StateHasChanged)"/>
-
-                        <ApprovalStatusMetric
-                            Models="@MiddleBoundaryApprovalStatusReports"
-                            Metrics="@MiddleApprovalStatusMetrics"/>
-                    }
+                    <ApprovalStatusTabulationStack
+                        TabulationId="tab-1"
+                        UpperBoundaryModels="@UpperBoundaryApprovalStatusReports"
+                        MiddleBoundaryModels="@MiddleBoundaryApprovalStatusReports"
+                        LowerBoundaryModels="@LowerBoundaryApprovalStatusReports"
+                        PageRefresh="@(this.StateHasChanged)"/>
                 </Content>
             </FluentTab>
             <FluentTab Id="tab-2">

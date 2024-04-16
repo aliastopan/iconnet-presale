@@ -23,6 +23,7 @@ public class FilterPreference
     public bool IsMonthlySelected { get; set; } = false;
     public bool IsWeeklySelected { get; set; } = false;
     public bool IsDailySelected { get; set; } = false;
+    public bool IsBufferLoading { get; set; } = false;
 
     public void RefreshBoundaryFilters(string activeTabId)
     {
