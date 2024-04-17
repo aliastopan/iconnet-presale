@@ -26,7 +26,7 @@
 
     <div class="d-flex flex-column">
         <div style="@MonthlyToggleDisplayStyle">
-            <h5 class="app-font">Laporan Opportunity Negatiation Approval <span class="">@CurrentMonthIndicator()</span></h5>
+            <h4 class="app-font">Laporan Opportunity Negatiation Approval <span>@CurrentMonthIndicator()</span> - <span>@GetUpperBoundaryDateMin()</span> s.d <span>@GetUpperBoundaryDateMax()</span></h4>
 
             <div class="d-flex flex-row">
                 @if (!IsBufferLoading)
@@ -38,7 +38,8 @@
             </div>
         </div>
         <div style="@WeeklyToggleDisplayStyle">
-            <h5 class="app-font">Laporan Opportunity Negatiation Approval <span class="">@CurrentWeekIndicator()</span></h5>
+            <h4 class="app-font">Laporan Opportunity Negatiation Approval <span class="">@CurrentWeekIndicator()</span> - <span>@GetMiddleBoundaryDateMin()</span> s.d <span>@GetMiddleBoundaryDateMax()</span></h4>
+
             <div class="d-flex flex-row">
                 @if (!IsBufferLoading)
                 {
@@ -49,7 +50,8 @@
             </div>
         </div>
         <div style="@DailyToggleDisplayStyle">
-            <h5 class="app-font">Laporan Opportunity Negatiation Approval <span class="">@TodayIndicator()</span></h5>
+            <h4 class="app-font">Laporan Opportunity Negatiation Approval <span class="">@TodayIndicator()</span> - <span>@GetLowerBoundaryDate()</span></h4>
+
             <div class="d-flex flex-row">
                 @if (!IsBufferLoading)
                 {

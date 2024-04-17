@@ -24,10 +24,11 @@ input:invalid::part(root) {
 }
 
 .date-only-badge{
-    margin-left: 4px;
+    font-family: 'inter-semibold';
+    margin: 2px 0;
     width: fit-content;
     background-color: #d1e4eb;
-    padding: 0 4px;
+    padding: 1px 4px;
     border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
