@@ -1,11 +1,11 @@
+using System.Globalization;
+
 namespace IConnet.Presale.WebApp.Components.Dashboards.Filters;
 
 public partial class LowerBoundaryFilter : ComponentBase
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
-
-    [Parameter] public EventCallback OnLowerBoundaryChanged { get; set; }
 
     public DateTime? NullableLowerBoundaryDateTime { get; set; }
     public DateTime LowerBoundaryDateTime => NullableLowerBoundaryDateTime!.Value;
@@ -15,7 +15,13 @@ public partial class LowerBoundaryFilter : ComponentBase
         NullableLowerBoundaryDateTime = SessionService.FilterPreference.LowerBoundaryDateTime;
     }
 
-    protected async Task OnLowerBoundaryDateChangedAsync(DateTime? nullableDateTime)
+    protected string GetCurrentLowerBoundaryDate()
+    {
+        var cultureInfo = new CultureInfo("id-ID");
+        return SessionService.FilterPreference.LowerBoundaryDateTime.ToString("dd MMM yyyy", cultureInfo);
+    }
+
+    protected void OnLowerBoundaryDateChanged(DateTime? nullableDateTime)
     {
         if (nullableDateTime is null)
         {
@@ -26,10 +32,5 @@ public partial class LowerBoundaryFilter : ComponentBase
         SessionService.FilterPreference.LowerBoundaryDateTime = LowerBoundaryDateTime;
 
         LogSwitch.Debug("Changing lower boundary");
-
-        if (OnLowerBoundaryChanged.HasDelegate)
-        {
-            await OnLowerBoundaryChanged.InvokeAsync();
-        }
     }
 }

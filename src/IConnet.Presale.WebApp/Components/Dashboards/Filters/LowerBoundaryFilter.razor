@@ -1,4 +1,14 @@
 <div class="boundary-filter-section">
+
+    <div class="d-flex flex-column" style="margin-bottom: 16px;">
+        <div>
+            Ubah data <span class="fw-bold">Daily</span>
+        </div>
+        <div>
+            Tanggal terpilih saat ini: <span class="date-only-badge fw-bold">@GetCurrentLowerBoundaryDate()</span>
+        </div>
+    </div>
+
     <FluentStack Orientation="Orientation.Horizontal"
         HorizontalAlignment="HorizontalAlignment.Start"
         VerticalAlignment="VerticalAlignment.Bottom">
@@ -6,8 +16,9 @@
         <div class="filter-date boundary-filter">
             <div class="date-picker">
                 <FluentDatePicker style="width: 135px;"
+                    Label="Ganti Hari"
                     Value="@NullableLowerBoundaryDateTime"
-                    ValueChanged="OnLowerBoundaryDateChangedAsync"/>
+                    ValueChanged="OnLowerBoundaryDateChanged"/>
             </div>
         </div>
 
