@@ -42,26 +42,30 @@
         <div style="@WeeklyToggleDisplayStyle">
             <h4 class="app-font">Laporan Opportunity Negatiation Approval <span class="">@CurrentWeekIndicator()</span> - <span>@GetMiddleBoundaryDateMin()</span> s.d <span>@GetMiddleBoundaryDateMax()</span></h4>
 
-            <div class="d-flex flex-row">
-                @if (!IsBufferLoading)
-                {
-                    @* <ApprovalStatusTabulation Models="@MiddleBoundaryModels"/> *@
+            @if (!IsBufferLoading)
+            {
+                <div class="d-flex flex-row">
                     <ApprovalStatusBarChart Models="@MiddleBoundaryTransposeModels"/>
                     <ApprovalStatusPieChart Models="@MiddleBoundaryModels" />
-                }
-            </div>
+                </div>
+                <div style="margin-left: 24px;">
+                    <ApprovalStatusTabulation Models="@MiddleBoundaryModels"/>
+                </div>
+            }
         </div>
         <div style="@DailyToggleDisplayStyle">
             <h4 class="app-font">Laporan Opportunity Negatiation Approval <span class="">@TodayIndicator()</span> - <span>@GetLowerBoundaryDate()</span></h4>
 
-            <div class="d-flex flex-row">
-                @if (!IsBufferLoading)
-                {
-                    @* <ApprovalStatusTabulation Models="@LowerBoundaryModels"/> *@
+            @if (!IsBufferLoading)
+            {
+                <div class="d-flex flex-row">
                     <ApprovalStatusBarChart Models="@LowerBoundaryTransposeModels"/>
-                    <ApprovalStatusPieChart Models="@LowerBoundaryModels" />
-                }
-            </div>
+                    <ApprovalStatusPieChart Models="@LowerBoundaryModels" />>
+                </div>
+                <div style="margin-left: 24px;">
+                    <ApprovalStatusTabulation Models="@LowerBoundaryModels"/>
+                </div>
+            }
         </div>
     </div>
 
