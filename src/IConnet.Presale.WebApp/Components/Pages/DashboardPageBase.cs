@@ -81,13 +81,32 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         return new TabNavigationModel("dashboard-wip", PageNavName.Dashboard, PageRoute.Dashboard);
     }
 
-    public async Task OpenBoundaryFilterAsync()
+    public async Task OpenBoundaryFilterDialogAsync()
     {
         await Task.CompletedTask;
 
         var boundary = SessionService.FilterPreference.BoundaryFilters[ActiveTabId];
 
         LogSwitch.Debug("Boundary Filtering at {0}", boundary);
+
+        var parameters = new DialogParameters()
+        {
+            Title = $"{boundary} Filter",
+            TrapFocus = true,
+            Width = "500px",
+        };
+
+        var dialog = await DialogService.ShowDialogAsync<BoundaryFilterDialog>(boundary, parameters);
+        var result = await dialog.Result;
+
+        if (result.Cancelled || result.Data == null)
+        {
+            LogSwitch.Debug("Cancel Filters");
+        }
+        else
+        {
+            LogSwitch.Debug("Apply Filters");
+        }
     }
 
     public void ApplyFilters()

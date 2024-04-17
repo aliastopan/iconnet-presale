@@ -1,6 +1,6 @@
 <FluentDialogHeader ShowDismiss="false">
     <FluentStack VerticalAlignment="VerticalAlignment.Center">
-        <FluentIcon Value="@(new Icons.Filled.Size24.Delete())" Color="@Color.Error" />
+        <FluentIcon Value="@(new Icons.Filled.Size24.Calendar())" Color="@Color.Accent" />
         <FluentLabel Typo="Typography.PaneHeader">
             @Dialog.Instance.Parameters.Title
         </FluentLabel>
@@ -9,11 +9,38 @@
 
 <div>
     <span>Boundary Filters</span>
+
+   @switch (Boundary)
+   {
+        case BoundaryFilterMode.Monthly:
+        {
+            <div>
+                Monthly - Upper
+            </div>
+            break;
+        }
+        case BoundaryFilterMode.Weekly:
+        {
+            <div>
+                Weekly - Middle
+            </div>
+            break;
+        }
+        case BoundaryFilterMode.Daily:
+        {
+            <div>
+                Daily - Lower
+            </div>
+            break;
+        }
+        default:
+            break;
+   }
 </div>
 
 <FluentDialogFooter>
     <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.End">
-        <FluentButton Appearance="Appearance.Accent" OnClick="SaveAsync">Filter</FluentButton>
+        <FluentButton Appearance="Appearance.Accent" OnClick="SaveAsync">Terapkan</FluentButton>
         <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Batal</FluentButton>
     </FluentStack>
 </FluentDialogFooter>
