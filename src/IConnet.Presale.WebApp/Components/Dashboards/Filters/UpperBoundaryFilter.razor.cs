@@ -33,7 +33,7 @@ public partial class UpperBoundaryFilter : ComponentBase
         return SessionService.FilterPreference.UpperBoundaryDateTimeMax.ToString("dd MMM yyyy", cultureInfo);
     }
 
-    protected async Task OnUpperBoundaryDateMinChangedAsync(DateTime? nullableDateTime)
+    protected void OnUpperBoundaryDateMinChanged(DateTime? nullableDateTime)
     {
         if (nullableDateTime is null)
         {
@@ -44,11 +44,9 @@ public partial class UpperBoundaryFilter : ComponentBase
         SessionService.FilterPreference.UpperBoundaryDateTimeMin = UpperBoundaryDateTimeMin;
 
         LogSwitch.Debug("Changing upper boundary MIN");
-
-        await Task.CompletedTask;
     }
 
-    protected async Task OnUpperBoundaryDateMaxChangedAsync(DateTime? nullableDateTime)
+    protected void OnUpperBoundaryDateMaxChanged(DateTime? nullableDateTime)
     {
         if (nullableDateTime is null)
         {
@@ -59,8 +57,6 @@ public partial class UpperBoundaryFilter : ComponentBase
         SessionService.FilterPreference.UpperBoundaryDateTimeMax = UpperBoundaryDateTimeMax;
 
         LogSwitch.Debug("Changing upper boundary MAX");
-
-        await Task.CompletedTask;
     }
 
     private string GetUpperBoundaryDaysRangeLabel()
