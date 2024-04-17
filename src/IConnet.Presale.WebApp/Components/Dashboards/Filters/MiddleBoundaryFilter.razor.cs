@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace IConnet.Presale.WebApp.Components.Dashboards.Filters;
 
 public partial class MiddleBoundaryFilter : ComponentBase
@@ -5,15 +7,13 @@ public partial class MiddleBoundaryFilter : ComponentBase
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
 
-    [Parameter] public EventCallback OnMiddleBoundaryChanged { get; set; }
-
     public DateTime? NullableMiddleBoundaryDateTimeMin { get; set; }
     public DateTime? NullableMiddleBoundaryDateTimeMax { get; set; }
     public DateTime MiddleBoundaryDateTimeMin => NullableMiddleBoundaryDateTimeMin!.Value;
     public DateTime MiddleBoundaryDateTimeMax => NullableMiddleBoundaryDateTimeMax!.Value;
     public TimeSpan MiddleBoundaryRange => MiddleBoundaryDateTimeMax - MiddleBoundaryDateTimeMin;
 
-    public string FilterDateTimeRangeLabel => GetDaysRangeLabel();
+    public string MiddleBoundaryTimeRangeLabel => GetMiddleBoundaryDaysRangeLabel();
 
     protected override void OnInitialized()
     {
@@ -21,7 +21,19 @@ public partial class MiddleBoundaryFilter : ComponentBase
         NullableMiddleBoundaryDateTimeMax = SessionService.FilterPreference.MiddleBoundaryDateTimeMax;
     }
 
-    protected async Task OnMiddleBoundaryDateMinChangedAsync(DateTime? nullableDateTime)
+    protected string GetCurrentMiddleBoundaryDateMin()
+    {
+        var cultureInfo = new CultureInfo("id-ID");
+        return SessionService.FilterPreference.MiddleBoundaryDateTimeMin.ToString("dd MMM yyyy", cultureInfo);
+    }
+
+    protected string GetCurrentMiddleBoundaryDateMax()
+    {
+        var cultureInfo = new CultureInfo("id-ID");
+        return SessionService.FilterPreference.MiddleBoundaryDateTimeMax.ToString("dd MMM yyyy", cultureInfo);
+    }
+
+    protected void OnMiddleBoundaryDateMinChangedAsync(DateTime? nullableDateTime)
     {
         if (nullableDateTime is null)
         {
@@ -50,14 +62,9 @@ public partial class MiddleBoundaryFilter : ComponentBase
         }
 
         SessionService.FilterPreference.MiddleBoundaryDateTimeMin = MiddleBoundaryDateTimeMin;
-
-        if (OnMiddleBoundaryChanged.HasDelegate)
-        {
-            await OnMiddleBoundaryChanged.InvokeAsync();
-        }
     }
 
-    protected async Task OnMiddleBoundaryDateMaxChangedAsync(DateTime? nullableDateTime)
+    protected void OnMiddleBoundaryDateMaxChangedAsync(DateTime? nullableDateTime)
     {
         if (nullableDateTime is null)
         {
@@ -76,15 +83,10 @@ public partial class MiddleBoundaryFilter : ComponentBase
         SessionService.FilterPreference.MiddleBoundaryDateTimeMax = MiddleBoundaryDateTimeMax;
 
         LogSwitch.Debug("Changing middle boundary MAX");
-
-        if (OnMiddleBoundaryChanged.HasDelegate)
-        {
-            await OnMiddleBoundaryChanged.InvokeAsync();
-        }
     }
 
-    private string GetDaysRangeLabel()
+    private string GetMiddleBoundaryDaysRangeLabel()
     {
-        return $"{MiddleBoundaryRange.Days} Hari";
+        return $"Rentang {MiddleBoundaryRange.Days} Hari";
     }
 }
