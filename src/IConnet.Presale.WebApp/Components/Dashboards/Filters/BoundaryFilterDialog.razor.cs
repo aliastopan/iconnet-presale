@@ -13,7 +13,7 @@ public partial class BoundaryFilterDialog : IDialogContentComponent<BoundaryFilt
     {
         LogSwitch.Debug("Save Filters");
 
-        await Dialog.CloseAsync();
+        await Dialog.CloseAsync(Content);
     }
 
     protected async Task CancelAsync()

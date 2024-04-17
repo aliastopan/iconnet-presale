@@ -106,12 +106,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         var dialog = await DialogService.ShowDialogAsync<BoundaryFilterDialog>(boundary, parameters);
         var result = await dialog.Result;
 
-        // if (result.Data == null)
-        // {
-        //     LogSwitch.Debug("Dialog result is NULL");
-        // }
-
-        if (result.Cancelled)
+        if (result.Cancelled || result.Data == null)
         {
             SessionService.FilterPreference.UpperBoundaryDateTimeMin = new DateTime(upperBoundaryMin.Ticks);
             SessionService.FilterPreference.UpperBoundaryDateTimeMax = new DateTime(upperBoundaryMax.Ticks);
