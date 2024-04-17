@@ -7,6 +7,9 @@ public partial class UpperBoundaryFilter : ComponentBase
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
 
+    public DateTime CurrentUpperBoundaryDateTimeMin { get; set; }
+    public DateTime CurrentUpperBoundaryDateTimeMax { get; set; }
+
     public DateTime? NullableUpperBoundaryDateTimeMin { get; set; }
     public DateTime? NullableUpperBoundaryDateTimeMax { get; set; }
     public DateTime UpperBoundaryDateTimeMin => NullableUpperBoundaryDateTimeMin!.Value;
@@ -19,18 +22,21 @@ public partial class UpperBoundaryFilter : ComponentBase
     {
         NullableUpperBoundaryDateTimeMin = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
         NullableUpperBoundaryDateTimeMax = SessionService.FilterPreference.UpperBoundaryDateTimeMax;
+
+        CurrentUpperBoundaryDateTimeMin = new DateTime(UpperBoundaryDateTimeMin.Ticks);
+        CurrentUpperBoundaryDateTimeMax = new DateTime(UpperBoundaryDateTimeMax.Ticks);
     }
 
     protected string GetCurrentUpperBoundaryDateMin()
     {
         var cultureInfo = new CultureInfo("id-ID");
-        return SessionService.FilterPreference.UpperBoundaryDateTimeMin.ToString("dd MMM yyyy", cultureInfo);
+        return CurrentUpperBoundaryDateTimeMin.ToString("dd MMM yyyy", cultureInfo);
     }
 
     protected string GetCurrentUpperBoundaryDateMax()
     {
         var cultureInfo = new CultureInfo("id-ID");
-        return SessionService.FilterPreference.UpperBoundaryDateTimeMax.ToString("dd MMM yyyy", cultureInfo);
+        return CurrentUpperBoundaryDateTimeMax.ToString("dd MMM yyyy", cultureInfo);
     }
 
     protected void OnUpperBoundaryDateMinChanged(DateTime? nullableDateTime)

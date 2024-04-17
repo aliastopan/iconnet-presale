@@ -7,6 +7,9 @@ public partial class MiddleBoundaryFilter : ComponentBase
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
 
+    public DateTime CurrentMiddleBoundaryDateTimeMin { get; set; }
+    public DateTime CurrentMiddleBoundaryDateTimeMax { get; set; }
+
     public DateTime? NullableMiddleBoundaryDateTimeMin { get; set; }
     public DateTime? NullableMiddleBoundaryDateTimeMax { get; set; }
     public DateTime MiddleBoundaryDateTimeMin => NullableMiddleBoundaryDateTimeMin!.Value;
@@ -19,18 +22,21 @@ public partial class MiddleBoundaryFilter : ComponentBase
     {
         NullableMiddleBoundaryDateTimeMin = SessionService.FilterPreference.MiddleBoundaryDateTimeMin;
         NullableMiddleBoundaryDateTimeMax = SessionService.FilterPreference.MiddleBoundaryDateTimeMax;
+
+        CurrentMiddleBoundaryDateTimeMin = new DateTime(MiddleBoundaryDateTimeMin.Ticks);
+        CurrentMiddleBoundaryDateTimeMax = new DateTime(MiddleBoundaryDateTimeMax.Ticks);
     }
 
     protected string GetCurrentMiddleBoundaryDateMin()
     {
         var cultureInfo = new CultureInfo("id-ID");
-        return SessionService.FilterPreference.MiddleBoundaryDateTimeMin.ToString("dd MMM yyyy", cultureInfo);
+        return CurrentMiddleBoundaryDateTimeMin.ToString("dd MMM yyyy", cultureInfo);
     }
 
     protected string GetCurrentMiddleBoundaryDateMax()
     {
         var cultureInfo = new CultureInfo("id-ID");
-        return SessionService.FilterPreference.MiddleBoundaryDateTimeMax.ToString("dd MMM yyyy", cultureInfo);
+        return CurrentMiddleBoundaryDateTimeMax.ToString("dd MMM yyyy", cultureInfo);
     }
 
     protected void OnMiddleBoundaryDateMinChangedAsync(DateTime? nullableDateTime)
