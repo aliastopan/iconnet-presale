@@ -21,13 +21,13 @@ public partial class UpperBoundaryFilter : ComponentBase
         NullableUpperBoundaryDateTimeMax = SessionService.FilterPreference.UpperBoundaryDateTimeMax;
     }
 
-    protected string GetCurrentDateTimeMin()
+    protected string GetCurrentUpperBoundaryDateMin()
     {
         var cultureInfo = new CultureInfo("id-ID");
         return SessionService.FilterPreference.UpperBoundaryDateTimeMin.ToString("dd MMM yyyy", cultureInfo);
     }
 
-    protected string GetCurrentDateTimeMax()
+    protected string GetCurrentUpperBoundaryDateMax()
     {
         var cultureInfo = new CultureInfo("id-ID");
         return SessionService.FilterPreference.UpperBoundaryDateTimeMax.ToString("dd MMM yyyy", cultureInfo);
