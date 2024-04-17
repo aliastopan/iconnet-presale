@@ -4,7 +4,7 @@ namespace IConnet.Presale.WebApp.Components.Dashboards.Stacks;
 
 public class ApprovalStatusTabulationStackBase : ReportTabulationStackBase
 {
-    [Inject] ReportService ReportService { get; set;} = default!;
+    [Inject] protected ReportService ReportService { get; set;} = default!;
 
     [Parameter] public List<ApprovalStatusReportModel> UpperBoundaryModels { get; set; } = [];
     [Parameter] public List<ApprovalStatusReportModel> MiddleBoundaryModels { get; set; } = [];
