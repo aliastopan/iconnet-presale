@@ -5,11 +5,12 @@ namespace IConnet.Presale.WebApp.Components.Dashboards.Stacks;
 
 public class ReportTabulationStackBase : ComponentBase
 {
-    [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
+    [Inject] protected IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] protected SessionService SessionService { get; set; } = default!;
 
     [Parameter] public string TabulationId { get; set; } = default!;
     [Parameter] public EventCallback PageRefresh { get; set; }
+    [Parameter] public EventCallback OpenBoundaryFilter { get; set; }
 
     private CultureInfo _cultureInfo = new CultureInfo("id-ID");
 
@@ -29,6 +30,16 @@ public class ReportTabulationStackBase : ComponentBase
     protected override void OnInitialized()
     {
         SessionService.FilterPreference.ToggleToMonthlyView();
+    }
+
+    public async Task OpenBoundaryFilterAsync()
+    {
+        if (OpenBoundaryFilter.HasDelegate)
+        {
+            LogSwitch.Debug("Tabulation Stack calling Boundary Filtering");
+
+            await OpenBoundaryFilter.InvokeAsync();
+        }
     }
 
     protected string GetUpperBoundaryDateMin()

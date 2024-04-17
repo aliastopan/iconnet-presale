@@ -8,6 +8,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
 {
     [Inject] protected TabNavigationManager TabNavigationManager { get; set; } = default!;
     [Inject] protected IDateTimeService DateTimeService { get; set; } = default!;
+    [Inject] protected IDialogService DialogService { get; set; } = default!;
     [Inject] protected IPresaleDataBoundaryManager PresaleDataBoundaryManager { get; set; } = default!;
     [Inject] protected IIdentityHttpClient IdentityHttpClient { get; set; } = default!;
     [Inject] protected UserManager UserManager { get; set; } = default!;
@@ -75,10 +76,18 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
     public List<ApprovalAgingReportModel> MiddleBoundaryApprovalAgingReportModels => _middleBoundaryApprovalAgingReportModels.OrderByDescending(x => x.Average).ToList();
     public List<ApprovalAgingReportModel> LowerBoundaryApprovalAgingReportModels => _lowerBoundaryApprovalAgingReportModels.OrderByDescending(x => x.Average).ToList();
 
-
     public TabNavigationModel PageDeclaration()
     {
         return new TabNavigationModel("dashboard-wip", PageNavName.Dashboard, PageRoute.Dashboard);
+    }
+
+    public async Task OpenBoundaryFilterAsync()
+    {
+        await Task.CompletedTask;
+
+        var boundary = SessionService.FilterPreference.BoundaryFilters[ActiveTabId];
+
+        LogSwitch.Debug("Boundary Filtering at {0}", boundary);
     }
 
     public void ApplyFilters()

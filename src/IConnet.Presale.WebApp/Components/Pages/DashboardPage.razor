@@ -46,7 +46,8 @@ else
                         UpperBoundaryModels="@UpperBoundaryApprovalStatusReports"
                         MiddleBoundaryModels="@MiddleBoundaryApprovalStatusReports"
                         LowerBoundaryModels="@LowerBoundaryApprovalStatusReports"
-                        PageRefresh="@(this.StateHasChanged)"/>
+                        PageRefresh="@(this.StateHasChanged)"
+                        OpenBoundaryFilter="OpenBoundaryFilterAsync"/>
                 </Content>
             </FluentTab>
             <FluentTab Id="tab-2">
