@@ -3,7 +3,7 @@ using IConnet.Presale.WebApp.Models.Presales.Reports;
 
 namespace IConnet.Presale.WebApp.Components.Dashboards.Charts;
 
-public partial class ApprovalStatusPieChart
+public partial class ApprovalStatusPieChart : ComponentBase
 {
     [Parameter]
     public List<ApprovalStatusReportModel> Models { get; set; } = [];
