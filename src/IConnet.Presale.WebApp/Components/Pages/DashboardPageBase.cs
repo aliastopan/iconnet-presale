@@ -290,17 +290,14 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         GenerateChatCallResponsAgingReport(includeMiddle: true);
         GenerateApprovalAgingReport(includeMiddle: true);
 
-        // var stash = _upperBoundaryPresaleData?.ToList();
-        // _upperBoundaryPresaleData = null!;
         SessionService.FilterPreference.IsBufferLoading = true;
+        StateHasChanged();
 
         await Task.Delay(500);
         SessionService.FilterPreference.RefreshBoundaryFilters(ActiveTabId);
 
-        // _upperBoundaryPresaleData = stash?.AsQueryable();;
         SessionService.FilterPreference.IsBufferLoading = false;
         StateHasChanged();
-        // LogSwitch.Debug("Finish: {0}", _upperBoundaryPresaleData is null);
     }
 
     public async Task ReloadLowerBoundaryAsync()
@@ -327,14 +324,12 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         GenerateChatCallResponsAgingReport(includeLower: true);
         GenerateApprovalAgingReport(includeLower: true);
 
-        // var stash = _upperBoundaryPresaleData?.ToList();
-        // _upperBoundaryPresaleData = null!;
         SessionService.FilterPreference.IsBufferLoading = true;
+        StateHasChanged();
 
         await Task.Delay(500);
         SessionService.FilterPreference.RefreshBoundaryFilters(ActiveTabId);
 
-        // _upperBoundaryPresaleData = stash?.AsQueryable();;
         SessionService.FilterPreference.IsBufferLoading = false;
         StateHasChanged();
     }
