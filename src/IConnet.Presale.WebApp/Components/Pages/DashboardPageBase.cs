@@ -93,20 +93,38 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         {
             Title = $"{boundary} Filter",
             TrapFocus = true,
-            Width = "500px",
+            Width = "600px",
         };
+
+        // cache boundary DateTime
+        DateTime upperBoundaryMin = new DateTime(SessionService.FilterPreference.UpperBoundaryDateTimeMin.Ticks);
+        DateTime upperBoundaryMax = new DateTime(SessionService.FilterPreference.UpperBoundaryDateTimeMax.Ticks);
+        DateTime middleBoundaryMin = new DateTime(SessionService.FilterPreference.MiddleBoundaryDateTimeMin.Ticks);
+        DateTime middleBoundaryMax = new DateTime(SessionService.FilterPreference.MiddleBoundaryDateTimeMax.Ticks);
+        DateTime lowerBoundary = new DateTime(SessionService.FilterPreference.LowerBoundaryDateTime.Ticks);
 
         var dialog = await DialogService.ShowDialogAsync<BoundaryFilterDialog>(boundary, parameters);
         var result = await dialog.Result;
 
-        if (result.Cancelled || result.Data == null)
+        // if (result.Data == null)
+        // {
+        //     LogSwitch.Debug("Dialog result is NULL");
+        // }
+
+        if (result.Cancelled)
         {
+            SessionService.FilterPreference.UpperBoundaryDateTimeMin = new DateTime(upperBoundaryMin.Ticks);
+            SessionService.FilterPreference.UpperBoundaryDateTimeMax = new DateTime(upperBoundaryMax.Ticks);
+            SessionService.FilterPreference.MiddleBoundaryDateTimeMin = new DateTime(middleBoundaryMin.Ticks);
+            SessionService.FilterPreference.MiddleBoundaryDateTimeMax = new DateTime(middleBoundaryMax.Ticks);
+            SessionService.FilterPreference.LowerBoundaryDateTime = new DateTime(lowerBoundary.Ticks);
+
             LogSwitch.Debug("Cancel Filters");
+
+            return;
         }
-        else
-        {
-            LogSwitch.Debug("Apply Filters");
-        }
+
+        LogSwitch.Debug("Apply Filters");
     }
 
     public void ApplyFilters()

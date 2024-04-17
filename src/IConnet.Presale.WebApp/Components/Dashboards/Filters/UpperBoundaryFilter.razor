@@ -1,22 +1,33 @@
 <div class="boundary-filter-section">
 
+    <div class="d-flex flex-column" style="margin-bottom: 16px;">
+        <div>
+            Ubah rentang data <span class="fw-bold">Monthly</span>
+        </div>
+        <div>
+            Rentang sekerang: <span class="date-only-badge">@GetCurrentMin()</span> s.d <span class="date-only-badge">@GetCurrentMax()</span>
+        </div>
+    </div>
+
     <FluentStack Orientation="Orientation.Horizontal"
         HorizontalAlignment="HorizontalAlignment.Start"
-        VerticalAlignment="VerticalAlignment.Bottom">
+        VerticalAlignment="VerticalAlignment.Top">
 
         <div class="filter-date">
             <div class="date-picker">
                 <FluentDatePicker style="width: 135px;"
-                    Disabled="true"
-                    Value="@NullableUpperBoundaryDateTimeMin"/>
+                    Label="Tgl. Permohonan"
+                    Value="@NullableUpperBoundaryDateTimeMin"
+                    ValueChanged="OnUpperBoundaryDateMinChangedAsync"/>
             </div>
             <div class="date-until">
-                <span style="color: var(--inactive-grey);">s.d</span>
+                <span>s.d</span>
             </div>
             <div class="date-picker">
                 <FluentDatePicker style="width: 135px;"
-                    Disabled="true"
-                    Value="@NullableUpperBoundaryDateTimeMax"/>
+                    Label="@UpperBoundaryTimeRangeLabel"
+                    Value="@NullableUpperBoundaryDateTimeMax"
+                    ValueChanged="OnUpperBoundaryDateMaxChangedAsync"/>
             </div>
         </div>
 

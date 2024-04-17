@@ -8,15 +8,11 @@
 </FluentDialogHeader>
 
 <div>
-    <span>Boundary Filters</span>
-
    @switch (Boundary)
    {
         case BoundaryFilterMode.Monthly:
         {
-            <div>
-                Monthly - Upper
-            </div>
+            <UpperBoundaryFilter />
             break;
         }
         case BoundaryFilterMode.Weekly:
@@ -40,7 +36,7 @@
 
 <FluentDialogFooter>
     <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.End">
-        <FluentButton Appearance="Appearance.Accent" OnClick="SaveAsync">Terapkan</FluentButton>
+        <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync">Terapkan</FluentButton>
         <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Batal</FluentButton>
     </FluentStack>
 </FluentDialogFooter>
