@@ -2,38 +2,33 @@
 
 @if (Models is not null)
 {
-    <table class="approval-status-tabulation" style="width: fit-content;">
+    <table class="approval-status-tabulation" style="@GetChartWidthStyle()">
         <thead>
             <tr>
-                <th rowspan="2" class="tabulation-header" style="">
-                    STATUS
+                <th class="tabulation-header" style="height: 24px !important;">
+                    Status
                 </th>
-                <th colspan="@Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct().Count()"
-                    class="tabulation-header"
-                    style="">
-                    Kantor Perwakilan
-                </th>
-                <th rowspan="2" class="tabulation-header" style="">
-                    Grand Total
-                </th>
-            </tr>
-            <tr>
                 @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
                 {
-                    <th class="" style="padding: 2px 8px; text-align: center;">
+                    <th class="tabulation-header" style="padding: 2px 8px; text-align: center; height: 24px !important;">
                         @office
                     </th>
                 }
+                <th class="tabulation-header" style="height: 24px !important;">
+                    Grand Total
+                </th>
             </tr>
         </thead>
         <tbody>
             @foreach (var model in Models)
             {
                 <tr>
-                    <td class="tabulation-header-row">@model.ApprovalStatusDisplay</td>
+                    <td class="tabulation-header-row" style="height: 24px !important;">
+                        @model.ApprovalStatusDisplay
+                    </td>
                     @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
                     {
-                        <td class="tabulation-content">
+                        <td class="tabulation-content" style="height: 24px !important;">
                         @if (model.StatusPerOffice.ContainsKey(office))
                         {
                             @model.StatusPerOffice[office]
@@ -44,20 +39,22 @@
                         }
                         </td>
                     }
-                    <td class="tabulation-content">
+                    <td class="tabulation-content" style="height: 24px !important;">
                         @model.GrandTotal
                     </td>
                 </tr>
             }
             <tr>
-                <td class="tabulation-header">Grand Total</td>
+                <td class="tabulation-header" style="height: 24px !important;">
+                    Grand Total
+                </td>
                 @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
                 {
-                    <td class="tabulation-content">
+                    <td class="tabulation-content" style="height: 24px !important;">
                         @Models.Sum(m => m.StatusPerOffice.GetValueOrDefault(office, 0))
                     </td>
                 }
-                <td class="tabulation-content-summary" style="">
+                <td class="tabulation-content-summary" style="height: 24px !important;">
                     @Models.Sum(m => m.GrandTotal)
                 </td>
             </tr>

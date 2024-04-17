@@ -3,21 +3,23 @@
 
 @if (Models.Count != 0)
 {
-    <ApexChart TItem="ApprovalStatusTransposeModel"
-        Height="300"
-        Width="600"
-        Options="Options">
+    <div style="margin-top: -16px;">
+        <ApexChart TItem="ApprovalStatusTransposeModel"
+            Height="300"
+            Width="@GetChartWidth()"
+            Options="Options">
 
-        @foreach (var approvalStatus in Models.First().Status.Keys)
-        {
-            <ApexPointSeries TItem="ApprovalStatusTransposeModel"
-                Items="Models"
-                Name="@EnumProcessor.EnumToDisplayString(approvalStatus)"
-                XValue="@(e => e.Office)"
-                SeriesType="SeriesType.Bar"
-                YAggregate="@(e => e.Sum(x => x.Status[approvalStatus]))"
-                ShowDataLabels/>
-        }
+            @foreach (var approvalStatus in Models.First().Status.Keys)
+            {
+                <ApexPointSeries TItem="ApprovalStatusTransposeModel"
+                    Items="Models"
+                    Name="@EnumProcessor.EnumToDisplayString(approvalStatus)"
+                    XValue="@(e => e.Office)"
+                    SeriesType="SeriesType.Bar"
+                    YAggregate="@(e => e.Sum(x => x.Status[approvalStatus]))"
+                    ShowDataLabels/>
+            }
 
-    </ApexChart>
+        </ApexChart>
+    </div>
 }

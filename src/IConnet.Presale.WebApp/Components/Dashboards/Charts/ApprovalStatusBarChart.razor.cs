@@ -53,4 +53,12 @@ public partial class ApprovalStatusBarChart : ComponentBase
             Colors = ["#b2ce60", "#02768f", "#1c94ad", "#8fab3c", "#0bd0d9"]
         };
     }
+
+    protected int GetChartWidth()
+    {
+        int width = 125;
+        int totalColumn = Models.First().Status.Keys.ToList().Count;
+
+        return width * totalColumn;
+    }
 }
