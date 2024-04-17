@@ -133,7 +133,7 @@ public class ReportTabulationStackBase : ComponentBase
         var upperBoundaryMin = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
         var upperBoundaryMax = SessionService.FilterPreference.UpperBoundaryDateTimeMax;
 
-        bool isCurrentMonth = DateTimeService.IsWithinCurrentWeek(upperBoundaryMin, upperBoundaryMax);
+        bool isCurrentMonth = DateTimeService.IsWithinCurrentMonth(upperBoundaryMin, upperBoundaryMax);
 
         return isCurrentMonth
             ? "Bulan Ini"
