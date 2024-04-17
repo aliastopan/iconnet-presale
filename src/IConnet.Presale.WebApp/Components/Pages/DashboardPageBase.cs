@@ -125,24 +125,17 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         {
             case BoundaryFilterMode.Monthly:
             {
-                SessionService.FilterPreference.IsBufferLoading = true;
-                StateHasChanged();
-
                 await ReloadUpperBoundaryAsync();
-
-                SessionService.FilterPreference.IsBufferLoading = false;
-                StateHasChanged();
-
                 break;
             }
             case BoundaryFilterMode.Weekly:
             {
-
+                await ReloadMiddleBoundaryAsync();
                 break;
             }
             case BoundaryFilterMode.Daily:
             {
-
+                await ReloadLowerBoundaryAsync();
                 break;
             }
             default:
@@ -280,6 +273,9 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         _middleBoundaryApprovalAgingReportModels.Clear();
         _lowerBoundaryApprovalAgingReportModels.Clear();
 
+        SessionService.FilterPreference.IsBufferLoading = true;
+        StateHasChanged();
+
         _upperBoundaryPresaleData = await PresaleDataBoundaryManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
         _middleBoundaryPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
         _lowerBoundaryPresaleData = PresaleDataBoundaryManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
@@ -291,6 +287,9 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         GenerateChatCallMulaiAgingReports(includeUpper: true, includeMiddle: true, includeLower: true);
         GenerateChatCallResponsAgingReport(includeUpper: true, includeMiddle: true, includeLower: true);
         GenerateApprovalAgingReport(includeUpper: true, includeMiddle: true, includeLower: true);
+
+        SessionService.FilterPreference.IsBufferLoading = false;
+        StateHasChanged();
     }
 
     public async Task ReloadMiddleBoundaryAsync()
@@ -322,10 +321,11 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         StateHasChanged();
 
         await Task.Delay(500);
-        SessionService.FilterPreference.RefreshBoundaryFilters(ActiveTabId);
 
         SessionService.FilterPreference.IsBufferLoading = false;
         StateHasChanged();
+
+        SessionService.FilterPreference.RefreshBoundaryFilters(ActiveTabId);
     }
 
     public async Task ReloadLowerBoundaryAsync()
@@ -356,10 +356,11 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         StateHasChanged();
 
         await Task.Delay(500);
-        SessionService.FilterPreference.RefreshBoundaryFilters(ActiveTabId);
 
         SessionService.FilterPreference.IsBufferLoading = false;
         StateHasChanged();
+
+        SessionService.FilterPreference.RefreshBoundaryFilters(ActiveTabId);
     }
 
     private void GenerateStatusApprovalReports(bool includeUpper = false, bool includeMiddle = false, bool includeLower = false)
