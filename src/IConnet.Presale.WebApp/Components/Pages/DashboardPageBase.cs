@@ -22,6 +22,8 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
     protected PresaleDataBoundaryFilter PresaleDataBoundaryFilter { get; set; } = default!;
     protected string UpperBoundarySectionCss => SessionService.FilterPreference.ShowDashboardBoundary ? "enable" : "filter-section-disable";
 
+    protected bool IsBufferLoading => SessionService.FilterPreference.IsBufferLoading;
+
     private List<PresaleOperatorModel> _presaleOperators = [];
 
     private IQueryable<WorkPaper>? _upperBoundaryPresaleData;
@@ -83,8 +85,6 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
 
     public async Task OpenBoundaryFilterDialogAsync()
     {
-        await Task.CompletedTask;
-
         var boundary = SessionService.FilterPreference.BoundaryFilters[ActiveTabId];
 
         LogSwitch.Debug("Boundary Filtering at {0}", boundary);
@@ -120,6 +120,34 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         }
 
         LogSwitch.Debug("Apply Filters");
+
+        switch (boundary)
+        {
+            case BoundaryFilterMode.Monthly:
+            {
+                SessionService.FilterPreference.IsBufferLoading = true;
+                StateHasChanged();
+
+                await ReloadUpperBoundaryAsync();
+
+                SessionService.FilterPreference.IsBufferLoading = false;
+                StateHasChanged();
+
+                break;
+            }
+            case BoundaryFilterMode.Weekly:
+            {
+
+                break;
+            }
+            case BoundaryFilterMode.Daily:
+            {
+
+                break;
+            }
+            default:
+                break;
+        }
     }
 
     public void ApplyFilters()

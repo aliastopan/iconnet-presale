@@ -6,13 +6,13 @@
 
 @if (UpperBoundaryPresaleData is not null)
 {
-    <div class="d-flex flex-row align-items-center">
+    @* <div class="d-flex flex-row align-items-center">
         <span  span class="page-description">Dashboard Versi 3.0 (WIP)</span>
         <div class="filter-toggle">
             <FluentButton IconEnd="@(new Icons.Filled.Size20.Grid())"
                 OnClick="@SessionService.FilterPreference.ToggleDashboardBoundary"/>
         </div>
-    </div>
+    </div> *@
 }
 else
 {
@@ -25,13 +25,13 @@ else
 <div>
     @if (UpperBoundaryPresaleData is not null)
     {
-        <div class="@UpperBoundarySectionCss">
+        @* <div class="@UpperBoundarySectionCss">
             <PresaleDataBoundaryFilter @ref="PresaleDataBoundaryFilter"
                 OnUpperBoundaryChanged="OnUpperBoundaryChangedAsync"
                 OnMiddleBoundaryChanged="ReloadMiddleBoundaryAsync"
                 OnLowerBoundaryChanged="ReloadLowerBoundaryAsync"
                 OnReload="ReloadUpperBoundaryAsync"/>
-        </div>
+        </div> *@
 
         <FluentTabs ActiveTabId="@ActiveTabId"
             ActiveTabIdChanged="OnActiveTabIdChanged">
@@ -41,13 +41,16 @@ else
                     Status Approval
                 </Header>
                 <Content>
-                    <ApprovalStatusTabulationStack
-                        TabulationId="tab-1"
-                        UpperBoundaryModels="@UpperBoundaryApprovalStatusReports"
-                        MiddleBoundaryModels="@MiddleBoundaryApprovalStatusReports"
-                        LowerBoundaryModels="@LowerBoundaryApprovalStatusReports"
-                        PageRefresh="@(this.StateHasChanged)"
-                        OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"/>
+                    @if (!IsBufferLoading)
+                    {
+                        <ApprovalStatusTabulationStack
+                            TabulationId="tab-1"
+                            UpperBoundaryModels="@UpperBoundaryApprovalStatusReports"
+                            MiddleBoundaryModels="@MiddleBoundaryApprovalStatusReports"
+                            LowerBoundaryModels="@LowerBoundaryApprovalStatusReports"
+                            PageRefresh="@(this.StateHasChanged)"
+                            OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"/>
+                    }
                 </Content>
             </FluentTab>
             <FluentTab Id="tab-2">
