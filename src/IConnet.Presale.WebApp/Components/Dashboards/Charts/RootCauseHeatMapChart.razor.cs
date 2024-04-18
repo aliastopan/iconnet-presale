@@ -25,7 +25,7 @@ public partial class RootCauseHeatMapChart : ComponentBase
     protected int GetCharHeight()
     {
         int minHeight = 300;
-        int height = 75;
+        int height = 65;
         int totalColumn = Models.SelectMany(x => x.RootCausePerOffice.Keys).Distinct().Count();
 
         int chartWidth = height * totalColumn;
