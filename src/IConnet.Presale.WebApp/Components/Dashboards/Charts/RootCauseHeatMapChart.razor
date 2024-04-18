@@ -1,0 +1,24 @@
+@using ApexCharts
+@using IConnet.Presale.WebApp.Models.Presales.Reports
+
+@if (Models.Count != 0)
+{
+    <div style="margin-top: -16px;">
+        <ApexChart TItem="RootCauseReportModel"
+            Height="@GetCharHeight()"
+            Width="@GetChartWidth()"
+            Options="Options">
+
+            @foreach (var office in Models.First().RootCausePerOffice.Keys)
+            {
+                <ApexPointSeries TItem="RootCauseReportModel"
+                            Items="Models"
+                            Name="@office"
+                            SeriesType="SeriesType.Heatmap"
+                            XValue="@(e => e.RootCause)"
+                            YAggregate="@(e => e.Sum(x => x.RootCausePerOffice[office]))"/>
+            }
+
+        </ApexChart>
+    </div>
+}

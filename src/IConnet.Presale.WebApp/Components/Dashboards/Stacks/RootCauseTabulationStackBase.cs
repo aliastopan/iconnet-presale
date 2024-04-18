@@ -12,6 +12,8 @@ public class RootCauseTabulationStackBase : ReportTabulationStackBase
     [Parameter] public List<RootCauseReportModel> MiddleBoundaryModels { get; set; } = [];
     [Parameter] public List<RootCauseReportModel> LowerBoundaryModels { get; set; } = [];
 
+    public List<RootCauseReportModel> SortedUpperBoundaryModels => UpperBoundaryModels.Where(x => x.GrandTotal > 0).ToList();
+
     [Parameter] public EventCallback OnExclusionFilter { get; set; }
 
     public bool IsPageView { get; set; }

@@ -32,8 +32,9 @@
                     @bind-Value="@IsPageView"
                     Label="Page View"/>
             </div>
-            <div class="d-flex flex-row">
-                <RootCauseTabulation Models="@UpperBoundaryModels"
+            <div class="d-flex flex-column">
+                <RootCauseHeatMapChart Models="@SortedUpperBoundaryModels"/>
+                <RootCauseTabulation Models="@SortedUpperBoundaryModels"
                     IsPageView="@IsPageView"/>
             </div>
         </div>
