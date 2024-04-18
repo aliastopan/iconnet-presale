@@ -47,11 +47,27 @@ public partial class ApprovalStatusBarChart : ComponentBase
                     Height = 10,
                     Show = false
                 }
-            },
-            // Colors = ["#1e6bc9", "#202020", "#ff0033", "#ff7300", "#0e700e"]
-            // Colors = ["#909295", "#231f20", "#02768f", "#1c94ad", "#0bd0d9"]
-            Colors = ["#b2ce60", "#02768f", "#1c94ad", "#8fab3c", "#0bd0d9"]
+            }
         };
+    }
+
+    protected string GetPointColor(ApprovalStatus approvalStatus)
+    {
+        switch (approvalStatus)
+        {
+            case ApprovalStatus.InProgress:
+                return "#b2ce60";
+            case ApprovalStatus.CloseLost:
+                return "#02768f";
+            case ApprovalStatus.Reject:
+                return "#1c94ad";
+            case ApprovalStatus.Expansion:
+                return "#8fab3c";
+            case ApprovalStatus.Approve:
+                return "#0bd0d9";
+            default:
+                return "#ffffff";
+        }
     }
 
     protected int GetChartWidth()
@@ -62,3 +78,7 @@ public partial class ApprovalStatusBarChart : ComponentBase
         return width * totalColumn;
     }
 }
+
+    // Colors = ["#b2ce60", "#02768f", "#1c94ad", "#8fab3c", "#0bd0d9"]
+    // Colors = ["#1e6bc9", "#202020", "#ff0033", "#ff7300", "#0e700e"]
+    // Colors = ["#909295", "#231f20", "#02768f", "#1c94ad", "#0bd0d9"]

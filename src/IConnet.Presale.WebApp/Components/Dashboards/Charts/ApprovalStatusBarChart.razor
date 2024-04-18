@@ -17,6 +17,8 @@
                     XValue="@(e => e.Office)"
                     SeriesType="SeriesType.Bar"
                     YAggregate="@(e => e.Sum(x => x.Status[approvalStatus]))"
+                    Color="@(GetPointColor(approvalStatus))"
+                    PointColor="@(e => GetPointColor(approvalStatus))"
                     ShowDataLabels/>
             }
 
