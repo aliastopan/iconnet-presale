@@ -1,8 +1,6 @@
 using System.Security.Claims;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using IConnet.Presale.WebApp.Models.Identity;
-using IConnet.Presale.Domain.Enums;
 
 namespace IConnet.Presale.WebApp.Services;
 
@@ -11,7 +9,6 @@ public sealed class SessionService
     private readonly IDateTimeService _dateTimeService;
     private readonly ProtectedLocalStorage _localStorage;
     private readonly NavigationManager _navigationManager;
-    private readonly OptionService _optionService;
     private readonly FilterPreference _filterPreference;
 
     public SessionService(IDateTimeService dateTimeService,
@@ -22,7 +19,7 @@ public sealed class SessionService
         _dateTimeService = dateTimeService;
         _localStorage = localStorage;
         _navigationManager = navigationManager;
-        _optionService = optionService;
+
         _filterPreference = new FilterPreference(optionService.KantorPerwakilanOptions)
         {
             IsMonthlySelected = true
