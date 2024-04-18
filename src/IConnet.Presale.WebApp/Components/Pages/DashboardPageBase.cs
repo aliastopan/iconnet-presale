@@ -143,7 +143,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
         }
     }
 
-    public void ApplyFilters()
+    public void ApplyRootCauseExclusionFilters()
     {
         LogSwitch.Debug("Apply Filters");
 
