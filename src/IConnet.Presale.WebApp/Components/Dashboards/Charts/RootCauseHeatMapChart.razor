@@ -12,11 +12,11 @@
             @foreach (var office in Models.First().RootCausePerOffice.Keys)
             {
                 <ApexPointSeries TItem="RootCauseReportModel"
-                            Items="Models"
-                            Name="@office"
-                            SeriesType="SeriesType.Heatmap"
-                            XValue="@(e => e.RootCause)"
-                            YAggregate="@(e => e.Sum(x => x.RootCausePerOffice[office]))"/>
+                    Items="Models"
+                    Name="@office"
+                    SeriesType="SeriesType.Heatmap"
+                    XValue="@(e => e.RootCause)"
+                    YAggregate="@(e => e.Sum(x => x.RootCausePerOffice[office]))"/>
             }
 
         </ApexChart>
