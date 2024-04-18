@@ -84,4 +84,14 @@ public static class StringExtensions
     {
         return int.TryParse(input, out int result);
     }
+
+    public static string TruncateWithEllipsis(this string input, int maxLength = 24)
+    {
+        if (input.Length <= maxLength)
+        {
+            return input;
+        }
+
+        return input.Substring(0, maxLength - 3) + "...";
+    }
 }
