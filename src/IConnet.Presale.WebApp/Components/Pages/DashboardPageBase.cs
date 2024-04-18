@@ -20,7 +20,7 @@ public class DashboardPageBase : ComponentBase, IPageNavigation
 
     protected string ActiveTabId { get; set; } = "tab-1";
     protected PresaleDataBoundaryFilter PresaleDataBoundaryFilter { get; set; } = default!;
-    protected string UpperBoundarySectionCss => SessionService.FilterPreference.ShowDashboardBoundary ? "enable" : "filter-section-disable";
+    // protected string UpperBoundarySectionCss => SessionService.FilterPreference.ShowDashboardBoundary ? "enable" : "filter-section-disable";
 
     protected bool IsBufferLoading => SessionService.FilterPreference.IsBufferLoading;
 
