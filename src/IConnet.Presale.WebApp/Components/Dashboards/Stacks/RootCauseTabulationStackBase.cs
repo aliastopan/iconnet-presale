@@ -13,6 +13,8 @@ public class RootCauseTabulationStackBase : ReportTabulationStackBase
     [Parameter] public List<RootCauseReportModel> LowerBoundaryModels { get; set; } = [];
 
     public List<RootCauseReportModel> SortedUpperBoundaryModels => UpperBoundaryModels.Where(x => x.GrandTotal > 0).ToList();
+    public List<RootCauseReportModel> SortedMiddleBoundaryModels => MiddleBoundaryModels.Where(x => x.GrandTotal > 0).ToList();
+    public List<RootCauseReportModel> SortedLowerBoundaryModels => LowerBoundaryModels.Where(x => x.GrandTotal > 0).ToList();
 
     [Parameter] public EventCallback OnExclusionFilter { get; set; }
 

@@ -16,51 +16,60 @@
             OnClick="ToggleToDailyView">
             Daily</FluentButton>
 
+        <FluentCheckbox style="margin-top: 32px;"
+            @bind-Value="@IsPageView"
+            Label="Page View"/>
+
         <FluentButton BackgroundColor="crimson"
             Color="white"
-            style="width: 100px ;margin-top: 32px;"
+            style="width: 100px; margin-top: 8px;"
             OnClick="OpenRootCauseExclusionDialogFilter">
             Exclusion</FluentButton>
+
     </div>
 
     <div class="d-flex flex-column">
         <div style="@MonthlyToggleDisplayStyle">
-            <h5 class="app-font">Laporan Root Cause <span class="">@CurrentMonthIndicator()</span></h5>
-            <div class="d-flex flex-row">
+            <h4 class="app-font">Laporan Root Cause <span>@CurrentMonthIndicator()</span> - <span>@GetUpperBoundaryDateMin()</span> s.d <span>@GetUpperBoundaryDateMax()</span></h4>
 
-                <FluentCheckbox style="margin-left: 8px;"
-                    @bind-Value="@IsPageView"
-                    Label="Page View"/>
-            </div>
-            <div class="d-flex flex-column">
-                <RootCauseHeatMapChart Models="@SortedUpperBoundaryModels"/>
-                <RootCauseTabulation Models="@SortedUpperBoundaryModels"
-                    IsPageView="@IsPageView"/>
-            </div>
+            @if (!IsBufferLoading)
+            {
+                <div class="d-flex flex-row">
+                    <RootCauseHeatMapChart Models="@SortedUpperBoundaryModels"/>
+                </div>
+                <div style="margin-left: 24px;">
+                    <RootCauseTabulation Models="@UpperBoundaryModels"
+                        IsPageView="@IsPageView"/>
+                </div>
+            }
         </div>
         <div style="@WeeklyToggleDisplayStyle">
-            <h5 class="app-font">Laporan Root Cause <span class="">@CurrentWeekIndicator()</span></h5>
-            <div class="d-flex flex-row">
-                <FluentCheckbox style="margin-left: 8px;"
-                    @bind-Value="@IsPageView"
-                    Label="Page View"/>
-            </div>
-            <div class="d-flex flex-row">
-                <RootCauseTabulation Models="@MiddleBoundaryModels"
-                    IsPageView="@IsPageView"/>
-            </div>
+            <h4 class="app-font">Laporan Root Cause <span class="">@CurrentWeekIndicator()</span> - <span>@GetMiddleBoundaryDateMin()</span> s.d <span>@GetMiddleBoundaryDateMax()</span></h4>
+
+            @if (!IsBufferLoading)
+            {
+                <div class="d-flex flex-row">
+                    <RootCauseHeatMapChart Models="@SortedMiddleBoundaryModels"/>
+                </div>
+                <div style="margin-left: 24px;">
+                    <RootCauseTabulation Models="@MiddleBoundaryModels"
+                        IsPageView="@IsPageView"/>
+                </div>
+            }
         </div>
         <div style="@DailyToggleDisplayStyle">
-            <h5 class="app-font">Laporan Root Cause <span class="">@TodayIndicator()</span></h5>
-            <div class="d-flex flex-row">
-                <FluentCheckbox style="margin-left: 8px;"
-                    @bind-Value="@IsPageView"
-                    Label="Page View"/>
-            </div>
-            <div class="d-flex flex-row">
-                <RootCauseTabulation Models="@LowerBoundaryModels"
-                    IsPageView="@IsPageView"/>
-            </div>
+            <h4 class="app-font">Laporan Root Cause <span class="">@TodayIndicator()</span> - <span>@GetLowerBoundaryDate()</span></h4>
+
+            @if (!IsBufferLoading)
+            {
+                <div class="d-flex flex-row">
+                    <RootCauseHeatMapChart Models="@SortedLowerBoundaryModels"/>
+                </div>
+                <div style="margin-left: 24px;">
+                    <RootCauseTabulation Models="@LowerBoundaryModels"
+                        IsPageView="@IsPageView"/>
+                </div>
+            }
         </div>
     </div>
 
