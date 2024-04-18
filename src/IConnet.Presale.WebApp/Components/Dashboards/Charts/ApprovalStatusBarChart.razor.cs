@@ -72,10 +72,15 @@ public partial class ApprovalStatusBarChart : ComponentBase
 
     protected int GetChartWidth()
     {
+        int minWidth = 500;
         int width = 125;
         int totalColumn = Models.First().Status.Keys.ToList().Count;
 
-        return width * totalColumn;
+        int chartWidth = width * totalColumn;
+
+        return chartWidth < minWidth
+            ? minWidth
+            : chartWidth;
     }
 }
 
