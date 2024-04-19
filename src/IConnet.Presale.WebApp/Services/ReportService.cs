@@ -421,7 +421,7 @@ public class ReportService
             .Select(group => new ApprovalStatusTransposeModel
             {
                 Office = group.Key,
-                Status = group.ToDictionary(x => x.ApprovalStatus, x => x.Count)
+                ApprovalStatusMetrics = group.ToDictionary(x => x.ApprovalStatus, x => x.Count)
             })
             .ToList();
     }

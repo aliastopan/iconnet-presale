@@ -8,14 +8,14 @@
             Height="350"
             Options="Options">
 
-            @foreach (var approvalStatus in Models.First().Status.Keys)
+            @foreach (var approvalStatus in Models.First().ApprovalStatusMetrics.Keys)
             {
                 <ApexPointSeries TItem="ApprovalStatusTransposeModel"
                     Items="Models"
                     Name="@EnumProcessor.EnumToDisplayString(approvalStatus)"
                     XValue="@(e => e.Office)"
                     SeriesType="SeriesType.Bar"
-                    YAggregate="@(e => e.Sum(x => x.Status[approvalStatus]))"
+                    YAggregate="@(e => e.Sum(x => x.ApprovalStatusMetrics[approvalStatus]))"
                     Color="@(GetPointColor(approvalStatus))"
                     PointColor="@(e => GetPointColor(approvalStatus))"
                     ShowDataLabels/>
