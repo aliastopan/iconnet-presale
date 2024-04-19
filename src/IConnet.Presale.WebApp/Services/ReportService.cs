@@ -511,8 +511,10 @@ public class ReportService
     {
         var orderedModels = boundaryModels.OrderByDescending(m => m.GrandTotal).ToList();
 
-        var listA = orderedModels.Where(m => m.GrandTotal > 0).Take(10).ToList();
-        var listB = orderedModels.Where(m => m.GrandTotal == 0).Concat(orderedModels.Where(m => m.GrandTotal > 0).Skip(10)).ToList();
+        var listA = orderedModels.Take(9).ToList();
+        var listB = orderedModels.Skip(9).ToList();
+        // var listA = orderedModels.Where(m => m.GrandTotal > 0).Take(9).ToList();
+        // var listB = orderedModels.Where(m => m.GrandTotal == 0).Concat(orderedModels.Where(m => m.GrandTotal > 0).Skip(9)).ToList();
 
         var etcRootCause = "Lain-lain";
         var etcModel = new RootCauseReportModel(etcRootCause, new Dictionary<string, int>());
