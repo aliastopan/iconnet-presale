@@ -156,3 +156,7 @@
     display: flex;
     justify-content: center;
 }
+
+.separate-chart{
+    border-bottom: 1px solid #e6e6e6;
+}

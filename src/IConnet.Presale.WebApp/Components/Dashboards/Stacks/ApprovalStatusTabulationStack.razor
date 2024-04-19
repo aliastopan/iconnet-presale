@@ -2,7 +2,7 @@
 
 <div class="d-flex flex-row align-items-top w-100">
 
-    <div class="d-flex flex-column" style="margin-left: 4px; margin-right: 32px;">
+    <div class="d-flex flex-column" style="margin-left: 4px; margin-right: 16px;">
         <FluentButton Appearance="@MonthlyToggleAppearance"
             style="width: 100px; margin-bottom: 8px;"
             OnClick="ToggleToMonthlyView">
@@ -19,7 +19,7 @@
         <FluentButton BackgroundColor="crimson"
             Color="white"
             IconStart="@(new Icons.Filled.Size20.Calendar().WithColor("#ffffff"))"
-            style="width: 100px ;margin-top: 32px;"
+            style="width: 100px ;margin-top: 16px;"
             OnClick="OpenBoundaryFilterAsync">
             Filter</FluentButton>
     </div>
@@ -36,20 +36,23 @@
                 <h5 class="app-font">Qty Opportunity</h5>
                 <ApprovalStatusTabulation Models="@UpperBoundaryModels"/>
 
-                <h5 class="app-font">Percentage Proses Opportunity SBU Jawa Timur</h5>
-                <div class="centered-chart">
-                    <div class="w-50" style="margin-top: 16px;">
-                        <ApprovalStatusPieChart Models="@UpperBoundaryModels" />
-                    </div>
-                </div>
-                @foreach(var office in UpperBoundaryGrouping)
+                if (!IsUpperBoundaryEmpty)
                 {
-                    <h5 class="app-font" style="margin-top: 16px;">Percentage Proses Opportunity KP @office.Key</h5>
-                    <div class="centered-chart">
-                        <div class="w-50" style="margin-top: 16px;">
-                            <ApprovalStatusPieChart Models="@office.Value" />
+                    <h5 class="app-font" style="margin-top: 16px;">Percentage Proses Opportunity SBU Jawa Timur</h5>
+                    <div class="centered-chart separate-chart">
+                        <div class="w-50" style="">
+                            <ApprovalStatusPieChart Models="@UpperBoundaryModels" />
                         </div>
                     </div>
+                    @foreach(var office in UpperBoundaryGrouping)
+                    {
+                        <h5 class="app-font" style="margin-top: 16px;">Percentage Proses Opportunity KP @office.Key</h5>
+                        <div class="centered-chart separate-chart">
+                            <div class="w-50" style="">
+                                <ApprovalStatusPieChart Models="@office.Value" />
+                            </div>
+                        </div>
+                    }
                 }
             }
         </div>
@@ -64,20 +67,23 @@
                 <h5 class="app-font">Qty Opportunity</h5>
                 <ApprovalStatusTabulation Models="@MiddleBoundaryModels"/>
 
-                <h5 class="app-font">Percentage Proses Opportunity SBU Jawa Timur</h5>
-                <div class="centered-chart">
-                    <div class="w-50" style="margin-top: 16px;">
-                        <ApprovalStatusPieChart Models="@MiddleBoundaryModels" />
-                    </div>
-                </div>
-                @foreach(var office in MiddleBoundaryGrouping)
+                if (!IsMiddleBoundaryEmpty)
                 {
-                    <h5 class="app-font" style="margin-top: 16px;">Percentage Proses Opportunity KP @office.Key</h5>
-                    <div class="centered-chart">
-                        <div class="w-50" style="margin-top: 16px;">
-                            <ApprovalStatusPieChart Models="@office.Value" />
+                    <h5 class="app-font" style="margin-top: 16px;">Percentage Proses Opportunity SBU Jawa Timur</h5>
+                    <div class="centered-chart separate-chart">
+                        <div class="w-50">
+                            <ApprovalStatusPieChart Models="@MiddleBoundaryModels" />
                         </div>
                     </div>
+                    @foreach(var office in MiddleBoundaryGrouping)
+                    {
+                        <h5 class="app-font" style="margin-top: 16px;">Percentage Proses Opportunity KP @office.Key</h5>
+                        <div class="centered-chart separate-chart">
+                            <div class="w-50" style="">
+                                <ApprovalStatusPieChart Models="@office.Value" />
+                            </div>
+                        </div>
+                    }
                 }
             }
         </div>
@@ -92,20 +98,23 @@
                 <h5 class="app-font">Qty Opportunity</h5>
                 <ApprovalStatusTabulation Models="@LowerBoundaryModels"/>
 
-                <h5 class="app-font">Percentage Proses Opportunity SBU Jawa Timur</h5>
-                <div class="centered-chart">
-                    <div class="w-50" style="margin-top: 16px;">
-                        <ApprovalStatusPieChart Models="@LowerBoundaryModels" />
-                    </div>
-                </div>
-                @foreach(var office in MiddleBoundaryGrouping)
+                if (!IsLowerBoundaryEmpty)
                 {
-                    <h5 class="app-font" style="margin-top: 16px;">Percentage Proses Opportunity KP @office.Key</h5>
-                    <div class="centered-chart">
+                    <h5 class="app-font">Percentage Proses Opportunity SBU Jawa Timur</h5>
+                    <div class="centered-chart separate-chart">
                         <div class="w-50" style="margin-top: 16px;">
-                            <ApprovalStatusPieChart Models="@office.Value" />
+                            <ApprovalStatusPieChart Models="@LowerBoundaryModels" />
                         </div>
                     </div>
+                    @foreach(var office in MiddleBoundaryGrouping)
+                    {
+                        <h5 class="app-font" style="margin-top: 16px;">Percentage Proses Opportunity KP @office.Key</h5>
+                        <div class="centered-chart separate-chart">
+                            <div class="w-50" style="">
+                                <ApprovalStatusPieChart Models="@office.Value" />
+                            </div>
+                        </div>
+                    }
                 }
             }
         </div>
