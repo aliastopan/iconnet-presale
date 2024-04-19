@@ -41,6 +41,9 @@
                 <RootCauseTransposeHeatMapChart Models="@UpperBoundaryTransposeModels"/>
 
                 <h5 class="app-font">Qty Root Cause SBU JAWA TIMUR</h5>
+                <FluentCheckbox style="padding: 2px 4px;"
+                    @bind-Value="@IsPageView"
+                    Label="Page View"/>
                 <RootCauseTabulation Models="@UpperBoundaryModels"
                     IsPageView="@IsPageView"/>
 
@@ -69,6 +72,16 @@
 
             @if (!IsBufferLoading)
             {
+                <h5 class="app-font">Heatmap Root Cause SBU JAWA TIMUR</h5>
+                <RootCauseTransposeHeatMapChart Models="@MiddleBoundaryTransposeModels"/>
+
+                <h5 class="app-font">Qty Root Cause SBU JAWA TIMUR</h5>
+                <FluentCheckbox style="padding: 2px 4px;"
+                    @bind-Value="@IsPageView"
+                    Label="Page View"/>
+                <RootCauseTabulation Models="@MiddleBoundaryModels"
+                    IsPageView="@IsPageView"/>
+
                 <h5 class="app-font" style="margin-top: 16px;">Percentage Root Cause SBU JAWA TIMUR</h5>
                 <div class="centered-chart separate-chart">
                     <div class="w-50" style="">
@@ -91,6 +104,16 @@
 
             @if (!IsBufferLoading)
             {
+                <h5 class="app-font">Heatmap Root Cause SBU JAWA TIMUR</h5>
+                <RootCauseTransposeHeatMapChart Models="@LowerBoundaryTransposeModels"/>
+
+                <h5 class="app-font">Qty Root Cause SBU JAWA TIMUR</h5>
+                <FluentCheckbox style="padding: 2px 4px;"
+                    @bind-Value="@IsPageView"
+                    Label="Page View"/>
+                <RootCauseTabulation Models="@LowerBoundaryModels"
+                    IsPageView="@IsPageView"/>
+
                 <h5 class="app-font" style="margin-top: 16px;">Percentage Root Cause SBU JAWA TIMUR</h5>
                 <div class="centered-chart separate-chart">
                     <div class="w-50" style="">
