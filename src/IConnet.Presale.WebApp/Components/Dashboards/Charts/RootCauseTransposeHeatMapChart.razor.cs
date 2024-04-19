@@ -24,9 +24,14 @@ public partial class RootCauseTransposeHeatMapChart : ComponentBase
 
     protected int GetCharHeight()
     {
+        int minHeight = 128;
         int height = 32;
-        int availableRootCause = Models.SelectMany(x => x.RootCauseMetrics.Keys).Distinct().Count();
+        int totalRootCause = Models.SelectMany(x => x.RootCauseMetrics.Keys).Distinct().Count();
 
-        return height * availableRootCause;
+        int chartHeight = height * totalRootCause;
+
+        return chartHeight < minHeight
+            ? minHeight
+            : chartHeight;
     }
 }
