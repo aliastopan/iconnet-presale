@@ -426,6 +426,36 @@ public class ReportService
             .ToList();
     }
 
+    public Dictionary<string, List<ApprovalStatusReportModel>> ApprovalStatusBoundaryGrouping(List<ApprovalStatusReportModel> boundaryModels)
+    {
+        var boundaryModelGroups = new Dictionary<string, List<ApprovalStatusReportModel>>();
+
+        var availableOffices = boundaryModels.SelectMany(m => m.StatusPerOffice.Keys).Distinct().ToList();
+        var reportModelGroups = boundaryModels.GroupBy(m => m.ApprovalStatus);
+
+        foreach (var model in reportModelGroups)
+        {
+            var approvalStatus = model.Key;
+
+            foreach (var office in availableOffices)
+            {
+                var officeTotal = model.Sum(m => m.StatusPerOffice.GetValueOrDefault(office, 0));
+
+                var statusPerOffice = new Dictionary<string, int> { { office, officeTotal } };
+                var reportModel = new ApprovalStatusReportModel(approvalStatus, statusPerOffice);
+
+                if (!boundaryModelGroups.ContainsKey(office))
+                {
+                    boundaryModelGroups[office] = new List<ApprovalStatusReportModel>();
+                }
+
+                boundaryModelGroups[office].Add(reportModel);
+            }
+        }
+
+        return boundaryModelGroups;
+    }
+
     private static TimeSpan GetAverageTimeSpan(List<TimeSpan> agingReport)
     {
         if (agingReport == null || agingReport.Count == 0)
