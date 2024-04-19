@@ -19,6 +19,12 @@ public class RootCauseReportModel
         }
     }
 
+    public RootCauseReportModel(string rootCause, Dictionary<string, int> rootCausePerOffice)
+    {
+        RootCause = rootCause;
+        RootCausePerOffice = rootCausePerOffice;
+    }
+
     public string RootCause { get; init; }
     public Dictionary<string, int> RootCausePerOffice { get; init; } = default!;
     public int GrandTotal => GetGrandTotal();

@@ -13,19 +13,27 @@ public class RootCauseTabulationStackBase : ReportTabulationStackBase
     [Parameter] public List<RootCauseReportModel> MiddleBoundaryModels { get; set; } = [];
     [Parameter] public List<RootCauseReportModel> LowerBoundaryModels { get; set; } = [];
 
-    public List<RootCauseReportModel> SortedUpperBoundaryModels => SortBoundaryModel(UpperBoundaryModels);
-    public List<RootCauseReportModel> SortedMiddleBoundaryModels => SortBoundaryModel(MiddleBoundaryModels);
-    public List<RootCauseReportModel> SortedLowerBoundaryModels => SortBoundaryModel(LowerBoundaryModels);
+    // public List<RootCauseReportModel> SortedUpperBoundaryModels => SortBoundaryModel(UpperBoundaryModels);
+    // public List<RootCauseReportModel> SortedMiddleBoundaryModels => SortBoundaryModel(MiddleBoundaryModels);
+    // public List<RootCauseReportModel> SortedLowerBoundaryModels => SortBoundaryModel(LowerBoundaryModels);
 
-    public List<RootCauseReportTransposeModel> UpperBoundaryTransposeModels => ReportService.TransposeModel(SortedUpperBoundaryModels);
-    public List<RootCauseReportTransposeModel> MiddleBoundaryTransposeModels => ReportService.TransposeModel(SortedMiddleBoundaryModels);
-    public List<RootCauseReportTransposeModel> LowerBoundaryTransposeModels => ReportService.TransposeModel(SortedLowerBoundaryModels);
+    public List<RootCauseReportTransposeModel> UpperBoundaryTransposeModels => ReportService.TransposeModel(OrderByDescending(UpperBoundaryModels));
+    public List<RootCauseReportTransposeModel> MiddleBoundaryTransposeModels => ReportService.TransposeModel(OrderByDescending(MiddleBoundaryModels));
+    public List<RootCauseReportTransposeModel> LowerBoundaryTransposeModels => ReportService.TransposeModel(OrderByDescending(LowerBoundaryModels));
+
+    public List<RootCauseReportModel> AssortedUpperBoundaryModels => ReportService.SortRootCauseModels(UpperBoundaryModels);
+    public List<RootCauseReportModel> AssortedMiddleBoundaryModels => ReportService.SortRootCauseModels(MiddleBoundaryModels);
+    public List<RootCauseReportModel> AssortedLowerBoundaryModels => ReportService.SortRootCauseModels(LowerBoundaryModels);
+
+    public bool IsUpperBoundaryEmpty => UpperBoundaryModels.Sum(x => x.GrandTotal) == 0;
+    public bool IsMiddleBoundaryEmpty => MiddleBoundaryModels.Sum(x => x.GrandTotal) == 0;
+    public bool IsLowerBoundaryEmpty => LowerBoundaryModels.Sum(x => x.GrandTotal) == 0;
 
     [Parameter] public EventCallback OnExclusionFilter { get; set; }
 
     public bool IsPageView { get; set; }
 
-    protected List<RootCauseReportModel> SortBoundaryModel(List<RootCauseReportModel> models)
+    protected List<RootCauseReportModel> OrderByDescending(List<RootCauseReportModel> models)
     {
         return models.Where(x => x.GrandTotal > 0)
             .OrderByDescending(x => x.GrandTotal)

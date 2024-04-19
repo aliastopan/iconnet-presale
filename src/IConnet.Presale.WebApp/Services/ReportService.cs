@@ -473,6 +473,30 @@ public class ReportService
         return boundaryModelGroups;
     }
 
+    public List<RootCauseReportModel> SortRootCauseModels(List<RootCauseReportModel> boundaryModels)
+    {
+        var orderedModels = boundaryModels.OrderByDescending(m => m.GrandTotal).ToList();
+
+        var listA = orderedModels.Where(m => m.GrandTotal > 0).Take(10).ToList();
+        var listB = orderedModels.Where(m => m.GrandTotal == 0).Concat(orderedModels.Where(m => m.GrandTotal > 0).Skip(10)).ToList();
+
+        var etcRootCause = "Lain-lain";
+        var etcModel = new RootCauseReportModel(etcRootCause, new Dictionary<string, int>());
+        var officeKeys = listB.SelectMany(m => m.RootCausePerOffice.Keys).Distinct().ToList();
+
+        foreach (var officeKey in officeKeys)
+        {
+            etcModel.RootCausePerOffice[officeKey] = listB.Sum(m => m.RootCausePerOffice.GetValueOrDefault(officeKey, 0));
+        }
+
+        var result = new List<RootCauseReportModel>(listA)
+        {
+            etcModel
+        };
+
+        return result;
+    }
+
     private static TimeSpan GetAverageTimeSpan(List<TimeSpan> agingReport)
     {
         if (agingReport == null || agingReport.Count == 0)

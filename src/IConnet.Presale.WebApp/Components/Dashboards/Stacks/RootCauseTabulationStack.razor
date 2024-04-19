@@ -41,6 +41,15 @@
                 <RootCauseTabulation Models="@UpperBoundaryModels"
                     IsPageView="@IsPageView"/>
 
+                if (!IsUpperBoundaryEmpty)
+                {
+                    <h5 class="app-font" style="margin-top: 16px;">Percentage Root Cause SBU Jawa Timur</h5>
+                    <div class="centered-chart separate-chart">
+                        <div class="w-50" style="">
+                            <RootCausePieChart Models="@AssortedUpperBoundaryModels"/>
+                        </div>
+                    </div>
+                }
 
                 @* <div class="d-flex flex-row">
                     <RootCauseHeatMapChart Models="@SortedUpperBoundaryModels"/>

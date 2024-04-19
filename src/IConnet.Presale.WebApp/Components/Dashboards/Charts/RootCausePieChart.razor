@@ -12,7 +12,7 @@
             Items="Models"
             Name=""
             SeriesType="SeriesType.Pie"
-            XValue="@(e => e.RootCause.TruncateWithEllipsis(20))"
+            XValue="@(e => e.RootCause.TruncateWithEllipsis(32))"
             YAggregate="@(e => e.Sum(x => x.GrandTotal))"
             ShowDataLabels />
 
