@@ -21,4 +21,12 @@ public partial class RootCauseTransposeHeatMapChart : ComponentBase
             Colors = new List<string> { "#fc4848" }
         };
     }
+
+    protected int GetCharHeight()
+    {
+        int height = 32;
+        int availableRootCause = Models.SelectMany(x => x.RootCauseMetrics.Keys).Distinct().Count();
+
+        return height * availableRootCause;
+    }
 }

@@ -5,6 +5,7 @@
 {
     <div style="margin-top: -16px;">
         <ApexChart TItem="RootCauseReportTransposeModel"
+            Height="@GetCharHeight()"
             Options="Options">
 
             @foreach (var rootCause in Models.First().RootCauseMetrics.Keys)
