@@ -1,0 +1,22 @@
+@using ApexCharts
+@using IConnet.Presale.WebApp.Models.Presales.Reports
+
+@if (Models.Count != 0)
+{
+    <div style="">
+        <ApexChart TItem="RootCauseReportTransposeModel"
+            Options="Options">
+
+            @foreach (var rootCause in Models.First().RootCauseMetrics.Keys)
+            {
+                <ApexPointSeries TItem="RootCauseReportTransposeModel"
+                    Items="Models"
+                    Name="@rootCause"
+                    SeriesType="SeriesType.Heatmap"
+                    XValue="@(e => e.Office)"
+                    YAggregate="@(e => e.Sum(x => x.RootCauseMetrics[rootCause]))"/>
+            }
+
+        </ApexChart>
+    </div>
+}
