@@ -13,17 +13,17 @@ public class RootCauseTabulationStackBase : ReportTabulationStackBase
     [Parameter] public List<RootCauseReportModel> MiddleBoundaryModels { get; set; } = [];
     [Parameter] public List<RootCauseReportModel> LowerBoundaryModels { get; set; } = [];
 
-    // public List<RootCauseReportModel> SortedUpperBoundaryModels => SortBoundaryModel(UpperBoundaryModels);
-    // public List<RootCauseReportModel> SortedMiddleBoundaryModels => SortBoundaryModel(MiddleBoundaryModels);
-    // public List<RootCauseReportModel> SortedLowerBoundaryModels => SortBoundaryModel(LowerBoundaryModels);
-
     public List<RootCauseReportTransposeModel> UpperBoundaryTransposeModels => ReportService.TransposeModel(OrderByDescending(UpperBoundaryModels));
     public List<RootCauseReportTransposeModel> MiddleBoundaryTransposeModels => ReportService.TransposeModel(OrderByDescending(MiddleBoundaryModels));
     public List<RootCauseReportTransposeModel> LowerBoundaryTransposeModels => ReportService.TransposeModel(OrderByDescending(LowerBoundaryModels));
 
-    public List<RootCauseReportModel> AssortedUpperBoundaryModels => ReportService.SortRootCauseModels(UpperBoundaryModels);
-    public List<RootCauseReportModel> AssortedMiddleBoundaryModels => ReportService.SortRootCauseModels(MiddleBoundaryModels);
-    public List<RootCauseReportModel> AssortedLowerBoundaryModels => ReportService.SortRootCauseModels(LowerBoundaryModels);
+    public List<RootCauseReportModel> SortedUpperBoundaryModels => ReportService.SortRootCauseModels(UpperBoundaryModels);
+    public List<RootCauseReportModel> SortedMiddleBoundaryModels => ReportService.SortRootCauseModels(MiddleBoundaryModels);
+    public List<RootCauseReportModel> SortedLowerBoundaryModels => ReportService.SortRootCauseModels(LowerBoundaryModels);
+
+    public Dictionary<string, List<RootCauseReportModel>> UpperBoundaryGrouping => ReportService.RootCauseBoundaryGrouping(SortedUpperBoundaryModels);
+    public Dictionary<string, List<RootCauseReportModel>> MiddleBoundaryGrouping => ReportService.RootCauseBoundaryGrouping(SortedMiddleBoundaryModels);
+    public Dictionary<string, List<RootCauseReportModel>> LowerBoundaryGrouping => ReportService.RootCauseBoundaryGrouping(SortedLowerBoundaryModels);
 
     public bool IsUpperBoundaryEmpty => UpperBoundaryModels.Sum(x => x.GrandTotal) == 0;
     public bool IsMiddleBoundaryEmpty => MiddleBoundaryModels.Sum(x => x.GrandTotal) == 0;

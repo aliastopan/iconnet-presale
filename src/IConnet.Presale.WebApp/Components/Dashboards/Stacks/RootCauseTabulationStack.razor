@@ -46,18 +46,19 @@
                     <h5 class="app-font" style="margin-top: 16px;">Percentage Root Cause SBU Jawa Timur</h5>
                     <div class="centered-chart separate-chart">
                         <div class="w-50" style="">
-                            <RootCausePieChart Models="@AssortedUpperBoundaryModels"/>
+                            <RootCausePieChart Models="@SortedUpperBoundaryModels"/>
                         </div>
                     </div>
+                    @foreach(var office in UpperBoundaryGrouping)
+                    {
+                        <h5 class="app-font" style="margin-top: 16px;">Percentage Root Cause KP @office.Key</h5>
+                        <div class="centered-chart separate-chart">
+                            <div class="w-50" style="">
+                                <RootCausePieChart Models="@office.Value" />
+                            </div>
+                        </div>
+                    }
                 }
-
-                @* <div class="d-flex flex-row">
-                    <RootCauseHeatMapChart Models="@SortedUpperBoundaryModels"/>
-                    <RootCausePieChart Models="@SortedUpperBoundaryModels"/>
-                </div>
-                <div style="margin-left: 24px;">
-
-                </div> *@
             }
         </div>
         <div style="@WeeklyToggleDisplayStyle">

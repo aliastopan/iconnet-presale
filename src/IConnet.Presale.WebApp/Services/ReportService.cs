@@ -475,6 +475,38 @@ public class ReportService
         return boundaryModelGroups;
     }
 
+    public Dictionary<string, List<RootCauseReportModel>> RootCauseBoundaryGrouping(List<RootCauseReportModel> boundaryModels)
+    {
+        var boundaryModelGroups = new Dictionary<string, List<RootCauseReportModel>>();
+
+        var availableOffices = boundaryModels.SelectMany(x => x.RootCausePerOffice.Keys).Distinct().ToList();
+        var reportModelGroups = boundaryModels.GroupBy(x => x.RootCause);
+
+        foreach (var group in reportModelGroups)
+        {
+            var rootCause = group.Key;
+
+            foreach (var office in availableOffices)
+            {
+                var officeTotal = group.Sum(x => x.RootCausePerOffice.GetValueOrDefault(office, 0));
+                var statusPerOffice = new Dictionary<string, int>
+                {
+                    { office, officeTotal }
+                };
+                var reportModel = new RootCauseReportModel(rootCause, statusPerOffice);
+
+                if (!boundaryModelGroups.ContainsKey(office))
+                {
+                    boundaryModelGroups[office] = new List<RootCauseReportModel>();
+                }
+
+                boundaryModelGroups[office].Add(reportModel);
+            }
+        }
+
+        return boundaryModelGroups;
+    }
+
     public List<RootCauseReportModel> SortRootCauseModels(List<RootCauseReportModel> boundaryModels)
     {
         var orderedModels = boundaryModels.OrderByDescending(m => m.GrandTotal).ToList();
