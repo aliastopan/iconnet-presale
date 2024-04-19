@@ -37,8 +37,11 @@
 
             @if (!IsBufferLoading)
             {
-                <h5 class="app-font">Heatmap Root Cause SBU JAWA TIMUR</h5>
-                <RootCauseTransposeHeatMapChart Models="@UpperBoundaryTransposeModels"/>
+                if (!IsUpperBoundaryEmpty)
+                {
+                    <h5 class="app-font">Heatmap Root Cause SBU JAWA TIMUR</h5>
+                    <RootCauseTransposeHeatMapChart Models="@UpperBoundaryTransposeModels"/>
+                }
 
                 <h5 class="app-font">Qty Root Cause SBU JAWA TIMUR</h5>
                 <FluentCheckbox style="padding: 2px 4px;"
@@ -72,8 +75,11 @@
 
             @if (!IsBufferLoading)
             {
-                <h5 class="app-font">Heatmap Root Cause SBU JAWA TIMUR</h5>
-                <RootCauseTransposeHeatMapChart Models="@MiddleBoundaryTransposeModels"/>
+                if (!IsMiddleBoundaryEmpty)
+                {
+                    <h5 class="app-font">Heatmap Root Cause SBU JAWA TIMUR</h5>
+                    <RootCauseTransposeHeatMapChart Models="@MiddleBoundaryTransposeModels"/>
+                }
 
                 <h5 class="app-font">Qty Root Cause SBU JAWA TIMUR</h5>
                 <FluentCheckbox style="padding: 2px 4px;"
@@ -82,20 +88,23 @@
                 <RootCauseTabulation Models="@MiddleBoundaryModels"
                     IsPageView="@IsPageView"/>
 
-                <h5 class="app-font" style="margin-top: 16px;">Percentage Root Cause SBU JAWA TIMUR</h5>
-                <div class="centered-chart separate-chart">
-                    <div class="w-50" style="">
-                        <RootCausePieChart Models="@SortedMiddleBoundaryModels"/>
-                    </div>
-                </div>
-                @foreach(var office in MiddleBoundaryGrouping)
+                if (!IsMiddleBoundaryEmpty)
                 {
-                    <h5 class="app-font" style="margin-top: 16px;">Percentage Root Cause KP @office.Key</h5>
+                    <h5 class="app-font" style="margin-top: 16px;">Percentage Root Cause SBU JAWA TIMUR</h5>
                     <div class="centered-chart separate-chart">
                         <div class="w-50" style="">
-                            <RootCausePieChart Models="@office.Value" />
+                            <RootCausePieChart Models="@SortedMiddleBoundaryModels"/>
                         </div>
                     </div>
+                    @foreach(var office in MiddleBoundaryGrouping)
+                    {
+                        <h5 class="app-font" style="margin-top: 16px;">Percentage Root Cause KP @office.Key</h5>
+                        <div class="centered-chart separate-chart">
+                            <div class="w-50" style="">
+                                <RootCausePieChart Models="@office.Value" />
+                            </div>
+                        </div>
+                    }
                 }
             }
         </div>
@@ -104,8 +113,11 @@
 
             @if (!IsBufferLoading)
             {
-                <h5 class="app-font">Heatmap Root Cause SBU JAWA TIMUR</h5>
-                <RootCauseTransposeHeatMapChart Models="@LowerBoundaryTransposeModels"/>
+                if (!IsLowerBoundaryEmpty)
+                {
+                    <h5 class="app-font">Heatmap Root Cause SBU JAWA TIMUR</h5>
+                    <RootCauseTransposeHeatMapChart Models="@LowerBoundaryTransposeModels"/>
+                }
 
                 <h5 class="app-font">Qty Root Cause SBU JAWA TIMUR</h5>
                 <FluentCheckbox style="padding: 2px 4px;"
@@ -114,20 +126,23 @@
                 <RootCauseTabulation Models="@LowerBoundaryModels"
                     IsPageView="@IsPageView"/>
 
-                <h5 class="app-font" style="margin-top: 16px;">Percentage Root Cause SBU JAWA TIMUR</h5>
-                <div class="centered-chart separate-chart">
-                    <div class="w-50" style="">
-                        <RootCausePieChart Models="@SortedLowerBoundaryModels"/>
-                    </div>
-                </div>
-                @foreach(var office in LowerBoundaryGrouping)
+                if (!IsLowerBoundaryEmpty)
                 {
-                    <h5 class="app-font" style="margin-top: 16px;">Percentage Root Cause KP @office.Key</h5>
+                    <h5 class="app-font" style="margin-top: 16px;">Percentage Root Cause SBU JAWA TIMUR</h5>
                     <div class="centered-chart separate-chart">
                         <div class="w-50" style="">
-                            <RootCausePieChart Models="@office.Value" />
+                            <RootCausePieChart Models="@SortedLowerBoundaryModels"/>
                         </div>
                     </div>
+                    @foreach(var office in LowerBoundaryGrouping)
+                    {
+                        <h5 class="app-font" style="margin-top: 16px;">Percentage Root Cause KP @office.Key</h5>
+                        <div class="centered-chart separate-chart">
+                            <div class="w-50" style="">
+                                <RootCausePieChart Models="@office.Value" />
+                            </div>
+                        </div>
+                    }
                 }
             }
         </div>

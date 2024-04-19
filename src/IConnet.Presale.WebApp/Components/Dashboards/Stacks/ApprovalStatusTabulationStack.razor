@@ -30,8 +30,11 @@
 
             @if (!IsBufferLoading)
             {
-                <h5 class="app-font">Statistik Approval Opportunity</h5>
-                <ApprovalStatusBarChart Models="@UpperBoundaryTransposeModels"/>
+                if (!IsUpperBoundaryEmpty)
+                {
+                    <h5 class="app-font">Statistik Approval Opportunity</h5>
+                    <ApprovalStatusBarChart Models="@UpperBoundaryTransposeModels"/>
+                }
 
                 <h5 class="app-font">Qty Opportunity</h5>
                 <ApprovalStatusTabulation Models="@UpperBoundaryModels"/>
@@ -61,8 +64,11 @@
 
             @if (!IsBufferLoading)
             {
-                <h5 class="app-font">Statistik Approval Opportunity</h5>
-                <ApprovalStatusBarChart Models="@MiddleBoundaryTransposeModels"/>
+                if (!IsMiddleBoundaryEmpty)
+                {
+                    <h5 class="app-font">Statistik Approval Opportunity</h5>
+                    <ApprovalStatusBarChart Models="@MiddleBoundaryTransposeModels"/>
+                }
 
                 <h5 class="app-font">Qty Opportunity</h5>
                 <ApprovalStatusTabulation Models="@MiddleBoundaryModels"/>
@@ -92,8 +98,11 @@
 
             @if (!IsBufferLoading)
             {
-                <h5 class="app-font">Statistik Approval Opportunity</h5>
-                <ApprovalStatusBarChart Models="@LowerBoundaryTransposeModels"/>
+                if (!IsLowerBoundaryEmpty)
+                {
+                    <h5 class="app-font">Statistik Approval Opportunity</h5>
+                    <ApprovalStatusBarChart Models="@LowerBoundaryTransposeModels"/>
+                }
 
                 <h5 class="app-font">Qty Opportunity</h5>
                 <ApprovalStatusTabulation Models="@LowerBoundaryModels"/>
