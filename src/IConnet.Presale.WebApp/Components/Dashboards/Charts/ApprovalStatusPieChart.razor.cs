@@ -37,15 +37,15 @@ public partial class ApprovalStatusPieChart : ComponentBase
         switch (model.ApprovalStatus)
         {
             case ApprovalStatus.InProgress:
-                return "#25a9f5";
+                return "#256FF5";
             case ApprovalStatus.CloseLost:
-                return "#474747";
+                return "#454545";
             case ApprovalStatus.Reject:
-                return "#fc4848";
+                return "#E12D4B";
             case ApprovalStatus.Expansion:
-                return "#f5f257";
+                return "#FFBF00";
             case ApprovalStatus.Approve:
-                return "#8fe257";
+                return "#B0EA57";
             default:
                 return "#ffffff";
         }

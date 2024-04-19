@@ -18,7 +18,7 @@ public partial class RootCauseTransposeHeatMapChart : ComponentBase
             {
                 Toolbar = new Toolbar { Show = false },
             },
-            Colors = new List<string> { "#fc4848" }
+            Colors = new List<string> { "#E12D4B" }
         };
     }
 
