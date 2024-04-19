@@ -447,18 +447,20 @@ public class ReportService
     {
         var boundaryModelGroups = new Dictionary<string, List<ApprovalStatusReportModel>>();
 
-        var availableOffices = boundaryModels.SelectMany(m => m.StatusPerOffice.Keys).Distinct().ToList();
-        var reportModelGroups = boundaryModels.GroupBy(m => m.ApprovalStatus);
+        var availableOffices = boundaryModels.SelectMany(x => x.StatusPerOffice.Keys).Distinct().ToList();
+        var reportModelGroups = boundaryModels.GroupBy(x => x.ApprovalStatus);
 
-        foreach (var model in reportModelGroups)
+        foreach (var group in reportModelGroups)
         {
-            var approvalStatus = model.Key;
+            var approvalStatus = group.Key;
 
             foreach (var office in availableOffices)
             {
-                var officeTotal = model.Sum(m => m.StatusPerOffice.GetValueOrDefault(office, 0));
-
-                var statusPerOffice = new Dictionary<string, int> { { office, officeTotal } };
+                var officeTotal = group.Sum(x => x.StatusPerOffice.GetValueOrDefault(office, 0));
+                var statusPerOffice = new Dictionary<string, int>
+                {
+                    { office, officeTotal }
+                };
                 var reportModel = new ApprovalStatusReportModel(approvalStatus, statusPerOffice);
 
                 if (!boundaryModelGroups.ContainsKey(office))
