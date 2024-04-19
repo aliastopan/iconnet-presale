@@ -426,6 +426,23 @@ public class ReportService
             .ToList();
     }
 
+    public List<RootCauseReportTransposeModel> TransposeModel(List<RootCauseReportModel> models)
+    {
+        return models.SelectMany(model => model.RootCausePerOffice.Select(rootCause => new
+            {
+                model.RootCause,
+                Office = rootCause.Key,
+                Count = rootCause.Value
+            }))
+            .GroupBy(x => x.Office)
+            .Select(group => new RootCauseReportTransposeModel
+            {
+                Office = group.Key,
+                RootCauses = group.ToDictionary(x => x.RootCause, x => x.Count)
+            })
+            .ToList();
+    }
+
     public Dictionary<string, List<ApprovalStatusReportModel>> ApprovalStatusBoundaryGrouping(List<ApprovalStatusReportModel> boundaryModels)
     {
         var boundaryModelGroups = new Dictionary<string, List<ApprovalStatusReportModel>>();
