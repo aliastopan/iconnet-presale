@@ -28,20 +28,23 @@
 
     </div>
 
-    <div class="d-flex flex-column">
+    <div class="d-flex flex-column w-100">
         <div style="@MonthlyToggleDisplayStyle">
             <h4 class="app-font">Laporan Root Cause <span>@CurrentMonthIndicator()</span> - <span>@GetUpperBoundaryDateMin()</span> s.d <span>@GetUpperBoundaryDateMax()</span></h4>
 
             @if (!IsBufferLoading)
             {
-                <div class="d-flex flex-row">
+                <h5 class="app-font">Heatmap Root Cause SBU Jawa Timur</h5>
+                <RootCauseTransposeHeatMapChart Models="@UpperBoundaryTransposeModels"/>
+
+                @* <div class="d-flex flex-row">
                     <RootCauseHeatMapChart Models="@SortedUpperBoundaryModels"/>
                     <RootCausePieChart Models="@SortedUpperBoundaryModels"/>
                 </div>
                 <div style="margin-left: 24px;">
                     <RootCauseTabulation Models="@UpperBoundaryModels"
                         IsPageView="@IsPageView"/>
-                </div>
+                </div> *@
             }
         </div>
         <div style="@WeeklyToggleDisplayStyle">
@@ -49,14 +52,14 @@
 
             @if (!IsBufferLoading)
             {
-                <div class="d-flex flex-row">
+                @* <div class="d-flex flex-row">
                     <RootCauseHeatMapChart Models="@SortedMiddleBoundaryModels"/>
                     <RootCausePieChart Models="@SortedMiddleBoundaryModels"/>
                 </div>
                 <div style="margin-left: 24px;">
                     <RootCauseTabulation Models="@MiddleBoundaryModels"
                         IsPageView="@IsPageView"/>
-                </div>
+                </div> *@
             }
         </div>
         <div style="@DailyToggleDisplayStyle">
@@ -64,14 +67,14 @@
 
             @if (!IsBufferLoading)
             {
-                <div class="d-flex flex-row">
+                @* <div class="d-flex flex-row">
                     <RootCauseHeatMapChart Models="@SortedLowerBoundaryModels"/>
                     <RootCausePieChart Models="@SortedLowerBoundaryModels"/>
                 </div>
                 <div style="margin-left: 24px;">
                     <RootCauseTabulation Models="@LowerBoundaryModels"
                         IsPageView="@IsPageView"/>
-                </div>
+                </div> *@
             }
         </div>
     </div>

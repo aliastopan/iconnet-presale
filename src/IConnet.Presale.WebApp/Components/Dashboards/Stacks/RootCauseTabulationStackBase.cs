@@ -5,20 +5,32 @@ namespace IConnet.Presale.WebApp.Components.Dashboards.Stacks;
 
 public class RootCauseTabulationStackBase : ReportTabulationStackBase
 {
-    [Inject] public OptionService OptionService { get; set; } = default!;
-    [Inject] public IDialogService DialogService { get; set; } = default!;
+    [Inject] protected IDialogService DialogService { get; set; } = default!;
+    [Inject] protected OptionService OptionService { get; set; } = default!;
+    [Inject] protected ReportService ReportService { get; set;} = default!;
 
     [Parameter] public List<RootCauseReportModel> UpperBoundaryModels { get; set; } = [];
     [Parameter] public List<RootCauseReportModel> MiddleBoundaryModels { get; set; } = [];
     [Parameter] public List<RootCauseReportModel> LowerBoundaryModels { get; set; } = [];
 
-    public List<RootCauseReportModel> SortedUpperBoundaryModels => UpperBoundaryModels.Where(x => x.GrandTotal > 0).ToList();
-    public List<RootCauseReportModel> SortedMiddleBoundaryModels => MiddleBoundaryModels.Where(x => x.GrandTotal > 0).ToList();
-    public List<RootCauseReportModel> SortedLowerBoundaryModels => LowerBoundaryModels.Where(x => x.GrandTotal > 0).ToList();
+    public List<RootCauseReportTransposeModel> UpperBoundaryTransposeModels => ReportService.TransposeModel(UpperBoundaryModels);
+    public List<RootCauseReportTransposeModel> MiddleBoundaryTransposeModels => ReportService.TransposeModel(UpperBoundaryModels);
+    public List<RootCauseReportTransposeModel> LowerBoundaryTransposeModels => ReportService.TransposeModel(UpperBoundaryModels);
+
+    public List<RootCauseReportModel> SortedUpperBoundaryModels => SortBoundaryModel(UpperBoundaryModels);
+    public List<RootCauseReportModel> SortedMiddleBoundaryModels => SortBoundaryModel(MiddleBoundaryModels);
+    public List<RootCauseReportModel> SortedLowerBoundaryModels => SortBoundaryModel(LowerBoundaryModels);
 
     [Parameter] public EventCallback OnExclusionFilter { get; set; }
 
     public bool IsPageView { get; set; }
+
+    protected List<RootCauseReportModel> SortBoundaryModel(List<RootCauseReportModel> models)
+    {
+        return models.Where(x => x.GrandTotal > 0)
+            .OrderByDescending(x => x.GrandTotal)
+            .ToList();
+    }
 
     protected async Task OpenRootCauseExclusionDialogFilter()
     {

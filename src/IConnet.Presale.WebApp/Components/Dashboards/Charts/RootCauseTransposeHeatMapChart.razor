@@ -3,7 +3,7 @@
 
 @if (Models.Count != 0)
 {
-    <div style="">
+    <div style="margin-top: -16px;">
         <ApexChart TItem="RootCauseReportTransposeModel"
             Options="Options">
 
@@ -11,7 +11,7 @@
             {
                 <ApexPointSeries TItem="RootCauseReportTransposeModel"
                     Items="Models"
-                    Name="@rootCause"
+                    Name="@rootCause.TruncateWithEllipsis(32)"
                     SeriesType="SeriesType.Heatmap"
                     XValue="@(e => e.Office)"
                     YAggregate="@(e => e.Sum(x => x.RootCauseMetrics[rootCause]))"/>
