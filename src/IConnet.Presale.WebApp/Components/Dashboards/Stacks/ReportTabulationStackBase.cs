@@ -23,9 +23,9 @@ public class ReportTabulationStackBase : ComponentBase
     protected Appearance WeeklyToggleAppearance => IsWeeklySelected ? Appearance.Accent : Appearance.Neutral;
     protected Appearance DailyToggleAppearance => IsDailySelected ? Appearance.Accent : Appearance.Neutral;
 
-    protected string MonthlyToggleDisplayStyle => IsMonthlySelected ? "" : "display: none";
-    protected string WeeklyToggleDisplayStyle => IsWeeklySelected ? "" : "display: none";
-    protected string DailyToggleDisplayStyle => IsDailySelected ? "" : "display: none";
+    protected string MonthlyToggleDisplayStyle => IsMonthlySelected ? "d-flex flex-column w-100" : "display: none";
+    protected string WeeklyToggleDisplayStyle => IsWeeklySelected ? "d-flex flex-column w-100" : "display: none";
+    protected string DailyToggleDisplayStyle => IsDailySelected ? "d-flex flex-column w-100" : "display: none";
 
     protected override void OnInitialized()
     {
