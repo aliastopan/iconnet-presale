@@ -438,7 +438,7 @@ public class ReportService
             .Select(group => new RootCauseReportTransposeModel
             {
                 Office = group.Key,
-                RootCauses = group.ToDictionary(x => x.RootCause, x => x.Count)
+                RootCauseMetrics = group.ToDictionary(x => x.RootCause, x => x.Count)
             })
             .ToList();
     }
