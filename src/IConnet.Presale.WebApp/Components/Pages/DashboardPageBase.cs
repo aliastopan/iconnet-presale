@@ -86,6 +86,9 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 
     public void ApplyRootCauseExclusionFilters()
     {
+        SessionService.FilterPreference.IsBufferLoading = true;
+        StateHasChanged();
+
         LogSwitch.Debug("Apply Filters");
 
         var exclusions = SessionService.FilterPreference.RootCauseExclusion.Exclusion;
@@ -96,7 +99,8 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
             LogSwitch.Debug("Exclude: {0}", exclusion);
         }
 
-        this.StateHasChanged();
+        SessionService.FilterPreference.IsBufferLoading = false;
+        StateHasChanged();
     }
 
     public void OnActiveTabIdChanged(string tabId)
