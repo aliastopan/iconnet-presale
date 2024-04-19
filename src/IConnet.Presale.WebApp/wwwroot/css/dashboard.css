@@ -151,3 +151,8 @@
     font-family: 'inter-semibold';
     font-weight: 700;
 }
+
+.centered-chart {
+    display: flex;
+    justify-content: center;
+}

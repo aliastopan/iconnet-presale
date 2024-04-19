@@ -21,6 +21,12 @@ public class ApprovalStatusReportModel
         }
     }
 
+    public ApprovalStatusReportModel(ApprovalStatus approvalStatus, Dictionary<string, int> statusPerOffice)
+    {
+        ApprovalStatus = approvalStatus;
+        StatusPerOffice = statusPerOffice;
+    }
+
     public ApprovalStatus ApprovalStatus { get; init; }
     public string ApprovalStatusDisplay => EnumProcessor.EnumToDisplayString(ApprovalStatus);
     public Dictionary<string, int> StatusPerOffice { get; init; } = default!;
@@ -38,3 +44,10 @@ public class ApprovalStatusReportModel
         return grandTotal;
     }
 }
+
+
+// public class ApprovalStatusReportModel
+// {
+//     public ApprovalStatus ApprovalStatus { get; init; }
+//     public Dictionary<string, int> StatusPerOffice { get; init; } = default!;
+// }
