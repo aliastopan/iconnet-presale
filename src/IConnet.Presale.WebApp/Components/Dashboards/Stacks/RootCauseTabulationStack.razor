@@ -16,9 +16,12 @@
             OnClick="ToggleToDailyView">
             Daily</FluentButton>
 
-        <FluentCheckbox style="margin-top: 32px;"
-            @bind-Value="@IsPageView"
-            Label="Page View"/>
+        <FluentButton BackgroundColor="crimson"
+            Color="white"
+            IconStart="@(new Icons.Filled.Size20.Calendar().WithColor("#ffffff"))"
+            style="width: 100px ;margin-top: 16px;"
+            OnClick="OpenBoundaryFilterAsync">
+            Filter</FluentButton>
 
         <FluentButton BackgroundColor="crimson"
             Color="white"
