@@ -37,13 +37,17 @@
                 <h5 class="app-font">Heatmap Root Cause SBU Jawa Timur</h5>
                 <RootCauseTransposeHeatMapChart Models="@UpperBoundaryTransposeModels"/>
 
+                <h5 class="app-font">Qty Root Cause SBU Jawa Timur</h5>
+                <RootCauseTabulation Models="@UpperBoundaryModels"
+                    IsPageView="@IsPageView"/>
+
+
                 @* <div class="d-flex flex-row">
                     <RootCauseHeatMapChart Models="@SortedUpperBoundaryModels"/>
                     <RootCausePieChart Models="@SortedUpperBoundaryModels"/>
                 </div>
                 <div style="margin-left: 24px;">
-                    <RootCauseTabulation Models="@UpperBoundaryModels"
-                        IsPageView="@IsPageView"/>
+
                 </div> *@
             }
         </div>
