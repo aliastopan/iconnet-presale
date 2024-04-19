@@ -66,14 +66,21 @@
 
             @if (!IsBufferLoading)
             {
-                @* <div class="d-flex flex-row">
-                    <RootCauseHeatMapChart Models="@SortedMiddleBoundaryModels"/>
-                    <RootCausePieChart Models="@SortedMiddleBoundaryModels"/>
+                <h5 class="app-font" style="margin-top: 16px;">Percentage Root Cause SBU JAWA TIMUR</h5>
+                <div class="centered-chart separate-chart">
+                    <div class="w-50" style="">
+                        <RootCausePieChart Models="@SortedMiddleBoundaryModels"/>
+                    </div>
                 </div>
-                <div style="margin-left: 24px;">
-                    <RootCauseTabulation Models="@MiddleBoundaryModels"
-                        IsPageView="@IsPageView"/>
-                </div> *@
+                @foreach(var office in MiddleBoundaryGrouping)
+                {
+                    <h5 class="app-font" style="margin-top: 16px;">Percentage Root Cause KP @office.Key</h5>
+                    <div class="centered-chart separate-chart">
+                        <div class="w-50" style="">
+                            <RootCausePieChart Models="@office.Value" />
+                        </div>
+                    </div>
+                }
             }
         </div>
         <div style="@DailyToggleDisplayStyle">
@@ -81,14 +88,21 @@
 
             @if (!IsBufferLoading)
             {
-                @* <div class="d-flex flex-row">
-                    <RootCauseHeatMapChart Models="@SortedLowerBoundaryModels"/>
-                    <RootCausePieChart Models="@SortedLowerBoundaryModels"/>
+                <h5 class="app-font" style="margin-top: 16px;">Percentage Root Cause SBU JAWA TIMUR</h5>
+                <div class="centered-chart separate-chart">
+                    <div class="w-50" style="">
+                        <RootCausePieChart Models="@SortedLowerBoundaryModels"/>
+                    </div>
                 </div>
-                <div style="margin-left: 24px;">
-                    <RootCauseTabulation Models="@LowerBoundaryModels"
-                        IsPageView="@IsPageView"/>
-                </div> *@
+                @foreach(var office in LowerBoundaryGrouping)
+                {
+                    <h5 class="app-font" style="margin-top: 16px;">Percentage Root Cause KP @office.Key</h5>
+                    <div class="centered-chart separate-chart">
+                        <div class="w-50" style="">
+                            <RootCausePieChart Models="@office.Value" />
+                        </div>
+                    </div>
+                }
             }
         </div>
     </div>
