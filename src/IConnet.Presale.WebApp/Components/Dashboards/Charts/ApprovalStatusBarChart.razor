@@ -3,10 +3,9 @@
 
 @if (Models.Count != 0)
 {
-    <div style="margin-top: -16px;">
+    <div style="">
         <ApexChart TItem="ApprovalStatusTransposeModel"
-            Height="300"
-            Width="@GetChartWidth()"
+            Height="350"
             Options="Options">
 
             @foreach (var approvalStatus in Models.First().Status.Keys)

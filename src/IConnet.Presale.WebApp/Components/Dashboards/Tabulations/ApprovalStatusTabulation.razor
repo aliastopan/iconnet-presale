@@ -2,19 +2,19 @@
 
 @if (Models is not null)
 {
-    <table class="approval-status-tabulation" style="@GetChartWidthStyle()">
+    <table class="approval-status-tabulation" style="">
         <thead>
             <tr>
-                <th class="tabulation-header" style="height: 24px !important;">
+                <th class="tabulation-header header-bold" style="height: 24px !important;">
                     Status
                 </th>
                 @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
                 {
-                    <th class="tabulation-header" style="padding: 2px 8px; text-align: center; height: 24px !important;">
+                    <th class="tabulation-header header-bold" style="padding: 2px 8px; text-align: center; height: 24px !important;">
                         @office
                     </th>
                 }
-                <th class="tabulation-header" style="height: 24px !important;">
+                <th class="tabulation-header header-bold" style="height: 24px !important;">
                     Grand Total
                 </th>
             </tr>
@@ -45,16 +45,16 @@
                 </tr>
             }
             <tr>
-                <td class="tabulation-header" style="height: 24px !important;">
+                <td class="tabulation-header header-bold" style="height: 24px !important;">
                     Grand Total
                 </td>
                 @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
                 {
-                    <td class="tabulation-content" style="height: 24px !important;">
+                    <td class="tabulation-content header-bold" style="height: 24px !important; background-color: #bdebf1; font-weight: 700;">
                         @Models.Sum(m => m.StatusPerOffice.GetValueOrDefault(office, 0))
                     </td>
                 }
-                <td class="tabulation-content-summary" style="height: 24px !important;">
+                <td class="tabulation-content-summary header-bold" style="height: 24px !important;">
                     @Models.Sum(m => m.GrandTotal)
                 </td>
             </tr>

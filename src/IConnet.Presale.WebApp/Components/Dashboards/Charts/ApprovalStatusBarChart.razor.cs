@@ -69,19 +69,6 @@ public partial class ApprovalStatusBarChart : ComponentBase
                 return "#ffffff";
         }
     }
-
-    protected int GetChartWidth()
-    {
-        int minWidth = 500;
-        int width = 125;
-        int totalColumn = Models.First().Status.Keys.ToList().Count;
-
-        int chartWidth = width * totalColumn;
-
-        return chartWidth < minWidth
-            ? minWidth
-            : chartWidth;
-    }
 }
 
     // Colors = ["#b2ce60", "#02768f", "#1c94ad", "#8fab3c", "#0bd0d9"]

@@ -1,6 +1,6 @@
 @inherits ApprovalStatusTabulationStackBase
 
-<div class="d-flex flex-row align-items-top">
+<div class="d-flex flex-row align-items-top w-100">
 
     <div class="d-flex flex-column" style="margin-left: 4px; margin-right: 32px;">
         <FluentButton Appearance="@MonthlyToggleAppearance"
@@ -24,19 +24,19 @@
             Filter</FluentButton>
     </div>
 
-    <div class="d-flex flex-column">
-        <div style="@MonthlyToggleDisplayStyle">
+    <div class="d-flex flex-column w-100">
+        <div class="d-flex flex-column w-100" style="@MonthlyToggleDisplayStyle">
             <h4 class="app-font">Laporan Opportunity Negotiation Approval <span>@CurrentMonthIndicator()</span> - <span>@GetUpperBoundaryDateMin()</span> s.d <span>@GetUpperBoundaryDateMax()</span></h4>
 
             @if (!IsBufferLoading)
             {
-                <div class="d-flex flex-row">
-                    <ApprovalStatusBarChart Models="@UpperBoundaryTransposeModels"/>
-                    <ApprovalStatusPieChart Models="@UpperBoundaryModels" />
-                </div>
-                <div style="margin-left: 24px;">
-                    <ApprovalStatusTabulation Models="@UpperBoundaryModels"/>
-                </div>
+                <h5 class="app-font">Statistik Approval Opportunity</h5>
+                <ApprovalStatusBarChart Models="@UpperBoundaryTransposeModels"/>
+
+                <h5 class="app-font">Qty Opportunity</h5>
+                <ApprovalStatusTabulation Models="@UpperBoundaryModels"/>
+
+                <ApprovalStatusPieChart Models="@UpperBoundaryModels" />
             }
         </div>
         <div style="@WeeklyToggleDisplayStyle">
