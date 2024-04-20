@@ -78,10 +78,12 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         }
     }
 
-    public void ApplyRootCauseExclusionFilters()
+    public async Task ApplyRootCauseExclusionFiltersAsync()
     {
         SessionService.FilterPreference.IsBufferLoading = true;
         StateHasChanged();
+
+        await Task.Delay(500);
 
         SessionService.FilterPreference.IsBufferLoading = false;
         StateHasChanged();
