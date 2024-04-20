@@ -154,6 +154,7 @@ input:invalid::part(root) {
 
 .filter-toggle{
     margin-left: auto;
+    margin-right: 16px;
 }
 
 .filter-section-disable{
@@ -208,6 +209,7 @@ input:invalid::part(root) {
 
 .filter-reset{
     margin-left: auto;
+    margin-right: 16px;
 }
 
 .filter-approval-status{
