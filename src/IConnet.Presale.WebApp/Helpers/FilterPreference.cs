@@ -50,6 +50,7 @@ public class FilterPreference
     }
 
     public RootCauseExclusionModel RootCauseExclusion { get; set; } = default!;
+    public ApprovalStatusExclusionModel ApprovalStatusExclusion { get; set; } = default!;
 
     public void ToggleFilters()
     {
@@ -86,6 +87,11 @@ public class FilterPreference
         }
 
         RootCauseExclusion = new RootCauseExclusionModel(rootCauses);
+    }
+
+    public void SetApprovalStatusExclusion()
+    {
+        ApprovalStatusExclusion = new ApprovalStatusExclusionModel();
     }
 
     public void ToggleToMonthlyView()

@@ -81,6 +81,7 @@ public class MetricPageBase : ComponentBase
 
         SessionService.FilterPreference.SetBoundaryDateTimeDefault(currentDate);
         SessionService.FilterPreference.SetRootCauseExclusion(rootCauses);
+        SessionService.FilterPreference.SetApprovalStatusExclusion();
 
         SessionService.FilterPreference.BoundaryFilters.Clear();
         SessionService.FilterPreference.BoundaryFilters.Add("tab-1", BoundaryFilterMode.Monthly);
