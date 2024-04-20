@@ -9,7 +9,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 
     public TabNavigationModel PageDeclaration()
     {
-        return new TabNavigationModel("dashboard-wip", PageNavName.Dashboard, PageRoute.Dashboard);
+        return new TabNavigationModel("dashboard", PageNavName.Index, PageRoute.Index);
     }
 
     protected override void OnInitialized()
