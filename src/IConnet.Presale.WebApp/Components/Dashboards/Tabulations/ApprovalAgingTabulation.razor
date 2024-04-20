@@ -1,63 +1,61 @@
-<div>
-    @if (Models is not null)
-    {
-        <div class="@_wrapperCss" style="@_wrapperOffsetStyle">
-            <table class="aging-tabulation" style="width: fit-content;">
-                <thead>
+@if (Models is not null)
+{
+    <div class="@_wrapperCss" style="width: 100%;">
+        <table class="aging-tabulation" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th class="tabulation-header" style="">
+                        Username
+                    </th>
+                    <th class="tabulation-header" style="">
+                        AVG
+                    </th>
+                    <th class="tabulation-header" style="">
+                        MIN
+                    </th>
+                    <th class="tabulation-header" style="">
+                        MAX
+                    </th>
+                    <th class="tabulation-header" style="">
+                        Approval Total
+                    </th>
+                    <th class="tabulation-header" style="">
+                        Total Close Lost
+                    </th>
+                    <th class="tabulation-header" style="">
+                        Total Reject
+                    </th>
+                    <th class="tabulation-header" style="">
+                        Total Expansion
+                    </th>
+                    <th class="tabulation-header" style="">
+                        Total Approve
+                    </th>
+                    <th class="tabulation-header" style="">
+                        Total Direct Approval
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var model in Models)
+                {
                     <tr>
-                        <th class="tabulation-header" style="width: 150px;">
-                            Username
-                        </th>
-                        <th class="tabulation-header" style="width: 100px;">
-                            AVG
-                        </th>
-                        <th class="tabulation-header" style="width: 100px;">
-                            MIN
-                        </th>
-                        <th class="tabulation-header" style="width: 100px;">
-                            MAX
-                        </th>
-                        <th class="tabulation-header" style="width: 125px;">
-                            Approval Total
-                        </th>
-                        <th class="tabulation-header" style="width: 125px;">
-                            Total Close Lost
-                        </th>
-                        <th class="tabulation-header" style="width: 125px;">
-                            Total Reject
-                        </th>
-                        <th class="tabulation-header" style="width: 125px;">
-                            Total Expansion
-                        </th>
-                        <th class="tabulation-header" style="width: 125px;">
-                            Total Approve
-                        </th>
-                        <th class="tabulation-header" style="width: 125px;">
-                            Total Direct Approval
-                        </th>
+                        <td class="tabulation-header-row">@model.Username</td>
+                        <td class="tabulation-content">@model.GetDisplayAverageAging()</td>
+                        <td class="tabulation-content">@model.GetDisplayMinAging()</td>
+                        <td class="tabulation-content">@model.GetDisplayMaxAging()</td>
+                        <td class="tabulation-content">@model.GetDisplayApprovalTotal()</td>
+                        <td class="tabulation-content">@model.GetDisplayTotalCloseLost()</td>
+                        <td class="tabulation-content">@model.GetDisplayTotalReject()</td>
+                        <td class="tabulation-content">@model.GetDisplayTotalExpansion()</td>
+                        <td class="tabulation-content">@model.GetDisplayTotalApprove()</td>
+                        <td class="tabulation-content">@model.GetDisplayTotalDirectApproval()</td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var model in Models)
-                    {
-                        <tr>
-                            <td class="tabulation-header-row">@model.Username</td>
-                            <td class="tabulation-content">@model.GetDisplayAverageAging()</td>
-                            <td class="tabulation-content">@model.GetDisplayMinAging()</td>
-                            <td class="tabulation-content">@model.GetDisplayMaxAging()</td>
-                            <td class="tabulation-content">@model.GetDisplayApprovalTotal()</td>
-                            <td class="tabulation-content">@model.GetDisplayTotalCloseLost()</td>
-                            <td class="tabulation-content">@model.GetDisplayTotalReject()</td>
-                            <td class="tabulation-content">@model.GetDisplayTotalExpansion()</td>
-                            <td class="tabulation-content">@model.GetDisplayTotalApprove()</td>
-                            <td class="tabulation-content">@model.GetDisplayTotalDirectApproval()</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    }
-</div>
+                }
+            </tbody>
+        </table>
+    </div>
+}
 
 @code
 {

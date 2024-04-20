@@ -1,43 +1,41 @@
-<div>
-    @if (Models is not null)
-    {
-        <div class="@_wrapperCss">
-            <table class="aging-tabulation" style="width: fit-content;">
-                <thead>
+@if (Models is not null)
+{
+    <div class="@_wrapperCss" style="width: 100%;">
+        <table class="aging-tabulation" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th class="tabulation-header" style="">
+                        Helpdesk
+                    </th>
+                    <th class="tabulation-header" style="">
+                        AVG
+                    </th>
+                    <th class="tabulation-header" style="">
+                        MIN
+                    </th>
+                    <th class="tabulation-header" style="">
+                        MAX
+                    </th>
+                    <th class="tabulation-header" style="">
+                        Validasi Total
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var model in Models)
+                {
                     <tr>
-                        <th class="tabulation-header" style="width: 150px;">
-                            Helpdesk
-                        </th>
-                        <th class="tabulation-header" style="width: 100px;">
-                            AVG
-                        </th>
-                        <th class="tabulation-header" style="width: 100px;">
-                            MIN
-                        </th>
-                        <th class="tabulation-header" style="width: 100px;">
-                            MAX
-                        </th>
-                        <th class="tabulation-header" style="width: 125px;">
-                            Validasi Total
-                        </th>
+                        <td class="tabulation-header-row">@model.Username</td>
+                        <td class="tabulation-content">@model.GetDisplayAverageAging()</td>
+                        <td class="tabulation-content">@model.GetDisplayMinAging()</td>
+                        <td class="tabulation-content">@model.GetDisplayMaxAging()</td>
+                        <td class="tabulation-content">@model.GetDisplayChatCallResponsTotal()</td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var model in Models)
-                    {
-                        <tr>
-                            <td class="tabulation-header-row">@model.Username</td>
-                            <td class="tabulation-content">@model.GetDisplayAverageAging()</td>
-                            <td class="tabulation-content">@model.GetDisplayMinAging()</td>
-                            <td class="tabulation-content">@model.GetDisplayMaxAging()</td>
-                            <td class="tabulation-content">@model.GetDisplayChatCallResponsTotal()</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    }
-</div>
+                }
+            </tbody>
+        </table>
+    </div>
+}
 
 @code
 {
