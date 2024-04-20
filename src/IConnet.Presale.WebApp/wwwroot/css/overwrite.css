@@ -24,9 +24,9 @@ g.apexcharts-data-labels text.apexcharts-datalabel{
     fill: #231f20 !important;
 } */
 
-.apexcharts-legend.apexcharts-align-center.apx-legend-position-right{
+/* .apexcharts-legend.apexcharts-align-center.apx-legend-position-right{
     right: 35px !important;
-}
+} */
 
 .fluent-nav-text{
     width: calc(100% - 20px) !important;
