@@ -12,7 +12,7 @@
             {
                 <ApexPointSeries TItem="RootCauseReportTransposeModel"
                     Items="Models"
-                    Name="@rootCause.TruncateWithEllipsis(32)"
+                    Name="@rootCause.TruncateWithEllipsis(24)"
                     SeriesType="SeriesType.Heatmap"
                     XValue="@(e => e.Office)"
                     YAggregate="@(e => e.Sum(x => x.RootCauseMetrics[rootCause]))"/>
