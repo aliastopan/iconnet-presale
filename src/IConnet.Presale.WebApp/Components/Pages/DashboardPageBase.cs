@@ -103,6 +103,25 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         StateHasChanged();
     }
 
+    public void ApplyApprovalStatusExclusionFilters()
+    {
+        SessionService.FilterPreference.IsBufferLoading = true;
+        StateHasChanged();
+
+        LogSwitch.Debug("Apply Filters");
+
+        var exclusions = SessionService.FilterPreference.ApprovalStatusExclusion.Exclusion;
+        LogSwitch.Debug("Exclusion count {0}", exclusions.Count);
+
+        foreach (var exclusion in exclusions)
+        {
+            LogSwitch.Debug("Exclude: {0}", exclusion);
+        }
+
+        SessionService.FilterPreference.IsBufferLoading = false;
+        StateHasChanged();
+    }
+
     public void OnActiveTabIdChanged(string tabId)
     {
         ActiveTabId = tabId;

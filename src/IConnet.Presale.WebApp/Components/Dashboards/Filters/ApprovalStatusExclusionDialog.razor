@@ -1,0 +1,26 @@
+<FluentDialogHeader ShowDismiss="true">
+    <FluentStack VerticalAlignment="VerticalAlignment.Center">
+        <FluentIcon Value="@(new Icons.Regular.Size24.Filter())" />
+        <FluentLabel Typo="Typography.PaneHeader">
+            @Dialog.Instance.Parameters.Title
+        </FluentLabel>
+    </FluentStack>
+</FluentDialogHeader>
+
+<div class="d-flex flex-column" style="">
+    @foreach (var approvalStatus in Content.ApprovalStatus)
+    {
+        bool isChecked = Content.Inclusion.Contains(approvalStatus);
+        <div style="margin: 0 2px;">
+            <FluentCheckbox Label="@EnumProcessor.EnumToDisplayString(approvalStatus)"
+                @bind-Value:get="@isChecked"/>
+        </div>
+    }
+</div>
+
+<FluentDialogFooter>
+    <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.End">
+        <FluentButton Appearance="Appearance.Accent"  OnClick="@SaveAsync" IconStart="@(new Icons.Regular.Size16.Save())">Filter</FluentButton>
+        <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Batal</FluentButton>
+    </FluentStack>
+</FluentDialogFooter>
