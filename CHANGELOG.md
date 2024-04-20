@@ -1,3 +1,14 @@
+## v3.0.0
+- Change: Dashboard filter version 3
+- Change: Dialog based boundary filtering
+- Add: "Permohonan" timeline tracking
+- Add: Approval Status tabulation Bar Chart
+- Add: Approval Status tabulation Pie Chart
+- Add: Approval Status tabulation exclusion filter
+- Add: Root Cause tabulation Heatmap Chart
+- Add: Root Cause tabulation Pie Chart
+- Update: Dashboard page responsive width
+
 ## v2.4.0
 - Add: Root Cause setting page
 - Add: Add new Root Cause
