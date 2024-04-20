@@ -5,16 +5,16 @@
             <table class="root-cause-tabulation" style="width: 100%;">
                 <thead>
                     <tr>
-                        <th class="tabulation-header header-bold" style="height: 24px !important;">
+                        <th class="tabulation-header header-bold" style="">
                             Root cause
                         </th>
                         @foreach (var office in Models.SelectMany(m => m.RootCausePerOffice.Keys).Distinct())
                         {
-                            <th class="tabulation-header header-bold" style="padding: 2px 8px; text-align: center; height: 24px !important;">
+                            <th class="tabulation-header header-bold" style="padding: 2px 8px; text-align: center; ">
                                 @office
                             </th>
                         }
-                        <th class="tabulation-header header-bold" style="height: 24px !important;">
+                        <th class="tabulation-header header-bold" style="">
                             Grand Total
                         </th>
                     </tr>
@@ -23,12 +23,12 @@
                     @foreach (var model in Models)
                     {
                         <tr>
-                            <td class="tabulation-header-row" style="width: 325px; height: 24px !important;">
+                            <td class="tabulation-header-row" style="width: 325px;">
                                 @model.RootCause
                             </td>
                             @foreach (var office in Models.SelectMany(m => m.RootCausePerOffice.Keys).Distinct())
                             {
-                                <td class="tabulation-content" style="width: 100px; height: 24px !important;">
+                                <td class="tabulation-content" style="width: 100px;">
                                 @if (model.RootCausePerOffice.ContainsKey(office))
                                 {
                                     @model.RootCausePerOffice[office]
@@ -39,7 +39,7 @@
                                 }
                                 </td>
                             }
-                            <td class="tabulation-content" style="width: 125px; height: 24px !important;">
+                            <td class="tabulation-content" style="width: 125px;">
                                 @model.GrandTotal
                             </td>
                         </tr>
@@ -47,18 +47,18 @@
                 </tbody>
             </table>
         </div>
-        <div class="tabulation-summary" style="height: 24px !important; width: calc(100% - 8px);">
-            <table style="height: 24px !important; width: 100%;">
+        <div class="tabulation-summary" style=" width: calc(100% - 8px);">
+            <table style=" width: 100%;">
                 <tbody>
                     <tr>
-                        <td class="tabulation-header header-bold" style="width: 325px; height: 24px !important;">Grand Total</td>
+                        <td class="tabulation-header header-bold" style="width: 325px;">Grand Total</td>
                         @foreach (var office in Models.SelectMany(m => m.RootCausePerOffice.Keys).Distinct())
                         {
-                            <td class="tabulation-content header-bold" style="width: 100px; height: 24px !important; background-color: #bdebf1;">
+                            <td class="tabulation-content header-bold" style="width: 100px; background-color: #bdebf1;">
                                 @Models.Sum(m => m.RootCausePerOffice.GetValueOrDefault(office, 0))
                             </td>
                         }
-                        <td class="tabulation-content-summary header-bold" style="width: 125px; height: 24px !important;">
+                        <td class="tabulation-content-summary header-bold" style="width: 125px;">
                             @Models.Sum(m => m.GrandTotal)
                         </td>
                     </tr>

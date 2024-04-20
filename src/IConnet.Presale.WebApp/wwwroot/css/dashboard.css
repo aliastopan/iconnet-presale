@@ -30,8 +30,8 @@
 
 .tabulation-wrapper{
     border: 1px solid #e6e6e6;
-    /* max-height: 256px; */
-    max-height: 150px;
+    max-height: 256px;
+    /* max-height: 150px; */
     overflow-y: auto;
 }
 

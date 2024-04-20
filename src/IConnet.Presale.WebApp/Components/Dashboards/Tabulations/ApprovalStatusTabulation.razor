@@ -5,16 +5,16 @@
     <table class="approval-status-tabulation" style="width: 100%;">
         <thead>
             <tr>
-                <th class="tabulation-header header-bold" style="height: 24px !important;">
+                <th class="tabulation-header header-bold" style="">
                     Status
                 </th>
                 @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
                 {
-                    <th class="tabulation-header header-bold" style="padding: 2px 8px; text-align: center; height: 24px !important;">
+                    <th class="tabulation-header header-bold" style="padding: 2px 8px; text-align: center; ">
                         @office
                     </th>
                 }
-                <th class="tabulation-header header-bold" style="height: 24px !important;">
+                <th class="tabulation-header header-bold" style="">
                     Grand Total
                 </th>
             </tr>
@@ -23,12 +23,12 @@
             @foreach (var model in Models)
             {
                 <tr>
-                    <td class="tabulation-header-row" style="height: 24px !important;">
+                    <td class="tabulation-header-row" style="">
                         @model.ApprovalStatusDisplay
                     </td>
                     @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
                     {
-                        <td class="tabulation-content" style="height: 24px !important;">
+                        <td class="tabulation-content" style="">
                         @if (model.StatusPerOffice.ContainsKey(office))
                         {
                             @model.StatusPerOffice[office]
@@ -39,22 +39,22 @@
                         }
                         </td>
                     }
-                    <td class="tabulation-content" style="height: 24px !important;">
+                    <td class="tabulation-content" style="">
                         @model.GrandTotal
                     </td>
                 </tr>
             }
             <tr>
-                <td class="tabulation-header header-bold" style="height: 24px !important;">
+                <td class="tabulation-header header-bold" style="">
                     Grand Total
                 </td>
                 @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
                 {
-                    <td class="tabulation-content header-bold" style="height: 24px !important; background-color: #bdebf1; font-weight: 700;">
+                    <td class="tabulation-content header-bold" style=" background-color: #bdebf1; font-weight: 700;">
                         @Models.Sum(m => m.StatusPerOffice.GetValueOrDefault(office, 0))
                     </td>
                 }
-                <td class="tabulation-content-summary header-bold" style="height: 24px !important;">
+                <td class="tabulation-content-summary header-bold" style="">
                     @Models.Sum(m => m.GrandTotal)
                 </td>
             </tr>
