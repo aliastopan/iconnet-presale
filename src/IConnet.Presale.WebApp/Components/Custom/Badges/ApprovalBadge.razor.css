@@ -1,5 +1,6 @@
 
 .approval-badge-in-progress{
+    font-family: 'inter-semibold';
     font-weight: 600;
     background-color: var(--info-grey);
     text-align: center;
@@ -13,6 +14,7 @@
 }
 
 .approval-badge-closed-lost{
+    font-family: 'inter-semibold';
     font-weight: 600;
     background-color: var(--soft-black);
     text-align: center;
@@ -26,6 +28,7 @@
 }
 
 .approval-badge-reject{
+    font-family: 'inter-semibold';
     font-weight: 600;
     background-color: var(--error-red);
     text-align: center;
@@ -39,6 +42,7 @@
 }
 
 .approval-badge-expansion{
+    font-family: 'inter-semibold';
     font-weight: 600;
     background-color: var(--success-green);
     text-align: center;
@@ -52,6 +56,7 @@
 }
 
 .approval-badge-approved{
+    font-family: 'inter-semibold';
     font-weight: 600;
     background-color: var(--success-green);
     text-align: center;

@@ -31,3 +31,9 @@ g.apexcharts-data-labels text.apexcharts-datalabel{
 .fluent-nav-text{
     width: calc(100% - 20px) !important;
 }
+
+label.fluent-input-label,
+fluent-data-grid-cell.column-header,
+fluent-data-grid-cell.column-header fluent-button::part(control){
+    font-family: 'inter-semibold' !important;
+}
