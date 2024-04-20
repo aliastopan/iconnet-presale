@@ -17,4 +17,21 @@ public partial class ApprovalStatusExclusionDialog : IDialogContentComponent<App
     {
         await Dialog.CancelAsync();
     }
+
+    protected void OnExclusionChanged(ApprovalStatus approvalStatus, bool inclusion)
+    {
+        if (Content.Inclusion.Count == 1)
+        {
+            return;
+        }
+
+        if (inclusion)
+        {
+            Content.Inclusion.Add(approvalStatus);
+        }
+        else
+        {
+            Content.Inclusion.Remove(approvalStatus);
+        }
+    }
 }

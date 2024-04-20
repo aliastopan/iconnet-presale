@@ -52,9 +52,9 @@ public class MetricPageBase : ComponentBase
     private readonly List<ApprovalAgingReportModel> _middleBoundaryApprovalAgingReportModels = [];
     private readonly List<ApprovalAgingReportModel> _lowerBoundaryApprovalAgingReportModels = [];
 
-    public virtual List<ApprovalStatusReportModel> UpperBoundaryApprovalStatusReports => _upperBoundaryApprovalStatusReports;
-    public virtual List<ApprovalStatusReportModel> MiddleBoundaryApprovalStatusReports => _middleBoundaryApprovalStatusReports;
-    public virtual List<ApprovalStatusReportModel> LowerBoundaryApprovalStatusReports => _lowerBoundaryApprovalStatusReports;
+    public virtual List<ApprovalStatusReportModel> UpperBoundaryApprovalStatusReports => FilterStatusApprovalReports(_upperBoundaryApprovalStatusReports);
+    public virtual List<ApprovalStatusReportModel> MiddleBoundaryApprovalStatusReports => FilterStatusApprovalReports(_middleBoundaryApprovalStatusReports);
+    public virtual List<ApprovalStatusReportModel> LowerBoundaryApprovalStatusReports => FilterStatusApprovalReports(_lowerBoundaryApprovalStatusReports);
     public virtual List<RootCauseReportModel> UpperBoundaryCauseReports => FilterRootCauseCauseReports(_upperBoundaryRootCauseReports);
     public virtual List<RootCauseReportModel> MiddleBoundaryRootCauseReports => FilterRootCauseCauseReports(_middleBoundaryRootCauseReports);
     public virtual List<RootCauseReportModel> LowerRootCauseReports => FilterRootCauseCauseReports(_lowerBoundaryRootCauseReports);
@@ -261,6 +261,21 @@ public class MetricPageBase : ComponentBase
         return rootCauseReports
             .Where(report => !exclusions.Contains(report.RootCause, StringComparer.OrdinalIgnoreCase))
             .ToList();
+    }
+
+    protected List<ApprovalStatusReportModel> FilterStatusApprovalReports(List<ApprovalStatusReportModel> approvalStatusReports)
+    {
+        if (SessionService.FilterPreference.ApprovalStatusExclusion is null)
+        {
+            return approvalStatusReports;
+        }
+
+        HashSet<ApprovalStatus> exclusions = SessionService.FilterPreference.ApprovalStatusExclusion.Exclusion;
+
+        return approvalStatusReports
+            .Where(report => !exclusions.Contains(report.ApprovalStatus))
+            .ToList();
+
     }
 
     protected void GenerateImportAgingReports(bool includeUpper = false, bool includeMiddle = false, bool includeLower = false)

@@ -49,7 +49,8 @@ else
                             MiddleBoundaryModels="@MiddleBoundaryApprovalStatusReports"
                             LowerBoundaryModels="@LowerBoundaryApprovalStatusReports"
                             PageRefresh="@(this.StateHasChanged)"
-                            OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"/>
+                            OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
+                            OnExclusionFilter="ApplyApprovalStatusExclusionFiltersAsync"/>
                     }
                 </Content>
             </FluentTab>

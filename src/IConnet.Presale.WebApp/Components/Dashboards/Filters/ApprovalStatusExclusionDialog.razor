@@ -13,14 +13,15 @@
         bool isChecked = Content.Inclusion.Contains(approvalStatus);
         <div style="margin: 0 2px;">
             <FluentCheckbox Label="@EnumProcessor.EnumToDisplayString(approvalStatus)"
-                @bind-Value:get="@isChecked"/>
+                @bind-Value:get="@isChecked"
+                @bind-Value:set="value => OnExclusionChanged(approvalStatus, value)"/>
         </div>
     }
 </div>
 
 <FluentDialogFooter>
     <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.End">
-        <FluentButton Appearance="Appearance.Accent"  OnClick="@SaveAsync" IconStart="@(new Icons.Regular.Size16.Save())">Filter</FluentButton>
+        <FluentButton Appearance="Appearance.Accent"  OnClick="@SaveAsync" IconStart="@(new Icons.Regular.Size16.Filter())">Filter</FluentButton>
         <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Batal</FluentButton>
     </FluentStack>
 </FluentDialogFooter>

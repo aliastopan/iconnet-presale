@@ -103,7 +103,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         StateHasChanged();
     }
 
-    public void ApplyApprovalStatusExclusionFilters()
+    public async Task ApplyApprovalStatusExclusionFiltersAsync()
     {
         SessionService.FilterPreference.IsBufferLoading = true;
         StateHasChanged();
@@ -117,6 +117,8 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         {
             LogSwitch.Debug("Exclude: {0}", exclusion);
         }
+
+        await Task.Delay(500);
 
         SessionService.FilterPreference.IsBufferLoading = false;
         StateHasChanged();
