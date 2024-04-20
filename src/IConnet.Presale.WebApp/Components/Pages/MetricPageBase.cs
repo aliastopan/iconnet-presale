@@ -55,9 +55,9 @@ public class MetricPageBase : ComponentBase
     public virtual List<ApprovalStatusReportModel> UpperBoundaryApprovalStatusReports => _upperBoundaryApprovalStatusReports;
     public virtual List<ApprovalStatusReportModel> MiddleBoundaryApprovalStatusReports => _middleBoundaryApprovalStatusReports;
     public virtual List<ApprovalStatusReportModel> LowerBoundaryApprovalStatusReports => _lowerBoundaryApprovalStatusReports;
-    public virtual List<RootCauseReportModel> UpperBoundaryCauseReports => FilterCauseReports(_upperBoundaryRootCauseReports);
-    public virtual List<RootCauseReportModel> MiddleBoundaryRootCauseReports => FilterCauseReports(_middleBoundaryRootCauseReports);
-    public virtual List<RootCauseReportModel> LowerRootCauseReports => FilterCauseReports(_lowerBoundaryRootCauseReports);
+    public virtual List<RootCauseReportModel> UpperBoundaryCauseReports => FilterRootCauseCauseReports(_upperBoundaryRootCauseReports);
+    public virtual List<RootCauseReportModel> MiddleBoundaryRootCauseReports => FilterRootCauseCauseReports(_middleBoundaryRootCauseReports);
+    public virtual List<RootCauseReportModel> LowerRootCauseReports => FilterRootCauseCauseReports(_lowerBoundaryRootCauseReports);
     public virtual List<ImportAgingReportModel> UpperBoundaryImportAgingReports => _upperBoundaryImportAgingReports.OrderByDescending(x => x.Average).ToList();
     public virtual List<ImportAgingReportModel> MiddleBoundaryImportAgingReports => _middleBoundaryImportAgingReports.OrderByDescending(x => x.Average).ToList();
     public virtual List<ImportAgingReportModel> LowerBoundaryImportAgingReports => _lowerBoundaryImportAgingReports.OrderByDescending(x => x.Average).ToList();
@@ -249,7 +249,7 @@ public class MetricPageBase : ComponentBase
         }
     }
 
-    protected List<RootCauseReportModel> FilterCauseReports(List<RootCauseReportModel> rootCauseReports)
+    protected List<RootCauseReportModel> FilterRootCauseCauseReports(List<RootCauseReportModel> rootCauseReports)
     {
         if (SessionService.FilterPreference.RootCauseExclusion is null)
         {
