@@ -46,7 +46,6 @@ public partial class UpperBoundaryFilter : ComponentBase
             return;
         }
 
-        // LogSwitch.Debug("Changing upper boundary MIN");
         NullableUpperBoundaryDateTimeMin = nullableDateTime.Value;
         SessionService.FilterPreference.UpperBoundaryDateTimeMin = UpperBoundaryDateTimeMin;
     }
@@ -58,7 +57,6 @@ public partial class UpperBoundaryFilter : ComponentBase
             return;
         }
 
-        // LogSwitch.Debug("Changing upper boundary MAX");
         NullableUpperBoundaryDateTimeMax = nullableDateTime.Value;
         SessionService.FilterPreference.UpperBoundaryDateTimeMax = UpperBoundaryDateTimeMax;
 

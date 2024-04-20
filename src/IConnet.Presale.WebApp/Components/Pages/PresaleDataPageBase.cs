@@ -172,12 +172,10 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
 
         if (currentDateTimeMin.Date < _previousDateTimeMin.Date)
         {
-            LogSwitch.Debug("DateTime Min is older than previous.");
             return false;
         }
         else
         {
-            LogSwitch.Debug("DateTime within acceptable range.");
             return true;
         }
     }

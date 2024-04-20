@@ -150,16 +150,10 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
         await JsRuntime.InvokeVoidAsync("scrollToElement", elementId);
     }
 
-    protected bool IsStillInCharge(WorkPaper workPaper, bool debug = false)
+    protected bool IsStillInCharge(WorkPaper workPaper)
     {
         var now = DateTimeService.DateTimeOffsetNow.DateTime;
         var duration = InChargeDuration.ValidationDuration;
-
-        if (debug)
-        {
-            // var timeRemaining = workPaper.SignatureHelpdeskInCharge.GetDurationRemaining(now, duration);
-            // LogSwitch.Debug("Time remaining: {0}", timeRemaining);
-        }
 
         return !workPaper.SignatureHelpdeskInCharge.IsDurationExceeded(now, duration);
     }

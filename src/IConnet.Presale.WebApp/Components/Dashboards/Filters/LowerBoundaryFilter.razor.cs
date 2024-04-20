@@ -34,12 +34,10 @@ public partial class LowerBoundaryFilter : ComponentBase
 
         if (nullableDateTime.Value.Date < SessionService.FilterPreference.UpperBoundaryDateTimeMin.Date)
         {
-            // LogSwitch.Debug("Invalid lower boundary. Set to upper boundary MIN.");
             NullableLowerBoundaryDateTime = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
         }
         else
         {
-            // LogSwitch.Debug("Changing lower boundary");
             NullableLowerBoundaryDateTime = nullableDateTime.Value;
             SessionService.FilterPreference.LowerBoundaryDateTime = LowerBoundaryDateTime;
         }

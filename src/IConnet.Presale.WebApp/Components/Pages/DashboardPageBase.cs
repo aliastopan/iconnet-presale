@@ -28,8 +28,6 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
     {
         var boundary = SessionService.FilterPreference.BoundaryFilters[ActiveTabId];
 
-        LogSwitch.Debug("Boundary Filtering at {0}", boundary);
-
         var parameters = new DialogParameters()
         {
             Title = $"{boundary} Filter",
@@ -55,12 +53,8 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
             SessionService.FilterPreference.MiddleBoundaryDateTimeMax = new DateTime(middleBoundaryMax.Ticks);
             SessionService.FilterPreference.LowerBoundaryDateTime = new DateTime(lowerBoundary.Ticks);
 
-            LogSwitch.Debug("Cancel Filters");
-
             return;
         }
-
-        LogSwitch.Debug("Apply Filters");
 
         switch (boundary)
         {
@@ -89,16 +83,6 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         SessionService.FilterPreference.IsBufferLoading = true;
         StateHasChanged();
 
-        LogSwitch.Debug("Apply Filters");
-
-        var exclusions = SessionService.FilterPreference.RootCauseExclusion.Exclusion;
-        LogSwitch.Debug("Exclusion count {0}", exclusions.Count);
-
-        foreach (var exclusion in exclusions)
-        {
-            LogSwitch.Debug("Exclude: {0}", exclusion);
-        }
-
         SessionService.FilterPreference.IsBufferLoading = false;
         StateHasChanged();
     }
@@ -107,16 +91,6 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
     {
         SessionService.FilterPreference.IsBufferLoading = true;
         StateHasChanged();
-
-        LogSwitch.Debug("Apply Filters");
-
-        var exclusions = SessionService.FilterPreference.ApprovalStatusExclusion.Exclusion;
-        LogSwitch.Debug("Exclusion count {0}", exclusions.Count);
-
-        foreach (var exclusion in exclusions)
-        {
-            LogSwitch.Debug("Exclude: {0}", exclusion);
-        }
 
         await Task.Delay(500);
 
@@ -128,27 +102,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
     {
         ActiveTabId = tabId;
         SessionService.FilterPreference.RefreshBoundaryFilters(ActiveTabId);
-
-        LogSwitch.Debug("Changing Tab: {0}", ActiveTabId);
     }
-
-    // public async Task OnUpperBoundaryChangedAsync()
-    // {
-    //     LogSwitch.Debug("Checking new upper boundary");
-    //     var upperBoundaryMin = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
-    //     var upperBoundaryMax = SessionService.FilterPreference.UpperBoundaryDateTimeMax;
-    //     var middleBoundaryMin = SessionService.FilterPreference.MiddleBoundaryDateTimeMin;
-    //     var middleBoundaryMax = SessionService.FilterPreference.MiddleBoundaryDateTimeMax;
-    //     var lowerBoundary = SessionService.FilterPreference.LowerBoundaryDateTime;
-
-    //     LogSwitch.Debug("Upper Boundary Min {0}", upperBoundaryMin.Date);
-    //     LogSwitch.Debug("Upper Boundary Max {0}", upperBoundaryMax.Date);
-    //     LogSwitch.Debug("Middle Boundary Min {0}", middleBoundaryMin.Date);
-    //     LogSwitch.Debug("Middle Boundary Max {0}", middleBoundaryMax.Date);
-    //     LogSwitch.Debug("Lower Boundary {0}", lowerBoundary.Date);
-
-    //     await Task.CompletedTask;
-    // }
 
     public async Task ReloadUpperBoundaryAsync()
     {

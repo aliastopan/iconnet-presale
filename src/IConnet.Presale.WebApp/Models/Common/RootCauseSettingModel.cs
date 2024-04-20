@@ -43,6 +43,5 @@ public class RootCauseSettingModel
     public void OnIsEnabledChanged(bool isEnabled)
     {
         IsEnabled = isEnabled;
-        // LogSwitch.Debug("IsEnabled: {0}", IsEnabled);
     }
 }

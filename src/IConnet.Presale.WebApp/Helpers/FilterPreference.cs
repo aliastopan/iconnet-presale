@@ -27,8 +27,6 @@ public class FilterPreference
 
     public void RefreshBoundaryFilters(string activeTabId)
     {
-        LogSwitch.Debug("Refreshing Boundary Filters on {0}", activeTabId);
-
         switch (BoundaryFilters[activeTabId])
         {
             case BoundaryFilterMode.Monthly:
@@ -43,10 +41,6 @@ public class FilterPreference
             default:
                 break;
         }
-
-        LogSwitch.Debug("Monthly {0}", IsMonthlySelected);
-        LogSwitch.Debug("WeekLy {0}", IsWeeklySelected);
-        LogSwitch.Debug("Daily {0}", IsDailySelected);
     }
 
     public RootCauseExclusionModel RootCauseExclusion { get; set; } = default!;

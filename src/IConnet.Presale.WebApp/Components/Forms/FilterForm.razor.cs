@@ -74,7 +74,6 @@ public partial class FilterForm : ComponentBase
 
     protected async Task SetFilterDateTimeStartAsync(DateTime? nullableDateTime)
     {
-        // LogSwitch.Debug("DateTime Start {0}", nullableDateTime!);
         if (nullableDateTime is null)
         {
             return;
@@ -83,7 +82,6 @@ public partial class FilterForm : ComponentBase
         var dateTime = nullableDateTime.Value;
         if (dateTime > FilterModel.NullableFilterDateTimeMax)
         {
-            // LogSwitch.Debug("DateTime Start cannot be more than DateTime End");
             dateTime = FilterModel.FilterDateTimeMax.AddDays(-1);
         }
 
@@ -102,7 +100,6 @@ public partial class FilterForm : ComponentBase
 
     protected async Task SetFilterDateTimeEndAsync(DateTime? nullableDateTime)
     {
-        // LogSwitch.Debug("DateTime End {0}", nullableDateTime!);
         if (nullableDateTime is null)
         {
             return;
@@ -111,7 +108,6 @@ public partial class FilterForm : ComponentBase
         var dateTime = nullableDateTime.Value;
         if (dateTime < FilterModel.NullableFilterDateTimeMin)
         {
-            // LogSwitch.Debug("DateTime End cannot be less than DateTime Start");
             dateTime = FilterModel.FilterDateTimeMin.AddDays(1);
         }
 
@@ -143,26 +139,22 @@ public partial class FilterForm : ComponentBase
         // prioritize filter search
         if (FilterModel.FilterSearch.HasValue())
         {
-            // LogSwitch.Debug("Filter by Search");
             return workPapers?.Where(x => x.ApprovalOpportunity.IdPermohonan == FilterModel.FilterSearch);
         }
         else
         {
             if (FilterModel.IsFilterOfficeSpecified)
             {
-                // LogSwitch.Debug("Filter by Office");
                 workPapers = workPapers?.Where(x => x.ApprovalOpportunity.Regional.KantorPerwakilan == FilterModel.FilterOffice);
             }
 
             if (IncludeApprovalStatus && !FilterModel.FilterStatusApproval.IsNullOrWhiteSpace())
             {
-                // LogSwitch.Debug("Filter {0}", FilterModel.FilterStatusApproval);
                 var approvalStatus = EnumProcessor.StringToEnum<ApprovalStatus>(FilterModel.FilterStatusApproval);
 
                 workPapers = workPapers?.Where(x => x.ProsesApproval.StatusApproval == approvalStatus);
             }
 
-            // LogSwitch.Debug("Filtering DateTime");
             return workPapers?.Where(x => x.ApprovalOpportunity.TglPermohonan.Date >= FilterModel.FilterDateTimeMin.Date
                 && x.ApprovalOpportunity.TglPermohonan.Date <= FilterModel.FilterDateTimeMax.Date);
         }

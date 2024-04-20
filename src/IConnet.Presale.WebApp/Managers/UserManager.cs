@@ -49,7 +49,6 @@ public class UserManager
         {
             var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
             var extension = problemDetails.GetProblemDetailsExtension();
-            LogSwitch.Debug("Error: {0}", extension.Errors.First().Message);
         }
     }
 }

@@ -50,7 +50,6 @@ public partial class MiddleBoundaryFilter : ComponentBase
 
         if (isOutOfRange)
         {
-            // LogSwitch.Debug("Invalid middle boundary out of range.");
             return;
         }
 
@@ -58,12 +57,10 @@ public partial class MiddleBoundaryFilter : ComponentBase
 
         if (nullableDateTime.Value.Date < upperBoundaryMin.Date)
         {
-            // LogSwitch.Debug("Invalid middle boundary MIN. Set to upper boundary MIN.");
             NullableMiddleBoundaryDateTimeMin = upperBoundaryMin;
         }
         else
         {
-            // LogSwitch.Debug("Changing middle boundary MIN");
             NullableMiddleBoundaryDateTimeMin = nullableDateTime.Value;
         }
 
@@ -81,14 +78,11 @@ public partial class MiddleBoundaryFilter : ComponentBase
 
         if (isOutOfRange)
         {
-            // LogSwitch.Debug("Invalid middle boundary out of range.");
             return;
         }
 
         NullableMiddleBoundaryDateTimeMax = nullableDateTime.Value;
         SessionService.FilterPreference.MiddleBoundaryDateTimeMax = MiddleBoundaryDateTimeMax;
-
-        // LogSwitch.Debug("Changing middle boundary MAX");
     }
 
     private string GetMiddleBoundaryDaysRangeLabel()

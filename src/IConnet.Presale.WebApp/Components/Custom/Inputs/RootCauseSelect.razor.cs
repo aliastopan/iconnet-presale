@@ -32,15 +32,6 @@ public partial class RootCauseSelect : ComponentBase
 
     }
 
-    // protected override void OnAfterRender(bool firstRender)
-    // {
-    //     if (firstRender)
-    //     {
-    //         SelectedRootCause = _rootCauses.First();
-    //         LogSwitch.Debug("First render root cause");
-    //     }
-    // }
-
     protected async Task OnRootCauseChangedAsync(string selectedRootCause)
     {
         SelectedRootCause = selectedRootCause;

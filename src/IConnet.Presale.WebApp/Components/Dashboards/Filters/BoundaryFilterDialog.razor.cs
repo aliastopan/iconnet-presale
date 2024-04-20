@@ -11,8 +11,6 @@ public partial class BoundaryFilterDialog : IDialogContentComponent<BoundaryFilt
 
     protected async Task SaveAsync()
     {
-        LogSwitch.Debug("Save Filters");
-
         await Dialog.CloseAsync(Content);
     }
 

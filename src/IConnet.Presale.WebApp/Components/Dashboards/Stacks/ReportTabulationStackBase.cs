@@ -36,8 +36,6 @@ public class ReportTabulationStackBase : ComponentBase
     {
         if (OpenBoundaryFilter.HasDelegate)
         {
-            LogSwitch.Debug("Tabulation Stack calling Boundary Filtering");
-
             await OpenBoundaryFilter.InvokeAsync();
         }
     }
@@ -82,8 +80,6 @@ public class ReportTabulationStackBase : ComponentBase
         SessionService.FilterPreference.ToggleToMonthlyView();
         SessionService.FilterPreference.BoundaryFilters[TabulationId] = BoundaryFilterMode.Monthly;
 
-        LogSwitch.Debug("Monthly on {0}", TabulationId);
-
         if (PageRefresh.HasDelegate)
         {
             await PageRefresh.InvokeAsync();
@@ -95,8 +91,6 @@ public class ReportTabulationStackBase : ComponentBase
         SessionService.FilterPreference.ToggleToWeeklyView();
         SessionService.FilterPreference.BoundaryFilters[TabulationId] = BoundaryFilterMode.Weekly;
 
-        LogSwitch.Debug("Weekly on {0}", TabulationId);
-
         if (PageRefresh.HasDelegate)
         {
             await PageRefresh.InvokeAsync();
@@ -107,8 +101,6 @@ public class ReportTabulationStackBase : ComponentBase
     {
         SessionService.FilterPreference.ToggleToDailyView();
         SessionService.FilterPreference.BoundaryFilters[TabulationId] = BoundaryFilterMode.Daily;
-
-        LogSwitch.Debug("Daily on {0}", TabulationId);
 
         if (PageRefresh.HasDelegate)
         {

@@ -148,16 +148,10 @@ public class ApprovalPageBase : WorkloadPageBase, IPageNavigation
         await JsRuntime.InvokeVoidAsync("scrollToElement", elementId);
     }
 
-    protected bool IsStillInCharge(WorkPaper workPaper, bool debug = false)
+    protected bool IsStillInCharge(WorkPaper workPaper)
     {
         var now = DateTimeService.DateTimeOffsetNow.DateTime;
         var duration = InChargeDuration.ApprovalDuration;
-
-        if (debug)
-        {
-            var timeRemaining = workPaper.SignaturePlanningAssetCoverageInCharge.GetDurationRemaining(now, duration);
-            LogSwitch.Debug("Time remaining: {0}", timeRemaining);
-        }
 
         return !workPaper.SignaturePlanningAssetCoverageInCharge.IsDurationExceeded(now, duration);
     }

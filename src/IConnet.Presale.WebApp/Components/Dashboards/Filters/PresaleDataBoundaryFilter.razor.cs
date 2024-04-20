@@ -71,8 +71,6 @@ public partial class PresaleDataBoundaryFilter : ComponentBase
         NullableUpperBoundaryDateTimeMin = nullableDateTime.Value;
         SessionService.FilterPreference.UpperBoundaryDateTimeMin = UpperBoundaryDateTimeMin;
 
-        LogSwitch.Debug("Changing upper boundary MIN");
-
         if (OnUpperBoundaryChanged.HasDelegate)
         {
             await OnUpperBoundaryChanged.InvokeAsync();
@@ -88,8 +86,6 @@ public partial class PresaleDataBoundaryFilter : ComponentBase
 
         NullableUpperBoundaryDateTimeMax = nullableDateTime.Value;
         SessionService.FilterPreference.UpperBoundaryDateTimeMax = UpperBoundaryDateTimeMax;
-
-        LogSwitch.Debug("Changing upper boundary MAX");
 
         if (OnUpperBoundaryChanged.HasDelegate)
         {
@@ -107,8 +103,6 @@ public partial class PresaleDataBoundaryFilter : ComponentBase
         NullableMiddleBoundaryDateTimeMin = nullableDateTime.Value;
         SessionService.FilterPreference.MiddleBoundaryDateTimeMin = MiddleBoundaryDateTimeMin;
 
-        LogSwitch.Debug("Changing middle boundary MIN");
-
         if (OnMiddleBoundaryChanged.HasDelegate)
         {
             await OnMiddleBoundaryChanged.InvokeAsync();
@@ -125,8 +119,6 @@ public partial class PresaleDataBoundaryFilter : ComponentBase
         NullableMiddleBoundaryDateTimeMax = nullableDateTime.Value;
         SessionService.FilterPreference.MiddleBoundaryDateTimeMax = MiddleBoundaryDateTimeMax;
 
-        LogSwitch.Debug("Changing middle boundary MAX");
-
         if (OnMiddleBoundaryChanged.HasDelegate)
         {
             await OnMiddleBoundaryChanged.InvokeAsync();
@@ -142,8 +134,6 @@ public partial class PresaleDataBoundaryFilter : ComponentBase
 
         NullableLowerBoundaryDateTime = nullableDateTime.Value;
         SessionService.FilterPreference.LowerBoundaryDateTime = LowerBoundaryDateTime;
-
-        LogSwitch.Debug("Changing lower boundary");
 
         if (OnLowerBoundaryChanged.HasDelegate)
         {
