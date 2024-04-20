@@ -91,6 +91,11 @@ public class FilterPreference
 
     public void SetApprovalStatusExclusion()
     {
+        if (ApprovalStatusExclusion is not null)
+        {
+            return;
+        }
+
         ApprovalStatusExclusion = new ApprovalStatusExclusionModel();
     }
 
