@@ -43,6 +43,11 @@ public class OptionService
 
         foreach (var dto in rootCauseDto)
         {
+            if (dto.IsDeleted)
+            {
+                continue;
+            }
+
             RootCauseOptions.Add(dto.Cause);
         }
     }
