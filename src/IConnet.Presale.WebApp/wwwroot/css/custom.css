@@ -380,3 +380,9 @@ input:invalid::part(root) {
     padding: 10px;
     padding-right: 0;
 }
+
+.boundary-warning{
+    margin-top: 20px;
+    width: 300px;
+    margin-left: auto;
+}
