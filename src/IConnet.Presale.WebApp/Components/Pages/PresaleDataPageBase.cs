@@ -4,6 +4,9 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
 {
+    [Inject] WorksheetService WorksheetService { get; set; } = default!;
+    [Inject] public IJSRuntime JsRuntime { get; set; } = default!;
+
     private bool _isInitialized = false;
     private bool _firstLoad = true;
     private IQueryable<WorkPaper>? _presaleData;
@@ -21,6 +24,27 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
     public TabNavigationModel PageDeclaration()
     {
         return new TabNavigationModel("presale-data", PageNavName.PresaleData, PageRoute.PresaleData);
+    }
+
+    protected async Task ExportXlsxAsync()
+    {
+        IsLoading = true;
+        StateHasChanged();
+
+        LogSwitch.Debug("Exporting XLSX");
+
+        await Task.Delay(500);
+
+        var xlsxBytes = WorksheetService.GenerateXlsxBytes(_presaleData);
+        var base64 = Convert.ToBase64String(xlsxBytes);
+        var fileName = "PresaleData.xlsx";
+
+        LogSwitch.Debug("Downloading XLSX");
+
+        await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
+
+        IsLoading = false;
+        StateHasChanged();
     }
 
     protected override void OnInitialized()
