@@ -15,4 +15,5 @@ public static class PageNavName
     public const string PresaleData = "Data Presale";
     public const string Settings = "Pengaturan";
     public const string UserManager = "User Manager";
+    public const string SignOut = "Sign Out";
 }

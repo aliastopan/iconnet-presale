@@ -15,4 +15,5 @@ public static class PageRoute
     public const string PresaleData = "/presale-data";
     public const string Settings = "/settings";
     public const string UserManager = "/user-manager";
+    public const string SignOut = "/sign-out";
 }

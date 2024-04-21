@@ -10,12 +10,7 @@
                     <span style="font-weight: 600 !important;">Presale</span>
                     <span style="font-weight: 300 !important;">Application</span>
                 </div>
-                <div class="push-right">
-                    <FluentButton IconEnd="@(new Icons.Regular.Size20.ArrowExit())"
-                        Appearance="Appearance.Lightweight"
-                        OnClick="@SessionService.SignOutAsync">Sign-Out</FluentButton>
-                </div>
-                <div class="identity">
+                <div class="identity push-right">
                     <div class="alias">
                         <span class="username">@SessionService.UserModel!.Username</span>
                         <span class="role">(@SessionService.UserModel.Role)</span>

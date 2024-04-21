@@ -1,0 +1,17 @@
+@attribute [Route(PageRoute.SignOut)]
+@inject SessionService SessionService
+
+<FluentOverlay Visible="true"
+    Opacity="0.4"
+    Alignment="@Align.Center"
+    Justification="@JustifyContent.Center">
+    <FluentProgressRing />
+</FluentOverlay>
+
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        await SessionService.SignOutAsync();
+    }
+}
