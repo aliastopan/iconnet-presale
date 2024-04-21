@@ -1,3 +1,12 @@
+## v3.0.1
+- Fix: Dashboard (Root Cause) page refresh on exclusion filtering
+- Fix: Font weight bug
+- Fix: Page margin
+- Fix: Seamless Root Cause setting change detection
+- Fix: Setting page tab navigation
+- Change: Move "Sign Out" option into sidebar
+- Change: Translate "Exclusion" to "Pilah"
+
 ## v3.0.0
 - Change: Dashboard filter version 3
 - Change: Dialog based boundary filtering
