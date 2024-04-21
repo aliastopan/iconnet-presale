@@ -73,9 +73,9 @@ public class FilterPreference
         LowerBoundaryDateTime = baselineDate;
     }
 
-    public void SetRootCauseExclusion(ICollection<string> rootCauses)
+    public void SetRootCauseExclusion(ICollection<string> rootCauses, bool allowOverwrite = false)
     {
-        if (RootCauseExclusion is not null)
+        if (RootCauseExclusion is not null && allowOverwrite)
         {
             return;
         }

@@ -3,6 +3,8 @@ namespace IConnet.Presale.WebApp.Components.Settings.RootCauses;
 public partial class RootCauseSetting
 {
     [Inject] RootCauseManager RootCauseManager { get; set; } = default!;
+    [Inject] OptionService OptionService { get; set; } = default!;
+    [Inject] SessionService SessionService { get; set; } = default!;
 
     [Parameter]
     public IQueryable<RootCauseSettingModel>? Models { get; set; }
@@ -51,6 +53,9 @@ public partial class RootCauseSetting
             }
 
             NewRootCause = string.Empty;
+
+            var rootCauses = OptionService.RootCauseOptions;
+            SessionService.FilterPreference.SetRootCauseExclusion(rootCauses, allowOverwrite: true);
         }
 
         IsLoading = false;
@@ -89,6 +94,9 @@ public partial class RootCauseSetting
             {
                 await OnRootCauseAdded.InvokeAsync();
             }
+
+            var rootCauses = OptionService.RootCauseOptions;
+            SessionService.FilterPreference.SetRootCauseExclusion(rootCauses, allowOverwrite: true);
         }
 
         IsLoading = false;
