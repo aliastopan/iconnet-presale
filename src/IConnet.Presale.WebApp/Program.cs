@@ -29,6 +29,7 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddSingleton<RepresentativeOfficeManager>();
     services.AddSingleton<RootCauseManager>();
     services.AddSingleton<IntervalCalculatorService>();
+    services.AddSingleton<WorksheetService>();
     services.AddSingleton<OptionService>();
 
     services.AddApplicationServices(ServiceScope.WEBAPP_ONLY_SERVICE);
