@@ -11,7 +11,7 @@
 
     <FluentStack Orientation="Orientation.Horizontal"
         HorizontalAlignment="HorizontalAlignment.Start"
-        VerticalAlignment="VerticalAlignment.Bottom">
+        VerticalAlignment="VerticalAlignment.Top">
 
         <div class="filter-date boundary-filter">
             <div class="date-picker">
@@ -21,6 +21,8 @@
                     ValueChanged="OnLowerBoundaryDateChanged"/>
             </div>
         </div>
-
+        <div class="boundary-warning">
+            Batas filter rentang hari berdasarkan pada rentang <span class="fw-bold">Monthly</span>. Diluar rentang tersebut data tidak termasuk.
+        </div>
     </FluentStack>
 </div>
