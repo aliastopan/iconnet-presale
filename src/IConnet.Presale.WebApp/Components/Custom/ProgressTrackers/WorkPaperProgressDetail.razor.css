@@ -8,9 +8,7 @@
     font-weight: 700;
 }
 
-.progress-report-id-permohonan,
-.progress-report-id-pln,
-.progress-report-kantor-perwakilan{
+.progress-report-content{
     width: fit-content;
     font-weight: 600;
     background-color: var(--accent-blue);
@@ -57,7 +55,7 @@
     width: fit-content;
     font-weight: 600;
     background-color: var(--accent-blue);
-    padding: 0 4px;
+    padding: 2px 4px;
     color: white;
     border-radius: 3px;
     -webkit-border-radius: 3px;
