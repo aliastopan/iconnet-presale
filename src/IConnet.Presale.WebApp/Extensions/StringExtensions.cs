@@ -94,4 +94,9 @@ public static class StringExtensions
 
         return input.Substring(0, maxLength - 3) + "...";
     }
+
+    public static string ReplaceSpacesWithUnderscores(this string input)
+    {
+        return input.Replace(' ', '_');
+    }
 }
