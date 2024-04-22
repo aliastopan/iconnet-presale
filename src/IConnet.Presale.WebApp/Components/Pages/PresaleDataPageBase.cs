@@ -19,7 +19,7 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
     protected bool EnableSelection { get; set; }
 
     protected string GridTemplateCols => GetGridTemplateCols();
-    protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
+    protected override IQueryable<WorkPaper>? WorkPapers => FilterPresaleData();
 
     public TabNavigationModel PageDeclaration()
     {
@@ -90,7 +90,7 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
         await Task.CompletedTask;
     }
 
-    protected IQueryable<WorkPaper>? FilterWorkPapers()
+    protected IQueryable<WorkPaper>? FilterPresaleData()
     {
         if (FilterComponent is null)
         {
