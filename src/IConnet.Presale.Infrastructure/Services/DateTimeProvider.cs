@@ -9,6 +9,13 @@ internal sealed class DateTimeProvider : IDateTimeService
     public DateTimeOffset DateTimeOffsetNow => DateTimeOffset.Now;
     public DateTime Zero => DateTime.MinValue;
 
+    public string GetStringDateToday()
+    {
+        DateTime today = DateTime.Today;
+        string formattedDate = today.ToString("yyyyMMdd");
+        return formattedDate;
+    }
+
     public long GetUnixTime(DateTime dateTime)
     {
         return ((DateTimeOffset)dateTime).ToUnixTimeSeconds();

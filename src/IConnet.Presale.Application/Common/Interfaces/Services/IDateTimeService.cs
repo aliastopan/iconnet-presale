@@ -6,6 +6,7 @@ public interface IDateTimeService
     DateTimeOffset DateTimeOffsetNow { get; }
     DateTime Zero { get; }
 
+    string GetStringDateToday();
     long GetUnixTime(DateTime dateTime);
     string GetClockTime();
     string GetFormat();
