@@ -112,7 +112,7 @@ public class WorksheetService
             worksheet.Cell(row, 22).Value = exportModel.Kabupaten;
             worksheet.Cell(row, 23).Value = exportModel.Kecamatan;
             worksheet.Cell(row, 24).Value = exportModel.Kelurahan;
-            worksheet.Cell(row, 25).Value = $"{exportModel.KoordinatLatitude}, {exportModel.KoordinatLongitude}";
+            worksheet.Cell(row, 25).Value = exportModel.Koordinat;
 
             worksheet.Cell(row, 26).Value = exportModel.Shift;
             worksheet.Cell(row, 27).Value = exportModel.WaktuTanggalRespons;
@@ -122,7 +122,7 @@ public class WorksheetService
             worksheet.Cell(row, 31).Value = exportModel.ValidasiNomorTelepon;
             worksheet.Cell(row, 32).Value = exportModel.ValidasiEmail;
             worksheet.Cell(row, 33).Value = exportModel.ValidasiAlamat;
-            worksheet.Cell(row, 34).Value = $"{exportModel.ShareLocLatitude}, {exportModel.ShareLocLongitude}";
+            worksheet.Cell(row, 34).Value = exportModel.ShareLoc;
             worksheet.Cell(row, 35).Value = exportModel.KeteranganValidasi;
 
             worksheet.Cell(row, 36).Value = exportModel.StatusApproval;

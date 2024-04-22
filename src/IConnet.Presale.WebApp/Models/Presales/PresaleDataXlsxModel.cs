@@ -29,6 +29,7 @@ public class PresaleDataXlsxModel
         Kabupaten = workPaper.ApprovalOpportunity.Regional.Kabupaten;
         Kecamatan = workPaper.ApprovalOpportunity.Regional.Kecamatan;
         Kelurahan = workPaper.ApprovalOpportunity.Regional.Kelurahan;
+        Koordinat = workPaper.ApprovalOpportunity.Regional.Koordinat.GetLatitudeLongitude();
         KoordinatLatitude = workPaper.ApprovalOpportunity.Regional.Koordinat.Latitude;
         KoordinatLongitude = workPaper.ApprovalOpportunity.Regional.Koordinat.Longitude;
 
@@ -40,6 +41,7 @@ public class PresaleDataXlsxModel
         ValidasiNomorTelepon = EnumProcessor.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiNomorTelepon);
         ValidasiEmail = EnumProcessor.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiEmail);
         ValidasiAlamat = EnumProcessor.EnumToDisplayString(workPaper.ProsesValidasi.ParameterValidasi.ValidasiAlamat);
+        ShareLoc = workPaper.ProsesValidasi.ParameterValidasi.ShareLoc.GetLatitudeLongitude();
         ShareLocLatitude = workPaper.ProsesValidasi.ParameterValidasi.ShareLoc.Latitude;
         ShareLocLongitude = workPaper.ProsesValidasi.ParameterValidasi.ShareLoc.Longitude;
         PembetulanIdPln = workPaper.ProsesValidasi.PembetulanValidasi.PembetulanIdPln;
@@ -84,6 +86,7 @@ public class PresaleDataXlsxModel
     public string Kabupaten { get; init; }
     public string Kecamatan { get; init; }
     public string Kelurahan { get; init; }
+    public string Koordinat { get; init; }
     public string KoordinatLatitude { get; init; }
     public string KoordinatLongitude { get; init; }
 
@@ -95,6 +98,7 @@ public class PresaleDataXlsxModel
     public string ValidasiNomorTelepon { get; init; }
     public string ValidasiEmail { get; init; }
     public string ValidasiAlamat { get; init; }
+    public string ShareLoc { get; init; }
     public string ShareLocLatitude { get; init; }
     public string ShareLocLongitude { get; init; }
     public string PembetulanIdPln { get; init; }
