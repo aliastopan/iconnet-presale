@@ -125,6 +125,15 @@ public class WorksheetService
             worksheet.Cell(row, 34).Value = $"{exportModel.ShareLocLatitude}, {exportModel.ShareLocLongitude}";
             worksheet.Cell(row, 35).Value = exportModel.KeteranganValidasi;
 
+            worksheet.Cell(row, 36).Value = exportModel.StatusApproval;
+            worksheet.Cell(row, 37).Value = exportModel.DirectApproval;
+            worksheet.Cell(row, 38).Value = exportModel.RootCause;
+            worksheet.Cell(row, 39).Value = exportModel.KeteranganApproval;
+            worksheet.Cell(row, 40).Value = exportModel.JarakShareLoc;
+            worksheet.Cell(row, 41).Value = exportModel.JarakICrmPlus;
+            worksheet.Cell(row, 42).Value = exportModel.SplitterGanti;
+            worksheet.Cell(row, 43).Value = exportModel.VaTerbit;
+
             row++;
         }
 
@@ -140,7 +149,7 @@ public class WorksheetService
             return new List<PresaleDataXlsxModel>();
         }
 
-        var workPapers = presaleData.ToList();
+        var workPapers = presaleData.OrderByDescending(x => x.ApprovalOpportunity.TglPermohonan).ToList();
         var exportModels = new List<PresaleDataXlsxModel>();
         var batchSize = 100;
 
