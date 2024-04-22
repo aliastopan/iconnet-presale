@@ -1,0 +1,43 @@
+@if (Models is not null)
+{
+    <div class="@_wrapperCss" style="width: 100%;">
+        <table class="aging-tabulation" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th class="tabulation-header" style="">
+                        PAC
+                    </th>
+                    <th class="tabulation-header" style="">
+                        AVG
+                    </th>
+                    <th class="tabulation-header" style="">
+                        SLA
+                    </th>
+                    <th class="tabulation-header" style="">
+                        Import Total
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var model in Models)
+                {
+                    <tr>
+                        <td class="tabulation-header-row">@model.Username</td>
+                        <td class="tabulation-content">@model.GetDisplayAverageAging()</td>
+                        <td class="tabulation-content">
+                            @GetSlaVerdict(model)
+                        </td>
+                        <td class="tabulation-content">@model.GetDisplayImportTotal()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code
+{
+    private string _wrapperCss => IsPageView
+        ? "tabulation-wrapper-page-view"
+        : "tabulation-wrapper";
+}

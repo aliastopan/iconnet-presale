@@ -32,14 +32,20 @@
         <div style="@MonthlyToggleDisplayStyle">
             <h4 class="app-font">Laporan Aging Import <span>@CurrentMonthIndicator()</span> - <span>@GetUpperBoundaryDateMin()</span> s.d <span>@GetUpperBoundaryDateMax()</span></h4>
 
-            <div class="d-flex flex-row">
 
-            </div>
-            <div style="margin-left: 2px;">
-                Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
-            </div>
-            <div class="d-flex flex-row">
+            <div class="d-flex flex-column">
+                <h5 class="app-font">Aging Import</h5>
+                <span style="margin-left: 2px;">
+                    Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
+                </span>
                 <ImportAgingTabulation Models="@UpperBoundaryModels"
+                    IsPageView="@IsPageView" />
+
+                <h5 class="app-font" style="margin-top: 16px;">Achievement SLA Import</h5>
+                <span style="margin-left: 2px;">
+                    SLA Import untuk PAC adalah 30 menit
+                </span>
+                <ImportSlaTabulation Models="@UpperBoundaryModels"
                     IsPageView="@IsPageView" />
             </div>
         </div>
