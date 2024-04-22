@@ -1,3 +1,6 @@
+## v3.1.0
+- Add: Presale Data .xlsx export
+
 ## v3.0.1
 - Fix: Dashboard (Root Cause) page refresh on exclusion filtering
 - Fix: Font weight bug
