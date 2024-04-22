@@ -35,7 +35,7 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
 
         await Task.Delay(500);
 
-        var username = SessionService.GetSessionAlias();
+        var username = SessionService.GetSessionAlias().ReplaceSpacesWithUnderscores();
         var dateLabel = DateTimeService.GetStringDateToday();
 
         var xlsxBytes = WorksheetService.GenerateXlsxBytes(_presaleData);
