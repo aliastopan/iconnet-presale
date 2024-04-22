@@ -29,6 +29,7 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddSingleton<RepresentativeOfficeManager>();
     services.AddSingleton<RootCauseManager>();
     services.AddSingleton<IntervalCalculatorService>();
+    services.AddSingleton<ReportService>();
     services.AddSingleton<WorksheetService>();
     services.AddSingleton<OptionService>();
 
@@ -43,7 +44,6 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
     services.AddScoped<BroadcastService>();
     services.AddScoped<SqlPushService>();
-    services.AddScoped<ReportService>();
     services.AddTransient<CrmImportService>();
 
     services.AddRazorComponents()
