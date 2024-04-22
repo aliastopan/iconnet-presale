@@ -31,8 +31,6 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
         IsLoading = true;
         StateHasChanged();
 
-        LogSwitch.Debug("Exporting XLSX");
-
         await Task.Delay(500);
 
         var username = SessionService.GetSessionAlias().ReplaceSpacesWithUnderscores();
@@ -41,8 +39,6 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
         var xlsxBytes = WorksheetService.GenerateXlsxBytes(WorkPapers);
         var base64 = Convert.ToBase64String(xlsxBytes);
         var fileName = $"PresaleData_{username}_{dateLabel}.xlsx";
-
-        LogSwitch.Debug("Downloading XLSX");
 
         await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
 
