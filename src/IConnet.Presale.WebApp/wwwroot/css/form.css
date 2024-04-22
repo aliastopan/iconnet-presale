@@ -541,6 +541,7 @@
 }
 
 .splitter-tetap{
+    font-family: 'inter-semibold';
     font-weight: 600;
     background-color: var(--info-grey);
     text-align: center;
