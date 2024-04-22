@@ -53,7 +53,7 @@ public class PresaleDataXlsxModel
 
         StatusApproval = EnumProcessor.EnumToDisplayString(workPaper.ProsesApproval.StatusApproval);
         DirectApproval = workPaper.ProsesApproval.DirectApproval;
-        RootCause = workPaper.ProsesApproval.RootCause;
+        RootCause = workPaper.ProsesApproval.RootCause.ToUpper();
         KeteranganApproval = workPaper.ProsesApproval.Keterangan;
         JarakShareLoc = workPaper.ProsesApproval.JarakShareLoc;
         JarakICrmPlus = workPaper.ProsesApproval.JarakICrmPlus;
