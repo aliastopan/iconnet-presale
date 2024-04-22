@@ -6,7 +6,13 @@
 
 <div class="d-flex flex-row align-items-center">
     <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Data Presale</FluentLabel>
-    <div class="filter-toggle">
+    <div class="" style="margin-left: auto; margin-right: 16px;">
+        <FluentButton Appearance="Appearance.Accent"
+            IconStart="@(new Icons.Filled.Size20.DocumentArrowDown())"
+            OnClick="@ExportXlsxAsync">
+            Export .xlsx</FluentButton>
+    </div>
+    <div class="" style="margin-right: 16px;">
         <FluentButton IconEnd="@(new Icons.Filled.Size20.Grid())"
             OnClick="@SessionService.FilterPreference.ToggleFilters"/>
     </div>
@@ -485,10 +491,6 @@
             Hal. <strong>@(Pagination.CurrentPageIndex + 1)</strong> dari <strong>@(Pagination.LastPageIndex + 1)</strong> halaman
         </PaginationTextTemplate>
     </FluentPaginator>
-
-    <FluentButton Appearance="Appearance.Neutral"
-        OnClick="@ExportXlsxAsync">
-        Export XLSX</FluentButton>
 
     <FluentOverlay @bind-Visible=@IsLoading
         Opacity="0.4"
