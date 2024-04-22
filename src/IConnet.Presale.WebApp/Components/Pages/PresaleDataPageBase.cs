@@ -35,9 +35,12 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
 
         await Task.Delay(500);
 
+        var username = SessionService.GetSessionAlias();
+        var dateLabel = DateTimeService.GetStringDateToday();
+
         var xlsxBytes = WorksheetService.GenerateXlsxBytes(_presaleData);
         var base64 = Convert.ToBase64String(xlsxBytes);
-        var fileName = "PresaleData.xlsx";
+        var fileName = $"PresaleData_{username}_{dateLabel}.xlsx";
 
         LogSwitch.Debug("Downloading XLSX");
 

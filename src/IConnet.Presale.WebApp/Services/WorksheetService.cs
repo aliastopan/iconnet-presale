@@ -55,6 +55,32 @@ public class WorksheetService
         worksheet.Cell(1, 24).Value = "KELURAHAN";
         worksheet.Cell(1, 25).Value = "KOORDINAT";
 
+        // workpaper
+        worksheet.Cell(1, 26).Value = "SHIFT";
+        worksheet.Cell(1, 27).Value = "WAKTU/TGL RESPONS";
+        worksheet.Cell(1, 28).Value = "LINK CHAT HISTORY";
+        worksheet.Cell(1, 29).Value = "VALIDASI ID PLN";
+        worksheet.Cell(1, 30).Value = "VALIDASI NAMA";
+        worksheet.Cell(1, 31).Value = "VALIDASI NO. TELP";
+        worksheet.Cell(1, 32).Value = "VALIDASI EMAIL";
+        worksheet.Cell(1, 33).Value = "VALIDASI ALAMAT";
+        worksheet.Cell(1, 34).Value = "SHARE LOC";
+        worksheet.Cell(1, 35).Value = "KETERANGAN VALIDASI";
+
+        worksheet.Cell(1, 36).Value = "APPROVAL STATUS";
+        worksheet.Cell(1, 37).Value = "DIRECT APPROVAL";
+        worksheet.Cell(1, 38).Value = "ROOT CAUSE";
+        worksheet.Cell(1, 39).Value = "KETERANGAN APPROVAL";
+        worksheet.Cell(1, 40).Value = "JARAK SHARE LOC";
+        worksheet.Cell(1, 41).Value = "JARAK iCRM+";
+        worksheet.Cell(1, 42).Value = "SPLITTER GANTI";
+        worksheet.Cell(1, 43).Value = "VA TERBIT";
+
+        for (int i = 0; i < 44; i++)
+        {
+            worksheet.Column(i).Width = 32;
+        }
+
         int row = 2;
 
         foreach (var exportModel in exportModels)
@@ -80,13 +106,24 @@ public class WorksheetService
             worksheet.Cell(row, 17).Value = exportModel.NomorTeleponAgen;
             worksheet.Cell(row, 18).Value = exportModel.MitraAgen;
 
-            worksheet.Cell(row, 19).Value = exportModel.Bagian;
+            worksheet.Cell(row, 19).Value = exportModel.RegionalBagian;
             worksheet.Cell(row, 20).Value = exportModel.KantorPerwakilan;
             worksheet.Cell(row, 21).Value = exportModel.Provinsi;
             worksheet.Cell(row, 22).Value = exportModel.Kabupaten;
             worksheet.Cell(row, 23).Value = exportModel.Kecamatan;
             worksheet.Cell(row, 24).Value = exportModel.Kelurahan;
             worksheet.Cell(row, 25).Value = $"{exportModel.KoordinatLatitude}, {exportModel.KoordinatLongitude}";
+
+            worksheet.Cell(row, 26).Value = exportModel.Shift;
+            worksheet.Cell(row, 27).Value = exportModel.WaktuTanggalRespons;
+            worksheet.Cell(row, 28).Value = exportModel.LinkChatHistory;
+            worksheet.Cell(row, 29).Value = exportModel.ValidasiIdPln;
+            worksheet.Cell(row, 30).Value = exportModel.ValidasiNama;
+            worksheet.Cell(row, 31).Value = exportModel.ValidasiNomorTelepon;
+            worksheet.Cell(row, 32).Value = exportModel.ValidasiEmail;
+            worksheet.Cell(row, 33).Value = exportModel.ValidasiAlamat;
+            worksheet.Cell(row, 34).Value = $"{exportModel.ShareLocLatitude}, {exportModel.ShareLocLongitude}";
+            worksheet.Cell(row, 35).Value = exportModel.KeteranganValidasi;
 
             row++;
         }
@@ -96,15 +133,15 @@ public class WorksheetService
         return memoryStream.ToArray();
     }
 
-    public List<WorkPaperExportModel> ConvertToExportModels(IQueryable<WorkPaper>? presaleData)
+    public List<PresaleDataXlsxModel> ConvertToExportModels(IQueryable<WorkPaper>? presaleData)
     {
         if (presaleData == null)
         {
-            return new List<WorkPaperExportModel>();
+            return new List<PresaleDataXlsxModel>();
         }
 
         var workPapers = presaleData.ToList();
-        var exportModels = new List<WorkPaperExportModel>();
+        var exportModels = new List<PresaleDataXlsxModel>();
         var batchSize = 100;
 
         for (int i = 0; i < workPapers.Count; i += batchSize)
@@ -112,7 +149,7 @@ public class WorksheetService
             var batch = workPapers.Skip(i).Take(batchSize).ToList();
             Parallel.ForEach(batch, _parallelOptions, workPaper =>
             {
-                var model = new WorkPaperExportModel(workPaper);
+                var model = new PresaleDataXlsxModel(workPaper);
                 lock (exportModels)
                 {
                     exportModels.Add(model);
