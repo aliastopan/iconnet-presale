@@ -116,4 +116,25 @@ public class PresaleDataXlsxModel
     public int JarakICrmPlus { get; init; }
     public string SplitterGanti { get; init; }
     public DateTime VaTerbit { get; init; }
+
+    public string GetDirectApproval()
+    {
+        return DirectApproval.IsNullOrWhiteSpace()
+            ? "NORMAL"
+            : DirectApproval;
+    }
+
+    public  DateTime? GetWaktuTanggalRespons()
+    {
+        return WaktuTanggalRespons == DateTime.MinValue
+            ? null
+            : WaktuTanggalRespons;
+    }
+
+    public DateTime? GetVaTerbit()
+    {
+        return VaTerbit == DateTime.MinValue
+            ? null
+            : VaTerbit;
+    }
 }

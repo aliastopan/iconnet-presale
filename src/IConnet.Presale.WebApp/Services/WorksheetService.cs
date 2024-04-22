@@ -78,8 +78,15 @@ public class WorksheetService
 
         for (int i = 1; i <= 44; i++)
         {
-            worksheet.Column(i).Width = 32;
+            worksheet.Column(i).Width = 20;
         }
+
+        var dateTimeFormat = @"yyyy-MM-dd HH:mm";
+        var dateOnlyFormat = @"yyyy-MM-dd";
+
+        worksheet.Column("B").Style.DateFormat.Format = dateTimeFormat;     // tgl permohonan
+        worksheet.Column("AA").Style.DateFormat.Format = dateTimeFormat;    // waktu/tgl respons
+        worksheet.Column("AQ").Style.DateFormat.Format = dateOnlyFormat;    // va terbit
 
         int row = 2;
 
@@ -115,7 +122,7 @@ public class WorksheetService
             worksheet.Cell(row, 25).Value = exportModel.Koordinat;
 
             worksheet.Cell(row, 26).Value = exportModel.Shift;
-            worksheet.Cell(row, 27).Value = exportModel.WaktuTanggalRespons;
+            worksheet.Cell(row, 27).Value = exportModel.GetWaktuTanggalRespons();
             worksheet.Cell(row, 28).Value = exportModel.LinkChatHistory;
             worksheet.Cell(row, 29).Value = exportModel.ValidasiIdPln;
             worksheet.Cell(row, 30).Value = exportModel.ValidasiNama;
@@ -126,13 +133,13 @@ public class WorksheetService
             worksheet.Cell(row, 35).Value = exportModel.KeteranganValidasi;
 
             worksheet.Cell(row, 36).Value = exportModel.StatusApproval;
-            worksheet.Cell(row, 37).Value = exportModel.DirectApproval;
+            worksheet.Cell(row, 37).Value = exportModel.GetDirectApproval();
             worksheet.Cell(row, 38).Value = exportModel.RootCause;
             worksheet.Cell(row, 39).Value = exportModel.KeteranganApproval;
             worksheet.Cell(row, 40).Value = exportModel.JarakShareLoc;
             worksheet.Cell(row, 41).Value = exportModel.JarakICrmPlus;
             worksheet.Cell(row, 42).Value = exportModel.SplitterGanti;
-            worksheet.Cell(row, 43).Value = exportModel.VaTerbit;
+            worksheet.Cell(row, 43).Value = exportModel.GetVaTerbit();
 
             row++;
         }
