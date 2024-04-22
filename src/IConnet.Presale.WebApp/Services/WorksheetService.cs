@@ -76,7 +76,7 @@ public class WorksheetService
         worksheet.Cell(1, 42).Value = "SPLITTER GANTI";
         worksheet.Cell(1, 43).Value = "VA TERBIT";
 
-        for (int i = 0; i < 44; i++)
+        for (int i = 1; i <= 44; i++)
         {
             worksheet.Column(i).Width = 32;
         }
