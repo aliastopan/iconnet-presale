@@ -25,7 +25,11 @@
                         <td class="tabulation-header-row">@model.Username</td>
                         <td class="tabulation-content">@model.GetDisplayAverageAging()</td>
                         <td class="tabulation-content">
-                            @GetSlaVerdict(model)
+                            @{
+                                bool isWinning = IsWinningSlaImport(model, out string verdict);
+
+                                <div style="@GetSlaBadgeStyle(isWinning)">@verdict</div>
+                            }
                         </td>
                         <td class="tabulation-content">@model.GetDisplayImportTotal()</td>
                     </tr>
@@ -40,4 +44,11 @@
     private string _wrapperCss => IsPageView
         ? "tabulation-wrapper-page-view"
         : "tabulation-wrapper";
+
+    private string GetSlaBadgeStyle(bool isWinning)
+    {
+        return isWinning
+            ? "background-color: cadetblue;"
+            : "background-color: crimson; color: white;";
+    }
 }

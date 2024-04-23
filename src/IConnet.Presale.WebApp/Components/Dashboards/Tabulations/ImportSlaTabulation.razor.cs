@@ -12,13 +12,15 @@ public partial class ImportSlaTabulation
     [Parameter]
     public bool IsPageView { get; set; }
 
-    protected string GetSlaVerdict(ImportAgingReportModel report)
+    protected bool IsWinningSlaImport(ImportAgingReportModel report, out string verdict)
     {
         if (report.ImportTotal == 0)
         {
-            return "Kosong";
+            verdict = "kosong";
+            return false;
         }
 
-        return SlaService.GetSlaImportVerdict(report.PacId, Models);
+        verdict = SlaService.GetSlaImportVerdict(report.PacId, Models);
+        return true;
     }
 }
