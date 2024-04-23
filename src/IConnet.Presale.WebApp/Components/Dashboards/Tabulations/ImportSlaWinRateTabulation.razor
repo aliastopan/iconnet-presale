@@ -1,0 +1,56 @@
+@if (Models is not null)
+{
+    <div class="@_wrapperCss" style="width: 100%;">
+        <table class="aging-tabulation" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th class="tabulation-header" style="">
+                        PAC
+                    </th>
+                    <th class="tabulation-header" style="">
+                        AVG
+                    </th>
+                    <th class="tabulation-header" style="">
+                        Import Total
+                    </th>
+                    <th class="tabulation-header" style="">
+                        SLA Won
+                    </th>
+                    <th class="tabulation-header" style="">
+                        SLA Lost
+                    </th>
+                    <th class="tabulation-header" style="">
+                        SLA Win Rate
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var model in Models)
+                {
+                    <tr>
+                        <td class="tabulation-header-row">@model.Username</td>
+                        <td class="tabulation-content">@model.GetDisplayAverageAging()</td>
+                        <td class="tabulation-content">@model.GetDisplayImportTotal()</td>
+                        <td class="tabulation-content">@model.GetDisplaySlaWonTotal()</td>
+                        <td class="tabulation-content">@model.GetDisplaySlaLostTotal()</td>
+                        <td class="tabulation-content">@model.GetDisplaySlaWinRate()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code
+{
+    private string _wrapperCss => IsPageView
+        ? "tabulation-wrapper-page-view"
+        : "tabulation-wrapper";
+
+    private string GetSlaBadgeStyle(bool isWinning)
+    {
+        return isWinning
+            ? "background-color: cadetblue;"
+            : "background-color: crimson; color: white;";
+    }
+}

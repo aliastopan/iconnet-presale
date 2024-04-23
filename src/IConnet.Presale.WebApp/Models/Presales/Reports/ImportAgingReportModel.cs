@@ -26,8 +26,8 @@ public class ImportAgingReportModel
     public TimeSpan Max { get; init; }
     public int ImportTotal { get; init; }
     public int SlaWonTotal { get; init; }
+    public int SlaLostTotal => ImportTotal - SlaWonTotal;
     public bool IsWinning => _isWinning && ImportTotal > 0;
-    // public bool IsWinning => !(SlaWonTotal < ImportTotal) && ImportTotal > 0;
     public float SlaWinRate { get; init; }
 
     public string GetDisplayAverageAging()
@@ -64,10 +64,17 @@ public class ImportAgingReportModel
             : "Kosong";
     }
 
+    public string GetDisplaySlaLostTotal()
+    {
+        return ImportTotal > 0
+            ? SlaLostTotal.ToString()
+            : "Kosong";
+    }
+
     public string GetDisplaySlaWinRate()
     {
         return ImportTotal > 0
-            ? SlaWinRate.ToString()
+            ? $"{SlaWinRate}%"
             : "Kosong";
     }
 
