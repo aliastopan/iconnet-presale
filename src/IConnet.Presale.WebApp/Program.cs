@@ -30,7 +30,6 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddSingleton<RootCauseManager>();
     services.AddSingleton<IntervalCalculatorService>();
     services.AddSingleton<ReportService>();
-    services.AddSingleton<SlaService>();
     services.AddSingleton<WorksheetService>();
     services.AddSingleton<OptionService>();
 
