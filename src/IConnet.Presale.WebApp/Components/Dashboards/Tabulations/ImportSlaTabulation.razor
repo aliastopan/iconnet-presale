@@ -25,11 +25,9 @@
                         <td class="tabulation-header-row">@model.Username</td>
                         <td class="tabulation-content">@model.GetDisplayAverageAging()</td>
                         <td class="tabulation-content">
-                            @{
-                                bool isWinning = IsWinningSlaImport(model, out string verdict);
-
-                                <div style="@GetSlaBadgeStyle(isWinning)">@verdict</div>
-                            }
+                            <div style="@GetSlaBadgeStyle(model.IsWinning)">
+                                @model.GetSlaVerdict()
+                            </div>
                         </td>
                         <td class="tabulation-content">@model.GetDisplayImportTotal()</td>
                     </tr>

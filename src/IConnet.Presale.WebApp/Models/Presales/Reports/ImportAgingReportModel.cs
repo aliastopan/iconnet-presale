@@ -2,8 +2,11 @@ namespace IConnet.Presale.WebApp.Models.Presales.Reports;
 
 public class ImportAgingReportModel
 {
+    public bool _isWinning;
+
     public ImportAgingReportModel(Guid pacId, string username,
-        TimeSpan average, TimeSpan min, TimeSpan max, int importTotal)
+        TimeSpan average, TimeSpan min, TimeSpan max,
+        int importTotal, int slaWonTotal, bool isWinning)
     {
         PacId = pacId;
         Username = username;
@@ -11,6 +14,9 @@ public class ImportAgingReportModel
         Min = min;
         Max = max;
         ImportTotal = importTotal;
+        SlaWonTotal = slaWonTotal;
+        _isWinning = isWinning;
+        SlaWinRate = slaWonTotal / (float)importTotal * 100;
     }
 
     public Guid PacId { get; init; }
@@ -19,6 +25,10 @@ public class ImportAgingReportModel
     public TimeSpan Min { get; init; }
     public TimeSpan Max { get; init; }
     public int ImportTotal { get; init; }
+    public int SlaWonTotal { get; init; }
+    public bool IsWinning => _isWinning && ImportTotal > 0;
+    // public bool IsWinning => !(SlaWonTotal < ImportTotal) && ImportTotal > 0;
+    public float SlaWinRate { get; init; }
 
     public string GetDisplayAverageAging()
     {
@@ -45,5 +55,31 @@ public class ImportAgingReportModel
         return ImportTotal > 0
             ? ImportTotal.ToString()
             : "Kosong";
+    }
+
+    public string GetDisplaySlaWonTotal()
+    {
+        return ImportTotal > 0
+            ? SlaWonTotal.ToString()
+            : "Kosong";
+    }
+
+    public string GetDisplaySlaWinRate()
+    {
+        return ImportTotal > 0
+            ? SlaWinRate.ToString()
+            : "Kosong";
+    }
+
+    public string GetSlaVerdict()
+    {
+        if (ImportTotal <= 0)
+        {
+            return "Kosong";
+        }
+
+        return IsWinning
+            ? "Win"
+            : "Lose";
     }
 }

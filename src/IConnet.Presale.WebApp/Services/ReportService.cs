@@ -1,3 +1,4 @@
+using DocumentFormat.OpenXml.Spreadsheet;
 using IConnet.Presale.WebApp.Models.Identity;
 using IConnet.Presale.WebApp.Models.Presales.Reports;
 
@@ -5,12 +6,30 @@ namespace IConnet.Presale.WebApp.Services;
 
 public class ReportService
 {
+    private TimeSpan _slaImport;
+    private TimeSpan _slaPickUp;
+    private TimeSpan _slaValidasi;
+    private TimeSpan _slaApproval;
+
     private readonly OptionService _optionService;
     private readonly IntervalCalculatorService _intervalCalculatorService;
 
-    public ReportService(OptionService optionService,
+    public ReportService(IConfiguration configuration,
+        OptionService optionService,
         IntervalCalculatorService intervalCalculatorService)
     {
+        string slaImportString = configuration["ServiceLevelAgreement:Import"]!;
+        string slaPickUpString = configuration["ServiceLevelAgreement:PickUp"]!;
+        string slaValidasiString = configuration["ServiceLevelAgreement:Validasi"]!;
+        string slaApprovalString = configuration["ServiceLevelAgreement:Approval"]!;
+
+        _slaImport = TimeSpan.Parse(slaImportString);
+        _slaPickUp = TimeSpan.Parse(slaPickUpString);
+        _slaValidasi = TimeSpan.Parse(slaValidasiString);
+        _slaApproval = TimeSpan.Parse(slaApprovalString);
+
+        LogSwitch.Debug("SLA Import {0}", _slaImport);
+
         _optionService = optionService;
         _intervalCalculatorService = intervalCalculatorService;
     }
@@ -133,11 +152,14 @@ public class ReportService
         }
 
         int importTotal = agingIntervals.Count;
+        int slaWonTotal = agingIntervals.Where(interval => interval < _slaImport).Count();
+        bool isWinning = avg < _slaImport;
 
         var pacId = presaleOperator.UserAccountId;
         var username = presaleOperator.Username;
 
-        return new ImportAgingReportModel(pacId, username, avg, min, max, importTotal);
+        return new ImportAgingReportModel(pacId, username, avg, min, max,
+            importTotal, slaWonTotal, isWinning);
     }
 
     public VerificationAgingReportModel? GenerateVerificationAgingReport(PresaleOperatorModel presaleOperator,
