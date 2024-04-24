@@ -20,6 +20,11 @@ public partial class RootCauseExclusionDialog : IDialogContentComponent<RootCaus
 
     protected void OnExclusionChanged(string rootCauses, bool inclusion)
     {
+        if (Content.Inclusion.Count == 1)
+        {
+            return;
+        }
+
         if (inclusion)
         {
             Content.Inclusion.Add(rootCauses);
