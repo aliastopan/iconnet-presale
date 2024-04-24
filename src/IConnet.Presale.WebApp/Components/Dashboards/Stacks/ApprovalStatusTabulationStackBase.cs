@@ -26,7 +26,7 @@ public class ApprovalStatusTabulationStackBase : ReportTabulationStackBase
 
     [Parameter] public EventCallback OnExclusionFilter { get; set; }
 
-        protected async Task OpenApprovalStatusExclusionDialogFilter()
+    protected async Task OpenApprovalStatusExclusionDialogFilter()
     {
         await FilterAsync();
     }
