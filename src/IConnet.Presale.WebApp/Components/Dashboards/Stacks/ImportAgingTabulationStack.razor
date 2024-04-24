@@ -32,7 +32,6 @@
         <div style="@MonthlyToggleDisplayStyle">
             <h4 class="app-font">Laporan Aging Import <span>@CurrentMonthIndicator()</span> - <span>@GetUpperBoundaryDateMin()</span> s.d <span>@GetUpperBoundaryDateMax()</span></h4>
 
-
             <div class="d-flex flex-column">
                 <h5 class="app-font">Aging Import</h5>
                 <span style="margin-left: 2px;">
@@ -43,7 +42,7 @@
 
                 <h5 class="app-font" style="margin-top: 16px;">Achievement SLA Import</h5>
                 <span style="margin-left: 2px;">
-                    SLA Import untuk PAC adalah 30 menit
+                    SLA Import adalah 30 menit
                 </span>
                 <ImportSlaTabulation Models="@UpperBoundaryModels"
                     IsPageView="@IsPageView" />
@@ -56,28 +55,46 @@
         <div style="@WeeklyToggleDisplayStyle">
             <h4 class="app-font">Laporan Aging Import <span class="">@CurrentWeekIndicator()</span> - <span>@GetMiddleBoundaryDateMin()</span> s.d <span>@GetMiddleBoundaryDateMax()</span></h4>
 
-            <div class="d-flex flex-row">
-
-            </div>
-            <div style="margin-left: 2px;">
-                Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
-            </div>
-            <div class="d-flex flex-row">
+            <div class="d-flex flex-column">
+                <h5 class="app-font">Aging Import</h5>
+                <span style="margin-left: 2px;">
+                    Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
+                </span>
                 <ImportAgingTabulation Models="@MiddleBoundaryModels"
+                    IsPageView="@IsPageView" />
+
+                <h5 class="app-font" style="margin-top: 16px;">Achievement SLA Import</h5>
+                <span style="margin-left: 2px;">
+                    SLA Import adalah 30 menit
+                </span>
+                <ImportSlaTabulation Models="@MiddleBoundaryModels"
+                    IsPageView="@IsPageView" />
+
+                <h5 class="app-font" style="margin-top: 16px;">SLA Win Rate</h5>
+                <ImportSlaWinRateTabulation Models="@MiddleBoundaryModels"
                     IsPageView="@IsPageView" />
             </div>
         </div>
         <div style="@DailyToggleDisplayStyle">
             <h4 class="app-font">Laporan Aging Import <span class="">@TodayIndicator()</span> - <span>@GetLowerBoundaryDate()</span></h4>
 
-            <div class="d-flex flex-row">
-
-            </div>
-            <div style="margin-left: 2px;">
-                Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
-            </div>
-            <div class="d-flex flex-row">
+            <div class="d-flex flex-column">
+                <h5 class="app-font">Aging Import</h5>
+                <span style="margin-left: 2px;">
+                    Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
+                </span>
                 <ImportAgingTabulation Models="@LowerBoundaryModels"
+                    IsPageView="@IsPageView" />
+
+                <h5 class="app-font" style="margin-top: 16px;">Achievement SLA Import</h5>
+                <span style="margin-left: 2px;">
+                    SLA Import adalah 30 menit
+                </span>
+                <ImportSlaTabulation Models="@LowerBoundaryModels"
+                    IsPageView="@IsPageView" />
+
+                <h5 class="app-font" style="margin-top: 16px;">SLA Win Rate</h5>
+                <ImportSlaWinRateTabulation Models="@LowerBoundaryModels"
                     IsPageView="@IsPageView" />
             </div>
         </div>
