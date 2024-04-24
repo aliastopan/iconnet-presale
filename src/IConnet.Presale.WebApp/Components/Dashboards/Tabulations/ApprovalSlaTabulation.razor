@@ -1,0 +1,52 @@
+@if (Models is not null)
+{
+    <div class="@_wrapperCss" style="width: 100%;">
+        <table class="aging-tabulation" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th class="tabulation-header" style="">
+                        PAC Username
+                    </th>
+                    <th class="tabulation-header" style="">
+                        AVG
+                    </th>
+                    <th class="tabulation-header" style="">
+                        SLA
+                    </th>
+                    <th class="tabulation-header" style="">
+                        Approval Total
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var model in Models)
+                {
+                    <tr>
+                        <td class="tabulation-header-row">@model.Username</td>
+                        <td class="tabulation-content">@model.GetDisplayAverageAging()</td>
+                        <td class="tabulation-content">
+                            <div class="@GetSlaBadge(model.IsWinning)">
+                                @model.GetSlaVerdict()
+                            </div>
+                        </td>
+                        <td class="tabulation-content">@model.GetDisplayApprovalTotal()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code
+{
+    private string _wrapperCss => IsPageView
+        ? "tabulation-wrapper-page-view"
+        : "tabulation-wrapper";
+
+    private string GetSlaBadge(bool isWinning)
+    {
+        return isWinning
+            ? "sla-winning-badge"
+            : "sla-losing-badge";
+    }
+}

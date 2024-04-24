@@ -427,12 +427,15 @@ public class ReportService
         }
 
         int approvalTotal = agingIntervals.Count;
+        int slaWonTotal = agingIntervals.Where(interval => interval < _slaApproval).Count();
+        bool isWinning = avg < _slaApproval;
 
         var pacId = presaleOperator.UserAccountId;
         var username = presaleOperator.Username;
 
         return new ApprovalAgingReportModel(pacId, username, avg, min, max,
-            approvalTotal, totalCloseLost, totalReject, totalExpansion, totalApprove, totalDirectApproval);
+            approvalTotal, totalCloseLost, totalReject, totalExpansion, totalApprove, totalDirectApproval,
+            slaWonTotal, isWinning);
     }
 
     public List<ApprovalStatusTransposeModel> TransposeModel(List<ApprovalStatusReportModel> models)
