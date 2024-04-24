@@ -160,3 +160,32 @@
 .separate-chart{
     border-bottom: 1px solid #e6e6e6;
 }
+
+.sla-losing-badge{
+    font-family: 'inter-semibold';
+    font-weight: 600;
+    background-color: var(--error-red);
+    /* background-color: var(--soft-black); */
+    text-align: center;
+    color: white;
+    padding: 0 10px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+.sla-winning-badge{
+    font-family: 'inter-semibold';
+    font-weight: 600;
+    background-color: var(--success-green);
+    text-align: center;
+    color: white;
+    padding: 0 10px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}

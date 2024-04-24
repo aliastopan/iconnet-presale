@@ -25,7 +25,7 @@
                         <td class="tabulation-header-row">@model.Username</td>
                         <td class="tabulation-content">@model.GetDisplayAverageAging()</td>
                         <td class="tabulation-content">
-                            <div style="@GetSlaBadgeStyle(model.IsWinning)">
+                            <div class="@GetSlaBadge(model.IsWinning)">
                                 @model.GetSlaVerdict()
                             </div>
                         </td>
@@ -43,10 +43,10 @@
         ? "tabulation-wrapper-page-view"
         : "tabulation-wrapper";
 
-    private string GetSlaBadgeStyle(bool isWinning)
+    private string GetSlaBadge(bool isWinning)
     {
         return isWinning
-            ? "background-color: cadetblue;"
-            : "background-color: crimson; color: white;";
+            ? "sla-winning-badge"
+            : "sla-losing-badge";
     }
 }
