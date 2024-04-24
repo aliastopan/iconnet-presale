@@ -6,6 +6,7 @@ namespace IConnet.Presale.WebApp.Components.Dashboards.Stacks;
 public class ReportTabulationStackBase : ComponentBase
 {
     [Inject] protected IDateTimeService DateTimeService { get; set; } = default!;
+    [Inject] protected AppSettingsService AppSettingsService { get; set; } = default!;
     [Inject] protected SessionService SessionService { get; set; } = default!;
 
     [Parameter] public string TabulationId { get; set; } = default!;
@@ -18,6 +19,13 @@ public class ReportTabulationStackBase : ComponentBase
     public bool IsWeeklySelected => SessionService.FilterPreference.IsWeeklySelected;
     public bool IsDailySelected => SessionService.FilterPreference.IsDailySelected;
     public bool IsBufferLoading => SessionService.FilterPreference.IsBufferLoading;
+
+    protected string ShiftStart => AppSettingsService.ShiftStart.ToClock();
+    protected string ShiftEnd => AppSettingsService.ShiftEnd.ToClock();
+    protected string TotalMinutesSlaImport => $"{(int)AppSettingsService.SlaImport.TotalMinutes}";
+    protected string TotalMinutesSlaPickUp => $"{(int)AppSettingsService.SlaPickUp.TotalMinutes}";
+    protected string TotalMinutesSlaValidasi => $"{(int)AppSettingsService.SlaValidasi.TotalMinutes}";
+    protected string TotalMinutesSlaApproval => $"{(int)AppSettingsService.SlaApproval.TotalMinutes}";
 
     protected Appearance MonthlyToggleAppearance => IsMonthlySelected ? Appearance.Accent : Appearance.Neutral;
     protected Appearance WeeklyToggleAppearance => IsWeeklySelected ? Appearance.Accent : Appearance.Neutral;

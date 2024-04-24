@@ -35,14 +35,14 @@
             <div class="d-flex flex-column">
                 <h5 class="app-font">Aging Chat/Call Pick-Up</h5>
                 <span style="margin-left: 2px;">
-                    Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
+                    Akumulasi dengan waktu freeze di luar jam kerja @ShiftEnd s.d @ShiftStart
                 </span>
                 <ChatCallMulaiAgingTabulation Models="@UpperBoundaryModels"
                     IsPageView="@IsPageView" />
 
                 <h5 class="app-font" style="margin-top: 16px;">Achievement SLA Chat/Call Pick-Up</h5>
                 <span style="margin-left: 2px;">
-                    SLA Chat/Call Pick-Up (Helpdesk) adalah 60 menit
+                    SLA Chat/Call Pick-Up (Helpdesk) adalah @TotalMinutesSlaPickUp menit
                 </span>
                 <ChatCallMulaiSlaTabulation Models="@UpperBoundaryModels"
                     IsPageView="@IsPageView" />
@@ -58,14 +58,14 @@
             <div class="d-flex flex-column">
                 <h5 class="app-font">Aging Chat/Call Pick-Up</h5>
                 <span style="margin-left: 2px;">
-                    Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
+                    Akumulasi dengan waktu freeze di luar jam kerja @ShiftEnd s.d @ShiftStart
                 </span>
                 <ChatCallMulaiAgingTabulation Models="@MiddleBoundaryModels"
                     IsPageView="@IsPageView" />
 
                 <h5 class="app-font" style="margin-top: 16px;">Achievement SLA Chat/Call Pick-Up</h5>
                 <span style="margin-left: 2px;">
-                    SLA Chat//Call Pick-Up (Helpdesk) adalah 60 menit
+                    SLA Chat/Call Pick-Up (Helpdesk) adalah @TotalMinutesSlaPickUp menit
                 </span>
                 <ChatCallMulaiSlaTabulation Models="@MiddleBoundaryModels"
                     IsPageView="@IsPageView" />
@@ -81,14 +81,14 @@
             <div class="d-flex flex-column">
                 <h5 class="app-font">Aging Chat/Call Pick-Up</h5>
                 <span style="margin-left: 2px;">
-                    Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
+                    Akumulasi dengan waktu freeze di luar jam kerja @ShiftEnd s.d @ShiftStart
                 </span>
                 <ChatCallMulaiAgingTabulation Models="@LowerBoundaryModels"
                     IsPageView="@IsPageView" />
 
                 <h5 class="app-font" style="margin-top: 16px;">Achievement SLA Chat/Call Pick-Up</h5>
                 <span style="margin-left: 2px;">
-                    SLA Chat/Call Pick-Up (Helpdesk) adalah 60 menit
+                    SLA Chat/Call Pick-Up (Helpdesk) adalah @TotalMinutesSlaPickUp menit
                 </span>
                 <ChatCallMulaiSlaTabulation Models="@LowerBoundaryModels"
                     IsPageView="@IsPageView" />

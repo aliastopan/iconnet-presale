@@ -35,14 +35,14 @@
             <div class="d-flex flex-column">
                 <h5 class="app-font">Aging Import</h5>
                 <span style="margin-left: 2px;">
-                    Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
+                    Akumulasi dengan waktu freeze di luar jam kerja @ShiftEnd s.d @ShiftStart
                 </span>
                 <ImportAgingTabulation Models="@UpperBoundaryModels"
                     IsPageView="@IsPageView" />
 
                 <h5 class="app-font" style="margin-top: 16px;">Achievement SLA Import</h5>
                 <span style="margin-left: 2px;">
-                    SLA Import adalah 30 menit
+                    SLA Import adalah @TotalMinutesSlaImport menit
                 </span>
                 <ImportSlaTabulation Models="@UpperBoundaryModels"
                     IsPageView="@IsPageView" />
@@ -58,14 +58,14 @@
             <div class="d-flex flex-column">
                 <h5 class="app-font">Aging Import</h5>
                 <span style="margin-left: 2px;">
-                    Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
+                    Akumulasi dengan waktu freeze di luar jam kerja @ShiftEnd s.d @ShiftStart
                 </span>
                 <ImportAgingTabulation Models="@MiddleBoundaryModels"
                     IsPageView="@IsPageView" />
 
                 <h5 class="app-font" style="margin-top: 16px;">Achievement SLA Import</h5>
                 <span style="margin-left: 2px;">
-                    SLA Import adalah 30 menit
+                    SLA Import adalah @TotalMinutesSlaImport menit
                 </span>
                 <ImportSlaTabulation Models="@MiddleBoundaryModels"
                     IsPageView="@IsPageView" />
@@ -81,14 +81,14 @@
             <div class="d-flex flex-column">
                 <h5 class="app-font">Aging Import</h5>
                 <span style="margin-left: 2px;">
-                    Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
+                    Akumulasi dengan waktu freeze di luar jam kerja @ShiftEnd s.d @ShiftStart
                 </span>
                 <ImportAgingTabulation Models="@LowerBoundaryModels"
                     IsPageView="@IsPageView" />
 
                 <h5 class="app-font" style="margin-top: 16px;">Achievement SLA Import</h5>
                 <span style="margin-left: 2px;">
-                    SLA Import adalah 30 menit
+                    SLA Import adalah @TotalMinutesSlaImport menit
                 </span>
                 <ImportSlaTabulation Models="@LowerBoundaryModels"
                     IsPageView="@IsPageView" />
