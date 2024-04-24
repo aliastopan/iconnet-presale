@@ -75,7 +75,7 @@ public class ChatCallMulaiAgingReportModel
     public string GetDisplaySlaWinRate()
     {
         return ChatCallMulaiTotal > 0
-            ? $"{SlaWinRate}%"
+            ? $"{SlaWinRate:F2}%"
             : "Kosong";
     }
 

@@ -74,7 +74,7 @@ public class ImportAgingReportModel
     public string GetDisplaySlaWinRate()
     {
         return ImportTotal > 0
-            ? $"{SlaWinRate}%"
+            ? $"{SlaWinRate:F2}%"
             : "Kosong";
     }
 
