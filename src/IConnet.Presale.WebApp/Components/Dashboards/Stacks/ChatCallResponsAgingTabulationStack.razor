@@ -32,42 +32,69 @@
         <div style="@MonthlyToggleDisplayStyle">
             <h4 class="app-font">Laporan Aging Chat/Call Validasi <span>@CurrentMonthIndicator()</span> - <span>@GetUpperBoundaryDateMin()</span> s.d <span>@GetUpperBoundaryDateMax()</span></h4>
 
-            <div class="d-flex flex-row">
-
-            </div>
-            <div style="margin-left: 2px;">
-                Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
-            </div>
-            <div class="d-flex flex-row">
+            <div class="d-flex flex-column">
+                <h5 class="app-font">Aging Import</h5>
+                <span style="margin-left: 2px;">
+                    Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
+                </span>
                 <ChatCallResponsAgingTabulation Models="@UpperBoundaryModels"
+                    IsPageView="@IsPageView" />
+
+                <h5 class="app-font" style="margin-top: 16px;">Achievement SLA Chat/Call Validasi</h5>
+                <span style="margin-left: 2px;">
+                    SLA Chat/Call Validasi (Helpdesk) adalah 10 menit
+                </span>
+                <ChatCallResponsSlaTabulation Models="@UpperBoundaryModels"
+                    IsPageView="@IsPageView" />
+
+                <h5 class="app-font" style="margin-top: 16px;">SLA Win Rate Chat/Call Validasi</h5>
+                <ChatCallResponsSlaWinRateTabulation Models="@UpperBoundaryModels"
                     IsPageView="@IsPageView" />
             </div>
         </div>
         <div style="@WeeklyToggleDisplayStyle">
             <h4 class="app-font">Laporan Aging Chat/Call Validasi <span>@CurrentMonthIndicator()</span> - <span>@GetUpperBoundaryDateMin()</span> s.d <span>@GetUpperBoundaryDateMax()</span></h4>
 
-            <div class="d-flex flex-row">
-
-            </div>
-            <div style="margin-left: 2px;">
-                Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
-            </div>
-            <div class="d-flex flex-row">
+            <div class="d-flex flex-column">
+                <h5 class="app-font">Aging Import</h5>
+                <span style="margin-left: 2px;">
+                    Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
+                </span>
                 <ChatCallResponsAgingTabulation Models="@MiddleBoundaryModels"
+                    IsPageView="@IsPageView" />
+
+                <h5 class="app-font" style="margin-top: 16px;">Achievement SLA Chat/Call Validasi</h5>
+                <span style="margin-left: 2px;">
+                    SLA Chat/Call Validasi (Helpdesk) adalah 10 menit
+                </span>
+                <ChatCallResponsSlaTabulation Models="@MiddleBoundaryModels"
+                    IsPageView="@IsPageView" />
+
+                <h5 class="app-font" style="margin-top: 16px;">SLA Win Rate Chat/Call Validasi</h5>
+                <ChatCallResponsSlaWinRateTabulation Models="@MiddleBoundaryModels"
                     IsPageView="@IsPageView" />
             </div>
         </div>
         <div style="@DailyToggleDisplayStyle">
             <h4 class="app-font">Laporan Aging Chat/Call Validasi <span class="">@CurrentWeekIndicator()</span> - <span>@GetMiddleBoundaryDateMin()</span> s.d <span>@GetMiddleBoundaryDateMax()</span></h4>
 
-            <div class="d-flex flex-row">
-
-            </div>
-            <div style="margin-left: 2px;">
-                Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
-            </div>
-            <div class="d-flex flex-row">
+            <div class="d-flex flex-column">
+                <h5 class="app-font">Aging Import</h5>
+                <span style="margin-left: 2px;">
+                    Akumulasi dengan waktu freeze di luar jam kerja 21:00 s.d 08:00
+                </span>
                 <ChatCallResponsAgingTabulation Models="@LowerBoundaryModels"
+                    IsPageView="@IsPageView" />
+
+                <h5 class="app-font" style="margin-top: 16px;">Achievement SLA Chat/Call Validasi</h5>
+                <span style="margin-left: 2px;">
+                    SLA Chat/Call Validasi (Helpdesk) adalah 10 menit
+                </span>
+                <ChatCallResponsSlaTabulation Models="@LowerBoundaryModels"
+                    IsPageView="@IsPageView" />
+
+                <h5 class="app-font" style="margin-top: 16px;">SLA Win Rate Chat/Call Validasi</h5>
+                <ChatCallResponsSlaWinRateTabulation Models="@LowerBoundaryModels"
                     IsPageView="@IsPageView" />
             </div>
         </div>

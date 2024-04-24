@@ -28,8 +28,6 @@ public class ReportService
         _slaValidasi = TimeSpan.Parse(slaValidasiString);
         _slaApproval = TimeSpan.Parse(slaApprovalString);
 
-        LogSwitch.Debug("SLA Import {0}", _slaImport);
-
         _optionService = optionService;
         _intervalCalculatorService = intervalCalculatorService;
     }
@@ -320,11 +318,14 @@ public class ReportService
         }
 
         int chatCallResponsTotal = agingIntervals.Count;
+        int slaWonTotal = agingIntervals.Where(interval => interval < _slaValidasi).Count();
+        bool isWinning = avg < _slaValidasi;
 
         var helpdeskId = presaleOperator.UserAccountId;
         var username = presaleOperator.Username;
 
-        return new ChatCallResponsAgingReportModel(helpdeskId, username, avg, min, max, chatCallResponsTotal);
+        return new ChatCallResponsAgingReportModel(helpdeskId, username, avg, min, max,
+            chatCallResponsTotal, slaWonTotal, isWinning);
     }
 
     public ApprovalAgingReportModel? GenerateApprovalAgingReport(PresaleOperatorModel presaleOperator,
