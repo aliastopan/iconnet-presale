@@ -2,7 +2,7 @@ namespace IConnet.Presale.WebApp.Models.Presales.Reports;
 
 public class ImportAgingReportModel
 {
-    public bool _isWinning;
+    private readonly bool _isWinning;
 
     public ImportAgingReportModel(Guid pacId, string username,
         TimeSpan average, TimeSpan min, TimeSpan max,
