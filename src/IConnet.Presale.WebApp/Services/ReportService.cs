@@ -267,11 +267,14 @@ public class ReportService
         }
 
         int chatCallMulaiTotal = agingIntervals.Count;
+        int slaWonTotal = agingIntervals.Where(interval => interval < _slaPickUp).Count();
+        bool isWinning = avg < _slaPickUp;
 
         var helpdeskId = presaleOperator.UserAccountId;
         var username = presaleOperator.Username;
 
-        return new ChatCallMulaiAgingReportModel(helpdeskId, username, avg, min, max, chatCallMulaiTotal);
+        return new ChatCallMulaiAgingReportModel(helpdeskId, username, avg, min, max,
+            chatCallMulaiTotal, slaWonTotal, isWinning);
     }
 
     public ChatCallResponsAgingReportModel? GenerateChatCallResponsAgingReport(PresaleOperatorModel presaleOperator,
