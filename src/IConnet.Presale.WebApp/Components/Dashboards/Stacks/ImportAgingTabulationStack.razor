@@ -23,6 +23,13 @@
             OnClick="OpenBoundaryFilterAsync">
             Filter</FluentButton>
 
+        <FluentButton BackgroundColor="crimson"
+            Color="white"
+            IconStart="@(new Icons.Filled.Size20.TableSimpleExclude().WithColor("#ffffff"))"
+            style="width: 135px; margin-top: 8px;"
+            OnClick="OpenOperatorPacExclusionDialogFilter">
+            Pilah</FluentButton>
+
         <FluentCheckbox style="margin-top: 16px;"
             @bind-Value="@IsPageView"
             Label="Page View"/>

@@ -100,6 +100,19 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         StateHasChanged();
     }
 
+    public async Task ApplyOperatorPacExclusionFiltersAsync()
+    {
+        SessionService.FilterPreference.IsBufferLoading = true;
+        StateHasChanged();
+
+        await Task.Delay(500);
+
+        LogSwitch.Debug("Exclude Operator PAC");
+
+        SessionService.FilterPreference.IsBufferLoading = false;
+        StateHasChanged();
+    }
+
     public void OnActiveTabIdChanged(string tabId)
     {
         ActiveTabId = tabId;

@@ -58,9 +58,9 @@ public class MetricPageBase : ComponentBase
     public virtual List<RootCauseReportModel> UpperBoundaryCauseReports => FilterRootCauseCauseReports(_upperBoundaryRootCauseReports);
     public virtual List<RootCauseReportModel> MiddleBoundaryRootCauseReports => FilterRootCauseCauseReports(_middleBoundaryRootCauseReports);
     public virtual List<RootCauseReportModel> LowerRootCauseReports => FilterRootCauseCauseReports(_lowerBoundaryRootCauseReports);
-    public virtual List<ImportAgingReportModel> UpperBoundaryImportAgingReports => _upperBoundaryImportAgingReports.OrderByDescending(x => x.Average).ToList();
-    public virtual List<ImportAgingReportModel> MiddleBoundaryImportAgingReports => _middleBoundaryImportAgingReports.OrderByDescending(x => x.Average).ToList();
-    public virtual List<ImportAgingReportModel> LowerBoundaryImportAgingReports => _lowerBoundaryImportAgingReports.OrderByDescending(x => x.Average).ToList();
+    public virtual List<ImportAgingReportModel> UpperBoundaryImportAgingReports => FilterImportAgingReports(_upperBoundaryImportAgingReports);
+    public virtual List<ImportAgingReportModel> MiddleBoundaryImportAgingReports => FilterImportAgingReports(_middleBoundaryImportAgingReports);
+    public virtual List<ImportAgingReportModel> LowerBoundaryImportAgingReports => FilterImportAgingReports(_lowerBoundaryImportAgingReports);
     public virtual List<VerificationAgingReportModel> UpperBoundaryVerificationAgingReports => _upperBoundaryVerificationAgingReports.OrderByDescending(x => x.Average).ToList();
     public virtual List<VerificationAgingReportModel> MiddleBoundaryVerificationAgingReports => _middleBoundaryVerificationAgingReports.OrderByDescending(x => x.Average).ToList();
     public virtual List<VerificationAgingReportModel> LowerBoundaryVerificationAgingReports => _lowerBoundaryVerificationAgingReports.OrderByDescending(x => x.Average).ToList();
@@ -82,6 +82,7 @@ public class MetricPageBase : ComponentBase
         SessionService.FilterPreference.SetBoundaryDateTimeDefault(currentDate);
         SessionService.FilterPreference.SetRootCauseExclusion(rootCauses);
         SessionService.FilterPreference.SetApprovalStatusExclusion();
+        SessionService.FilterPreference.SetOperatorPacExclusionExclusion();
 
         SessionService.FilterPreference.BoundaryFilters.Clear();
         SessionService.FilterPreference.BoundaryFilters.Add("tab-1", BoundaryFilterMode.Monthly);
@@ -275,7 +276,21 @@ public class MetricPageBase : ComponentBase
         return approvalStatusReports
             .Where(report => !exclusions.Contains(report.ApprovalStatus))
             .ToList();
+    }
 
+    protected List<ImportAgingReportModel> FilterImportAgingReports(List<ImportAgingReportModel> importAgingReports)
+    {
+        if (SessionService.FilterPreference.OperatorPacExclusionModel is null)
+        {
+            return importAgingReports;
+        }
+
+        if (!SessionService.FilterPreference.ShowEmptyAging)
+        {
+            importAgingReports = importAgingReports.Where(x => x.ImportTotal > 0).ToList();
+        }
+
+        return importAgingReports.OrderByDescending(x => x.Average).ToList();
     }
 
     protected void GenerateImportAgingReports(bool includeUpper = false, bool includeMiddle = false, bool includeLower = false)

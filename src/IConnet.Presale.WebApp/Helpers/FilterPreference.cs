@@ -45,16 +45,14 @@ public class FilterPreference
 
     public RootCauseExclusionModel RootCauseExclusion { get; set; } = default!;
     public ApprovalStatusExclusionModel ApprovalStatusExclusion { get; set; } = default!;
+    public OperatorPacExclusionModel OperatorPacExclusionModel { get; set; } = default!;
+
+    public bool ShowEmptyAging { get; set; }
 
     public void ToggleFilters()
     {
         ShowFilters = !ShowFilters;
     }
-
-    // public void ToggleDashboardBoundary()
-    // {
-    //     ShowDashboardBoundary = !ShowDashboardBoundary;
-    // }
 
     public void SetFilterTglPermohonanDefault(DateTime dateTimeMin, DateTime dateTimeMax)
     {
@@ -91,6 +89,16 @@ public class FilterPreference
         }
 
         ApprovalStatusExclusion = new ApprovalStatusExclusionModel();
+    }
+
+    public void SetOperatorPacExclusionExclusion()
+    {
+        if (OperatorPacExclusionModel is not null)
+        {
+            return;
+        }
+
+        OperatorPacExclusionModel = new OperatorPacExclusionModel();
     }
 
     public void ToggleToMonthlyView()

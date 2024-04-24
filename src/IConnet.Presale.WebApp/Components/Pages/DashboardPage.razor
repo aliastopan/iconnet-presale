@@ -64,7 +64,8 @@
                         MiddleBoundaryModels="@MiddleBoundaryImportAgingReports"
                         LowerBoundaryModels="@LowerBoundaryImportAgingReports"
                         OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
-                        PageRefresh="@(this.StateHasChanged)"/>
+                        PageRefresh="@(this.StateHasChanged)"
+                        OnExclusionFilter="ApplyOperatorPacExclusionFiltersAsync"/>
                 </Content>
             </FluentTab>
             <FluentTab Id="tab-4">
