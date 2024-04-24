@@ -78,11 +78,12 @@ public class MetricPageBase : ComponentBase
     {
         var currentDate = DateTimeService.DateTimeOffsetNow.DateTime.Date;
         var rootCauses = OptionService.RootCauseOptions;
+        var operatorUsernames = UserManager.PresaleOperators;
 
         SessionService.FilterPreference.SetBoundaryDateTimeDefault(currentDate);
         SessionService.FilterPreference.SetRootCauseExclusion(rootCauses);
         SessionService.FilterPreference.SetApprovalStatusExclusion();
-        SessionService.FilterPreference.SetOperatorPacExclusionExclusion();
+        SessionService.FilterPreference.SetOperatorPacExclusionExclusion(operatorUsernames);
 
         SessionService.FilterPreference.BoundaryFilters.Clear();
         SessionService.FilterPreference.BoundaryFilters.Add("tab-1", BoundaryFilterMode.Monthly);
@@ -290,7 +291,12 @@ public class MetricPageBase : ComponentBase
             importAgingReports = importAgingReports.Where(x => x.ImportTotal > 0).ToList();
         }
 
-        return importAgingReports.OrderByDescending(x => x.Average).ToList();
+        HashSet<string> exclusions = SessionService.FilterPreference.OperatorPacExclusionModel.Exclusion;
+
+        return importAgingReports
+            .Where(report => !exclusions.Contains(report.Username, StringComparer.OrdinalIgnoreCase))
+            .OrderByDescending(x => x.Average)
+            .ToList();
     }
 
     protected void GenerateImportAgingReports(bool includeUpper = false, bool includeMiddle = false, bool includeLower = false)

@@ -38,7 +38,7 @@ public class ImportAgingTabulationStackBase : ReportTabulationStackBase
             return;
         }
 
-        var dialogData = (OperatorPacExclusionModel)result.Data;
+        var dialogData = (OperatorExclusionModel)result.Data;
 
         SessionService.FilterPreference.OperatorPacExclusionModel = dialogData;
 

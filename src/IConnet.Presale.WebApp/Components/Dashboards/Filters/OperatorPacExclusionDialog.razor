@@ -8,8 +8,20 @@
 </FluentDialogHeader>
 
 <div class="d-flex flex-column" style="">
-    <FluentCheckbox Label="Tampilakan Aging KOSONG"
-        @bind-Value="@SessionService.FilterPreference.ShowEmptyAging"/>
+    <div style="margin: 0 2px;">
+        <FluentCheckbox Label="Tampilakan Aging KOSONG"
+            @bind-Value="@SessionService.FilterPreference.ShowEmptyAging"/>
+    </div>
+
+    @foreach (string username in Content.Usernames)
+    {
+        bool isChecked = Content.Inclusion.Contains(username);
+        <div style="margin: 0 2px;">
+            <FluentCheckbox Label="@username"
+                @bind-Value:get="@isChecked"
+                @bind-Value:set="value => OnExclusionChanged(username, value)"/>
+        </div>
+    }
 </div>
 
 <FluentDialogFooter>

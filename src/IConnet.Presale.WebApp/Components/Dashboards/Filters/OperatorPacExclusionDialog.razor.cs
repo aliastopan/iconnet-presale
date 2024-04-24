@@ -1,11 +1,11 @@
 namespace IConnet.Presale.WebApp.Components.Dashboards.Filters;
 
-public partial class OperatorPacExclusionDialog : IDialogContentComponent<OperatorPacExclusionModel>
+public partial class OperatorPacExclusionDialog : IDialogContentComponent<OperatorExclusionModel>
 {
     [Inject] public SessionService SessionService { get; set; } = default!;
 
     [Parameter]
-    public OperatorPacExclusionModel Content { get; set; } = default!;
+    public OperatorExclusionModel Content { get; set; } = default!;
 
     [CascadingParameter]
     public FluentDialog Dialog { get; set; } = default!;
@@ -24,13 +24,18 @@ public partial class OperatorPacExclusionDialog : IDialogContentComponent<Operat
 
     protected void OnExclusionChanged(string pac, bool inclusion)
     {
-        // if (inclusion)
-        // {
-        //     Content.Inclusion.Add(rootCauses);
-        // }
-        // else
-        // {
-        //     Content.Inclusion.Remove(rootCauses);
-        // }
+        if (Content.Inclusion.Count == 1)
+        {
+            return;
+        }
+
+        if (inclusion)
+        {
+            Content.Inclusion.Add(pac);
+        }
+        else
+        {
+            Content.Inclusion.Remove(pac);
+        }
     }
 }

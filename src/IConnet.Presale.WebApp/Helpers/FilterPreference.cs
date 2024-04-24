@@ -1,3 +1,5 @@
+using IConnet.Presale.WebApp.Models.Identity;
+
 namespace IConnet.Presale.WebApp.Helpers;
 
 public class FilterPreference
@@ -45,7 +47,7 @@ public class FilterPreference
 
     public RootCauseExclusionModel RootCauseExclusion { get; set; } = default!;
     public ApprovalStatusExclusionModel ApprovalStatusExclusion { get; set; } = default!;
-    public OperatorPacExclusionModel OperatorPacExclusionModel { get; set; } = default!;
+    public OperatorExclusionModel OperatorPacExclusionModel { get; set; } = default!;
 
     public bool ShowEmptyAging { get; set; }
 
@@ -91,14 +93,19 @@ public class FilterPreference
         ApprovalStatusExclusion = new ApprovalStatusExclusionModel();
     }
 
-    public void SetOperatorPacExclusionExclusion()
+    public void SetOperatorPacExclusionExclusion(List<PresaleOperatorModel> presaleOperators)
     {
         if (OperatorPacExclusionModel is not null)
         {
             return;
         }
 
-        OperatorPacExclusionModel = new OperatorPacExclusionModel();
+        List<string> usernames = presaleOperators
+            .Where(p => p.UserRole == UserRole.PAC)
+            .Select(p => p.Username)
+            .ToList();
+
+        OperatorPacExclusionModel = new OperatorExclusionModel(usernames);
     }
 
     public void ToggleToMonthlyView()
