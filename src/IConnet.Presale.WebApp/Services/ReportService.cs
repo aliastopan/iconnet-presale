@@ -6,28 +6,15 @@ namespace IConnet.Presale.WebApp.Services;
 
 public class ReportService
 {
-    private TimeSpan _slaImport;
-    private TimeSpan _slaPickUp;
-    private TimeSpan _slaValidasi;
-    private TimeSpan _slaApproval;
-
+    private readonly AppSettingsService _appSettingsService;
     private readonly OptionService _optionService;
     private readonly IntervalCalculatorService _intervalCalculatorService;
 
-    public ReportService(IConfiguration configuration,
+    public ReportService(AppSettingsService appSettingsService,
         OptionService optionService,
         IntervalCalculatorService intervalCalculatorService)
     {
-        string slaImportString = configuration["ServiceLevelAgreement:Import"]!;
-        string slaPickUpString = configuration["ServiceLevelAgreement:PickUp"]!;
-        string slaValidasiString = configuration["ServiceLevelAgreement:Validasi"]!;
-        string slaApprovalString = configuration["ServiceLevelAgreement:Approval"]!;
-
-        _slaImport = TimeSpan.Parse(slaImportString);
-        _slaPickUp = TimeSpan.Parse(slaPickUpString);
-        _slaValidasi = TimeSpan.Parse(slaValidasiString);
-        _slaApproval = TimeSpan.Parse(slaApprovalString);
-
+        _appSettingsService = appSettingsService;
         _optionService = optionService;
         _intervalCalculatorService = intervalCalculatorService;
     }
@@ -150,8 +137,8 @@ public class ReportService
         }
 
         int importTotal = agingIntervals.Count;
-        int slaWonTotal = agingIntervals.Where(interval => interval < _slaImport).Count();
-        bool isWinning = avg < _slaImport;
+        int slaWonTotal = agingIntervals.Where(interval => interval < _appSettingsService.SlaImport).Count();
+        bool isWinning = avg < _appSettingsService.SlaImport;
 
         var pacId = presaleOperator.UserAccountId;
         var username = presaleOperator.Username;
@@ -265,8 +252,8 @@ public class ReportService
         }
 
         int chatCallMulaiTotal = agingIntervals.Count;
-        int slaWonTotal = agingIntervals.Where(interval => interval < _slaPickUp).Count();
-        bool isWinning = avg < _slaPickUp;
+        int slaWonTotal = agingIntervals.Where(interval => interval < _appSettingsService.SlaPickUp).Count();
+        bool isWinning = avg < _appSettingsService.SlaPickUp;
 
         var helpdeskId = presaleOperator.UserAccountId;
         var username = presaleOperator.Username;
@@ -318,8 +305,8 @@ public class ReportService
         }
 
         int chatCallResponsTotal = agingIntervals.Count;
-        int slaWonTotal = agingIntervals.Where(interval => interval < _slaValidasi).Count();
-        bool isWinning = avg < _slaValidasi;
+        int slaWonTotal = agingIntervals.Where(interval => interval < _appSettingsService.SlaValidasi).Count();
+        bool isWinning = avg < _appSettingsService.SlaValidasi;
 
         var helpdeskId = presaleOperator.UserAccountId;
         var username = presaleOperator.Username;
@@ -427,8 +414,8 @@ public class ReportService
         }
 
         int approvalTotal = agingIntervals.Count;
-        int slaWonTotal = agingIntervals.Where(interval => interval < _slaApproval).Count();
-        bool isWinning = avg < _slaApproval;
+        int slaWonTotal = agingIntervals.Where(interval => interval < _appSettingsService.SlaApproval).Count();
+        bool isWinning = avg < _appSettingsService.SlaApproval;
 
         var pacId = presaleOperator.UserAccountId;
         var username = presaleOperator.Username;

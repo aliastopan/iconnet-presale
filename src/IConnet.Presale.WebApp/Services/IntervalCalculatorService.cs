@@ -2,25 +2,11 @@ namespace IConnet.Presale.WebApp.Services;
 
 public class IntervalCalculatorService
 {
-    private TimeOnly _shiftStart;
-    private TimeOnly _shiftEnd;
+    private readonly AppSettingsService _appSettingsService;
 
-    public IntervalCalculatorService(IConfiguration configuration)
+    public IntervalCalculatorService(AppSettingsService appSettingsService)
     {
-        // _shiftStart = new TimeOnly(8, 0, 0);
-        // _shiftEnd = new TimeOnly(21, 0, 0);
-
-        string startShiftString = configuration["OfficeHours:Pagi:Start"]!;
-        string endShiftString = configuration["OfficeHours:Malam:End"]!;
-
-        _shiftStart = TimeOnly.ParseExact(startShiftString, "HH:mm:ss", null);
-        _shiftEnd = TimeOnly.ParseExact(endShiftString, "HH:mm:ss", null);
-    }
-
-    public void ResetShift(TimeOnly shiftStart, TimeOnly shiftEnd)
-    {
-        _shiftStart = shiftStart;
-        _shiftEnd = shiftEnd;
+        _appSettingsService = appSettingsService;
     }
 
     public TimeSpan CalculateInterval(DateTime startDateTime, DateTime endDateTime,
@@ -38,17 +24,17 @@ public class IntervalCalculatorService
         TimeSpan totalInterval = TimeSpan.Zero;
 
         // handle cases where startDateTime is during the frozen interval
-        if (startDateTime.TimeOfDay < _shiftStart.ToTimeSpan())
+        if (startDateTime.TimeOfDay < _appSettingsService.ShiftStart.ToTimeSpan())
         {
-            startDateTime = startDateTime.Date.Add(_shiftStart.ToTimeSpan());
+            startDateTime = startDateTime.Date.Add(_appSettingsService.ShiftStart.ToTimeSpan());
         }
-        else if (startDateTime.TimeOfDay >= _shiftEnd.ToTimeSpan())
+        else if (startDateTime.TimeOfDay >= _appSettingsService.ShiftEnd.ToTimeSpan())
         {
-            startDateTime = startDateTime.Date.AddDays(1).Add(_shiftStart.ToTimeSpan());
+            startDateTime = startDateTime.Date.AddDays(1).Add(_appSettingsService.ShiftStart.ToTimeSpan());
         }
 
         DateTime currentStartDateTime = startDateTime;
-        DateTime currentEndDateTime = startDateTime.Date.Add(_shiftEnd.ToTimeSpan());
+        DateTime currentEndDateTime = startDateTime.Date.Add(_appSettingsService.ShiftEnd.ToTimeSpan());
 
         while (currentStartDateTime < endDateTime)
         {
@@ -59,15 +45,15 @@ public class IntervalCalculatorService
 
             TimeSpan interval = currentEndDateTime - currentStartDateTime;
 
-            if (interval.TotalHours > _shiftEnd.ToTimeSpan().TotalHours)
+            if (interval.TotalHours > _appSettingsService.ShiftEnd.ToTimeSpan().TotalHours)
             {
-                interval = _shiftEnd.ToTimeSpan() - currentStartDateTime.TimeOfDay;
+                interval = _appSettingsService.ShiftEnd.ToTimeSpan() - currentStartDateTime.TimeOfDay;
             }
 
             totalInterval += interval;
 
-            currentStartDateTime = currentStartDateTime.Date.AddDays(1).Add(_shiftStart.ToTimeSpan());
-            currentEndDateTime = currentStartDateTime.Date.Add(_shiftEnd.ToTimeSpan());
+            currentStartDateTime = currentStartDateTime.Date.AddDays(1).Add(_appSettingsService.ShiftStart.ToTimeSpan());
+            currentEndDateTime = currentStartDateTime.Date.Add(_appSettingsService.ShiftEnd.ToTimeSpan());
         }
 
         return totalInterval;
