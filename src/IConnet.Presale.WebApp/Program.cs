@@ -22,6 +22,7 @@ builder.Host.ConfigureServices((context, services) =>
         ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
     }));
 
+    services.AddSingleton<AppSettingsService>();
     services.AddSingleton<CircuitHandler, CustomCircuitHandler>();
     services.AddSingleton<UserManager>();
     services.AddSingleton<ChatTemplateManager>();
