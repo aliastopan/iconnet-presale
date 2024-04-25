@@ -9,8 +9,12 @@
 
 <div class="d-flex flex-column" style="">
     <div style="margin: 0 2px;">
-        <FluentCheckbox Label="Tampilakan Aging KOSONG"
-            @bind-Value="@SessionService.FilterPreference.ShowEmptyAging"/>
+        <FluentCheckbox
+            @bind-Value="@SessionService.FilterPreference.ShowEmptyAging">
+            <label>
+                <span>Tampilkan hasil </span><span class="fw-bold" style="font-family: 'inter-semibold';">KOSONG</span>
+            </label>
+        </FluentCheckbox>
     </div>
 
     @foreach (string username in Content.Usernames)
@@ -30,3 +34,17 @@
         <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Batal</FluentButton>
     </FluentStack>
 </FluentDialogFooter>
+
+@code
+{
+    RenderFragment EmptyAgingFragment = builder =>
+    {
+        builder.OpenElement(0, "span");
+        builder.AddContent(1, "Tampilakan Aging");
+        builder.OpenElement(2, "span");
+        builder.AddAttribute(3, "class", "fw-bold text-danger");
+        builder.AddContent(4, "KOSONG");
+        builder.CloseElement();
+        builder.CloseElement();
+    };
+}
