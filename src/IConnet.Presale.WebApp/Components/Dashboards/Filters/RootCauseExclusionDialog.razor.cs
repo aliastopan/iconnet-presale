@@ -10,6 +10,8 @@ public partial class RootCauseExclusionDialog : IDialogContentComponent<RootCaus
 
     protected List<string> RootCauses => GetFilteredRootCauses();
     protected string RootCauseFilter { get; set; } = string.Empty;
+    protected bool ToggleSelection { get; set;}
+    protected string ToggleSelectionLabel => ToggleSelection ? "Deselect All" : " Select All";
 
     protected async Task SaveAsync()
     {
@@ -19,6 +21,20 @@ public partial class RootCauseExclusionDialog : IDialogContentComponent<RootCaus
     protected async Task CancelAsync()
     {
         await Dialog.CancelAsync();
+    }
+
+    protected void OnToggleSelection()
+    {
+        if (ToggleSelection)
+        {
+            Content.DisableAll();
+        }
+        else
+        {
+            Content.EnableAll();
+        }
+
+        ToggleSelection = !ToggleSelection;
     }
 
     protected void OnExclusionChanged(string rootCauses, bool inclusion)

@@ -7,13 +7,21 @@
     </FluentStack>
 </FluentDialogHeader>
 
-<div style="margin-bottom: 16px;">
-    <FluentSearch style="width: 100%;"
-        Label="Pencarian"
-        @bind-Value=@RootCauseFilter
-        Immediate="true"
-        Spellcheck="false"
-        Placeholder="Root Cause"></FluentSearch>
+<div class="d-flex flex-row align-items-end">
+    <div style="margin-bottom: 16px; margin-right: 16px;">
+        <FluentSearch style="width: 300px;"
+            Label="Pencarian"
+            @bind-Value=@RootCauseFilter
+            Immediate="true"
+            Spellcheck="false"
+            Placeholder="Root Cause"></FluentSearch>
+    </div>
+    <div style="margin-bottom: 16px;">
+        <FluentButton style="width: 135px;"
+            BackgroundColor="crimson"
+            Color="white"
+            OnClick="@OnToggleSelection">@ToggleSelectionLabel</FluentButton>
+    </div>
 </div>
 
 <div class="exclusion-box">
