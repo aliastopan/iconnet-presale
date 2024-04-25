@@ -49,9 +49,9 @@ public class RootCauseTabulationStackBase : ReportTabulationStackBase
     {
         var parameters = new DialogParameters()
         {
-            Title = "Root Causes Exclusion Filters",
+            Title = "Pilah Root Causes",
             TrapFocus = true,
-            Width = "500px",
+            Width = "500px"
         };
 
         var exclusion = SessionService.FilterPreference.RootCauseExclusion;

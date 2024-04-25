@@ -24,9 +24,9 @@ public class ImportAgingTabulationStackBase : ReportTabulationStackBase
     {
         var parameters = new DialogParameters()
         {
-            Title = "Aging Import Exclusion Filters",
+            Title = "Pilah PAC Username",
             TrapFocus = true,
-            Width = "500px",
+            Width = "500px"
         };
 
         var exclusion = SessionService.FilterPreference.OperatorPacExclusionModel;

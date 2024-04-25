@@ -35,7 +35,7 @@ public class ApprovalStatusTabulationStackBase : ReportTabulationStackBase
     {
         var parameters = new DialogParameters()
         {
-            Title = "Approval Status Exclusion Filters",
+            Title = "Pilah Approval Status",
             TrapFocus = true,
             Width = "500px",
         };
