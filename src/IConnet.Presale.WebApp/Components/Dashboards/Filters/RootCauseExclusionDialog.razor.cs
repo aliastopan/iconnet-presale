@@ -51,7 +51,9 @@ public partial class RootCauseExclusionDialog : IDialogContentComponent<RootCaus
 
     protected List<string> GetFilteredRootCauses()
     {
-        List<string> rootCauses = Content.RootCauses.ToList();
+        List<string> rootCauses = Content.RootCauses
+            .Order()
+            .ToList();
 
         if (RootCauseFilter.IsNullOrWhiteSpace())
         {
