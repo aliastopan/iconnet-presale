@@ -7,9 +7,18 @@
     </FluentStack>
 </FluentDialogHeader>
 
+<div style="margin-bottom: 16px;">
+    <FluentSearch style="width: 100%;"
+        Label="Pencarian"
+        @bind-Value=@RootCauseFilter
+        Immediate="true"
+        Spellcheck="false"
+        Placeholder="Root Cause"></FluentSearch>
+</div>
+
 <div class="exclusion-box">
     <div class="d-flex flex-column" style="">
-        @foreach (string rootCause in Content.RootCauses)
+        @foreach (string rootCause in RootCauses)
         {
             bool isChecked = Content.Inclusion.Contains(rootCause);
             <div style="margin: 0 2px;">
