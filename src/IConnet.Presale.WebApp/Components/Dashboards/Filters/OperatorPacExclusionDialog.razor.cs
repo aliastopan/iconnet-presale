@@ -10,7 +10,10 @@ public partial class OperatorPacExclusionDialog : IDialogContentComponent<Operat
     [CascadingParameter]
     public FluentDialog Dialog { get; set; } = default!;
 
-    protected bool Show { get; set; }
+    protected List<string> PacAvailable => GetFilteredUsernames();
+    protected string UsernameFilter { get; set; } = string.Empty;
+    protected bool ToggleSelection { get; set;}
+    protected string ToggleSelectionLabel => ToggleSelection ? "Deselect All" : " Select All";
 
     protected async Task SaveAsync()
     {
@@ -20,6 +23,19 @@ public partial class OperatorPacExclusionDialog : IDialogContentComponent<Operat
     protected async Task CancelAsync()
     {
         await Dialog.CancelAsync();
+    }
+    protected void OnToggleSelection()
+    {
+        if (ToggleSelection)
+        {
+            Content.DisableAll();
+        }
+        else
+        {
+            Content.EnableAll();
+        }
+
+        ToggleSelection = !ToggleSelection;
     }
 
     protected void OnExclusionChanged(string pac, bool inclusion)
@@ -32,5 +48,19 @@ public partial class OperatorPacExclusionDialog : IDialogContentComponent<Operat
         {
             Content.Inclusion.Remove(pac);
         }
+    }
+
+    protected List<string> GetFilteredUsernames()
+    {
+        List<string> usernames = Content.Usernames
+            .Order()
+            .ToList();
+
+        if (UsernameFilter.IsNullOrWhiteSpace())
+        {
+            return usernames;
+        }
+
+        return usernames.Where(option => option.Contains(UsernameFilter, StringComparison.OrdinalIgnoreCase)).ToList();
     }
 }

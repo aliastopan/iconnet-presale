@@ -19,4 +19,14 @@ public class OperatorExclusionModel
         exclusion.ExceptWith(Inclusion);
         return exclusion;
     }
+
+    public void EnableAll()
+    {
+        Inclusion.Clear();
+    }
+
+    public void DisableAll()
+    {
+        Inclusion = new HashSet<string>(Usernames);
+    }
 }
