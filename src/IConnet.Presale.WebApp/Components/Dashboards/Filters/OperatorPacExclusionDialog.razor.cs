@@ -24,11 +24,6 @@ public partial class OperatorPacExclusionDialog : IDialogContentComponent<Operat
 
     protected void OnExclusionChanged(string pac, bool inclusion)
     {
-        if (Content.Inclusion.Count == 1)
-        {
-            return;
-        }
-
         if (inclusion)
         {
             Content.Inclusion.Add(pac);
