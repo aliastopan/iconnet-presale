@@ -25,8 +25,15 @@ internal sealed class RootCauseConfiguration : IEntityTypeConfiguration<RootCaus
                 .HasColumnName("root_cause")
                 .IsRequired();
 
+        builder.Property(rc => rc.Classification)
+                .HasColumnName("classification");
+
         builder.Property(rc => rc.IsDeleted)
                 .HasColumnName("is_deleted")
+                .HasDefaultValue(false);
+
+        builder.Property(rc => rc.IsOnVerification)
+                .HasColumnName("is_on_verification")
                 .HasDefaultValue(false);
     }
 }
