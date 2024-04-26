@@ -20,13 +20,24 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
         && StatusVerifikasi != OptionSelect.StatusVerifikasi.MenungguVerifikasi;
 
     protected bool DisableSaveButton => StatusVerifikasi != OptionSelect.StatusVerifikasi.DataSesuai || JarakICrmPlusVerification <= 0;
-    protected bool DisableRejectButton => StatusVerifikasi != OptionSelect.StatusVerifikasi.DataTidakSesuai;
+    protected bool DisableRejectButton => StatusVerifikasi == OptionSelect.StatusVerifikasi.MenungguVerifikasi || StatusVerifikasi == OptionSelect.StatusVerifikasi.DataSesuai;
+    // protected bool DisableRejectButton => StatusVerifikasi != OptionSelect.StatusVerifikasi.DataTidakSesuai;
+
+    protected IEnumerable<string> AvailableStatusOptions => GetVerificationStatusStack();
 
     public int JarakICrmPlusVerification { get; set; }
     public string Keterangan { get; set; } = string.Empty;
     public string StatusVerifikasi = OptionSelect.StatusVerifikasi.MenungguVerifikasi;
     public string DirectApproval { get; set; } = string.Empty;
     public bool IsDirectApproval { get; set; }
+
+    public IEnumerable<string> GetVerificationStatusStack()
+    {
+        IEnumerable<string> topLevelOptions = OptionSelect.StatusVerifikasi.StatusVerifikasiOptions;
+        IEnumerable<string> rootCauseOptions = OptionService.RootCauseOnVerificationOptions;
+
+        return topLevelOptions.Concat(rootCauseOptions).ToList();
+    }
 
     protected void OnJarakICrmChanged(int jarakShareLoc)
     {
@@ -157,7 +168,13 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
 
     private async Task RejectCrmAsync()
     {
-        var rootCause = "DATA TIDAK VALID";
+        if (StatusVerifikasi == OptionSelect.StatusVerifikasi.MenungguVerifikasi
+            || StatusVerifikasi == OptionSelect.StatusVerifikasi.DataSesuai)
+        {
+            StatusVerifikasi = OptionSelect.StatusVerifikasi.DataTidakSesuai;
+        }
+
+        var rootCause = StatusVerifikasi;
         var rejectSignature = ActionSignature.Empty();
 
         Content.Shift = SessionService.GetShift();

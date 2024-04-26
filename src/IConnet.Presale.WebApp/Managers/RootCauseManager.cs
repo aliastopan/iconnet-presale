@@ -34,6 +34,7 @@ public class RootCauseManager
                 ICollection<RootCausesDto> rootCauseDtos = response!.RootCausesDtos;
 
                 _optionService.PopulateRootCauseOptions(rootCauseDtos);
+                _optionService.PopulateRootCauseOnVerificationOptions(rootCauseDtos);
             }
             else
             {

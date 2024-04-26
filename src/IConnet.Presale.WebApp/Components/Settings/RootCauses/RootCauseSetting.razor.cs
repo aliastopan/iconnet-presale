@@ -96,6 +96,10 @@ public partial class RootCauseSetting
 
             if (IsToggleInclude)
             {
+                // bool toggleOnVerification = model.IsDeleted
+                //     ? false
+                //     : model.OnVerificationToggleValue;
+
                 Task<bool> toggleOptionsTask = RootCauseManager.ToggleOptionsAsync(
                     model.RootCauseId,
                     model.SoftDeletionToggleValue,
