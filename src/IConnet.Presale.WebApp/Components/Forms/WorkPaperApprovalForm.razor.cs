@@ -30,6 +30,9 @@ public partial class WorkPaperApprovalForm : ComponentBase
     protected Func<string, bool> OptionDisableInProgress => option => option == OptionSelect.StatusApproval.InProgress
         && ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.InProgress;
 
+    protected string RootCauseClassification => OptionService.GetRootCauseClassification(ApprovalModel!.RootCause);
+    protected bool IsRejected => ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.Reject;
+
     protected bool DisableRootCause => ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.Reject
         && ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.CloseLost;
     protected bool DisableInProgress => ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.InProgress

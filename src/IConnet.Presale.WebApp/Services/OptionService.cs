@@ -73,4 +73,17 @@ public class OptionService
             }
         }
     }
+
+    public string GetRootCauseClassification(string rootCause)
+    {
+        (string rootCause, string classification) tuple = RootCauseOptionStack
+            .FirstOrDefault(option => string.Equals(option.rootCause, rootCause, StringComparison.OrdinalIgnoreCase));
+
+        if (!tuple.classification.HasValue())
+        {
+            return "UNCLASSIFIED";
+        }
+
+        return tuple.classification;
+    }
 }
