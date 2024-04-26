@@ -16,6 +16,7 @@ public class OptionService
     public ICollection<string> DirectApprovalOptions { get; init; } = [];
     public ICollection<string> KantorPerwakilanOptions { get; init; } = [];
     public ICollection<string> RootCauseOptions { get; init; } = [];
+    public ICollection<(string rootCause, string classification)> RootCauseOptionStack { get; init; } = [];
     public ICollection<string> RootCauseOnVerificationOptions { get; init; } = [];
 
     public void PopulateDirectApproval(ICollection<DirectApprovalDto> directApprovalDto)
@@ -41,6 +42,7 @@ public class OptionService
     public void PopulateRootCauseOptions(ICollection<RootCausesDto> rootCauseDto)
     {
         RootCauseOptions.Clear();
+        RootCauseOptionStack.Clear();
 
         foreach (var dto in rootCauseDto)
         {
@@ -50,6 +52,7 @@ public class OptionService
             }
 
             RootCauseOptions.Add(dto.Cause);
+            RootCauseOptionStack.Add((dto.Cause, dto.Classification));
         }
     }
 

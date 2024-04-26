@@ -12,6 +12,9 @@ public class AppSettingsService
     private TimeSpan _slaValidasi;
     private TimeSpan _slaApproval;
 
+    private List<string> _rootCauseClassifications = [];
+    public List<string> RootCauseClassifications => _rootCauseClassifications;
+
     public AppSettingsService(IConfiguration configuration)
     {
         string officeHourPagiStartString = configuration["OfficeHours:Pagi:Start"]!;
@@ -33,6 +36,20 @@ public class AppSettingsService
         _slaPickUp = TimeSpan.Parse(slaPickUpString);
         _slaValidasi = TimeSpan.Parse(slaValidasiString);
         _slaApproval = TimeSpan.Parse(slaApprovalString);
+
+        _rootCauseClassifications = configuration.GetSection("RootCauseClassification").Get<List<string>>()!;
+
+        if (_rootCauseClassifications.Count > 0)
+        {
+            foreach (var classification in _rootCauseClassifications)
+            {
+                LogSwitch.Debug(classification);
+            }
+        }
+        else
+        {
+            LogSwitch.Debug("ROOT CAUSE CLASSIFICATION IS EMPTY");
+        }
     }
 
     public TimeOnly OfficeHourPagiStart => _officeHourPagiStart;
