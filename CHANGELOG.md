@@ -1,3 +1,20 @@
+## v3.2.0
+- Fix: Upper boundary filter range
+- Fix: Approval status lower boundary pie chart reference
+- Add: SLA Achievement Import
+- Add: SLA Win Rate Import
+- Add: SLA Achievement Chat/Call Pick-Up
+- Add: SLA Win Rate Chat/Call Pick-Up
+- Add: SLA Achievement Chat/Call Validasi
+- Add: SLA Win Rate Chat/Call Validasi
+- Add: SLA Achievement Approval
+- Add: SLA Win Rate Approval
+- Add: Aging Import Exclusion Filter
+- Add: Aging Verification Exclusion Filter
+- Add: Aging Chat/Call Pick-Up Exclusion Filter
+- Add: Aging Chat/Call Validasi Exclusion Filter
+- Add: Aging Approval Exclusion Filter
+
 ## v3.1.0
 - Add: Presale Data .xlsx export
 
