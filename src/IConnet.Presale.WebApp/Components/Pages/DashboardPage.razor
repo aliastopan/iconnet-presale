@@ -80,7 +80,8 @@
                         MiddleBoundaryModels="@MiddleBoundaryVerificationAgingReports"
                         LowerBoundaryModels="@LowerBoundaryVerificationAgingReports"
                         OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
-                        PageRefresh="@(this.StateHasChanged)"/>
+                        PageRefresh="@(this.StateHasChanged)"
+                        OnExclusionFilter="ApplyOperatorExclusionFiltersAsync"/>
                 </Content>
             </FluentTab>
             <FluentTab Id="tab-5">

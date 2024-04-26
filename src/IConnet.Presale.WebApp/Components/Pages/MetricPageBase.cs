@@ -61,9 +61,9 @@ public class MetricPageBase : ComponentBase
     public virtual List<ImportAgingReportModel> UpperBoundaryImportAgingReports => FilterImportAgingReports(_upperBoundaryImportAgingReports);
     public virtual List<ImportAgingReportModel> MiddleBoundaryImportAgingReports => FilterImportAgingReports(_middleBoundaryImportAgingReports);
     public virtual List<ImportAgingReportModel> LowerBoundaryImportAgingReports => FilterImportAgingReports(_lowerBoundaryImportAgingReports);
-    public virtual List<VerificationAgingReportModel> UpperBoundaryVerificationAgingReports => _upperBoundaryVerificationAgingReports.OrderByDescending(x => x.Average).ToList();
-    public virtual List<VerificationAgingReportModel> MiddleBoundaryVerificationAgingReports => _middleBoundaryVerificationAgingReports.OrderByDescending(x => x.Average).ToList();
-    public virtual List<VerificationAgingReportModel> LowerBoundaryVerificationAgingReports => _lowerBoundaryVerificationAgingReports.OrderByDescending(x => x.Average).ToList();
+    public virtual List<VerificationAgingReportModel> UpperBoundaryVerificationAgingReports => FilterVerificationAgingReports(_upperBoundaryVerificationAgingReports);
+    public virtual List<VerificationAgingReportModel> MiddleBoundaryVerificationAgingReports => FilterVerificationAgingReports(_middleBoundaryVerificationAgingReports);
+    public virtual List<VerificationAgingReportModel> LowerBoundaryVerificationAgingReports => FilterVerificationAgingReports(_lowerBoundaryVerificationAgingReports);
     public virtual List<ChatCallMulaiAgingReportModel> UpperBoundaryChatCallMulaiAgingReports => FilterChatCallMulaiAgingReports(_upperBoundaryChatCallMulaiAgingReports);
     public virtual List<ChatCallMulaiAgingReportModel> MiddleBoundaryChatCallMulaiAgingReports => FilterChatCallMulaiAgingReports(_middleBoundaryChatCallMulaiAgingReports);
     public virtual List<ChatCallMulaiAgingReportModel> LowerBoundaryChatCallMulaiAgingReports => FilterChatCallMulaiAgingReports(_lowerBoundaryChatCallMulaiAgingReports);
@@ -295,6 +295,26 @@ public class MetricPageBase : ComponentBase
         HashSet<string> exclusions = SessionService.FilterPreference.OperatorPacExclusionModel.Exclusion;
 
         return importAgingReports
+            .Where(report => !exclusions.Contains(report.Username, StringComparer.OrdinalIgnoreCase))
+            .OrderByDescending(x => x.Average)
+            .ToList();
+    }
+
+    protected List<VerificationAgingReportModel> FilterVerificationAgingReports(List<VerificationAgingReportModel> verificationAgingReports)
+    {
+        if (SessionService.FilterPreference.OperatorPacExclusionModel is null)
+        {
+            return verificationAgingReports;
+        }
+
+        if (!SessionService.FilterPreference.ShowEmptyAging)
+        {
+            verificationAgingReports = verificationAgingReports.Where(x => x.TotalVerified > 0).ToList();
+        }
+
+        HashSet<string> exclusions = SessionService.FilterPreference.OperatorPacExclusionModel.Exclusion;
+
+        return verificationAgingReports
             .Where(report => !exclusions.Contains(report.Username, StringComparer.OrdinalIgnoreCase))
             .OrderByDescending(x => x.Average)
             .ToList();
