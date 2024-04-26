@@ -67,9 +67,9 @@ public class MetricPageBase : ComponentBase
     public virtual List<ChatCallMulaiAgingReportModel> UpperBoundaryChatCallMulaiAgingReports => FilterChatCallMulaiAgingReports(_upperBoundaryChatCallMulaiAgingReports);
     public virtual List<ChatCallMulaiAgingReportModel> MiddleBoundaryChatCallMulaiAgingReports => FilterChatCallMulaiAgingReports(_middleBoundaryChatCallMulaiAgingReports);
     public virtual List<ChatCallMulaiAgingReportModel> LowerBoundaryChatCallMulaiAgingReports => FilterChatCallMulaiAgingReports(_lowerBoundaryChatCallMulaiAgingReports);
-    public virtual List<ChatCallResponsAgingReportModel> UpperBoundaryChatCallResponsAgingReports => _upperBoundaryChatCallResponsAgingReports.OrderByDescending(x => x.Average).ToList();
-    public virtual List<ChatCallResponsAgingReportModel> MiddleBoundaryChatCallResponsAgingReports => _middleBoundaryChatCallResponsAgingReports.OrderByDescending(x => x.Average).ToList();
-    public virtual List<ChatCallResponsAgingReportModel> LowerBoundaryChatCallResponsAgingReports => _lowerBoundaryChatCallResponsAgingReports.OrderByDescending(x => x.Average).ToList();
+    public virtual List<ChatCallResponsAgingReportModel> UpperBoundaryChatCallResponsAgingReports => FilterChatCallResponsAgingReports(_upperBoundaryChatCallResponsAgingReports);
+    public virtual List<ChatCallResponsAgingReportModel> MiddleBoundaryChatCallResponsAgingReports => FilterChatCallResponsAgingReports(_middleBoundaryChatCallResponsAgingReports);
+    public virtual List<ChatCallResponsAgingReportModel> LowerBoundaryChatCallResponsAgingReports => FilterChatCallResponsAgingReports(_lowerBoundaryChatCallResponsAgingReports);
     public virtual List<ApprovalAgingReportModel> UpperBoundaryApprovalAgingReportModels => _upperBoundaryApprovalAgingReportModels.OrderByDescending(x => x.Average).ToList();
     public virtual List<ApprovalAgingReportModel> MiddleBoundaryApprovalAgingReportModels => _middleBoundaryApprovalAgingReportModels.OrderByDescending(x => x.Average).ToList();
     public virtual List<ApprovalAgingReportModel> LowerBoundaryApprovalAgingReportModels => _lowerBoundaryApprovalAgingReportModels.OrderByDescending(x => x.Average).ToList();
@@ -315,6 +315,26 @@ public class MetricPageBase : ComponentBase
         HashSet<string> exclusions = SessionService.FilterPreference.OperatorHelpdeskExclusionModel.Exclusion;
 
         return chatCallMulaiAgingReports
+            .Where(report => !exclusions.Contains(report.Username, StringComparer.OrdinalIgnoreCase))
+            .OrderByDescending(x => x.Average)
+            .ToList();
+    }
+
+    protected List<ChatCallResponsAgingReportModel> FilterChatCallResponsAgingReports(List<ChatCallResponsAgingReportModel> chatCallResponsAgingReports)
+    {
+        if (SessionService.FilterPreference.OperatorHelpdeskExclusionModel is null)
+        {
+            return chatCallResponsAgingReports;
+        }
+
+        if (!SessionService.FilterPreference.ShowEmptyAging)
+        {
+            chatCallResponsAgingReports = chatCallResponsAgingReports.Where(x => x.ChatCallResponsTotal > 0).ToList();
+        }
+
+        HashSet<string> exclusions = SessionService.FilterPreference.OperatorHelpdeskExclusionModel.Exclusion;
+
+        return chatCallResponsAgingReports
             .Where(report => !exclusions.Contains(report.Username, StringComparer.OrdinalIgnoreCase))
             .OrderByDescending(x => x.Average)
             .ToList();

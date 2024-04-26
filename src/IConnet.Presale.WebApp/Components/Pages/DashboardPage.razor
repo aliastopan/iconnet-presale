@@ -111,7 +111,8 @@
                         MiddleBoundaryModels="@MiddleBoundaryChatCallResponsAgingReports"
                         LowerBoundaryModels="@LowerBoundaryChatCallResponsAgingReports"
                         OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
-                        PageRefresh="@(this.StateHasChanged)"/>
+                        PageRefresh="@(this.StateHasChanged)"
+                        OnExclusionFilter="ApplyOperatorExclusionFiltersAsync"/>
                 </Content>
             </FluentTab>
             <FluentTab Id="tab-7">
