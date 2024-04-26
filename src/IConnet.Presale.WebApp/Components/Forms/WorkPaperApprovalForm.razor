@@ -391,12 +391,12 @@
                             <RootCauseSelect IsDisabled="@DisableRootCause"
                                 SelectedRootCause="@ApprovalModel.RootCause"
                                 OnSelectedRootCauseChanged="OnRootCauseChanged"/>
-                            @if (IsRejected)
+                            @* @if (IsRejected)
                             {
                                 <div class="root-cause-classification">
                                     @RootCauseClassification
                                 </div>
-                            }
+                            } *@
                         </div>
                         <FluentTextArea class="approval-textarea" style="width: 300px; margin-top: 10px;"
                             Value="@ApprovalModel.Keterangan"
