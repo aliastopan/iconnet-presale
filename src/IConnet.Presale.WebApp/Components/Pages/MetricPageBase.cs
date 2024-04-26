@@ -84,6 +84,7 @@ public class MetricPageBase : ComponentBase
         SessionService.FilterPreference.SetRootCauseExclusion(rootCauses);
         SessionService.FilterPreference.SetApprovalStatusExclusion();
         SessionService.FilterPreference.SetOperatorPacExclusionExclusion(operatorUsernames);
+        SessionService.FilterPreference.SetOperatorHelpdeskExclusionExclusion(operatorUsernames);
 
         SessionService.FilterPreference.BoundaryFilters.Clear();
         SessionService.FilterPreference.BoundaryFilters.Add("tab-1", BoundaryFilterMode.Monthly);

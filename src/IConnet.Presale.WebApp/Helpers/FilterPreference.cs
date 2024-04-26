@@ -13,7 +13,6 @@ public class FilterPreference
     public DateTime TglPermohonanMin { get; set; } = DateTime.Now.AddDays(-31);
     public DateTime TglPermohonanMax { get; set; } = DateTime.Now;
     public bool ShowFilters { get; set; } = true;
-    // public bool ShowDashboardBoundary { get; set; } = false;
 
     public DateTime UpperBoundaryDateTimeMin { get; set; } = DateTime.Now.AddDays(-31);
     public DateTime UpperBoundaryDateTimeMax { get; set; } = DateTime.Now;
@@ -48,6 +47,7 @@ public class FilterPreference
     public RootCauseExclusionModel RootCauseExclusion { get; set; } = default!;
     public ApprovalStatusExclusionModel ApprovalStatusExclusion { get; set; } = default!;
     public OperatorExclusionModel OperatorPacExclusionModel { get; set; } = default!;
+    public OperatorExclusionModel OperatorHelpdeskExclusionModel { get; set; } = default!;
 
     public bool ShowEmptyAging { get; set; }
 
@@ -106,6 +106,21 @@ public class FilterPreference
             .ToList();
 
         OperatorPacExclusionModel = new OperatorExclusionModel(usernames);
+    }
+
+    public void SetOperatorHelpdeskExclusionExclusion(List<PresaleOperatorModel> presaleOperators)
+    {
+        if (OperatorHelpdeskExclusionModel is not null)
+        {
+            return;
+        }
+
+        List<string> usernames = presaleOperators
+            .Where(p => p.UserRole == UserRole.Helpdesk)
+            .Select(p => p.Username)
+            .ToList();
+
+        OperatorHelpdeskExclusionModel = new OperatorExclusionModel(usernames);
     }
 
     public void ToggleToMonthlyView()
