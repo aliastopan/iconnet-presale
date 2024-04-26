@@ -90,8 +90,6 @@ public partial class RootCauseSetting
                     model.OnVerificationToggleValue);
 
                 tasks.Add(toggleOptionsTask);
-
-                LogSwitch.Debug("Toggle Deletion");
             }
 
             if (IsToggleInclude)
@@ -106,13 +104,8 @@ public partial class RootCauseSetting
                     model.OnVerificationToggleValue);
 
                 tasks.Add(toggleOptionsTask);
-
-                LogSwitch.Debug("Toggle Include");
             }
         }
-
-        LogSwitch.Debug("Toggle Tasks {0}", tasks.Count);
-        await Task.Delay(5000);
 
         bool[] results = await Task.WhenAll(tasks);
 
