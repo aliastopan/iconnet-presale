@@ -17,11 +17,6 @@ public class ImportAgingTabulationStackBase : ReportTabulationStackBase
 
     protected async Task OpenOperatorPacExclusionDialogFilterAsync()
     {
-        await FilterAsync();
-    }
-
-    private async Task FilterAsync()
-    {
         var parameters = new DialogParameters()
         {
             Title = "Pilah PAC Username",
