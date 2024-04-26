@@ -13,7 +13,7 @@ public partial class OperatorPacExclusionDialog : IDialogContentComponent<Operat
     protected List<string> PacAvailable => GetFilteredUsernames();
     protected string UsernameFilter { get; set; } = string.Empty;
     protected bool ToggleSelection { get; set;}
-    protected string ToggleSelectionLabel => ToggleSelection ? "Deselect All" : " Select All";
+    protected string ToggleSelectionLabel => ToggleSelection ? "Select All" : "Deselect All";
 
     protected async Task SaveAsync()
     {
