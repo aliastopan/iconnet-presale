@@ -65,7 +65,7 @@
                         LowerBoundaryModels="@LowerBoundaryImportAgingReports"
                         OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
                         PageRefresh="@(this.StateHasChanged)"
-                        OnExclusionFilter="ApplyOperatorPacExclusionFiltersAsync"/>
+                        OnExclusionFilter="ApplyOperatorExclusionFiltersAsync"/>
                 </Content>
             </FluentTab>
             <FluentTab Id="tab-4">
@@ -95,7 +95,8 @@
                         MiddleBoundaryModels="@MiddleBoundaryChatCallMulaiAgingReports"
                         LowerBoundaryModels="@LowerBoundaryChatCallMulaiAgingReports"
                         OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
-                        PageRefresh="@(this.StateHasChanged)"/>
+                        PageRefresh="@(this.StateHasChanged)"
+                        OnExclusionFilter="ApplyOperatorExclusionFiltersAsync"/>
                 </Content>
             </FluentTab>
             <FluentTab Id="tab-6">

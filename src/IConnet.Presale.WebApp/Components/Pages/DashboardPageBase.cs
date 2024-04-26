@@ -100,14 +100,12 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         StateHasChanged();
     }
 
-    public async Task ApplyOperatorPacExclusionFiltersAsync()
+    public async Task ApplyOperatorExclusionFiltersAsync()
     {
         SessionService.FilterPreference.IsBufferLoading = true;
         StateHasChanged();
 
         await Task.Delay(500);
-
-        LogSwitch.Debug("Exclude Operator PAC");
 
         SessionService.FilterPreference.IsBufferLoading = false;
         StateHasChanged();
