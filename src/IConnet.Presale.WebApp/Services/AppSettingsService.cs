@@ -38,18 +38,6 @@ public class AppSettingsService
         _slaApproval = TimeSpan.Parse(slaApprovalString);
 
         _rootCauseClassifications = configuration.GetSection("RootCauseClassification").Get<List<string>>()!;
-
-        if (_rootCauseClassifications.Count > 0)
-        {
-            foreach (var classification in _rootCauseClassifications)
-            {
-                LogSwitch.Debug(classification);
-            }
-        }
-        else
-        {
-            LogSwitch.Debug("ROOT CAUSE CLASSIFICATION IS EMPTY");
-        }
     }
 
     public TimeOnly OfficeHourPagiStart => _officeHourPagiStart;
