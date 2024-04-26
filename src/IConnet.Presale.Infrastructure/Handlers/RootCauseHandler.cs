@@ -54,7 +54,7 @@ internal class RootCauseHandler : IRootCauseHandler
         return Result.Ok();
     }
 
-    public async Task<Result> ToggleSoftDeletionAsync(Guid rootCauseId, bool isDeleted)
+    public async Task<Result> ToggleOptionsAsync(Guid rootCauseId, bool isDeleted, bool isOnVerification)
     {
         using var dbContext = _dbContextFactory.CreateDbContext();
 
@@ -67,6 +67,7 @@ internal class RootCauseHandler : IRootCauseHandler
         }
 
         rootCause.IsDeleted = isDeleted;
+        rootCause.IsOnVerification = isOnVerification;
         await dbContext.SaveChangesAsync();
 
         return Result.Ok();

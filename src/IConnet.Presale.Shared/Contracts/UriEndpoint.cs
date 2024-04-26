@@ -43,6 +43,6 @@ public static class UriEndpoint
     {
         public const string GetRootCauses = "/api/root-causes/get";
         public const string AddRootCause = "/api/root-cause/add";
-        public const string ToggleSoftDeletion = "/api/root-cause/toggle-soft-deletion";
+        public const string ToggleOptions = "/api/root-cause/toggle-options";
     }
 }

@@ -1,5 +1,5 @@
 using IConnet.Presale.Application.RootCauses.Commands.AddRootCause;
-using IConnet.Presale.Application.RootCauses.Commands.ToggleSoftDeletion;
+using IConnet.Presale.Application.RootCauses.Commands.ToggleOptions;
 using IConnet.Presale.Application.RootCauses.Queries;
 using IConnet.Presale.Shared.Contracts.Common;
 
@@ -11,7 +11,7 @@ public class RootCauseEndpoint : IEndpointDefinition
     {
         app.MapGet(UriEndpoint.RootCauses.GetRootCauses, GetRootCauses).AllowAnonymous();
         app.MapPost(UriEndpoint.RootCauses.AddRootCause, AddRootCause).AllowAnonymous();
-        app.MapPost(UriEndpoint.RootCauses.ToggleSoftDeletion, ToggleSoftDeletion).AllowAnonymous();
+        app.MapPost(UriEndpoint.RootCauses.ToggleOptions, ToggleOptions).AllowAnonymous();
     }
 
     internal async Task<IResult> GetRootCauses([FromServices] ISender sender,
@@ -47,10 +47,10 @@ public class RootCauseEndpoint : IEndpointDefinition
             context: httpContext));
     }
 
-    internal async Task<IResult> ToggleSoftDeletion([FromServices] ISender sender,
-        ToggleRootCauseSoftDeletionRequest request, HttpContext httpContext)
+    internal async Task<IResult> ToggleOptions([FromServices] ISender sender,
+        ToggleRootCauseOptionsRequest request, HttpContext httpContext)
     {
-        var command = new ToggleRootCauseSoftDeletionCommand(request.RootCauseId, request.IsDeleted);
+        var command = new ToggleRootCauseOptionsCommand(request.RootCauseId, request.IsDeleted, request.IsOnVerification);
         var result = await sender.Send(command);
 
         return result.Match(() => Results.Ok(),

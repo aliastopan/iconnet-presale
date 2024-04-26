@@ -4,5 +4,5 @@ public interface IRootCauseHttpClient : IHttpClientBase
 {
     Task<HttpResult> GetRootCausesAsync();
     Task<HttpResult> AddRootCauseAsync(int order, string cause, string classification);
-    Task<HttpResult> ToggleSoftDeletionAsync(Guid rootCauseId, bool isDeleted);
+    Task<HttpResult> ToggleOptionsAsync(Guid rootCauseId, bool isDeleted, bool isOnVerification);
 }

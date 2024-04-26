@@ -1,7 +1,8 @@
 namespace IConnet.Presale.Shared.Interfaces.Models.Common;
 
-public interface IToggleRootCauseSoftDeletion
+public interface IToggleRootCauseOptions
 {
     public Guid RootCauseId { get; }
     public bool IsDeleted { get; }
+    public bool IsOnVerification { get; }
 }
