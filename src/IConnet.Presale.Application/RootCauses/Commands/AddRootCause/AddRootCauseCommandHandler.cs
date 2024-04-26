@@ -12,7 +12,7 @@ public class AddRootCauseCommandHandler : IRequestHandler<AddRootCauseCommand, R
     public async ValueTask<Result> Handle(AddRootCauseCommand request,
         CancellationToken cancellationToken)
     {
-        await _rootCauseHandler.AddRootCauseAsync(request.Order, request.Cause);
+        await _rootCauseHandler.AddRootCauseAsync(request.Order, request.Cause, request.Classification);
 
         return Result.Ok();
     }

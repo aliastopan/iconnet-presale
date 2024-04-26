@@ -9,5 +9,7 @@ public record RootCausesDto
     public Guid RootCauseId { get; init; }
     public int Order { get; init; }
     public string Cause { get; init; }
+    public string Classification { get; init; }
     public bool IsDeleted { get; init; }
+    public bool IsOnVerification { get; init; }
 }

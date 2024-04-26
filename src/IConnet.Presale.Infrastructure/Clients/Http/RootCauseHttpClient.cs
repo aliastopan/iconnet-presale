@@ -36,7 +36,7 @@ internal sealed class RootCauseHttpClient : HttpClientBase, IRootCauseHttpClient
         };
     }
 
-    public async Task<HttpResult> AddRootCauseAsync(int order, string cause)
+    public async Task<HttpResult> AddRootCauseAsync(int order, string cause, string classification)
     {
         var isResponding = await IsHostRespondingAsync();
         if (!isResponding)
@@ -47,7 +47,7 @@ internal sealed class RootCauseHttpClient : HttpClientBase, IRootCauseHttpClient
             };
         }
 
-        var request = new AddRootCauseRequest(order, cause);
+        var request = new AddRootCauseRequest(order, cause, classification);
 
         var jsonBody = JsonSerializer.Serialize(request);
         var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");

@@ -36,7 +36,7 @@ public class RootCauseEndpoint : IEndpointDefinition
     internal async Task<IResult> AddRootCause([FromServices] ISender sender,
         AddRootCauseRequest request, HttpContext httpContext)
     {
-        var command = new AddRootCauseCommand(request.Order, request.Cause);
+        var command = new AddRootCauseCommand(request.Order, request.Cause, request.Classification);
         var result = await sender.Send(command);
 
         return result.Match(() => Results.Ok(),

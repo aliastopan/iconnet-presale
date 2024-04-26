@@ -84,11 +84,11 @@ public class RootCauseManager
         }
     }
 
-    public async Task<bool> AddRootCauseAsync(int order, string cause)
+    public async Task<bool> AddRootCauseAsync(int order, string cause, string classification)
     {
         try
         {
-            var httpResult = await _rootCauseHttpClient.AddRootCauseAsync(order, cause);
+            var httpResult = await _rootCauseHttpClient.AddRootCauseAsync(order, cause, classification);
 
             if (httpResult.IsSuccessStatusCode)
             {

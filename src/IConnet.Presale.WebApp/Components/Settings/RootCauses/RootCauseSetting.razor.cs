@@ -1,3 +1,5 @@
+using Microsoft.Win32.SafeHandles;
+
 namespace IConnet.Presale.WebApp.Components.Settings.RootCauses;
 
 public partial class RootCauseSetting
@@ -41,7 +43,10 @@ public partial class RootCauseSetting
         int highestOrder = Models.Max(x => x.Order) + 1;
         string rootCause = NewRootCause.CapitalizeFirstLetterOfEachWord();
 
-        bool isSuccess = await RootCauseManager.AddRootCauseAsync(highestOrder, rootCause);
+        // TODO: add root cause classification
+        string classification = string.Empty;
+
+        bool isSuccess = await RootCauseManager.AddRootCauseAsync(highestOrder, rootCause, classification);
 
         if (isSuccess)
         {

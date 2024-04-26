@@ -25,17 +25,17 @@ internal class RootCauseHandler : IRootCauseHandler
         return Result<ICollection<RootCause>>.Ok(rootCauses);
     }
 
-    public async Task AddRootCauseAsync(int order, string cause)
+    public async Task AddRootCauseAsync(int order, string cause, string classification)
     {
         using var dbContext = _dbContextFactory.CreateDbContext();
 
-        var rootCause = new RootCause(order, cause);
+        var rootCause = new RootCause(order, cause, classification);
 
         dbContext.RootCauses.Add(rootCause);
         await dbContext.SaveChangesAsync();
     }
 
-    public async Task<Result> UpdateRootCauseAsync(Guid rootCauseId, string cause)
+    public async Task<Result> UpdateRootCauseAsync(Guid rootCauseId, string cause, string classification)
     {
         using var dbContext = _dbContextFactory.CreateDbContext();
 
@@ -48,6 +48,7 @@ internal class RootCauseHandler : IRootCauseHandler
         }
 
         rootCause.Cause = cause;
+        rootCause.Classification = classification;
         await dbContext.SaveChangesAsync();
 
         return Result.Ok();
