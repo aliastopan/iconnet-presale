@@ -15,7 +15,7 @@ public class ImportAgingTabulationStackBase : ReportTabulationStackBase
 
     public bool IsPageView { get; set; }
 
-    protected async Task OpenOperatorPacExclusionDialogFilter()
+    protected async Task OpenOperatorPacExclusionDialogFilterAsync()
     {
         await FilterAsync();
     }
