@@ -4,7 +4,7 @@ namespace IConnet.Presale.WebApp.Models.Common;
 
 public class RootCauseSettingModel
 {
-    public RootCauseSettingModel(Guid rootCauseId, int order, string cause, bool isDeleted)
+    public RootCauseSettingModel(Guid rootCauseId, int order, string cause, bool isDeleted, bool isOnVerification)
     {
         RootCauseId = rootCauseId;
         Order = order;
@@ -12,6 +12,7 @@ public class RootCauseSettingModel
         IsDeleted = isDeleted;
 
         IsEnabled = !isDeleted;
+        IsOnVerification = isOnVerification;
     }
 
     public RootCauseSettingModel(RootCausesDto rootCausesDto)
@@ -20,18 +21,25 @@ public class RootCauseSettingModel
         Order = rootCausesDto.Order;
         Cause = rootCausesDto.Cause;
         IsDeleted = rootCausesDto.IsDeleted;
+        IsOnVerification = rootCausesDto.IsOnVerification;
 
         IsEnabled = !rootCausesDto.IsDeleted;
+        IsIncluded = rootCausesDto.IsOnVerification;
     }
 
     public Guid RootCauseId { get; init; }
     public int Order { get; init; }
     public string Cause { get; init; }
     public bool IsDeleted { get; init; }
+    public bool IsOnVerification { get; init; }
 
     public bool IsEnabled { get; set; }
     public bool IsToggledSoftDeletion => IsDeleted == IsEnabled;
     public bool SoftDeletionToggleValue => !IsEnabled;
+
+    public bool IsIncluded { get; set; }
+    public bool IsToggledOnVerification => IsOnVerification != IsIncluded;
+    public bool OnVerificationToggleValue => IsIncluded;
 
     public string GetStatus()
     {
@@ -43,5 +51,11 @@ public class RootCauseSettingModel
     public void OnIsEnabledChanged(bool isEnabled)
     {
         IsEnabled = isEnabled;
+    }
+
+    public void OnIsIncludedChanged(bool isIncluded)
+    {
+        IsIncluded = isIncluded;
+        LogSwitch.Debug("IsIncluded {0}", IsIncluded);
     }
 }

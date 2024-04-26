@@ -22,7 +22,7 @@
             <FluentButton style="width: 135px; margin-right: 8px;"
                 BackgroundColor="crimson"
                 Color="white"
-                Disabled="@(!EnableApplyToggleSoftDeletion)"
+                Disabled="@(!EnableApplyOptions)"
                 OnClick="ApplyToggleSoftDeletionAsync">
                 Apply</FluentButton>
         </div>
@@ -40,23 +40,25 @@
                     @context.Cause
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="STATUS" Style="@GetWidthStyle(100)">
+            <TemplateColumn Title="STATUS" Style="@GetWidthStyle(85)">
                 <div class="">
                     @context.GetStatus()
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="ENABLE" Style="@GetWidthStyle(100)">
+            <TemplateColumn Title="ENABLE" Style="@GetWidthStyle(85)">
                 <div class="" style="text-align: center; margin-top: 4px;">
                     <FluentCheckbox style=""
                         Value="@context.IsEnabled"
                         ValueChanged="@context.OnIsEnabledChanged"/>
                 </div>
             </TemplateColumn>
-            @* <TemplateColumn Title="INCLUDE" Style="@GetWidthStyle(100)">
+            <TemplateColumn Title="ON VERIFICATION" Style="@GetWidthStyle(150)">
                 <div class="" style="text-align: center; margin-top: 4px;">
-                    <FluentCheckbox style=""/>
+                    <FluentCheckbox style=""
+                        Value="@context.IsIncluded"
+                        ValueChanged="@context.OnIsIncludedChanged"/>
                 </div>
-            </TemplateColumn> *@
+            </TemplateColumn>
         </FluentDataGrid>
     </div>
 

@@ -110,11 +110,11 @@ public class RootCauseManager
         }
     }
 
-    public async Task<bool> ToggleSoftDeletionAsync(Guid rootCauseId, bool isDeleted)
+    public async Task<bool> ToggleOptionsAsync(Guid rootCauseId, bool isDeleted, bool isOnVerification)
     {
         try
         {
-            var httpResult = await _rootCauseHttpClient.ToggleSoftDeletionAsync(rootCauseId, isDeleted);
+            var httpResult = await _rootCauseHttpClient.ToggleOptionsAsync(rootCauseId, isDeleted, isOnVerification);
 
             if (httpResult.IsSuccessStatusCode)
             {

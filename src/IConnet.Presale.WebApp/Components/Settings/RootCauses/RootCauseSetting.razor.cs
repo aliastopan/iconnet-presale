@@ -17,7 +17,7 @@ public partial class RootCauseSetting
     public bool IsLoading { get; set; } = false;
     public bool EnableAddRootCause { get; set; }
     public string NewRootCause { get; set; } = string.Empty;
-    public bool EnableApplyToggleSoftDeletion => ToggleCheck();
+    public bool EnableApplyOptions => HasToggledOptions();
 
     protected string GridTemplateCols => GetGridTemplateCols();
 
@@ -26,9 +26,9 @@ public partial class RootCauseSetting
         NewRootCause = newRootCause.SanitizeOnlyAlphanumericAndSpaces();
     }
 
-    protected bool ToggleCheck()
+    protected bool HasToggledOptions()
     {
-        return Models!.Any(x => x.IsToggledSoftDeletion);
+        return Models!.Any(x => x.IsToggledSoftDeletion || x.IsToggledOnVerification);
     }
 
     protected async Task SubmitNewRootCauseAsync()
@@ -79,15 +79,36 @@ public partial class RootCauseSetting
 
         foreach (var model in Models)
         {
-            if (!model.IsToggledSoftDeletion)
+            bool IsToggleDelete = model.IsToggledSoftDeletion;
+            bool IsToggleInclude = model.IsToggledOnVerification;
+
+            if (IsToggleDelete)
             {
-                continue;
+                Task<bool> toggleOptionsTask = RootCauseManager.ToggleOptionsAsync(
+                    model.RootCauseId,
+                    model.SoftDeletionToggleValue,
+                    model.OnVerificationToggleValue);
+
+                tasks.Add(toggleOptionsTask);
+
+                LogSwitch.Debug("Toggle Deletion");
             }
 
-            Task<bool> toggleSoftDeletionTask = RootCauseManager.ToggleSoftDeletionAsync(model.RootCauseId, model.SoftDeletionToggleValue);
+            if (IsToggleInclude)
+            {
+                Task<bool> toggleOptionsTask = RootCauseManager.ToggleOptionsAsync(
+                    model.RootCauseId,
+                    model.SoftDeletionToggleValue,
+                    model.OnVerificationToggleValue);
 
-            tasks.Add(toggleSoftDeletionTask);
+                tasks.Add(toggleOptionsTask);
+
+                LogSwitch.Debug("Toggle Include");
+            }
         }
+
+        LogSwitch.Debug("Toggle Tasks {0}", tasks.Count);
+        await Task.Delay(5000);
 
         bool[] results = await Task.WhenAll(tasks);
 
@@ -114,6 +135,6 @@ public partial class RootCauseSetting
 
     private string GetGridTemplateCols()
     {
-        return $"{350}px {80}px {80}px;";
+        return $"{350}px {85}px {85}px {150}px;";
     }
 }
