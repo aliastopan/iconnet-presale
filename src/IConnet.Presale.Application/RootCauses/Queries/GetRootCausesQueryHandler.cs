@@ -35,6 +35,7 @@ public class GetRootCausesQueryHandler
                 RootCauseId = rootCause.RootCauseId,
                 Order = rootCause.Order,
                 Cause = rootCause.Cause,
+                Classification = rootCause.Classification,
                 IsDeleted = rootCause.IsDeleted,
                 IsOnVerification = rootCause.IsOnVerification
             });
