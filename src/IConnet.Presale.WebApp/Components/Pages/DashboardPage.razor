@@ -128,7 +128,8 @@
                         MiddleBoundaryModels="@MiddleBoundaryApprovalAgingReportModels"
                         LowerBoundaryModels="@LowerBoundaryApprovalAgingReportModels"
                         OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
-                        PageRefresh="@(this.StateHasChanged)"/>
+                        PageRefresh="@(this.StateHasChanged)"
+                        OnExclusionFilter="ApplyRootCauseExclusionFiltersAsync"/>
                 </Content>
             </FluentTab>
         </FluentTabs>

@@ -70,9 +70,9 @@ public class MetricPageBase : ComponentBase
     public virtual List<ChatCallResponsAgingReportModel> UpperBoundaryChatCallResponsAgingReports => FilterChatCallResponsAgingReports(_upperBoundaryChatCallResponsAgingReports);
     public virtual List<ChatCallResponsAgingReportModel> MiddleBoundaryChatCallResponsAgingReports => FilterChatCallResponsAgingReports(_middleBoundaryChatCallResponsAgingReports);
     public virtual List<ChatCallResponsAgingReportModel> LowerBoundaryChatCallResponsAgingReports => FilterChatCallResponsAgingReports(_lowerBoundaryChatCallResponsAgingReports);
-    public virtual List<ApprovalAgingReportModel> UpperBoundaryApprovalAgingReportModels => _upperBoundaryApprovalAgingReportModels.OrderByDescending(x => x.Average).ToList();
-    public virtual List<ApprovalAgingReportModel> MiddleBoundaryApprovalAgingReportModels => _middleBoundaryApprovalAgingReportModels.OrderByDescending(x => x.Average).ToList();
-    public virtual List<ApprovalAgingReportModel> LowerBoundaryApprovalAgingReportModels => _lowerBoundaryApprovalAgingReportModels.OrderByDescending(x => x.Average).ToList();
+    public virtual List<ApprovalAgingReportModel> UpperBoundaryApprovalAgingReportModels => FilterApprovalAgingReports(_upperBoundaryApprovalAgingReportModels);
+    public virtual List<ApprovalAgingReportModel> MiddleBoundaryApprovalAgingReportModels => FilterApprovalAgingReports(_middleBoundaryApprovalAgingReportModels);
+    public virtual List<ApprovalAgingReportModel> LowerBoundaryApprovalAgingReportModels => FilterApprovalAgingReports(_lowerBoundaryApprovalAgingReportModels);
 
     protected override void OnInitialized()
     {
@@ -277,6 +277,26 @@ public class MetricPageBase : ComponentBase
 
         return approvalStatusReports
             .Where(report => !exclusions.Contains(report.ApprovalStatus))
+            .ToList();
+    }
+
+    protected List<ApprovalAgingReportModel> FilterApprovalAgingReports(List<ApprovalAgingReportModel> approvalAgingReports)
+    {
+        if (SessionService.FilterPreference.OperatorPacExclusionModel is null)
+        {
+            return approvalAgingReports;
+        }
+
+        if (!SessionService.FilterPreference.ShowEmptyAging)
+        {
+            approvalAgingReports = approvalAgingReports.Where(x => x.ApprovalTotal > 0).ToList();
+        }
+
+        HashSet<string> exclusions = SessionService.FilterPreference.OperatorPacExclusionModel.Exclusion;
+
+        return approvalAgingReports
+            .Where(report => !exclusions.Contains(report.Username, StringComparer.OrdinalIgnoreCase))
+            .OrderByDescending(x => x.Average)
             .ToList();
     }
 
