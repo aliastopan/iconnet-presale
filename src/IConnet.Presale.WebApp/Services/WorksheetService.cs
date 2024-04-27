@@ -5,11 +5,22 @@ namespace IConnet.Presale.WebApp.Services;
 
 public class WorksheetService
 {
-    protected readonly int _processorCount;
-    protected readonly ParallelOptions _parallelOptions;
+    private readonly AppSettingsService _appSettingsService;
+    private readonly IntervalCalculatorService _intervalCalculatorService;
 
-    public WorksheetService()
+    private readonly int _processorCount;
+    private readonly ParallelOptions _parallelOptions;
+
+    private static readonly string _dateTimeFormat = @"yyyy-MM-dd HH:mm";
+    private static readonly string _dateOnlyFormat = @"yyyy-MM-dd";
+    private static readonly string _timeSpanFormat = @"[hh]:mm:ss";
+
+    public WorksheetService(AppSettingsService appSettingsService,
+        IntervalCalculatorService intervalCalculatorService)
     {
+        _appSettingsService = appSettingsService;
+        _intervalCalculatorService = intervalCalculatorService;
+
         _processorCount = Environment.ProcessorCount;
         _parallelOptions = new ParallelOptions
         {
@@ -17,13 +28,13 @@ public class WorksheetService
         };
     }
 
-    public byte[] GenerateStandardXlsxBytes(IQueryable<WorkPaper>? presaleData)
+    public byte[] GenerateStandardXlsxBytes(IQueryable<WorkPaper>? presaleData, string worksheetName = "Presale Data")
     {
         using var workbook = new XLWorkbook();
         using var memoryStream = new MemoryStream();
 
-        var exportModels = ConvertToStandardExportModels(presaleData);
-        var worksheet = workbook.Worksheets.Add("Presale Data");
+        var exportModels = ConvertToPresaleDataExportModels(presaleData);
+        var worksheet = workbook.Worksheets.Add(worksheetName);
 
         SetStandardWorksheet(worksheet);
         PopulateStandardWorksheet(exportModels, worksheet);
@@ -33,7 +44,26 @@ public class WorksheetService
         return memoryStream.ToArray();
     }
 
-    public List<PresaleDataXlsxModel> ConvertToStandardExportModels(IQueryable<WorkPaper>? presaleData)
+    public byte[] GenerateAgingImportXlsxBytes(IQueryable<WorkPaper>? presaleData)
+    {
+        using var workbook = new XLWorkbook();
+        using var memoryStream = new MemoryStream();
+
+        // var exportModels = ConvertToPresaleDataExportModels(presaleData);
+        var agingModels = ConvertToPresaleAgingModels(presaleData);
+
+        var worksheet = workbook.Worksheets.Add("Aging Import");
+
+        SetAgingImportWorksheet(worksheet);
+        PopulateAgingImportWorksheet(agingModels, worksheet);
+
+        workbook.SaveAs(memoryStream);
+
+        return memoryStream.ToArray();
+    }
+
+
+    private List<PresaleDataXlsxModel> ConvertToPresaleDataExportModels(IQueryable<WorkPaper>? presaleData)
     {
         if (presaleData == null)
         {
@@ -50,6 +80,33 @@ public class WorksheetService
             Parallel.ForEach(batch, _parallelOptions, workPaper =>
             {
                 var model = new PresaleDataXlsxModel(workPaper);
+                lock (exportModels)
+                {
+                    exportModels.Add(model);
+                }
+            });
+        }
+
+        return exportModels.OrderBy(x => x.TglPermohonan).ToList();
+    }
+
+    private List<PresaleAgingXlsxModel> ConvertToPresaleAgingModels(IQueryable<WorkPaper>? presaleData)
+    {
+        if (presaleData == null)
+        {
+            return new List<PresaleAgingXlsxModel>();
+        }
+
+        var workPapers = presaleData.ToList();
+        var exportModels = new List<PresaleAgingXlsxModel>();
+        var batchSize = 100;
+
+        for (int i = 0; i < workPapers.Count; i += batchSize)
+        {
+            var batch = workPapers.Skip(i).Take(batchSize).ToList();
+            Parallel.ForEach(batch, _parallelOptions, workPaper =>
+            {
+                var model = new PresaleAgingXlsxModel(workPaper, _intervalCalculatorService);
                 lock (exportModels)
                 {
                     exportModels.Add(model);
@@ -118,12 +175,9 @@ public class WorksheetService
             worksheet.Column(i).Width = 20;
         }
 
-        var dateTimeFormat = @"yyyy-MM-dd HH:mm";
-        var dateOnlyFormat = @"yyyy-MM-dd";
-
-        worksheet.Column("B").Style.DateFormat.Format = dateTimeFormat;     // tgl permohonan
-        worksheet.Column("AA").Style.DateFormat.Format = dateTimeFormat;    // waktu/tgl respons
-        worksheet.Column("AQ").Style.DateFormat.Format = dateOnlyFormat;    // va terbit
+        worksheet.Column("B").Style.DateFormat.Format = _dateTimeFormat;     // tgl permohonan
+        worksheet.Column("AA").Style.DateFormat.Format = _dateTimeFormat;    // waktu/tgl respons
+        worksheet.Column("AQ").Style.DateFormat.Format = _dateOnlyFormat;    // va terbit
     }
 
     private void PopulateStandardWorksheet(List<PresaleDataXlsxModel> exportModels, IXLWorksheet worksheet)
@@ -192,4 +246,54 @@ public class WorksheetService
             }
         });
     }
+
+    private static void SetAgingImportWorksheet(IXLWorksheet worksheet)
+    {
+        worksheet.Cell(1, 1).Value = "ID PERMOHONAN";
+        worksheet.Cell(1, 2).Value = "TGL PERMOHONAN";
+        worksheet.Cell(1, 3).Value = "PIC IMPORT";
+        worksheet.Cell(1, 4).Value = "TGL/WAKTU IMPORT";
+        worksheet.Cell(1, 5).Value = "AGING IMPORT";
+        worksheet.Cell(1, 6).Value = "SLA";
+
+        for (int i = 1; i <= 6; i++)
+        {
+            worksheet.Column(i).Width = 20;
+        }
+
+        worksheet.Column("B").Style.DateFormat.Format = _dateTimeFormat;     // tgl permohonan
+        worksheet.Column("D").Style.DateFormat.Format = _dateTimeFormat;     // waktu/tgl import
+        worksheet.Column("E").Style.NumberFormat.Format = _timeSpanFormat;     // aging import
+    }
+
+    private void PopulateAgingImportWorksheet(List<PresaleAgingXlsxModel> exportModels, IXLWorksheet worksheet)
+    {
+        int batchSize = 100;
+        int numberOfBatches = (exportModels.Count + batchSize - 1) / batchSize;
+
+        Parallel.For(0, numberOfBatches, _parallelOptions, batchIndex =>
+        {
+            int startIndex = batchIndex * batchSize;
+            int endIndex = Math.Min(startIndex + batchSize, exportModels.Count);
+
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                var exportModel = exportModels[i];
+                int row = i + 2;
+
+                worksheet.Cell(row, 1).Value = exportModel.IdPermohonan;
+                worksheet.Cell(row, 2).Value = exportModel.TglPermohonan;
+                worksheet.Cell(row, 3).Value = exportModel.PicImport;
+                worksheet.Cell(row, 4).Value = exportModel.TimestampImport;
+                worksheet.Cell(row, 5).Value = exportModel.AgingImport;
+
+                string slaVerdict = exportModel.AgingImport < _appSettingsService.SlaImport
+                    ? "WON"
+                    : "LOST";
+
+                worksheet.Cell(row, 6).Value = slaVerdict;
+            }
+        });
+    }
+
 }

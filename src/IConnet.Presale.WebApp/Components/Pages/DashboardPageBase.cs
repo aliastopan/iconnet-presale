@@ -53,7 +53,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         if (ActiveTabId == "tab-1") // approval status
         {
             var exportTarget = FilterXlsxStatusApprovals(presaleData);
-            var xlsxBytes = WorksheetService.GenerateStandardXlsxBytes(exportTarget);
+            var xlsxBytes = WorksheetService.GenerateStandardXlsxBytes(exportTarget, "Approval Status");
             var base64 = Convert.ToBase64String(xlsxBytes);
             var fileName = $"Dashboard_StatusApproval_{username}_{dateLabel}.xlsx";
 
@@ -63,9 +63,19 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         if (ActiveTabId == "tab-2") // root cause
         {
             var exportTarget = FilterXlsxRootCauses(presaleData);
-            var xlsxBytes = WorksheetService.GenerateStandardXlsxBytes(exportTarget);
+            var xlsxBytes = WorksheetService.GenerateStandardXlsxBytes(exportTarget, "Root Cause");
             var base64 = Convert.ToBase64String(xlsxBytes);
             var fileName = $"Dashboard_RootCause_{username}_{dateLabel}.xlsx";
+
+            await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
+        }
+
+        if (ActiveTabId == "tab-3") // aging import
+        {
+            var exportTarget = FilterXlsxAgingImport(presaleData);
+            var xlsxBytes = WorksheetService.GenerateAgingImportXlsxBytes(exportTarget);
+            var base64 = Convert.ToBase64String(xlsxBytes);
+            var fileName = $"Dashboard_AgingImport_{username}_{dateLabel}.xlsx";
 
             await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
         }
@@ -99,6 +109,18 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         return presaleData.Where(x => (x.ProsesApproval.StatusApproval == ApprovalStatus.Reject
             || x.ProsesApproval.StatusApproval == ApprovalStatus.CloseLost)
             && !exclusions.Contains(x.ProsesApproval.RootCause, StringComparer.OrdinalIgnoreCase));
+    }
+
+    protected IQueryable<WorkPaper> FilterXlsxAgingImport(IQueryable<WorkPaper> presaleData)
+    {
+        if (SessionService.FilterPreference.OperatorPacExclusionModel is null)
+        {
+            return presaleData;
+        }
+
+        HashSet<string> exclusions = SessionService.FilterPreference.OperatorPacExclusionModel.Exclusion;
+
+        return presaleData.Where(x => !x.ApprovalOpportunity.SignatureVerifikasiImport.IsEmptySignature());
     }
 
     public async Task OpenBoundaryFilterDialogAsync()

@@ -65,8 +65,9 @@
                         UpperBoundaryModels="@UpperBoundaryImportAgingReports"
                         MiddleBoundaryModels="@MiddleBoundaryImportAgingReports"
                         LowerBoundaryModels="@LowerBoundaryImportAgingReports"
-                        OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
                         PageRefresh="@(this.StateHasChanged)"
+                        ExportXlsx="ExportXlsxAsync"
+                        OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
                         OnExclusionFilter="ApplyOperatorExclusionFiltersAsync"/>
                 </Content>
             </FluentTab>
