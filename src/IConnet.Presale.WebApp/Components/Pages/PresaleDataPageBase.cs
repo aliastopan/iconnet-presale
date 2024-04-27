@@ -21,6 +21,8 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
     protected string GridTemplateCols => GetGridTemplateCols();
     protected override IQueryable<WorkPaper>? WorkPapers => FilterPresaleData();
 
+    protected bool IsExportLoading { get; set; } = false;
+
     public TabNavigationModel PageDeclaration()
     {
         return new TabNavigationModel("presale-data", PageNavName.PresaleData, PageRoute.PresaleData);
@@ -28,10 +30,16 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
 
     protected async Task ExportXlsxAsync()
     {
-        IsLoading = true;
+        if (IsExportLoading)
+        {
+            return;
+        }
+
+        // IsLoading = true;
+        IsExportLoading = true;
         StateHasChanged();
 
-        await Task.Delay(500);
+        // await Task.Delay(100);
 
         var username = SessionService.GetSessionAlias().ReplaceSpacesWithUnderscores();
         var dateLabel = DateTimeService.GetStringDateToday();
@@ -42,7 +50,8 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
 
         await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
 
-        IsLoading = false;
+        // IsLoading = false;
+        IsExportLoading = false;
         StateHasChanged();
     }
 
