@@ -8,6 +8,9 @@ public class PresaleAgingXlsxModel
     {
         _intervalCalculatorService = intervalCalculatorService;
 
+        IdPermohonan = workPaper.ApprovalOpportunity.IdPermohonan;
+        TglPermohonan = workPaper.ApprovalOpportunity.TglPermohonan;
+
         PicImport = workPaper.ApprovalOpportunity.SignatureImport.Alias;
         TimestampImport = workPaper.ApprovalOpportunity.SignatureImport.TglAksi;
         AgingImport = GetAgingInterval(workPaper.ApprovalOpportunity.TglPermohonan, workPaper.ApprovalOpportunity.SignatureImport.TglAksi);
@@ -28,6 +31,9 @@ public class PresaleAgingXlsxModel
         TimestampApproval = workPaper.ProsesApproval.SignatureApproval.TglAksi;
         AgingApproval = GetAgingInterval(workPaper.ProsesValidasi.SignatureChatCallRespons.TglAksi, workPaper.ProsesApproval.SignatureApproval.TglAksi);
     }
+
+    public string IdPermohonan { get; init; }
+    public DateTime TglPermohonan { get; init; }
 
     public string PicImport { get; init; }
     public DateTime TimestampImport { get; init; }
