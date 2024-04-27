@@ -17,23 +17,23 @@ public class WorksheetService
         };
     }
 
-    public byte[] GenerateXlsxBytes(IQueryable<WorkPaper>? presaleData)
+    public byte[] GenerateStandardXlsxBytes(IQueryable<WorkPaper>? presaleData)
     {
         using var workbook = new XLWorkbook();
         using var memoryStream = new MemoryStream();
 
-        var exportModels = ConvertToExportModels(presaleData);
+        var exportModels = ConvertToStandardExportModels(presaleData);
         var worksheet = workbook.Worksheets.Add("Presale Data");
 
-        SetWorksheet(worksheet);
-        PopulateWorksheet(exportModels, worksheet);
+        SetStandardWorksheet(worksheet);
+        PopulateStandardWorksheet(exportModels, worksheet);
 
         workbook.SaveAs(memoryStream);
 
         return memoryStream.ToArray();
     }
 
-    public List<PresaleDataXlsxModel> ConvertToExportModels(IQueryable<WorkPaper>? presaleData)
+    public List<PresaleDataXlsxModel> ConvertToStandardExportModels(IQueryable<WorkPaper>? presaleData)
     {
         if (presaleData == null)
         {
@@ -60,7 +60,7 @@ public class WorksheetService
         return exportModels.OrderBy(x => x.TglPermohonan).ToList();
     }
 
-    private static void SetWorksheet(IXLWorksheet worksheet)
+    private static void SetStandardWorksheet(IXLWorksheet worksheet)
     {
         // approval opportunity
         worksheet.Cell(1, 1).Value = "ID PERMOHONAN";
@@ -126,7 +126,7 @@ public class WorksheetService
         worksheet.Column("AQ").Style.DateFormat.Format = dateOnlyFormat;    // va terbit
     }
 
-    private void PopulateWorksheet(List<PresaleDataXlsxModel> exportModels, IXLWorksheet worksheet)
+    private void PopulateStandardWorksheet(List<PresaleDataXlsxModel> exportModels, IXLWorksheet worksheet)
     {
         int batchSize = 100;
         int numberOfBatches = (exportModels.Count + batchSize - 1) / batchSize;
