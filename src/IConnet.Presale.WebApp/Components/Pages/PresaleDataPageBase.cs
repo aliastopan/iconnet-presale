@@ -35,22 +35,47 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
             return;
         }
 
-        // IsLoading = true;
         IsExportLoading = true;
         StateHasChanged();
-
-        // await Task.Delay(100);
 
         var username = SessionService.GetSessionAlias().ReplaceSpacesWithUnderscores();
         var dateLabel = DateTimeService.GetStringDateToday();
 
-        var xlsxBytes = WorksheetService.GenerateStandardXlsxBytes(WorkPapers);
-        var base64 = Convert.ToBase64String(xlsxBytes);
-        var fileName = $"PresaleData_{username}_{dateLabel}.xlsx";
+        byte[] xlsxBytes;
+        string base64 = string.Empty;
+        string fileName = string.Empty;
 
-        await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
+        bool success = false;
+        int retryCount = 0;
+        const int maxRetries = 3;
 
-        // IsLoading = false;
+        while (!success && retryCount < maxRetries)
+        {
+            try
+            {
+                xlsxBytes = WorksheetService.GenerateStandardXlsxBytes(WorkPapers);
+                base64 = Convert.ToBase64String(xlsxBytes);
+                fileName = $"PresaleData_{username}_{dateLabel}.xlsx";
+
+                success = true;
+            }
+            catch (Exception exception)
+            {
+                retryCount++;
+
+                Log.Fatal($"Exception occurred while generating Excel file: {exception.Message}");
+            }
+        }
+
+        if (success)
+        {
+            await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
+        }
+        else
+        {
+            Log.Warning("Failed to generate Excel file after multiple attempts.");
+        }
+
         IsExportLoading = false;
         StateHasChanged();
     }
