@@ -4,8 +4,12 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class DashboardPageBase : MetricPageBase, IPageNavigation
 {
+    [Inject] WorksheetService WorksheetService { get; set; } = default!;
+    [Inject] public IJSRuntime JsRuntime { get; set; } = default!;
+
     protected string ActiveTabId { get; set; } = "tab-1";
     protected bool IsBufferLoading => SessionService.FilterPreference.IsBufferLoading;
+    protected bool IsExportLoading { get; set; } = false;
 
     public TabNavigationModel PageDeclaration()
     {
@@ -26,18 +30,54 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 
     public async Task ExportXlsxAsync()
     {
-        await Task.CompletedTask;
+        if (IsExportLoading)
+        {
+            return;
+        }
 
-        var tab = ActiveTabId;
+        IsExportLoading = true;
+
         var boundary = SessionService.FilterPreference.BoundaryFilters[ActiveTabId];
+        var presaleData = GetBoundaryPresaleData(boundary);
+        var username = SessionService.GetSessionAlias().ReplaceSpacesWithUnderscores();
+        var dateLabel = DateTimeService.GetStringDateToday();
 
-        LogSwitch.Debug("Exporting .xlsx on {0} with {1} boundary", tab, boundary);
+        if (presaleData is null)
+        {
+            LogSwitch.Debug("No data were found. Export cancelled.");
+            return;
+        }
+
+        LogSwitch.Debug("Exporting {0} with {1} boundary", ActiveTabId, boundary);
 
         if (ActiveTabId == "tab-1") // approval status
         {
+            var exportTarget = FilterXlsxStatusApprovals(presaleData);
+            var xlsxBytes = WorksheetService.GenerateStandardXlsxBytes(exportTarget);
+            var base64 = Convert.ToBase64String(xlsxBytes);
+            var fileName = $"Dashboard_StatusApproval_{username}_{dateLabel}.xlsx";
 
+            await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
+
+            LogSwitch.Debug("Export success.");
         }
+
+        IsExportLoading = false;
     }
+
+    protected IQueryable<WorkPaper> FilterXlsxStatusApprovals(IQueryable<WorkPaper> presaleData)
+    {
+        if (SessionService.FilterPreference.ApprovalStatusExclusion is null)
+        {
+            return presaleData;
+        }
+
+        HashSet<ApprovalStatus> exclusions = SessionService.FilterPreference.ApprovalStatusExclusion.Exclusion;
+
+        return presaleData
+            .Where(x => !exclusions.Contains(x.ProsesApproval.StatusApproval));
+    }
+
 
     public async Task OpenBoundaryFilterDialogAsync()
     {
@@ -195,5 +235,20 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         StateHasChanged();
 
         SessionService.FilterPreference.RefreshBoundaryFilters(ActiveTabId);
+    }
+
+    private IQueryable<WorkPaper>? GetBoundaryPresaleData(BoundaryFilterMode boundary)
+    {
+        switch (boundary)
+        {
+            case BoundaryFilterMode.Monthly:
+                return UpperBoundaryPresaleData;
+            case BoundaryFilterMode.Weekly:
+                return MiddleBoundaryPresaleData;
+            case BoundaryFilterMode.Daily:
+                return LowerBoundaryPresaleData;
+            default:
+                throw new NotImplementedException();;
+        }
     }
 }
