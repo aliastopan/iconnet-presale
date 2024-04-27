@@ -58,10 +58,19 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
             var fileName = $"Dashboard_StatusApproval_{username}_{dateLabel}.xlsx";
 
             await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
-
-            LogSwitch.Debug("Export success.");
         }
 
+        if (ActiveTabId == "tab-2") // root cause
+        {
+            var exportTarget = FilterXlsxRootCauses(presaleData);
+            var xlsxBytes = WorksheetService.GenerateStandardXlsxBytes(exportTarget);
+            var base64 = Convert.ToBase64String(xlsxBytes);
+            var fileName = $"Dashboard_RootCause_{username}_{dateLabel}.xlsx";
+
+            await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
+        }
+
+        LogSwitch.Debug("Export success.");
         IsExportLoading = false;
     }
 
@@ -78,6 +87,19 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
             .Where(x => !exclusions.Contains(x.ProsesApproval.StatusApproval));
     }
 
+    protected IQueryable<WorkPaper> FilterXlsxRootCauses(IQueryable<WorkPaper> presaleData)
+    {
+        if (SessionService.FilterPreference.ApprovalStatusExclusion is null)
+        {
+            return presaleData;
+        }
+
+        HashSet<string> exclusions = SessionService.FilterPreference.RootCauseExclusion.Exclusion;
+
+        return presaleData.Where(x => (x.ProsesApproval.StatusApproval == ApprovalStatus.Reject
+            || x.ProsesApproval.StatusApproval == ApprovalStatus.CloseLost)
+            && !exclusions.Contains(x.ProsesApproval.RootCause, StringComparer.OrdinalIgnoreCase));
+    }
 
     public async Task OpenBoundaryFilterDialogAsync()
     {
