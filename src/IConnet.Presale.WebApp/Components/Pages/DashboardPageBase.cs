@@ -24,6 +24,21 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         await base.OnInitializedAsync();
     }
 
+    public async Task ExportXlsxAsync()
+    {
+        await Task.CompletedTask;
+
+        var tab = ActiveTabId;
+        var boundary = SessionService.FilterPreference.BoundaryFilters[ActiveTabId];
+
+        LogSwitch.Debug("Exporting .xlsx on {0} with {1} boundary", tab, boundary);
+
+        if (ActiveTabId == "tab-1") // approval status
+        {
+
+        }
+    }
+
     public async Task OpenBoundaryFilterDialogAsync()
     {
         var boundary = SessionService.FilterPreference.BoundaryFilters[ActiveTabId];

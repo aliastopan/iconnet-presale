@@ -29,6 +29,12 @@
             style="width: 135px; margin-top: 8px;"
             OnClick="OpenApprovalStatusExclusionDialogFilter">
             Pilah</FluentButton>
+
+        <FluentButton Appearance="Appearance.Accent"
+            style="width: 135px; margin-top: 24px;"
+            IconStart="@(new Icons.Filled.Size20.DocumentArrowDown())"
+            OnClick="@ExportXlsxAsync">
+            Export .xlsx</FluentButton>
     </div>
 
     <div class="d-flex flex-column w-100">

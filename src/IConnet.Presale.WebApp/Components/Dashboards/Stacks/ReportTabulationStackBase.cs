@@ -10,6 +10,7 @@ public class ReportTabulationStackBase : ComponentBase
     [Inject] protected SessionService SessionService { get; set; } = default!;
 
     [Parameter] public string TabulationId { get; set; } = default!;
+    [Parameter] public EventCallback ExportXlsx { get; set; }
     [Parameter] public EventCallback PageRefresh { get; set; }
     [Parameter] public EventCallback OpenBoundaryFilter { get; set; }
 
@@ -38,6 +39,14 @@ public class ReportTabulationStackBase : ComponentBase
     protected override void OnInitialized()
     {
         SessionService.FilterPreference.ToggleToMonthlyView();
+    }
+
+    public async Task ExportXlsxAsync()
+    {
+        if (ExportXlsx.HasDelegate)
+        {
+            await ExportXlsx.InvokeAsync();
+        }
     }
 
     public async Task OpenBoundaryFilterAsync()
