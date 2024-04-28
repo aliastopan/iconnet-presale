@@ -90,6 +90,16 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
             await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
         }
 
+        if (ActiveTabId == "tab-5") // aging chat/call pick-up
+        {
+            var exportTarget = FilterXlsxAgingChatCallMulai(presaleData);
+            var xlsxBytes = WorksheetService.GenerateAgingChatCallMulaiXlsxBytes(exportTarget);
+            var base64 = Convert.ToBase64String(xlsxBytes);
+            var fileName = $"Dashboard_AgingPickUp_{username}_{dateLabel}.xlsx";
+
+            await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
+        }
+
         LogSwitch.Debug("Export success.");
         IsExportLoading = false;
     }
@@ -145,6 +155,24 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         LogSwitch.Debug("total: {0}", check.Count);
 
         var result = presaleData.Where(x => inclusionIds.Contains(x.ApprovalOpportunity.SignatureVerifikasiImport.AccountIdSignature));
+        LogSwitch.Debug("match: {0}", result.Count());
+
+        return result;
+    }
+
+    protected IQueryable<WorkPaper> FilterXlsxAgingChatCallMulai(IQueryable<WorkPaper> presaleData)
+    {
+        if (SessionService.FilterPreference.OperatorPacExclusionModel is null)
+        {
+            return presaleData;
+        }
+
+        HashSet<Guid> inclusionIds = SessionService.FilterPreference.OperatorHelpdeskExclusionModel.InclusionIds;
+
+        var check = presaleData.Where(x => !x.ProsesValidasi.SignatureChatCallMulai.IsEmptySignature()).ToList();
+        LogSwitch.Debug("total: {0}", check.Count);
+
+        var result = presaleData.Where(x => inclusionIds.Contains(x.ProsesValidasi.SignatureChatCallMulai.AccountIdSignature));
         LogSwitch.Debug("match: {0}", result.Count());
 
         return result;
