@@ -4,7 +4,7 @@ public class OperatorExclusionModel
 {
     public HashSet<string> Usernames { get; set; } = [];
     public HashSet<string> Inclusion { get; set; } = [];
-    public HashSet<string> Exclusion => GetPacExclusions();
+    public HashSet<string> Exclusion => GetExclusions();
 
     public OperatorExclusionModel(List<string> usernames)
     {
@@ -18,7 +18,7 @@ public class OperatorExclusionModel
         Inclusion = new HashSet<string>(model.Inclusion);
     }
 
-    private HashSet<string> GetPacExclusions()
+    private HashSet<string> GetExclusions()
     {
         var exclusion = new HashSet<string>(Usernames);
 
