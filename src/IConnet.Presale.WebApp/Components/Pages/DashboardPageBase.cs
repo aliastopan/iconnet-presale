@@ -54,11 +54,8 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 
         if (presaleData is null)
         {
-            LogSwitch.Debug("No data were found. Export cancelled.");
             return;
         }
-
-        LogSwitch.Debug("Exporting {0} with {1} boundary", ActiveTabId, boundary);
 
         IQueryable<WorkPaper> exportTarget;
         byte[] xlsxBytes;
@@ -199,13 +196,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 
         HashSet<Guid> inclusionIds = SessionService.FilterPreference.OperatorPacExclusionModel.InclusionIds;
 
-        var check = presaleData.Where(x => !x.ApprovalOpportunity.SignatureVerifikasiImport.IsEmptySignature()).ToList();
-        LogSwitch.Debug("total: {0}", check.Count);
-
-        var result = presaleData.Where(x => inclusionIds.Contains(x.ApprovalOpportunity.SignatureVerifikasiImport.AccountIdSignature));
-        LogSwitch.Debug("match: {0}", result.Count());
-
-        return result;
+        return presaleData.Where(x => inclusionIds.Contains(x.ApprovalOpportunity.SignatureVerifikasiImport.AccountIdSignature));
     }
 
     protected IQueryable<WorkPaper> FilterXlsxAgingChatCallMulai(IQueryable<WorkPaper> presaleData)
@@ -217,13 +208,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 
         HashSet<Guid> inclusionIds = SessionService.FilterPreference.OperatorHelpdeskExclusionModel.InclusionIds;
 
-        var check = presaleData.Where(x => !x.ProsesValidasi.SignatureChatCallMulai.IsEmptySignature()).ToList();
-        LogSwitch.Debug("total: {0}", check.Count);
-
-        var result = presaleData.Where(x => inclusionIds.Contains(x.ProsesValidasi.SignatureChatCallMulai.AccountIdSignature));
-        LogSwitch.Debug("match: {0}", result.Count());
-
-        return result;
+        return presaleData.Where(x => inclusionIds.Contains(x.ProsesValidasi.SignatureChatCallMulai.AccountIdSignature));
     }
 
     protected IQueryable<WorkPaper> FilterXlsxAgingChatCallRespons(IQueryable<WorkPaper> presaleData)
@@ -235,13 +220,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 
         HashSet<Guid> inclusionIds = SessionService.FilterPreference.OperatorHelpdeskExclusionModel.InclusionIds;
 
-        var check = presaleData.Where(x => !x.ProsesValidasi.SignatureChatCallRespons.IsEmptySignature()).ToList();
-        LogSwitch.Debug("total: {0}", check.Count);
-
-        var result = presaleData.Where(x => inclusionIds.Contains(x.ProsesValidasi.SignatureChatCallRespons.AccountIdSignature));
-        LogSwitch.Debug("match: {0}", result.Count());
-
-        return result;
+        return presaleData.Where(x => inclusionIds.Contains(x.ProsesValidasi.SignatureChatCallRespons.AccountIdSignature));
     }
 
     protected IQueryable<WorkPaper> FilterXlsxAgingApproval(IQueryable<WorkPaper> presaleData)
@@ -253,13 +232,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 
         HashSet<Guid> inclusionIds = SessionService.FilterPreference.OperatorPacExclusionModel.InclusionIds;
 
-        var check = presaleData.Where(x => !x.ProsesApproval.SignatureApproval.IsEmptySignature()).ToList();
-        LogSwitch.Debug("total: {0}", check.Count);
-
-        var result = presaleData.Where(x => inclusionIds.Contains(x.ProsesApproval.SignatureApproval.AccountIdSignature));
-        LogSwitch.Debug("match: {0}", result.Count());
-
-        return result;
+        return presaleData.Where(x => inclusionIds.Contains(x.ProsesApproval.SignatureApproval.AccountIdSignature));
     }
 
     public async Task OpenBoundaryFilterDialogAsync()

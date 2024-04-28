@@ -56,6 +56,5 @@ public class RootCauseSettingModel
     public void OnIsIncludedChanged(bool isIncluded)
     {
         IsIncluded = isIncluded;
-        LogSwitch.Debug("IsIncluded {0}", IsIncluded);
     }
 }

@@ -51,10 +51,10 @@ public class DeveloperPageBase : ComponentBase
         {
             if (AppSettingsService.RootCauseClassifications.Count > 0)
             {
-                foreach (var classification in AppSettingsService.RootCauseClassifications)
-                {
-                    LogSwitch.Debug(classification);
-                }
+                // foreach (var classification in AppSettingsService.RootCauseClassifications)
+                // {
+                //     LogSwitch.Debug(classification);
+                // }
             }
             else
             {
