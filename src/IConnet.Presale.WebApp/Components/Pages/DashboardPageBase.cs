@@ -50,74 +50,89 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 
         LogSwitch.Debug("Exporting {0} with {1} boundary", ActiveTabId, boundary);
 
-        if (ActiveTabId == "tab-1") // approval status
+        IQueryable<WorkPaper> exportTarget;
+        byte[] xlsxBytes;
+        string base64;
+        string fileName;
+
+        switch (ActiveTabId)
         {
-            var exportTarget = FilterXlsxStatusApprovals(presaleData);
-            var xlsxBytes = WorksheetService.GenerateStandardXlsxBytes(exportTarget, "Approval Status");
-            var base64 = Convert.ToBase64String(xlsxBytes);
-            var fileName = $"Dashboard_StatusApproval_{username}_{dateLabel}.xlsx";
+            case "tab-1": // approval status
+            {
+                exportTarget = FilterXlsxStatusApprovals(presaleData);
+                xlsxBytes = WorksheetService.GenerateStandardXlsxBytes(exportTarget, "Approval Status");
+                base64 = Convert.ToBase64String(xlsxBytes);
+                fileName = $"Dashboard_StatusApproval_{username}_{dateLabel}.xlsx";
 
-            await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
-        }
+                await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
+                break;
+            }
 
-        if (ActiveTabId == "tab-2") // root cause
-        {
-            var exportTarget = FilterXlsxRootCauses(presaleData);
-            var xlsxBytes = WorksheetService.GenerateStandardXlsxBytes(exportTarget, "Root Cause");
-            var base64 = Convert.ToBase64String(xlsxBytes);
-            var fileName = $"Dashboard_RootCause_{username}_{dateLabel}.xlsx";
+            case "tab-2": // root cause
+            {
+                exportTarget = FilterXlsxRootCauses(presaleData);
+                xlsxBytes = WorksheetService.GenerateStandardXlsxBytes(exportTarget, "Root Cause");
+                base64 = Convert.ToBase64String(xlsxBytes);
+                fileName = $"Dashboard_RootCause_{username}_{dateLabel}.xlsx";
 
-            await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
-        }
+                await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
+                break;
+            }
+            case "tab-3": // aging import
+            {
+                exportTarget = FilterXlsxAgingImport(presaleData);
+                xlsxBytes = WorksheetService.GenerateAgingImportXlsxBytes(exportTarget);
+                base64 = Convert.ToBase64String(xlsxBytes);
+                fileName = $"Dashboard_AgingImport_{username}_{dateLabel}.xlsx";
 
-        if (ActiveTabId == "tab-3") // aging import
-        {
-            var exportTarget = FilterXlsxAgingImport(presaleData);
-            var xlsxBytes = WorksheetService.GenerateAgingImportXlsxBytes(exportTarget);
-            var base64 = Convert.ToBase64String(xlsxBytes);
-            var fileName = $"Dashboard_AgingImport_{username}_{dateLabel}.xlsx";
+                await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
+                break;
+            }
+            case "tab-4": // aging verifikasi
+            {
+                exportTarget = FilterXlsxAgingVerification(presaleData);
+                xlsxBytes = WorksheetService.GenerateAgingVerificationXlsxBytes(exportTarget);
+                base64 = Convert.ToBase64String(xlsxBytes);
+                fileName = $"Dashboard_AgingVerifikasi_{username}_{dateLabel}.xlsx";
 
-            await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
-        }
+                await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
+                break;
+            }
+            case "tab-5": // aging chat/call pick-up
+            {
+                exportTarget = FilterXlsxAgingChatCallMulai(presaleData);
+                xlsxBytes = WorksheetService.GenerateAgingChatCallMulaiXlsxBytes(exportTarget);
+                base64 = Convert.ToBase64String(xlsxBytes);
+                fileName = $"Dashboard_AgingPickUp_{username}_{dateLabel}.xlsx";
 
-        if (ActiveTabId == "tab-4") // aging verifikasi
-        {
-            var exportTarget = FilterXlsxAgingVerification(presaleData);
-            var xlsxBytes = WorksheetService.GenerateAgingVerificationXlsxBytes(exportTarget);
-            var base64 = Convert.ToBase64String(xlsxBytes);
-            var fileName = $"Dashboard_AgingVerifikasi_{username}_{dateLabel}.xlsx";
+                await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
+                break;
+            }
+            case "tab-6": // aging chat/call validasi
+            {
+                exportTarget = FilterXlsxAgingChatCallRespons(presaleData);
+                xlsxBytes = WorksheetService.GenerateAgingChatCallResponsXlsxBytes(exportTarget);
+                base64 = Convert.ToBase64String(xlsxBytes);
+                fileName = $"Dashboard_AgingValidasi_{username}_{dateLabel}.xlsx";
 
-            await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
-        }
+                await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
+                break;
+            }
+            case "tab-7": // aging approval
+            {
+                exportTarget = FilterXlsxAgingApproval(presaleData);
+                xlsxBytes = WorksheetService.GenerateAgingApprovalXlsxBytes(exportTarget);
+                base64 = Convert.ToBase64String(xlsxBytes);
+                fileName = $"Dashboard_AgingApproval_{username}_{dateLabel}.xlsx";
 
-        if (ActiveTabId == "tab-5") // aging chat/call pick-up
-        {
-            var exportTarget = FilterXlsxAgingChatCallMulai(presaleData);
-            var xlsxBytes = WorksheetService.GenerateAgingChatCallMulaiXlsxBytes(exportTarget);
-            var base64 = Convert.ToBase64String(xlsxBytes);
-            var fileName = $"Dashboard_AgingPickUp_{username}_{dateLabel}.xlsx";
-
-            await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
-        }
-
-        if (ActiveTabId == "tab-6") // aging chat/call validasi
-        {
-            var exportTarget = FilterXlsxAgingChatCallRespons(presaleData);
-            var xlsxBytes = WorksheetService.GenerateAgingChatCallResponsXlsxBytes(exportTarget);
-            var base64 = Convert.ToBase64String(xlsxBytes);
-            var fileName = $"Dashboard_AgingValidasi_{username}_{dateLabel}.xlsx";
-
-            await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
-        }
-
-        if (ActiveTabId == "tab-7") // aging approval
-        {
-            var exportTarget = FilterXlsxAgingApproval(presaleData);
-            var xlsxBytes = WorksheetService.GenerateAgingApprovalXlsxBytes(exportTarget);
-            var base64 = Convert.ToBase64String(xlsxBytes);
-            var fileName = $"Dashboard_AgingApproval_{username}_{dateLabel}.xlsx";
-
-            await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
+                await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
+                break;
+            }
+            default:
+            {
+                IsExportLoading = false;
+                return;
+            }
         }
 
         LogSwitch.Debug("Export success.");
