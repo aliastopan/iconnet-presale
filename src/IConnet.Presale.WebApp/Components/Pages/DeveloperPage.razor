@@ -58,7 +58,7 @@
                                                 ProgressPercent = e.ProgressPercent;
                                                 ProgressTitle = e.ProgressTitle;
                                             })"
-                                        OnCompleted="@OnCompleted" />
+                                        OnCompleted="@OnCompletedAsync" />
 
                         <FluentProgress Min="0" Max="100" Visible="@(ProgressPercent > 0)" Value="@ProgressPercent" />
                         <FluentLabel Alignment="HorizontalAlignment.Center">

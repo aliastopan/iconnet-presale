@@ -13,17 +13,36 @@ public class DeveloperPageBase : ComponentBase
 
     public FluentInputFileEventArgs[] Files { get; set; } = Array.Empty<FluentInputFileEventArgs>();
 
-    public void OnCompleted(IEnumerable<FluentInputFileEventArgs> files)
+    public async Task OnCompletedAsync(IEnumerable<FluentInputFileEventArgs> files)
     {
         Files = files.ToArray();
         ProgressPercent = FileUploader!.ProgressPercent;
         ProgressTitle = FileUploader!.ProgressTitle;
 
-        // For the demo, delete these files.
-        foreach (var file in Files)
+        if (Files.Length == 0)
         {
-            file.LocalFile?.Delete();
+            return;
         }
+
+        FluentInputFileEventArgs file = Files.First();
+        FileInfo localFile = file.LocalFile!;
+
+        LogSwitch.Debug("localFile {0}", localFile);
+
+        using StreamReader reader = localFile.OpenText();
+
+        string? firstLine = reader.ReadLine();
+        if (firstLine != null)
+        {
+            LogSwitch.Debug(firstLine);
+        }
+        else
+        {
+            LogSwitch.Debug("File is empty.");
+        }
+
+
+        await Task.CompletedTask;
     }
 
     protected override void OnInitialized()
@@ -39,12 +58,12 @@ public class DeveloperPageBase : ComponentBase
             }
             else
             {
-                LogSwitch.Debug("ROOT CAUSE CLASSIFICATION IS EMPTY");
+                // LogSwitch.Debug("ROOT CAUSE CLASSIFICATION IS EMPTY");
             }
 
             foreach (var option in OptionService.RootCauseOptionStack)
             {
-                LogSwitch.Debug("{0}/{1}", option.rootCause, option.classification);
+                // LogSwitch.Debug("{0}/{1}", option.rootCause, option.classification);
             }
 
             _init = true;
