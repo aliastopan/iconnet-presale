@@ -116,7 +116,7 @@ public class FilterPreference
         }
 
         HashSet<(Guid, string)> availableOperators = presaleOperators
-            .Where(p => p.UserRole == UserRole.PAC)
+            .Where(p => p.UserRole == UserRole.Helpdesk)
             .Select(p => (p.UserAccountId, p.Username))
             .ToHashSet();
 
