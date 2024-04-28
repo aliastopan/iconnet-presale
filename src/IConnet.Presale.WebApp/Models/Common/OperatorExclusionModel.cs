@@ -12,6 +12,12 @@ public class OperatorExclusionModel
         Inclusion = new HashSet<string>(usernames);
     }
 
+    public OperatorExclusionModel(OperatorExclusionModel model)
+    {
+        Usernames = new HashSet<string>(model.Usernames);
+        Inclusion = new HashSet<string>(model.Inclusion);
+    }
+
     private HashSet<string> GetPacExclusions()
     {
         var exclusion = new HashSet<string>(Usernames);

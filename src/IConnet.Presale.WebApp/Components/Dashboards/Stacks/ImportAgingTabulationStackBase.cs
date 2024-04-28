@@ -25,11 +25,13 @@ public class ImportAgingTabulationStackBase : ReportTabulationStackBase
         };
 
         var exclusion = SessionService.FilterPreference.OperatorPacExclusionModel;
+        var persistent = new OperatorExclusionModel(exclusion);
         var dialog = await DialogService.ShowDialogAsync<OperatorPacExclusionDialog>(exclusion, parameters);
         var result = await dialog.Result;
 
         if (result.Cancelled || result.Data == null)
         {
+            SessionService.FilterPreference.OperatorPacExclusionModel = persistent;
             return;
         }
 

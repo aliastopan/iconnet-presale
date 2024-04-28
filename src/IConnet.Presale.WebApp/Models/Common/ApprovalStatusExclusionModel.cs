@@ -14,6 +14,12 @@ public class ApprovalStatusExclusionModel
         Inclusion = new HashSet<ApprovalStatus>(approvalStatusEnums);
     }
 
+    public ApprovalStatusExclusionModel(ApprovalStatusExclusionModel model)
+    {
+        ApprovalStatus = new HashSet<ApprovalStatus>(model.ApprovalStatus);
+        Inclusion = new HashSet<ApprovalStatus>(model.Inclusion);
+    }
+
     private HashSet<ApprovalStatus> GetApprovalStatusExclusions()
     {
         var exclusion = new HashSet<ApprovalStatus>(ApprovalStatus);

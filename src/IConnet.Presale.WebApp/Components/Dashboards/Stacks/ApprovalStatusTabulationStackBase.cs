@@ -41,11 +41,13 @@ public class ApprovalStatusTabulationStackBase : ReportTabulationStackBase
         };
 
         var exclusion = SessionService.FilterPreference.ApprovalStatusExclusion;
+        var persistent = new ApprovalStatusExclusionModel(exclusion);
         var dialog = await DialogService.ShowDialogAsync<ApprovalStatusExclusionDialog>(exclusion, parameters);
         var result = await dialog.Result;
 
         if (result.Cancelled || result.Data == null)
         {
+            SessionService.FilterPreference.ApprovalStatusExclusion = persistent;
             return;
         }
 

@@ -12,6 +12,12 @@ public class RootCauseExclusionModel
         Inclusion = new HashSet<string>(rootCauses);
     }
 
+    public RootCauseExclusionModel(RootCauseExclusionModel model)
+    {
+        RootCauses = new HashSet<string>(model.RootCauses);
+        Inclusion = new HashSet<string>(model.Inclusion);
+    }
+
     private HashSet<string> GetRootCauseExclusions()
     {
         var exclusion = new HashSet<string>(RootCauses);

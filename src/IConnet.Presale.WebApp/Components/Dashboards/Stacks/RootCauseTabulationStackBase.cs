@@ -55,11 +55,13 @@ public class RootCauseTabulationStackBase : ReportTabulationStackBase
         };
 
         var exclusion = SessionService.FilterPreference.RootCauseExclusion;
+        var persistent = new RootCauseExclusionModel(exclusion);
         var dialog = await DialogService.ShowDialogAsync<RootCauseExclusionDialog>(exclusion, parameters);
         var result = await dialog.Result;
 
         if (result.Cancelled || result.Data == null)
         {
+            SessionService.FilterPreference.RootCauseExclusion = persistent;
             return;
         }
 

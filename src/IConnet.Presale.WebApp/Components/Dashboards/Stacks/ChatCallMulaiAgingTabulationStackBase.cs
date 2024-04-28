@@ -25,11 +25,13 @@ public class ChatCallMulaiAgingTabulationStackBase : ReportTabulationStackBase
         };
 
         var exclusion = SessionService.FilterPreference.OperatorHelpdeskExclusionModel;
+        var persistent = new OperatorExclusionModel(exclusion);
         var dialog = await DialogService.ShowDialogAsync<OperatorHelpdeskExclusionDialog>(exclusion, parameters);
         var result = await dialog.Result;
 
         if (result.Cancelled || result.Data == null)
         {
+            SessionService.FilterPreference.OperatorHelpdeskExclusionModel = persistent;
             return;
         }
 
