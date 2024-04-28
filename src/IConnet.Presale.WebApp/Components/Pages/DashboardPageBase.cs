@@ -117,9 +117,9 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
             return presaleData;
         }
 
-        HashSet<string> inclusions = SessionService.FilterPreference.OperatorPacExclusionModel.Inclusion;
+        HashSet<Guid> inclusionIds = SessionService.FilterPreference.OperatorPacExclusionModel.InclusionIds;
 
-        return presaleData.Where(x => inclusions.Contains(x.ApprovalOpportunity.SignatureImport.GetOnlyUsernameFromAlias()));
+        return presaleData.Where(x => inclusionIds.Contains(x.ApprovalOpportunity.SignatureImport.AccountIdSignature));
     }
 
     public async Task OpenBoundaryFilterDialogAsync()

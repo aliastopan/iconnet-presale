@@ -100,12 +100,12 @@ public class FilterPreference
             return;
         }
 
-        List<string> usernames = presaleOperators
+        HashSet<(Guid, string)> availableOperators = presaleOperators
             .Where(p => p.UserRole == UserRole.PAC)
-            .Select(p => p.Username)
-            .ToList();
+            .Select(p => (p.UserAccountId, p.Username))
+            .ToHashSet();
 
-        OperatorPacExclusionModel = new OperatorExclusionModel(usernames);
+        OperatorPacExclusionModel = new OperatorExclusionModel(availableOperators);
     }
 
     public void SetOperatorHelpdeskExclusionExclusion(List<PresaleOperatorModel> presaleOperators)
@@ -115,12 +115,12 @@ public class FilterPreference
             return;
         }
 
-        List<string> usernames = presaleOperators
-            .Where(p => p.UserRole == UserRole.Helpdesk)
-            .Select(p => p.Username)
-            .ToList();
+        HashSet<(Guid, string)> availableOperators = presaleOperators
+            .Where(p => p.UserRole == UserRole.PAC)
+            .Select(p => (p.UserAccountId, p.Username))
+            .ToHashSet();
 
-        OperatorHelpdeskExclusionModel = new OperatorExclusionModel(usernames);
+        OperatorHelpdeskExclusionModel = new OperatorExclusionModel(availableOperators);
     }
 
     public void ToggleToMonthlyView()
