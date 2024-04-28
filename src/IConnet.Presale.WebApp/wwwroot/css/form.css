@@ -555,6 +555,7 @@
 }
 
 .splitter-ganti{
+    font-family: 'inter-semibold';
     font-weight: 600;
     background-color: var(--accent-blue);
     text-align: center;
