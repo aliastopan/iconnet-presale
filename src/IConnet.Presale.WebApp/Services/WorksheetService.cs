@@ -92,6 +92,23 @@ public class WorksheetService
         return memoryStream.ToArray();
     }
 
+    public byte[] GenerateAgingChatCallResponsXlsxBytes(IQueryable<WorkPaper>? presaleData)
+    {
+        using var workbook = new XLWorkbook();
+        using var memoryStream = new MemoryStream();
+
+        var agingModels = ConvertToPresaleAgingModels(presaleData);
+        var worksheet = workbook.Worksheets.Add("Aging Validasi");
+
+        SetAgingChatCallResponsWorksheet(worksheet);
+        PopulateAgingChatCallResponsWorksheet(agingModels, worksheet);
+
+        workbook.SaveAs(memoryStream);
+
+        return memoryStream.ToArray();
+    }
+
+
     private List<PresaleDataXlsxModel> ConvertToPresaleDataExportModels(IQueryable<WorkPaper>? presaleData)
     {
         if (presaleData == null)
@@ -335,6 +352,26 @@ public class WorksheetService
         worksheet.Column("E").Style.NumberFormat.Format = _timeSpanFormat;   // aging chat/call pick-up
     }
 
+    private static void SetAgingChatCallResponsWorksheet(IXLWorksheet worksheet)
+    {
+        worksheet.Cell(1, 1).Value = "ID PERMOHONAN";
+        worksheet.Cell(1, 2).Value = "TGL PERMOHONAN";
+        worksheet.Cell(1, 3).Value = "PIC CHAT/CALL VALIDASI";
+        worksheet.Cell(1, 4).Value = "TGL/WAKTU CHAT/CALL VALIDASI";
+        worksheet.Cell(1, 5).Value = "AGING CHAT/CALL VALIDASI";
+        worksheet.Cell(1, 6).Value = "SLA";
+
+        for (int i = 1; i <= 6; i++)
+        {
+            worksheet.Column(i).Width = 20;
+        }
+
+        worksheet.Column("B").Style.DateFormat.Format = _dateTimeFormat;     // tgl permohonan
+        worksheet.Column("D").Style.DateFormat.Format = _dateTimeFormat;     // waktu/tgl chat/call validasi
+        worksheet.Column("E").Style.NumberFormat.Format = _timeSpanFormat;   // aging chat/call validasi
+    }
+
+
     private void PopulateAgingImportWorksheet(List<PresaleAgingXlsxModel> agingModels, IXLWorksheet worksheet)
     {
         int batchSize = 100;
@@ -419,6 +456,39 @@ public class WorksheetService
                     worksheet.Cell(row, 5).Value = exportModel.AgingChatCallMulai;
 
                     string slaVerdict = exportModel.AgingChatCallMulai < _appSettingsService.SlaPickUp
+                        ? "WON"
+                        : "LOST";
+
+                    worksheet.Cell(row, 6).Value = slaVerdict;
+                }
+            }
+        });
+    }
+
+    private void PopulateAgingChatCallResponsWorksheet(List<PresaleAgingXlsxModel> agingModels, IXLWorksheet worksheet)
+    {
+        int batchSize = 100;
+        int numberOfBatches = (agingModels.Count + batchSize - 1) / batchSize;
+
+        Parallel.For(0, numberOfBatches, _parallelOptions, batchIndex =>
+        {
+            int startIndex = batchIndex * batchSize;
+            int endIndex = Math.Min(startIndex + batchSize, agingModels.Count);
+
+            lock (worksheet)
+            {
+                for (int i = startIndex; i < endIndex; i++)
+                {
+                    var exportModel = agingModels[i];
+                    int row = i + 2;
+
+                    worksheet.Cell(row, 1).Value = exportModel.IdPermohonan;
+                    worksheet.Cell(row, 2).Value = exportModel.TglPermohonan;
+                    worksheet.Cell(row, 3).Value = exportModel.PicChatCallRespons;
+                    worksheet.Cell(row, 4).Value = exportModel.TimestampChatCallRespons;
+                    worksheet.Cell(row, 5).Value = exportModel.AgingChatCallRespons;
+
+                    string slaVerdict = exportModel.AgingChatCallRespons < _appSettingsService.SlaValidasi
                         ? "WON"
                         : "LOST";
 
