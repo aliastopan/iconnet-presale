@@ -29,7 +29,7 @@ public class PresaleAgingXlsxModel
 
         PicApproval = workPaper.ProsesApproval.SignatureApproval.Alias;
         TimestampApproval = workPaper.ProsesApproval.SignatureApproval.TglAksi;
-        AgingApproval = GetAgingInterval(workPaper.ProsesValidasi.SignatureChatCallRespons.TglAksi, workPaper.ProsesApproval.SignatureApproval.TglAksi);
+        AgingApproval = GetAgingApproval(workPaper);
     }
 
     public string IdPermohonan { get; init; }
@@ -57,6 +57,29 @@ public class PresaleAgingXlsxModel
 
     private TimeSpan GetAgingInterval(DateTime start, DateTime end)
     {
-        return _intervalCalculatorService.CalculateInterval(start, end, excludeFrozenInterval: true);
+        return _intervalCalculatorService.CalculateInterval(start, end, frozenInterval: true);
+    }
+
+    // check ReportService.GenerateApprovalAgingReport
+    private TimeSpan GetAgingApproval(WorkPaper workPaper)
+    {
+        bool isDirectlyApproved = workPaper.ProsesApproval.IsDirectlyApproved();
+
+        if (isDirectlyApproved)
+        {
+            return new TimeSpan(0, 10, 0); // fixed interval
+        }
+
+        var startDateTime = workPaper.ProsesValidasi.SignatureChatCallRespons.TglAksi;
+
+        // handle (bug) not responding user
+        if (workPaper.ProsesValidasi.SignatureChatCallRespons.IsEmptySignature())
+        {
+            int notRespondingThreshold = 2;
+
+            startDateTime = workPaper.ProsesValidasi.SignatureChatCallMulai.TglAksi.AddDays(notRespondingThreshold);
+        }
+
+        return GetAgingInterval(startDateTime, workPaper.ProsesApproval.SignatureApproval.TglAksi);
     }
 }
