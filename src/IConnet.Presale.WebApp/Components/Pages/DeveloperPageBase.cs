@@ -13,6 +13,8 @@ public class DeveloperPageBase : ComponentBase
 
     public FluentInputFileEventArgs[] Files { get; set; } = Array.Empty<FluentInputFileEventArgs>();
 
+    public string? CsvHeader { get; set;}
+
     public async Task OnCompletedAsync(IEnumerable<FluentInputFileEventArgs> files)
     {
         Files = files.ToArray();
@@ -32,8 +34,10 @@ public class DeveloperPageBase : ComponentBase
         using StreamReader reader = localFile.OpenText();
 
         string? firstLine = reader.ReadLine();
+
         if (firstLine != null)
         {
+            CsvHeader = firstLine;
             LogSwitch.Debug(firstLine);
         }
         else
