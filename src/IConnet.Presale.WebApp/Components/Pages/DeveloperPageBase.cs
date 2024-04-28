@@ -46,6 +46,12 @@ public class DeveloperPageBase : ComponentBase
         }
 
 
+        // delete this later
+        foreach (var any in Files)
+        {
+            any.LocalFile?.Delete();
+        }
+
         await Task.CompletedTask;
     }
 
