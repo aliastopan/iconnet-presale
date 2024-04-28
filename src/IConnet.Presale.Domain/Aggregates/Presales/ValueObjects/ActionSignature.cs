@@ -32,6 +32,7 @@ public class ActionSignature : ValueObject
     public string ExtractUsernameFromAlias(out string role)
     {
         string[] parts = Alias.Split(' ', 2);
+
         if (parts.Length == 2)
         {
             role = parts[1].Trim('(', ')');
@@ -40,6 +41,20 @@ public class ActionSignature : ValueObject
         else
         {
             role = string.Empty;
+            return Alias;
+        }
+    }
+
+    public string GetOnlyUsernameFromAlias()
+    {
+        string[] parts = Alias.Split(' ', 2);
+
+        if (parts.Length == 2)
+        {
+            return parts[0];
+        }
+        else
+        {
             return Alias;
         }
     }
