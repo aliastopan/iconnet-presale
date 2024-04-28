@@ -110,6 +110,16 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
             await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
         }
 
+        if (ActiveTabId == "tab-7") // aging approval
+        {
+            var exportTarget = FilterXlsxAgingApproval(presaleData);
+            var xlsxBytes = WorksheetService.GenerateAgingApprovalXlsxBytes(exportTarget);
+            var base64 = Convert.ToBase64String(xlsxBytes);
+            var fileName = $"Dashboard_AgingApproval_{username}_{dateLabel}.xlsx";
+
+            await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
+        }
+
         LogSwitch.Debug("Export success.");
         IsExportLoading = false;
     }
@@ -201,6 +211,24 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         LogSwitch.Debug("total: {0}", check.Count);
 
         var result = presaleData.Where(x => inclusionIds.Contains(x.ProsesValidasi.SignatureChatCallRespons.AccountIdSignature));
+        LogSwitch.Debug("match: {0}", result.Count());
+
+        return result;
+    }
+
+    protected IQueryable<WorkPaper> FilterXlsxAgingApproval(IQueryable<WorkPaper> presaleData)
+    {
+        if (SessionService.FilterPreference.OperatorPacExclusionModel is null)
+        {
+            return presaleData;
+        }
+
+        HashSet<Guid> inclusionIds = SessionService.FilterPreference.OperatorPacExclusionModel.InclusionIds;
+
+        var check = presaleData.Where(x => !x.ProsesApproval.SignatureApproval.IsEmptySignature()).ToList();
+        LogSwitch.Debug("total: {0}", check.Count);
+
+        var result = presaleData.Where(x => inclusionIds.Contains(x.ProsesApproval.SignatureApproval.AccountIdSignature));
         LogSwitch.Debug("match: {0}", result.Count());
 
         return result;
