@@ -161,7 +161,7 @@ public class ReportService
 
         foreach (var data in presaleData)
         {
-            bool matchInChargeSignature = data.ApprovalOpportunity.SignatureImport.AccountIdSignature == presaleOperator.UserAccountId;
+            bool matchInChargeSignature = data.ApprovalOpportunity.SignatureVerifikasiImport.AccountIdSignature == presaleOperator.UserAccountId;
             bool isDataPastVerification = !data.ApprovalOpportunity.SignatureVerifikasiImport.IsEmptySignature();
 
             if (!matchInChargeSignature || !isDataPastVerification)
