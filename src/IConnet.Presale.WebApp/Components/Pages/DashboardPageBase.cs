@@ -93,8 +93,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 
         HashSet<ApprovalStatus> exclusions = SessionService.FilterPreference.ApprovalStatusExclusion.Exclusion;
 
-        return presaleData
-            .Where(x => !exclusions.Contains(x.ProsesApproval.StatusApproval));
+        return presaleData.Where(x => !exclusions.Contains(x.ProsesApproval.StatusApproval));
     }
 
     protected IQueryable<WorkPaper> FilterXlsxRootCauses(IQueryable<WorkPaper> presaleData)
@@ -120,8 +119,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 
         HashSet<string> inclusions = SessionService.FilterPreference.OperatorPacExclusionModel.Inclusion;
 
-        return presaleData
-            .Where(x => inclusions.Contains(x.ApprovalOpportunity.SignatureImport.GetOnlyUsernameFromAlias()));
+        return presaleData.Where(x => inclusions.Contains(x.ApprovalOpportunity.SignatureImport.GetOnlyUsernameFromAlias()));
     }
 
     public async Task OpenBoundaryFilterDialogAsync()
