@@ -33,6 +33,12 @@
         <FluentCheckbox style="margin-top: 16px;"
             @bind-Value="@IsPageView"
             Label="Page View"/>
+
+        <FluentButton Appearance="Appearance.Accent"
+            style="width: 135px; margin-top: 32px;"
+            IconStart="@(new Icons.Filled.Size20.DocumentArrowDown())"
+            OnClick="@ExportXlsxAsync">
+            Export .xlsx</FluentButton>
     </div>
 
     <div class="d-flex flex-column w-100">
