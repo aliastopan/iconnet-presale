@@ -1,3 +1,12 @@
+## v3.3.0
+- Add: .xlsx Status Approval export
+- Add: .xlsx Root Cause export
+- Add: .xlsx Aging Import export
+- Add: .xlsx Aging Verifikasi export
+- Add: .xlsx Aging Chat/Call Pick-Up export
+- Add: .xlsx Aging Chat/Call Validasi export
+- Add: .xlsx Aging Approval export
+
 ## v3.2.0
 - Fix: Upper boundary filter range
 - Fix: Approval status lower boundary pie chart reference
