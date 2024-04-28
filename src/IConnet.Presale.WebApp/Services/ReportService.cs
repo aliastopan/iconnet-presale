@@ -71,7 +71,7 @@ public class ReportService
             DateTime startDateTime = data.ProsesValidasi.SignatureChatCallMulai.TglAksi;
             DateTime endDateTime = data.ProsesValidasi.WaktuTanggalRespons;
 
-            TimeSpan interval = _intervalCalculatorService.CalculateInterval(startDateTime, endDateTime, excludeFrozenInterval: false);
+            TimeSpan interval = _intervalCalculatorService.CalculateInterval(startDateTime, endDateTime, frozenInterval: false);
 
             agingIntervals.Add(interval);
         }
@@ -116,7 +116,7 @@ public class ReportService
             DateTime startDateTime = data.ApprovalOpportunity.TglPermohonan;
             DateTime endDateTime = data.ApprovalOpportunity.SignatureImport.TglAksi;
 
-            TimeSpan interval = _intervalCalculatorService.CalculateInterval(startDateTime, endDateTime, excludeFrozenInterval: true);
+            TimeSpan interval = _intervalCalculatorService.CalculateInterval(startDateTime, endDateTime, frozenInterval: true);
 
             agingIntervals.Add(interval);
         }
@@ -180,7 +180,7 @@ public class ReportService
             DateTime startDateTime = data.ApprovalOpportunity.SignatureImport.TglAksi;
             DateTime endDateTime = data.ApprovalOpportunity.SignatureVerifikasiImport.TglAksi;
 
-            TimeSpan interval = _intervalCalculatorService.CalculateInterval(startDateTime, endDateTime, excludeFrozenInterval: true);
+            TimeSpan interval = _intervalCalculatorService.CalculateInterval(startDateTime, endDateTime, frozenInterval: true);
 
             agingIntervals.Add(interval);
         }
@@ -231,7 +231,7 @@ public class ReportService
             DateTime startDateTime = data.ApprovalOpportunity.SignatureVerifikasiImport.TglAksi;
             DateTime endDateTime = data.ProsesValidasi.SignatureChatCallMulai.TglAksi;
 
-            TimeSpan interval = _intervalCalculatorService.CalculateInterval(startDateTime, endDateTime, excludeFrozenInterval: true);
+            TimeSpan interval = _intervalCalculatorService.CalculateInterval(startDateTime, endDateTime, frozenInterval: true);
 
             agingIntervals.Add(interval);
         }
@@ -284,7 +284,7 @@ public class ReportService
             DateTime startDateTime = data.ProsesValidasi.WaktuTanggalRespons;
             DateTime endDateTime = data.ProsesValidasi.SignatureChatCallRespons.TglAksi;
 
-            TimeSpan interval = _intervalCalculatorService.CalculateInterval(startDateTime, endDateTime, excludeFrozenInterval: true);
+            TimeSpan interval = _intervalCalculatorService.CalculateInterval(startDateTime, endDateTime, frozenInterval: true);
 
             agingIntervals.Add(interval);
         }
@@ -393,7 +393,7 @@ public class ReportService
                 startDateTime = data.ProsesValidasi.SignatureChatCallMulai.TglAksi.AddDays(notRespondingThreshold);
             }
 
-            TimeSpan interval = _intervalCalculatorService.CalculateInterval(startDateTime, endDateTime, excludeFrozenInterval: true);
+            TimeSpan interval = _intervalCalculatorService.CalculateInterval(startDateTime, endDateTime, frozenInterval: true);
 
             agingIntervals.Add(interval);
         }

@@ -10,9 +10,9 @@ public class IntervalCalculatorService
     }
 
     public TimeSpan CalculateInterval(DateTime startDateTime, DateTime endDateTime,
-        bool excludeFrozenInterval = true)
+        bool frozenInterval = true)
     {
-        if (!excludeFrozenInterval)
+        if (!frozenInterval)
         {
             TimeSpan interval = endDateTime - startDateTime;
 
