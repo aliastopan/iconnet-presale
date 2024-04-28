@@ -7,6 +7,8 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
     [Inject] WorksheetService WorksheetService { get; set; } = default!;
     [Inject] public IJSRuntime JsRuntime { get; set; } = default!;
 
+    private ToastParameters<ProgressToastContent> _progressToastExporting = default!;
+
     private bool _isInitialized = false;
     private bool _firstLoad = true;
     private IQueryable<WorkPaper>? _presaleData;
@@ -36,7 +38,11 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
         }
 
         IsExportLoading = true;
-        StateHasChanged();
+
+        var tabId = Guid.NewGuid();
+
+        ExportProgressToast(tabId);
+        ToastService.ShowProgressToast(_progressToastExporting);
 
         var username = SessionService.GetSessionAlias().ReplaceSpacesWithUnderscores();
         var dateLabel = DateTimeService.GetStringDateToday();
@@ -76,8 +82,8 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
             Log.Warning("Failed to generate Excel file after multiple attempts.");
         }
 
+        ToastService.CloseToast($"{tabId}");
         IsExportLoading = false;
-        StateHasChanged();
     }
 
     protected override void OnInitialized()
@@ -195,6 +201,21 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
         var dialogData = (WorkPaper)result.Data;
 
         await ResetPresaleDataAsync(dialogData);
+    }
+
+    private void ExportProgressToast(Guid tabId)
+    {
+        _progressToastExporting = new()
+        {
+            Id = $"{tabId}",
+            Intent = ToastIntent.Download,
+            Title = "Exporting",
+            Timeout = 15000,
+            Content = new ProgressToastContent()
+            {
+                Details = $"Memuat Laporan ke .xlsx",
+            },
+        };
     }
 
     private async Task ResetPresaleDataAsync(WorkPaper workPaper)

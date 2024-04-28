@@ -6,6 +6,9 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 {
     [Inject] WorksheetService WorksheetService { get; set; } = default!;
     [Inject] public IJSRuntime JsRuntime { get; set; } = default!;
+    [Inject] public IToastService ToastService { get; set; } = default!;
+
+    private ToastParameters<ProgressToastContent> _progressToastExporting = default!;
 
     protected string ActiveTabId { get; set; } = "tab-1";
     protected bool IsBufferLoading => SessionService.FilterPreference.IsBufferLoading;
@@ -36,6 +39,13 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         }
 
         IsExportLoading = true;
+
+        var tabId = Guid.NewGuid();
+
+        ExportProgressToast(tabId);
+        ToastService.ShowProgressToast(_progressToastExporting);
+
+        await Task.Delay(3000);
 
         var boundary = SessionService.FilterPreference.BoundaryFilters[ActiveTabId];
         var presaleData = GetBoundaryPresaleData(boundary);
@@ -130,13 +140,16 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
             }
             default:
             {
+                ToastService.CloseToast($"{tabId}");
                 IsExportLoading = false;
                 return;
             }
         }
 
-        LogSwitch.Debug("Export success.");
+        ToastService.CloseToast($"{tabId}");
         IsExportLoading = false;
+
+        Log.Information("Export success.");
     }
 
     protected IQueryable<WorkPaper> FilterXlsxStatusApprovals(IQueryable<WorkPaper> presaleData)
@@ -420,5 +433,20 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
             default:
                 throw new NotImplementedException();;
         }
+    }
+
+    private void ExportProgressToast(Guid tabId)
+    {
+        _progressToastExporting = new()
+        {
+            Id = $"{tabId}",
+            Intent = ToastIntent.Download,
+            Title = "Exporting",
+            Timeout = 15000,
+            Content = new ProgressToastContent()
+            {
+                Details = $"Memuat Laporan ke .xlsx",
+            },
+        };
     }
 }
