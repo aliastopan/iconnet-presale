@@ -7,6 +7,25 @@ public class DeveloperPageBase : ComponentBase
 
     private bool _init = false;
 
+    public FluentInputFile? FileUploader { get; set; } = default!;
+    public int? ProgressPercent { get; set; }
+    public string? ProgressTitle { get; set;}
+
+    public FluentInputFileEventArgs[] Files { get; set; } = Array.Empty<FluentInputFileEventArgs>();
+
+    public void OnCompleted(IEnumerable<FluentInputFileEventArgs> files)
+    {
+        Files = files.ToArray();
+        ProgressPercent = FileUploader!.ProgressPercent;
+        ProgressTitle = FileUploader!.ProgressTitle;
+
+        // For the demo, delete these files.
+        foreach (var file in Files)
+        {
+            file.LocalFile?.Delete();
+        }
+    }
+
     protected override void OnInitialized()
     {
         if (!_init)

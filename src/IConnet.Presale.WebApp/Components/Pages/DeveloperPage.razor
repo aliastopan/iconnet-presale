@@ -2,8 +2,6 @@
 @inherits DeveloperPageBase
 @rendermode @(InteractiveServer.DisablePreRender())
 
-@using ApexCharts
-
 <PageTitle>Developer Access</PageTitle>
 
 <AuthorizeView Policy="@Policies.DeveloperAccess"
@@ -15,6 +13,80 @@
             <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Dev's Backdoor</FluentLabel>
         </div>
 
+        <FluentTabs @bind-ActiveTabId="@_activeTabId">
+            <FluentTab Id="tab-1">
+                <Header>
+                    <FluentIcon Value="@(new Icons.Regular.Size16.Document())" Color="@Color.Accent"/>
+                    Standard
+                </Header>
+                <Content>
+                    <div style="margin-left: -5px; margin-bottom: 0.5rem;">
+                        <FluentButton Class="m-1"
+                            style="width: 110px;"
+                            Appearance="Appearance.Accent"
+                            IconStart="@(new Icons.Regular.Size20.ArrowImport())">
+                            Import
+                        </FluentButton>
+                    </div>
+                </Content>
+            </FluentTab>
+            <FluentTab Id="tab-2">
+                <Header>
+                    <FluentIcon Value="@(new Icons.Regular.Size16.DocumentAdd())" Color="@Color.Accent"/>
+                    Upload
+                </Header>
+                <Content>
+                    <div style="margin-left: -5px; margin-bottom: 0.5rem;">
+                        <FluentButton Class="m-1"
+                            style="width: 110px;"
+                            Id="CsvUpload"
+                            Appearance="Appearance.Accent"
+                            IconStart="@(new Icons.Regular.Size20.ArrowImport())">
+                            Upload
+                        </FluentButton>
+                    </div>
+                    <div>
+                        <FluentInputFile @ref="@FileUploader"
+                                        DragDropZoneVisible="false"
+                                        Mode="InputFileMode.SaveToTemporaryFolder"
+                                        Multiple="false"
+                                        AnchorId="CsvUpload"
+                                        MaximumFileSize="@(10 * 1024)"
+                                        Accept=".csv"
+                                        OnProgressChange="@(e =>
+                                            {
+                                                ProgressPercent = e.ProgressPercent;
+                                                ProgressTitle = e.ProgressTitle;
+                                            })"
+                                        OnCompleted="@OnCompleted" />
+
+                        <FluentProgress Min="0" Max="100" Visible="@(ProgressPercent > 0)" Value="@ProgressPercent" />
+                        <FluentLabel Alignment="HorizontalAlignment.Center">
+                            @ProgressTitle
+                        </FluentLabel>
+                    </div>
+                    <div>
+                        @if (Files.Any())
+                        {
+                            <h4>File(s) uploaded:</h4>
+                            <ul>
+                                @foreach (var file in Files)
+                                {
+                                    <li>
+                                        <div>@file.Name</div>
+                                        <div>@($"{Decimal.Divide(file.Size, 1024):N} KB")</div>
+                                        <div>@file.ContentType</div>
+                                        <div>@file.LocalFile?.FullName</div>
+                                        <div>@file.ErrorMessage</div>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </div>
+                </Content>
+            </FluentTab>
+    </FluentTabs>
+
     </Authorized>
 
     <NotAuthorized>
@@ -22,3 +94,8 @@
     </NotAuthorized>
 
 </AuthorizeView>
+
+@code
+{
+    private string _activeTabId = "tab-1";
+}
