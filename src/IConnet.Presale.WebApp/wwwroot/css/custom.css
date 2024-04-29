@@ -280,16 +280,19 @@ input:invalid::part(root) {
     padding: 4px;
 }
 
+.verification-options,
 .root-cause-options{
     display: flex;
     flex-direction: column;
 }
 
+.verification-options label,
 .root-cause-options label{
     padding-bottom: 4px;
     font-weight: 600 !important;
 }
 
+.verification-options fluent-button.neutral::part(control),
 .root-cause-options fluent-button.neutral::part(control){
     justify-content: start !important;
 }

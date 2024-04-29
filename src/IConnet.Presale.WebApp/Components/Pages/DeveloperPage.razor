@@ -51,7 +51,7 @@
                                         Mode="InputFileMode.SaveToTemporaryFolder"
                                         Multiple="false"
                                         AnchorId="CsvUpload"
-                                        MaximumFileSize="@(10 * 1024)"
+                                        MaximumFileSize="@MaxFileSize"
                                         Accept=".csv"
                                         OnProgressChange="@(e =>
                                             {

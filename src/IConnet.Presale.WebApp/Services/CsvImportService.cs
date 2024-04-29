@@ -6,10 +6,11 @@ public class CsvImportService
     {
         csv = null;
 
-        using var reader = localFile.OpenText();
+        using StreamReader reader = localFile.OpenText();
 
-        string[]? firstLine = reader.ReadLine()?.Split(',');
+        string[]? firstLine = reader.ReadLine()?.Split(';');
         string? line;
+
 
         if (firstLine == null)
         {
@@ -18,6 +19,8 @@ public class CsvImportService
         }
 
         int totalColumn = firstLine.Length;
+        Log.Information("Column Header: {0}", totalColumn);
+
         var csvData = new List<string[]>
         {
             firstLine

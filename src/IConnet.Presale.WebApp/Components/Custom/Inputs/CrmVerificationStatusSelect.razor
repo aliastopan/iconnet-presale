@@ -1,0 +1,35 @@
+<FluentPopover Style="width: 225px;"
+    AnchorId="verification-status-popover"
+    VerticalPosition="VerticalPosition.Top"
+    @bind-Open="@IsPopoverVisible">
+    <Body>
+        <FluentListbox TOption="string"
+            Items="@VerificationStatusOptions"
+            OptionDisabled="@OptionDisable"
+            Height="@DropdownHeightPx"
+            Width="225px"
+            Value="@VerificationStatus"
+            ValueChanged="OnVerificationStatusChangedAsync"/>
+        <FluentSearch style="width: 225px;"
+            @bind-Value=@VerificationStatusFilter
+            Immediate="true"
+            Spellcheck="false"
+            Placeholder="Status Verifikasi"></FluentSearch>
+    </Body>
+</FluentPopover>
+
+<div class="verification-options">
+    <FluentButton Appearance="Appearance.Neutral"
+        id="verification-status-popover"
+        Disabled="@IsDisabled"
+        style="width: 225px"
+        OnClick="@OpenPopover">
+        @GetDisplayVerificationStatus()</FluentButton>
+</div>
+
+@code
+{
+    private string _greyedOutStyle => IsDisabled
+        ? "color: #d3d3d3; !important"
+        : "";
+}

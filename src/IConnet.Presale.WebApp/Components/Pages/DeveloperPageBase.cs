@@ -4,9 +4,14 @@ public class DeveloperPageBase : ComponentBase
 {
     [Inject] public AppSettingsService AppSettingsService { get; set; } = default!;
     [Inject] public OptionService OptionService { get; set; } = default!;
+    [Inject] public CsvImportService CsvImportService { get; set; } = default!;
 
     private bool _init = false;
 
+    private const int _byte = 1024;
+    private const int _megabyte = 1024 * _byte;
+
+    public int MaxFileSize => 10 * _megabyte;
     public FluentInputFile? FileUploader { get; set; } = default!;
     public int? ProgressPercent { get; set; }
     public string? ProgressTitle { get; set;}
@@ -26,12 +31,22 @@ public class DeveloperPageBase : ComponentBase
             return;
         }
 
-        FluentInputFileEventArgs file = Files.First();
-        FileInfo localFile = file.LocalFile!;
+        FluentInputFileEventArgs fileInput = Files.First();
+        FileInfo fileInfo = fileInput.LocalFile!;
 
-        LogSwitch.Debug("localFile {0}", localFile);
+        bool IsFileCsv = CsvImportService.TryGetCsvFromLocal(fileInfo, out List<string[]>? csv);
 
-        using StreamReader reader = localFile.OpenText();
+
+        // LogSwitch.Debug("localFile {0}", fileInfo);
+
+        // if (fileInfo.Extension.ToLower() != ".csv")
+        // {
+        //     LogSwitch.Debug("Incorrect file format of {0}", fileInfo.Extension);
+
+        //     return;
+        // }
+
+        using StreamReader reader = fileInfo.OpenText();
 
         string? firstLine = reader.ReadLine();
 
