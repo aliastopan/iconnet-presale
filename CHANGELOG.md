@@ -1,3 +1,6 @@
+## v3.3.1
+- Fix: Remove duplicate import on single copy-paste operation
+
 ## v3.3.0
 - Add: .xlsx Status Approval export
 - Add: .xlsx Root Cause export
