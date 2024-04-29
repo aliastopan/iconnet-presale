@@ -20,50 +20,55 @@ public class CsvImportService
         int totalColumn = columnHeader.Length;
         Log.Information("Column Header: {0}", totalColumn);
 
-        var csvData = new List<string[]>
+        if (columnHeader.Length < 28)
         {
-            columnHeader
-        };
+            Log.Warning("Invalid header column count.");
+            return false;
+        }
+
+        List<string[]> csvContent = [];
 
         if (!IsCsvHeaderValid(columnHeader, out (bool isMatch, string column)[] headerChecks))
         {
-            Log.Warning("INVALID CRM CSV");
+            Log.Warning("Invalid CSV");
 
             foreach (var header in headerChecks)
             {
-                Log.Warning("INVALID: {0}", header);
+                Log.Warning("Invalid HEADER: {0}", header);
             }
 
             return false;
         }
         else
         {
-            Log.Information("VALID CSV");
+            Log.Information("Valid CSV");
         }
 
         while ((line = reader.ReadLine()) != null)
         {
-            var values = line.Split(';');
-            if (values.Length == totalColumn)
+            var row = line.Split(';');
+            if (row.Length == totalColumn)
             {
-                csvData.Add(values);
+                if (IsCsvRowValid(row))
+                {
+                    csvContent.Add(row);
+                }
             }
             else
             {
-                // If we encounter a line with an incorrect number of values,
-                // we return false immediately without processing any more lines.
+                Log.Warning("Invalid row count");
                 csv = null;
 
                 return false;
             }
         }
 
-        csv = csvData;
+        csv = csvContent;
 
         return true;
     }
 
-    public bool IsCsvHeaderValid(string[] header, out (bool isMatch, string column)[] headerChecks)
+    private static  bool IsCsvHeaderValid(string[] header, out (bool isMatch, string column)[] headerChecks)
     {
         headerChecks =
         [
@@ -102,7 +107,37 @@ public class CsvImportService
         return headerChecks.All(tuple => tuple.isMatch);
     }
 
-    public (bool, string) ValidateHeader(string value, string expected)
+    private static  bool IsCsvRowValid(string[] column)
+    {
+        bool[] columnChecks =
+        [
+            column[0].HasValue(),   // ID PERMOHONAN
+            column[1].HasValue(),   // TGL PERMOHONAN
+            column[3].HasValue(),   // NAMA PEMOHON
+            column[4].HasValue(),   // ID PLN
+            column[5].HasValue(),   // LAYANAN
+            column[8].HasValue(),   // NAMA AGEN
+            column[9].HasValue(),   // EMAIL AGEN
+            column[10].HasValue(),  // MITRA AGEN
+            column[12].HasValue(),  // SPLITTER
+            column[14].HasValue(),  // TELEPON PEMOHON
+            column[15].HasValue(),  // EMAIL PEMOHON
+            column[19].HasValue(),  // ALAMAT
+            column[20].HasValue(),  // REGIONAL
+            column[21].HasValue(),  // KANTOR PERWAKILAN
+            column[22].HasValue(),  // PROVINSI
+            column[23].HasValue(),  // KABUPATEN
+            column[24].HasValue(),  // KECAMATAN
+            column[25].HasValue(),  // KELURAHAN
+            column[26].HasValue(),  // LATITUDE
+            column[27].HasValue(),  // LONGITUDE
+        ];
+
+        return columnChecks.All(row => row);
+
+    }
+
+    private static (bool, string) ValidateHeader(string value, string expected)
     {
         var result = (string.Equals(value, expected, StringComparison.OrdinalIgnoreCase), expected);
 

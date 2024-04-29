@@ -44,10 +44,14 @@ public class DeveloperPageBase : ComponentBase
             LogSwitch.Debug("file type {0}", fileInput.ContentType);
         }
 
-
         bool IsFileCsv = CsvImportService.TryGetCsvFromLocal(fileInfo, out List<string[]>? csv);
 
+        if (!IsFileCsv || csv is null)
+        {
+            return;
+        }
 
+        LogSwitch.Debug("CSV {0} rows", csv.Count);
 
         // if (fileInfo.Extension.ToLower() != ".csv")
         // {
