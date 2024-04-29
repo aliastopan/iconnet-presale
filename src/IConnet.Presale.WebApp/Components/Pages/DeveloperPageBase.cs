@@ -34,10 +34,20 @@ public class DeveloperPageBase : ComponentBase
         FluentInputFileEventArgs fileInput = Files.First();
         FileInfo fileInfo = fileInput.LocalFile!;
 
+        if (fileInput.ContentType != "text/csv")
+        {
+            LogSwitch.Debug("incorrect file type {0}", fileInput.ContentType);
+            return;
+        }
+        else
+        {
+            LogSwitch.Debug("file type {0}", fileInput.ContentType);
+        }
+
+
         bool IsFileCsv = CsvImportService.TryGetCsvFromLocal(fileInfo, out List<string[]>? csv);
 
 
-        // LogSwitch.Debug("localFile {0}", fileInfo);
 
         // if (fileInfo.Extension.ToLower() != ".csv")
         // {
@@ -46,19 +56,19 @@ public class DeveloperPageBase : ComponentBase
         //     return;
         // }
 
-        using StreamReader reader = fileInfo.OpenText();
+        // using StreamReader reader = fileInfo.OpenText();
 
-        string? firstLine = reader.ReadLine();
+        // string? firstLine = reader.ReadLine();
 
-        if (firstLine != null)
-        {
-            CsvHeader = firstLine;
-            LogSwitch.Debug(firstLine);
-        }
-        else
-        {
-            LogSwitch.Debug("File is empty.");
-        }
+        // if (firstLine != null)
+        // {
+        //     CsvHeader = firstLine;
+        //     LogSwitch.Debug(firstLine);
+        // }
+        // else
+        // {
+        //     LogSwitch.Debug("File is empty.");
+        // }
 
 
         // delete this later
