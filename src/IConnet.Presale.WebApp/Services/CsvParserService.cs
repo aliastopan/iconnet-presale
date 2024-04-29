@@ -1,6 +1,6 @@
 namespace IConnet.Presale.WebApp.Services;
 
-public class CsvImportService
+public class CsvParserService
 {
     public bool TryGetCsvFromLocal(FileInfo localFile, out List<string[]>? csv)
     {

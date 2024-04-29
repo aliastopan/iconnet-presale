@@ -46,7 +46,7 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddScoped<BroadcastService>();
     services.AddScoped<SqlPushService>();
     services.AddTransient<CrmImportService>();
-    services.AddTransient<CsvImportService>();
+    services.AddTransient<CsvParserService>();
 
     services.AddRazorComponents()
             .AddInteractiveServerComponents();

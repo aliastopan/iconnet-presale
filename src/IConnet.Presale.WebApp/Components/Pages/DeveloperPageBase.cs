@@ -4,7 +4,8 @@ public class DeveloperPageBase : ComponentBase
 {
     [Inject] public AppSettingsService AppSettingsService { get; set; } = default!;
     [Inject] public OptionService OptionService { get; set; } = default!;
-    [Inject] public CsvImportService CsvImportService { get; set; } = default!;
+    [Inject] public CsvParserService CsvParserService { get; set; } = default!;
+    [Inject] public CrmImportService CrmImportService { get; init; } = default!;
 
     private bool _init = false;
 
@@ -44,7 +45,7 @@ public class DeveloperPageBase : ComponentBase
             LogSwitch.Debug("file type {0}", fileInput.ContentType);
         }
 
-        bool IsFileCsv = CsvImportService.TryGetCsvFromLocal(fileInfo, out List<string[]>? csv);
+        bool IsFileCsv = CsvParserService.TryGetCsvFromLocal(fileInfo, out List<string[]>? csv);
 
         if (!IsFileCsv || csv is null)
         {
