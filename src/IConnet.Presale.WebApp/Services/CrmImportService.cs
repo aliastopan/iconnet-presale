@@ -5,7 +5,7 @@ namespace IConnet.Presale.WebApp.Services;
 public sealed class CrmImportService
 {
     private const int NumberOfColumn = 28;
-    private readonly List<IApprovalOpportunityModel> _importModels;
+    private List<IApprovalOpportunityModel> _importModels;
     private readonly IDateTimeService _dateTimeService;
     private readonly SessionService _sessionService;
 
@@ -54,7 +54,10 @@ public sealed class CrmImportService
             importModels.Add(importModel);
         }
 
+        var hashSetIds = new HashSet<string>();
+
         _importModels.AddRange(importModels);
+        _importModels = _importModels.Where(model => hashSetIds.Add(model.IdPermohonan)).ToList();
 
         return (_importModels, importMetadata);
     }
