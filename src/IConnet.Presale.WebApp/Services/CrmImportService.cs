@@ -62,6 +62,33 @@ public sealed class CrmImportService
         return (_importModels, importMetadata);
     }
 
+    public async Task<(List<IApprovalOpportunityModel>, CrmImportMetadata)> ImportFromCsvAsync(List<string[]> csvInputs)
+    {
+        var importModels = new List<ImportModel>();
+        var importMetadata = new CrmImportMetadata();
+
+        foreach (var rowData in csvInputs)
+        {
+            var importModel = await CreateImportModelAsync(rowData);
+
+            var hasDuplicate = _importModels.Any(crm => crm.IdPermohonan == importModel.IdPermohonan);
+            if (hasDuplicate)
+            {
+                importMetadata.NumberOfDuplicates++;
+                continue;
+            }
+
+            importModels.Add(importModel);
+        }
+
+        var hashSetIds = new HashSet<string>();
+
+        _importModels.AddRange(importModels);
+        _importModels = _importModels.Where(model => hashSetIds.Add(model.IdPermohonan)).ToList();
+
+        return (_importModels, importMetadata);
+    }
+
     private async Task<ImportModel> CreateImportModelAsync(string[] column)
     {
         return new ImportModel
