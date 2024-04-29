@@ -16,28 +16,14 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
 
     private bool _isInitialized;
 
-    protected Func<string, bool> OptionDisable => option => option == OptionSelect.StatusVerifikasi.MenungguVerifikasi
-        && StatusVerifikasi != OptionSelect.StatusVerifikasi.MenungguVerifikasi;
-
     protected bool DisableSaveButton => StatusVerifikasi != OptionSelect.StatusVerifikasi.DataSesuai || JarakICrmPlusVerification <= 0;
     protected bool DisableRejectButton => StatusVerifikasi == OptionSelect.StatusVerifikasi.MenungguVerifikasi || StatusVerifikasi == OptionSelect.StatusVerifikasi.DataSesuai;
-    // protected bool DisableRejectButton => StatusVerifikasi != OptionSelect.StatusVerifikasi.DataTidakSesuai;
-
-    protected IEnumerable<string> AvailableStatusOptions => GetVerificationStatusStack();
 
     public int JarakICrmPlusVerification { get; set; }
     public string Keterangan { get; set; } = string.Empty;
     public string StatusVerifikasi = OptionSelect.StatusVerifikasi.MenungguVerifikasi;
     public string DirectApproval { get; set; } = string.Empty;
     public bool IsDirectApproval { get; set; }
-
-    public IEnumerable<string> GetVerificationStatusStack()
-    {
-        IEnumerable<string> topLevelOptions = OptionSelect.StatusVerifikasi.StatusVerifikasiOptions;
-        IEnumerable<string> rootCauseOptions = OptionService.RootCauseOnVerificationOptions;
-
-        return topLevelOptions.Concat(rootCauseOptions).ToList();
-    }
 
     protected void OnJarakICrmChanged(int jarakShareLoc)
     {

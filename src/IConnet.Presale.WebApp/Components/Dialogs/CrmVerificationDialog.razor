@@ -1,3 +1,5 @@
+@using IConnet.Presale.WebApp.Components.Custom.Inputs
+
 <FluentDialogHeader ShowDismiss="false">
     <FluentStack VerticalAlignment="VerticalAlignment.Center">
         <FluentIcon Value="@(new Icons.Regular.Size24.DocumentCheckmark())" />
@@ -198,12 +200,9 @@
                         STATUS
                     </th>
                     <td style="padding: 8px 0;">
-                        <FluentSelect Items="@AvailableStatusOptions"
-                            Value="@StatusVerifikasi"
-                            ValueChanged="OnStatusVerifikasiChanged"
-                            OptionDisabled="@OptionDisable"
-                            Position="SelectPosition.Above"
-                            Width="200px" />
+                        <CrmVerificationStatusSelect IsDisabled="false"
+                            VerificationStatus="@StatusVerifikasi"
+                            OnSelectedVerificationStatusChanged="OnStatusVerifikasiChanged"/>
                     </td>
                 </tr>
                 <tr>
