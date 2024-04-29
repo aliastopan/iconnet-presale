@@ -1,4 +1,4 @@
-<FluentPopover Style="width: 200px;"
+<FluentPopover Style="width: 225px;"
     AnchorId="verification-status-popover"
     VerticalPosition="VerticalPosition.Top"
     @bind-Open="@IsPopoverVisible">
@@ -7,10 +7,10 @@
             Items="@VerificationStatusOptions"
             OptionDisabled="@OptionDisable"
             Height="@DropdownHeightPx"
-            Width="200px"
+            Width="225px"
             Value="@VerificationStatus"
             ValueChanged="OnVerificationStatusChangedAsync"/>
-        <FluentSearch style="width: 200px;"
+        <FluentSearch style="width: 225px;"
             @bind-Value=@VerificationStatusFilter
             Immediate="true"
             Spellcheck="false"
@@ -22,7 +22,7 @@
     <FluentButton Appearance="Appearance.Neutral"
         id="verification-status-popover"
         Disabled="@IsDisabled"
-        style="width: 200px"
+        style="width: 225px"
         OnClick="@OpenPopover">
         @GetDisplayVerificationStatus()</FluentButton>
 </div>

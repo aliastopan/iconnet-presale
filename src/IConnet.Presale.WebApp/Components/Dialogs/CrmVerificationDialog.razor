@@ -27,7 +27,9 @@
             <thead>
                 <tr>
                     <th style="padding-right: 1rem; width: 200px;">ID PERMOHONAN</th>
-                    <td>@Content.ApprovalOpportunity.IdPermohonan</td>
+                    <td style="width: 250px;">
+                        @Content.ApprovalOpportunity.IdPermohonan
+                    </td>
                 </tr>
                 <tr>
                     <th style="padding-right: 1rem; width: 200px;">TGL PERMOHONAN</th>
@@ -176,7 +178,7 @@
                         JARAK iCRM+ (meter)
                     </th>
                     <td style="padding-top: 8px;">
-                        <FluentNumberField style="width: 200px;"
+                        <FluentNumberField style="width: 225px;"
                             Min="0"
                             Max="500"
                             Value=@JarakICrmPlusVerification
@@ -189,7 +191,7 @@
                         KETERANGAN
                     </th>
                     <td>
-                        <FluentTextArea class="approval-textarea" style="width: 200px; padding: 8px 0"
+                        <FluentTextArea class="approval-textarea" style="width: 225px; padding: 8px 0"
                             Value="@Keterangan"
                             ValueChanged="OnKeteranganChanged"
                             Placeholder="Keterangan"></FluentTextArea>
@@ -222,7 +224,7 @@
                             Value="@DirectApproval"
                             ValueChanged="OnDirectApprovalChanged"
                             Disabled="@(!IsDirectApproval)"
-                            Width="200px" />
+                            Width="225px" />
                     </td>
                 </tr>
             </thead>
