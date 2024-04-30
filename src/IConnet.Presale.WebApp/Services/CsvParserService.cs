@@ -1,3 +1,5 @@
+using ClosedXML.Excel;
+
 namespace IConnet.Presale.WebApp.Services;
 
 public class CsvParserService
@@ -57,12 +59,59 @@ public class CsvParserService
             }
         }
 
+        var tglPermohonanString = GetTglPermohonanString(csvContent);
+        var isAllValid = ValidateTglPermohonanString(tglPermohonanString);
+
+        if(!isAllValid)
+        {
+            errorMessage = "Konten file .csv terdapat format TGL PERMOHONAN yang tidak valid";
+            csv = null;
+
+            return false;
+        }
+
         csv = csvContent;
 
         return true;
     }
 
-    private static  bool IsCsvHeaderValid(string[] header, out (bool isMatch, string column)[] headerChecks)
+    private static List<string> GetTglPermohonanString(List<string[]> csv)
+    {
+        List<string> result = [];
+
+        foreach (string[] row in csv)
+        {
+            result.Add(row[1]);
+        }
+
+        return result;
+    }
+
+    public static bool ValidateTglPermohonanString(List<string> tglPermohonanString)
+    {
+        string[] formats = ["yyyy-MM-dd HH:mm", "dd/MM/yyyy HH:mm"];
+
+        foreach (string tglPermohonan in tglPermohonanString)
+        {
+            string[] elements = tglPermohonan.Split(',');
+
+            if (elements.Length < 2)
+            {
+                return false;
+            }
+
+            string dateTimeString = elements[1].Trim();
+
+            if (!DateTime.TryParseExact(dateTimeString, formats, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out _))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static bool IsCsvHeaderValid(string[] header, out (bool isMatch, string column)[] headerChecks)
     {
         headerChecks =
         [

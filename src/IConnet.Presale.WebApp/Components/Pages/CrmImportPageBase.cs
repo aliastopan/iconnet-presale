@@ -68,7 +68,7 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
 
         if (!IsFileCsv || csv is null)
         {
-            CsvParsingResultToast(errorMessage);
+            FailedCsvParsingToast(errorMessage);
 
             return;
         }
@@ -178,12 +178,13 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
         }
     }
 
-    private void CsvParsingResultToast(string errorMessage)
+    private void FailedCsvParsingToast(string errorMessage)
     {
         var intent = ToastIntent.Error;
-        var message = $"Proses import .csv gagal: {errorMessage}";
+        var message = $"Proses import .csv gagal. {errorMessage}";
+        var timeout = 15000;
 
-        ToastService.ShowToast(intent, message);
+        ToastService.ShowToast(intent, message, timeout: timeout);
     }
 
     private void ImportResultToast()
