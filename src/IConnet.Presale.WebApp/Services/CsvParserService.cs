@@ -266,7 +266,7 @@ public class CsvParserService
         worksheet.Cell(2, 14).Value = "";
         worksheet.Cell(2, 15).Value = "6281331359720";
         worksheet.Cell(2, 16).Value = "andy.wijaya@gmail.com";
-        worksheet.Cell(2, 17).Value = "";
+        worksheet.Cell(2, 17).Value = "3500000000000000";
         worksheet.Cell(2, 18).Value = "";
         worksheet.Cell(2, 19).Value = "INI DUMMY DATA";
         worksheet.Cell(2, 20).Value = "Jl. Ahmad Yani No.88, Ketintang, Kec. Gayungan, Surabaya, Jawa Timur 60231";
