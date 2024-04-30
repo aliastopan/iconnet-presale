@@ -95,6 +95,8 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
 
     protected async Task UploadAsync(IEnumerable<FluentInputFileEventArgs> files)
     {
+        IsLoading = true;
+
         Files = files.ToArray();
         ProgressPercent = FileUploader!.ProgressPercent;
         ProgressTitle = FileUploader!.ProgressTitle;
