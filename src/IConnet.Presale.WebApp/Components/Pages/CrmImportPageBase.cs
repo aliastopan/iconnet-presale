@@ -64,10 +64,12 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
             UploadResultToast(fileInput, isSuccess: true);
         }
 
-        bool IsFileCsv = CsvParserService.TryGetCsvFromLocal(fileInfo, out List<string[]>? csv);
+        bool IsFileCsv = CsvParserService.TryGetCsvFromLocal(fileInfo, out List<string[]>? csv, out string errorMessage);
 
         if (!IsFileCsv || csv is null)
         {
+            CsvParsingResultToast(errorMessage);
+
             return;
         }
 
@@ -174,6 +176,14 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
 
             ToastService.ShowToast(intent, message);
         }
+    }
+
+    private void CsvParsingResultToast(string errorMessage)
+    {
+        var intent = ToastIntent.Error;
+        var message = $"Proses import .csv gagal: {errorMessage}";
+
+        ToastService.ShowToast(intent, message);
     }
 
     private void ImportResultToast()

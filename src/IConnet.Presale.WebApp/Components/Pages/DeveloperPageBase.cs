@@ -45,7 +45,7 @@ public class DeveloperPageBase : ComponentBase
             LogSwitch.Debug("file type {0}", fileInput.ContentType);
         }
 
-        bool IsFileCsv = CsvParserService.TryGetCsvFromLocal(fileInfo, out List<string[]>? csv);
+        bool IsFileCsv = CsvParserService.TryGetCsvFromLocal(fileInfo, out List<string[]>? csv, out var _);
 
         if (!IsFileCsv || csv is null)
         {

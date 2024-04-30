@@ -2,9 +2,10 @@ namespace IConnet.Presale.WebApp.Services;
 
 public class CsvParserService
 {
-    public bool TryGetCsvFromLocal(FileInfo localFile, out List<string[]>? csv)
+    public bool TryGetCsvFromLocal(FileInfo localFile, out List<string[]>? csv, out string errorMessage)
     {
         csv = null;
+        errorMessage = string.Empty;
 
         using StreamReader reader = localFile.OpenText();
 
@@ -13,16 +14,16 @@ public class CsvParserService
 
         if (columnHeader == null)
         {
-            Log.Warning("File is empty.");
+            errorMessage = "File .csv tidak memiliki Header";
             return false;
         }
 
         int totalColumn = columnHeader.Length;
-        Log.Information("Column Header: {0}", totalColumn);
 
         if (columnHeader.Length < 28)
         {
-            Log.Warning("Invalid header column count.");
+            errorMessage = "File .csv terdapat Header tidak valid";
+
             return false;
         }
 
@@ -30,18 +31,11 @@ public class CsvParserService
 
         if (!IsCsvHeaderValid(columnHeader, out (bool isMatch, string column)[] headerChecks))
         {
-            Log.Warning("Invalid CSV");
+            var invalidHeader = headerChecks.FirstOrDefault().column;
 
-            foreach (var header in headerChecks)
-            {
-                Log.Warning("Invalid HEADER: {0}", header);
-            }
+            errorMessage = $"File .csv terdapat Header tidak valid: '{invalidHeader}'";
 
             return false;
-        }
-        else
-        {
-            Log.Information("Valid CSV");
         }
 
         while ((line = reader.ReadLine()) != null)
@@ -56,7 +50,7 @@ public class CsvParserService
             }
             else
             {
-                Log.Warning("Invalid row count");
+                errorMessage = "Konten file .csv terdapat baris yang tidak valid";
                 csv = null;
 
                 return false;
