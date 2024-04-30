@@ -50,7 +50,7 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
         (List<IApprovalOpportunityModel> importModels, CrmImportMetadata importMetadata) result;
         result = await CrmImportService.ImportAsync(clipboard);
 
-        _importModels = CrmImportService.GetApprovalOpportunities();;
+        _importModels = CrmImportService.GetApprovalOpportunities();
 
         var (importCount , duplicateIds) = await WorkloadManager.InsertWorkloadAsync(result.importModels);
 
