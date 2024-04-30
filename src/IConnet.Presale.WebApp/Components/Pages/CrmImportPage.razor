@@ -52,6 +52,14 @@
                                 Download .xlsx Template
                             </FluentButton>
                         </div>
+                        <div style="margin-left: 4px; margin-top: 6px">
+                            <FluentIcon Value="@(new Icons.Regular.Size28.QuestionCircle())"
+                                OnClick="OpenImportGuideDialogAsync"/>
+                            @* <FluentButton Appearance="Appearance.Lightweight"
+                                IconEnd="@(new Icons.Filled.Size24.QuestionCircle())"
+                                Title="Petunjuk"
+                                OnClick="OpenImportGuideDialogAsync"/> *@
+                        </div>
                     </div>
                     <div>
                         <FluentInputFile @ref="@FileUploader"

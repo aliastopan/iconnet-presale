@@ -1,0 +1,35 @@
+<FluentDialogHeader ShowDismiss="false">
+    <FluentStack VerticalAlignment="VerticalAlignment.Center">
+        <FluentIcon Value="@(new Icons.Regular.Size24.DocumentCopy())" Color="@Color.Accent" />
+        <FluentLabel Typo="Typography.PaneHeader">
+            @Dialog.Instance.Parameters.Title
+        </FluentLabel>
+    </FluentStack>
+</FluentDialogHeader>
+
+<div class="d-flex flex-column">
+    <div>
+        1. Download <span class="fw-bold">PresaleApp_Import_Template.xlsx</span> template.
+    </div>
+    <div>
+        2. Buka template di <span class="fw-bold">Microsoft Excel</span>.
+    </div>
+    <div>
+        3. Hapus dan gunakan kolom pertama template sebagai susunan data Approval Opportunity.
+    </div>
+    <div>
+        4. <span class="fw-bold">Copy</span> dan <span class="fw-bold">Paste</span> data Approval Opportunity sesuai dengan kolom header yang telah ditentukan.
+    </div>
+    <div>
+        5. <span class="fw-bold">Export</span> file sebagai <span class="fw-bold">CSV</span> (Comma delimited) (*.csv).
+    </div>
+    <div>
+        6. Upload file <span class="fw-bold">CSV</span> ke <span class="fw-bold">Presale Application</span>.
+    </div>
+</div>
+
+<FluentDialogFooter>
+    <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.End">
+        <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Tutup</FluentButton>
+    </FluentStack>
+</FluentDialogFooter>

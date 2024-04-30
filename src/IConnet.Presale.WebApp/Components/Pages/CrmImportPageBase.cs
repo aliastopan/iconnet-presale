@@ -1,3 +1,5 @@
+using IConnet.Presale.WebApp.Components.Dialogs;
+
 namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class CrmImportPageBase : ComponentBase, IPageNavigation
@@ -9,6 +11,7 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
     [Inject] public CrmImportService CrmImportService { get; init; } = default!;
     [Inject] public CsvParserService CsvParserService { get; set; } = default!;
     [Inject] public IToastService ToastService { get; set; } = default!;
+    [Inject] public IDialogService DialogService { get; set; } = default!;
 
     private readonly ImportModelColumnWidth _columnWidth = new();
     private const int _itemPerPage = 10;
@@ -91,6 +94,19 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
     protected bool HasDuplicate(string idPermohonan)
     {
         return DuplicateIds.Contains(idPermohonan);
+    }
+
+    protected async Task OpenImportGuideDialogAsync()
+    {
+        var parameters = new DialogParameters()
+        {
+            Title = "Petujuk Upload Import",
+            TrapFocus = true,
+            Width = "650px",
+        };
+
+        var dialog = await DialogService.ShowDialogAsync<CsvImportGuideDialog>(parameters);
+        // var result = await dialog.Result;
     }
 
     protected async Task UploadAsync(IEnumerable<FluentInputFileEventArgs> files)
