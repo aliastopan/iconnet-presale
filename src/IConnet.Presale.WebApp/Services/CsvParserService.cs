@@ -1,4 +1,5 @@
 using ClosedXML.Excel;
+using System.Globalization;
 
 namespace IConnet.Presale.WebApp.Services;
 
@@ -91,18 +92,9 @@ public class CsvParserService
     {
         string[] formats = ["yyyy-MM-dd HH:mm", "dd/MM/yyyy HH:mm"];
 
-        foreach (string tglPermohonan in tglPermohonanString)
+        foreach (string dateTimeString in tglPermohonanString)
         {
-            string[] elements = tglPermohonan.Split(',');
-
-            if (elements.Length < 2)
-            {
-                return false;
-            }
-
-            string dateTimeString = elements[1].Trim();
-
-            if (!DateTime.TryParseExact(dateTimeString, formats, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out _))
+            if (!DateTime.TryParseExact(dateTimeString, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
             {
                 return false;
             }
