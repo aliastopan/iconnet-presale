@@ -253,9 +253,9 @@ public class CsvParserService
         worksheet.Cell(2, 1).Value = "B14102403150015";
         worksheet.Cell(2, 2).Value = DateTime.Now.AddHours(-1).ToString("dd/MM/yyyy HH:mm");
         worksheet.Cell(2, 3).Value = "1 Jam";
-        worksheet.Cell(2, 4).Value = "ANDI WIJAYA";
+        worksheet.Cell(2, 4).Value = "ANDI WIJAYA - DATA SAMPLE";
         worksheet.Cell(2, 5).Value = "911630073603";
-        worksheet.Cell(2, 6).Value = "ICONNET-35 MBPS";
+        worksheet.Cell(2, 6).Value = "ICONNET-1 GBPS";
         worksheet.Cell(2, 7).Value = "CRMMOBILE";
         worksheet.Cell(2, 8).Value = "NEGOTIATION";
         worksheet.Cell(2, 9).Value = "AWANG S. PUTRA";
@@ -268,7 +268,7 @@ public class CsvParserService
         worksheet.Cell(2, 16).Value = "andy.wijaya@gmail.com";
         worksheet.Cell(2, 17).Value = "3500000000000000";
         worksheet.Cell(2, 18).Value = "";
-        worksheet.Cell(2, 19).Value = "INI DUMMY DATA";
+        worksheet.Cell(2, 19).Value = "INI DATA SAMPLE";
         worksheet.Cell(2, 20).Value = "Jl. Ahmad Yani No.88, Ketintang, Kec. Gayungan, Surabaya, Jawa Timur 60231";
         worksheet.Cell(2, 21).Value = "JAWA BAGIAN TIMUR";
         worksheet.Cell(2, 22).Value = "SURABAYA";
