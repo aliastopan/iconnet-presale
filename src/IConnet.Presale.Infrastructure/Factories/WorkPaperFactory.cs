@@ -47,7 +47,7 @@ internal sealed class WorkPaperFactory
             Regional = new Regional
             {
                 Bagian = importModel.Regional,
-                KantorPerwakilan = importModel.KantorPerwakilan,
+                KantorPerwakilan = importModel.KantorPerwakilan.ToUpper(),
                 Provinsi = importModel.Provinsi,
                 Kabupaten = importModel.Kabupaten,
                 Kecamatan = importModel.Kecamatan,
