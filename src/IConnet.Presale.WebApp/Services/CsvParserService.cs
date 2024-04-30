@@ -150,7 +150,7 @@ public class CsvParserService
         return headerChecks.All(tuple => tuple.isMatch);
     }
 
-    private static  bool IsCsvRowValid(string[] column)
+    private static bool IsCsvRowValid(string[] column)
     {
         bool[] columnChecks =
         [
@@ -160,8 +160,6 @@ public class CsvParserService
             column[4].HasValue(),   // ID PLN
             column[5].HasValue(),   // LAYANAN
             column[8].HasValue(),   // NAMA AGEN
-            column[9].HasValue(),   // EMAIL AGEN
-            column[10].HasValue(),  // MITRA AGEN
             column[12].HasValue(),  // SPLITTER
             column[14].HasValue(),  // TELEPON PEMOHON
             column[15].HasValue(),  // EMAIL PEMOHON
