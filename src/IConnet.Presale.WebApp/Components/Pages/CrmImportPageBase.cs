@@ -39,6 +39,60 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
     protected int? ProgressPercent { get; set; }
     protected string? ProgressTitle { get; set;}
 
+    public TabNavigationModel PageDeclaration()
+    {
+        return new TabNavigationModel("crm-import", PageNavName.CrmImport, PageRoute.CrmImport);
+    }
+
+    protected override void OnInitialized()
+    {
+        TabNavigationManager.SelectTab(this);
+
+        base.OnInitialized();
+    }
+
+    protected async Task CrmImportAsync()
+    {
+        IsLoading = true;
+
+        string clipboard = await PasteClipboardAsync();
+
+        (List<IApprovalOpportunityModel> importModels, CrmImportMetadata importMetadata) result;
+        result = await CrmImportService.ImportAsync(clipboard);
+
+        _importModels = CrmImportService.GetApprovalOpportunities();
+
+        var (importCount , duplicateIds) = await WorkloadManager.InsertWorkloadAsync(result.importModels);
+
+        ImportCount = importCount;
+        _duplicateIds = duplicateIds;
+
+        _importMetadata = result.importMetadata;
+
+        _importMetadata.NumberOfDuplicates = _importMetadata.NumberOfRows - ImportCount;
+
+        if (_importMetadata.IsValidImport && ImportCount > 0)
+        {
+            var broadcastMessage = $"{ImportCount} CRM data has been imported.";
+            await BroadcastService.BroadcastMessageAsync(broadcastMessage);
+        }
+
+        _columnWidth.SetColumnWidth(ImportModels);
+
+        IsLoading = false;
+        ImportResultToast();
+    }
+
+    protected async Task<string> PasteClipboardAsync()
+    {
+        return await JsRuntime.InvokeAsync<string>("readClipboard");
+    }
+
+    protected bool HasDuplicate(string idPermohonan)
+    {
+        return DuplicateIds.Contains(idPermohonan);
+    }
+
     protected async Task UploadAsync(IEnumerable<FluentInputFileEventArgs> files)
     {
         Files = files.ToArray();
@@ -103,61 +157,6 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
             any.LocalFile?.Delete();
         }
     }
-
-    public TabNavigationModel PageDeclaration()
-    {
-        return new TabNavigationModel("crm-import", PageNavName.CrmImport, PageRoute.CrmImport);
-    }
-
-    protected override void OnInitialized()
-    {
-        TabNavigationManager.SelectTab(this);
-
-        base.OnInitialized();
-    }
-
-    protected async Task CrmImportAsync()
-    {
-        IsLoading = true;
-
-        string clipboard = await PasteClipboardAsync();
-
-        (List<IApprovalOpportunityModel> importModels, CrmImportMetadata importMetadata) result;
-        result = await CrmImportService.ImportAsync(clipboard);
-
-        _importModels = CrmImportService.GetApprovalOpportunities();
-
-        var (importCount , duplicateIds) = await WorkloadManager.InsertWorkloadAsync(result.importModels);
-
-        ImportCount = importCount;
-        _duplicateIds = duplicateIds;
-
-        _importMetadata = result.importMetadata;
-
-        _importMetadata.NumberOfDuplicates = _importMetadata.NumberOfRows - ImportCount;
-
-        if (_importMetadata.IsValidImport && ImportCount > 0)
-        {
-            var broadcastMessage = $"{ImportCount} CRM data has been imported.";
-            await BroadcastService.BroadcastMessageAsync(broadcastMessage);
-        }
-
-        _columnWidth.SetColumnWidth(ImportModels);
-
-        IsLoading = false;
-        ImportResultToast();
-    }
-
-    protected async Task<string> PasteClipboardAsync()
-    {
-        return await JsRuntime.InvokeAsync<string>("readClipboard");
-    }
-
-    protected bool HasDuplicate(string idPermohonan)
-    {
-        return DuplicateIds.Contains(idPermohonan);
-    }
-
 
     private void UploadResultToast(FluentInputFileEventArgs fileInput, bool isSuccess)
     {
