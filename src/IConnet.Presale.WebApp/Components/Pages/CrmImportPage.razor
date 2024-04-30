@@ -11,15 +11,74 @@
         <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Import CRM</FluentLabel>
         <div class="d-flex flex-column align-items-start">
             <span class="page-description">Import iCRM+ data ke aplikasi Presale</span>
-            <div style="margin-left: -5px; margin-bottom: 0.5rem;">
-                <FluentButton Class="m-1"
-                    Appearance="Appearance.Accent"
-                    IconStart="@(new Icons.Regular.Size20.ArrowImport())"
-                    OnClick="@CrmImportAsync">
-                    Import
-                </FluentButton>
-            </div>
         </div>
+
+        <FluentTabs @bind-ActiveTabId="@_activeTabId">
+            <FluentTab Id="tab-1">
+                <Header>
+                    <FluentIcon Value="@(new Icons.Regular.Size16.Document())" Color="@Color.Accent"/>
+                    Standard
+                </Header>
+                <Content>
+                    <div style="margin-left: -5px; margin-bottom: 0.5rem;">
+                        <FluentButton Class="m-1"
+                            style="width: 100px;"
+                            Appearance="Appearance.Accent"
+                            IconStart="@(new Icons.Filled.Size20.ClipboardPaste())"
+                            OnClick="@CrmImportAsync">
+                            Import
+                        </FluentButton>
+                    </div>
+                </Content>
+            </FluentTab>
+            <FluentTab Id="tab-2">
+                <Header>
+                    <FluentIcon Value="@(new Icons.Regular.Size16.DocumentAdd())" Color="@Color.Accent"/>
+                    Upload
+                </Header>
+                <Content>
+                    <div style="margin-left: -5px; margin-bottom: 0.5rem;">
+                        <FluentButton Class="m-1"
+                            style="width: 100px;"
+                            Id="CsvUpload"
+                            Appearance="Appearance.Accent">
+                            Upload .csv
+                        </FluentButton>
+                    </div>
+                    <div>
+                        <FluentInputFile @ref="@FileUploader"
+                                        DragDropZoneVisible="false"
+                                        Mode="InputFileMode.SaveToTemporaryFolder"
+                                        Multiple="false"
+                                        AnchorId="CsvUpload"
+                                        MaximumFileSize="@MaxFileSize"
+                                        Accept=".csv"
+                                        OnProgressChange="@(e =>
+                                            {
+                                                ProgressPercent = e.ProgressPercent;
+                                                ProgressTitle = e.ProgressTitle;
+                                            })"
+                                        OnCompleted="@UploadAsync" />
+
+                        @* <FluentProgress Min="0" Max="100" Visible="@(ProgressPercent > 0)" Value="@ProgressPercent" />
+                        <FluentLabel Alignment="HorizontalAlignment.Center">
+                            @ProgressTitle
+                        </FluentLabel> *@
+                    </div>
+                    <div>
+                        @* @if (Files.Any())
+                        {
+                            var file = Files.First();
+
+                            <div>@file.Name</div>
+                            <div>@($"{Decimal.Divide(file.Size, 1024):N} KB")</div>
+                            <div>@file.ContentType</div>
+                            <div>@file.LocalFile?.FullName</div>
+                        } *@
+                    </div>
+                </Content>
+            </FluentTab>
+        </FluentTabs>
 
         <div class="datagrid-wrapper" style="@GetPaginationStyle()">
             @if (ImportModels is not null)
@@ -122,6 +181,8 @@
 
 @code
 {
+    private string _activeTabId = "tab-1";
+
     private Icon _duplicateWarningIcon = new Icons.Filled.Size20.ErrorCircle().WithColor("var(--error-red)");
     private Icon _validImportIcon = new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success-green)");
 }

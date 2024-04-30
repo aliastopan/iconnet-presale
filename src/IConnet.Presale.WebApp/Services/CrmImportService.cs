@@ -65,7 +65,11 @@ public sealed class CrmImportService
     public async Task<(List<IApprovalOpportunityModel>, CrmImportMetadata)> ImportFromCsvAsync(List<string[]> csvInputs)
     {
         var importModels = new List<ImportModel>();
-        var importMetadata = new CrmImportMetadata();
+        var importMetadata = new CrmImportMetadata
+        {
+            NumberOfRows = csvInputs.Count,
+            IsValidImport = true
+        };
 
         foreach (var rowData in csvInputs)
         {

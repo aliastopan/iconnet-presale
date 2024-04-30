@@ -7,6 +7,7 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
     [Inject] public IWorkloadManager WorkloadManager { get; init; } = default!;
     [Inject] public BroadcastService BroadcastService { get; init; } = default!;
     [Inject] public CrmImportService CrmImportService { get; init; } = default!;
+    [Inject] public CsvParserService CsvParserService { get; set; } = default!;
     [Inject] public IToastService ToastService { get; set; } = default!;
 
     private readonly ImportModelColumnWidth _columnWidth = new();
@@ -28,6 +29,78 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
     protected bool IsLoading { get; set; } = false;
 
     protected string GridTemplateCols => GetGridTemplateCols();
+
+    private const int _byte = 1024;
+    private const int _megabyte = 1024 * _byte;
+
+    protected int MaxFileSize => 10 * _megabyte;
+    protected FluentInputFile? FileUploader { get; set; } = default!;
+    protected FluentInputFileEventArgs[] Files { get; set; } = Array.Empty<FluentInputFileEventArgs>();
+    protected int? ProgressPercent { get; set; }
+    protected string? ProgressTitle { get; set;}
+
+    protected async Task UploadAsync(IEnumerable<FluentInputFileEventArgs> files)
+    {
+        Files = files.ToArray();
+        ProgressPercent = FileUploader!.ProgressPercent;
+        ProgressTitle = FileUploader!.ProgressTitle;
+
+        if (Files.Length == 0)
+        {
+            return;
+        }
+
+        FluentInputFileEventArgs fileInput = Files.First();
+        FileInfo fileInfo = fileInput.LocalFile!;
+
+        if (fileInput.ContentType != "text/csv")
+        {
+            UploadResultToast(fileInput, isSuccess: false);
+
+            return;
+        }
+        else
+        {
+            UploadResultToast(fileInput, isSuccess: true);
+        }
+
+        bool IsFileCsv = CsvParserService.TryGetCsvFromLocal(fileInfo, out List<string[]>? csv);
+
+        if (!IsFileCsv || csv is null)
+        {
+            return;
+        }
+
+        (List<IApprovalOpportunityModel> importModels, CrmImportMetadata importMetadata) result;
+        result = await CrmImportService.ImportFromCsvAsync(csv);
+
+        _importModels = CrmImportService.GetApprovalOpportunities();
+
+        var (importCount , duplicateIds) = await WorkloadManager.InsertWorkloadAsync(result.importModels);
+
+        ImportCount = importCount;
+
+        _duplicateIds = duplicateIds;
+        _importMetadata = result.importMetadata;
+        _importMetadata.NumberOfDuplicates = _duplicateIds.Count;
+
+        if (_importMetadata.IsValidImport && ImportCount > 0)
+        {
+            var broadcastMessage = $"{ImportCount} CRM data has been imported.";
+            await BroadcastService.BroadcastMessageAsync(broadcastMessage);
+        }
+
+        _columnWidth.SetColumnWidth(ImportModels);
+
+        IsLoading = false;
+        ImportResultToast();
+
+        // clean-up temp folder
+        foreach (var any in Files)
+        {
+            any.LocalFile?.Delete();
+        }
+    }
 
     public TabNavigationModel PageDeclaration()
     {
@@ -81,6 +154,26 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
     protected bool HasDuplicate(string idPermohonan)
     {
         return DuplicateIds.Contains(idPermohonan);
+    }
+
+
+    private void UploadResultToast(FluentInputFileEventArgs fileInput, bool isSuccess)
+    {
+        if (isSuccess)
+        {
+            var intent = ToastIntent.Upload;
+            var fileSize = $"{Decimal.Divide(fileInput.Size, 1024):N} KB";
+            var message = $"Upload {fileSize} '{fileInput.Name}'";
+
+            ToastService.ShowToast(intent, message);
+        }
+        else
+        {
+            var intent = ToastIntent.Error;
+            var message = $"Invalid. Upload import harus berekstensikan .csv";
+
+            ToastService.ShowToast(intent, message);
+        }
     }
 
     private void ImportResultToast()
