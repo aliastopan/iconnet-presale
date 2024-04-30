@@ -38,7 +38,9 @@ internal sealed class DateTimeProvider : IDateTimeService
 
     public DateTime ParseExact(string dateTimeString)
     {
-        return DateTime.ParseExact(dateTimeString, GetFormat(), System.Globalization.CultureInfo.InvariantCulture);
+        string[] formats = new[] { "yyyy-MM-dd HH:mm", "dd/MM/yyyy HH:mm" };
+
+        return DateTime.ParseExact(dateTimeString, formats, System.Globalization.CultureInfo.InvariantCulture);
     }
 
     public bool IsToday(DateTime dateTime)
