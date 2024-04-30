@@ -158,6 +158,26 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
         }
     }
 
+    protected async Task DownloadImportTemplateAsync()
+    {
+        string fileName = $"PresaleApp_Import_Template.xlsx";
+
+        DownloadImportTemplateToast(fileName);
+
+        byte[] xlsxBytes = CsvParserService.GenerateXlsxImportTemplateBytes();
+        string base64 = Convert.ToBase64String(xlsxBytes);
+
+        await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
+    }
+
+    private void DownloadImportTemplateToast(string fileName)
+    {
+        var intent = ToastIntent.Download;
+        var message = $"Generating {fileName}";
+
+        ToastService.ShowToast(intent, message);
+    }
+
     private void UploadResultToast(FluentInputFileEventArgs fileInput, bool isSuccess)
     {
         if (isSuccess)

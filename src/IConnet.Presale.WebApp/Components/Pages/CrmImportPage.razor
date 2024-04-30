@@ -37,13 +37,21 @@
                     Upload
                 </Header>
                 <Content>
-                    <div style="margin-left: -5px; margin-bottom: 0.5rem;">
-                        <FluentButton Class="m-1"
-                            style="width: 100px;"
-                            Id="CsvUpload"
-                            Appearance="Appearance.Accent">
-                            Upload .csv
-                        </FluentButton>
+                    <div class="d-flex" style="margin-left: -5px; margin-bottom: 0.5rem;">
+                        <div>
+                            <FluentButton Class="m-1"
+                                style="width: 100px;"
+                                Id="CsvUpload"
+                                Appearance="Appearance.Accent">
+                                Upload .csv
+                            </FluentButton>
+                        </div>
+                        <div style="margin-left: auto;">
+                            <FluentButton Class="m-1"
+                                OnClick="@DownloadImportTemplateAsync">
+                                Download .xlsx Template
+                            </FluentButton>
+                        </div>
                     </div>
                     <div>
                         <FluentInputFile @ref="@FileUploader"
@@ -59,22 +67,6 @@
                                                 ProgressTitle = e.ProgressTitle;
                                             })"
                                         OnCompleted="@UploadAsync" />
-
-                        @* <FluentProgress Min="0" Max="100" Visible="@(ProgressPercent > 0)" Value="@ProgressPercent" />
-                        <FluentLabel Alignment="HorizontalAlignment.Center">
-                            @ProgressTitle
-                        </FluentLabel> *@
-                    </div>
-                    <div>
-                        @* @if (Files.Any())
-                        {
-                            var file = Files.First();
-
-                            <div>@file.Name</div>
-                            <div>@($"{Decimal.Divide(file.Size, 1024):N} KB")</div>
-                            <div>@file.ContentType</div>
-                            <div>@file.LocalFile?.FullName</div>
-                        } *@
                     </div>
                 </Content>
             </FluentTab>
