@@ -22,20 +22,20 @@ public class MetricPageBase : ComponentBase
 
     private List<PresaleOperatorModel> _presaleOperators = [];
 
+    private IQueryable<WorkPaper>? _weeklyPresaleData;
+    private IQueryable<WorkPaper>? _dailyPresaleData;
     private IQueryable<WorkPaper>? _upperBoundaryPresaleData;
     private IQueryable<WorkPaper>? _middleBoundaryPresaleData;
     private IQueryable<WorkPaper>? _lowerBoundaryPresaleData;
 
+    public IQueryable<WorkPaper>? WeeklyPresaleData => _weeklyPresaleData;
+    public IQueryable<WorkPaper>? DailyPresaleData => _dailyPresaleData;
     public IQueryable<WorkPaper>? UpperBoundaryPresaleData => _upperBoundaryPresaleData;
     public IQueryable<WorkPaper>? MiddleBoundaryPresaleData => _middleBoundaryPresaleData;
     public IQueryable<WorkPaper>? LowerBoundaryPresaleData => _lowerBoundaryPresaleData;
 
-    private IQueryable<WorkPaper>? _weeklyPresaleData;
-    private IQueryable<WorkPaper>? _dailyPresaleData;
-
-    public IQueryable<WorkPaper>? WeeklyPresaleData => _weeklyPresaleData;
-    public IQueryable<WorkPaper>? DailyPresaleData => _dailyPresaleData;
-
+    private readonly List<InProgressReportModel> _weeklyInProgressReports = [];
+    private readonly List<InProgressReportModel> _dailyInProgressReports = [];
     private readonly List<ApprovalStatusReportModel> _upperBoundaryApprovalStatusReports = [];
     private readonly List<ApprovalStatusReportModel> _middleBoundaryApprovalStatusReports = [];
     private readonly List<ApprovalStatusReportModel> _lowerBoundaryApprovalStatusReports = [];
@@ -58,6 +58,8 @@ public class MetricPageBase : ComponentBase
     private readonly List<ApprovalAgingReportModel> _middleBoundaryApprovalAgingReportModels = [];
     private readonly List<ApprovalAgingReportModel> _lowerBoundaryApprovalAgingReportModels = [];
 
+    public virtual List<InProgressReportModel> WeeklyInProgressReports => _weeklyInProgressReports;
+    public virtual List<InProgressReportModel> DailyInProgressReports => _dailyInProgressReports;
     public virtual List<ApprovalStatusReportModel> UpperBoundaryApprovalStatusReports => FilterStatusApprovalReports(_upperBoundaryApprovalStatusReports);
     public virtual List<ApprovalStatusReportModel> MiddleBoundaryApprovalStatusReports => FilterStatusApprovalReports(_middleBoundaryApprovalStatusReports);
     public virtual List<ApprovalStatusReportModel> LowerBoundaryApprovalStatusReports => FilterStatusApprovalReports(_lowerBoundaryApprovalStatusReports);
@@ -136,6 +138,7 @@ public class MetricPageBase : ComponentBase
                 _dailyPresaleData = PresaleDataBoundaryManager.GetPresaleDataFromToday(_weeklyPresaleData!);
             }
 
+            GenerateInProgressReport();
             GenerateStatusApprovalReports(includeUpper: true, includeMiddle: true, includeLower: true);
             GenerateRootCauseReports(includeUpper: true, includeMiddle: true, includeLower: true);
             GenerateImportAgingReports(includeUpper: true, includeMiddle: true, includeLower: true);
@@ -226,6 +229,31 @@ public class MetricPageBase : ComponentBase
         _lowerBoundaryApprovalAgingReportModels.Clear();
 
         _lowerBoundaryPresaleData = PresaleDataBoundaryManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
+    }
+
+    protected void GenerateInProgressReport()
+    {
+        List<WorkPaperLevel> availableLevels =
+        [
+            WorkPaperLevel.ImportUnverified,
+            WorkPaperLevel.Reinstated,
+            WorkPaperLevel.ImportVerified,
+            WorkPaperLevel.Validating,
+            WorkPaperLevel.WaitingApproval
+        ];
+
+        GenerateReports(_weeklyInProgressReports, _weeklyPresaleData!);
+        GenerateReports(_dailyInProgressReports, _dailyPresaleData!);
+
+        // local function
+        void GenerateReports(List<InProgressReportModel> reportModels, IQueryable<WorkPaper> boundaryData)
+        {
+            foreach (var level in availableLevels)
+            {
+                var report = ReportService.GenerateInProgressReport(level, boundaryData!);
+                reportModels.Add(report);
+            }
+        }
     }
 
     protected void GenerateStatusApprovalReports(bool includeUpper = false, bool includeMiddle = false, bool includeLower = false)

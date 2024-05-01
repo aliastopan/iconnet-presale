@@ -15,18 +15,54 @@
 
     <div class="d-flex flex-column w-100">
         <div style="@WeeklyToggleDisplayStyle">
-            <h4 class="app-font">Laporan In-Progress Weekly</h4>
+            <h4 class="app-font">Laporan In-Progress <span class="">@CurrentWeekIndicator()</span> - <span>@GetMiddleBoundaryDateMin()</span> s.d <span>@GetMiddleBoundaryDateMax()</span></h4>
 
-            <div class="d-flex flex-column">
+            @if (!IsBufferLoading)
+            {
+                if (!IsWeeklyBoundaryEmpty)
+                {
+                    <h5 class="app-font">Statistik In-Progress Negotiation</h5>
+                    <InProgressBarChart Models="WeeklyBoundaryTransposeModels" />
+                }
 
-            </div>
+                <h5 class="app-font">Qty In-Progress Negotiation</h5>
+                <InProgressTabulation Models="@WeeklyBoundaryModels"/>
+
+                if (!IsWeeklyBoundaryEmpty)
+                {
+                    <h5 class="app-font" style="margin-top: 16px;">Percentage In-Progress Negotiation SBU JAWA TIMUR</h5>
+                    <div class="centered-chart separate-chart">
+                        <div class="w-50" style="">
+                            <InProgressPieChart Models="@WeeklyBoundaryModels" />
+                        </div>
+                    </div>
+                }
+            }
         </div>
         <div style="@DailyToggleDisplayStyle">
-            <h4 class="app-font">Laporan In-Progress Daily</h4>
+            <h4 class="app-font">Laporan In-Progress <span class="">@TodayIndicator()</span> - <span>@GetLowerBoundaryDate()</span></h4>
 
-            <div class="d-flex flex-column">
+            @if (!IsBufferLoading)
+            {
+                if (!IsDailyBoundaryEmpty)
+                {
+                    <h5 class="app-font">Statistik In-Progress Negotiation</h5>
+                    <InProgressBarChart Models="DailyBoundaryTransposeModels" />
+                }
 
-            </div>
+                <h5 class="app-font">Qty In-Progress Negotiation</h5>
+                <InProgressTabulation Models="@DailyBoundaryModels"/>
+
+                if (!IsDailyBoundaryEmpty)
+                {
+                    <h5 class="app-font" style="margin-top: 16px;">Percentage In-Progress Negotiation SBU JAWA TIMUR</h5>
+                    <div class="centered-chart separate-chart">
+                        <div class="w-50" style="">
+                            <InProgressPieChart Models="@DailyBoundaryModels" />
+                        </div>
+                    </div>
+                }
+            }
         </div>
     </div>
 

@@ -26,7 +26,9 @@
                     @if (!IsBufferLoading && WeeklyPresaleData is not null)
                     {
                         <InProgressTabulationStack
-                            TabulationId="tab-0"/>
+                            TabulationId="tab-0"
+                            WeeklyBoundaryModels="@WeeklyInProgressReports"
+                            DailyBoundaryModels="@DailyInProgressReports"/>
                     }
                 </Content>
             </FluentTab>
