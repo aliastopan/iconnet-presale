@@ -23,7 +23,7 @@
                     In-Progress
                 </Header>
                 <Content>
-                    @if (!IsBufferLoading)
+                    @if (!IsBufferLoading && WeeklyPresaleData is not null)
                     {
                         <InProgressTabulationStack
                             TabulationId="tab-0"/>

@@ -61,11 +61,12 @@ internal sealed class PresaleDataBoundaryManager : PresaleDataOperationBase, IPr
         }
     }
 
-    public IQueryable<WorkPaper> GetPresaleDataFromCurrentWeek(IQueryable<WorkPaper> presaleData)
+    public async Task<IQueryable<WorkPaper>?> GetPresaleDataFromCurrentWeekAsync()
     {
-        var currentWeek = _dateTimeService.GetCurrentWeekOfYear();
+        var today = _dateTimeService.DateTimeOffsetNow.DateTime;
+        var firstDayOfWeek = today.AddDays(-(int)today.DayOfWeek);
 
-        return presaleData.Where(workPaper => _dateTimeService.GetWeekOfYear(workPaper.ApprovalOpportunity.TglPermohonan) == currentWeek);
+        return await GetUpperBoundaryPresaleDataAsync(firstDayOfWeek, today);
     }
 
     public IQueryable<WorkPaper> GetPresaleDataFromToday(IQueryable<WorkPaper> presaleData)

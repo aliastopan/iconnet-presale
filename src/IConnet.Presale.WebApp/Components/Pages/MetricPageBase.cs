@@ -30,6 +30,12 @@ public class MetricPageBase : ComponentBase
     public IQueryable<WorkPaper>? MiddleBoundaryPresaleData => _middleBoundaryPresaleData;
     public IQueryable<WorkPaper>? LowerBoundaryPresaleData => _lowerBoundaryPresaleData;
 
+    private IQueryable<WorkPaper>? _weeklyPresaleData;
+    private IQueryable<WorkPaper>? _dailyPresaleData;
+
+    public IQueryable<WorkPaper>? WeeklyPresaleData => _weeklyPresaleData;
+    public IQueryable<WorkPaper>? DailyPresaleData => _dailyPresaleData;
+
     private readonly List<ApprovalStatusReportModel> _upperBoundaryApprovalStatusReports = [];
     private readonly List<ApprovalStatusReportModel> _middleBoundaryApprovalStatusReports = [];
     private readonly List<ApprovalStatusReportModel> _lowerBoundaryApprovalStatusReports = [];
@@ -112,6 +118,9 @@ public class MetricPageBase : ComponentBase
             _upperBoundaryPresaleData = await PresaleDataBoundaryManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
             _middleBoundaryPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
             _lowerBoundaryPresaleData = PresaleDataBoundaryManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
+
+            _weeklyPresaleData = await PresaleDataBoundaryManager.GetPresaleDataFromCurrentWeekAsync();
+            _dailyPresaleData = PresaleDataBoundaryManager.GetPresaleDataFromToday(_weeklyPresaleData!);
 
             GenerateStatusApprovalReports(includeUpper: true, includeMiddle: true, includeLower: true);
             GenerateRootCauseReports(includeUpper: true, includeMiddle: true, includeLower: true);

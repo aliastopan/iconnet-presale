@@ -5,7 +5,7 @@ namespace IConnet.Presale.Application.Common.Interfaces.Managers;
 public interface IPresaleDataBoundaryManager
 {
     Task<IQueryable<WorkPaper>> GetPresaleDataFromCurrentMonthAsync();
-    IQueryable<WorkPaper> GetPresaleDataFromCurrentWeek(IQueryable<WorkPaper> presaleData);
+    Task<IQueryable<WorkPaper>?> GetPresaleDataFromCurrentWeekAsync();
     IQueryable<WorkPaper> GetPresaleDataFromToday(IQueryable<WorkPaper> presaleData);
 
     Task<IQueryable<WorkPaper>?> GetUpperBoundaryPresaleDataAsync(DateTime dateTimeMin, DateTime dateTimeMax);
