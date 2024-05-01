@@ -1,0 +1,63 @@
+@using IConnet.Presale.WebApp.Models.Presales.Reports
+
+@if (Models is not null)
+{
+    <table class="approval-status-tabulation" style="width: 100%;">
+        <thead>
+            <tr>
+                <th class="tabulation-header header-bold" style="">
+                    Status
+                </th>
+                @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
+                {
+                    <th class="tabulation-header header-bold" style="padding: 2px 8px; text-align: center; ">
+                        @office
+                    </th>
+                }
+                <th class="tabulation-header header-bold" style="">
+                    Grand Total
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var model in Models)
+            {
+                <tr>
+                    <td class="tabulation-header-row" style="">
+                        @model.InProgressDisplay
+                    </td>
+                    @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
+                    {
+                        <td class="tabulation-content" style="">
+                        @if (model.StatusPerOffice.ContainsKey(office))
+                        {
+                            @model.StatusPerOffice[office]
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                        </td>
+                    }
+                    <td class="tabulation-content" style="">
+                        @model.GrandTotal
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td class="tabulation-header header-bold" style="">
+                    Grand Total
+                </td>
+                @foreach (var office in Models.SelectMany(m => m.StatusPerOffice.Keys).Distinct())
+                {
+                    <td class="tabulation-content header-bold" style=" background-color: #bdebf1; font-weight: 700;">
+                        @Models.Sum(m => m.StatusPerOffice.GetValueOrDefault(office, 0))
+                    </td>
+                }
+                <td class="tabulation-content-summary header-bold" style="">
+                    @Models.Sum(m => m.GrandTotal)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
