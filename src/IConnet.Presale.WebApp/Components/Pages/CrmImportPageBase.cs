@@ -35,6 +35,7 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
 
     private const int _byte = 1024;
     private const int _megabyte = 1024 * _byte;
+    private bool _isDownloadingTemplate;
 
     protected int MaxFileSize => 10 * _megabyte;
     protected FluentInputFile? FileUploader { get; set; } = default!;
@@ -119,6 +120,8 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
 
         if (Files.Length == 0)
         {
+            IsLoading = false;
+
             return;
         }
 
@@ -128,6 +131,8 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
         if (fileInput.ContentType != "text/csv")
         {
             UploadResultToast(fileInput, isSuccess: false);
+
+            IsLoading = false;
 
             return;
         }
@@ -141,6 +146,7 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
         if (!IsFileCsv || csv is null)
         {
             FailedCsvParsingToast(errorMessage);
+            IsLoading = false;
 
             return;
         }
@@ -178,6 +184,13 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
 
     protected async Task DownloadImportTemplateAsync()
     {
+        if (_isDownloadingTemplate)
+        {
+            return;
+        }
+
+        _isDownloadingTemplate = true;
+
         string fileName = $"PresaleApp_Import_Template.xlsx";
 
         DownloadImportTemplateToast(fileName);
@@ -186,6 +199,8 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
         string base64 = Convert.ToBase64String(xlsxBytes);
 
         await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
+
+        _isDownloadingTemplate = false;
     }
 
     private void DownloadImportTemplateToast(string fileName)
