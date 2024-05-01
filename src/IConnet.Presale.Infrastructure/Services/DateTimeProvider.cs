@@ -31,6 +31,16 @@ internal sealed class DateTimeProvider : IDateTimeService
         return "yyyy-MM-dd HH:mm";
     }
 
+    public string[] GetParsingFormat()
+    {
+        return [
+            "yyyy-MM-dd HH:mm",
+            "yyyy-MM-dd HH:mm:ss",
+            "dd/MM/yyyy HH:mm",
+            "dd/MM/yyyy HH:mm:ss"
+        ];
+    }
+
     public TimeSpan GetElapsedTime(DateTime startDateTime)
     {
         return DateTime.Now - startDateTime;
@@ -38,9 +48,7 @@ internal sealed class DateTimeProvider : IDateTimeService
 
     public DateTime ParseExact(string dateTimeString)
     {
-        string[] formats = new[] { "yyyy-MM-dd HH:mm", "dd/MM/yyyy HH:mm" };
-
-        return DateTime.ParseExact(dateTimeString, formats, System.Globalization.CultureInfo.InvariantCulture);
+        return DateTime.ParseExact(dateTimeString, GetParsingFormat(), System.Globalization.CultureInfo.InvariantCulture);
     }
 
     public bool IsToday(DateTime dateTime)

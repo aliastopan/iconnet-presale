@@ -10,6 +10,7 @@ public interface IDateTimeService
     long GetUnixTime(DateTime dateTime);
     string GetClockTime();
     string GetFormat();
+    string[] GetParsingFormat();
     TimeSpan GetElapsedTime(DateTime startDateTime);
     DateTime ParseExact(string dateTimeString);
     bool IsToday(DateTime dateTime);
