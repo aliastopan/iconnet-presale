@@ -87,6 +87,7 @@ public class MetricPageBase : ComponentBase
         SessionService.FilterPreference.SetOperatorHelpdeskExclusionExclusion(operatorUsernames);
 
         SessionService.FilterPreference.BoundaryFilters.Clear();
+        SessionService.FilterPreference.BoundaryFilters.Add("tab-0", BoundaryFilterMode.Weekly);
         SessionService.FilterPreference.BoundaryFilters.Add("tab-1", BoundaryFilterMode.Monthly);
         SessionService.FilterPreference.BoundaryFilters.Add("tab-2", BoundaryFilterMode.Monthly);
         SessionService.FilterPreference.BoundaryFilters.Add("tab-3", BoundaryFilterMode.Monthly);

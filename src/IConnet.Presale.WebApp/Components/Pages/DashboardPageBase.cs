@@ -10,7 +10,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 
     private ToastParameters<ProgressToastContent> _progressToastExporting = default!;
 
-    protected string ActiveTabId { get; set; } = "tab-1";
+    protected string ActiveTabId { get; set; } = "tab-0";
     protected bool IsBufferLoading => SessionService.FilterPreference.IsBufferLoading;
     protected bool IsExportLoading { get; set; } = false;
 
@@ -64,6 +64,10 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 
         switch (ActiveTabId)
         {
+            case "tab-0": // in-progress
+            {
+                break;
+            }
             case "tab-1": // approval status
             {
                 exportTarget = FilterXlsxStatusApprovals(presaleData);
@@ -74,7 +78,6 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
                 await JsRuntime.InvokeVoidAsync("downloadFile", fileName, base64);
                 break;
             }
-
             case "tab-2": // root cause
             {
                 exportTarget = FilterXlsxRootCauses(presaleData);

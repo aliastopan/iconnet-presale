@@ -17,6 +17,19 @@
     {
         <FluentTabs ActiveTabId="@ActiveTabId"
             ActiveTabIdChanged="OnActiveTabIdChanged">
+            <FluentTab Id="tab-0">
+                <Header>
+                    <FluentIcon Value="@(new Icons.Regular.Size16.DocumentEdit())" Color="@Color.Accent"/>
+                    In-Progress
+                </Header>
+                <Content>
+                    @if (!IsBufferLoading)
+                    {
+                        <InProgressTabulationStack
+                            TabulationId="tab-0"/>
+                    }
+                </Content>
+            </FluentTab>
             <FluentTab Id="tab-1">
                 <Header>
                     <FluentIcon Value="@(new Icons.Regular.Size16.DocumentCheckmark())" Color="@Color.Accent"/>

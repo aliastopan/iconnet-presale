@@ -28,13 +28,13 @@ public class ReportTabulationStackBase : ComponentBase
     protected string TotalMinutesSlaValidasi => $"{(int)AppSettingsService.SlaValidasi.TotalMinutes}";
     protected string TotalMinutesSlaApproval => $"{(int)AppSettingsService.SlaApproval.TotalMinutes}";
 
-    protected Appearance MonthlyToggleAppearance => IsMonthlySelected ? Appearance.Accent : Appearance.Neutral;
-    protected Appearance WeeklyToggleAppearance => IsWeeklySelected ? Appearance.Accent : Appearance.Neutral;
-    protected Appearance DailyToggleAppearance => IsDailySelected ? Appearance.Accent : Appearance.Neutral;
+    protected virtual Appearance MonthlyToggleAppearance => IsMonthlySelected ? Appearance.Accent : Appearance.Neutral;
+    protected virtual Appearance WeeklyToggleAppearance => IsWeeklySelected ? Appearance.Accent : Appearance.Neutral;
+    protected virtual Appearance DailyToggleAppearance => IsDailySelected ? Appearance.Accent : Appearance.Neutral;
 
-    protected string MonthlyToggleDisplayStyle => IsMonthlySelected ? "d-flex flex-column w-100" : "display: none";
-    protected string WeeklyToggleDisplayStyle => IsWeeklySelected ? "d-flex flex-column w-100" : "display: none";
-    protected string DailyToggleDisplayStyle => IsDailySelected ? "d-flex flex-column w-100" : "display: none";
+    protected virtual string MonthlyToggleDisplayStyle => IsMonthlySelected ? "d-flex flex-column w-100" : "display: none";
+    protected virtual string WeeklyToggleDisplayStyle => IsWeeklySelected ? "d-flex flex-column w-100" : "display: none";
+    protected virtual string DailyToggleDisplayStyle => IsDailySelected ? "d-flex flex-column w-100" : "display: none";
 
     protected override void OnInitialized()
     {
