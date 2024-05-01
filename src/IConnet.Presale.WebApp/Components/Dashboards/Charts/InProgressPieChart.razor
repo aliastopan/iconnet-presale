@@ -1,0 +1,19 @@
+@using ApexCharts
+@using IConnet.Presale.WebApp.Models.Presales.Reports
+
+@if (Models.Count != 0)
+{
+    <ApexChart TItem="InProgressReportModel"
+        Options="Options">
+
+        <ApexPointSeries TItem="InProgressReportModel"
+            Items="Models"
+            Name=""
+            SeriesType="SeriesType.Pie"
+            XValue="@(e => e.InProgressDisplay)"
+            YAggregate="@(e => e.Sum(x => x.GrandTotal))"
+            PointColor="@(e => GetPointColor(e))"
+            ShowDataLabels />
+
+    </ApexChart>
+}
