@@ -1,3 +1,7 @@
+## v3.4.1
+- Fix: CSV (upload) date time parsing
+- Update: CSV import guide
+
 ## v3.4.0
 - Add: CSV import
 - Add: CSV (.xlsx) import template
