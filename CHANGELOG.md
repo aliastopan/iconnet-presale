@@ -1,3 +1,8 @@
+## v3.4.0
+- Add: CSV import
+- Add: CSV (.xlsx) import template
+- Add: In-Progress dashboard tabulation
+
 ## v3.3.1
 - Fix: Remove duplicate import on single copy-paste operation
 
