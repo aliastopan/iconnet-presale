@@ -4,11 +4,13 @@ namespace IConnet.Presale.WebApp.Models.Common;
 
 public class RootCauseSettingModel
 {
-    public RootCauseSettingModel(Guid rootCauseId, int order, string cause, bool isDeleted, bool isOnVerification)
+    public RootCauseSettingModel(Guid rootCauseId, int order, string cause, string classification,
+        bool isDeleted, bool isOnVerification)
     {
         RootCauseId = rootCauseId;
         Order = order;
         Cause = cause;
+        Classification = classification;
         IsDeleted = isDeleted;
 
         IsEnabled = !isDeleted;
@@ -20,6 +22,7 @@ public class RootCauseSettingModel
         RootCauseId = rootCausesDto.RootCauseId;
         Order = rootCausesDto.Order;
         Cause = rootCausesDto.Cause;
+        Classification = rootCausesDto.Classification;
         IsDeleted = rootCausesDto.IsDeleted;
         IsOnVerification = rootCausesDto.IsOnVerification;
 
@@ -30,6 +33,7 @@ public class RootCauseSettingModel
     public Guid RootCauseId { get; init; }
     public int Order { get; init; }
     public string Cause { get; init; }
+    public string Classification { get; init; }
     public bool IsDeleted { get; init; }
     public bool IsOnVerification { get; init; }
 
