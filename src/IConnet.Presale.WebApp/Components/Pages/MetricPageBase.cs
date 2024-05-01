@@ -119,8 +119,22 @@ public class MetricPageBase : ComponentBase
             _middleBoundaryPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
             _lowerBoundaryPresaleData = PresaleDataBoundaryManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
 
-            _weeklyPresaleData = await PresaleDataBoundaryManager.GetPresaleDataFromCurrentWeekAsync();
-            _dailyPresaleData = PresaleDataBoundaryManager.GetPresaleDataFromToday(_weeklyPresaleData!);
+            var today = DateTimeService.DateTimeOffsetNow.DateTime;
+            var firstDayOfWeek = today.AddDays(-(int)today.DayOfWeek);
+
+            bool isFirstDayOfWeekWithinRange = firstDayOfWeek.Date >= upperBoundaryMin.Date && firstDayOfWeek.Date <= upperBoundaryMax.Date;
+            bool isTodayWithinRange = today.Date >= upperBoundaryMin.Date && today.Date <= upperBoundaryMax.Date;
+
+            if (isFirstDayOfWeekWithinRange && isTodayWithinRange)
+            {
+                _weeklyPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, firstDayOfWeek, today);
+                _dailyPresaleData = PresaleDataBoundaryManager.GetPresaleDataFromToday(_weeklyPresaleData!);
+            }
+            else
+            {
+                _weeklyPresaleData = await PresaleDataBoundaryManager.GetPresaleDataFromCurrentWeekAsync();
+                _dailyPresaleData = PresaleDataBoundaryManager.GetPresaleDataFromToday(_weeklyPresaleData!);
+            }
 
             GenerateStatusApprovalReports(includeUpper: true, includeMiddle: true, includeLower: true);
             GenerateRootCauseReports(includeUpper: true, includeMiddle: true, includeLower: true);
