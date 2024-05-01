@@ -4,6 +4,26 @@ namespace IConnet.Presale.WebApp.Extensions;
 
 public static class StringExtensions
 {
+    public static string SanitizeString(this string input)
+    {
+        if (string.IsNullOrEmpty(input))
+        {
+            return string.Empty;
+        }
+
+        // replace potential malicious characters with their escaped versions
+        string sanitizedInput = input.Replace("'", "''");
+
+        sanitizedInput = sanitizedInput.Replace("--", "");
+        sanitizedInput = sanitizedInput.Replace(";", "");
+        sanitizedInput = sanitizedInput.Replace("/*", "/*");
+        sanitizedInput = sanitizedInput.Replace("*/", "*/");
+        sanitizedInput = sanitizedInput.Replace("<", "&lt;");
+        sanitizedInput = sanitizedInput.Replace(">", "&gt;");
+
+        return sanitizedInput;
+    }
+
     public static bool HasValue(this string? str)
     {
         return !string.IsNullOrEmpty(str) || !string.IsNullOrWhiteSpace(str);
