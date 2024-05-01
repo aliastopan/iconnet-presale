@@ -54,15 +54,15 @@ public partial class InProgressBarChart : ComponentBase
         switch (workPaperLevel)
         {
             case WorkPaperLevel.ImportUnverified:
-                return "Menunggu Verifikasi";
+                return "Verifikasi";
             case WorkPaperLevel.Reinstated:
-                return "Menunggu Verifikasi (Reset)";
+                return "Verifikasi (Reset)";
             case WorkPaperLevel.ImportVerified:
-                return "Menunggu Validasi";
+                return "Pick-Up";
             case WorkPaperLevel.Validating:
-                return "Proses Validasi";
+                return "Validasi";
             case WorkPaperLevel.WaitingApproval:
-                return "Menunggu Approval";
+                return "Approval";
             default:
                 throw new NotImplementedException("Invalid In-Progress Report Target");
         }
