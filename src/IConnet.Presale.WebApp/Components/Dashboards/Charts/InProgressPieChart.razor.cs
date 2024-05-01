@@ -10,6 +10,26 @@ public partial class InProgressPieChart : ComponentBase
 
     protected ApexChartOptions<InProgressReportModel> Options { get; set; } = default!;
 
+    protected override void OnInitialized()
+    {
+        Options = new ApexChartOptions<InProgressReportModel>()
+        {
+            DataLabels = new DataLabels
+            {
+                Enabled = true,
+                Style = new DataLabelsStyle
+                {
+                    FontSize = "16px",
+                    Colors = ["#202020"]
+                },
+                DropShadow = new DropShadow
+                {
+                    Enabled = false
+                }
+            }
+        };
+    }
+
     protected string GetPointColor(InProgressReportModel model)
     {
         switch (model.WorkPaperLevel)
