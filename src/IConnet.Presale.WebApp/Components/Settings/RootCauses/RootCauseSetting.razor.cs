@@ -132,6 +132,6 @@ public partial class RootCauseSetting
 
     private string GetGridTemplateCols()
     {
-        return $"{350}px {85}px {85}px {150}px;";
+        return $"{350}px {250}px {85}px {85}px {150}px;";
     }
 }
