@@ -128,10 +128,17 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
         FluentInputFileEventArgs fileInput = Files.First();
         FileInfo fileInfo = fileInput.LocalFile!;
 
+        if (fileInput.Size > MaxFileSize)
+        {
+            FileExceedingLimitToast();
+            IsLoading = false;
+
+            return;
+        }
+
         if (fileInput.ContentType != "text/csv")
         {
             UploadResultToast(fileInput, isSuccess: false);
-
             IsLoading = false;
 
             return;
@@ -228,6 +235,14 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
 
             ToastService.ShowToast(intent, message);
         }
+    }
+
+    private void FileExceedingLimitToast()
+    {
+        var intent = ToastIntent.Error;
+        var message = "Proses import .csv gagal. File melebihi ukuran batas 10MB.";
+
+        ToastService.ShowToast(intent, message);
     }
 
     private void FailedCsvParsingToast(string errorMessage)
