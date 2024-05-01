@@ -12,9 +12,9 @@ public class ApprovalStatusTabulationStackBase : ReportTabulationStackBase
     [Parameter] public List<ApprovalStatusReportModel> MiddleBoundaryModels { get; set; } = [];
     [Parameter] public List<ApprovalStatusReportModel> LowerBoundaryModels { get; set; } = [];
 
-    public List<ApprovalStatusTransposeModel> UpperBoundaryTransposeModels => ReportService.TransposeModel(UpperBoundaryModels);
-    public List<ApprovalStatusTransposeModel> MiddleBoundaryTransposeModels => ReportService.TransposeModel(MiddleBoundaryModels);
-    public List<ApprovalStatusTransposeModel> LowerBoundaryTransposeModels => ReportService.TransposeModel(LowerBoundaryModels);
+    public List<ApprovalStatusReportTransposeModel> UpperBoundaryTransposeModels => ReportService.TransposeModel(UpperBoundaryModels);
+    public List<ApprovalStatusReportTransposeModel> MiddleBoundaryTransposeModels => ReportService.TransposeModel(MiddleBoundaryModels);
+    public List<ApprovalStatusReportTransposeModel> LowerBoundaryTransposeModels => ReportService.TransposeModel(LowerBoundaryModels);
 
     public Dictionary<string, List<ApprovalStatusReportModel>> UpperBoundaryGrouping => ReportService.ApprovalStatusBoundaryGrouping(UpperBoundaryModels);
     public Dictionary<string, List<ApprovalStatusReportModel>> MiddleBoundaryGrouping => ReportService.ApprovalStatusBoundaryGrouping(MiddleBoundaryModels);
