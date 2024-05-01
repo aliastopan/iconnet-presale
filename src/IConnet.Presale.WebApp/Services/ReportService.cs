@@ -19,6 +19,23 @@ public class ReportService
         _intervalCalculatorService = intervalCalculatorService;
     }
 
+    public InProgressReportModel GenerateInProgressReport(WorkPaperLevel workPaperLevel,
+        IQueryable<WorkPaper> presaleData)
+    {
+        List<string> offices = _optionService.KantorPerwakilanOptions.Skip(1).ToList();
+        List<int> statusPerOffice = [];
+
+        for (int i = 0; i < offices.Count; i++)
+        {
+            int count = presaleData.Count(x => x.WorkPaperLevel == workPaperLevel
+                && x.ApprovalOpportunity.Regional.KantorPerwakilan.Equals(offices[i], StringComparison.OrdinalIgnoreCase));
+
+            statusPerOffice.Add(count);
+        }
+
+        return new InProgressReportModel(workPaperLevel, offices, statusPerOffice);
+    }
+
     public ApprovalStatusReportModel GenerateApprovalStatusReport(ApprovalStatus approvalStatus,
         IQueryable<WorkPaper> presaleData)
     {
@@ -423,6 +440,23 @@ public class ReportService
         return new ApprovalAgingReportModel(pacId, username, avg, min, max,
             approvalTotal, totalCloseLost, totalReject, totalExpansion, totalApprove, totalDirectApproval,
             slaWonTotal, isWinning);
+    }
+
+    public List<InProgressReportTransposeModel> TransposeModel(List<InProgressReportModel> models)
+    {
+        return models.SelectMany(model => model.StatusPerOffice.Select(status => new
+            {
+                model.WorkPaperLevel,
+                Office = status.Key,
+                Count = status.Value
+            }))
+            .GroupBy(x => x.Office)
+            .Select(group => new InProgressReportTransposeModel
+            {
+                Office = group.Key,
+                WorkPaperLevelMetrics = group.ToDictionary(x => x.WorkPaperLevel, x => x.Count)
+            })
+            .ToList();
     }
 
     public List<ApprovalStatusReportTransposeModel> TransposeModel(List<ApprovalStatusReportModel> models)
