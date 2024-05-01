@@ -53,7 +53,7 @@ public class InProgressReportModel
             case WorkPaperLevel.Reinstated:
                 return "Verifikasi (Reset)";
             case WorkPaperLevel.ImportVerified:
-                return "Pick-Up";
+                return "Chat/Call Pick-Up";
             case WorkPaperLevel.Validating:
                 return "Validasi";
             case WorkPaperLevel.WaitingApproval:
