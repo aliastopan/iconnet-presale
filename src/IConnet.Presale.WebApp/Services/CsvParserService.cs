@@ -5,6 +5,13 @@ namespace IConnet.Presale.WebApp.Services;
 
 public class CsvParserService
 {
+    private readonly IDateTimeService _dateTimeService;
+
+    public CsvParserService(IDateTimeService dateTimeService)
+    {
+        _dateTimeService = dateTimeService;
+    }
+
     public bool TryGetCsvFromLocal(FileInfo localFile, out List<string[]>? csv, out string errorMessage)
     {
         csv = null;
@@ -60,6 +67,8 @@ public class CsvParserService
             }
         }
 
+        NormalizeDateTimeString(csvContent);
+
         var tglPermohonanString = GetTglPermohonanString(csvContent);
         var isAllValid = ValidateTglPermohonanString(tglPermohonanString);
 
@@ -88,13 +97,32 @@ public class CsvParserService
         return result;
     }
 
-    public static bool ValidateTglPermohonanString(List<string> tglPermohonanString)
+    private static void NormalizeDateTimeString(List<string[]> csv)
     {
-        string[] formats = ["yyyy-MM-dd HH:mm", "dd/MM/yyyy HH:mm"];
+        string inputFormat = "dd/MM/yyyy h:mm:ss";
+        string outputFormat = "dd/MM/yyyy HH:mm:ss";
+
+        foreach (string[] row in csv)
+        {
+            string dateTimeString = row[1];
+
+            if (DateTime.TryParseExact(dateTimeString, inputFormat, CultureInfo.InvariantCulture,
+                DateTimeStyles.None, out DateTime dateTime))
+            {
+                // convert the parsed DateTime to the desired 24-hour format with leading zero for the hour
+                string normalizeFormat = dateTime.ToString(outputFormat);
+                row[1] = normalizeFormat;
+            }
+        }
+    }
+
+    public bool ValidateTglPermohonanString(List<string> tglPermohonanString)
+    {
+        var parsingFormat = _dateTimeService.GetParsingFormat();
 
         foreach (string dateTimeString in tglPermohonanString)
         {
-            if (!DateTime.TryParseExact(dateTimeString, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
+            if (!DateTime.TryParseExact(dateTimeString, parsingFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
             {
                 return false;
             }
