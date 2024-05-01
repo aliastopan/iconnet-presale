@@ -12,7 +12,7 @@
             {
                 <ApexPointSeries TItem="InProgressReportTransposeModel"
                     Items="Models"
-                    Name="@EnumProcessor.EnumToDisplayString(level)"
+                    Name="@GetInProgressDisplay(level)"
                     XValue="@(e => e.Office)"
                     SeriesType="SeriesType.Bar"
                     YAggregate="@(e => e.Sum(x => x.WorkPaperLevelMetrics[level]))"

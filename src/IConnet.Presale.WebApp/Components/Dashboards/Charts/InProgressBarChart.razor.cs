@@ -49,6 +49,25 @@ public partial class InProgressBarChart : ComponentBase
         };
     }
 
+    protected string GetInProgressDisplay(WorkPaperLevel workPaperLevel)
+    {
+        switch (workPaperLevel)
+        {
+            case WorkPaperLevel.ImportUnverified:
+                return "Menunggu Verifikasi";
+            case WorkPaperLevel.Reinstated:
+                return "Menunggu Verifikasi (Reset)";
+            case WorkPaperLevel.ImportVerified:
+                return "Menunggu Validasi";
+            case WorkPaperLevel.Validating:
+                return "Proses Validasi";
+            case WorkPaperLevel.WaitingApproval:
+                return "Menunggu Approval";
+            default:
+                throw new NotImplementedException("Invalid In-Progress Report Target");
+        }
+    }
+
     protected string GetPointColor(WorkPaperLevel workPaperLevel)
     {
         switch (workPaperLevel)
