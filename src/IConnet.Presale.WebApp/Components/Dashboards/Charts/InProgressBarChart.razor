@@ -1,0 +1,26 @@
+@using ApexCharts
+@using IConnet.Presale.WebApp.Models.Presales.Reports
+
+@if (Models.Count != 0)
+{
+    <div style="">
+        <ApexChart TItem="InProgressReportTransposeModel"
+            Height="350"
+            Options="Options">
+
+            @foreach (var level in Models.First().WorkPaperLevelMetrics.Keys)
+            {
+                <ApexPointSeries TItem="InProgressReportTransposeModel"
+                    Items="Models"
+                    Name="@EnumProcessor.EnumToDisplayString(level)"
+                    XValue="@(e => e.Office)"
+                    SeriesType="SeriesType.Bar"
+                    YAggregate="@(e => e.Sum(x => x.WorkPaperLevelMetrics[level]))"
+                    Color="@(GetPointColor(level))"
+                    PointColor="@(e => GetPointColor(level))"
+                    ShowDataLabels/>
+            }
+
+        </ApexChart>
+    </div>
+}
