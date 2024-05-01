@@ -32,8 +32,6 @@ public partial class ApprovalStatusPieChart : ComponentBase
 
     protected string GetPointColor(ApprovalStatusReportModel model)
     {
-        string x = EnumProcessor.EnumToDisplayString(ApprovalStatus.Approve);
-
         switch (model.ApprovalStatus)
         {
             case ApprovalStatus.InProgress:
