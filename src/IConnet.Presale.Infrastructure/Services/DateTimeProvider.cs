@@ -55,6 +55,23 @@ internal sealed class DateTimeProvider : IDateTimeService
         return dateTime.Date == DateTime.Today;
     }
 
+    public int GetFirstDayOfWeekOffset(DateTime dateTime)
+    {
+        DateTime firstDayOfMonth = new DateTime(dateTime.Year, dateTime.Month, 1);
+        int daysToSubtract = (int)firstDayOfMonth.DayOfWeek;
+
+        if (daysToSubtract == 0)
+        {
+            daysToSubtract = 7;
+        }
+
+        DateTime firstDayOfWeekInMonth = firstDayOfMonth.AddDays(-daysToSubtract);
+
+        int offset = (int)(dateTime - firstDayOfWeekInMonth).TotalDays;
+
+        return offset;
+    }
+
     public bool IsWithinCurrentWeek(DateTime dateTimeMin, DateTime dateTimeMax)
     {
         int firstDayOfWeek = (int)CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
