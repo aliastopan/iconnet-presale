@@ -112,6 +112,12 @@ internal sealed class PresaleDataBoundaryManager : PresaleDataOperationBase, IPr
         }
     }
 
+    public IQueryable<WorkPaper>? GetUpperBoundaryPresaleData(IQueryable<WorkPaper> presaleData, DateTime dateTimeMin, DateTime dateTimeMax)
+    {
+        return presaleData.Where(workPaper => workPaper.ApprovalOpportunity.TglPermohonan.Date >= dateTimeMin.Date
+            && workPaper.ApprovalOpportunity.TglPermohonan.Date <= dateTimeMax.Date);
+    }
+
     public IQueryable<WorkPaper>? GetMiddleBoundaryPresaleData(IQueryable<WorkPaper> presaleData, DateTime dateTimeMin, DateTime dateTimeMax)
     {
         return presaleData.Where(workPaper => workPaper.ApprovalOpportunity.TglPermohonan.Date >= dateTimeMin.Date
@@ -121,5 +127,56 @@ internal sealed class PresaleDataBoundaryManager : PresaleDataOperationBase, IPr
     public IQueryable<WorkPaper>? GetLowerBoundaryPresaleData(IQueryable<WorkPaper> presaleData, DateTime dateTime)
     {
         return presaleData.Where(workPaper => workPaper.ApprovalOpportunity.TglPermohonan.Date == dateTime.Date);
+    }
+
+    public async Task<IQueryable<WorkPaper>?> GetBoundaryPointPresaleDataAsync(DateTime dateTime)
+    {
+        DateTime dateTimeMin = dateTime.AddDays(-1);
+        DateTime dateTimeMax = dateTime.AddDays(1);
+
+        IQueryable<WorkPaper>? boundaryRange = await GetBoundaryRangePresaleDataAsync(dateTimeMin, dateTimeMax);
+
+        if (boundaryRange is null)
+        {
+            return null;
+        }
+
+        return boundaryRange.Where(workPaper => workPaper.ApprovalOpportunity.TglPermohonan.Date == dateTime.Date);
+    }
+
+    public async Task<IQueryable<WorkPaper>?> GetBoundaryRangePresaleDataAsync(DateTime dateTimeMin, DateTime dateTimeMax)
+    {
+        long startUnixTime = _dateTimeService.GetUnixTime(dateTimeMin.AddDays(-8)); // add 8 days offset
+        long endUnixTime = _dateTimeService.GetUnixTime(dateTimeMax.AddDays(1));    // add 1 day offset
+
+        Task<List<string?>>[] getJsonWorkPapers =
+        [
+            _inProgressPersistenceService.GetAllValuesAsync(),
+            _doneProcessingPersistenceService.GetAllScoredValuesAsync(startUnixTime, endUnixTime)
+        ];
+
+        await Task.WhenAll(getJsonWorkPapers);
+
+        var inProgressJsonWorkPapers = getJsonWorkPapers[0].Result;
+        var doneProcessingJsonWorkPaper = getJsonWorkPapers[1].Result;
+
+        Task<List<WorkPaper>>[] workPaperTasks =
+        {
+            Task.Run(() => ProcessJsonWorkPapers(inProgressJsonWorkPapers!)),
+            Task.Run(() => ProcessJsonWorkPapers(doneProcessingJsonWorkPaper!))
+        };
+
+        await Task.WhenAll(workPaperTasks);
+
+        List<WorkPaper> inProgressWorkPapers = workPaperTasks[0].Result;
+        List<WorkPaper> doneProcessingWorkPapers = workPaperTasks[1].Result;
+
+        return doneProcessingWorkPapers.Concat(inProgressWorkPapers).AsQueryable();
+
+        // local function
+        List<WorkPaper> ProcessJsonWorkPapers(List<string> jsonWorkPapers)
+        {
+            return JsonWorkPaperProcessor.DeserializeJsonWorkPapersParallel(jsonWorkPapers, this.ParallelOptions);
+        }
     }
 }

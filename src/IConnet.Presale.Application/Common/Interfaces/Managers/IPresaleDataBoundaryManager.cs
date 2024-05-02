@@ -9,6 +9,10 @@ public interface IPresaleDataBoundaryManager
     IQueryable<WorkPaper> GetPresaleDataFromToday(IQueryable<WorkPaper> presaleData);
 
     Task<IQueryable<WorkPaper>?> GetUpperBoundaryPresaleDataAsync(DateTime dateTimeMin, DateTime dateTimeMax);
+    IQueryable<WorkPaper>? GetUpperBoundaryPresaleData(IQueryable<WorkPaper> presaleData, DateTime dateTimeMin, DateTime dateTimeMax);
     IQueryable<WorkPaper>? GetMiddleBoundaryPresaleData(IQueryable<WorkPaper> presaleData, DateTime dateTimeMin, DateTime dateTimeMax);
     IQueryable<WorkPaper>? GetLowerBoundaryPresaleData(IQueryable<WorkPaper> presaleData, DateTime dateTime);
+
+    Task<IQueryable<WorkPaper>?> GetBoundaryPointPresaleDataAsync(DateTime dateTime);
+    Task<IQueryable<WorkPaper>?> GetBoundaryRangePresaleDataAsync(DateTime dateTimeMin, DateTime dateTimeMax);
 }
