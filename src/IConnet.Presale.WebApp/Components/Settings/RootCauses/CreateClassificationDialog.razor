@@ -1,0 +1,44 @@
+<FluentDialogHeader ShowDismiss="true">
+    <FluentStack VerticalAlignment="VerticalAlignment.Center">
+        <FluentIcon Value="@(new Icons.Regular.Size24.CollectionsAdd())" />
+        <FluentLabel Typo="Typography.PaneHeader">
+            @Dialog.Instance.Parameters.Title
+        </FluentLabel>
+    </FluentStack>
+</FluentDialogHeader>
+
+<div class="d-flex flex-row">
+    <div>
+        <FluentTextField style="width: 300px; margin-right: 4px;"
+            Label="Classification"
+            Value="@NewClassification"
+            ValueChanged="OnNewClassificationChanged"
+            Placeholder="Root Cause Classification"></FluentTextField>
+    </div>
+</div>
+<div style="margin-left: 4px; height: 32px;">
+    @if (ErrorMessage is not null)
+    {
+        <span class="fw-bold text-danger" style="margin-top: 8px;">
+            @ErrorMessage
+        </span>
+    }
+    else
+    {
+        <span>&nbsp</span>
+    }
+</div>
+
+@foreach(var classification in RootCauseClassifications)
+{
+    <div style="margin: 0 2px;">
+        <span>@classification</span>
+    </div>
+}
+
+<FluentDialogFooter>
+    <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.End">
+        <FluentButton Appearance="Appearance.Accent" Disabled="@(!NewClassification.HasValue())" OnClick="@SaveAsync" IconStart="@(new Icons.Regular.Size16.Save())">Simpan</FluentButton>
+        <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Batal</FluentButton>
+    </FluentStack>
+</FluentDialogFooter>
