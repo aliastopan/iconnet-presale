@@ -2,12 +2,17 @@
 {
     <div class="d-flex flex-column root-cause-setting-options">
         <div class="d-flex flex-row align-items-end" style="">
-            <FluentButton style="width: 135px; margin-right: 8px;"
+            <FluentButton style="width: 150px; margin-right: 8px;"
                 Appearance="Appearance.Accent"
                 OnClick="OpenCreateRootCauseDialogAsync">
                 Add Root Cause</FluentButton>
 
-            <FluentButton style="width: 135px; margin-right: 8px;"
+            <FluentButton style="width: 150px; margin-right: 8px;"
+                Appearance="Appearance.Accent"
+                OnClick="OpenCreateClassificationDialogAsync">
+                Add Classification</FluentButton>
+
+            <FluentButton style="width: 100px; margin-right: 8px;"
                 BackgroundColor="crimson"
                 Color="white"
                 Disabled="@(!EnableApplyOptions)"

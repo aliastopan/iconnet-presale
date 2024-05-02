@@ -2,6 +2,7 @@ namespace IConnet.Presale.WebApp.Components.Settings.RootCauses;
 
 public partial class RootCauseSetting : ComponentBase
 {
+    [Inject] AppSettingsService AppSettingsService { get; set; } = default!;
     [Inject] RootCauseManager RootCauseManager { get; set; } = default!;
     [Inject] IDialogService DialogService { get; set; } = default!;
     [Inject] OptionService OptionService { get; set; } = default!;
@@ -71,6 +72,28 @@ public partial class RootCauseSetting : ComponentBase
         }
 
         IsLoading = false;
+    }
+
+    protected async Task OpenCreateClassificationDialogAsync()
+    {
+        var parameters = new DialogParameters()
+        {
+            Title = "Add Classification",
+            TrapFocus = true,
+            Width = "600px",
+        };
+
+        var dialog = await DialogService.ShowDialogAsync<CreateClassificationDialog>(null!, parameters);
+        var result = await dialog.Result;
+
+        if (result.Cancelled || result.Data == null)
+        {
+            return;
+        }
+
+        var dialogData = (string)result.Data;
+
+        LogSwitch.Debug("NEW CLASSIFICATION: {0}", dialogData);
     }
 
     protected async Task ApplyToggleSoftDeletionAsync()
