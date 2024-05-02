@@ -7,7 +7,7 @@
     </FluentStack>
 </FluentDialogHeader>
 
-<div class="d-flex flex-row align-items-end">
+<div class="d-flex flex-row">
     <div>
         <FluentTextField style="width: 300px; margin-right: 4px;"
             Label="Root Cause"
@@ -23,6 +23,18 @@
             Label="Classification"
             Width="250px" />
     </div>
+</div>
+<div style="margin-left: 4px; height: 32px;">
+    @if (ErrorMessage is not null)
+    {
+        <span class="fw-bold text-danger" style="margin-top: 8px;">
+            @ErrorMessage
+        </span>
+    }
+    else
+    {
+        <span>&nbsp</span>
+    }
 </div>
 
 <FluentDialogFooter>
