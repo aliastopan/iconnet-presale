@@ -4,8 +4,9 @@ namespace IConnet.Presale.WebApp.Components.Dashboards.Filters;
 
 public partial class LowerBoundaryFilter : ComponentBase
 {
-    [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
-    [Inject] public SessionService SessionService { get; set; } = default!;
+    [Inject] protected IToastService ToastService { get; set; } = default!;
+    [Inject] protected IDateTimeService DateTimeService { get; set; } = default!;
+    [Inject] protected SessionService SessionService { get; set; } = default!;
 
     public DateTime CurrentLowerBoundaryDateTime { get; set; }
 
@@ -32,14 +33,27 @@ public partial class LowerBoundaryFilter : ComponentBase
             return;
         }
 
-        if (nullableDateTime.Value.Date < SessionService.FilterPreference.UpperBoundaryDateTimeMin.Date)
+        var upperBoundaryMinOffset = SessionService.FilterPreference.UpperBoundaryDateTimeMin.Date.AddDays(-7);
+        var upperBoundaryMin = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
+
+        if (nullableDateTime.Value.Date < upperBoundaryMinOffset.Date)
         {
-            NullableLowerBoundaryDateTime = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
+            OutOfRangeToast(upperBoundaryMinOffset);
+            NullableLowerBoundaryDateTime = upperBoundaryMin;
         }
         else
         {
             NullableLowerBoundaryDateTime = nullableDateTime.Value;
             SessionService.FilterPreference.LowerBoundaryDateTime = LowerBoundaryDateTime;
         }
+    }
+
+    private void OutOfRangeToast(DateTime dateTime)
+    {
+        var intent = ToastIntent.Warning;
+        var message = $"Filter tanggal di luar batas Monthly. Batas awal tersedia adalah {dateTime.ToDateOnlyFormat()}";
+        var timeout = 15000;
+
+        ToastService.ShowToast(intent, message, timeout: timeout);
     }
 }
