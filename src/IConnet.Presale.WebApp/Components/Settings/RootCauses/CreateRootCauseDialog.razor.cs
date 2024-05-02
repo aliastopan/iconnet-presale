@@ -2,7 +2,8 @@ namespace IConnet.Presale.WebApp.Components.Settings.RootCauses;
 
 public partial class CreateRootCauseDialog : IDialogContentComponent<NewRootCauseModel>
 {
-    [Inject] public AppSettingsService AppSettingsService { get; set; } = default!;
+    [Inject] AppSettingsService AppSettingsService { get; set; } = default!;
+    [Inject] OptionService OptionService { get; set; } = default!;
 
     [Parameter]
     public NewRootCauseModel Content { get; set; } = default!;
@@ -13,6 +14,7 @@ public partial class CreateRootCauseDialog : IDialogContentComponent<NewRootCaus
     protected List<string> RootCauseClassifications => AppSettingsService.RootCauseClassifications;
     protected string NewRootCause { get; set; } = default!;
     protected string NewRootCauseClassification { get; set; } = default!;
+    protected string? ErrorMessage { get; set; } = default!;
 
     protected override void OnInitialized()
     {
@@ -29,11 +31,23 @@ public partial class CreateRootCauseDialog : IDialogContentComponent<NewRootCaus
         await Dialog.CancelAsync();
     }
 
-    protected void OnNewRootCauseChanged(string newRootCause)
+    protected void OnNewRootCauseChanged(string rootCause)
     {
-        NewRootCause = newRootCause
+        ErrorMessage = null;
+
+        rootCause = rootCause
             .SanitizeOnlyAlphanumericAndSpaces()
             .CapitalizeFirstLetterOfEachWord();
+
+        bool hasDuplicate = OptionService.RootCauseOptions.Any(option => option.Equals(rootCause, StringComparison.OrdinalIgnoreCase));
+
+        if (hasDuplicate)
+        {
+            ErrorMessage = $"Root Cause '{rootCause}' sudah ada";
+            return;
+        }
+
+        NewRootCause = rootCause;
     }
 
     protected void OnNewRootCauseClassificationChanged(string classification)
