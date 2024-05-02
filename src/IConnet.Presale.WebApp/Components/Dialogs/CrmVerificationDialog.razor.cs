@@ -70,6 +70,12 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
         await Dialog.CloseAsync(Content);
     }
 
+    protected async Task OnWaitAsync()
+    {
+        PutOnWait();
+        await Dialog.CloseAsync(Content);
+    }
+
     protected async Task RejectAsync()
     {
         await RejectCrmAsync();
@@ -107,8 +113,20 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
         await Dialog.CancelAsync(Content);
     }
 
+    private void PutOnWait()
+    {
+        var prosesApproval = Content!.ProsesApproval
+            .WithKeterangan(Keterangan)
+            .WithJarakICrmPlus(JarakICrmPlusVerification);
+
+        Content.OnWait = true;
+        Content.ProsesApproval = prosesApproval;
+        Content.LastModified = DateTimeService.DateTimeOffsetNow;
+    }
+
     private async Task VerifyCrmAsync()
     {
+        Content.OnWait = false;
         Content.Shift = SessionService.GetShift();
         Content.WorkPaperLevel = WorkPaperLevel.ImportVerified;
         Content.ApprovalOpportunity.StatusImport = ImportStatus.Verified;
@@ -136,6 +154,7 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
             TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
         };
 
+        Content.OnWait = false;
         Content.Shift = SessionService.GetShift();
         Content.WorkPaperLevel = WorkPaperLevel.ImportVerified;
         Content.ApprovalOpportunity.StatusImport = ImportStatus.Verified;

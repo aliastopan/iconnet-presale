@@ -151,6 +151,11 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
             return;
         }
 
+        if (dialogData.OnWait)
+        {
+            await PutOnWaitAsync(dialogData);
+        }
+
         switch (dialogData.ApprovalOpportunity.StatusImport)
         {
             case ImportStatus.Verified:
@@ -191,6 +196,20 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
 
         var broadcastMessage = $"CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been verified";
+        await BroadcastService.BroadcastMessageAsync(broadcastMessage);
+
+        IsLoading = false;
+    }
+
+    private async Task PutOnWaitAsync(WorkPaper workPaper)
+    {
+        IsLoading = true;
+
+        LogSwitch.Debug("PUT ON WAIT");
+
+        await WorkloadManager.UpdateWorkloadAsync(workPaper);
+
+        var broadcastMessage = $"CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been put on wait";
         await BroadcastService.BroadcastMessageAsync(broadcastMessage);
 
         IsLoading = false;

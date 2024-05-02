@@ -67,12 +67,20 @@
                                 <span style="min-width: 135px;">
                                     @context.ApprovalOpportunity.IdPermohonan
                                 </span>
-                                <span style="margin-left: 0px">
                                 @if (IsReinstated(@context.WorkPaperLevel))
                                 {
-                                    <FluentIcon Value="@_reinstatedIcon" />
+                                    <span style="margin-right: 4px">
+                                        <FluentIcon Value="@_reinstatedIcon"
+                                            Title="Reset"/>
+                                    </span>
                                 }
-                                </span>
+                                @if (@context.OnWait)
+                                {
+                                    <span style="margin-right: 4px">
+                                        <FluentIcon Value="@_onWaitIcon"
+                                            Title="On Wait"/>
+                                    </span>
+                                }
                             </div>
                         </ChildContent>
                     </TemplateColumn>
@@ -387,5 +395,6 @@
 
 @code
 {
-    private Icon _reinstatedIcon = new Icons.Filled.Size20.ErrorCircle().WithColor("var(--info-grey)");
+    private Icon _reinstatedIcon = new Icons.Filled.Size20.ArrowCounterclockwise().WithColor("var(--info-grey)");
+    private Icon _onWaitIcon = new Icons.Filled.Size20.Hourglass().WithColor("var(--pending-cyan)");
 }

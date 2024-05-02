@@ -21,6 +21,7 @@ public class WorkPaper : IAggregateRoot, IConcurrencyTracking
     public ActionSignature SignaturePlanningAssetCoverageInCharge { get; set; }
     public ValidationProcess ProsesValidasi { get; set; }
     public ApprovalProcess ProsesApproval { get; set; }
+    public bool OnWait { get; set; }
 
     public Guid FkApprovalOpportunityId { get; init; }
     public virtual ApprovalOpportunity ApprovalOpportunity { get; init; }
