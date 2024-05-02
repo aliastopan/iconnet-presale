@@ -292,7 +292,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
 
     protected void OnKeteranganChanged(string Keterangan)
     {
-        ApprovalModel!.Keterangan = Keterangan;
+        ApprovalModel!.Keterangan = Keterangan.SanitizeString();
     }
 
     protected bool IsNotResponding()

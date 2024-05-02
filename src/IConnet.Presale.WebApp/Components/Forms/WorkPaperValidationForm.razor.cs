@@ -420,7 +420,7 @@ public partial class WorkPaperValidationForm : ComponentBase
 
     protected void OnKeteranganChanged(string keterangan)
     {
-        ValidationModel!.Keterangan = keterangan;
+        ValidationModel!.Keterangan = keterangan.SanitizeString();
 
         if (!IsStillInCharge())
         {

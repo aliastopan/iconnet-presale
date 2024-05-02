@@ -32,7 +32,7 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
 
     protected void OnKeteranganChanged(string keterangan)
     {
-        Keterangan = keterangan;
+        Keterangan = keterangan.SanitizeString();
     }
 
     protected void OnStatusVerifikasiChanged(string statusVerifikasi)
