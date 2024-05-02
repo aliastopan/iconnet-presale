@@ -205,6 +205,7 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
         var prosesApproval = Content.ProsesApproval
             .WithStatusApproval(ApprovalStatus.Reject)
             .WithRootCause(rootCause)
+            .WithKeterangan(Keterangan)
             .WithSignatureApproval(rejectSignature);
 
         Content.ProsesValidasi = prosesValidasi;
