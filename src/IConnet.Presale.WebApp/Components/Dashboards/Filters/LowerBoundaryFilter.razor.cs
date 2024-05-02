@@ -33,8 +33,10 @@ public partial class LowerBoundaryFilter : ComponentBase
             return;
         }
 
-        var upperBoundaryMinOffset = SessionService.FilterPreference.UpperBoundaryDateTimeMin.Date.AddDays(-7);
         var upperBoundaryMin = SessionService.FilterPreference.UpperBoundaryDateTimeMin;
+        var offset = DateTimeService.GetFirstDayOfWeekOffset(upperBoundaryMin);
+
+        var upperBoundaryMinOffset = SessionService.FilterPreference.UpperBoundaryDateTimeMin.Date.AddDays(-offset);
 
         if (nullableDateTime.Value.Date < upperBoundaryMinOffset.Date)
         {
