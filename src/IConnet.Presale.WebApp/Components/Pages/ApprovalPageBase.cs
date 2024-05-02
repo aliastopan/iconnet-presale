@@ -188,6 +188,8 @@ public class ApprovalPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.TglPermohonanPx}px
             {ColumnWidth.StatusApprovalPx}px
             {ColumnWidth.StagingStatusPx}px
+            {ColumnWidth.InChargeImportPx}px
+            {ColumnWidth.InChargeVerificationPx}px
             {ColumnWidth.InChargeChatCallMulaiPx}px
             {ColumnWidth.InChargeChatCallResponsPx}px
             {ColumnWidth.PlanningAssetCoverageInChargePx}px

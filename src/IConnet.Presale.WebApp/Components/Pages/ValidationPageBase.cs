@@ -182,6 +182,8 @@ public class ValidationPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.IdPermohonanPx}px
             {ColumnWidth.TglPermohonanPx}px
             {ColumnWidth.StagingStatusPx}px
+            {ColumnWidth.InChargeImportPx}px
+            {ColumnWidth.InChargeVerificationPx}px
             {ColumnWidth.HelpdeskInChargePx}px
             {ColumnWidth.ShiftPx}px
             {ColumnWidth.TglChatCallMulaiPx}px

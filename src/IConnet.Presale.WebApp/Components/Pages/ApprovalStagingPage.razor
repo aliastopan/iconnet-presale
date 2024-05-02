@@ -68,6 +68,26 @@
                             <ApprovalBadge ApprovalStatus="@context.ProsesApproval.StatusApproval"/>
                         </div>
                     </TemplateColumn>
+                    <TemplateColumn Title="PIC IMPORT" Style="@GetWidthStyle(ColumnWidth.InChargeImportPx)"
+                        SortBy="@SortByImportSignatureAlias">
+                        <div class="">
+                            @context.ApprovalOpportunity.SignatureImport.Alias
+                        </div>
+                    </TemplateColumn>
+                    <TemplateColumn Title="PIC VERIFIKASI" Style="@GetWidthStyle(ColumnWidth.InChargeVerificationPx)">
+                        <div class="" style="display: flex;">
+                            @if (context.ApprovalOpportunity.SignatureVerifikasiImport.IsEmptySignature())
+                            {
+                                <span class="staging-waiting">
+                                    KOSONG
+                                </span>
+                            }
+                            else
+                            {
+                                @context.ApprovalOpportunity.SignatureVerifikasiImport.Alias
+                            }
+                        </div>
+                    </TemplateColumn>
                     <TemplateColumn Title="PIC CHAT/CALL PICK-UP" Style="@GetWidthStyle(ColumnWidth.InChargeChatCallMulaiPx)"
                         SortBy="@SortByHelpdeskInCharge">
                         <div class="" style="display: flex;">

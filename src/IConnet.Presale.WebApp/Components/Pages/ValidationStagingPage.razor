@@ -62,7 +62,27 @@
                             <DateTimeBadge DateTime="@context.ApprovalOpportunity.TglPermohonan"/>
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="PIC CHAT/CALL" Style="@GetWidthStyle(ColumnWidth.HelpdeskInChargePx)"
+                    <TemplateColumn Title="PIC IMPORT" Style="@GetWidthStyle(ColumnWidth.InChargeImportPx)"
+                        SortBy="@SortByImportSignatureAlias">
+                        <div class="">
+                            @context.ApprovalOpportunity.SignatureImport.Alias
+                        </div>
+                    </TemplateColumn>
+                    <TemplateColumn Title="PIC VERIFIKASI" Style="@GetWidthStyle(ColumnWidth.InChargeVerificationPx)">
+                        <div class="" style="display: flex;">
+                            @if (context.ApprovalOpportunity.SignatureVerifikasiImport.IsEmptySignature())
+                            {
+                                <span class="staging-waiting">
+                                    KOSONG
+                                </span>
+                            }
+                            else
+                            {
+                                @context.ApprovalOpportunity.SignatureVerifikasiImport.Alias
+                            }
+                        </div>
+                    </TemplateColumn>
+                    <TemplateColumn Title="PIC CHAT/CALL PICK-UP" Style="@GetWidthStyle(ColumnWidth.HelpdeskInChargePx)"
                         SortBy="@SortByHelpdeskInCharge">
                         <div class="" style="display: flex;">
                             @if (context.SignatureHelpdeskInCharge.IsEmptySignature())
