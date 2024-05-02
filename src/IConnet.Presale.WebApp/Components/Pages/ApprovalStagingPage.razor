@@ -116,6 +116,11 @@
                             }
                         </div>
                     </TemplateColumn>
+                    <TemplateColumn Title="KETERANGAN VERIFIKASI" Style="@GetWidthStyle(ColumnWidth.KeteranganVerifikasiPx)">
+                        <div class="">
+                            @context.ProsesApproval.Keterangan
+                        </div>
+                    </TemplateColumn>
                     <TemplateColumn Title="NAMA PELANGGAN" Style="@GetWidthStyle(ColumnWidth.ValidasiNamaPelangganPx)">
                         <div class="">
                             <ValidationBadge IncludeNotResponding=true

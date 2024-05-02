@@ -104,6 +104,11 @@
                     @DateTimeService.GetElapsedTime(context.ApprovalOpportunity.TglPermohonan).ToReadableDateTime()
                 </div>
             </TemplateColumn>
+            <TemplateColumn Title="KETERANGAN VERIFIKASI" Style="@GetWidthStyle(ColumnWidth.KeteranganVerifikasiPx)">
+                <div class="">
+                    @context.ProsesApproval.Keterangan
+                </div>
+            </TemplateColumn>
             <TemplateColumn Title="NAMA PEMOHON" Style="@GetWidthStyle(ColumnWidth.NamaPemohonPx, 200)"
                 SortBy="@SortByNamaPemohon">
                 <ColumnOptions>

@@ -193,6 +193,7 @@ public class ApprovalPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.InChargeChatCallMulaiPx}px
             {ColumnWidth.InChargeChatCallResponsPx}px
             {ColumnWidth.PlanningAssetCoverageInChargePx}px
+            {ColumnWidth.KeteranganVerifikasiPx}px
             {ColumnWidth.ValidasiNamaPelangganPx}px
             {ColumnWidth.ValidasiNomorTelpPx}px
             {ColumnWidth.ValidasiEmailPx}px

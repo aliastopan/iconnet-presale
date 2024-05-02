@@ -76,6 +76,7 @@ public class WorkloadSharedPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.InChargeImportPx}px
             {ColumnWidth.InChargeVerificationPx}px
             {ColumnWidth.DurasiTidakLanjutPx}px
+            {ColumnWidth.KeteranganVerifikasiPx}px
             {ColumnWidth.NamaPemohonPx + 200}px
             {ColumnWidth.TelpPemohonPx + 180}px
             {ColumnWidth.EmailPemohonPx + 200}px
