@@ -31,7 +31,9 @@ public partial class CreateRootCauseDialog : IDialogContentComponent<NewRootCaus
 
     protected void OnNewRootCauseChanged(string newRootCause)
     {
-        NewRootCause = newRootCause.SanitizeOnlyAlphanumericAndSpaces();
+        NewRootCause = newRootCause
+            .SanitizeOnlyAlphanumericAndSpaces()
+            .CapitalizeFirstLetterOfEachWord();
     }
 
     protected void OnNewRootCauseClassificationChanged(string classification)
