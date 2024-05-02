@@ -1,10 +1,9 @@
-using Microsoft.Win32.SafeHandles;
-
 namespace IConnet.Presale.WebApp.Components.Settings.RootCauses;
 
-public partial class RootCauseSetting
+public partial class RootCauseSetting : ComponentBase
 {
     [Inject] RootCauseManager RootCauseManager { get; set; } = default!;
+    [Inject] IDialogService DialogService { get; set; } = default!;
     [Inject] OptionService OptionService { get; set; } = default!;
     [Inject] SessionService SessionService { get; set; } = default!;
 
@@ -29,6 +28,30 @@ public partial class RootCauseSetting
     protected bool HasToggledOptions()
     {
         return Models!.Any(x => x.IsToggledSoftDeletion || x.IsToggledOnVerification);
+    }
+
+    protected async Task OpenCreateRootCauseDialogAsync()
+    {
+        var parameters = new DialogParameters()
+        {
+            Title = "Add Root Cause",
+            TrapFocus = true,
+            Width = "600px",
+        };
+
+        var dialog = await DialogService.ShowDialogAsync<CreateRootCauseDialog>(null!, parameters);
+        var result = await dialog.Result;
+
+        if (result.Cancelled || result.Data == null)
+        {
+            return;
+        }
+
+        var dialogData = (NewRootCauseModel)result.Data;
+
+        LogSwitch.Debug("New Root Cause {0} ({1})", dialogData.RootCause, dialogData.Classification);
+
+        await Task.CompletedTask;
     }
 
     protected async Task SubmitNewRootCauseAsync()
