@@ -16,8 +16,8 @@ public static class StringExtensions
 
         sanitizedInput = sanitizedInput.Replace("--", "");
         sanitizedInput = sanitizedInput.Replace(";", "");
-        sanitizedInput = sanitizedInput.Replace("/*", "/*");
-        sanitizedInput = sanitizedInput.Replace("*/", "*/");
+        sanitizedInput = sanitizedInput.Replace("/*", "");
+        sanitizedInput = sanitizedInput.Replace("*/", "");
         sanitizedInput = sanitizedInput.Replace("<", "&lt;");
         sanitizedInput = sanitizedInput.Replace(">", "&gt;");
 
