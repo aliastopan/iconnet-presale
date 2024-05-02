@@ -70,6 +70,9 @@
                     <div>
                         Karena <span class="fw-bold">@GetRootCause()</span>.
                     </div>
+                    <div>
+                        Keterangan: <span class="fw-bold">@GetKeteranganApproval()</span>
+                    </div>
                 }
                 else
                 {
@@ -181,6 +184,9 @@
                     <div>
                         Karena <span class="fw-bold">@GetRootCause()</span>.
                     </div>
+                    <div>
+                        Keterangan: <span class="fw-bold">@GetKeteranganApproval()</span>
+                    </div>
                 }
 
                 @if (IsRejected)
@@ -191,12 +197,18 @@
                     <div>
                         Karena <span class="fw-bold">@GetRootCause()</span>
                     </div>
+                    <div>
+                        Keterangan: <span class="fw-bold">@GetKeteranganApproval()</span>
+                    </div>
                 }
 
                 @if (IsApproved)
                 {
                     <div>
                         Data presale telah diterima <span class="tracker-label-approved">APPROVED</span> oleh <span class="fw-bold">@GetPicApproval()</span>.
+                    </div>
+                    <div>
+                        Keterangan: <span class="fw-bold">@GetKeteranganApproval()</span>
                     </div>
                     if (IsDirectlyApproved)
                     {

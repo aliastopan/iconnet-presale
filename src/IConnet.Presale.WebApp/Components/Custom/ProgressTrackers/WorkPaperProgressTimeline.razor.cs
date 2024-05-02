@@ -348,4 +348,9 @@ public partial class WorkPaperProgressTimeline : ComponentBase
     {
         return WorkPaper!.ProsesApproval.RootCause.ToUpper();
     }
+
+    protected string GetKeteranganApproval()
+    {
+        return WorkPaper!.ProsesApproval.Keterangan;
+    }
 }
