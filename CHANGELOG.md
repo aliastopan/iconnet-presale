@@ -1,3 +1,12 @@
+## v3.5.0
+- Fix: Keterangan verifikasi
+- Fix: "Top Level" boundary filtering
+- Fix: Sanitize import model strings
+- Add: "On Wait" status verifikasi
+- Add: PIC columns
+- Add: Keterangan verifkasi column
+- Add: Keterangan to timeline tracking
+
 ## v3.4.1
 - Fix: CSV (upload) date time parsing
 - Update: CSV import guide
