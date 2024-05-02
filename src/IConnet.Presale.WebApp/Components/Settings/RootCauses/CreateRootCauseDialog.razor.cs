@@ -14,6 +14,11 @@ public partial class CreateRootCauseDialog : IDialogContentComponent<NewRootCaus
     protected string NewRootCause { get; set; } = default!;
     protected string NewRootCauseClassification { get; set; } = default!;
 
+    protected override void OnInitialized()
+    {
+        NewRootCauseClassification = AppSettingsService.RootCauseClassifications.First();
+    }
+
     protected async Task SaveAsync()
     {
         await Dialog.CloseAsync(new NewRootCauseModel(NewRootCause, NewRootCauseClassification));
