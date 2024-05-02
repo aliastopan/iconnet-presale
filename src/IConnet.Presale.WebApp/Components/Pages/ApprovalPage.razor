@@ -88,7 +88,8 @@
                             @context.ApprovalOpportunity.SignatureImport.Alias
                         </div>
                     </TemplateColumn>
-                    <TemplateColumn Title="PIC VERIFIKASI" Style="@GetWidthStyle(ColumnWidth.InChargeVerificationPx)">
+                    <TemplateColumn Title="PIC VERIFIKASI" Style="@GetWidthStyle(ColumnWidth.InChargeVerificationPx)"
+                        SortBy="@SortByImportVerificationSignatureAlias">
                         <div class="" style="display: flex;">
                             @if (context.ApprovalOpportunity.SignatureVerifikasiImport.IsEmptySignature())
                             {

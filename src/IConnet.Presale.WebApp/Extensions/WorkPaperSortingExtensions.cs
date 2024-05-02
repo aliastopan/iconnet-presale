@@ -7,6 +7,11 @@ public static class WorkPaperSortingExtensions
         return GridSort<WorkPaper>.ByAscending(workPaper => workPaper.ApprovalOpportunity.SignatureImport.Alias);
     }
 
+    public static GridSort<WorkPaper> SortByImportVerificationSignatureAlias(this IQueryable<WorkPaper>? _)
+    {
+        return GridSort<WorkPaper>.ByAscending(workPaper => workPaper.ApprovalOpportunity.SignatureVerifikasiImport.Alias);
+    }
+
     public static GridSort<WorkPaper> SortByWorkPaperLevel(this IQueryable<WorkPaper>? _)
     {
         return GridSort<WorkPaper>.ByAscending(workPaper => workPaper.WorkPaperLevel);
