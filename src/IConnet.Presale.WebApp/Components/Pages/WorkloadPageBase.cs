@@ -62,6 +62,8 @@ public class WorkloadPageBase : ComponentBase
     protected GridSort<WorkPaper> SortByKecamatan => _workPapers.SortByKecamatan();
     protected GridSort<WorkPaper> SortByKelurahan => _workPapers.SortByKelurahan();
 
+    protected GridSort<WorkPaper> SortByImportSignatureAlias => WorkPapers.SortByImportSignatureAlias();
+
     protected string PageName { get; set; } = "Workload page (base)";
     protected virtual bool IsLoading { get; set; } = false;
 

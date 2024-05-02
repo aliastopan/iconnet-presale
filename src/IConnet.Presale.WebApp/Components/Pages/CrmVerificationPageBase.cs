@@ -13,8 +13,6 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
     protected string GridTemplateCols => GetGridTemplateCols();
     protected override IQueryable<WorkPaper>? WorkPapers => FilterWorkPapers();
 
-    protected GridSort<WorkPaper> SortByImportSignatureAlias => WorkPapers.SortByImportSignatureAlias();
-
     public TabNavigationModel PageDeclaration()
     {
         return new TabNavigationModel("crm-verification", PageNavName.CrmVerification, PageRoute.CrmVerification);
