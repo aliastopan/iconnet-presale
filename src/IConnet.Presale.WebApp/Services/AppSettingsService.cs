@@ -17,32 +17,6 @@ public class AppSettingsService
     private TimeSpan _slaApproval;
 
     private List<string> _rootCauseClassifications = [];
-    public List<string> RootCauseClassifications => _rootCauseClassifications;
-
-    public AppSettingsService(IConfiguration configuration)
-    {
-        string officeHourPagiStartString = configuration["OfficeHours:Pagi:Start"]!;
-        string officeHourPagiEndString = configuration["OfficeHours:Pagi:End"]!;
-        string officeHourMalamStartString = configuration["OfficeHours:Malam:Start"]!;
-        string officeHourMalamEndString = configuration["OfficeHours:Malam:End"]!;
-
-        _officeHourPagiStart = TimeOnly.ParseExact(officeHourPagiStartString, "HH:mm:ss", null);
-        _officeHourPagiEnd = TimeOnly.ParseExact(officeHourPagiEndString, "HH:mm:ss", null);
-        _officeHourMalamStart = TimeOnly.ParseExact(officeHourMalamStartString, "HH:mm:ss", null);
-        _officeHourMalamEnd = TimeOnly.ParseExact(officeHourMalamEndString, "HH:mm:ss", null);
-
-        string slaImportString = configuration["ServiceLevelAgreement:Import"]!;
-        string slaPickUpString = configuration["ServiceLevelAgreement:PickUp"]!;
-        string slaValidasiString = configuration["ServiceLevelAgreement:Validasi"]!;
-        string slaApprovalString = configuration["ServiceLevelAgreement:Approval"]!;
-
-        _slaImport = TimeSpan.Parse(slaImportString);
-        _slaPickUp = TimeSpan.Parse(slaPickUpString);
-        _slaValidasi = TimeSpan.Parse(slaValidasiString);
-        _slaApproval = TimeSpan.Parse(slaApprovalString);
-
-        _rootCauseClassifications = configuration.GetSection("RootCauseClassification").Get<List<string>>()!;
-    }
 
     public TimeOnly OfficeHourPagiStart => _officeHourPagiStart;
     public TimeOnly OfficeHourPagiEnd => _officeHourPagiEnd;
