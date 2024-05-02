@@ -110,6 +110,11 @@
                             }
                         </div>
                     </TemplateColumn>
+                    <TemplateColumn Title="KETERANGAN VERIFIKASI" Style="@GetWidthStyle(ColumnWidth.KeteranganVerifikasiPx)">
+                        <div class="">
+                            @context.ProsesApproval.Keterangan
+                        </div>
+                    </TemplateColumn>
                     <TemplateColumn Title="DURASI TIDAK LANJUT" Style="@GetWidthStyle(ColumnWidth.DurasiTidakLanjutPx)">
                         <div class="">
                             @DateTimeService.GetElapsedTime(context.ApprovalOpportunity.TglPermohonan).ToReadableDateTime()

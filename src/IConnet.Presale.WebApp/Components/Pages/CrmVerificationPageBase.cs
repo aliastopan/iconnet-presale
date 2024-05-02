@@ -154,6 +154,7 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
         if (dialogData.OnWait)
         {
             await PutOnWaitAsync(dialogData);
+            ColumnWidth.SetColumnWidth(WorkPapers);
         }
 
         switch (dialogData.ApprovalOpportunity.StatusImport)
@@ -279,6 +280,7 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
             {ColumnWidth.TglPermohonanPx}px
             {ColumnWidth.InChargeImportPx}px
             {ColumnWidth.InChargeVerificationPx}px
+            {ColumnWidth.KeteranganVerifikasiPx}px
             {ColumnWidth.DurasiTidakLanjutPx}px
             {ColumnWidth.NamaPemohonPx}px
             {ColumnWidth.IdPlnPx}px
