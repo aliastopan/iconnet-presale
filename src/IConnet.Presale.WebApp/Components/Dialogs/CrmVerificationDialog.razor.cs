@@ -119,7 +119,9 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
             TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
         };
 
-        var prosesApproval = Content!.ProsesApproval.WithJarakICrmPlus(JarakICrmPlusVerification);
+        var prosesApproval = Content!.ProsesApproval
+            .WithKeterangan(Keterangan)
+            .WithJarakICrmPlus(JarakICrmPlusVerification);
 
         Content.ProsesApproval = prosesApproval;
         Content.LastModified = DateTimeService.DateTimeOffsetNow;
@@ -145,6 +147,7 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
             .WithJarakShareLoc(JarakICrmPlusVerification)
             .WithStatusApproval(ApprovalStatus.Approve)
             .WithDirectApproval(DirectApproval)
+            .WithKeterangan(Keterangan)
             .WithSignatureApproval(directApprovalSignature);
 
         Content.ProsesApproval = prosesApproval;
