@@ -32,6 +32,7 @@ public partial class WorkPaperApprovalForm : ComponentBase
 
     protected string RootCauseClassification => OptionService.GetRootCauseClassification(ApprovalModel!.RootCause);
     protected bool IsRejected => ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.Reject;
+    protected bool IsClosedLost => ApprovalModel!.StatusApproval == OptionSelect.StatusApproval.CloseLost;
 
     protected bool DisableRootCause => ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.Reject
         && ApprovalModel!.StatusApproval != OptionSelect.StatusApproval.CloseLost;

@@ -391,7 +391,7 @@
                             <RootCauseSelect IsDisabled="@DisableRootCause"
                                 SelectedRootCause="@ApprovalModel.RootCause"
                                 OnSelectedRootCauseChanged="OnRootCauseChanged"/>
-                            @if (IsRejected)
+                            @if (IsRejected || IsClosedLost)
                             {
                                 <div class="root-cause-classification">
                                     @RootCauseClassification
