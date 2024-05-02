@@ -1,6 +1,6 @@
 namespace IConnet.Presale.WebApp.Components.Dialogs;
 
-public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
+public partial class CrmVerificationDialog : ComponentBase, IDialogContentComponent<WorkPaper>
 {
     [Inject] public IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] public IDialogService DialogService { get; set; } = default!;
@@ -24,6 +24,12 @@ public partial class CrmVerificationDialog : IDialogContentComponent<WorkPaper>
     public string StatusVerifikasi = OptionSelect.StatusVerifikasi.MenungguVerifikasi;
     public string DirectApproval { get; set; } = string.Empty;
     public bool IsDirectApproval { get; set; }
+
+    protected override void OnInitialized()
+    {
+        JarakICrmPlusVerification = Content.ProsesApproval.JarakICrmPlus;
+        Keterangan = Content.ProsesApproval.Keterangan;
+    }
 
     protected void OnJarakICrmChanged(int jarakShareLoc)
     {
