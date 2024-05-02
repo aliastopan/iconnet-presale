@@ -5,5 +5,5 @@ public interface IPresaleAppService
     Task<bool> IsNullSettings();
     Task SetDefaultSettingAsync();
     Task SetSettingValueAsync(string key, string value, TimeSpan? expiry = null);
-    Task<string?> GetSettingValueAsync(string key);
+    Task<string> GetSettingValueAsync(string key);
 }

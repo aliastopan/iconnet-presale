@@ -31,7 +31,7 @@ internal class PresaleAppService : IPresaleAppService
 
     public async Task SetDefaultSettingAsync()
     {
-        LogSwitch.Debug("Setting up DEFAULT settings");
+        Log.Warning("Setting up DEFAULT settings.");
 
         var setting = new PresaleSettingModel
         {
@@ -84,11 +84,11 @@ internal class PresaleAppService : IPresaleAppService
         }
     }
 
-    public async Task<string?> GetSettingValueAsync(string key)
+    public async Task<string> GetSettingValueAsync(string key)
     {
         try
         {
-            return await DatabaseSetting.StringGetAsync(key);
+            return (await DatabaseSetting.StringGetAsync(key))!;
         }
         catch (TimeoutException exception)
         {

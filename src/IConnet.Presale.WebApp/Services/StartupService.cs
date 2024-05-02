@@ -2,6 +2,7 @@ namespace IConnet.Presale.WebApp.Services;
 
 public class StartupService : IHostedService
 {
+    private readonly AppSettingsService _appSettingsService;
     private readonly IPresaleAppService _presaleAppService;
     private readonly IWorkloadSynchronizationManager _workloadSynchronizationManager;
     private readonly UserManager _userManager;
@@ -12,7 +13,8 @@ public class StartupService : IHostedService
     private readonly CommonDuplicateService _commonDuplicateService;
     private readonly IPresaleDataBoundaryManager _presaleDataBoundaryManager;
 
-    public StartupService(IPresaleAppService presaleAppService,
+    public StartupService(AppSettingsService appSettingsService,
+        IPresaleAppService presaleAppService,
         IWorkloadSynchronizationManager workloadSynchronizationManager,
         UserManager userManager,
         ChatTemplateManager chatTemplateManager,
@@ -22,6 +24,7 @@ public class StartupService : IHostedService
         CommonDuplicateService commonDuplicateService,
         IPresaleDataBoundaryManager presaleDataBoundaryManager)
     {
+        _appSettingsService = appSettingsService;
         _presaleAppService = presaleAppService;
         _workloadSynchronizationManager = workloadSynchronizationManager;
         _userManager = userManager;
@@ -41,6 +44,8 @@ public class StartupService : IHostedService
         {
             await _presaleAppService.SetDefaultSettingAsync();
         }
+
+        await _appSettingsService.InitAppSettingsAsync();
 
         Task[] tasks =
         [
