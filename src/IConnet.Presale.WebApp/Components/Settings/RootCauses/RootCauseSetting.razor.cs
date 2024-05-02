@@ -14,16 +14,9 @@ public partial class RootCauseSetting : ComponentBase
     public EventCallback OnRootCauseAdded { get; set; }
 
     public bool IsLoading { get; set; } = false;
-    public bool EnableAddRootCause { get; set; }
-    public string NewRootCause { get; set; } = string.Empty;
     public bool EnableApplyOptions => HasToggledOptions();
 
     protected string GridTemplateCols => GetGridTemplateCols();
-
-    protected void OnNewRootCauseChanged(string newRootCause)
-    {
-        NewRootCause = newRootCause.SanitizeOnlyAlphanumericAndSpaces();
-    }
 
     protected bool HasToggledOptions()
     {
@@ -32,6 +25,11 @@ public partial class RootCauseSetting : ComponentBase
 
     protected async Task OpenCreateRootCauseDialogAsync()
     {
+        if (Models is null)
+        {
+            return;
+        }
+
         var parameters = new DialogParameters()
         {
             Title = "Add Root Cause",
@@ -49,27 +47,14 @@ public partial class RootCauseSetting : ComponentBase
 
         var dialogData = (NewRootCauseModel)result.Data;
 
-        LogSwitch.Debug("New Root Cause {0} ({1})", dialogData.RootCause, dialogData.Classification);
-
-        await Task.CompletedTask;
-    }
-
-    protected async Task SubmitNewRootCauseAsync()
-    {
-        if (NewRootCause.IsNullOrWhiteSpace() || Models is null)
-        {
-            return;
-        }
-
         IsLoading = true;
 
         int highestOrder = Models.Max(x => x.Order) + 1;
-        string rootCause = NewRootCause.CapitalizeFirstLetterOfEachWord();
 
-        // TODO: add root cause classification
-        string classification = string.Empty;
-
-        bool isSuccess = await RootCauseManager.AddRootCauseAsync(highestOrder, rootCause, classification);
+        bool isSuccess = await RootCauseManager.AddRootCauseAsync(
+            highestOrder,
+            dialogData.RootCause,
+            dialogData.Classification);
 
         if (isSuccess)
         {
@@ -80,10 +65,9 @@ public partial class RootCauseSetting : ComponentBase
                 await OnRootCauseAdded.InvokeAsync();
             }
 
-            NewRootCause = string.Empty;
+            var updatedRootCauses = OptionService.RootCauseOptions;
 
-            var rootCauses = OptionService.RootCauseOptions;
-            SessionService.FilterPreference.SetRootCauseExclusion(rootCauses, allowOverwrite: true);
+            SessionService.FilterPreference.SetRootCauseExclusion(updatedRootCauses, allowOverwrite: true);
         }
 
         IsLoading = false;
