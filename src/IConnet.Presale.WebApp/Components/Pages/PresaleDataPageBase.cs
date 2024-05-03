@@ -114,6 +114,29 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
         ColumnWidth.SetColumnWidth(WorkPapers);
     }
 
+    protected override async Task RefreshPageAsync()
+    {
+        LogSwitch.Debug("Reload");
+        if(IsRefreshPage)
+        {
+            return;
+        }
+
+        _presaleData = null!;
+
+        IsRefreshPage = true;
+        this.StateHasChanged();
+
+        _presaleData = await WorkloadManager.GetWorkloadAsync(PresaleDataFilter);
+
+        await LoadPresaleDataAsync();
+
+        ColumnWidth.SetColumnWidth(WorkPapers);
+
+        IsRefreshPage = false;
+        this.StateHasChanged();
+    }
+
     protected async Task OnRowSelected(FluentDataGridRow<WorkPaper> row)
     {
         if (!EnableSelection || row.Item is null)

@@ -67,6 +67,7 @@ public class WorkloadPageBase : ComponentBase
 
     protected string PageName { get; set; } = "Workload page (base)";
     protected virtual bool IsLoading { get; set; } = false;
+    protected virtual bool IsRefreshPage { get; set; } = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -77,6 +78,25 @@ public class WorkloadPageBase : ComponentBase
 
             _isInitialized = true;
         }
+    }
+
+    protected virtual async Task RefreshPageAsync()
+    {
+        if(IsRefreshPage)
+        {
+            return;
+        }
+
+        // _workPapers = null!;
+
+        IsRefreshPage = true;
+        this.StateHasChanged();
+
+        _workPapers = await WorkloadManager.GetWorkloadAsync(PresaleDataFilter);
+
+        IsRefreshPage = false;
+        StateHasChanged();
+        this.StateHasChanged();
     }
 
     protected virtual async Task OnUpdateWorkloadAsync(string message)

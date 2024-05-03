@@ -10,10 +10,14 @@
     <Authorized>
         <div class="d-flex flex-row align-items-center">
             <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Kertas Kerja (Helpdesk)</FluentLabel>
-            <div class="filter-toggle">
+            <div class="" style="margin-left: auto; margin-right: 8px;">
+                <FluentButton Appearance="Appearance.Accent"
+                    OnClick="@RefreshPageAsync">
+                    Refresh Page</FluentButton>
+            </div>
+            <div class="" style="margin-right: 8px;">
                 <FluentButton IconEnd="@(new Icons.Filled.Size20.Grid())"
                     OnClick="@SessionService.FilterPreference.ToggleFilters"/>
-
             </div>
         </div>
         <span class="page-description">Tampung Permohonan</span>
