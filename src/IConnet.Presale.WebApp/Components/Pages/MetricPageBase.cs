@@ -31,6 +31,7 @@ public class MetricPageBase : ComponentBase
 
     public IQueryable<WorkPaper>? WeeklyPresaleData => _weeklyPresaleData;
     public IQueryable<WorkPaper>? DailyPresaleData => _dailyPresaleData;
+    public IQueryable<WorkPaper>? TopLevelBoundaryPresaleData => _topLevelBoundaryPresaleData;
     public IQueryable<WorkPaper>? UpperBoundaryPresaleData => _upperBoundaryPresaleData;
     public IQueryable<WorkPaper>? MiddleBoundaryPresaleData => _middleBoundaryPresaleData;
     public IQueryable<WorkPaper>? LowerBoundaryPresaleData => _lowerBoundaryPresaleData;

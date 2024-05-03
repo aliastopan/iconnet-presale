@@ -4,7 +4,7 @@
 
 <PageTitle>Dashboard</PageTitle>
 
-@if (UpperBoundaryPresaleData is null)
+@if (TopLevelBoundaryPresaleData is null)
 {
     <div class="d-flex flex-row align-items-center">
         <span class="px-1">Loading</span>
@@ -13,7 +13,7 @@
 }
 
 <div>
-    @if (UpperBoundaryPresaleData is not null)
+    @if (TopLevelBoundaryPresaleData is not null)
     {
         <FluentTabs ActiveTabId="@ActiveTabId"
             ActiveTabIdChanged="OnActiveTabIdChanged">
