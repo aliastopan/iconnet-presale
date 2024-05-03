@@ -1,3 +1,12 @@
+## v3.6.0
+- Fix: Top level boundary range date
+- Fix: Tracking responsive media query
+- Fix: PIC verification handling
+- Change: In-Progress chart color scheme
+- Add: Error boundary component to Guest page
+- Add: Refresh button (Workload)
+- Add: Refresh button (Dashbord)
+
 ## v3.5.0
 - Fix: Keterangan verifikasi
 - Fix: "Top Level" boundary filtering
