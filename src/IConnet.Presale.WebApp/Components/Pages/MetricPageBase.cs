@@ -24,6 +24,7 @@ public class MetricPageBase : ComponentBase
 
     private IQueryable<WorkPaper>? _weeklyPresaleData;
     private IQueryable<WorkPaper>? _dailyPresaleData;
+    private IQueryable<WorkPaper>? _topLevelBoundaryPresaleData;
     private IQueryable<WorkPaper>? _upperBoundaryPresaleData;
     private IQueryable<WorkPaper>? _middleBoundaryPresaleData;
     private IQueryable<WorkPaper>? _lowerBoundaryPresaleData;
@@ -117,29 +118,22 @@ public class MetricPageBase : ComponentBase
             var middleBoundaryMax = SessionService.FilterPreference.MiddleBoundaryDateTimeMax;
             var lowerBoundary = SessionService.FilterPreference.LowerBoundaryDateTime;
 
-            _upperBoundaryPresaleData = await PresaleDataBoundaryManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
-            _middleBoundaryPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
-            _lowerBoundaryPresaleData = PresaleDataBoundaryManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
+            _topLevelBoundaryPresaleData = await PresaleDataBoundaryManager.GetBoundaryRangePresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
+
+            _upperBoundaryPresaleData = PresaleDataBoundaryManager.GetUpperBoundaryPresaleData(_topLevelBoundaryPresaleData!, upperBoundaryMin, upperBoundaryMax);
+            _middleBoundaryPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_topLevelBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
+            _lowerBoundaryPresaleData = PresaleDataBoundaryManager.GetLowerBoundaryPresaleData(_topLevelBoundaryPresaleData!, lowerBoundary);
+
+            // LogSwitch.Debug("Top Level Boundary {0}:", _topLevelBoundaryPresaleData!.Count());
+            // LogSwitch.Debug("Upper Boundary {0}:", _upperBoundaryPresaleData!.Count());
+            // LogSwitch.Debug("Middle Boundary {0}:", _middleBoundaryPresaleData!.Count());
+            // LogSwitch.Debug("Lower Boundary {0}:", _lowerBoundaryPresaleData!.Count());
 
             var today = DateTimeService.DateTimeOffsetNow.DateTime;
             var firstDayOfWeek = today.AddDays(-(int)today.DayOfWeek);
 
-            _weeklyPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, firstDayOfWeek, today);
+            _weeklyPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_topLevelBoundaryPresaleData!, firstDayOfWeek, today);
             _dailyPresaleData = PresaleDataBoundaryManager.GetPresaleDataFromToday(_weeklyPresaleData!);
-
-            // bool isFirstDayOfWeekWithinRange = firstDayOfWeek.Date >= upperBoundaryMin.Date && firstDayOfWeek.Date <= upperBoundaryMax.Date;
-            // bool isTodayWithinRange = today.Date >= upperBoundaryMin.Date && today.Date <= upperBoundaryMax.Date;
-
-            // if (isFirstDayOfWeekWithinRange && isTodayWithinRange)
-            // {
-            //     _weeklyPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, firstDayOfWeek, today);
-            //     _dailyPresaleData = PresaleDataBoundaryManager.GetPresaleDataFromToday(_weeklyPresaleData!);
-            // }
-            // else
-            // {
-            //     _weeklyPresaleData = await PresaleDataBoundaryManager.GetPresaleDataFromCurrentWeekAsync();
-            //     _dailyPresaleData = PresaleDataBoundaryManager.GetPresaleDataFromToday(_weeklyPresaleData!);
-            // }
 
             GenerateInProgressReport();
             GenerateStatusApprovalReports(includeUpper: true, includeMiddle: true, includeLower: true);
@@ -162,6 +156,7 @@ public class MetricPageBase : ComponentBase
         var middleBoundaryMax = SessionService.FilterPreference.MiddleBoundaryDateTimeMax;
         var lowerBoundary = SessionService.FilterPreference.LowerBoundaryDateTime;
 
+        _topLevelBoundaryPresaleData = null;
         _upperBoundaryPresaleData = null;
         _middleBoundaryPresaleData = null;
         _lowerBoundaryPresaleData = null;
@@ -194,9 +189,16 @@ public class MetricPageBase : ComponentBase
         _middleBoundaryApprovalAgingReportModels.Clear();
         _lowerBoundaryApprovalAgingReportModels.Clear();
 
-        _upperBoundaryPresaleData = await PresaleDataBoundaryManager.GetUpperBoundaryPresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
-        _middleBoundaryPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
-        _lowerBoundaryPresaleData = PresaleDataBoundaryManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
+        _topLevelBoundaryPresaleData = await PresaleDataBoundaryManager.GetBoundaryRangePresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
+
+        _upperBoundaryPresaleData = PresaleDataBoundaryManager.GetUpperBoundaryPresaleData(_topLevelBoundaryPresaleData!, upperBoundaryMin, upperBoundaryMax);
+        _middleBoundaryPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_topLevelBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
+        _lowerBoundaryPresaleData = PresaleDataBoundaryManager.GetLowerBoundaryPresaleData(_topLevelBoundaryPresaleData!, lowerBoundary);
+
+        // LogSwitch.Debug("Top Level Boundary {0}:", _topLevelBoundaryPresaleData!.Count());
+        // LogSwitch.Debug("Upper Boundary {0}:", _upperBoundaryPresaleData!.Count());
+        // LogSwitch.Debug("Middle Boundary {0}:", _middleBoundaryPresaleData!.Count());
+        // LogSwitch.Debug("Lower Boundary {0}:", _lowerBoundaryPresaleData!.Count());
     }
 
     protected void ResetMiddleBoundary()
@@ -214,7 +216,7 @@ public class MetricPageBase : ComponentBase
         _middleBoundaryChatCallResponsAgingReports.Clear();
         _middleBoundaryApprovalAgingReportModels.Clear();
 
-        _middleBoundaryPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
+        _middleBoundaryPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_topLevelBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);
     }
 
     protected void ResetLowerBoundary()
@@ -231,7 +233,7 @@ public class MetricPageBase : ComponentBase
         _lowerBoundaryChatCallResponsAgingReports.Clear();
         _lowerBoundaryApprovalAgingReportModels.Clear();
 
-        _lowerBoundaryPresaleData = PresaleDataBoundaryManager.GetLowerBoundaryPresaleData(_upperBoundaryPresaleData!, lowerBoundary);
+        _lowerBoundaryPresaleData = PresaleDataBoundaryManager.GetLowerBoundaryPresaleData(_topLevelBoundaryPresaleData!, lowerBoundary);
     }
 
     protected void GenerateInProgressReport()
