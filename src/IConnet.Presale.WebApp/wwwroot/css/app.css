@@ -180,6 +180,10 @@ code {
 }
 
 @media (max-width: 600px) {
+    .progress-report-stack{
+        display: block !important;
+    }
+
     .main {
         flex-direction: column !important;
         row-gap: 0 !important;
