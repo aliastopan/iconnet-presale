@@ -18,6 +18,13 @@ public class ActionSignature : ValueObject
         TglAksi = tglAksi;
     }
 
+    public ActionSignature(ActionSignature  actionSignature)
+    {
+        AccountIdSignature = actionSignature.AccountIdSignature;
+        Alias = actionSignature.Alias;
+        TglAksi = actionSignature.TglAksi;
+    }
+
     public Guid AccountIdSignature { get; init; } = default;
     public string Alias { get; init; } = string.Empty;
     public DateTime TglAksi { get; init; } = default;
