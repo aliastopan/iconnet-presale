@@ -12,6 +12,7 @@ public class ReportTabulationStackBase : ComponentBase
     [Parameter] public string TabulationId { get; set; } = default!;
     [Parameter] public EventCallback ExportXlsx { get; set; }
     [Parameter] public EventCallback PageRefresh { get; set; }
+    [Parameter] public EventCallback PageReload { get; set; }
     [Parameter] public EventCallback OpenBoundaryFilter { get; set; }
 
     private CultureInfo _cultureInfo = new CultureInfo("id-ID");
@@ -39,6 +40,14 @@ public class ReportTabulationStackBase : ComponentBase
     protected override void OnInitialized()
     {
         SessionService.FilterPreference.ToggleToMonthlyView();
+    }
+
+    public async Task ReloadDashboardAsync()
+    {
+        if (PageReload.HasDelegate)
+        {
+            await PageReload.InvokeAsync();
+        }
     }
 
     public async Task ExportXlsxAsync()

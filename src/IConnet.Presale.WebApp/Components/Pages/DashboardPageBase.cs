@@ -31,6 +31,11 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         await base.OnInitializedAsync();
     }
 
+    protected async Task ReloadDashboardAsync()
+    {
+        await ReloadUpperBoundaryAsync();
+    }
+
     public async Task ExportXlsxAsync()
     {
         if (IsExportLoading)

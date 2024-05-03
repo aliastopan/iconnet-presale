@@ -27,6 +27,7 @@
                     {
                         <InProgressTabulationStack
                             TabulationId="tab-0"
+                            PageReload="ReloadDashboardAsync"
                             WeeklyBoundaryModels="@WeeklyInProgressReports"
                             DailyBoundaryModels="@DailyInProgressReports"/>
                     }
@@ -46,6 +47,7 @@
                             MiddleBoundaryModels="@MiddleBoundaryApprovalStatusReports"
                             LowerBoundaryModels="@LowerBoundaryApprovalStatusReports"
                             PageRefresh="@(this.StateHasChanged)"
+                            PageReload="ReloadDashboardAsync"
                             ExportXlsx="ExportXlsxAsync"
                             OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
                             OnExclusionFilter="ApplyApprovalStatusExclusionFiltersAsync"/>
@@ -58,15 +60,19 @@
                     Root Cause
                 </Header>
                 <Content>
-                    <RootCauseTabulationStack
-                        TabulationId="tab-2"
-                        UpperBoundaryModels="@UpperBoundaryCauseReports"
-                        MiddleBoundaryModels="@MiddleBoundaryRootCauseReports"
-                        LowerBoundaryModels="@LowerRootCauseReports"
-                        PageRefresh="@(this.StateHasChanged)"
-                        ExportXlsx="ExportXlsxAsync"
-                        OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
-                        OnExclusionFilter="ApplyRootCauseExclusionFiltersAsync"/>
+                    @if (!IsBufferLoading)
+                    {
+                        <RootCauseTabulationStack
+                            TabulationId="tab-2"
+                            UpperBoundaryModels="@UpperBoundaryCauseReports"
+                            MiddleBoundaryModels="@MiddleBoundaryRootCauseReports"
+                            LowerBoundaryModels="@LowerRootCauseReports"
+                            PageRefresh="@(this.StateHasChanged)"
+                            PageReload="ReloadDashboardAsync"
+                            ExportXlsx="ExportXlsxAsync"
+                            OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
+                            OnExclusionFilter="ApplyRootCauseExclusionFiltersAsync"/>
+                    }
                 </Content>
             </FluentTab>
             <FluentTab Id="tab-3">
@@ -75,15 +81,19 @@
                     Aging Import
                 </Header>
                 <Content>
-                    <ImportAgingTabulationStack
-                        TabulationId="tab-3"
-                        UpperBoundaryModels="@UpperBoundaryImportAgingReports"
-                        MiddleBoundaryModels="@MiddleBoundaryImportAgingReports"
-                        LowerBoundaryModels="@LowerBoundaryImportAgingReports"
-                        PageRefresh="@(this.StateHasChanged)"
-                        ExportXlsx="ExportXlsxAsync"
-                        OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
-                        OnExclusionFilter="ApplyOperatorExclusionFiltersAsync"/>
+                    @if (!IsBufferLoading)
+                    {
+                        <ImportAgingTabulationStack
+                            TabulationId="tab-3"
+                            UpperBoundaryModels="@UpperBoundaryImportAgingReports"
+                            MiddleBoundaryModels="@MiddleBoundaryImportAgingReports"
+                            LowerBoundaryModels="@LowerBoundaryImportAgingReports"
+                            PageRefresh="@(this.StateHasChanged)"
+                            PageReload="ReloadDashboardAsync"
+                            ExportXlsx="ExportXlsxAsync"
+                            OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
+                            OnExclusionFilter="ApplyOperatorExclusionFiltersAsync"/>
+                    }
                 </Content>
             </FluentTab>
             <FluentTab Id="tab-4">
@@ -92,15 +102,19 @@
                     Aging Verification
                 </Header>
                 <Content>
-                    <VerificationAgingTabulationStack
-                        TabulationId="tab-4"
-                        UpperBoundaryModels="@UpperBoundaryVerificationAgingReports"
-                        MiddleBoundaryModels="@MiddleBoundaryVerificationAgingReports"
-                        LowerBoundaryModels="@LowerBoundaryVerificationAgingReports"
-                        OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
-                        PageRefresh="@(this.StateHasChanged)"
-                        ExportXlsx="ExportXlsxAsync"
-                        OnExclusionFilter="ApplyOperatorExclusionFiltersAsync"/>
+                    @if (!IsBufferLoading)
+                    {
+                        <VerificationAgingTabulationStack
+                            TabulationId="tab-4"
+                            UpperBoundaryModels="@UpperBoundaryVerificationAgingReports"
+                            MiddleBoundaryModels="@MiddleBoundaryVerificationAgingReports"
+                            LowerBoundaryModels="@LowerBoundaryVerificationAgingReports"
+                            OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
+                            PageRefresh="@(this.StateHasChanged)"
+                            PageReload="ReloadDashboardAsync"
+                            ExportXlsx="ExportXlsxAsync"
+                            OnExclusionFilter="ApplyOperatorExclusionFiltersAsync"/>
+                    }
                 </Content>
             </FluentTab>
             <FluentTab Id="tab-5">
@@ -109,15 +123,19 @@
                     Aging Chat/Call Pick-Up
                 </Header>
                 <Content>
-                    <ChatCallMulaiAgingTabulationStack
-                        TabulationId="tab-5"
-                        UpperBoundaryModels="@UpperBoundaryChatCallMulaiAgingReports"
-                        MiddleBoundaryModels="@MiddleBoundaryChatCallMulaiAgingReports"
-                        LowerBoundaryModels="@LowerBoundaryChatCallMulaiAgingReports"
-                        OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
-                        PageRefresh="@(this.StateHasChanged)"
-                        ExportXlsx="ExportXlsxAsync"
-                        OnExclusionFilter="ApplyOperatorExclusionFiltersAsync"/>
+                    @if (!IsBufferLoading)
+                    {
+                        <ChatCallMulaiAgingTabulationStack
+                            TabulationId="tab-5"
+                            UpperBoundaryModels="@UpperBoundaryChatCallMulaiAgingReports"
+                            MiddleBoundaryModels="@MiddleBoundaryChatCallMulaiAgingReports"
+                            LowerBoundaryModels="@LowerBoundaryChatCallMulaiAgingReports"
+                            OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
+                            PageRefresh="@(this.StateHasChanged)"
+                            PageReload="ReloadDashboardAsync"
+                            ExportXlsx="ExportXlsxAsync"
+                            OnExclusionFilter="ApplyOperatorExclusionFiltersAsync"/>
+                    }
                 </Content>
             </FluentTab>
             <FluentTab Id="tab-6">
@@ -126,15 +144,19 @@
                     Aging Chat/Call Validasi
                 </Header>
                 <Content>
-                    <ChatCallResponsAgingTabulationStack
-                        TabulationId="tab-6"
-                        UpperBoundaryModels="@UpperBoundaryChatCallResponsAgingReports"
-                        MiddleBoundaryModels="@MiddleBoundaryChatCallResponsAgingReports"
-                        LowerBoundaryModels="@LowerBoundaryChatCallResponsAgingReports"
-                        OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
-                        PageRefresh="@(this.StateHasChanged)"
-                        ExportXlsx="ExportXlsxAsync"
-                        OnExclusionFilter="ApplyOperatorExclusionFiltersAsync"/>
+                    @if (!IsBufferLoading)
+                    {
+                        <ChatCallResponsAgingTabulationStack
+                            TabulationId="tab-6"
+                            UpperBoundaryModels="@UpperBoundaryChatCallResponsAgingReports"
+                            MiddleBoundaryModels="@MiddleBoundaryChatCallResponsAgingReports"
+                            LowerBoundaryModels="@LowerBoundaryChatCallResponsAgingReports"
+                            OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
+                            PageRefresh="@(this.StateHasChanged)"
+                            PageReload="ReloadDashboardAsync"
+                            ExportXlsx="ExportXlsxAsync"
+                            OnExclusionFilter="ApplyOperatorExclusionFiltersAsync"/>
+                    }
                 </Content>
             </FluentTab>
             <FluentTab Id="tab-7">
@@ -143,15 +165,19 @@
                     Aging Approval
                 </Header>
                 <Content>
-                    <ApprovalAgingTabulationStack
-                        TabulationId="tab-7"
-                        UpperBoundaryModels="@UpperBoundaryApprovalAgingReportModels"
-                        MiddleBoundaryModels="@MiddleBoundaryApprovalAgingReportModels"
-                        LowerBoundaryModels="@LowerBoundaryApprovalAgingReportModels"
-                        OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
-                        PageRefresh="@(this.StateHasChanged)"
-                        ExportXlsx="ExportXlsxAsync"
-                        OnExclusionFilter="ApplyRootCauseExclusionFiltersAsync"/>
+                    @if (!IsBufferLoading)
+                    {
+                        <ApprovalAgingTabulationStack
+                            TabulationId="tab-7"
+                            UpperBoundaryModels="@UpperBoundaryApprovalAgingReportModels"
+                            MiddleBoundaryModels="@MiddleBoundaryApprovalAgingReportModels"
+                            LowerBoundaryModels="@LowerBoundaryApprovalAgingReportModels"
+                            OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
+                            PageRefresh="@(this.StateHasChanged)"
+                            PageReload="ReloadDashboardAsync"
+                            ExportXlsx="ExportXlsxAsync"
+                            OnExclusionFilter="ApplyRootCauseExclusionFiltersAsync"/>
+                    }
                 </Content>
             </FluentTab>
         </FluentTabs>

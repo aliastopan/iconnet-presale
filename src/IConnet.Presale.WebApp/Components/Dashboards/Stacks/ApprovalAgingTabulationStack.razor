@@ -16,10 +16,16 @@
             OnClick="ToggleToDailyView">
             Daily</FluentButton>
 
+        <FluentButton Appearance="Appearance.Accent"
+            IconStart="@(new Icons.Filled.Size20.ArrowClockwise())"
+            style="width: 135px; margin-top: 24px;"
+            OnClick="ReloadDashboardAsync">
+            Refresh</FluentButton>
+
         <FluentButton BackgroundColor="crimson"
             Color="white"
             IconStart="@(new Icons.Filled.Size20.Calendar().WithColor("#ffffff"))"
-            style="width: 135px; margin-top: 24px;"
+            style="width: 135px; margin-top: 8px;"
             OnClick="OpenBoundaryFilterAsync">
             Filter</FluentButton>
 
