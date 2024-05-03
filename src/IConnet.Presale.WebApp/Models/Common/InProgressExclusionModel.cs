@@ -21,6 +21,12 @@ public class InProgressExclusionModel
         Inclusion = new HashSet<WorkPaperLevel>(workPaperLevelEnums);
     }
 
+    public InProgressExclusionModel(InProgressExclusionModel model)
+    {
+        InProgressLevel = new HashSet<WorkPaperLevel>(model.InProgressLevel);
+        Inclusion = new HashSet<WorkPaperLevel>(model.Inclusion);
+    }
+
     private HashSet<WorkPaperLevel> GetInProgressExclusions()
     {
         var exclusion = new HashSet<WorkPaperLevel>(InProgressLevel);
