@@ -8,6 +8,7 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
     [Inject] public SqlPushService SqlPushService { get; init; } = default!;
 
     private bool _firstLoad = true;
+    private ActionSignature _persistentPicVerification = default!;
     private IQueryable<WorkPaper>? _filteredWorkPapers;
 
     protected string GridTemplateCols => GetGridTemplateCols();
@@ -42,6 +43,9 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
             return;
         }
 
+        _persistentPicVerification = new ActionSignature(row.Item.ApprovalOpportunity.SignatureVerifikasiImport);
+        // LogSwitch.Debug("PIC Persistent. {0}", _persistentPicVerification.Alias);
+
         if (row.Item.ApprovalOpportunity.SignatureVerifikasiImport.IsEmptySignature())
         {
             await BeginVerification(row);
@@ -50,6 +54,7 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
 
         var now = DateTimeService.DateTimeOffsetNow.DateTime;
         var duration = InChargeDuration.VerificationDuration;
+        // var duration = new TimeSpan(0, 0, 15);
         var alias = row.Item.ApprovalOpportunity.SignatureVerifikasiImport.Alias;
         var idPermohonan = row.Item.ApprovalOpportunity.IdPermohonan;
         var isLockExpired = row.Item.ApprovalOpportunity.SignatureVerifikasiImport.IsDurationExceeded(now, duration);
@@ -71,6 +76,8 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
         async Task BeginVerification(FluentDataGridRow<WorkPaper> row)
         {
             row.Item!.ApprovalOpportunity.SignatureVerifikasiImport = await SessionService.GenerateActionSignatureAsync();
+
+            await WorkloadManager.UpdateWorkloadAsync(row.Item);
 
             var broadcastMessage = $"Began '{row.Item!.ApprovalOpportunity.IdPermohonan}' verification";
             await BroadcastService.BroadcastMessageAsync(broadcastMessage);
@@ -139,7 +146,18 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
 
         if (result.Cancelled)
         {
-            dialogData.ApprovalOpportunity.SignatureVerifikasiImport = ActionSignature.Empty();
+            if (!dialogData.OnWait)
+            {
+                // LogSwitch.Debug("NOT on wait. Resetting Signature");
+                dialogData.ApprovalOpportunity.SignatureVerifikasiImport = ActionSignature.Empty();
+            }
+            else
+            {
+                // LogSwitch.Debug("ON WAIT. Restoring Signature");
+                dialogData.ApprovalOpportunity.SignatureVerifikasiImport = _persistentPicVerification;
+            }
+
+            await WorkloadManager.UpdateWorkloadAsync(dialogData);
 
             CancelVerificationToast(dialogData.ApprovalOpportunity.IdPermohonan);
 

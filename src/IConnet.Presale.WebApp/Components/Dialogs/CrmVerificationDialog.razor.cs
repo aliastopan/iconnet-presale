@@ -78,7 +78,7 @@ public partial class CrmVerificationDialog : ComponentBase, IDialogContentCompon
 
     protected async Task OnWaitAsync()
     {
-        PutOnWait();
+        await PutOnWaitAsync();
         await Dialog.CloseAsync(Content);
     }
 
@@ -119,8 +119,15 @@ public partial class CrmVerificationDialog : ComponentBase, IDialogContentCompon
         await Dialog.CancelAsync(Content);
     }
 
-    private void PutOnWait()
+    private async Task PutOnWaitAsync()
     {
+        Content.ApprovalOpportunity.SignatureVerifikasiImport = new ActionSignature
+        {
+            AccountIdSignature = await SessionService.GetUserAccountIdAsync(),
+            Alias = await SessionService.GetSessionAliasAsync(),
+            TglAksi = DateTimeService.DateTimeOffsetNow.DateTime
+        };
+
         var prosesApproval = Content!.ProsesApproval
             .WithKeterangan(Keterangan)
             .WithJarakICrmPlus(JarakICrmPlusVerification);
