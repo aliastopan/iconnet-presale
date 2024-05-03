@@ -124,19 +124,22 @@ public class MetricPageBase : ComponentBase
             var today = DateTimeService.DateTimeOffsetNow.DateTime;
             var firstDayOfWeek = today.AddDays(-(int)today.DayOfWeek);
 
-            bool isFirstDayOfWeekWithinRange = firstDayOfWeek.Date >= upperBoundaryMin.Date && firstDayOfWeek.Date <= upperBoundaryMax.Date;
-            bool isTodayWithinRange = today.Date >= upperBoundaryMin.Date && today.Date <= upperBoundaryMax.Date;
+            _weeklyPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, firstDayOfWeek, today);
+            _dailyPresaleData = PresaleDataBoundaryManager.GetPresaleDataFromToday(_weeklyPresaleData!);
 
-            if (isFirstDayOfWeekWithinRange && isTodayWithinRange)
-            {
-                _weeklyPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, firstDayOfWeek, today);
-                _dailyPresaleData = PresaleDataBoundaryManager.GetPresaleDataFromToday(_weeklyPresaleData!);
-            }
-            else
-            {
-                _weeklyPresaleData = await PresaleDataBoundaryManager.GetPresaleDataFromCurrentWeekAsync();
-                _dailyPresaleData = PresaleDataBoundaryManager.GetPresaleDataFromToday(_weeklyPresaleData!);
-            }
+            // bool isFirstDayOfWeekWithinRange = firstDayOfWeek.Date >= upperBoundaryMin.Date && firstDayOfWeek.Date <= upperBoundaryMax.Date;
+            // bool isTodayWithinRange = today.Date >= upperBoundaryMin.Date && today.Date <= upperBoundaryMax.Date;
+
+            // if (isFirstDayOfWeekWithinRange && isTodayWithinRange)
+            // {
+            //     _weeklyPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_upperBoundaryPresaleData!, firstDayOfWeek, today);
+            //     _dailyPresaleData = PresaleDataBoundaryManager.GetPresaleDataFromToday(_weeklyPresaleData!);
+            // }
+            // else
+            // {
+            //     _weeklyPresaleData = await PresaleDataBoundaryManager.GetPresaleDataFromCurrentWeekAsync();
+            //     _dailyPresaleData = PresaleDataBoundaryManager.GetPresaleDataFromToday(_weeklyPresaleData!);
+            // }
 
             GenerateInProgressReport();
             GenerateStatusApprovalReports(includeUpper: true, includeMiddle: true, includeLower: true);

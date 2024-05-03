@@ -78,8 +78,10 @@ internal sealed class PresaleDataBoundaryManager : PresaleDataOperationBase, IPr
 
     public async Task<IQueryable<WorkPaper>?> GetUpperBoundaryPresaleDataAsync(DateTime dateTimeMin, DateTime dateTimeMax)
     {
-        long startUnixTime = _dateTimeService.GetUnixTime(dateTimeMin);
-        long endUnixTime = _dateTimeService.GetUnixTime(dateTimeMax.AddDays(1));
+        int offset = _dateTimeService.GetFirstDayOfWeekOffset(dateTimeMin);
+
+        long startUnixTime = _dateTimeService.GetUnixTime(dateTimeMin.AddDays(-offset));    // add first day of the week offset
+        long endUnixTime = _dateTimeService.GetUnixTime(dateTimeMax.AddDays(1));            // add 1 day offset
 
         Task<List<string?>>[] getJsonWorkPapers =
         [
