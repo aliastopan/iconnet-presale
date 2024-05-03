@@ -44,6 +44,7 @@ public class FilterPreference
         }
     }
 
+    public InProgressExclusionModel InProgressExclusion { get; set; } = default!;
     public RootCauseExclusionModel RootCauseExclusion { get; set; } = default!;
     public ApprovalStatusExclusionModel ApprovalStatusExclusion { get; set; } = default!;
     public OperatorExclusionModel OperatorPacExclusionModel { get; set; } = default!;
@@ -81,6 +82,16 @@ public class FilterPreference
         }
 
         RootCauseExclusion = new RootCauseExclusionModel(rootCauses);
+    }
+
+    public void SetInProgressExclusion()
+    {
+        if (InProgressExclusion is not null)
+        {
+            return;
+        }
+
+        InProgressExclusion = new InProgressExclusionModel();
     }
 
     public void SetApprovalStatusExclusion()

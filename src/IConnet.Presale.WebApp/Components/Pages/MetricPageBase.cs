@@ -92,6 +92,7 @@ public class MetricPageBase : ComponentBase
 
         SessionService.FilterPreference.SetBoundaryDateTimeDefault(currentDate);
         SessionService.FilterPreference.SetRootCauseExclusion(rootCauses);
+        SessionService.FilterPreference.SetInProgressExclusion();
         SessionService.FilterPreference.SetApprovalStatusExclusion();
         SessionService.FilterPreference.SetOperatorPacExclusionExclusion(operatorUsernames);
         SessionService.FilterPreference.SetOperatorHelpdeskExclusionExclusion(operatorUsernames);
