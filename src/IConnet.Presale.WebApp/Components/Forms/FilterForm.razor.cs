@@ -46,7 +46,10 @@ public partial class FilterForm : ComponentBase
 
         IsFiltered = false;
 
-        await OnFilter.InvokeAsync();
+        if (OnFilter.HasDelegate)
+        {
+            await OnFilter.InvokeAsync();
+        }
     }
 
     protected async Task FilterByOfficeAsync(string filterOffice)
@@ -57,7 +60,10 @@ public partial class FilterForm : ComponentBase
 
         IsFiltered = false;
 
-        await OnFilter.InvokeAsync();
+        if (OnFilter.HasDelegate)
+        {
+            await OnFilter.InvokeAsync();
+        }
     }
 
     protected async Task FilterBySearchAsync(string filterSearch)
@@ -69,7 +75,10 @@ public partial class FilterForm : ComponentBase
 
         IsFiltered = false;
 
-        await OnFilter.InvokeAsync();
+        if (OnFilter.HasDelegate)
+        {
+            await OnFilter.InvokeAsync();
+        }
     }
 
     protected async Task SetFilterDateTimeStartAsync(DateTime? nullableDateTime)
@@ -90,7 +99,10 @@ public partial class FilterForm : ComponentBase
 
         IsFiltered = false;
 
-        await OnFilter.InvokeAsync();
+        if (OnFilter.HasDelegate)
+        {
+            await OnFilter.InvokeAsync();
+        }
 
         if (OnDateRangeFilterChanged.HasDelegate)
         {
@@ -116,7 +128,10 @@ public partial class FilterForm : ComponentBase
 
         IsFiltered = false;
 
-        await OnFilter.InvokeAsync();
+        if (OnFilter.HasDelegate)
+        {
+            await OnFilter.InvokeAsync();
+        }
 
         if (OnDateRangeFilterChanged.HasDelegate)
         {
