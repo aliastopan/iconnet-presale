@@ -35,15 +35,15 @@ public partial class InProgressPieChart : ComponentBase
         switch (model.WorkPaperLevel)
         {
             case WorkPaperLevel.ImportUnverified:
-                return "#024756";
+                return "#E12D4B";
             case WorkPaperLevel.Reinstated:
-                return "#02768f";
+                return "#3bbdb0";
             case WorkPaperLevel.ImportVerified:
-                return "#1c94ad";
+                return "#FFBF00";
             case WorkPaperLevel.Validating:
-                return "#0bd0d9";
+                return "#256FF5";
             case WorkPaperLevel.WaitingApproval:
-                return "#79f8ff";
+                return "#B0EA57";
             default:
                 return "#ffffff";
         }
