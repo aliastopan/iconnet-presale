@@ -60,8 +60,8 @@ public class MetricPageBase : ComponentBase
     private readonly List<ApprovalAgingReportModel> _middleBoundaryApprovalAgingReportModels = [];
     private readonly List<ApprovalAgingReportModel> _lowerBoundaryApprovalAgingReportModels = [];
 
-    public virtual List<InProgressReportModel> WeeklyInProgressReports => _weeklyInProgressReports;
-    public virtual List<InProgressReportModel> DailyInProgressReports => _dailyInProgressReports;
+    public virtual List<InProgressReportModel> WeeklyInProgressReports => FilterInProgressReports(_weeklyInProgressReports);
+    public virtual List<InProgressReportModel> DailyInProgressReports => FilterInProgressReports(_dailyInProgressReports);
     public virtual List<ApprovalStatusReportModel> UpperBoundaryApprovalStatusReports => FilterStatusApprovalReports(_upperBoundaryApprovalStatusReports);
     public virtual List<ApprovalStatusReportModel> MiddleBoundaryApprovalStatusReports => FilterStatusApprovalReports(_middleBoundaryApprovalStatusReports);
     public virtual List<ApprovalStatusReportModel> LowerBoundaryApprovalStatusReports => FilterStatusApprovalReports(_lowerBoundaryApprovalStatusReports);
@@ -322,6 +322,20 @@ public class MetricPageBase : ComponentBase
 
         return rootCauseReports
             .Where(report => !exclusions.Contains(report.RootCause, StringComparer.OrdinalIgnoreCase))
+            .ToList();
+    }
+
+    protected List<InProgressReportModel> FilterInProgressReports(List<InProgressReportModel> inProgressReports)
+    {
+        if (SessionService.FilterPreference.InProgressExclusion is null)
+        {
+            return inProgressReports;
+        }
+
+        HashSet<WorkPaperLevel> exclusions = SessionService.FilterPreference.InProgressExclusion.Exclusion;
+
+        return inProgressReports
+            .Where(report => !exclusions.Contains(report.WorkPaperLevel))
             .ToList();
     }
 
