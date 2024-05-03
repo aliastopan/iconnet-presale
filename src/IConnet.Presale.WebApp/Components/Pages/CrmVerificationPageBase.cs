@@ -222,8 +222,6 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
     {
         IsLoading = true;
 
-        LogSwitch.Debug("PUT ON WAIT");
-
         await WorkloadManager.UpdateWorkloadAsync(workPaper);
 
         var broadcastMessage = $"CRM Import of '{workPaper.ApprovalOpportunity.IdPermohonan}' has been put on wait";

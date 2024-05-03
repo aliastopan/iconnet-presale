@@ -116,7 +116,6 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
 
     protected override async Task RefreshPageAsync()
     {
-        LogSwitch.Debug("Reload");
         if(IsRefreshPage)
         {
             return;
