@@ -45,7 +45,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         ExportProgressToast(tabId);
         ToastService.ShowProgressToast(_progressToastExporting);
 
-        await Task.Delay(3000);
+        await Task.Delay(500);
 
         var boundary = SessionService.FilterPreference.BoundaryFilters[ActiveTabId];
         var presaleData = GetBoundaryPresaleData(boundary);
