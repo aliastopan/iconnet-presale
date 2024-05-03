@@ -28,11 +28,6 @@ public class ApprovalStatusTabulationStackBase : ReportTabulationStackBase
 
     protected async Task OpenApprovalStatusExclusionDialogFilter()
     {
-        await FilterAsync();
-    }
-
-    private async Task FilterAsync()
-    {
         var parameters = new DialogParameters()
         {
             Title = "Pilah Approval Status",
