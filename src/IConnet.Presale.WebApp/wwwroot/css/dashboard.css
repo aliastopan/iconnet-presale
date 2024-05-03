@@ -212,3 +212,15 @@
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
 }
+
+.SLA-badge{
+    font-family: 'inter-semibold';
+    background-color: #214b5a;
+    padding: 1px 4px;
+    color: white;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
