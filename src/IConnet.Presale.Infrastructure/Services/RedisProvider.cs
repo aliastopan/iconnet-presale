@@ -66,22 +66,34 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
     {
         Log.Warning("Fetching In-Progress persistence");
 
-        return await GetAllValuesAsync(_inProgressDbIndex, DatabaseProgress, batchSize: 50);
+        int inProgressBatchSize = 50;
+
+        return await GetAllValuesAsync(_inProgressDbIndex, DatabaseProgress, batchSize: inProgressBatchSize);
     }
 
     async Task<List<string?>> IDoneProcessingPersistenceService.GetAllValuesAsync()
     {
         Log.Warning("Fetching Done Processing persistence");
 
-        return await GetAllValuesAsync(_archiveDbIndex, DatabaseArchive, batchSize: 100);
+        int doneProcessingBatchSize = _appSecretSettings.BatchSizeOperation < 100
+            ? 100
+            : _appSecretSettings.BatchSizeOperation;
+
+        return await GetAllValuesAsync(_archiveDbIndex, DatabaseArchive, batchSize: doneProcessingBatchSize);
     }
 
     public async Task<List<string?>> GetAllScoredValuesAsync(long startUnixTime, long endUnixTime)
     {
         Log.Warning("Fetching all scored values");
 
+        int doneProcessingBatchSize = _appSecretSettings.BatchSizeOperation < 100
+            ? 100
+            : _appSecretSettings.BatchSizeOperation;
+
+        Log.Warning("Batch size: {0}", doneProcessingBatchSize);
+
         return await GetAllScoredValuesAsync(_archiveDbIndex, DatabaseArchive,
-            startUnixTime, endUnixTime, batchSize: 500);
+            startUnixTime, endUnixTime, batchSize: doneProcessingBatchSize);
     }
 
     public async Task SetValueAsync(string key, string value, TimeSpan? expiry = null)
