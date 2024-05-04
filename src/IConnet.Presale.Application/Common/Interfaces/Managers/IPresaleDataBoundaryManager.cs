@@ -15,4 +15,5 @@ public interface IPresaleDataBoundaryManager
 
     Task<IQueryable<WorkPaper>?> GetBoundaryPointPresaleDataAsync(DateTime dateTime);
     Task<IQueryable<WorkPaper>?> GetBoundaryRangePresaleDataAsync(DateTime dateTimeMin, DateTime dateTimeMax);
+    Task<IQueryable<WorkPaper>?> GetBoundaryChunkPresaleDataAsync(int offset);
 }

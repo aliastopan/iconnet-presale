@@ -183,4 +183,43 @@ internal sealed class PresaleDataBoundaryManager : PresaleDataOperationBase, IPr
             return JsonWorkPaperProcessor.DeserializeJsonWorkPapersParallel(jsonWorkPapers, this.ParallelOptions);
         }
     }
+
+    public async Task<IQueryable<WorkPaper>?> GetBoundaryChunkPresaleDataAsync(int offset)
+    {
+        DateTime today = _dateTimeService.DateTimeOffsetNow.DateTime;
+        DateTime offsetRange = today.AddDays(-offset);
+
+        long startUnixTime = _dateTimeService.GetUnixTime(offsetRange);
+        long endUnixTime = _dateTimeService.GetUnixTime(today);
+
+        Task<List<string?>>[] getJsonWorkPapers =
+        [
+            _inProgressPersistenceService.GetAllValuesAsync(),
+            _doneProcessingPersistenceService.GetAllScoredValuesAsync(startUnixTime, endUnixTime)
+        ];
+
+        await Task.WhenAll(getJsonWorkPapers);
+
+        var inProgressJsonWorkPapers = getJsonWorkPapers[0].Result;
+        var doneProcessingJsonWorkPaper = getJsonWorkPapers[1].Result;
+
+        Task<List<WorkPaper>>[] workPaperTasks =
+        {
+            Task.Run(() => ProcessJsonWorkPapers(inProgressJsonWorkPapers!)),
+            Task.Run(() => ProcessJsonWorkPapers(doneProcessingJsonWorkPaper!))
+        };
+
+        await Task.WhenAll(workPaperTasks);
+
+        List<WorkPaper> inProgressWorkPapers = workPaperTasks[0].Result;
+        List<WorkPaper> doneProcessingWorkPapers = workPaperTasks[1].Result;
+
+        return doneProcessingWorkPapers.Concat(inProgressWorkPapers).AsQueryable();
+
+        // local function
+        List<WorkPaper> ProcessJsonWorkPapers(List<string> jsonWorkPapers)
+        {
+            return JsonWorkPaperProcessor.DeserializeJsonWorkPapersParallel(jsonWorkPapers, this.ParallelOptions);
+        }
+    }
 }
