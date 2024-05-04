@@ -59,7 +59,7 @@ public class PresaleDataPageBase : WorkloadPageBase, IPageNavigation
         {
             try
             {
-                xlsxBytes = WorksheetService.GenerateStandardXlsxBytes(WorkPapers);
+                xlsxBytes = WorksheetService.GenerateFullXlsxBytes(WorkPapers);
                 base64 = Convert.ToBase64String(xlsxBytes);
                 fileName = $"PresaleData_{username}_{dateLabel}.xlsx";
 

@@ -59,6 +59,21 @@ public class PresaleDataXlsxModel
         JarakICrmPlus = workPaper.ProsesApproval.JarakICrmPlus;
         SplitterGanti = workPaper.ProsesApproval.SplitterGanti;
         VaTerbit = workPaper.ProsesApproval.VaTerbit;
+
+        PicImport = workPaper.ApprovalOpportunity.SignatureImport.Alias;
+        TimestampImport = workPaper.ApprovalOpportunity.SignatureImport.TglAksi;
+
+        PicVerifikasi = workPaper.ApprovalOpportunity.SignatureVerifikasiImport.Alias;
+        TimestampVerifikasi = workPaper.ApprovalOpportunity.SignatureVerifikasiImport.TglAksi;
+
+        PicChatCallMulai = workPaper.ProsesValidasi.SignatureChatCallMulai.Alias;
+        TimestampChatCallMulai = workPaper.ProsesValidasi.SignatureChatCallMulai.TglAksi;
+
+        PicChatCallRespons = workPaper.ProsesValidasi.SignatureChatCallRespons.Alias;
+        TimestampChatCallRespons = workPaper.ProsesValidasi.SignatureChatCallRespons.TglAksi;
+
+        PicApproval = workPaper.ProsesApproval.SignatureApproval.Alias;
+        TimestampApproval = workPaper.ProsesApproval.SignatureApproval.TglAksi;
     }
 
     public string IdPermohonan { get; init; }
@@ -117,6 +132,21 @@ public class PresaleDataXlsxModel
     public string SplitterGanti { get; init; }
     public DateTime VaTerbit { get; init; }
 
+    public string PicImport { get; init; }
+    public DateTime TimestampImport { get; init; }
+
+    public string PicVerifikasi { get; init; }
+    public DateTime TimestampVerifikasi { get; init; }
+
+    public string PicChatCallMulai { get; init; }
+    public DateTime TimestampChatCallMulai { get; init; }
+
+    public string PicChatCallRespons { get; init; }
+    public DateTime TimestampChatCallRespons { get; init; }
+
+    public string PicApproval { get; init; }
+    public DateTime TimestampApproval { get; init; }
+
     public string GetDirectApproval()
     {
         return DirectApproval.IsNullOrWhiteSpace()
@@ -136,5 +166,40 @@ public class PresaleDataXlsxModel
         return VaTerbit == DateTime.MinValue
             ? null
             : VaTerbit;
+    }
+
+    public DateTime? GetTimestampImport()
+    {
+        return TimestampImport == DateTime.MinValue
+            ? null
+            : TimestampImport;
+    }
+
+    public DateTime? GetTimestampVerifikasi()
+    {
+        return TimestampVerifikasi == DateTime.MinValue
+            ? null
+            : TimestampVerifikasi;
+    }
+
+    public DateTime? GetTimestampChatCallMulai()
+    {
+        return TimestampChatCallMulai == DateTime.MinValue
+            ? null
+            : TimestampChatCallMulai;
+    }
+
+    public DateTime? GetTimestampChatCallRespons()
+    {
+        return TimestampChatCallRespons == DateTime.MinValue
+            ? null
+            : TimestampChatCallRespons;
+    }
+
+    public DateTime? GetTimestampApproval()
+    {
+        return TimestampApproval == DateTime.MinValue
+            ? null
+            : TimestampApproval;
     }
 }
