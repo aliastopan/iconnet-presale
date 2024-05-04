@@ -236,7 +236,7 @@
     <FluentButton BackgroundColor="crimson" Color="white" OnClick="DeleteAsync">Hapus</FluentButton>
     <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.End">
         <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync" Disabled="@DisableSaveButton" IconStart="@(new Icons.Regular.Size16.Save())">Simpan</FluentButton>
-        <FluentButton Appearance="Appearance.Accent" OnClick="@OnWaitAsync" IconStart="@(new Icons.Regular.Size16.HourglassHalf())">On Wait</FluentButton>
+        <FluentButton Appearance="Appearance.Accent" OnClick="@OnWaitAsync" IconStart="@(new Icons.Regular.Size16.Clock())">On Wait</FluentButton>
         <FluentButton BackgroundColor="crimson" Color="white" OnClick="@RejectAsync" Disabled="@DisableRejectButton">Reject</FluentButton>
         <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Batal</FluentButton>
     </FluentStack>
