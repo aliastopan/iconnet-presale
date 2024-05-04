@@ -45,7 +45,7 @@ public class StartupService : IHostedService
             await _presaleAppService.SetDefaultSettingAsync();
         }
 
-        await _appSettingsService.InitAppSettingsAsync();
+        await _appSettingsService.SynchronizeAppSettingsAsync();
 
         Task[] tasks =
         [

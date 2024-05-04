@@ -6,6 +6,8 @@ public class AppSettingsService
 {
     private readonly IPresaleAppService _presaleAppService;
 
+    private string _chatTemplate = default!;
+
     private TimeOnly _officeHourPagiStart;
     private TimeOnly _officeHourPagiEnd;
     private TimeOnly _officeHourMalamStart;
@@ -17,6 +19,8 @@ public class AppSettingsService
     private TimeSpan _slaApproval;
 
     private List<string> _rootCauseClassifications = [];
+
+    public string ChatTemplate => _chatTemplate;
 
     public TimeOnly OfficeHourPagiStart => _officeHourPagiStart;
     public TimeOnly OfficeHourPagiEnd => _officeHourPagiEnd;
@@ -43,14 +47,16 @@ public class AppSettingsService
         await _presaleAppService.SetDefaultSettingAsync();
     }
 
-    public async Task InitAppSettingsAsync()
+    public async Task SynchronizeAppSettingsAsync()
     {
-        Log.Information("Init App Settings");
+        Log.Information("Synchronize App Settings");
 
         var key = "PRESALE_APP";
         var jsonSettings = await _presaleAppService.GetSettingValueAsync(key);
 
         var settings = JsonSerializer.Deserialize<PresaleSettingModel>(jsonSettings)!;
+
+        _chatTemplate = settings.ChatTemplate;
 
         _officeHourPagiStart = settings.OfficeHoursPagi.Start;
         _officeHourPagiEnd = settings.OfficeHoursPagi.End;
