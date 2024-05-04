@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 
@@ -10,6 +11,9 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
     private readonly IConnectionMultiplexer _connectionMultiplexer;
     private readonly AppSecretSettings _appSecretSettings;
 
+    private readonly int _processorCount;
+    private readonly ParallelOptions _parallelOptions;
+
     public RedisProvider(IConnectionMultiplexer connectionMultiplexer,
         IOptions<AppSecretSettings> appSecretOptions)
     {
@@ -18,6 +22,12 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
 
         _inProgressDbIndex = _appSecretSettings.RedisDbIndex;
         _archiveDbIndex = _appSecretSettings.RedisDbIndex + 1;
+
+        _processorCount = Environment.ProcessorCount;
+        _parallelOptions = new ParallelOptions
+        {
+            MaxDegreeOfParallelism = _processorCount
+        };
     }
 
     public IDatabase DatabaseProgress => _connectionMultiplexer.GetDatabase(_inProgressDbIndex);
@@ -71,7 +81,7 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
         Log.Warning("Fetching all scored values");
 
         return await GetAllScoredValuesAsync(_archiveDbIndex, DatabaseArchive,
-            startUnixTime, endUnixTime, batchSize: 100);
+            startUnixTime, endUnixTime, batchSize: 500);
     }
 
     public async Task SetValueAsync(string key, string value, TimeSpan? expiry = null)
@@ -163,7 +173,7 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
         }
     }
 
-    private async Task<List<string?>> GetAllValuesAsync(int dbIndex, IDatabase database, int batchSize = 10)
+    private async Task<List<string?>> GetAllValuesAsync(int dbIndex, IDatabase database, int batchSize = 100)
     {
         try
         {
@@ -171,7 +181,7 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
             var keys = server.Keys(dbIndex);
             var values = new List<string?>();
 
-            Log.Warning("Count: {0}", keys.Count());
+            // Log.Warning("Count: {0}", keys.Count());
 
             int numberOfBatches = (int)Math.Ceiling((double)keys.Count() / batchSize);
 
@@ -224,7 +234,7 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
     }
 
     private async Task<List<string?>> GetAllScoredValuesAsync(int dbIndex, IDatabase database,
-        long startUnixTime, long endUnixTime, int batchSize = 10)
+        long startUnixTime, long endUnixTime, int batchSize = 100)
     {
         try
         {
@@ -234,15 +244,18 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
 
             int numberOfBatches = (int)Math.Ceiling((double)keys.Count() / batchSize);
 
-            for (int i = 0; i < numberOfBatches; i++)
+            for (int batch = 0; batch < numberOfBatches; batch++)
             {
-                Log.Information("Batch: {0}/{1}", i, numberOfBatches - 1);
+                var stopwatch = Stopwatch.StartNew();
 
-                var batchKeys = keys.Skip(i * batchSize).Take(batchSize).ToList();
+                var batchKeys = keys.Skip(batch * batchSize).Take(batchSize).ToList();
                 var tasks = batchKeys.Select(key => database.SortedSetRangeByScoreAsync(key, startUnixTime, endUnixTime));
                 var batchValues = await Task.WhenAll(tasks);
 
-                Parallel.ForEach(batchValues, elements =>
+                stopwatch.Stop();
+                Log.Information("Batch: {0}/{1} - {2} ms", batch, numberOfBatches - 1, stopwatch.ElapsedMilliseconds);
+
+                Parallel.ForEach(batchValues, _parallelOptions, elements =>
                 {
                     var stringValues = elements.Select(value => value.ToString());
                     lock (values)
