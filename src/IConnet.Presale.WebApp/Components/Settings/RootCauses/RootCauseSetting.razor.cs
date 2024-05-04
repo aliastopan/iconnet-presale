@@ -93,7 +93,10 @@ public partial class RootCauseSetting : ComponentBase
 
         var dialogData = (string)result.Data;
 
-        LogSwitch.Debug("NEW CLASSIFICATION: {0}", dialogData);
+        // LogSwitch.Debug("NEW CLASSIFICATION: {0}", dialogData);
+        AppSettingsService.AddRootCauseClassification(dialogData);
+
+        await AppSettingsService.SaveChangesAsync();
     }
 
     protected async Task ApplyToggleSoftDeletionAsync()

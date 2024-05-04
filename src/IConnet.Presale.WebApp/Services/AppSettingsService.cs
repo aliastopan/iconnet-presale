@@ -70,4 +70,42 @@ public class AppSettingsService
 
         _rootCauseClassifications = settings.RootCauseClassification;
     }
+
+    public async Task SaveChangesAsync()
+    {
+        var setting = new PresaleSettingModel
+        {
+            ChatTemplate = this._chatTemplate,
+            OfficeHoursPagi = new OfficeHours
+            {
+                Start = this._officeHourPagiStart,
+                End = this._officeHourPagiEnd
+            },
+            OfficeHoursMalam = new OfficeHours
+            {
+                Start = this._officeHourMalamStart,
+                End = this._officeHourMalamEnd
+            },
+            ServiceLevelAgreement = new ServiceLevelAgreement
+            {
+                Import = this._slaImport,
+                PickUp = this._slaPickUp,
+                Validasi = this._slaValidasi,
+                Approval = this._slaApproval,
+            },
+            RootCauseClassification = this._rootCauseClassifications
+        };
+
+        var json = JsonSerializer.Serialize<PresaleSettingModel>(setting);
+        var key = "PRESALE_APP";
+
+        await _presaleAppService.SetSettingValueAsync(key, json);
+
+        await SynchronizeAppSettingsAsync();
+    }
+
+    public void AddRootCauseClassification(string classification)
+    {
+        _rootCauseClassifications.Add(classification);
+    }
 }
