@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Version>3.6.0</Version>
+    <Version>3.7.0</Version>
     <RootNamespace>IConnet.Presale.WebApp</RootNamespace>
     <AssemblyName>IConnet.Presale.WebApp</AssemblyName>
     <Nullable>enable</Nullable>

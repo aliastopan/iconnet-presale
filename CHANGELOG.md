@@ -1,3 +1,8 @@
+## v3.7.0
+- Update: add appsettings.json option for batch size operation
+- Add: Id PLN and Email duplicate indicator
+- Update: Presale Data .xlsx export
+
 ## v3.6.0
 - Fix: Top level boundary range date
 - Fix: Tracking responsive media query
@@ -5,7 +10,7 @@
 - Change: In-Progress chart color scheme
 - Add: Error boundary component to Guest page
 - Add: Refresh button (Workload)
-- Add: Refresh button (Dashbord)
+- Add: Refresh button (Dashboard)
 
 ## v3.5.0
 - Fix: Keterangan verifikasi
