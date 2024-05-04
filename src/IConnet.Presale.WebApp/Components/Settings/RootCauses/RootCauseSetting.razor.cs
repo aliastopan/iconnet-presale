@@ -163,8 +163,8 @@ public partial class RootCauseSetting : ComponentBase
         return $"width: {widthPx + offsetPx}px;";
     }
 
-    private string GetGridTemplateCols()
+    private static string GetGridTemplateCols()
     {
-        return $"{350}px {250}px {85}px {85}px {150}px;";
+        return $"{350}px {250}px {85}px {85}px {150}px {60}px;";
     }
 }

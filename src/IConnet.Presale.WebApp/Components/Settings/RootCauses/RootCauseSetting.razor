@@ -57,6 +57,11 @@
                         ValueChanged="@context.OnIsIncludedChanged"/>
                 </div>
             </TemplateColumn>
+            <TemplateColumn Title="EDIT" Style="@GetWidthStyle(60)">
+                <div class="" style="text-align: center; margin-top: -2px;">
+                    <FluentIcon Value="@(new Icons.Filled.Size20.EditSettings())" />
+                </div>
+            </TemplateColumn>
         </FluentDataGrid>
     </div>
 
