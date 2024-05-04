@@ -55,8 +55,17 @@
                             </div>
                         </ColumnOptions>
                         <ChildContent>
-                            <div class="">
-                                @context.ApprovalOpportunity.IdPermohonan
+                            <div class="d-flex flex-rown align-items-center">
+                                <span style="min-width: 135px;">
+                                    @context.ApprovalOpportunity.IdPermohonan
+                                </span>
+                                @if (HasCommonDuplicate(@context, out var note))
+                                {
+                                    <span style="margin-right: 4px">
+                                        <FluentIcon Value="@HasCommonDuplicateIcon"
+                                            Title="@note"/>
+                                    </span>
+                                }
                             </div>
                         </ChildContent>
                     </TemplateColumn>
