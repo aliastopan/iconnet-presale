@@ -86,11 +86,11 @@
                                             Title="On Wait"/>
                                     </span>
                                 }
-                                @if (HasCommonDuplicate(@context))
+                                @if (HasCommonDuplicate(@context, out var note))
                                 {
                                     <span style="margin-right: 4px">
                                         <FluentIcon Value="@HasCommonDuplicateIcon"
-                                            Title="Id PLN atau Email sudah pernah pengajukan permohonan"/>
+                                            Title="@note"/>
                                     </span>
                                 }
                             </div>

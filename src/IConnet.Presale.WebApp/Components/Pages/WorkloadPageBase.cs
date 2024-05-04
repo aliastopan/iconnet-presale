@@ -144,20 +144,31 @@ public class WorkloadPageBase : ComponentBase
         return workPaperLevel == WorkPaperLevel.Reinstated;
     }
 
-    protected bool HasCommonDuplicate(WorkPaper workPaper)
+    protected bool HasCommonDuplicate(WorkPaper workPaper, out string note)
     {
         string idPln = workPaper.ApprovalOpportunity.Pemohon.IdPln;
         string email = workPaper.ApprovalOpportunity.Pemohon.Email;
 
-        // var potentialDuplicate = CommonDuplicateService.PotentialDuplicates.FirstOrDefault(duplicate => (duplicate.IdPln == idPln || duplicate.Email == email)
-        //     && duplicate.IdPermohonan != workPaper.ApprovalOpportunity.IdPermohonan);
+        note = "";
 
-        // if (potentialDuplicate is not null)
-        // {
-        //     Log.Warning("Duplicate {0} with {1}", workPaper.ApprovalOpportunity.IdPermohonan, duplicate.IdPermohonan);
-        // }
-
-        return CommonDuplicateService.PotentialDuplicates.Any(duplicate => (duplicate.IdPln == idPln || duplicate.Email == email)
+        var potentialDuplicate = CommonDuplicateService.PotentialDuplicates.FirstOrDefault(duplicate => (
+               duplicate.IdPln == idPln
+            || duplicate.Email == email)
             && duplicate.IdPermohonan != workPaper.ApprovalOpportunity.IdPermohonan);
+
+        if (potentialDuplicate is null)
+        {
+            return false;
+        }
+
+        DateTime duplicateDate = potentialDuplicate.TglPermohonan;
+        DateTime today = DateTimeService.DateTimeOffsetNow.DateTime;
+
+        TimeSpan difference = today - duplicateDate;
+        int daysAgo = (int)difference.TotalDays;
+
+        note = $"Id PLN atau Email sudah pernah mengajukan permohonan {daysAgo} hari yg lalu";
+
+        return true;
     }
 }
