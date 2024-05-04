@@ -22,5 +22,6 @@ public class WorkloadColumnWidth : ColumnWidthBase<WorkPaper>
         SetColumnWidth(workPaper, crm => crm.ProsesValidasi.LinkChatHistory.Length, width => LinkChatHistoryPx = width, "Rekap Chat History");
         SetColumnWidth(workPaper, crm => crm.ProsesValidasi.Keterangan.Length, width => KeteranganValidasiPx = width, "Keterangan Validasi");
         SetColumnWidth(workPaper, crm => crm.ProsesApproval.Keterangan.Length, width => KeteranganVerifikasiPx = width, "Keterangan Verifikasi");
+        SetColumnWidth(workPaper, crm => crm.ProsesApproval.Keterangan.Length, width => KeteranganApprovalPx = width, "Keterangan Approval");
     }
 }
