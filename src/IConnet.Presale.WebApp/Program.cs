@@ -24,6 +24,7 @@ builder.Host.ConfigureServices((context, services) =>
 
     services.AddSingleton<AppSettingsService>();
     services.AddSingleton<CircuitHandler, CustomCircuitHandler>();
+    services.AddSingleton<CommonDuplicateService>();
     services.AddSingleton<UserManager>();
     services.AddSingleton<ChatTemplateManager>();
     services.AddSingleton<DirectApprovalManager>();
