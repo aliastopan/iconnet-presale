@@ -72,8 +72,24 @@
                     </div>
                 </ColumnOptions>
                 <ChildContent>
-                    <div class="">
-                        @context.ApprovalOpportunity.IdPermohonan
+                    <div class="d-flex flex-rown align-items-center">
+                        <span style="min-width: 135px;">
+                            @context.ApprovalOpportunity.IdPermohonan
+                        </span>
+                        @if (IsReinstated(@context.WorkPaperLevel))
+                        {
+                            <span style="margin-right: 4px">
+                                <FluentIcon Value="@ReinstatedIcon"
+                                    Title="Reset"/>
+                            </span>
+                        }
+                        @if (@context.OnWait)
+                        {
+                            <span style="margin-right: 4px">
+                                <FluentIcon Value="@OnWaitIcon"
+                                    Title="On Wait"/>
+                            </span>
+                        }
                     </div>
                 </ChildContent>
             </TemplateColumn>

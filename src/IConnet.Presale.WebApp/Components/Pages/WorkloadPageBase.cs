@@ -136,4 +136,9 @@ public class WorkloadPageBase : ComponentBase
 
         return "min-height: 364px !important";
     }
+
+    protected bool IsReinstated(WorkPaperLevel workPaperLevel)
+    {
+        return workPaperLevel == WorkPaperLevel.Reinstated;
+    }
 }

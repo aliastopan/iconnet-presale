@@ -201,11 +201,6 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
         }
     }
 
-    protected bool IsReinstated(WorkPaperLevel workPaperLevel)
-    {
-        return workPaperLevel == WorkPaperLevel.Reinstated;
-    }
-
     private async Task VerifyCrmAsync(WorkPaper workPaper)
     {
         IsLoading = true;
