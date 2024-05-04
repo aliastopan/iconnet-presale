@@ -11,7 +11,7 @@ public class CommonDuplicateCollectorService : BackgroundService
     {
         _commonDuplicateService = commonDuplicateService;
         _presaleDataBoundaryManager = presaleDataBoundaryManager;
-        _periodicTimer = new PeriodicTimer(TimeSpan.FromMinutes(30));
+        _periodicTimer = new PeriodicTimer(TimeSpan.FromDays(3));
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
