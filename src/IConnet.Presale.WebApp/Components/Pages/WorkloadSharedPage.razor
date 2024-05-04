@@ -90,6 +90,13 @@
                                     Title="On Wait"/>
                             </span>
                         }
+                        @if (HasCommonDuplicate(@context))
+                        {
+                            <span style="margin-right: 4px">
+                                <FluentIcon Value="@HasCommonDuplicateIcon"
+                                    Title="Id PLN atau Email sudah pernah pengajukan permohonan"/>
+                            </span>
+                        }
                     </div>
                 </ChildContent>
             </TemplateColumn>

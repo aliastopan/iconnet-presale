@@ -9,6 +9,7 @@ public class WorkloadPageBase : ComponentBase
     [Inject] public IDialogService DialogService { get; set; } = default!;
     [Inject] public IToastService ToastService { get; set; } = default!;
     [Inject] public IWorkloadManager WorkloadManager { get; init; } = default!;
+    [Inject] public CommonDuplicateService CommonDuplicateService { get; init; } = default!;
     [Inject] public BroadcastService BroadcastService { get; init; } = default!;
     [Inject] public SessionService SessionService { get; set; } = default!;
     [Inject] public TabNavigationManager TabNavigationManager { get; set; } = default!;
@@ -71,6 +72,7 @@ public class WorkloadPageBase : ComponentBase
 
     protected Icon ReinstatedIcon = new Icons.Filled.Size20.ArrowCounterclockwise().WithColor("var(--info-grey)");
     protected Icon OnWaitIcon = new Icons.Filled.Size20.Hourglass().WithColor("var(--pending-cyan)");
+    protected Icon HasCommonDuplicateIcon = new Icons.Filled.Size20.ErrorCircle().WithColor("var(--error-red)");
 
     protected override async Task OnInitializedAsync()
     {
@@ -140,5 +142,22 @@ public class WorkloadPageBase : ComponentBase
     protected bool IsReinstated(WorkPaperLevel workPaperLevel)
     {
         return workPaperLevel == WorkPaperLevel.Reinstated;
+    }
+
+    protected bool HasCommonDuplicate(WorkPaper workPaper)
+    {
+        string idPln = workPaper.ApprovalOpportunity.Pemohon.IdPln;
+        string email = workPaper.ApprovalOpportunity.Pemohon.Email;
+
+        // var potentialDuplicate = CommonDuplicateService.PotentialDuplicates.FirstOrDefault(duplicate => (duplicate.IdPln == idPln || duplicate.Email == email)
+        //     && duplicate.IdPermohonan != workPaper.ApprovalOpportunity.IdPermohonan);
+
+        // if (potentialDuplicate is not null)
+        // {
+        //     Log.Warning("Duplicate {0} with {1}", workPaper.ApprovalOpportunity.IdPermohonan, duplicate.IdPermohonan);
+        // }
+
+        return CommonDuplicateService.PotentialDuplicates.Any(duplicate => (duplicate.IdPln == idPln || duplicate.Email == email)
+            && duplicate.IdPermohonan != workPaper.ApprovalOpportunity.IdPermohonan);
     }
 }

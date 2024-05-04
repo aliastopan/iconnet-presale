@@ -8,13 +8,17 @@ public class StartupService : IHostedService
     private readonly DirectApprovalManager _directApprovalManager;
     private readonly RepresentativeOfficeManager _representativeOfficeManager;
     private readonly RootCauseManager _rootCauseManager;
+    private readonly CommonDuplicateService _commonDuplicateService;
+    private readonly IPresaleDataBoundaryManager _presaleDataBoundaryManager;
 
     public StartupService(IWorkloadSynchronizationManager workloadSynchronizationManager,
         UserManager userManager,
         ChatTemplateManager chatTemplateManager,
         DirectApprovalManager directApprovalManager,
         RepresentativeOfficeManager representativeOfficeManager,
-        RootCauseManager rootCauseManager)
+        RootCauseManager rootCauseManager,
+        CommonDuplicateService commonDuplicateService,
+        IPresaleDataBoundaryManager presaleDataBoundaryManager)
     {
         _workloadSynchronizationManager = workloadSynchronizationManager;
         _userManager = userManager;
@@ -22,6 +26,8 @@ public class StartupService : IHostedService
         _directApprovalManager = directApprovalManager;
         _representativeOfficeManager = representativeOfficeManager;
         _rootCauseManager = rootCauseManager;
+        _commonDuplicateService = commonDuplicateService;
+        _presaleDataBoundaryManager = presaleDataBoundaryManager;
     }
 
     public async Task StartAsync(CancellationToken cancellationToken)
@@ -36,7 +42,17 @@ public class StartupService : IHostedService
             PullRedisToInMemoryAsync()
         ];
 
+        await InitCollectPotentialDuplicate();
+
         await Task.WhenAll(tasks);
+    }
+
+    private async Task InitCollectPotentialDuplicate()
+    {
+        IQueryable<WorkPaper>? presaleData = await _presaleDataBoundaryManager.GetBoundaryChunkPresaleDataAsync(offset: 31);
+        _commonDuplicateService.SetCommonDuplicates(presaleData);
+
+        Log.Information("Init potential duplicate list");
     }
 
     public Task StopAsync(CancellationToken cancellationToken)

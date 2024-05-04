@@ -2,13 +2,16 @@ namespace IConnet.Presale.WebApp.Services;
 
 public class CommonDuplicateCollectorService : BackgroundService
 {
+    private readonly CommonDuplicateService _commonDuplicateService;
     private readonly IPresaleDataBoundaryManager _presaleDataBoundaryManager;
     private readonly PeriodicTimer _periodicTimer;
 
-    public CommonDuplicateCollectorService(IPresaleDataBoundaryManager presaleDataBoundaryManager)
+    public CommonDuplicateCollectorService(CommonDuplicateService commonDuplicateService,
+        IPresaleDataBoundaryManager presaleDataBoundaryManager)
     {
+        _commonDuplicateService = commonDuplicateService;
         _presaleDataBoundaryManager = presaleDataBoundaryManager;
-        _periodicTimer = new PeriodicTimer(TimeSpan.FromSeconds(10));
+        _periodicTimer = new PeriodicTimer(TimeSpan.FromMinutes(30));
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -16,7 +19,11 @@ public class CommonDuplicateCollectorService : BackgroundService
        while (await _periodicTimer.WaitForNextTickAsync(stoppingToken)
             && !stoppingToken.IsCancellationRequested)
         {
-            Log.Information("Collecting duplicate");
+            IQueryable<WorkPaper>? presaleData = await _presaleDataBoundaryManager.GetBoundaryChunkPresaleDataAsync(offset: 31);
+
+            _commonDuplicateService.SetCommonDuplicates(presaleData);
+
+            Log.Information("Collecting potential duplicate {0}", _commonDuplicateService.PotentialDuplicates.Count);
         }
     }
 }

@@ -14,6 +14,7 @@ public class CommonDuplicateService
 
         List<CommonDuplicateModel> duplicates = presaleData
             .Select(workPaper => new CommonDuplicateModel(
+                workPaper.ApprovalOpportunity.IdPermohonan,
                 workPaper.ApprovalOpportunity.Pemohon.IdPln,
                 workPaper.ApprovalOpportunity.Pemohon.Email))
             .ToList();
