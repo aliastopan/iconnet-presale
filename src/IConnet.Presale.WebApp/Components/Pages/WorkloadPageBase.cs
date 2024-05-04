@@ -69,6 +69,9 @@ public class WorkloadPageBase : ComponentBase
     protected virtual bool IsLoading { get; set; } = false;
     protected virtual bool IsRefreshPage { get; set; } = false;
 
+    protected Icon ReinstatedIcon = new Icons.Filled.Size20.ArrowCounterclockwise().WithColor("var(--info-grey)");
+    protected Icon OnWaitIcon = new Icons.Filled.Size20.Hourglass().WithColor("var(--pending-cyan)");
+
     protected override async Task OnInitializedAsync()
     {
         if (!_isInitialized)
