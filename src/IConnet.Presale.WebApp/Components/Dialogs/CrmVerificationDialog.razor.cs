@@ -221,6 +221,7 @@ public partial class CrmVerificationDialog : ComponentBase, IDialogContentCompon
             .WithKeterangan(Keterangan)
             .WithSignatureApproval(rejectSignature);
 
+        Content.OnWait = false;
         Content.ProsesValidasi = prosesValidasi;
         Content.ProsesApproval = prosesApproval;
         Content.LastModified = DateTimeService.DateTimeOffsetNow;
