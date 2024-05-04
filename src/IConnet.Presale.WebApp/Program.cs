@@ -53,6 +53,7 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddFluentUIComponents();
 
     services.AddHostedService<StartupService>();
+    services.AddHostedService<CommonDuplicateCollectorService>();
     services.AddHostedService<SynchronizationService>();
     services.AddSignalR(options =>
     {
