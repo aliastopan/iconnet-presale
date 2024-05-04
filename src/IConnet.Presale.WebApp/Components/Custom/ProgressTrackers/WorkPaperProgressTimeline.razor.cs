@@ -139,7 +139,7 @@ public partial class WorkPaperProgressTimeline : ComponentBase
         string dateTimeString = $"{WorkPaper!.ApprovalOpportunity.SignatureVerifikasiImport.TglAksi.ToReadableFormat()}";
 
         return !(IsAtLeastImportVerified && hasSignatureVerification)
-            ? ""
+            ? (WorkPaper.WorkPaperLevel == WorkPaperLevel.ImportInvalid ? dateTimeString : "")
             : dateTimeString;
     }
 
