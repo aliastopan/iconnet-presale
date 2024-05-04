@@ -54,11 +54,15 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
 
     async Task<List<string?>> IInProgressPersistenceService.GetAllValuesAsync()
     {
+        Log.Warning("Fetching In-Progress persistence");
+
         return await GetAllValuesAsync(_inProgressDbIndex, DatabaseProgress, batchSize: 50);
     }
 
     async Task<List<string?>> IDoneProcessingPersistenceService.GetAllValuesAsync()
     {
+        Log.Warning("Fetching Done Processing persistence");
+
         return await GetAllValuesAsync(_archiveDbIndex, DatabaseArchive, batchSize: 100);
     }
 
