@@ -72,7 +72,7 @@ public class WorkloadPageBase : ComponentBase
 
     protected Icon ReinstatedIcon = new Icons.Filled.Size20.ArrowCounterclockwise().WithColor("var(--info-grey)");
     protected Icon OnWaitIcon = new Icons.Filled.Size20.Hourglass().WithColor("var(--pending-cyan)");
-    protected Icon HasCommonDuplicateIcon = new Icons.Filled.Size20.ErrorCircle().WithColor("var(--error-red)");
+    protected Icon HasCommonDuplicateIcon = new Icons.Filled.Size20.DocumentMultiple().WithColor("var(--error-red)");
 
     protected override async Task OnInitializedAsync()
     {
