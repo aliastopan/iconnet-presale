@@ -1,3 +1,4 @@
+global using IConnet.Presale.Shared.Common;
 global using IConnet.Presale.Shared.Contracts;
 global using IConnet.Presale.Api.Extensions;
 global using IConnet.Presale.Api.Interfaces;
