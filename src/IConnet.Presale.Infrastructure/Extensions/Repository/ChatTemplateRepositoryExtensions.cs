@@ -15,4 +15,9 @@ internal static class ChatTemplateRepositoryExtensions
     {
         return context.ChatTemplates.ToList();
     }
+
+    public static bool IsChatTemplateNameExist(this AppDbContext context, string templateName)
+    {
+        return context.ChatTemplates.Any(x => x.TemplateName == templateName);
+    }
 }
