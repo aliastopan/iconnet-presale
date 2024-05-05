@@ -12,6 +12,29 @@ internal sealed class IdentityManager : IIdentityManager
         _identityAggregateHandler = identityAggregateHandler;
     }
 
+    public async Task<Result> TryEditUserAccount(Guid userAccountId, string newUsername,
+        string newPassword, bool isChangeUsername, bool isChangePassword)
+    {
+        if (!isChangeUsername && !isChangePassword)
+        {
+            return Result.Ok();
+        }
+
+        var tryGetUserAccount = await _identityAggregateHandler.TryGetUserAccountAsync(userAccountId);
+
+        if (tryGetUserAccount.IsFailure())
+        {
+            return Result.Inherit(result: tryGetUserAccount);
+        }
+
+        var userAccount = tryGetUserAccount.Value;
+
+        await _identityAggregateHandler.EditUserAccount(userAccount, newUsername, newPassword, isChangeUsername, isChangePassword );
+        await _identityAggregateHandler.InvalidateRefreshTokensAsync(userAccount);
+
+        return Result.Ok();
+    }
+
     public async Task<Result<UserAccount>> TrySignUpAsync(string username, string password,
         string statusEmploymentString, string userRoleString, string jobTitle,
         bool autoPrivilege = false)

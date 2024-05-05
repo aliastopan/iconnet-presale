@@ -6,7 +6,7 @@ namespace IConnet.Presale.Application.Common.Interfaces.Handlers;
 public interface IIdentityAggregateHandler
 {
     // user account
-    Task<Result> TryEditUserAccount(Guid userAccountId, string username,
+    Task EditUserAccount(UserAccount userAccount, string newUsername,
         string newPassword, bool isChangeUsername, bool isChangePassword);
     Task<UserAccount> CreateUserAccountAsync(string username, string password,
         EmploymentStatus employmentStatus, UserRole userRole, string jobTitle,

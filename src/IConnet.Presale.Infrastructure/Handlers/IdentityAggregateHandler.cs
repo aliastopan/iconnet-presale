@@ -18,26 +18,12 @@ internal sealed class IdentityAggregateHandler : IIdentityAggregateHandler
         _dateTimeService = dateTimeService;
     }
 
-    public async Task<Result> TryEditUserAccount(Guid userAccountId, string username,
+    public async Task EditUserAccount(UserAccount userAccount, string newUsername,
         string newPassword, bool isChangeUsername, bool isChangePassword)
     {
-        if (!isChangeUsername && !isChangePassword)
-        {
-            return Result.Ok();
-        }
-
-        var tryGetUserAccount = await TryGetUserAccountAsync(userAccountId);
-
-        if (tryGetUserAccount.IsFailure())
-        {
-            return Result.Inherit(result: tryGetUserAccount);
-        }
-
-        var userAccount = tryGetUserAccount.Value;
-
         if (isChangeUsername)
         {
-            userAccount.User = userAccount.User.ChangeUsername(username);
+            userAccount.User = userAccount.User.ChangeUsername(newUsername);
         }
 
         if (isChangePassword)
@@ -50,8 +36,6 @@ internal sealed class IdentityAggregateHandler : IIdentityAggregateHandler
 
         dbContext.UserAccounts.Update(userAccount);
         await dbContext.SaveChangesAsync();
-
-        return Result.Ok();
     }
 
     public async Task<UserAccount> CreateUserAccountAsync(string username, string password,
