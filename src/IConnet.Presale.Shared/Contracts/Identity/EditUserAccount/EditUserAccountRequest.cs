@@ -2,12 +2,12 @@ namespace IConnet.Presale.Shared.Contracts.Identity.EditUserAccount;
 
 public record EditUserAccountRequest : IEditUserAccountModel
 {
-    public EditUserAccountRequest(Guid userAccountId, string username,
+    public EditUserAccountRequest(Guid userAccountId, string newUsername,
         string newPassword, string confirmPassword,
         bool isChangeUsername, bool isChangePassword)
     {
         UserAccountId = userAccountId;
-        NewUsername = username;
+        NewUsername = newUsername;
         NewPassword = newPassword;
         ConfirmPassword = confirmPassword;
 
