@@ -18,6 +18,42 @@ internal sealed class IdentityAggregateHandler : IIdentityAggregateHandler
         _dateTimeService = dateTimeService;
     }
 
+    public async Task<Result> TryEditUserAccount(Guid userAccountId, string username,
+        string newPassword, bool isChangeUsername, bool isChangePassword)
+    {
+        if (!isChangeUsername && !isChangePassword)
+        {
+            return Result.Ok();
+        }
+
+        var tryGetUserAccount = await TryGetUserAccountAsync(userAccountId);
+
+        if (tryGetUserAccount.IsFailure())
+        {
+            return Result.Inherit(result: tryGetUserAccount);
+        }
+
+        var userAccount = tryGetUserAccount.Value;
+
+        if (isChangeUsername)
+        {
+            userAccount.User = userAccount.User.ChangeUsername(username);
+        }
+
+        if (isChangePassword)
+        {
+            userAccount.PasswordHash = _passwordService.HashPassword(newPassword, out var passwordSalt);
+            userAccount.PasswordSalt = passwordSalt;
+        }
+
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        dbContext.UserAccounts.Update(userAccount);
+        await dbContext.SaveChangesAsync();
+
+        return Result.Ok();
+    }
+
     public async Task<UserAccount> CreateUserAccountAsync(string username, string password,
         EmploymentStatus employmentStatus, UserRole userRole, string jobTitle,
         bool autoPrivilege = false)
