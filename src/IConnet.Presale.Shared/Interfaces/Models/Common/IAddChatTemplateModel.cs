@@ -1,6 +1,6 @@
 namespace IConnet.Presale.Shared.Interfaces.Models.Common;
 
-public interface IAddChatTemplate
+public interface IAddChatTemplateModel
 {
     Guid ChatTemplateId { get; }
     string TemplateName { get; }
