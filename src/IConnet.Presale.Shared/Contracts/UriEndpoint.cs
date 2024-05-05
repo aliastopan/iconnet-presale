@@ -9,6 +9,7 @@ public static class UriEndpoint
         public const string SignUp = "/api/sign-up";
         public const string Refresh = "/api/sign-in/refresh";
         public const string ResetPassword = "/api/identity/reset-password";
+        public const string EditUserAccount = "/api/identity/edit-account";
         public const string SetRole = "/api/identity/set-role";
         public const string GrantPrivilege = "/api/identity/grant-privilege";
         public const string RevokePrivilege = "/api/identity/revoke-privilege";

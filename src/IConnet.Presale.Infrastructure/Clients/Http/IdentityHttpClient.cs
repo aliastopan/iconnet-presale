@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.Json;
 using IConnet.Presale.Shared.Contracts;
 using IConnet.Presale.Shared.Contracts.Identity.Authentication;
+using IConnet.Presale.Shared.Contracts.Identity.EditUserAccount;
 using IConnet.Presale.Shared.Contracts.Identity.Registration;
 
 namespace IConnet.Presale.Infrastructure.Clients.Http;
@@ -12,6 +13,38 @@ internal sealed class IdentityHttpClient : HttpClientBase, IIdentityHttpClient
         : base(httpClient)
     {
 
+    }
+
+
+    public async Task<HttpResult> EditUserAccountAsync(Guid userAccountId, string newUsername,
+        string newPassword, string confirmPassword,
+        bool isChangeUsername, bool isChangePassword)
+    {
+        var isResponding = await IsHostRespondingAsync();
+        if (!isResponding)
+        {
+            return new HttpResult
+            {
+                IsSuccessStatusCode = false
+            };
+        }
+
+        var request = new EditUserAccountRequest(userAccountId, newUsername,
+            newPassword, confirmPassword,
+            isChangeUsername, isChangeUsername);
+
+        var jsonBody = JsonSerializer.Serialize(request);
+        var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+        var requestUri = UriEndpoint.Identity.EditUserAccount;
+
+        using var responseMessage = await HttpClient.PostAsync(requestUri, content);
+
+        return new HttpResult
+        {
+            IsSuccessStatusCode = responseMessage.IsSuccessStatusCode,
+            Headers = responseMessage.Headers,
+            Content = await responseMessage.Content.ReadAsStringAsync()
+        };
     }
 
 
