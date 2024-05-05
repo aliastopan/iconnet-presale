@@ -7,7 +7,7 @@ public record EditUserAccountRequest : IEditUserAccountModel
         bool isChangeUsername, bool isChangePassword)
     {
         UserAccountId = userAccountId;
-        Username = username;
+        NewUsername = username;
         NewPassword = newPassword;
         ConfirmPassword = confirmPassword;
 
@@ -16,7 +16,7 @@ public record EditUserAccountRequest : IEditUserAccountModel
     }
 
     public Guid UserAccountId { get; }
-    public string Username { get; }
+    public string NewUsername { get; }
     public string NewPassword { get; }
     public string ConfirmPassword { get; }
 
