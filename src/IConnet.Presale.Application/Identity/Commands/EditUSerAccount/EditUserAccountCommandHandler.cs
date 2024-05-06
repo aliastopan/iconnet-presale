@@ -1,4 +1,4 @@
-namespace IConnet.Presale.Application.Identity.Commands.EditUSerAccount;
+namespace IConnet.Presale.Application.Identity.Commands.EditUserAccount;
 
 public class EditUserAccountCommandHandler : IRequestHandler<EditUserAccountCommand, Result>
 {

@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using IConnet.Presale.Shared.Interfaces.Models.Identity;
 
-namespace IConnet.Presale.Application.Identity.Commands.EditUSerAccount;
+namespace IConnet.Presale.Application.Identity.Commands.EditUserAccount;
 
 public class EditUserAccountCommand(Guid userAccountId, string newUsername,
     string newPassword, string confirmPassword, bool isChangeUsername, bool isChangePassword)

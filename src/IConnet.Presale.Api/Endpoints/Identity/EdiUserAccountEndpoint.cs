@@ -1,4 +1,4 @@
-using IConnet.Presale.Application.Identity.Commands.EditUSerAccount;
+using IConnet.Presale.Application.Identity.Commands.EditUserAccount;
 using IConnet.Presale.Shared.Contracts.Identity.EditUserAccount;
 
 namespace IConnet.Presale.Api.Endpoints.Identity;
