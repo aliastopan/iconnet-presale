@@ -55,6 +55,7 @@ internal class PresaleAppService : IPresaleAppService
             },
             RootCauseClassification =
             [
+                "TIDAK ADA KLASIFIKASI",
                 "USER INVALID",
                 "KENDALA PENGECEKAN",
                 "DOUBLE INPUTAN",
