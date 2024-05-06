@@ -430,3 +430,27 @@ input:invalid::part(root) {
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
 }
+
+.guest-page-timeline-tracker {
+    margin-left: 8px;
+    overflow-y: scroll;
+    max-height: calc(100vh - 300px);
+}
+
+.guest-page-timeline-tracker::-webkit-scrollbar{
+    width: 8px;
+    height: 8px;
+}
+
+.guest-page-timeline-tracker::-webkit-scrollbar-track{
+    background-color: #cccccc;
+}
+
+.guest-page-timeline-tracker::-webkit-scrollbar-thumb{
+    background-color: #646464;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}

@@ -184,6 +184,11 @@ code {
         display: block !important;
     }
 
+    /* .guest-page-timeline-tracker {
+        overflow-y: visible;
+        max-height: none;
+    } */
+
     .main {
         flex-direction: column !important;
         row-gap: 0 !important;
