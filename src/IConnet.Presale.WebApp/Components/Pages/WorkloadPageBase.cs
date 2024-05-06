@@ -148,27 +148,41 @@ public class WorkloadPageBase : ComponentBase
     {
         string idPln = workPaper.ApprovalOpportunity.Pemohon.IdPln;
         string email = workPaper.ApprovalOpportunity.Pemohon.Email;
-
         note = "";
 
-        var potentialDuplicate = CommonDuplicateService.PotentialDuplicates.FirstOrDefault(duplicate => (
-               duplicate.IdPln == idPln
-            || duplicate.Email == email)
-            && duplicate.IdPermohonan != workPaper.ApprovalOpportunity.IdPermohonan);
+        var potentialDuplicateByIdPln = CommonDuplicateService.PotentialDuplicates
+            .FirstOrDefault(duplicate => duplicate.IdPln == idPln && duplicate.IdPermohonan != workPaper.ApprovalOpportunity.IdPermohonan);
 
-        if (potentialDuplicate is null)
+        var potentialDuplicateByEmail = CommonDuplicateService.PotentialDuplicates
+            .FirstOrDefault(duplicate => duplicate.Email == email && duplicate.IdPermohonan != workPaper.ApprovalOpportunity.IdPermohonan);
+
+        if (potentialDuplicateByIdPln != null)
         {
-            return false;
+            DateTime duplicateDate = potentialDuplicateByIdPln.TglPermohonan.Date;
+            DateTime today = DateTimeService.DateTimeOffsetNow.DateTime.Date;
+            TimeSpan difference = today - duplicateDate;
+            int daysAgo = (int)difference.TotalDays;
+
+            note = daysAgo == 0
+                ? $"Id PLN sudah pernah mengajukan permohonan di tanggal yang sama"
+                : $"Id PLN sudah pernah mengajukan permohonan {daysAgo} hari yang lalu";
+
+            return true;
+        }
+        else if (potentialDuplicateByEmail != null)
+        {
+            DateTime duplicateDate = potentialDuplicateByEmail.TglPermohonan.Date;
+            DateTime today = DateTimeService.DateTimeOffsetNow.DateTime.Date;
+            TimeSpan difference = today - duplicateDate;
+            int daysAgo = (int)difference.TotalDays;
+
+            note = daysAgo == 0
+                ? $"Email sudah pernah mengajukan permohonan di tanggal yang sama"
+                : $"Email sudah pernah mengajukan permohonan {daysAgo} hari yang lalu";
+
+            return true;
         }
 
-        DateTime duplicateDate = potentialDuplicate.TglPermohonan.Date;
-        DateTime today = DateTimeService.DateTimeOffsetNow.DateTime.Date;
-
-        TimeSpan difference = today - duplicateDate;
-        int daysAgo = (int)difference.TotalDays;
-
-        note = $"Id PLN atau Email sudah pernah mengajukan permohonan {daysAgo} hari yg lalu";
-
-        return true;
+        return false;
     }
 }
