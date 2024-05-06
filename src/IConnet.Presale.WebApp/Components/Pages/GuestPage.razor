@@ -1,328 +1,326 @@
 @inherits GuestPageBase
 @rendermode @(InteractiveServer.DisablePreRender())
 
-<div style="margin-top: 16px;">
-    <CustomErrorBoundary Context="Exception" @ref="ErrorBoundary">
-        <ChildContent>
-            <div class="searchbar-stack">
-                <div class=""d-flex flex-row>
-                    <div style="font-weight: 600; margin-bottom: 4px" >Lacak Status Permohonan</div>
-                    <FluentSearch
-                        Value=@IdPermohonan
-                        ValueChanged="OnIdPermohonanSearchChanged"
-                        Placeholder="ID PERMOHONAN"/>
-                </div>
-                <div class="p-2">
-                    @if (IsLoading)
-                    {
-                        <FluentProgressRing style="width: 16px; height: 16px;"></FluentProgressRing>
-                    }
-                </div>
+<CustomErrorBoundary Context="Exception" @ref="ErrorBoundary">
+    <ChildContent>
+        <div class="searchbar-stack">
+            <div class=""d-flex flex-row>
+                <div style="font-weight: 600; margin-bottom: 4px" >Lacak Status Permohonan</div>
+                <FluentSearch
+                    Value=@IdPermohonan
+                    ValueChanged="OnIdPermohonanSearchChanged"
+                    Placeholder="ID PERMOHONAN"/>
             </div>
-            <div class="guest-page-content">
-                <div class="datagrid-wrapper">
-                    @if (WorkPapers is not null && HasSearched)
-                    {
-                        <FluentDataGrid Items="@WorkPapers"
-                            TGridItem="WorkPaper"
-                            ItemSize="32"
-                            GridTemplateColumns="@GridTemplateCols">
+            <div class="p-2">
+                @if (IsLoading)
+                {
+                    <FluentProgressRing style="width: 16px; height: 16px;"></FluentProgressRing>
+                }
+            </div>
+        </div>
+        <div class="guest-page-content">
+            <div class="datagrid-wrapper">
+                @if (WorkPapers is not null && HasSearched)
+                {
+                    <FluentDataGrid Items="@WorkPapers"
+                        TGridItem="WorkPaper"
+                        ItemSize="32"
+                        GridTemplateColumns="@GridTemplateCols">
 
-                            <TemplateColumn Title="STATUS KERTAS KERJA" Style="@GetWidthStyle(ColumnWidth.WorkPaperLevelPx)">
-                                <div class="">
-                                    <WorkPaperLevelBadge WorkPaperLevel="@context.WorkPaperLevel"
-                                        ApprovalStatus="@context.ProsesApproval.StatusApproval"
-                                        DirectApproval="@context.ProsesApproval.DirectApproval"/>
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="ID PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.IdPermohonanPx)">
-                                <div class="">
-                                    @context.ApprovalOpportunity.IdPermohonan
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="TGL PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.TglPermohonanPx)">
-                                <div class="">
-                                    <DateTimeBadge DateTime="@context.ApprovalOpportunity.TglPermohonan"/>
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="DURASI TIDAK LANJUT" Style="@GetWidthStyle(ColumnWidth.DurasiTidakLanjutPx)">
-                                <div class="">
-                                    @DateTimeService.GetElapsedTime(context.ApprovalOpportunity.TglPermohonan).ToReadableDateTime()
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="NAMA PEMOHON" Style="@GetWidthStyle(ColumnWidth.NamaPemohonPx, 200)">
-                                <div class="d-flex flex-row">
-                                    <ValidationBadge ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiNama"
-                                        WidthConstraint="true"/>
-                                    <span style="padding-left: 8px;">
-                                        @context.ApprovalOpportunity.Pemohon.NamaPelanggan
-                                    </span>
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="TELP. PEMOHON" Style="@GetWidthStyle(ColumnWidth.TelpPemohonPx, 180)">
-                                <div class="d-flex flex-row">
-                                    <ValidationBadge ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiNomorTelepon"
-                                        WidthConstraint="true"/>
-                                    <span style="padding-left: 8px;">
-                                        @context.ApprovalOpportunity.Pemohon.NomorTelepon
-                                    </span>
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="EMAIL PEMOHON" Style="@GetWidthStyle(ColumnWidth.EmailPemohonPx, 200)">
-                                <div class="d-flex flex-row">
-                                    <ValidationBadge ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiEmail"
-                                        WidthConstraint="true"/>
-                                    <span style="padding-left: 8px;">
-                                        @context.ApprovalOpportunity.Pemohon.Email
-                                    </span>
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="ID PLN" Style="@GetWidthStyle(ColumnWidth.IdPlnPx, 180)">
-                                <div class="d-flex flex-row">
-                                    <ValidationBadge ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiIdPln"
-                                        WidthConstraint="true"/>
-                                    <span style="padding-left: 8px;">
-                                        @context.ApprovalOpportunity.Pemohon.IdPln
-                                    </span>
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="ALAMAT PEMOHON" Style="@GetWidthStyle(ColumnWidth.AlamatPemohonPx, 200)">
-                                <div class="d-flex flex-row">
-                                    <ValidationBadge ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiAlamat"
-                                        WidthConstraint="true"/>
-                                    <span style="padding-left: 8px;">
-                                        @context.ApprovalOpportunity.Pemohon.Alamat
-                                    </span>
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="SHARE LOC" Style="@GetWidthStyle(ColumnWidth.ValidasiShareLocPx)">
-                                <div class="">
-                                    @context.ProsesValidasi.ParameterValidasi.ShareLoc.GetLatitudeLongitude()
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="NIK PEMOHON" Style="@GetWidthStyle(ColumnWidth.NikPemohonPx)">
-                                <div class="">
-                                    @context.ApprovalOpportunity.Pemohon.Nik
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="NPWP PEMOHON" Style="@GetWidthStyle(ColumnWidth.NpwpPemohonPx)">
-                                <div class="">
-                                    @context.ApprovalOpportunity.Pemohon.Npwp
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="KETERANGAN PEMOHON" Style="@GetWidthStyle(ColumnWidth.KeteranganPx)">
-                                <div class="">
-                                    @context.ApprovalOpportunity.Pemohon.Keterangan
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="TGL CHAT/CALL PICK-UP" Style="@GetWidthStyle(ColumnWidth.TglChatCallMulaiPx)">
-                                <div class="">
-                                    @if(!context.ProsesValidasi.SignatureChatCallMulai.IsEmptySignature())
-                                    {
-                                        <DateTimeBadge DateTime="@context.ProsesValidasi.SignatureChatCallMulai.TglAksi"/>
-                                    }
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="TGL CHAT/CALL RESPONS" Style="@GetWidthStyle(ColumnWidth.TglChatCallResponsPx)">
-                                <div class="">
-                                    @if(!context.ProsesValidasi.SignatureChatCallRespons.IsEmptySignature())
-                                    {
-                                        <DateTimeBadge DateTime="@context.ProsesValidasi.SignatureChatCallRespons.TglAksi"/>
-                                    }
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="PIC CHAT/CALL" Style="@GetWidthStyle(ColumnWidth.HelpdeskInChargePx)">
-                                <div class="" style="display: flex;">
-                                    @context.SignatureHelpdeskInCharge.Alias
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="REKAP CHAT HISTORY" Style="@GetWidthStyle(ColumnWidth.LinkChatHistoryPx)">
-                                <div class="">
-                                    <a href="@context.ProsesValidasi.LinkChatHistory" target="_blank">
-                                        @context.ProsesValidasi.LinkChatHistory
-                                    </a>
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="KETERANGAN VALIDASI" Style="@GetWidthStyle(ColumnWidth.KeteranganValidasiPx)">
-                                <div class="">
-                                    @context.ProsesValidasi.Keterangan
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="CONTACT WHATSAPP" Style="@GetWidthStyle(ColumnWidth.ContactWhatsAppPx)">
-                                <div class="">
-                                    @{
-                                        var url = $"http://{context.ApprovalOpportunity.Pemohon.GetWhatsApp()}";
-                                    }
-                                    <a href="@url" target="_blank">
-                                        @context.ApprovalOpportunity.Pemohon.GetWhatsApp()
-                                    </a>
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="APPROVAL" Style="@GetWidthStyle(ColumnWidth.StatusApprovalPx)">
-                                <div class="">
-                                    <ApprovalBadge ApprovalStatus="@context.ProsesApproval.StatusApproval"/>
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="ROOT CAUSE" Style="@GetWidthStyle(ColumnWidth.RootCausePx)">
-                                <div class="">
-                                    @context.ProsesApproval.RootCause.ToUpper()
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="TGL APPROVAL" Style="@GetWidthStyle(ColumnWidth.TglApprovalPx)">
-                                <div class="">
-                                    @if(!context.ProsesApproval.SignatureApproval.IsEmptySignature())
-                                    {
-                                        <DateTimeBadge DateTime="@context.ProsesApproval.SignatureApproval.TglAksi"/>
-                                    }
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="PIC APPROVAL" Style="@GetWidthStyle(ColumnWidth.PlanningAssetCoverageInChargePx)">
-                                <div class="">
-                                    @if(!context.ProsesApproval.SignatureApproval.IsEmptySignature())
-                                    {
-                                        @context.ProsesApproval.SignatureApproval.Alias
-                                    }
-                                    else
-                                    {
-                                        @context.SignaturePlanningAssetCoverageInCharge.Alias
-                                    }
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="KETERANGAN APPROVAL" Style="@GetWidthStyle(ColumnWidth.KeteranganApprovalPx)">
-                                <div class="">
-                                    @context.ProsesApproval.Keterangan
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="LAYANAN" Style="@GetWidthStyle(ColumnWidth.LayananPx)">
-                                <div class="">
-                                    @context.ApprovalOpportunity.Layanan
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="SUMBER PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.SumberPermohonanPx)">
-                                <div class="">
-                                    @context.ApprovalOpportunity.SumberPermohonan
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="STATUS PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.StatusPermohonanPx)">
-                                <div class="">
-                                    @context.ApprovalOpportunity.StatusPermohonan
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="NAMA AGEN" Style="@GetWidthStyle(ColumnWidth.NamaAgenPx)">
-                                <div class="">
-                                    @context.ApprovalOpportunity.Agen.NamaLengkap
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="EMAIL AGEN" Style="@GetWidthStyle(ColumnWidth.EmailAgenPx)">
-                                <div class="">
-                                    @context.ApprovalOpportunity.Agen.Email
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="TELP. AGEN" Style="@GetWidthStyle(ColumnWidth.TelpAgenPx)">
-                                <div class="">
-                                    @context.ApprovalOpportunity.Agen.NomorTelepon
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="MITRA AGEN" Style="@GetWidthStyle(ColumnWidth.MitraAgenPx)">
-                                <div class="">
-                                    @context.ApprovalOpportunity.Agen.Mitra
-                                </div>
-                            </TemplateColumn>
-                        <TemplateColumn Title="SPLITTER" Style="@GetWidthStyle(ColumnWidth.SplitterPx)">
+                        <TemplateColumn Title="STATUS KERTAS KERJA" Style="@GetWidthStyle(ColumnWidth.WorkPaperLevelPx)">
                             <div class="">
-                            @if (@context.ProsesApproval.IsSplitterGanti())
-                            {
-                                <div class="splitter-ganti">GANTI</div>
-                            }
-                            else
-                            {
-                                @context.ApprovalOpportunity.Splitter
-                            }
+                                <WorkPaperLevelBadge WorkPaperLevel="@context.WorkPaperLevel"
+                                    ApprovalStatus="@context.ProsesApproval.StatusApproval"
+                                    DirectApproval="@context.ProsesApproval.DirectApproval"/>
                             </div>
                         </TemplateColumn>
-                        <TemplateColumn Title="SPLITTER GANTI" Style="@GetWidthStyle(ColumnWidth.SplitterGantiPx)">
+                        <TemplateColumn Title="ID PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.IdPermohonanPx)">
                             <div class="">
-                                @if (@context.ProsesApproval.IsSplitterGanti())
+                                @context.ApprovalOpportunity.IdPermohonan
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="TGL PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.TglPermohonanPx)">
+                            <div class="">
+                                <DateTimeBadge DateTime="@context.ApprovalOpportunity.TglPermohonan"/>
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="DURASI TIDAK LANJUT" Style="@GetWidthStyle(ColumnWidth.DurasiTidakLanjutPx)">
+                            <div class="">
+                                @DateTimeService.GetElapsedTime(context.ApprovalOpportunity.TglPermohonan).ToReadableDateTime()
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="NAMA PEMOHON" Style="@GetWidthStyle(ColumnWidth.NamaPemohonPx, 200)">
+                            <div class="d-flex flex-row">
+                                <ValidationBadge ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiNama"
+                                    WidthConstraint="true"/>
+                                <span style="padding-left: 8px;">
+                                    @context.ApprovalOpportunity.Pemohon.NamaPelanggan
+                                </span>
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="TELP. PEMOHON" Style="@GetWidthStyle(ColumnWidth.TelpPemohonPx, 180)">
+                            <div class="d-flex flex-row">
+                                <ValidationBadge ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiNomorTelepon"
+                                    WidthConstraint="true"/>
+                                <span style="padding-left: 8px;">
+                                    @context.ApprovalOpportunity.Pemohon.NomorTelepon
+                                </span>
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="EMAIL PEMOHON" Style="@GetWidthStyle(ColumnWidth.EmailPemohonPx, 200)">
+                            <div class="d-flex flex-row">
+                                <ValidationBadge ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiEmail"
+                                    WidthConstraint="true"/>
+                                <span style="padding-left: 8px;">
+                                    @context.ApprovalOpportunity.Pemohon.Email
+                                </span>
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="ID PLN" Style="@GetWidthStyle(ColumnWidth.IdPlnPx, 180)">
+                            <div class="d-flex flex-row">
+                                <ValidationBadge ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiIdPln"
+                                    WidthConstraint="true"/>
+                                <span style="padding-left: 8px;">
+                                    @context.ApprovalOpportunity.Pemohon.IdPln
+                                </span>
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="ALAMAT PEMOHON" Style="@GetWidthStyle(ColumnWidth.AlamatPemohonPx, 200)">
+                            <div class="d-flex flex-row">
+                                <ValidationBadge ValidationStatus="@context.ProsesValidasi.ParameterValidasi.ValidasiAlamat"
+                                    WidthConstraint="true"/>
+                                <span style="padding-left: 8px;">
+                                    @context.ApprovalOpportunity.Pemohon.Alamat
+                                </span>
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="SHARE LOC" Style="@GetWidthStyle(ColumnWidth.ValidasiShareLocPx)">
+                            <div class="">
+                                @context.ProsesValidasi.ParameterValidasi.ShareLoc.GetLatitudeLongitude()
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="NIK PEMOHON" Style="@GetWidthStyle(ColumnWidth.NikPemohonPx)">
+                            <div class="">
+                                @context.ApprovalOpportunity.Pemohon.Nik
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="NPWP PEMOHON" Style="@GetWidthStyle(ColumnWidth.NpwpPemohonPx)">
+                            <div class="">
+                                @context.ApprovalOpportunity.Pemohon.Npwp
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="KETERANGAN PEMOHON" Style="@GetWidthStyle(ColumnWidth.KeteranganPx)">
+                            <div class="">
+                                @context.ApprovalOpportunity.Pemohon.Keterangan
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="TGL CHAT/CALL PICK-UP" Style="@GetWidthStyle(ColumnWidth.TglChatCallMulaiPx)">
+                            <div class="">
+                                @if(!context.ProsesValidasi.SignatureChatCallMulai.IsEmptySignature())
                                 {
-                                    @context.ProsesApproval.SplitterGanti
+                                    <DateTimeBadge DateTime="@context.ProsesValidasi.SignatureChatCallMulai.TglAksi"/>
+                                }
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="TGL CHAT/CALL RESPONS" Style="@GetWidthStyle(ColumnWidth.TglChatCallResponsPx)">
+                            <div class="">
+                                @if(!context.ProsesValidasi.SignatureChatCallRespons.IsEmptySignature())
+                                {
+                                    <DateTimeBadge DateTime="@context.ProsesValidasi.SignatureChatCallRespons.TglAksi"/>
+                                }
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="PIC CHAT/CALL" Style="@GetWidthStyle(ColumnWidth.HelpdeskInChargePx)">
+                            <div class="" style="display: flex;">
+                                @context.SignatureHelpdeskInCharge.Alias
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="REKAP CHAT HISTORY" Style="@GetWidthStyle(ColumnWidth.LinkChatHistoryPx)">
+                            <div class="">
+                                <a href="@context.ProsesValidasi.LinkChatHistory" target="_blank">
+                                    @context.ProsesValidasi.LinkChatHistory
+                                </a>
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="KETERANGAN VALIDASI" Style="@GetWidthStyle(ColumnWidth.KeteranganValidasiPx)">
+                            <div class="">
+                                @context.ProsesValidasi.Keterangan
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="CONTACT WHATSAPP" Style="@GetWidthStyle(ColumnWidth.ContactWhatsAppPx)">
+                            <div class="">
+                                @{
+                                    var url = $"http://{context.ApprovalOpportunity.Pemohon.GetWhatsApp()}";
+                                }
+                                <a href="@url" target="_blank">
+                                    @context.ApprovalOpportunity.Pemohon.GetWhatsApp()
+                                </a>
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="APPROVAL" Style="@GetWidthStyle(ColumnWidth.StatusApprovalPx)">
+                            <div class="">
+                                <ApprovalBadge ApprovalStatus="@context.ProsesApproval.StatusApproval"/>
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="ROOT CAUSE" Style="@GetWidthStyle(ColumnWidth.RootCausePx)">
+                            <div class="">
+                                @context.ProsesApproval.RootCause.ToUpper()
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="TGL APPROVAL" Style="@GetWidthStyle(ColumnWidth.TglApprovalPx)">
+                            <div class="">
+                                @if(!context.ProsesApproval.SignatureApproval.IsEmptySignature())
+                                {
+                                    <DateTimeBadge DateTime="@context.ProsesApproval.SignatureApproval.TglAksi"/>
+                                }
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="PIC APPROVAL" Style="@GetWidthStyle(ColumnWidth.PlanningAssetCoverageInChargePx)">
+                            <div class="">
+                                @if(!context.ProsesApproval.SignatureApproval.IsEmptySignature())
+                                {
+                                    @context.ProsesApproval.SignatureApproval.Alias
                                 }
                                 else
                                 {
-                                    <div class="splitter-tetap">TETAP</div>
+                                    @context.SignaturePlanningAssetCoverageInCharge.Alias
                                 }
                             </div>
                         </TemplateColumn>
-                            <TemplateColumn Title="REGIONAL" Style="@GetWidthStyle(ColumnWidth.RegionalPx)">
-                                <div class="">
-                                    @context.ApprovalOpportunity.Regional.Bagian
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="KANTOR PERWAKILAN" Style="@GetWidthStyle(ColumnWidth.KantorPerwakilanPx)">
-                                <div class="">
-                                    @context.ApprovalOpportunity.Regional.KantorPerwakilan
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="PROVINSI" Style="@GetWidthStyle(ColumnWidth.ProvinsiPx)">
-                                <div class="">
-                                    @context.ApprovalOpportunity.Regional.Provinsi
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="KABUPATEN" Style="@GetWidthStyle(ColumnWidth.KabupatenPx)">
-                                <div class="">
-                                    @context.ApprovalOpportunity.Regional.Kabupaten
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="KECAMATAN" Style="@GetWidthStyle(ColumnWidth.KecamatanPx)">
-                                <div class="">
-                                    @context.ApprovalOpportunity.Regional.Kecamatan
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="KELURAHAN" Style="@GetWidthStyle(ColumnWidth.KelurahanPx)">
-                                <div class="">
-                                    @context.ApprovalOpportunity.Regional.Kelurahan
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="LATITUDE" Style="@GetWidthStyle(ColumnWidth.LatitudePx)">
-                                <div class="">
-                                    @context.ApprovalOpportunity.Regional.Koordinat.Latitude
-                                </div>
-                            </TemplateColumn>
-                            <TemplateColumn Title="LONGITUDE" Style="@GetWidthStyle(ColumnWidth.LongitudePx)">
-                                <div class="">
-                                    @context.ApprovalOpportunity.Regional.Koordinat.Longitude
-                                </div>
-                            </TemplateColumn>
-                        </FluentDataGrid>
-                    }
-                </div>
+                        <TemplateColumn Title="KETERANGAN APPROVAL" Style="@GetWidthStyle(ColumnWidth.KeteranganApprovalPx)">
+                            <div class="">
+                                @context.ProsesApproval.Keterangan
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="LAYANAN" Style="@GetWidthStyle(ColumnWidth.LayananPx)">
+                            <div class="">
+                                @context.ApprovalOpportunity.Layanan
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="SUMBER PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.SumberPermohonanPx)">
+                            <div class="">
+                                @context.ApprovalOpportunity.SumberPermohonan
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="STATUS PERMOHONAN" Style="@GetWidthStyle(ColumnWidth.StatusPermohonanPx)">
+                            <div class="">
+                                @context.ApprovalOpportunity.StatusPermohonan
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="NAMA AGEN" Style="@GetWidthStyle(ColumnWidth.NamaAgenPx)">
+                            <div class="">
+                                @context.ApprovalOpportunity.Agen.NamaLengkap
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="EMAIL AGEN" Style="@GetWidthStyle(ColumnWidth.EmailAgenPx)">
+                            <div class="">
+                                @context.ApprovalOpportunity.Agen.Email
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="TELP. AGEN" Style="@GetWidthStyle(ColumnWidth.TelpAgenPx)">
+                            <div class="">
+                                @context.ApprovalOpportunity.Agen.NomorTelepon
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="MITRA AGEN" Style="@GetWidthStyle(ColumnWidth.MitraAgenPx)">
+                            <div class="">
+                                @context.ApprovalOpportunity.Agen.Mitra
+                            </div>
+                        </TemplateColumn>
+                    <TemplateColumn Title="SPLITTER" Style="@GetWidthStyle(ColumnWidth.SplitterPx)">
+                        <div class="">
+                        @if (@context.ProsesApproval.IsSplitterGanti())
+                        {
+                            <div class="splitter-ganti">GANTI</div>
+                        }
+                        else
+                        {
+                            @context.ApprovalOpportunity.Splitter
+                        }
+                        </div>
+                    </TemplateColumn>
+                    <TemplateColumn Title="SPLITTER GANTI" Style="@GetWidthStyle(ColumnWidth.SplitterGantiPx)">
+                        <div class="">
+                            @if (@context.ProsesApproval.IsSplitterGanti())
+                            {
+                                @context.ProsesApproval.SplitterGanti
+                            }
+                            else
+                            {
+                                <div class="splitter-tetap">TETAP</div>
+                            }
+                        </div>
+                    </TemplateColumn>
+                        <TemplateColumn Title="REGIONAL" Style="@GetWidthStyle(ColumnWidth.RegionalPx)">
+                            <div class="">
+                                @context.ApprovalOpportunity.Regional.Bagian
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="KANTOR PERWAKILAN" Style="@GetWidthStyle(ColumnWidth.KantorPerwakilanPx)">
+                            <div class="">
+                                @context.ApprovalOpportunity.Regional.KantorPerwakilan
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="PROVINSI" Style="@GetWidthStyle(ColumnWidth.ProvinsiPx)">
+                            <div class="">
+                                @context.ApprovalOpportunity.Regional.Provinsi
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="KABUPATEN" Style="@GetWidthStyle(ColumnWidth.KabupatenPx)">
+                            <div class="">
+                                @context.ApprovalOpportunity.Regional.Kabupaten
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="KECAMATAN" Style="@GetWidthStyle(ColumnWidth.KecamatanPx)">
+                            <div class="">
+                                @context.ApprovalOpportunity.Regional.Kecamatan
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="KELURAHAN" Style="@GetWidthStyle(ColumnWidth.KelurahanPx)">
+                            <div class="">
+                                @context.ApprovalOpportunity.Regional.Kelurahan
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="LATITUDE" Style="@GetWidthStyle(ColumnWidth.LatitudePx)">
+                            <div class="">
+                                @context.ApprovalOpportunity.Regional.Koordinat.Latitude
+                            </div>
+                        </TemplateColumn>
+                        <TemplateColumn Title="LONGITUDE" Style="@GetWidthStyle(ColumnWidth.LongitudePx)">
+                            <div class="">
+                                @context.ApprovalOpportunity.Regional.Koordinat.Longitude
+                            </div>
+                        </TemplateColumn>
+                    </FluentDataGrid>
+                }
             </div>
-            <div>
-                @if (WorkPaper is not null)
+        </div>
+        <div>
+            @if (WorkPaper is not null)
+            {
+                <div class="guest-page-tracker">
+                    <div style="margin-right: 8px;">
+                        <WorkPaperProgressDetail WorkPaper="@WorkPaper"/>
+                    </div>
+                    <div style="margin-left: 8px;">
+                        <WorkPaperProgressTimeline WorkPaper="@WorkPaper"/>
+                    </div>
+                </div>
+            }
+            else
+            {
+                if (HasSearched)
                 {
-                    <div class="guest-page-tracker">
-                        <div style="margin-right: 8px;">
-                            <WorkPaperProgressDetail WorkPaper="@WorkPaper"/>
-                        </div>
-                        <div style="margin-left: 8px;">
-                            <WorkPaperProgressTimeline WorkPaper="@WorkPaper"/>
-                        </div>
+                    <div class="search-notfound">
+                        Data tidak tersedia.
                     </div>
                 }
-                else
-                {
-                    if (HasSearched)
-                    {
-                        <div class="search-notfound">
-                            Data tidak tersedia.
-                        </div>
-                    }
-                }
-            </div>
+            }
+        </div>
 
 
-        </ChildContent>
-        <ErrorContent>
-            <ErrorContext Exception="@Exception"/>
-        </ErrorContent>
-    </CustomErrorBoundary>
-</div>
+    </ChildContent>
+    <ErrorContent>
+        <ErrorContext Exception="@Exception"/>
+    </ErrorContent>
+</CustomErrorBoundary>
