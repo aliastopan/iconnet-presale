@@ -58,7 +58,7 @@ public class FilterModel
     {
         if (args.Value is string value)
         {
-            IdPermohonan = value;
+            IdPln = value;
         }
     }
 
