@@ -1,3 +1,6 @@
+## v3.7.2
+- Fix: Id PLN filter
+
 ## v3.7.1
 - Fix: Guest page timeline tracking
 
