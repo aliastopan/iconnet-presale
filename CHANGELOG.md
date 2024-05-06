@@ -1,3 +1,6 @@
+## v3.7.1
+- Fix: Guest page timeline tracking
+
 ## v3.7.0
 - Update: add appsettings.json option for batch size operation
 - Add: Id PLN and Email duplicate indicator
