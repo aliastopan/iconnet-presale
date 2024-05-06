@@ -161,8 +161,8 @@ public class WorkloadPageBase : ComponentBase
             return false;
         }
 
-        DateTime duplicateDate = potentialDuplicate.TglPermohonan;
-        DateTime today = DateTimeService.DateTimeOffsetNow.DateTime;
+        DateTime duplicateDate = potentialDuplicate.TglPermohonan.Date;
+        DateTime today = DateTimeService.DateTimeOffsetNow.DateTime.Date;
 
         TimeSpan difference = today - duplicateDate;
         int daysAgo = (int)difference.TotalDays;
