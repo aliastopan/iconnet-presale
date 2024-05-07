@@ -1,6 +1,6 @@
 namespace IConnet.Presale.WebApp.Components.Settings.RootCauses;
 
-public partial class CreateRootCauseDialog : IDialogContentComponent<NewRootCauseModel>
+public partial class CreateRootCauseDialog : ComponentBase, IDialogContentComponent<NewRootCauseModel>
 {
     [Inject] AppSettingsService AppSettingsService { get; set; } = default!;
     [Inject] OptionService OptionService { get; set; } = default!;
