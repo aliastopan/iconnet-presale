@@ -81,7 +81,7 @@ public class OptionService
 
         if (!tuple.classification.HasValue())
         {
-            return "UNCLASSIFIED";
+            return "TIDAK ADA KLASIFIKASI";
         }
 
         return tuple.classification;
