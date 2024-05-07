@@ -12,4 +12,5 @@ public interface IIdentityHttpClient : IHttpClientBase
     Task<HttpResult> RefreshAccessAsync(string accessToken, string refreshTokenStr);
 
     Task<HttpResult> GetPresaleOperatorsAsync();
+    Task<HttpResult> GetUserAccountsAsync();
 }
