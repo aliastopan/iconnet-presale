@@ -13,17 +13,17 @@ public partial class CreateRootCauseDialog : ComponentBase, IDialogContentCompon
 
     protected List<string> RootCauseClassifications => AppSettingsService.RootCauseClassifications;
     protected string NewRootCause { get; set; } = default!;
-    protected string NewRootCauseClassification { get; set; } = default!;
+    protected string RootCauseClassification { get; set; } = default!;
     protected string? ErrorMessage { get; set; } = default!;
 
     protected override void OnInitialized()
     {
-        NewRootCauseClassification = AppSettingsService.RootCauseClassifications.First();
+        RootCauseClassification = AppSettingsService.RootCauseClassifications.First();
     }
 
     protected async Task SaveAsync()
     {
-        await Dialog.CloseAsync(new NewRootCauseModel(NewRootCause, NewRootCauseClassification));
+        await Dialog.CloseAsync(new NewRootCauseModel(NewRootCause, RootCauseClassification));
     }
 
     protected async Task CancelAsync()
@@ -50,8 +50,8 @@ public partial class CreateRootCauseDialog : ComponentBase, IDialogContentCompon
         NewRootCause = rootCause;
     }
 
-    protected void OnNewRootCauseClassificationChanged(string classification)
+    protected void OnRootCauseClassificationChanged(string classification)
     {
-        NewRootCauseClassification = classification;
+        RootCauseClassification = classification;
     }
 }
