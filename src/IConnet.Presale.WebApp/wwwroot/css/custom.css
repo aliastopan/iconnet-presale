@@ -417,3 +417,15 @@ input:invalid::part(root) {
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
 }
+
+.root-cause-edit{
+    font-family: 'inter-semibold';
+    align-content: center;
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    padding: 4px 8px;
+    margin-right: 8px;
+    width: fit-content;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
