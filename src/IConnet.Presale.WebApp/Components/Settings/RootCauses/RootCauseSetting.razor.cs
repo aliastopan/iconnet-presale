@@ -158,6 +158,49 @@ public partial class RootCauseSetting : ComponentBase
         IsLoading = false;
     }
 
+    protected async Task OpenEditRootCauseDialogAsync(RootCauseSettingModel settingModel)
+    {
+        var editRootCause = new EditRootCauseModel(settingModel.RootCauseId,
+            settingModel.Cause,
+            settingModel.Classification);
+
+        var parameters = new DialogParameters()
+        {
+            Title = "Edit Root Cause",
+            TrapFocus = true,
+            Width = "600px",
+        };
+
+        var dialog = await DialogService.ShowDialogAsync<EditRootCauseDialog>(editRootCause, parameters);
+        var result = await dialog.Result;
+
+        if (result.Cancelled || result.Data == null)
+        {
+            return;
+        }
+
+        var dialogData = (EditRootCauseModel)result.Data;
+
+        IsLoading = true;
+
+        bool isSuccess = await RootCauseManager.EditRootCauseAsync(
+            dialogData.RootCauseId,
+            dialogData.RootCause,
+            dialogData.Classification);
+
+        if (isSuccess)
+        {
+            await RootCauseManager.SetRootCausesAsync();
+
+            if (OnRootCauseAdded.HasDelegate)
+            {
+                await OnRootCauseAdded.InvokeAsync();
+            }
+        }
+
+        IsLoading = false;
+    }
+
     protected string GetWidthStyle(int widthPx, int offsetPx = 0)
     {
         return $"width: {widthPx + offsetPx}px;";
