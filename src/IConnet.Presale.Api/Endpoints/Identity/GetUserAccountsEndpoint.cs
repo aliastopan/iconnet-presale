@@ -6,7 +6,7 @@ public class GetUserAccountsEndpoint : IEndpointDefinition
 {
     public void DefineEndpoints(WebApplication app)
     {
-        app.MapGet(UriEndpoint.Identity.GetUserAccounts, GetUserAccounts);
+        app.MapGet(UriEndpoint.Identity.GetUserAccounts, GetUserAccounts).AllowAnonymous();
     }
 
     internal async Task<IResult> GetUserAccounts([FromServices] ISender sender,
