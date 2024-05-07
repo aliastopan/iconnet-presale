@@ -2,6 +2,8 @@
 @inherits UserManagerPageBase
 @rendermode @(InteractiveServer.DisablePreRender())
 
+@using IConnet.Presale.WebApp.Components.Settings.UserManagers
+
 <PageTitle>User Manager</PageTitle>
 
 <AuthorizeView Policy="@Policies.AdministratorPrivilege"
@@ -33,7 +35,7 @@
                         Credential
                     </Header>
                     <Content>
-
+                        <UserAccountSettings />
                     </Content>
                 </FluentTab>
 
