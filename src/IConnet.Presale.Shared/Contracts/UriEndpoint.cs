@@ -13,7 +13,7 @@ public static class UriEndpoint
         public const string SetRole = "/api/identity/set-role";
         public const string GrantPrivilege = "/api/identity/grant-privilege";
         public const string RevokePrivilege = "/api/identity/revoke-privilege";
-        public const string GetUsers = "/api/identity/get-range";
+        public const string GetUserAccounts = "/api/identity/get-range";
         public const string GetPresaleOperators = "/api/identity/presale/presale-operators";
     }
 
