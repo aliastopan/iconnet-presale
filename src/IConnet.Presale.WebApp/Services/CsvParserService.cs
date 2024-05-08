@@ -5,6 +5,8 @@ namespace IConnet.Presale.WebApp.Services;
 
 public class CsvParserService
 {
+    private const int NumberOfColumn = 27;
+
     private readonly IDateTimeService _dateTimeService;
 
     public CsvParserService(IDateTimeService dateTimeService)
@@ -30,7 +32,7 @@ public class CsvParserService
 
         int totalColumn = columnHeader.Length;
 
-        if (columnHeader.Length < 28)
+        if (columnHeader.Length < NumberOfColumn)
         {
             errorMessage = "File .csv terdapat Header tidak valid";
 
@@ -148,21 +150,20 @@ public class CsvParserService
             ValidateHeader(header[10], "TELEPON AGEN"),
             ValidateHeader(header[11], "MITRA AGEN"),
             ValidateHeader(header[12], "SPLITTER"),
-            ValidateHeader(header[13], "JENIS PERMOHONAN"),
-            ValidateHeader(header[14], "TELEPON PEMOHON"),
-            ValidateHeader(header[15], "EMAIL PEMOHON"),
-            ValidateHeader(header[16], "NIK PEMOHON"),
-            ValidateHeader(header[17], "NPWP PEMOHON"),
-            ValidateHeader(header[18], "KETERANGAN"),
-            ValidateHeader(header[19], "ALAMAT"),
-            ValidateHeader(header[20], "REGIONAL"),
-            ValidateHeader(header[21], "KANTOR PERWAKILAN"),
-            ValidateHeader(header[22], "PROVINSI"),
-            ValidateHeader(header[23], "KABUPATEN"),
-            ValidateHeader(header[24], "KECAMATAN"),
-            ValidateHeader(header[25], "KELURAHAN"),
-            ValidateHeader(header[26], "LATITUDE"),
-            ValidateHeader(header[27], "LONGITUDE"),
+            ValidateHeader(header[13], "TELEPON PEMOHON"),
+            ValidateHeader(header[14], "EMAIL PEMOHON"),
+            ValidateHeader(header[15], "NIK PEMOHON"),
+            ValidateHeader(header[16], "NPWP PEMOHON"),
+            ValidateHeader(header[17], "KETERANGAN"),
+            ValidateHeader(header[18], "ALAMAT"),
+            ValidateHeader(header[19], "REGIONAL"),
+            ValidateHeader(header[20], "KANTOR PERWAKILAN"),
+            ValidateHeader(header[21], "PROVINSI"),
+            ValidateHeader(header[22], "KABUPATEN"),
+            ValidateHeader(header[23], "KECAMATAN"),
+            ValidateHeader(header[24], "KELURAHAN"),
+            ValidateHeader(header[25], "LATITUDE"),
+            ValidateHeader(header[26], "LONGITUDE"),
         ];
 
         headerChecks = headerChecks.Where(tuple => !tuple.isMatch).ToArray();
@@ -181,17 +182,17 @@ public class CsvParserService
             column[5].HasValue(),   // LAYANAN
             column[8].HasValue(),   // NAMA AGEN
             column[12].HasValue(),  // SPLITTER
-            column[14].HasValue(),  // TELEPON PEMOHON
-            column[15].HasValue(),  // EMAIL PEMOHON
-            column[19].HasValue(),  // ALAMAT
-            column[20].HasValue(),  // REGIONAL
-            column[21].HasValue(),  // KANTOR PERWAKILAN
-            column[22].HasValue(),  // PROVINSI
-            column[23].HasValue(),  // KABUPATEN
-            column[24].HasValue(),  // KECAMATAN
-            column[25].HasValue(),  // KELURAHAN
-            column[26].HasValue(),  // LATITUDE
-            column[27].HasValue(),  // LONGITUDE
+            column[13].HasValue(),  // TELEPON PEMOHON
+            column[14].HasValue(),  // EMAIL PEMOHON
+            column[18].HasValue(),  // ALAMAT
+            column[19].HasValue(),  // REGIONAL
+            column[20].HasValue(),  // KANTOR PERWAKILAN
+            column[21].HasValue(),  // PROVINSI
+            column[22].HasValue(),  // KABUPATEN
+            column[23].HasValue(),  // KECAMATAN
+            column[24].HasValue(),  // KELURAHAN
+            column[25].HasValue(),  // LATITUDE
+            column[26].HasValue(),  // LONGITUDE
         ];
 
         return columnChecks.All(row => row);
@@ -240,23 +241,22 @@ public class CsvParserService
         worksheet.Cell(1, 11).Value = "TELEPON AGEN";
         worksheet.Cell(1, 12).Value = "MITRA AGEN";
         worksheet.Cell(1, 13).Value = "SPLITTER";
-        worksheet.Cell(1, 14).Value = "JENIS PERMOHONAN";
-        worksheet.Cell(1, 15).Value = "TELEPON PEMOHON";
-        worksheet.Cell(1, 16).Value = "EMAIL PEMOHON";
-        worksheet.Cell(1, 17).Value = "NIK PEMOHON";
-        worksheet.Cell(1, 18).Value = "NPWP PEMOHON";
-        worksheet.Cell(1, 19).Value = "KETERANGAN";
-        worksheet.Cell(1, 20).Value = "ALAMAT";
-        worksheet.Cell(1, 21).Value = "REGIONAL";
-        worksheet.Cell(1, 22).Value = "KANTOR PERWAKILAN";
-        worksheet.Cell(1, 23).Value = "PROVINSI";
-        worksheet.Cell(1, 24).Value = "KABUPATEN";
-        worksheet.Cell(1, 25).Value = "KECAMATAN";
-        worksheet.Cell(1, 26).Value = "KELURAHAN";
-        worksheet.Cell(1, 27).Value = "LATITUDE";
-        worksheet.Cell(1, 28).Value = "LONGITUDE";
+        worksheet.Cell(1, 14).Value = "TELEPON PEMOHON";
+        worksheet.Cell(1, 15).Value = "EMAIL PEMOHON";
+        worksheet.Cell(1, 16).Value = "NIK PEMOHON";
+        worksheet.Cell(1, 17).Value = "NPWP PEMOHON";
+        worksheet.Cell(1, 18).Value = "KETERANGAN";
+        worksheet.Cell(1, 19).Value = "ALAMAT";
+        worksheet.Cell(1, 20).Value = "REGIONAL";
+        worksheet.Cell(1, 21).Value = "KANTOR PERWAKILAN";
+        worksheet.Cell(1, 22).Value = "PROVINSI";
+        worksheet.Cell(1, 23).Value = "KABUPATEN";
+        worksheet.Cell(1, 24).Value = "KECAMATAN";
+        worksheet.Cell(1, 25).Value = "KELURAHAN";
+        worksheet.Cell(1, 26).Value = "LATITUDE";
+        worksheet.Cell(1, 27).Value = "LONGITUDE";
 
-        for (int i = 1; i <= 28; i++)
+        for (int i = 1; i <= NumberOfColumn; i++)
         {
             worksheet.Column(i).Width = 20;
         }
@@ -269,11 +269,11 @@ public class CsvParserService
         worksheet.Column("B").Style.DateFormat.Format = dateTimeFormat;     // tgl permohonan
         worksheet.Column("E").Style.NumberFormat.Format = "@";              // id pln
         worksheet.Column("K").Style.NumberFormat.Format = "@";              // telepon agen
-        worksheet.Column("O").Style.NumberFormat.Format = "@";              // telepon pemohon
-        worksheet.Column("Q").Style.NumberFormat.Format = "@";              // nik pemohon
-        worksheet.Column("R").Style.NumberFormat.Format = "@";              // npwp pemohon
-        worksheet.Column("AA").Style.NumberFormat.Format = "@";             // latitude
-        worksheet.Column("AB").Style.NumberFormat.Format = "@";             // longitude
+        worksheet.Column("N").Style.NumberFormat.Format = "@";              // telepon pemohon
+        worksheet.Column("P").Style.NumberFormat.Format = "@";              // nik pemohon
+        worksheet.Column("Q").Style.NumberFormat.Format = "@";              // npwp pemohon
+        worksheet.Column("Z").Style.NumberFormat.Format = "@";              // latitude
+        worksheet.Column("AA").Style.NumberFormat.Format = "@";             // longitude
     }
 
     private static void GenerateXlsxContentTemplate(IXLWorksheet worksheet)
@@ -291,20 +291,19 @@ public class CsvParserService
         worksheet.Cell(2, 11).Value = "6281234567890";
         worksheet.Cell(2, 12).Value = "MITRA INDIVIDU PENJUALAN";
         worksheet.Cell(2, 13).Value = "SPLT_LMGA10480_01";
-        worksheet.Cell(2, 14).Value = "";
-        worksheet.Cell(2, 15).Value = "6281331359720";
-        worksheet.Cell(2, 16).Value = "andy.wijaya@gmail.com";
-        worksheet.Cell(2, 17).Value = "3500000000000000";
-        worksheet.Cell(2, 18).Value = "";
-        worksheet.Cell(2, 19).Value = "INI DATA SAMPLE";
-        worksheet.Cell(2, 20).Value = "Jl. Ahmad Yani No.88, Ketintang, Kec. Gayungan, Surabaya, Jawa Timur 60231";
-        worksheet.Cell(2, 21).Value = "JAWA BAGIAN TIMUR";
-        worksheet.Cell(2, 22).Value = "SURABAYA";
-        worksheet.Cell(2, 23).Value = "Jawa Timur";
-        worksheet.Cell(2, 24).Value = "Surabaya";
-        worksheet.Cell(2, 25).Value = "Gayungan";
-        worksheet.Cell(2, 26).Value = "Ketintang";
-        worksheet.Cell(2, 27).Value = "-7.3213675";
-        worksheet.Cell(2, 28).Value = "112.7307526";
+        worksheet.Cell(2, 14).Value = "6281331359720";
+        worksheet.Cell(2, 15).Value = "andy.wijaya@gmail.com";
+        worksheet.Cell(2, 16).Value = "3500000000000001";
+        worksheet.Cell(2, 17).Value = "";
+        worksheet.Cell(2, 18).Value = "INI DATA SAMPLE";
+        worksheet.Cell(2, 19).Value = "Jl. Ahmad Yani No.88, Ketintang, Kec. Gayungan, Surabaya, Jawa Timur 60231";
+        worksheet.Cell(2, 20).Value = "JAWA BAGIAN TIMUR";
+        worksheet.Cell(2, 21).Value = "SURABAYA";
+        worksheet.Cell(2, 22).Value = "Jawa Timur";
+        worksheet.Cell(2, 23).Value = "Surabaya";
+        worksheet.Cell(2, 24).Value = "Gayungan";
+        worksheet.Cell(2, 25).Value = "Ketintang";
+        worksheet.Cell(2, 26).Value = "-7.3213675";
+        worksheet.Cell(2, 27).Value = "112.7307526";
     }
 }
