@@ -8,8 +8,11 @@ public class UserManagerPageBase : ComponentBase, IPageNavigation
     [Inject] protected UserManager UserManager { get; set; } = default!;
 
     private List<UserAccountModel> _userAccounts { get; set; } = [];
-    protected List<UserAccountModel> UserAccounts => _userAccounts;
 
+    protected IQueryable<UserAccountModel>? UserAccounts => _userAccounts
+        .Where(user => user.UserRole < UserRole.SuperUser)
+        .OrderBy(user => user.Username)
+        .AsQueryable();
 
     public bool IsInitialized { get; set; } = true;
 

@@ -7,10 +7,30 @@ public partial class UserAccountSettings : ComponentBase
     [Inject] protected UserManager UserManager { get; set; } = default!;
 
     [Parameter]
-    public List<UserAccountModel> UserAccounts { get; set; } = [];
+    public IQueryable<UserAccountModel>? UserAccounts { get; set; }
+
+    protected GridSort<UserAccountModel> SortByUsername => GridSort<UserAccountModel>.ByAscending(user => user.Username);
+    protected GridSort<UserAccountModel> SortByUserRole => GridSort<UserAccountModel>.ByAscending(user => user.UserRole);
+
+    protected string GridTemplateCols => GetGridTemplateCols();
 
     protected override void OnInitialized()
     {
-        Log.Information("Credentials {0}", UserAccounts.Count);
+        if (UserAccounts is null)
+        {
+            return;
+        }
+
+        Log.Information("Credentials {0}", UserAccounts.Count());
+    }
+
+    protected string GetWidthStyle(int widthPx, int offsetPx = 0)
+    {
+        return $"width: {widthPx + offsetPx}px;";
+    }
+
+    private static string GetGridTemplateCols()
+    {
+        return $"{250}px {150}px {300}px;";
     }
 }
