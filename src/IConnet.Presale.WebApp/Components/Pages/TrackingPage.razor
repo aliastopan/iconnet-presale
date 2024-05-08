@@ -10,10 +10,16 @@
         <span class="page-description">Lacak status permohonan</span>
 
         <div class="searchbar-stack">
-            <FluentSearch
-                Value=@IdPermohonan
-                ValueChanged="OnIdPermohonanSearchChanged"
-                Placeholder="ID PERMOHONAN"/>
+            <div class="d-flex flex-row">
+                <FluentSearch
+                    Value=@IdPermohonan
+                    ValueChanged="OnIdPermohonanSearchChanged"
+                    Placeholder="ID PERMOHONAN"/>
+                <FluentButton Appearance="Appearance.Accent"
+                    style="margin-left: 8px"
+                    OnClick="SearchIdPermohonanAsync">
+                    Cari</FluentButton>
+            </div>
             <div class="p-2">
             @if (IsLoading)
             {
@@ -311,7 +317,7 @@
             }
             else
             {
-                if (HasSearched)
+                if (ShowNotFound)
                 {
                     <div class="search-notfound">
                         Data tidak tersedia.

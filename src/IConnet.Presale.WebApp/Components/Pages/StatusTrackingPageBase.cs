@@ -28,7 +28,30 @@ public class StatusTrackingPageBase : ComponentBase
         IdPermohonan = idPermohonan.SanitizeOnlyAlphanumeric();
         WorkPaper = await WorkloadManager.SearchWorkPaperAsync(IdPermohonan);
 
-        await Task.CompletedTask;
+        if (WorkPaper is not null)
+        {
+            List<WorkPaper> result = [WorkPaper];
+
+            _workPapers = result.AsQueryable();
+            ColumnWidth.SetColumnWidth(_workPapers);
+        }
+        else
+        {
+            List<WorkPaper> result = [];
+
+            _workPapers = null!;
+            // HasSearched = false;
+        }
+
+        IsLoading = false;
+    }
+
+    protected async Task SearchIdPermohonanAsync()
+    {
+        IsLoading = true;
+        HasSearched = true;
+
+        WorkPaper = await WorkloadManager.SearchWorkPaperAsync(IdPermohonan);
 
         if (WorkPaper is not null)
         {
