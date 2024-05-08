@@ -13,14 +13,4 @@ public class TrackingPageBase : StatusTrackingPageBase, IPageNavigation
 
         base.OnInitialized();
     }
-
-    protected string? GetImportDate()
-    {
-        if (WorkPaper is null)
-        {
-            return null;
-        }
-
-        return WorkPaper.ApprovalOpportunity.SignatureImport.TglAksi.Date.ToString();
-    }
 }
