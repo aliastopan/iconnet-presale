@@ -305,7 +305,6 @@ public class CrmImportPageBase : ComponentBase, IPageNavigation
             {ColumnWidth.TelpAgenPx}px
             {ColumnWidth.MitraAgenPx}px
             {ColumnWidth.SplitterPx}px
-            {ColumnWidth.JenisPermohonanPx}px
             {ColumnWidth.TelpPemohonPx}px
             {ColumnWidth.EmailPemohonPx}px
             {ColumnWidth.NikPemohonPx}px

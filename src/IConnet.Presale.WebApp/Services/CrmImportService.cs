@@ -4,7 +4,7 @@ namespace IConnet.Presale.WebApp.Services;
 
 public sealed class CrmImportService
 {
-    private const int NumberOfColumn = 28;
+    private const int NumberOfColumn = 27;
     private List<IApprovalOpportunityModel> _importModels;
     private readonly IDateTimeService _dateTimeService;
     private readonly SessionService _sessionService;
@@ -110,21 +110,21 @@ public sealed class CrmImportService
             TeleponAgen = column[10].SanitizeString(),
             MitraAgen = column[11].SanitizeString(),
             Splitter = column[12].SanitizeString(),
-            JenisPermohonan = column[13].SanitizeString(),
-            TeleponPemohon = column[14].SanitizeString(),
-            EmailPemohon = column[15].SanitizeString(),
-            NikPemohon = column[16].SanitizeString(),
-            NpwpPemohon = column[17].SanitizeString(),
-            Keterangan = column[18].SanitizeString(),
-            AlamatPemohon = column[19].SanitizeString(),
-            Regional = column[20].SanitizeString(),
-            KantorPerwakilan = column[21].SanitizeString(),
-            Provinsi = column[22].SanitizeString(),
-            Kabupaten = column[23].SanitizeString(),
-            Kecamatan = column[24].SanitizeString(),
-            Kelurahan = column[25].SanitizeString(),
-            Latitude = column[26].SanitizeString(),
-            Longitude = column[27].SanitizeString().RemoveNewlines(),
+            JenisPermohonan = string.Empty,                         // dropped column
+            TeleponPemohon = column[13].SanitizeString(),
+            EmailPemohon = column[14].SanitizeString(),
+            NikPemohon = column[15].SanitizeString(),
+            NpwpPemohon = column[16].SanitizeString(),
+            Keterangan = column[17].SanitizeString(),
+            AlamatPemohon = column[18].SanitizeString(),
+            Regional = column[19].SanitizeString(),
+            KantorPerwakilan = column[20].SanitizeString(),
+            Provinsi = column[21].SanitizeString(),
+            Kabupaten = column[22].SanitizeString(),
+            Kecamatan = column[23].SanitizeString(),
+            Kelurahan = column[24].SanitizeString(),
+            Latitude = column[25].SanitizeString(),
+            Longitude = column[26].SanitizeString().RemoveNewlines(),
             TglImport = _dateTimeService.DateTimeOffsetNow.DateTime,
             ImportAccountIdSignature = await _sessionService.GetUserAccountIdAsync(),
             ImportAliasSignature = await _sessionService.GetSessionAliasAsync()
