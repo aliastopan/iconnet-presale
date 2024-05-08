@@ -4,15 +4,20 @@
 <CustomErrorBoundary Context="Exception" @ref="ErrorBoundary">
     <ChildContent>
         <div class="searchbar-stack">
-            <div class=""d-flex flex-row>
+            <div class="d-flex flex-column">
                 <div class="logo">
                     <img src="images/iconnet_logo.png" alt="Logo">
                 </div>
                 <div style="font-weight: 600; margin-bottom: 4px" >Lacak Status Permohonan</div>
-                <FluentSearch
-                    Value=@IdPermohonan
-                    ValueChanged="OnIdPermohonanSearchChanged"
-                    Placeholder="ID PERMOHONAN"/>
+                <div class="d-flex flex-row">
+                    <FluentSearch
+                        Value=@IdPermohonan
+                        ValueChanged="OnIdPermohonanSearchChanged"
+                        Placeholder="ID PERMOHONAN"/>
+                    <FluentButton Appearance="Appearance.Accent"
+                        style="margin-left: 8px">
+                        Cari</FluentButton>
+                </div>
             </div>
             <div class="p-2">
                 @if (IsLoading)
@@ -23,7 +28,7 @@
         </div>
         <div class="guest-page-content">
             <div class="datagrid-wrapper">
-                @if (WorkPapers is not null && HasSearched)
+                @if (WorkPapers is not null)
                 {
                     <FluentDataGrid Items="@WorkPapers"
                         TGridItem="WorkPaper"
@@ -312,7 +317,7 @@
             }
             else
             {
-                if (HasSearched)
+                if (ShowNotFound)
                 {
                     <div class="search-notfound">
                         Data tidak tersedia.

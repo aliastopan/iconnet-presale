@@ -18,6 +18,8 @@ public class StatusTrackingPageBase : ComponentBase
     protected IQueryable<WorkPaper>? WorkPapers => _workPapers;
     protected WorkloadColumnWidth ColumnWidth => _columnWidth;
 
+    protected bool ShowNotFound => HasSearched && IdPermohonan.HasValue() && _workPapers is null;
+
     protected async Task OnIdPermohonanSearchChanged(string idPermohonan)
     {
         IsLoading = true;
@@ -39,8 +41,8 @@ public class StatusTrackingPageBase : ComponentBase
         {
             List<WorkPaper> result = [];
 
-            _workPapers = result.AsQueryable();
-            HasSearched = false;
+            _workPapers = null!;
+            // HasSearched = false;
         }
 
         IsLoading = false;
