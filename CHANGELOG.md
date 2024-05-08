@@ -1,3 +1,6 @@
+## v4.0.0
+- Change (major): drop "Jenis Permohonan" column from Import/Upload
+
 ## v3.7.2
 - Fix: Id PLN filter
 
