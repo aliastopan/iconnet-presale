@@ -1,8 +1,15 @@
+using IConnet.Presale.WebApp.Models.Identity;
+
 namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class UserManagerPageBase : ComponentBase, IPageNavigation
 {
-    [Inject] public TabNavigationManager TabNavigationManager { get; set; } = default!;
+    [Inject] protected TabNavigationManager TabNavigationManager { get; set; } = default!;
+    [Inject] protected UserManager UserManager { get; set; } = default!;
+
+    private List<UserAccountModel> _userAccounts { get; set; } = [];
+    protected List<UserAccountModel> UserAccounts => _userAccounts;
+
 
     public bool IsInitialized { get; set; } = true;
 
@@ -20,9 +27,8 @@ public class UserManagerPageBase : ComponentBase, IPageNavigation
     {
         IsInitialized = false;
 
-        await Task.CompletedTask;
+        _userAccounts = await UserManager.GetUserAccountsAsync();
 
         IsInitialized = true;
     }
-
 }
