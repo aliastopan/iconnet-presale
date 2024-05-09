@@ -5,6 +5,7 @@ namespace IConnet.Presale.WebApp.Components.Settings.UserManagers;
 public partial class UserAccountSettings : ComponentBase
 {
     [Inject] protected UserManager UserManager { get; set; } = default!;
+    [Inject] protected IDialogService DialogService { get; set; } = default!;
 
     [Parameter]
     public IQueryable<UserAccountModel>? UserAccounts { get; set; }
@@ -22,6 +23,30 @@ public partial class UserAccountSettings : ComponentBase
         }
 
         Log.Information("Credentials {0}", UserAccounts.Count());
+    }
+
+    protected async Task OpenChangePasswordDialogAsync(UserAccountModel userAccount)
+    {
+        LogSwitch.Debug("Edit: {0}", userAccount.Username);
+
+        await Task.CompletedTask;
+
+        var parameters = new DialogParameters()
+        {
+            Title = "Ganti Password",
+            TrapFocus = true,
+            Width = "600px",
+        };
+
+        var target = new EditUserAccountModel(userAccount.UserAccountId);
+
+        var dialog = await DialogService.ShowDialogAsync<ChangePasswordDialog>(target, parameters);
+        var result = await dialog.Result;
+
+        if (result.Cancelled || result.Data == null)
+        {
+            return;
+        }
     }
 
     protected string GetWidthStyle(int widthPx, int offsetPx = 0)
