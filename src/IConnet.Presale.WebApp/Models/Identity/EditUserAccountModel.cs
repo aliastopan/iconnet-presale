@@ -10,6 +10,7 @@ public class EditUserAccountModel : IEditUserAccountModel
     }
 
     public Guid UserAccountId { get; init; }
+    public string CurrentUsername { get; set; } = default!;
     public string NewUsername { get; set; } = default!;
     public string NewPassword { get; set; } = default!;
     public string ConfirmPassword { get; set; } = default!;
