@@ -418,7 +418,8 @@ input:invalid::part(root) {
     -o-border-radius: 5px;
 }
 
-.root-cause-edit{
+.root-cause-edit,
+.username-edit{
     font-family: 'inter-semibold';
     align-content: center;
     border: 1px solid #e6e6e6;
