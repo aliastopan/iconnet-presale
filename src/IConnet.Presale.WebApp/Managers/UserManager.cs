@@ -80,6 +80,29 @@ public class UserManager
         return userAccounts;
     }
 
+    public async Task<bool> ChangeUsernameAsync(Guid userAccountId, string newUsername)
+    {
+        var httpResult = await _identityHttpClient.EditUserAccountAsync(userAccountId, newUsername,
+            string.Empty, string.Empty, isChangeUsername: true, false);
+
+        if (httpResult.IsSuccessStatusCode)
+        {
+            return true;
+        }
+        else
+        {
+            var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, _jsonSerializerOptions);
+            var extension = problemDetails.GetProblemDetailsExtension();
+
+            foreach (var error in extension.Errors)
+            {
+                Log.Warning("Error: {0}", error.Message);
+            }
+
+            return false;
+        }
+    }
+
     public async Task<bool> ChangePasswordAsync(Guid userAccountId,
         string newPassword, string confirmPassword)
     {

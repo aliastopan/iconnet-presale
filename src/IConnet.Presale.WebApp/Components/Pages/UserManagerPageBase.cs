@@ -34,4 +34,20 @@ public class UserManagerPageBase : ComponentBase, IPageNavigation
 
         IsInitialized = true;
     }
+
+    protected async Task ReloadUserAccountAsync()
+    {
+        IsInitialized = false;
+        this.StateHasChanged();
+
+        _userAccounts.Clear();
+
+        _userAccounts = await UserManager.GetUserAccountsAsync();
+        await UserManager.SetPresaleOperatorsAsync();
+
+        IsInitialized = true;
+        this.StateHasChanged();
+
+        LogSwitch.Debug("Reload User Accounts");
+    }
 }

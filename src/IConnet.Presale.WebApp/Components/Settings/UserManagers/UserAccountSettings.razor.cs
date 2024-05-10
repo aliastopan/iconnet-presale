@@ -11,6 +11,9 @@ public partial class UserAccountSettings : ComponentBase
     [Parameter]
     public IQueryable<UserAccountModel>? UserAccounts { get; set; }
 
+    [Parameter]
+    public EventCallback OnUsernameChanges { get; set; }
+
     protected GridSort<UserAccountModel> SortByUsername => GridSort<UserAccountModel>.ByAscending(user => user.Username);
     protected GridSort<UserAccountModel> SortByUserRole => GridSort<UserAccountModel>.ByAscending(user => user.UserRole);
 
@@ -50,10 +53,10 @@ public partial class UserAccountSettings : ComponentBase
             return;
         }
 
+        var dialogData = (EditUserAccountModel)result.Data;
+
         IsLoading = true;
         this.StateHasChanged();
-
-        var dialogData = (EditUserAccountModel)result.Data;
 
         bool isSuccessStatusCode = await UserManager.ChangePasswordAsync(
             dialogData.UserAccountId,
@@ -61,6 +64,59 @@ public partial class UserAccountSettings : ComponentBase
             dialogData.ConfirmPassword);
 
         ChangePasswordToast(isSuccessStatusCode, userAccount.Username);
+
+        IsLoading = false;
+        this.StateHasChanged();
+    }
+
+    protected async Task OpenChangeUsernameDialogAsync(UserAccountModel userAccount)
+    {
+        LogSwitch.Debug("Edit: {0}", userAccount.Username);
+
+        await Task.CompletedTask;
+
+        var parameters = new DialogParameters()
+        {
+            Title = $"Ganti Username ({userAccount.Username})",
+            TrapFocus = true,
+            Width = "600px",
+        };
+
+        var target = new EditUserAccountModel(userAccount.UserAccountId);
+
+        var dialog = await DialogService.ShowDialogAsync<ChangeUsernameDialog>(target, parameters);
+        var result = await dialog.Result;
+
+        if (result.Cancelled || result.Data == null)
+        {
+            return;
+        }
+
+        var dialogData = (EditUserAccountModel)result.Data;
+
+        bool isDuplicateUsername = UserAccounts!
+            .Any(userAccount => string.Equals(userAccount.Username, dialogData.NewUsername, StringComparison.OrdinalIgnoreCase));
+
+        if (isDuplicateUsername)
+        {
+            LogSwitch.Debug("Duplicate Username: {0}", userAccount.Username);
+
+            return;
+        }
+
+        IsLoading = true;
+        this.StateHasChanged();
+
+        if (OnUsernameChanges.HasDelegate)
+        {
+            await OnUsernameChanges.InvokeAsync();
+        }
+
+        bool isSuccessStatusCode = await UserManager.ChangeUsernameAsync(
+            dialogData.UserAccountId,
+            dialogData.NewUsername);
+
+        ChangeUsernameToast(isSuccessStatusCode, userAccount.Username, dialogData.NewUsername);
 
         IsLoading = false;
         this.StateHasChanged();
@@ -80,6 +136,26 @@ public partial class UserAccountSettings : ComponentBase
         {
             var intent = ToastIntent.Error;
             var message = $"Terjadi kesalahan. Gagal mengganti password untuk User '{username}'";
+            var timeout = 5000; // milliseconds
+
+            ToastService.ShowToast(intent, message, timeout: timeout);
+        }
+    }
+
+    private void ChangeUsernameToast(bool isSuccess, string username, string newUsername)
+    {
+        if (isSuccess)
+        {
+            var intent = ToastIntent.Success;
+            var message = $"Username '{username}' telah berhasil diganti menjadi `{newUsername}`";
+            var timeout = 8000; // milliseconds
+
+            ToastService.ShowToast(intent, message, timeout: timeout);
+        }
+        else
+        {
+            var intent = ToastIntent.Error;
+            var message = $"Terjadi kesalahan. Gagal mengganti username untuk User '{username}'";
             var timeout = 5000; // milliseconds
 
             ToastService.ShowToast(intent, message, timeout: timeout);

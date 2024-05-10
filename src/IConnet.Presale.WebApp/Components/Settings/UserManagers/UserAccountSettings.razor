@@ -15,7 +15,8 @@
                     <div>
                         <FluentButton BackgroundColor="crimson"
                             Color="white"
-                            IconStart="@(new Icons.Regular.Size20.Edit().WithColor("#ffffff"))">
+                            IconStart="@(new Icons.Regular.Size20.Edit().WithColor("#ffffff"))"
+                            OnClick="@(() => OpenChangeUsernameDialogAsync(@context))">
                             </FluentButton>
                     </div>
                     <div class="" style="margin-left: 16px;">
