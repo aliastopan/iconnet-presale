@@ -31,7 +31,7 @@ internal sealed class IdentityHttpClient : HttpClientBase, IIdentityHttpClient
 
         var request = new EditUserAccountRequest(userAccountId, newUsername,
             newPassword, confirmPassword,
-            isChangeUsername, isChangeUsername);
+            isChangeUsername, isChangePassword);
 
         var jsonBody = JsonSerializer.Serialize(request);
         var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
