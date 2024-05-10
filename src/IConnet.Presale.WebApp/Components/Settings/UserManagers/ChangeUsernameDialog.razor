@@ -1,0 +1,50 @@
+<FluentDialogHeader ShowDismiss="true">
+    <FluentStack VerticalAlignment="VerticalAlignment.Center">
+        <FluentIcon Value="@(new Icons.Regular.Size24.CollectionsAdd())" />
+        <FluentLabel Typo="Typography.PaneHeader">
+            @Dialog.Instance.Parameters.Title
+        </FluentLabel>
+    </FluentStack>
+</FluentDialogHeader>
+
+<div class="d-flex flex-row align-items-end">
+    <div>
+        <FluentTextField style="width: 250px; margin-right: 16px;"
+            Label="Ganti Username"
+            Value="@UsernameChange.NewUsername"
+            ValueChanged="OnNewUsernameChanged"
+            Immediate="true"
+            Placeholder="Username Baru"></FluentTextField>
+    </div>
+</div>
+@if (ShowErrorMessages)
+{
+    <div class="create-user-error-section" style="width: 250px;">
+        <FluentStack Orientation="Orientation.Vertical"
+            HorizontalAlignment="HorizontalAlignment.Start"
+            VerticalAlignment="VerticalAlignment.Top"
+            HorizontalGap="1">
+
+            <div style="display: flex;">
+                <FluentIcon Value="@(new Icons.Filled.Size20.ErrorCircle())" Color="@Color.Error" />
+                <label for="create-user-form-errors"
+                    style="padding-left: 4px; font-weight: 700;">
+                    Keterdapat Kesalahan</label>
+            </div>
+            <ul id="create-user-form-errors">
+                @foreach(var error in Errors)
+                {
+                    <li>@error.Message</li>
+                }
+            </ul>
+        </FluentStack>
+    </div>
+}
+
+
+<FluentDialogFooter>
+    <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.End">
+        <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync" IconStart="@(new Icons.Regular.Size16.Save())">Simpan</FluentButton>
+        <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Batal</FluentButton>
+    </FluentStack>
+</FluentDialogFooter>
