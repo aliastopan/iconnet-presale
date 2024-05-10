@@ -49,6 +49,7 @@ public partial class RootCauseSetting : ComponentBase
         var dialogData = (NewRootCauseModel)result.Data;
 
         IsLoading = true;
+        this.StateHasChanged();
 
         int highestOrder = Models.Max(x => x.Order) + 1;
 
@@ -72,6 +73,7 @@ public partial class RootCauseSetting : ComponentBase
         }
 
         IsLoading = false;
+        this.StateHasChanged();
     }
 
     protected async Task OpenCreateClassificationDialogAsync()
