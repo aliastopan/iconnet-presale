@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Components.Web;
 using System.ComponentModel.DataAnnotations;
 using IConnet.Presale.WebApp.Models.Identity;
 using IConnet.Presale.Shared.Validations;
@@ -18,6 +19,22 @@ public partial class ChangePasswordDialog : IDialogContentComponent<EditUserAcco
 
     protected List<Error> Errors => _errors;
     protected bool ShowErrorMessages => _errors.Count > 0;
+
+    protected bool ShowPassword = false;
+    protected Icon PasswordIcon => ShowPassword
+        ? new Icons.Filled.Size20.Eye().WithColor("var(--info-grey)")
+        : new Icons.Filled.Size20.EyeOff().WithColor("#bdbbbb");
+    protected TextFieldType PasswordTextFieldType => ShowPassword
+        ? TextFieldType.Text
+        : TextFieldType.Password;
+
+    protected bool ShowConfirmationPassword = false;
+    protected Icon ConfirmationPasswordIcon => ShowConfirmationPassword
+        ? new Icons.Filled.Size20.Eye().WithColor("var(--info-grey)")
+        : new Icons.Filled.Size20.EyeOff().WithColor("#bdbbbb");
+    protected TextFieldType ConfirmationPasswordTextFieldType => ShowConfirmationPassword
+        ? TextFieldType.Text
+        : TextFieldType.Password;
 
     protected async Task SaveAsync()
     {
@@ -54,6 +71,16 @@ public partial class ChangePasswordDialog : IDialogContentComponent<EditUserAcco
     protected void OnConfirmPasswordChanged(string confirmPassword)
     {
         PasswordChange.ConfirmPassword = confirmPassword;
+    }
+
+    protected void OnToggleShowPassword(MouseEventArgs args)
+    {
+        ShowPassword = !ShowPassword;
+    }
+
+    protected void OnToggleShowConfirmationPassword(MouseEventArgs args)
+    {
+        ShowConfirmationPassword = !ShowConfirmationPassword;
     }
 }
 
