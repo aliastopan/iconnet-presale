@@ -79,4 +79,28 @@ public class UserManager
 
         return userAccounts;
     }
+
+    public async Task<bool> ChangePasswordAsync(Guid userAccountId,
+        string newPassword, string confirmPassword)
+    {
+        var httpResult = await _identityHttpClient.EditUserAccountAsync(userAccountId, string.Empty,
+            newPassword, confirmPassword, false, isChangePassword: true);
+
+        if (httpResult.IsSuccessStatusCode)
+        {
+            return true;
+        }
+        else
+        {
+            var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, _jsonSerializerOptions);
+            var extension = problemDetails.GetProblemDetailsExtension();
+
+            foreach (var error in extension.Errors)
+            {
+                Log.Warning("Error: {0}", error.Message);
+            }
+
+            return false;
+        }
+    }
 }

@@ -49,8 +49,14 @@ public partial class ChangePasswordDialog : IDialogContentComponent<EditUserAcco
             return;
         }
 
+        var editResult = new  EditUserAccountModel(Content.UserAccountId)
+        {
+            NewPassword = PasswordChange.NewPassword,
+            ConfirmPassword = PasswordChange.ConfirmPassword,
+            IsChangePassword = true
+        };
 
-        await Dialog.CloseAsync(new EditUserAccountModel(Content.UserAccountId));
+        await Dialog.CloseAsync(editResult);
     }
 
     protected async Task CancelAsync()

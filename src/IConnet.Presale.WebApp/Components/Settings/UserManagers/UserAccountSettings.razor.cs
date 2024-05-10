@@ -47,6 +47,19 @@ public partial class UserAccountSettings : ComponentBase
         {
             return;
         }
+
+        var dialogData = (EditUserAccountModel)result.Data;
+
+        LogSwitch.Debug("Id: {0}", dialogData.UserAccountId);
+        LogSwitch.Debug("Pwd 1: {0}", dialogData.NewPassword);
+        LogSwitch.Debug("Pwd 2: {0}", dialogData.ConfirmPassword);
+
+        bool isSuccessStatusCode = await UserManager.ChangePasswordAsync(
+            dialogData.UserAccountId,
+            dialogData.NewPassword,
+            dialogData.ConfirmPassword);
+
+        LogSwitch.Debug("IsSuccessStatusCode: {0}", isSuccessStatusCode);
     }
 
     protected string GetWidthStyle(int widthPx, int offsetPx = 0)
