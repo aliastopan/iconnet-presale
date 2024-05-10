@@ -14,8 +14,7 @@ public partial class ChangePasswordDialog : IDialogContentComponent<EditUserAcco
 
     private readonly List<Error> _errors = [];
 
-    protected string NewPassword { get; set; } = default!;
-    protected string ConfirmPassword { get; set; } = default!;
+    protected PasswordChangeModel PasswordChange = new PasswordChangeModel();
 
     protected List<Error> Errors => _errors;
     protected bool ShowErrorMessages => _errors.Count > 0;
@@ -24,8 +23,7 @@ public partial class ChangePasswordDialog : IDialogContentComponent<EditUserAcco
     {
         _errors.Clear();
 
-        var passwordCheck = new PasswordCheckModel(NewPassword, ConfirmPassword);
-        var isValid = passwordCheck.TryValidate(out var errors);
+        var isValid = PasswordChange.TryValidate(out var errors);
 
         if (!isValid)
         {
@@ -45,36 +43,38 @@ public partial class ChangePasswordDialog : IDialogContentComponent<EditUserAcco
 
     protected bool ChangePasswordAsync()
     {
-        var passwordCheck = new PasswordCheckModel(NewPassword, ConfirmPassword);
-
-
         throw new NotImplementedException();
     }
 
     protected void OnNewPasswordChanged(string newPassword)
     {
-        NewPassword = newPassword;
+        PasswordChange.NewPassword = newPassword;
     }
 
     protected void OnConfirmPasswordChanged(string confirmPassword)
     {
-        ConfirmPassword = confirmPassword;
+        PasswordChange.ConfirmPassword = confirmPassword;
     }
 }
 
-public class PasswordCheckModel
+public class PasswordChangeModel
 {
-    public PasswordCheckModel(string password, string confirmPassword)
+    public PasswordChangeModel()
     {
-        Password = password;
+
+    }
+
+    public PasswordChangeModel(string newPassword, string confirmPassword)
+    {
+        NewPassword = newPassword;
         ConfirmPassword = confirmPassword;
     }
 
     [Required(ErrorMessage = "Password tidak boleh kosong.")]
     [RegularExpression(RegexPattern.StrongPassword, ErrorMessage = "Password harus mengandung setidaknya satu digit, satu huruf kecil, satu huruf besar, dan setidaknya terdiri dari 8 karakter.")]
-    public string Password { get; set; } = default!;
+    public string NewPassword { get; set; } = default!;
 
     [Required(ErrorMessage = "Konfirmasi password tidak boleh kosong.")]
-    [Compare(nameof(Password), ErrorMessage = "Password tidak sesuai.")]
+    [Compare(nameof(NewPassword), ErrorMessage = "Password tidak sesuai.")]
     public string ConfirmPassword { get; set; } = default!;
 }
