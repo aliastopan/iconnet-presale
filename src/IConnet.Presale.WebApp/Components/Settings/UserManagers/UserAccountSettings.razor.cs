@@ -6,6 +6,7 @@ public partial class UserAccountSettings : ComponentBase
 {
     [Inject] protected UserManager UserManager { get; set; } = default!;
     [Inject] protected IDialogService DialogService { get; set; } = default!;
+    [Inject] protected IToastService ToastService { get; set; } = default!;
 
     [Parameter]
     public IQueryable<UserAccountModel>? UserAccounts { get; set; }
@@ -13,6 +14,7 @@ public partial class UserAccountSettings : ComponentBase
     protected GridSort<UserAccountModel> SortByUsername => GridSort<UserAccountModel>.ByAscending(user => user.Username);
     protected GridSort<UserAccountModel> SortByUserRole => GridSort<UserAccountModel>.ByAscending(user => user.UserRole);
 
+    public bool IsLoading { get; set; } = false;
     protected string GridTemplateCols => GetGridTemplateCols();
 
     protected override void OnInitialized()
@@ -48,18 +50,40 @@ public partial class UserAccountSettings : ComponentBase
             return;
         }
 
-        var dialogData = (EditUserAccountModel)result.Data;
+        IsLoading = true;
+        this.StateHasChanged();
 
-        LogSwitch.Debug("Id: {0}", dialogData.UserAccountId);
-        LogSwitch.Debug("Pwd 1: {0}", dialogData.NewPassword);
-        LogSwitch.Debug("Pwd 2: {0}", dialogData.ConfirmPassword);
+        var dialogData = (EditUserAccountModel)result.Data;
 
         bool isSuccessStatusCode = await UserManager.ChangePasswordAsync(
             dialogData.UserAccountId,
             dialogData.NewPassword,
             dialogData.ConfirmPassword);
 
-        LogSwitch.Debug("IsSuccessStatusCode: {0}", isSuccessStatusCode);
+        ChangePasswordToast(isSuccessStatusCode, userAccount.Username);
+
+        IsLoading = false;
+        this.StateHasChanged();
+    }
+
+    private void ChangePasswordToast(bool isSuccess, string username)
+    {
+        if (isSuccess)
+        {
+            var intent = ToastIntent.Success;
+            var message = $"Password untuk User '{username}' telah berhasil diganti";
+            var timeout = 5000; // milliseconds
+
+            ToastService.ShowToast(intent, message, timeout: timeout);
+        }
+        else
+        {
+            var intent = ToastIntent.Error;
+            var message = $"Terjadi kesalahan. Gagal mengganti password untuk User '{username}'";
+            var timeout = 5000; // milliseconds
+
+            ToastService.ShowToast(intent, message, timeout: timeout);
+        }
     }
 
     protected string GetWidthStyle(int widthPx, int offsetPx = 0)
