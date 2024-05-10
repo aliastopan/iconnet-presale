@@ -17,7 +17,9 @@ internal sealed class IdentityManager : IIdentityManager
     {
         if (!isChangeUsername && !isChangePassword)
         {
-            return Result.Ok();
+            var error = new Error("Not action", ErrorSeverity.Warning);
+
+            return Result.Error(error);
         }
 
         var tryGetUserAccount = await _identityAggregateHandler.TryGetUserAccountAsync(userAccountId);

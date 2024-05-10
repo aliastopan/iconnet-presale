@@ -23,11 +23,15 @@ internal sealed class IdentityAggregateHandler : IIdentityAggregateHandler
     {
         if (isChangeUsername)
         {
+            Log.Information("Changing username for {0}", userAccount.UserAccountId);
+
             userAccount.User = userAccount.User.ChangeUsername(newUsername);
         }
 
         if (isChangePassword)
         {
+            Log.Information("Changing password for {0}", userAccount.UserAccountId);
+
             userAccount.PasswordHash = _passwordService.HashPassword(newPassword, out var passwordSalt);
             userAccount.PasswordSalt = passwordSalt;
         }
