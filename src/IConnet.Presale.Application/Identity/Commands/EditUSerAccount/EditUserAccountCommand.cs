@@ -10,16 +10,16 @@ public class EditUserAccountCommand(Guid userAccountId, string newUsername,
     [Required]
     public Guid UserAccountId { get; init; } = userAccountId;
 
-    [Required]
-    [RegularExpression(RegexPattern.Username)]
+    // [Required]
+    // [RegularExpression(RegexPattern.Username)]
     public string NewUsername { get; init; } = newUsername;
 
-    [Required]
-    [RegularExpression(RegexPattern.StrongPassword)]
+    // [Required]
+    // [RegularExpression(RegexPattern.StrongPassword)]
     public string NewPassword { get; init; } = newPassword;
 
-    [Required]
-    [Compare(nameof(NewPassword), ErrorMessage = "Confirm password does not match.")]
+    // [Required]
+    // [Compare(nameof(NewPassword), ErrorMessage = "Confirm password does not match.")]
     public string ConfirmPassword { get; init; } = confirmPassword;
 
     public bool IsChangeUsername { get; init; } = isChangeUsername;

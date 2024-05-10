@@ -12,12 +12,12 @@ public class EditUserAccountCommandHandler : IRequestHandler<EditUserAccountComm
     public async ValueTask<Result> Handle(EditUserAccountCommand request,
         CancellationToken cancellationToken)
     {
-        // data annotation validations
-        var isInvalid = !request.TryValidate(out var errors);
-        if (isInvalid)
-        {
-            return Result.Invalid(errors);
-        }
+        // // data annotation validations
+        // var isInvalid = !request.TryValidate(out var errors);
+        // if (isInvalid)
+        // {
+        //     return Result.Invalid(errors);
+        // }
 
         // edit user account
         var tryEditUserAccount = await _identityManager.TryEditUserAccount(request.UserAccountId,
