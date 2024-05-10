@@ -64,11 +64,6 @@ public partial class ChangePasswordDialog : IDialogContentComponent<EditUserAcco
         await Dialog.CancelAsync();
     }
 
-    protected bool ChangePasswordAsync()
-    {
-        throw new NotImplementedException();
-    }
-
     protected void OnNewPasswordChanged(string newPassword)
     {
         PasswordChange.NewPassword = newPassword;
