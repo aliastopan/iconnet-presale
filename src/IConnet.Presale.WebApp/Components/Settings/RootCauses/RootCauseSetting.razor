@@ -21,11 +21,11 @@
         </div>
     </div>
 
-    <div class="root-cause-settings">
+    <div class="root-cause-settings datagrid-wrapper">
         <FluentDataGrid Items="@Models"
             TGridItem="RootCauseSettingModel"
             Virtualize="true"
-            ItemSize="32"
+            ItemSize="40"
             GridTemplateColumns="@GridTemplateCols">
 
             <TemplateColumn Title="ROOT CAUSE" Style="@GetWidthStyle(350)">
