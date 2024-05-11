@@ -143,6 +143,18 @@ public partial class UserAccountSettings : ComponentBase
         this.StateHasChanged();
     }
 
+    protected async Task RefreshAsync()
+    {
+        IsLoading = true;
+        this.StateHasChanged();
+
+        _userAccounts = await UserManager.GetUserAccountsAsync();
+        await UserManager.SetPresaleOperatorsAsync();
+
+        IsLoading = false;
+        this.StateHasChanged();
+    }
+
     private void ChangePasswordToast(bool isSuccess, string username)
     {
         if (isSuccess)

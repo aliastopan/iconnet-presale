@@ -1,11 +1,15 @@
 @using IConnet.Presale.WebApp.Models.Identity
 
-<div>
+<div class="d-flex flex-row">
     <FluentSearch style="width: 225px; margin-right: 32px;"
         @bind-Value="@UsernameFilter"
         Immediate="true"
         Spellcheck="false"
         Placeholder="Cari Username"></FluentSearch>
+
+    <FluentButton Appearance="Appearance.Accent"
+        OnClick="@RefreshAsync">
+        Refresh</FluentButton>
 </div>
 
 <div class="user-manager-settings datagrid-wrapper" style="">
