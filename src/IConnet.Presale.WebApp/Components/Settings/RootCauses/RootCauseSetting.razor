@@ -2,6 +2,13 @@
 {
     <div class="d-flex flex-column root-cause-setting-options">
         <div class="d-flex flex-row align-items-end" style="">
+
+            <FluentSearch style="width: 225px; margin-right: 32px;"
+                @bind-Value="@RootCauseFilter"
+                Immediate="true"
+                Spellcheck="false"
+                Placeholder="Cari Root Cause"></FluentSearch>
+
             <FluentButton style="width: 150px; margin-right: 8px;"
                 Appearance="Appearance.Accent"
                 OnClick="OpenCreateRootCauseDialogAsync">
@@ -22,11 +29,12 @@
     </div>
 
     <div class="root-cause-settings datagrid-wrapper">
-        <FluentDataGrid Items="@Models"
+        <FluentDataGrid Items="@FilteredModels"
             TGridItem="RootCauseSettingModel"
             Virtualize="true"
             ItemSize="40"
-            GridTemplateColumns="@GridTemplateCols">
+            GridTemplateColumns="@GridTemplateCols"
+            EmptyContent="@HtmlFragment.EmptyContentWarning">
 
             <TemplateColumn Title="ROOT CAUSE" Style="@GetWidthStyle(350)">
                 <div class="">
@@ -57,10 +65,14 @@
                         ValueChanged="@context.OnIsIncludedChanged"/>
                 </div>
             </TemplateColumn>
-            <TemplateColumn Title="EDIT" Style="@GetWidthStyle(60)">
-                <div class="" style="text-align: center; margin-top: -2px;">
-                    <FluentIcon Value="@(new Icons.Filled.Size20.EditSettings())"
-                        OnClick="@(() => OpenEditRootCauseDialogAsync(@context))"/>
+            <TemplateColumn Title="EDIT CLASSIFICATION" Style="@GetWidthStyle(200)">
+                <div class="" style="text-align: center;">
+                    <FluentButton BackgroundColor="crimson"
+                        Color="white"
+                        style="width: 100px;"
+                        IconStart="@(new Icons.Regular.Size20.Edit().WithColor("#ffffff"))"
+                        OnClick="@(() => OpenEditRootCauseDialogAsync(@context))">
+                        EDIT</FluentButton>
                 </div>
             </TemplateColumn>
         </FluentDataGrid>

@@ -361,7 +361,7 @@ input:invalid::part(root) {
 
 .root-cause-settings{
     /* width: 500px; */
-    height: 354px;
+    max-height: 354px;
     width: fit-content;
 }
 

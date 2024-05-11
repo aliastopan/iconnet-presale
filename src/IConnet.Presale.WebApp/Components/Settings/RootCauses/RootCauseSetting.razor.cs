@@ -10,14 +10,27 @@ public partial class RootCauseSetting : ComponentBase
 
     [Parameter]
     public IQueryable<RootCauseSettingModel>? Models { get; set; }
+    protected IQueryable<RootCauseSettingModel>? FilteredModels => FilterModels();
 
     [Parameter]
     public EventCallback OnRootCauseAdded { get; set; }
+
+    protected string RootCauseFilter = default!;
 
     public bool IsLoading { get; set; } = false;
     public bool EnableApplyOptions => HasToggledOptions();
 
     protected string GridTemplateCols => GetGridTemplateCols();
+
+    protected IQueryable<RootCauseSettingModel>? FilterModels()
+    {
+        if (!RootCauseFilter.HasValue())
+        {
+            return Models;
+        }
+
+        return Models?.Where(x => x.Cause.Contains(RootCauseFilter, StringComparison.CurrentCultureIgnoreCase));
+    }
 
     protected bool HasToggledOptions()
     {
@@ -210,6 +223,6 @@ public partial class RootCauseSetting : ComponentBase
 
     private static string GetGridTemplateCols()
     {
-        return $"{350}px {250}px {85}px {85}px {150}px {60}px;";
+        return $"{350}px {250}px {85}px {85}px {150}px {200}px;";
     }
 }
