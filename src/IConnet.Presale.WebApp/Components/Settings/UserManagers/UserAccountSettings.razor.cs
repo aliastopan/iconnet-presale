@@ -117,12 +117,12 @@ public partial class UserAccountSettings : ComponentBase
 
         var dialogData = (EditUserAccountModel)result.Data;
 
-        bool isDuplicateUsername = UserAccounts!
-            .Any(userAccount => string.Equals(userAccount.Username, dialogData.NewUsername, StringComparison.OrdinalIgnoreCase));
+        var duplicateUsername = UserAccounts!
+            .FirstOrDefault(userAccount => string.Equals(userAccount.Username, dialogData.NewUsername, StringComparison.OrdinalIgnoreCase));
 
-        if (isDuplicateUsername)
+        if (duplicateUsername is not null)
         {
-            LogSwitch.Debug("Duplicate Username: {0}", userAccount.Username);
+            DuplicateUsernameToast(duplicateUsername.Username);
 
             return;
         }
@@ -181,6 +181,15 @@ public partial class UserAccountSettings : ComponentBase
 
             ToastService.ShowToast(intent, message, timeout: timeout);
         }
+    }
+
+    private void DuplicateUsernameToast(string username)
+    {
+        var intent = ToastIntent.Error;
+        var message = $"Terjadi kesalahan. Duplikat username '{username}'";
+        var timeout = 5000; // milliseconds
+
+        ToastService.ShowToast(intent, message, timeout: timeout);
     }
 
     protected string GetWidthStyle(int widthPx, int offsetPx = 0)
