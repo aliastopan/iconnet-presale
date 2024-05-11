@@ -8,15 +8,16 @@ public partial class UserAccountSettings : ComponentBase
     [Inject] protected IDialogService DialogService { get; set; } = default!;
     [Inject] protected IToastService ToastService { get; set; } = default!;
 
-    [Parameter]
-    public IQueryable<UserAccountModel>? UserAccounts { get; set; }
-
-    [Parameter]
-    public EventCallback OnUsernameChanges { get; set; }
+    private List<UserAccountModel> _userAccounts { get; set; } = [];
+    protected IQueryable<UserAccountModel>? UserAccounts => _userAccounts
+        .Where(user => user.UserRole < UserRole.SuperUser)
+        .OrderBy(user => user.Username)
+        .AsQueryable();
 
     protected GridSort<UserAccountModel> SortByUsername => GridSort<UserAccountModel>.ByAscending(user => user.Username);
     protected GridSort<UserAccountModel> SortByUserRole => GridSort<UserAccountModel>.ByAscending(user => user.UserRole);
 
+    public bool IsInitialized { get; set; } = true;
     public bool IsLoading { get; set; } = false;
     protected string GridTemplateCols => GetGridTemplateCols();
 
@@ -28,6 +29,15 @@ public partial class UserAccountSettings : ComponentBase
         }
 
         Log.Information("Credentials {0}", UserAccounts.Count());
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsInitialized = false;
+
+        _userAccounts = await UserManager.GetUserAccountsAsync();
+
+        IsInitialized = true;
     }
 
     protected async Task OpenChangePasswordDialogAsync(UserAccountModel userAccount)
@@ -107,14 +117,12 @@ public partial class UserAccountSettings : ComponentBase
         IsLoading = true;
         this.StateHasChanged();
 
-        if (OnUsernameChanges.HasDelegate)
-        {
-            await OnUsernameChanges.InvokeAsync();
-        }
-
         bool isSuccessStatusCode = await UserManager.ChangeUsernameAsync(
             dialogData.UserAccountId,
             dialogData.NewUsername);
+
+        _userAccounts = await UserManager.GetUserAccountsAsync();
+        await UserManager.SetPresaleOperatorsAsync();
 
         ChangeUsernameToast(isSuccessStatusCode, userAccount.Username, dialogData.NewUsername);
 
