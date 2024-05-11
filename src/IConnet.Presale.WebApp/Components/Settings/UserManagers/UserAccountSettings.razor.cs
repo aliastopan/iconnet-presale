@@ -13,9 +13,12 @@ public partial class UserAccountSettings : ComponentBase
         .Where(user => user.UserRole < UserRole.SuperUser)
         .OrderBy(user => user.Username)
         .AsQueryable();
+    protected IQueryable<UserAccountModel>? FilteredUserAccounts => FilterUserAccounts();
 
     protected GridSort<UserAccountModel> SortByUsername => GridSort<UserAccountModel>.ByAscending(user => user.Username);
     protected GridSort<UserAccountModel> SortByUserRole => GridSort<UserAccountModel>.ByAscending(user => user.UserRole);
+
+    protected string UsernameFilter = default!;
 
     public bool IsInitialized { get; set; } = true;
     public bool IsLoading { get; set; } = false;
@@ -38,6 +41,16 @@ public partial class UserAccountSettings : ComponentBase
         _userAccounts = await UserManager.GetUserAccountsAsync();
 
         IsInitialized = true;
+    }
+
+    protected IQueryable<UserAccountModel>? FilterUserAccounts()
+    {
+        if (!UsernameFilter.HasValue())
+        {
+            return UserAccounts;
+        }
+
+        return UserAccounts?.Where(x => x.Username.Contains(UsernameFilter, StringComparison.CurrentCultureIgnoreCase));
     }
 
     protected async Task OpenChangePasswordDialogAsync(UserAccountModel userAccount)

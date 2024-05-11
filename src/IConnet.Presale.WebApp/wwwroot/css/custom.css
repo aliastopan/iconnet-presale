@@ -359,7 +359,8 @@ input:invalid::part(root) {
     margin-left: auto;
 }
 
-.root-cause-settings{
+.root-cause-settings,
+.user-manager-settings{
     /* width: 500px; */
     max-height: 354px;
     width: fit-content;

@@ -1,13 +1,22 @@
 @using IConnet.Presale.WebApp.Models.Identity
 
-<div style="width: 600px;">
+<div>
+    <FluentSearch style="width: 225px; margin-right: 32px;"
+        @bind-Value="@UsernameFilter"
+        Immediate="true"
+        Spellcheck="false"
+        Placeholder="Cari Username"></FluentSearch>
+</div>
+
+<div class="user-manager-settings datagrid-wrapper" style="">
     @if (UserAccounts is not null)
     {
-        <FluentDataGrid Items="@UserAccounts"
+        <FluentDataGrid Items="@FilteredUserAccounts"
             TGridItem="UserAccountModel"
             Virtualize="true"
             ItemSize="40"
-            GridTemplateColumns="@GridTemplateCols">
+            GridTemplateColumns="@GridTemplateCols"
+            EmptyContent="@HtmlFragment.EmptyContentWarning">
 
             <TemplateColumn Title="Username" Style="@GetWidthStyle(250)"
                 SortBy="@SortByUsername">
