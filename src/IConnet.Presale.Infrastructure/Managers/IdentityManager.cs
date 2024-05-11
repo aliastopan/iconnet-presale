@@ -22,6 +22,16 @@ internal sealed class IdentityManager : IIdentityManager
             return Result.Error(error);
         }
 
+        if (isChangeUsername)
+        {
+            var TryValidateAvailability = await _identityAggregateHandler.TryValidateAvailabilityAsync(newUsername);
+
+            if (TryValidateAvailability.IsFailure())
+            {
+                return Result.Inherit(result: TryValidateAvailability);
+            }
+        }
+
         var tryGetUserAccount = await _identityAggregateHandler.TryGetUserAccountAsync(userAccountId);
 
         if (tryGetUserAccount.IsFailure())
