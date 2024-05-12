@@ -6,4 +6,16 @@ public static class TimeOnlyExtensions
     {
         return $"{time.Hour:D2}:{time.Minute:D2}";
     }
+
+    public static DateTime ToDateTimeFormat(this TimeOnly time)
+    {
+        return new DateTime(
+            DateTime.Today.Year,
+            DateTime.Today.Month,
+            DateTime.Today.Day,
+            time.Hour,
+            time.Minute,
+            time.Second,
+            time.Millisecond);
+    }
 }
