@@ -108,4 +108,22 @@ public class AppSettingsService
     {
         _rootCauseClassifications.Add(classification);
     }
+
+    public async Task EditOfficeHourPagiAsync(TimeOnly officeHourPagiStart, TimeOnly officeHourPagiEnd)
+    {
+        _officeHourPagiStart = officeHourPagiStart;
+        _officeHourPagiEnd = officeHourPagiEnd;
+
+        await SaveChangesAsync();
+
+        Log.Warning("Changing Pagi Office Hours");
+    }
+
+    public async Task EditOfficeHourMalamAsync(TimeOnly officeHourMalamStart, TimeOnly officeHourMalamEnd)
+    {
+        _officeHourMalamStart = officeHourMalamStart;
+        _officeHourMalamEnd = officeHourMalamEnd;
+
+        await SaveChangesAsync();
+    }
 }

@@ -1,6 +1,7 @@
 <div class="d-flex flex-column">
-    <div style="margin-top: 4px; margin-bottom: 8px; margin-left: 190px;">
+    <div style="margin-top: 4px; margin-bottom: 8px; margin-left: 200px;">
         <FluentCheckbox class=""
+            @bind-Value="@EnableOfficeHourEdit"
             Label="Edit Jam Kerja" />
     </div>
     <div class="d-flex flex-row">
@@ -8,7 +9,7 @@
             <div class="pseudo-label">
                 Shift Pagi
             </div>
-            <div style="padding: 4px 0px;">
+            <div style="padding: 4px 0px; width: 135px;">
                 <span class="SLA-badge">@OfficeHourPagiStart</span> s.d <span class="SLA-badge">@OfficeHourPagiEnd</span>
             </div>
         </div>
@@ -16,19 +17,28 @@
         <div class="d-flex flex-row align-items-end">
             <div class="">
                 <FluentTimePicker style="width: 100px;"
+                    Value="@NullableNewOfficeHourPagiStart"
+                    ValueChanged="OnNullableNewOfficeHourPagiStartChanged"
+                    Disabled="@DisableEdit"
                     Label="Ganti Shift Pagi"/>
             </div>
             <div class="date-until">
                 <span>s.d</span>
             </div>
             <div class="">
-                <FluentTimePicker style="width: 100px;"/>
+                <FluentTimePicker style="width: 100px;"
+                    Value="@NullableNewOfficeHourPagiEnd"
+                    ValueChanged="OnNullableNewOfficeHourPagiEndChanged"
+                    Disabled="@DisableEdit"
+                    Label="@GetPagiTotalHours()"/>
             </div>
             <div class="" style="margin-left: 16px; margin-bottom: 4px;">
                 <FluentButton Class="sign-in-button"
                     Type="ButtonType.Submit"
                     style="width: 100px;"
-                    Appearance="Appearance.Accent">
+                    Disabled="@DisableEdit"
+                    Appearance="Appearance.Accent"
+                    OnClick="SaveNewPagiOfficeHoursAsync">
                     Simpan</FluentButton>
             </div>
         </div>
@@ -38,7 +48,7 @@
             <div class="pseudo-label">
                 Shift Malam
             </div>
-            <div style="padding: 4px 0px;">
+            <div style="padding: 4px 0px; width: 135px;">
                 <span class="SLA-badge">@OfficeHourMalamStart</span> s.d <span class="SLA-badge">@OfficeHourMalamEnd</span>
             </div>
         </div>
@@ -46,19 +56,28 @@
         <div class="d-flex flex-row align-items-end">
             <div class="">
                 <FluentTimePicker style="width: 100px;"
-                    Label="Ganti Shift Malam"/>
+                    Label="Ganti Shift Malam"
+                    Value="@NullableNewOfficeHourMalamStart"
+                    ValueChanged="OnNullableNewOfficeHourMalamStartChanged"
+                    Disabled="@DisableEdit"/>
             </div>
             <div class="date-until" style="margin-left: -16px;">
                 <span>s.d</span>
             </div>
             <div class="">
-                <FluentTimePicker style="width: 100px;"/>
+                <FluentTimePicker style="width: 100px;"
+                    Value="@NullableNewOfficeHourMalamEnd"
+                    ValueChanged="OnNullableNewOfficeHourMalamEndChanged"
+                    Disabled="@DisableEdit"
+                    Label="@GetMalamTotalHours()"/>
             </div>
             <div class="" style="margin-left: 16px; margin-bottom: 4px;">
                 <FluentButton Class="sign-in-button"
                     Type="ButtonType.Submit"
                     style="width: 100px;"
-                    Appearance="Appearance.Accent">
+                    Disabled="@DisableEdit"
+                    Appearance="Appearance.Accent"
+                    OnClick="SaveNewMalamOfficeHoursAsync">
                     Simpan</FluentButton>
             </div>
         </div>
