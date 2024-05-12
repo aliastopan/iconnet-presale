@@ -126,4 +126,32 @@ public class AppSettingsService
 
         await SaveChangesAsync();
     }
+
+    public async Task EditSlaImportAsync(TimeSpan newSlaImport)
+    {
+        _slaImport = newSlaImport;
+
+        await SaveChangesAsync();
+    }
+
+    public async Task EditSlaPickUpAsync(TimeSpan newSlaPickUp)
+    {
+        _slaPickUp = newSlaPickUp;
+
+        await SaveChangesAsync();
+    }
+
+    public async Task EditSlaValidasiAsync(TimeSpan newSlaValidasi)
+    {
+        _slaValidasi = newSlaValidasi;
+
+        await SaveChangesAsync();
+    }
+
+    public async Task EditSlaApprovalAsync(TimeSpan newSlaApproval)
+    {
+        _slaApproval = newSlaApproval;
+
+        await SaveChangesAsync();
+    }
 }

@@ -1,0 +1,127 @@
+<div>
+    <div style="margin-top: 4px; margin-bottom: 8px; margin-left: 200px;">
+        <FluentCheckbox class=""
+            @bind-Value="@EnableSlaEdit"
+            Label="Edit SLA" />
+    </div>
+
+    <div class="d-flex flex-row">
+        <div class="d-flex flex-column align-content-bottom" style="width: 200px; padding: 8px;">
+            <span class="pseudo-label" style="margin: 0 !important;">SLA Import: </span>
+            <span class="SLA-badge">@TotalMinutesSlaImport menit</span>
+        </div>
+        <div class="d-flex flex-row align-items-center" style="margin-top: 12px;">
+            <div style="margin-top: 2px;">
+                <FluentNumberField  style="width: 100px"
+                    Min="0"
+                    Max="500"
+                    Disabled="@DisableEdit"
+                    Value="@NewSlaImport"
+                    ValueChanged="EventCallback.Factory.Create<int>(this, OnNewSlaImportChanged)">
+                    </FluentNumberField>
+            </div>
+            <div style="margin-left: 4px;">
+                menit
+            </div>
+            <div style="margin-left: 32px;">
+                <FluentButton Class="sign-in-button"
+                    Type="ButtonType.Submit"
+                    Appearance="Appearance.Accent"
+                    Disabled="@DisableEdit"
+                    style="width: 100px;"
+                    OnClick="SaveSlaImportAsync">
+                    Simpan</FluentButton>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row">
+        <div class="d-flex flex-column align-content-bottom" style="width: 200px; padding: 8px;">
+            <span class="pseudo-label" style="margin: 0 !important;">SLA Pick-Up: </span>
+            <span class="SLA-badge">@TotalMinutesSlaPickUp menit</span>
+        </div>
+        <div class="d-flex flex-row align-items-center" style="margin-top: 12px;">
+            <div style="margin-top: 2px;">
+                <FluentNumberField  style="width: 100px"
+                    Min="0"
+                    Max="500"
+                    Disabled="@DisableEdit"
+                    Value="@NewSlaPickUp"
+                    ValueChanged="EventCallback.Factory.Create<int>(this, OnNewSlaPickUpChanged)">
+                    </FluentNumberField>
+            </div>
+            <div style="margin-left: 4px;">
+                menit
+            </div>
+            <div style="margin-left: 32px;">
+                <FluentButton Class="sign-in-button"
+                    Type="ButtonType.Submit"
+                    Appearance="Appearance.Accent"
+                    Disabled="@DisableEdit"
+                    style="width: 100px;"
+                    OnClick="SaveSlaPickUpAsync">
+                    Simpan</FluentButton>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row">
+        <div class="d-flex flex-column align-content-bottom" style="width: 200px; padding: 8px;">
+            <span class="pseudo-label" style="margin: 0 !important;">SLA Validasi: </span>
+            <span class="SLA-badge">@TotalMinutesSlaValidasi menit</span>
+        </div>
+        <div class="d-flex flex-row align-items-center" style="margin-top: 12px;">
+            <div style="margin-top: 2px;">
+                <FluentNumberField  style="width: 100px"
+                    Min="0"
+                    Max="500"
+                    Disabled="@DisableEdit"
+                    Value="@NewSlaValidasi"
+                    ValueChanged="EventCallback.Factory.Create<int>(this, OnNewSlaValidasiChanged)">
+                    </FluentNumberField>
+            </div>
+            <div style="margin-left: 4px;">
+                menit
+            </div>
+            <div style="margin-left: 32px;">
+                <FluentButton Class="sign-in-button"
+                    Type="ButtonType.Submit"
+                    Appearance="Appearance.Accent"
+                    Disabled="@DisableEdit"
+                    style="width: 100px;"
+                    OnClick="SaveSlaValidasiAsync">
+                    Simpan</FluentButton>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row">
+        <div class="d-flex flex-column align-content-bottom" style="width: 200px; padding: 8px;">
+            <span class="pseudo-label" style="margin: 0 !important;">SLA Approval: </span>
+            <span class="SLA-badge">@TotalMinutesSlaApproval menit</span>
+        </div>
+        <div class="d-flex flex-row align-items-center" style="margin-top: 12px;">
+            <div style="margin-top: 2px;">
+                <FluentNumberField  style="width: 100px"
+                    Min="0"
+                    Max="500"
+                    Disabled="@DisableEdit"
+                    Value="@NewSlaApproval"
+                    ValueChanged="EventCallback.Factory.Create<int>(this, OnNewSlaApprovalChanged)">
+                    </FluentNumberField>
+            </div>
+            <div style="margin-left: 4px;">
+                menit
+            </div>
+            <div style="margin-left: 32px;">
+                <FluentButton Class="sign-in-button"
+                    Type="ButtonType.Submit"
+                    Appearance="Appearance.Accent"
+                    Disabled="@DisableEdit"
+                    style="width: 100px;"
+                    OnClick="SaveSlaApprovalAsync">
+                    Simpan</FluentButton>
+            </div>
+        </div>
+    </div>
+</div>
