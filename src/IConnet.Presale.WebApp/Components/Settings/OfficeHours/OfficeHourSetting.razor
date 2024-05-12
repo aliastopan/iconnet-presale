@@ -1,0 +1,66 @@
+<div class="d-flex flex-column">
+    <div style="margin-top: 4px; margin-bottom: 8px; margin-left: 190px;">
+        <FluentCheckbox class=""
+            Label="Edit Jam Kerja" />
+    </div>
+    <div class="d-flex flex-row">
+        <div>
+            <div class="pseudo-label">
+                Shift Pagi
+            </div>
+            <div style="padding: 4px 0px;">
+                <span class="SLA-badge">@OfficeHourPagiStart</span> s.d <span class="SLA-badge">@OfficeHourPagiEnd</span>
+            </div>
+        </div>
+        <FluentSpacer Width="64" />
+        <div class="d-flex flex-row align-items-end">
+            <div class="">
+                <FluentTimePicker style="width: 100px;"
+                    Label="Ganti Shift Pagi"/>
+            </div>
+            <div class="date-until">
+                <span>s.d</span>
+            </div>
+            <div class="">
+                <FluentTimePicker style="width: 100px;"/>
+            </div>
+            <div class="" style="margin-left: 16px; margin-bottom: 4px;">
+                <FluentButton Class="sign-in-button"
+                    Type="ButtonType.Submit"
+                    style="width: 100px;"
+                    Appearance="Appearance.Accent">
+                    Simpan</FluentButton>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-row" style="margin-top: 32px;">
+        <div>
+            <div class="pseudo-label">
+                Shift Malam
+            </div>
+            <div style="padding: 4px 0px;">
+                <span class="SLA-badge">@OfficeHourMalamStart</span> s.d <span class="SLA-badge">@OfficeHourMalamEnd</span>
+            </div>
+        </div>
+        <FluentSpacer Width="64" />
+        <div class="d-flex flex-row align-items-end">
+            <div class="">
+                <FluentTimePicker style="width: 100px;"
+                    Label="Ganti Shift Malam"/>
+            </div>
+            <div class="date-until" style="margin-left: -16px;">
+                <span>s.d</span>
+            </div>
+            <div class="">
+                <FluentTimePicker style="width: 100px;"/>
+            </div>
+            <div class="" style="margin-left: 16px; margin-bottom: 4px;">
+                <FluentButton Class="sign-in-button"
+                    Type="ButtonType.Submit"
+                    style="width: 100px;"
+                    Appearance="Appearance.Accent">
+                    Simpan</FluentButton>
+            </div>
+        </div>
+    </div>
+</div>

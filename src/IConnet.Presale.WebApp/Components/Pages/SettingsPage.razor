@@ -4,6 +4,7 @@
 
 @using IConnet.Presale.WebApp.Components.Settings.ChatTemplates
 @using IConnet.Presale.WebApp.Components.Settings.DirectApprovals
+@using IConnet.Presale.WebApp.Components.Settings.OfficeHours
 @using IConnet.Presale.WebApp.Components.Settings.RootCauses
 
 <PageTitle>Settings</PageTitle>
@@ -36,6 +37,24 @@
             </Content>
         </FluentTab>
         <FluentTab Id="tab-3">
+            <Header>
+                <FluentIcon Value="@(new Icons.Regular.Size16.Clock())" Color="@Color.Accent"/>
+                Jam Kerja
+            </Header>
+            <Content>
+                <OfficeHourSetting />
+            </Content>
+        </FluentTab>
+        <FluentTab Id="tab-4">
+            <Header>
+                <FluentIcon Value="@(new Icons.Regular.Size16.History())" Color="@Color.Accent"/>
+                SLA
+            </Header>
+            <Content>
+
+            </Content>
+        </FluentTab>
+        <FluentTab Id="tab-5">
             <Header>
                 <FluentIcon Value="@(new Icons.Regular.Size16.Chat())" Color="@Color.Accent"/>
                 Chat Templates
