@@ -72,6 +72,26 @@ public class ReportService
         return new RootCauseReportModel(rootCause, offices, rootCausePerOffice);
     }
 
+    public RootCauseClassificationReportModel GenerateRootCauseClassificationReport(string rootCause,
+        IQueryable<WorkPaper> presaleData)
+    {
+        string classification = _optionService.GetRootCauseClassification(rootCause);
+        List<string> offices = _optionService.KantorPerwakilanOptions.Skip(1).ToList();
+        List<int> classificationPerOffice = [];
+
+        for (int i = 0; i < offices.Count; i++)
+        {
+            int count = presaleData.Count(x => (x.ProsesApproval.StatusApproval == ApprovalStatus.Reject
+                || x.ProsesApproval.StatusApproval == ApprovalStatus.CloseLost)
+                && x.ProsesApproval.RootCause.Equals(rootCause, StringComparison.OrdinalIgnoreCase)
+                && x.ApprovalOpportunity.Regional.KantorPerwakilan.Equals(offices[i], StringComparison.OrdinalIgnoreCase));
+
+            classificationPerOffice.Add(count);
+        }
+
+        return new RootCauseClassificationReportModel(classification, offices, classificationPerOffice);
+    }
+
     public CustomerResponseAgingReport GenerateCustomerResponseAgingReport(IQueryable<WorkPaper> presaleData)
     {
         List<TimeSpan> agingIntervals = [];
@@ -489,6 +509,23 @@ public class ReportService
             {
                 Office = group.Key,
                 RootCauseMetrics = group.ToDictionary(x => x.RootCause, x => x.Count)
+            })
+            .ToList();
+    }
+
+    public List<RootCauseClassificationReportTransposeModel> TransposeModel(List<RootCauseClassificationReportModel> models)
+    {
+        return models.SelectMany(model => model.ClassificationPerOffice.Select(rootCause => new
+            {
+                model.Classification,
+                Office = rootCause.Key,
+                Count = rootCause.Value
+            }))
+            .GroupBy(x => x.Office)
+            .Select(group => new RootCauseClassificationReportTransposeModel
+            {
+                Office = group.Key,
+                ClassificationMetrics = group.ToDictionary(x => x.Classification, x => x.Count)
             })
             .ToList();
     }

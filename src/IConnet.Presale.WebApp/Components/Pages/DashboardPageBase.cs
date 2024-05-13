@@ -357,6 +357,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 
         GenerateStatusApprovalReports(includeUpper: true, includeMiddle: true, includeLower: true);
         GenerateRootCauseReports(includeUpper: true, includeMiddle: true, includeLower: true);
+        GenerateRootCauseClassificationReports(includeUpper: true, includeMiddle: true, includeLower: true);
         GenerateImportAgingReports(includeUpper: true, includeMiddle: true, includeLower: true);
         GenerateVerificationAgingReports(includeUpper: true, includeMiddle: true, includeLower: true);
         GenerateChatCallMulaiAgingReports(includeUpper: true, includeMiddle: true, includeLower: true);
@@ -373,6 +374,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 
         GenerateStatusApprovalReports(includeMiddle: true);
         GenerateRootCauseReports(includeMiddle: true);
+        GenerateRootCauseClassificationReports(includeMiddle: true);
         GenerateImportAgingReports(includeMiddle: true);
         GenerateVerificationAgingReports(includeMiddle: true);
         GenerateChatCallMulaiAgingReports(includeMiddle: true);
@@ -396,6 +398,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 
         GenerateStatusApprovalReports(includeLower: true);
         GenerateRootCauseReports(includeLower: true);
+        GenerateRootCauseClassificationReports(includeLower: true);
         GenerateImportAgingReports(includeLower: true);
         GenerateVerificationAgingReports(includeLower: true);
         GenerateChatCallMulaiAgingReports(includeLower: true);

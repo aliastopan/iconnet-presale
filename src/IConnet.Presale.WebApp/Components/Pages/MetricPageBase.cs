@@ -44,6 +44,9 @@ public class MetricPageBase : ComponentBase
     private readonly List<RootCauseReportModel> _upperBoundaryRootCauseReports = [];
     private readonly List<RootCauseReportModel> _middleBoundaryRootCauseReports = [];
     private readonly List<RootCauseReportModel> _lowerBoundaryRootCauseReports = [];
+    private readonly List<RootCauseClassificationReportModel> _upperBoundaryRootCauseClassificationReports = [];
+    private readonly List<RootCauseClassificationReportModel> _middleBoundaryRootCauseClassificationReports = [];
+    private readonly List<RootCauseClassificationReportModel> _lowerBoundaryRootCauseClassificationReports = [];
     private readonly List<ImportAgingReportModel> _upperBoundaryImportAgingReports = [];
     private readonly List<ImportAgingReportModel> _middleBoundaryImportAgingReports = [];
     private readonly List<ImportAgingReportModel> _lowerBoundaryImportAgingReports = [];
@@ -68,6 +71,9 @@ public class MetricPageBase : ComponentBase
     public virtual List<RootCauseReportModel> UpperBoundaryCauseReports => FilterRootCauseCauseReports(_upperBoundaryRootCauseReports);
     public virtual List<RootCauseReportModel> MiddleBoundaryRootCauseReports => FilterRootCauseCauseReports(_middleBoundaryRootCauseReports);
     public virtual List<RootCauseReportModel> LowerRootCauseReports => FilterRootCauseCauseReports(_lowerBoundaryRootCauseReports);
+    public virtual List<RootCauseClassificationReportModel> UpperBoundaryRootCauseClassificationReports => _upperBoundaryRootCauseClassificationReports;
+    public virtual List<RootCauseClassificationReportModel> MiddleBoundaryRootCauseClassificationReports => _middleBoundaryRootCauseClassificationReports;
+    public virtual List<RootCauseClassificationReportModel> LowerBoundaryRootCauseClassificationReports => _lowerBoundaryRootCauseClassificationReports;
     public virtual List<ImportAgingReportModel> UpperBoundaryImportAgingReports => FilterImportAgingReports(_upperBoundaryImportAgingReports);
     public virtual List<ImportAgingReportModel> MiddleBoundaryImportAgingReports => FilterImportAgingReports(_middleBoundaryImportAgingReports);
     public virtual List<ImportAgingReportModel> LowerBoundaryImportAgingReports => FilterImportAgingReports(_lowerBoundaryImportAgingReports);
@@ -140,6 +146,7 @@ public class MetricPageBase : ComponentBase
             GenerateInProgressReport();
             GenerateStatusApprovalReports(includeUpper: true, includeMiddle: true, includeLower: true);
             GenerateRootCauseReports(includeUpper: true, includeMiddle: true, includeLower: true);
+            GenerateRootCauseClassificationReports(includeUpper: true, includeMiddle: true, includeLower: true);
             GenerateImportAgingReports(includeUpper: true, includeMiddle: true, includeLower: true);
             GenerateVerificationAgingReports(includeUpper: true, includeMiddle: true, includeLower: true);
             GenerateChatCallMulaiAgingReports(includeUpper: true, includeMiddle: true, includeLower: true);
@@ -306,6 +313,30 @@ public class MetricPageBase : ComponentBase
             foreach (var rootCause in availableRootCauses)
             {
                 var report = ReportService.GenerateRootCauseReport(rootCause, boundaryData);
+                reportModels.Add(report);
+            }
+        }
+    }
+
+    protected void GenerateRootCauseClassificationReports(bool includeUpper = false, bool includeMiddle = false, bool includeLower = false)
+    {
+        List<string> availableRootCauses = OptionService.RootCauseOptions.ToList();
+
+        GenerateReports(includeUpper, _upperBoundaryRootCauseClassificationReports, _upperBoundaryPresaleData!);
+        GenerateReports(includeMiddle, _middleBoundaryRootCauseClassificationReports, _middleBoundaryPresaleData!);
+        GenerateReports(includeLower, _lowerBoundaryRootCauseClassificationReports, _lowerBoundaryPresaleData!);
+
+        // local function
+        void GenerateReports(bool include, List<RootCauseClassificationReportModel> reportModels, IQueryable<WorkPaper> boundaryData)
+        {
+            if (!include)
+            {
+                return;
+            }
+
+            foreach (var rootCause in availableRootCauses)
+            {
+                var report = ReportService.GenerateRootCauseClassificationReport(rootCause, boundaryData);
                 reportModels.Add(report);
             }
         }
