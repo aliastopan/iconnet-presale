@@ -309,6 +309,19 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         StateHasChanged();
     }
 
+    public async Task ApplyRootCauseClassificationExclusionFiltersAsync()
+    {
+        SessionService.FilterPreference.IsBufferLoading = true;
+        StateHasChanged();
+
+        await Task.Delay(500);
+
+        LogSwitch.Debug("Root Cause Classification Exclusions");
+
+        SessionService.FilterPreference.IsBufferLoading = false;
+        StateHasChanged();
+    }
+
     public async Task ApplyInProgressExclusionFiltersAsync()
     {
         SessionService.FilterPreference.IsBufferLoading = true;

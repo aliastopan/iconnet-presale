@@ -48,4 +48,12 @@ public class RootCauseClassificationTabulationStackBase : ReportTabulationStackB
             .OrderByDescending(x => x.GrandTotal)
             .ToList();
     }
+
+    protected async Task OpenRootCauseClassificationExclusionDialogFilter()
+    {
+        if (OnExclusionFilter.HasDelegate)
+        {
+            await OnExclusionFilter.InvokeAsync();
+        }
+    }
 }

@@ -6,6 +6,7 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 
 public class MetricPageBase : ComponentBase
 {
+    [Inject] protected AppSettingsService AppSettingsService { get; set; } = default!;
     [Inject] protected TabNavigationManager TabNavigationManager { get; set; } = default!;
     [Inject] protected IDateTimeService DateTimeService { get; set; } = default!;
     [Inject] protected IDialogService DialogService { get; set; } = default!;
@@ -71,9 +72,9 @@ public class MetricPageBase : ComponentBase
     public virtual List<RootCauseReportModel> UpperBoundaryCauseReports => FilterRootCauseReports(_upperBoundaryRootCauseReports);
     public virtual List<RootCauseReportModel> MiddleBoundaryRootCauseReports => FilterRootCauseReports(_middleBoundaryRootCauseReports);
     public virtual List<RootCauseReportModel> LowerRootCauseReports => FilterRootCauseReports(_lowerBoundaryRootCauseReports);
-    public virtual List<RootCauseClassificationReportModel> UpperBoundaryRootCauseClassificationReports => _upperBoundaryRootCauseClassificationReports;
-    public virtual List<RootCauseClassificationReportModel> MiddleBoundaryRootCauseClassificationReports => _middleBoundaryRootCauseClassificationReports;
-    public virtual List<RootCauseClassificationReportModel> LowerBoundaryRootCauseClassificationReports => _lowerBoundaryRootCauseClassificationReports;
+    public virtual List<RootCauseClassificationReportModel> UpperBoundaryRootCauseClassificationReports => FilterRootCauseClassificationReport(_upperBoundaryRootCauseClassificationReports);
+    public virtual List<RootCauseClassificationReportModel> MiddleBoundaryRootCauseClassificationReports => FilterRootCauseClassificationReport(_middleBoundaryRootCauseClassificationReports);
+    public virtual List<RootCauseClassificationReportModel> LowerBoundaryRootCauseClassificationReports => FilterRootCauseClassificationReport(_lowerBoundaryRootCauseClassificationReports);
     public virtual List<ImportAgingReportModel> UpperBoundaryImportAgingReports => FilterImportAgingReports(_upperBoundaryImportAgingReports);
     public virtual List<ImportAgingReportModel> MiddleBoundaryImportAgingReports => FilterImportAgingReports(_middleBoundaryImportAgingReports);
     public virtual List<ImportAgingReportModel> LowerBoundaryImportAgingReports => FilterImportAgingReports(_lowerBoundaryImportAgingReports);
@@ -94,10 +95,12 @@ public class MetricPageBase : ComponentBase
     {
         var currentDate = DateTimeService.DateTimeOffsetNow.DateTime.Date;
         var rootCauses = OptionService.RootCauseOptions;
+        var rootCauseClassification = AppSettingsService.RootCauseClassifications;
         var operatorUsernames = UserManager.PresaleOperators;
 
         SessionService.FilterPreference.SetBoundaryDateTimeDefault(currentDate);
         SessionService.FilterPreference.SetRootCauseExclusion(rootCauses);
+        SessionService.FilterPreference.SetRootCauseClassificationExclusion(rootCauseClassification);
         SessionService.FilterPreference.SetInProgressExclusion();
         SessionService.FilterPreference.SetApprovalStatusExclusion();
         SessionService.FilterPreference.SetOperatorPacExclusionExclusion(operatorUsernames);
@@ -373,6 +376,20 @@ public class MetricPageBase : ComponentBase
 
         return rootCauseReports
             .Where(report => !exclusions.Contains(report.RootCause, StringComparer.OrdinalIgnoreCase))
+            .ToList();
+    }
+
+    protected List<RootCauseClassificationReportModel> FilterRootCauseClassificationReport(List<RootCauseClassificationReportModel> classificationReports)
+    {
+        if (SessionService.FilterPreference.RootCauseClassificationExclusion is null)
+        {
+            return classificationReports;
+        }
+
+        HashSet<string> exclusions = SessionService.FilterPreference.RootCauseClassificationExclusion.Exclusion;
+
+        return classificationReports
+            .Where(report => !exclusions.Contains(report.Classification, StringComparer.OrdinalIgnoreCase))
             .ToList();
     }
 
