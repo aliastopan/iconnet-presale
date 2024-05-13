@@ -1,0 +1,164 @@
+@inherits RootCauseClassificationTabulationStackBase
+
+<div class="d-flex flex-row align-items-top w-100">
+
+    <div class="d-flex flex-column" style="margin-left: 4px; margin-right: 32px;">
+        <FluentButton Appearance="@MonthlyToggleAppearance"
+            style="width: 135px; margin-bottom: 8px;"
+            OnClick="ToggleToMonthlyView">
+            Monthly</FluentButton>
+        <FluentButton Appearance="@WeeklyToggleAppearance"
+            style="width: 135px; margin-bottom: 8px;"
+            OnClick="ToggleToWeeklyView">
+            Weekly</FluentButton>
+        <FluentButton Appearance="@DailyToggleAppearance"
+            style="width: 135px; margin-bottom: 8px;"
+            OnClick="ToggleToDailyView">
+            Daily</FluentButton>
+
+        <FluentButton Appearance="Appearance.Accent"
+            IconStart="@(new Icons.Filled.Size20.ArrowClockwise())"
+            style="width: 135px; margin-top: 24px;"
+            OnClick="ReloadDashboardAsync">
+            Refresh</FluentButton>
+
+        <FluentButton BackgroundColor="crimson"
+            Color="white"
+            IconStart="@(new Icons.Filled.Size20.Calendar().WithColor("#ffffff"))"
+            style="width: 135px; margin-top: 8px;"
+            OnClick="OpenBoundaryFilterAsync">
+            Filter</FluentButton>
+
+        @* <FluentButton BackgroundColor="crimson"
+            Color="white"
+            IconStart="@(new Icons.Filled.Size20.TableSimpleExclude().WithColor("#ffffff"))"
+            style="width: 135px; margin-top: 8px;"
+            OnClick="OpenRootCauseExclusionDialogFilter">
+            Pilah</FluentButton> *@
+
+        <FluentButton Appearance="Appearance.Accent"
+            IconStart="@(new Icons.Filled.Size20.DocumentMultipleSync())"
+            style="width: 135px; margin-top: 8px;"
+            OnClick="ToggleRootCauseBreakdownAsync">
+            Breakdown</FluentButton>
+
+        <FluentCheckbox style="margin-top: 16px;"
+            @bind-Value="@IsPageView"
+            Label="Page View"/>
+
+        <FluentButton Appearance="Appearance.Accent"
+            style="width: 135px; margin-top: 32px;"
+            IconStart="@(new Icons.Filled.Size20.DocumentArrowDown())"
+            OnClick="@ExportXlsxAsync">
+            Export .xlsx</FluentButton>
+    </div>
+
+    <div class="d-flex flex-column w-100">
+        <div style="@MonthlyToggleDisplayStyle">
+            <h4 class="app-font">Laporan Klasifikasi Root Cause <span>@CurrentMonthIndicator()</span> - <span>@GetUpperBoundaryDateMin()</span> s.d <span>@GetUpperBoundaryDateMax()</span></h4>
+
+            @if (!IsBufferLoading)
+            {
+                if (!IsUpperBoundaryEmpty)
+                {
+                    <h5 class="app-font">Heatmap Klasifikasi Root Cause SBU JAWA TIMUR</h5>
+                    <RootCauseClassificationTransposeHeatMapChart Models="@UpperBoundaryTransposeModels"/>
+                }
+
+                <h5 class="app-font">Qty Klasifikasi Root Cause SBU JAWA TIMUR</h5>
+                <RootCauseClassificationTabulation Models="@UpperBoundaryModels"
+                    IsPageView="@IsPageView"/>
+
+                if (!IsUpperBoundaryEmpty)
+                {
+                    <h5 class="app-font" style="margin-top: 16px;">Percentage Klasifikasi Root Cause SBU JAWA TIMUR</h5>
+                    <div class="centered-chart separate-chart">
+                        <div class="w-50" style="">
+                            <RootCauseClassificationPieChart Models="@SortedUpperBoundaryModels"/>
+                        </div>
+                    </div>
+                    @foreach(var office in UpperBoundaryGrouping)
+                    {
+                        <h5 class="app-font" style="margin-top: 16px;">Percentage Klasifikasi Root Cause KP @office.Key</h5>
+                        <div class="centered-chart separate-chart">
+                            <div class="w-50" style="">
+                                <RootCauseClassificationPieChart Models="@office.Value" />
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+        <div style="@WeeklyToggleDisplayStyle">
+            <h4 class="app-font">Laporan Klasifikasi Root Cause <span class="">@CurrentWeekIndicator()</span> - <span>@GetMiddleBoundaryDateMin()</span> s.d <span>@GetMiddleBoundaryDateMax()</span></h4>
+
+            @if (!IsBufferLoading)
+            {
+                if (!IsMiddleBoundaryEmpty)
+                {
+                    <h5 class="app-font">Heatmap Klasifikasi Root Cause SBU JAWA TIMUR</h5>
+                    <RootCauseClassificationTransposeHeatMapChart Models="@MiddleBoundaryTransposeModels"/>
+                }
+
+                <h5 class="app-font">Qty Klasifikasi Root Cause SBU JAWA TIMUR</h5>
+                <RootCauseClassificationTabulation Models="@MiddleBoundaryModels"
+                    IsPageView="@IsPageView"/>
+
+                if (!IsMiddleBoundaryEmpty)
+                {
+                    <h5 class="app-font" style="margin-top: 16px;">Percentage Klasifikasi Root Cause SBU JAWA TIMUR</h5>
+                    <div class="centered-chart separate-chart">
+                        <div class="w-50" style="">
+                            <RootCauseClassificationPieChart Models="@SortedMiddleBoundaryModels"/>
+                        </div>
+                    </div>
+                    @foreach(var office in MiddleBoundaryGrouping)
+                    {
+                        <h5 class="app-font" style="margin-top: 16px;">Percentage Klasifikasi Root Cause KP @office.Key</h5>
+                        <div class="centered-chart separate-chart">
+                            <div class="w-50" style="">
+                                <RootCauseClassificationPieChart Models="@office.Value" />
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+        <div style="@DailyToggleDisplayStyle">
+            <h4 class="app-font">Laporan Klasifikasi Root Cause <span class="">@TodayIndicator()</span> - <span>@GetLowerBoundaryDate()</span></h4>
+
+            @if (!IsBufferLoading)
+            {
+                if (!IsLowerBoundaryEmpty)
+                {
+                    <h5 class="app-font">Heatmap Klasifikasi Root Cause SBU JAWA TIMUR</h5>
+                    <RootCauseClassificationTransposeHeatMapChart Models="@LowerBoundaryTransposeModels"/>
+                }
+
+                <h5 class="app-font">Qty Klasifikasi Root Cause SBU JAWA TIMUR</h5>
+                <RootCauseClassificationTabulation Models="@LowerBoundaryModels"
+                    IsPageView="@IsPageView"/>
+
+                if (!IsLowerBoundaryEmpty)
+                {
+                    <h5 class="app-font" style="margin-top: 16px;">Percentage Klasifikasi Root Cause SBU JAWA TIMUR</h5>
+                    <div class="centered-chart separate-chart">
+                        <div class="w-50" style="">
+                            <RootCauseClassificationPieChart Models="@SortedLowerBoundaryModels"/>
+                        </div>
+                    </div>
+                    @foreach(var office in LowerBoundaryGrouping)
+                    {
+                        <h5 class="app-font" style="margin-top: 16px;">Percentage Klasifikasi Root Cause KP @office.Key</h5>
+                        <div class="centered-chart separate-chart">
+                            <div class="w-50" style="">
+                                <RootCauseClassificationPieChart Models="@office.Value" />
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+
+</div>

@@ -71,9 +71,16 @@
                     }
                     else
                     {
-                        <div>
-                            Root Cause Classification
-                        </div>
+                        <RootCauseClassificationTabulationStack
+                            TabulationId="tab-2"
+                            UpperBoundaryModels="@UpperBoundaryRootCauseClassificationReports"
+                            MiddleBoundaryModels="@MiddleBoundaryRootCauseClassificationReports"
+                            LowerBoundaryModels="@LowerBoundaryRootCauseClassificationReports"
+                            PageRefresh="@(this.StateHasChanged)"
+                            PageReload="ReloadDashboardAsync"
+                            ExportXlsx="ExportXlsxAsync"
+                            OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
+                            ToggleRootCauseBreakdown="ToggleRootCauseBreakdown"/>
                     }
                 </Content>
             </FluentTab>
