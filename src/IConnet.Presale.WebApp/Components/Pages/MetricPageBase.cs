@@ -326,7 +326,10 @@ public class MetricPageBase : ComponentBase
         GenerateReports(includeMiddle, _middleBoundaryRootCauseClassificationReports, _middleBoundaryPresaleData!);
         GenerateReports(includeLower, _lowerBoundaryRootCauseClassificationReports, _lowerBoundaryPresaleData!);
 
-        // local function
+        MergeClassification(includeUpper, _upperBoundaryRootCauseClassificationReports);
+        MergeClassification(includeMiddle, _middleBoundaryRootCauseClassificationReports);
+        MergeClassification(includeLower, _lowerBoundaryRootCauseClassificationReports);
+
         void GenerateReports(bool include, List<RootCauseClassificationReportModel> reportModels, IQueryable<WorkPaper> boundaryData)
         {
             if (!include)
@@ -337,6 +340,23 @@ public class MetricPageBase : ComponentBase
             foreach (var rootCause in availableRootCauses)
             {
                 var report = ReportService.GenerateRootCauseClassificationReport(rootCause, boundaryData);
+                reportModels.Add(report);
+            }
+        }
+
+        void MergeClassification(bool include, List<RootCauseClassificationReportModel> reportModels)
+        {
+            if (!include)
+            {
+                return;
+            }
+
+            List<RootCauseClassificationReportModel> mergeResult = ReportService.MergeRootCauseClassificationReport(reportModels);
+
+            reportModels.Clear();
+
+            foreach (var report in mergeResult)
+            {
                 reportModels.Add(report);
             }
         }
