@@ -33,41 +33,41 @@ public partial class OfficeHourSetting : ComponentBase
     {
         NullableNewOfficeHourPagiStart = dateTime;
 
-        LogSwitch.Debug("Change Pagi Start");
+        // LogSwitch.Debug("Change Pagi Start");
     }
 
     protected void OnNullableNewOfficeHourPagiEndChanged(DateTime? dateTime)
     {
         if (dateTime.ToTimeOnly() < NullableNewOfficeHourPagiStart.ToTimeOnly())
         {
-            LogSwitch.Debug("Invalid early range");
+            // LogSwitch.Debug("Invalid early range");
             return;
         }
 
         NullableNewOfficeHourPagiEnd = dateTime;
 
-        LogSwitch.Debug("Change Pagi End");
+        // LogSwitch.Debug("Change Pagi End");
     }
 
     protected void OnNullableNewOfficeHourMalamStartChanged(DateTime? dateTime)
     {
         NullableNewOfficeHourMalamStart = dateTime;
 
-        LogSwitch.Debug("Change Malam Start");
+        // LogSwitch.Debug("Change Malam Start");
     }
 
     protected void OnNullableNewOfficeHourMalamEndChanged(DateTime? dateTime)
     {
         if (dateTime.ToTimeOnly() < NullableNewOfficeHourMalamStart.ToTimeOnly())
         {
-            LogSwitch.Debug("Invalid early range");
+            // LogSwitch.Debug("Invalid early range");
             return;
 
         }
 
         NullableNewOfficeHourMalamEnd = dateTime;
 
-        LogSwitch.Debug("Change Malam End");
+        // LogSwitch.Debug("Change Malam End");
     }
 
     protected string GetPagiTotalHours()

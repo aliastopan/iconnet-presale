@@ -30,28 +30,28 @@ public partial class SlaSetting : ComponentBase
     {
         NewSlaImport = slaImport;
 
-        LogSwitch.Debug("Change SLA Import");
+        // LogSwitch.Debug("Change SLA Import");
     }
 
     protected void OnNewSlaPickUpChanged(int slaPickUp)
     {
         NewSlaPickUp = slaPickUp;
 
-        LogSwitch.Debug("Change SLA Pick-Up");
+        // LogSwitch.Debug("Change SLA Pick-Up");
     }
 
     protected void OnNewSlaValidasiChanged(int slaValidasi)
     {
         NewSlaValidasi = slaValidasi;
 
-        LogSwitch.Debug("Change SLA Validasi");
+        // LogSwitch.Debug("Change SLA Validasi");
     }
 
     protected void OnNewSlaApprovalChanged(int slaApproval)
     {
         NewSlaApproval = slaApproval;
 
-        LogSwitch.Debug("Change SLA Approval");
+        // LogSwitch.Debug("Change SLA Approval");
     }
 
     protected async Task SaveSlaImportAsync()

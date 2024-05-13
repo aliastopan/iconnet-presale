@@ -55,8 +55,6 @@ public partial class UserAccountSettings : ComponentBase
 
     protected async Task OpenChangePasswordDialogAsync(UserAccountModel userAccount)
     {
-        LogSwitch.Debug("Edit: {0}", userAccount.Username);
-
         await Task.CompletedTask;
 
         var parameters = new DialogParameters()
@@ -94,8 +92,6 @@ public partial class UserAccountSettings : ComponentBase
 
     protected async Task OpenChangeUsernameDialogAsync(UserAccountModel userAccount)
     {
-        LogSwitch.Debug("Edit: {0}", userAccount.Username);
-
         await Task.CompletedTask;
 
         var parameters = new DialogParameters()
