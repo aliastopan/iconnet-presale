@@ -68,9 +68,9 @@ public class MetricPageBase : ComponentBase
     public virtual List<ApprovalStatusReportModel> UpperBoundaryApprovalStatusReports => FilterStatusApprovalReports(_upperBoundaryApprovalStatusReports);
     public virtual List<ApprovalStatusReportModel> MiddleBoundaryApprovalStatusReports => FilterStatusApprovalReports(_middleBoundaryApprovalStatusReports);
     public virtual List<ApprovalStatusReportModel> LowerBoundaryApprovalStatusReports => FilterStatusApprovalReports(_lowerBoundaryApprovalStatusReports);
-    public virtual List<RootCauseReportModel> UpperBoundaryCauseReports => FilterRootCauseCauseReports(_upperBoundaryRootCauseReports);
-    public virtual List<RootCauseReportModel> MiddleBoundaryRootCauseReports => FilterRootCauseCauseReports(_middleBoundaryRootCauseReports);
-    public virtual List<RootCauseReportModel> LowerRootCauseReports => FilterRootCauseCauseReports(_lowerBoundaryRootCauseReports);
+    public virtual List<RootCauseReportModel> UpperBoundaryCauseReports => FilterRootCauseReports(_upperBoundaryRootCauseReports);
+    public virtual List<RootCauseReportModel> MiddleBoundaryRootCauseReports => FilterRootCauseReports(_middleBoundaryRootCauseReports);
+    public virtual List<RootCauseReportModel> LowerRootCauseReports => FilterRootCauseReports(_lowerBoundaryRootCauseReports);
     public virtual List<RootCauseClassificationReportModel> UpperBoundaryRootCauseClassificationReports => _upperBoundaryRootCauseClassificationReports;
     public virtual List<RootCauseClassificationReportModel> MiddleBoundaryRootCauseClassificationReports => _middleBoundaryRootCauseClassificationReports;
     public virtual List<RootCauseClassificationReportModel> LowerBoundaryRootCauseClassificationReports => _lowerBoundaryRootCauseClassificationReports;
@@ -362,7 +362,7 @@ public class MetricPageBase : ComponentBase
         }
     }
 
-    protected List<RootCauseReportModel> FilterRootCauseCauseReports(List<RootCauseReportModel> rootCauseReports)
+    protected List<RootCauseReportModel> FilterRootCauseReports(List<RootCauseReportModel> rootCauseReports)
     {
         if (SessionService.FilterPreference.RootCauseExclusion is null)
         {
