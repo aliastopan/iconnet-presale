@@ -51,11 +51,6 @@ public class RootCauseTabulationStackBase : ReportTabulationStackBase
 
     protected async Task OpenRootCauseExclusionDialogFilter()
     {
-        await FilterAsync();
-    }
-
-    private async Task FilterAsync()
-    {
         var parameters = new DialogParameters()
         {
             Title = "Pilah Root Causes",
