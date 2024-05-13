@@ -12,6 +12,7 @@ public class RootCauseTabulationStackBase : ReportTabulationStackBase
     [Parameter] public List<RootCauseReportModel> UpperBoundaryModels { get; set; } = [];
     [Parameter] public List<RootCauseReportModel> MiddleBoundaryModels { get; set; } = [];
     [Parameter] public List<RootCauseReportModel> LowerBoundaryModels { get; set; } = [];
+    [Parameter] public EventCallback ToggleRootCauseBreakdown { get; set; }
 
     public List<RootCauseReportTransposeModel> UpperBoundaryTransposeModels => ReportService.TransposeModel(OrderByDescending(UpperBoundaryModels));
     public List<RootCauseReportTransposeModel> MiddleBoundaryTransposeModels => ReportService.TransposeModel(OrderByDescending(MiddleBoundaryModels));
@@ -32,6 +33,14 @@ public class RootCauseTabulationStackBase : ReportTabulationStackBase
     [Parameter] public EventCallback OnExclusionFilter { get; set; }
 
     public bool IsPageView { get; set; }
+
+    public async Task ToggleRootCauseBreakdownAsync()
+    {
+        if (ToggleRootCauseBreakdown.HasDelegate)
+        {
+            await ToggleRootCauseBreakdown.InvokeAsync();
+        }
+    }
 
     protected List<RootCauseReportModel> OrderByDescending(List<RootCauseReportModel> models)
     {
@@ -74,5 +83,4 @@ public class RootCauseTabulationStackBase : ReportTabulationStackBase
             await OnExclusionFilter.InvokeAsync();
         }
     }
-
 }

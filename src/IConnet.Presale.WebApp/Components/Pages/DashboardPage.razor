@@ -55,16 +55,26 @@
                     Root Cause
                 </Header>
                 <Content>
-                    <RootCauseTabulationStack
-                        TabulationId="tab-2"
-                        UpperBoundaryModels="@UpperBoundaryCauseReports"
-                        MiddleBoundaryModels="@MiddleBoundaryRootCauseReports"
-                        LowerBoundaryModels="@LowerRootCauseReports"
-                        PageRefresh="@(this.StateHasChanged)"
-                        PageReload="ReloadDashboardAsync"
-                        ExportXlsx="ExportXlsxAsync"
-                        OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
-                        OnExclusionFilter="ApplyRootCauseExclusionFiltersAsync"/>
+                    @if(!IsRootCauseBreakdown)
+                    {
+                        <RootCauseTabulationStack
+                            TabulationId="tab-2"
+                            UpperBoundaryModels="@UpperBoundaryCauseReports"
+                            MiddleBoundaryModels="@MiddleBoundaryRootCauseReports"
+                            LowerBoundaryModels="@LowerRootCauseReports"
+                            PageRefresh="@(this.StateHasChanged)"
+                            PageReload="ReloadDashboardAsync"
+                            ExportXlsx="ExportXlsxAsync"
+                            OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
+                            OnExclusionFilter="ApplyRootCauseExclusionFiltersAsync"
+                            ToggleRootCauseBreakdown="ToggleRootCauseBreakdown"/>
+                    }
+                    else
+                    {
+                        <div>
+                            Root Cause Classification
+                        </div>
+                    }
                 </Content>
             </FluentTab>
             <FluentTab Id="tab-3">

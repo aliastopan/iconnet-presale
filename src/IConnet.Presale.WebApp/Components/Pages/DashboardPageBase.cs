@@ -13,6 +13,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
     protected string ActiveTabId { get; set; } = "tab-0";
     protected bool IsBufferLoading => SessionService.FilterPreference.IsBufferLoading;
     protected bool IsExportLoading { get; set; } = false;
+    protected bool IsRootCauseBreakdown => SessionService.FilterPreference.IsRootCauseBreakdown;
 
     public TabNavigationModel PageDeclaration()
     {
@@ -414,6 +415,14 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         StateHasChanged();
 
         SessionService.FilterPreference.RefreshBoundaryFilters(ActiveTabId);
+    }
+
+    public void ToggleRootCauseBreakdown()
+    {
+        SessionService.FilterPreference.ToggleRootCauseBreakdown();
+        this.StateHasChanged();
+
+        LogSwitch.Debug("Toggle Root Cause Breakdown");
     }
 
     private IQueryable<WorkPaper>? GetBoundaryPresaleData(BoundaryFilterMode boundary)

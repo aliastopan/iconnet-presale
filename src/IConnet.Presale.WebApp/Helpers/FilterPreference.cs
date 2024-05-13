@@ -57,6 +57,13 @@ public class FilterPreference
         ShowFilters = !ShowFilters;
     }
 
+    public bool IsRootCauseBreakdown { get; set; } = false;
+
+    public void ToggleRootCauseBreakdown()
+    {
+        IsRootCauseBreakdown = !IsRootCauseBreakdown;
+    }
+
     public void SetFilterTglPermohonanDefault(DateTime dateTimeMin, DateTime dateTimeMax)
     {
         TglPermohonanMin = TglPermohonanMin == DateTime.MinValue ? dateTimeMin : TglPermohonanMin;
