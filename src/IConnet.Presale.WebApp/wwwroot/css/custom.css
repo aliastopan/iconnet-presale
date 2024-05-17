@@ -366,10 +366,13 @@ input:invalid::part(root) {
     width: fit-content;
 }
 
-.direct-approval-settings{
-    width: 500px;
+.chat-template-settings{
+    width: 280px;
 }
 
+.direct-approval-settings{
+    width: 300px;
+}
 
 .root-cause-setting-options{
     border-top: 1px solid #e6e6e6;

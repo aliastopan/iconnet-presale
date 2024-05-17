@@ -11,7 +11,8 @@ public class SettingsPageBase : ComponentBase, IPageNavigation
 
     public IQueryable<RootCauseSettingModel>? RootCauseSettingModels { get; set; }
     public IQueryable<DirectApprovalSettingModel>? DirectApprovalSettingModels { get; set; }
-    public IQueryable<string>? ChatTemplateAvailable { get; set; }
+    public IQueryable<string>? ChatTemplateNameAvailable { get; set; }
+    public List<ChatTemplateSettingModel> ChatTemplatesSettings { get; set; } = [];
 
     public TabNavigationModel PageDeclaration()
     {
@@ -55,6 +56,7 @@ public class SettingsPageBase : ComponentBase, IPageNavigation
             .Distinct()
             .ToList();
 
-        ChatTemplateAvailable = chatTemplateNames.AsQueryable();
+        ChatTemplateNameAvailable = chatTemplateNames.AsQueryable();
+        ChatTemplatesSettings = new List<ChatTemplateSettingModel>(chatTemplates);
     }
 }

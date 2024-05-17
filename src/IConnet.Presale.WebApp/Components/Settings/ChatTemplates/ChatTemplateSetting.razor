@@ -1,16 +1,53 @@
+@if (ModelAvailable is not null)
+{
+    <div class="chat-template-settings">
 
-        <div class="direct-approval-settings">
+        <div class="d-flex flex-row align-items-end" style="margin: 8px 0;">
+            <div>
+                <FluentSelect Items="@ModelAvailable.ToList()"
+                    Label="Chat Template Active"
+                    Position="SelectPosition.Below"
+                    Value="@ActiveTemplateName"
+                    ValueChanged="OnActiveTemplateNameChanged"
+                    Width="150px" />
+            </div>
+            <div style="margin-left: 16px">
+                <FluentButton style="width: 100px;"
+                    BackgroundColor="crimson"
+                    Color="white">
+                    APPLY</FluentButton>
+            </div>
+        </div>
+
         <FluentDataGrid Items="@ModelAvailable"
             TGridItem="string"
             Virtualize="true"
-            ItemSize="32"
+            ItemSize="40"
             GridTemplateColumns="@GridTemplateCols">
 
             <TemplateColumn Title="CHAT TEMPLATE" Style="@GetWidthStyle(150)">
+                <div class="d-flex flex-rown align-items-center">
+                    <span>@context</span>
+                    @if(IsActive(@context))
+                    {
+                        <span style="margin-left: 4px">
+                            <FluentIcon Value="@ActiveTemplateIcon"
+                                Title="Reset"/>
+                        </span>
+                    }
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="EDIT" Style="@GetWidthStyle(130)">
                 <div class="">
-                    @context
+                    <FluentButton style="width: 100px;"
+                        BackgroundColor="crimson"
+                        Color="white"
+                        OnClick="@(() => SelectTemplateName(@context))">
+                        SELECT</FluentButton>
                 </div>
             </TemplateColumn>
 
         </FluentDataGrid>
+
     </div>
+}
