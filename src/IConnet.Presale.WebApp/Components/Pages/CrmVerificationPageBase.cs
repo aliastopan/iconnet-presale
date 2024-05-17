@@ -123,7 +123,7 @@ public class CrmVerificationPageBase : WorkloadPageBase, IPageNavigation
             Title = "Verifikasi Import CRM",
             TrapFocus = true,
             PreventDismissOnOverlayClick = true,
-            Width = "525px",
+            Width = "650px",
         };
 
         var isImportVerified = workPaper.ApprovalOpportunity.StatusImport == ImportStatus.Verified;
