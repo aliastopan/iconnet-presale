@@ -1,11 +1,24 @@
-<div>
-    @ChatTemplatesSettings.First().TemplateName
-</div>
-<div>
-    @foreach(var chat in ChatTemplatesSettings)
-    {
-        <div class="chat-bubble-setting">
-            @GetHtmlString(@chat.Content)
+<div class="d-flex flex-row">
+
+    <div class="chat-template-setting-edit-section" style="width: 350px; margin-right: 16px; margin-top: 16px;">
+        <FluentTextArea
+            style="width: 100%;"
+            Placeholder="Chat Template"
+            Value="@ChatTemplateEditContent"
+            ValueChanged="OnChatTemplateEditContentChanged"
+            Rows="12"></FluentTextArea>
+    </div>
+    <div class="chat-template-setting-view-section">
+        <div>
+            @ChatTemplatesSettings.First().TemplateName
         </div>
-    }
+        <div>
+            @foreach(var chat in ChatTemplatesSettings)
+            {
+                <div class="chat-bubble-setting">
+                    @GetHtmlString(@chat.Content)
+                </div>
+            }
+        </div>
+    </div>
 </div>
