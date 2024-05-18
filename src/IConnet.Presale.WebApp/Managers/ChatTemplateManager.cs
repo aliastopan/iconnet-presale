@@ -27,11 +27,6 @@ public class ChatTemplateManager
 
     public async Task SetDefaultChatTemplatesAsync()
     {
-        var options = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        };
-
         try
         {
             var templateName = _configuration["ChatTemplate"] ?? "default";
@@ -39,14 +34,14 @@ public class ChatTemplateManager
 
             if (httpResult.IsSuccessStatusCode)
             {
-                var response = JsonSerializer.Deserialize<GetChatTemplatesQueryResponse>(httpResult.Content, options);
+                var response = JsonSerializer.Deserialize<GetChatTemplatesQueryResponse>(httpResult.Content, _jsonSerializerOptions);
                 ICollection<ChatTemplateDto> chatTemplateDtos = response!.ChatTemplateDtos;
 
                 SetChatTemplates(chatTemplateDtos);
             }
             else
             {
-                var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
+                var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, _jsonSerializerOptions);
                 var extension = problemDetails.GetProblemDetailsExtension();
             }
         }
