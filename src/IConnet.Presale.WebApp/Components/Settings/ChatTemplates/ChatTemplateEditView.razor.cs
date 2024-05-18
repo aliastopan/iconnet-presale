@@ -7,11 +7,29 @@ public partial class ChatTemplateEditView : ComponentBase
     [Parameter]
     public List<ChatTemplateSettingModel> ChatTemplatesSettings { get; set;} = default!;
 
-    public string ChatTemplateEditContent { get; set; } = "SAMPLING";
+    public Guid ChatTemplateId { get; set; } = default!;
+    public ChatTemplateSettingModel ActiveModel = default!;
+    public string ContentEditHolder { get; set; } = default!;
 
-    protected void OnChatTemplateEditContentChanged(string content)
+    protected void OnContentEditHolderChanged(string content)
     {
-        ChatTemplateEditContent = content;
+        if (ActiveModel is null)
+        {
+            return;
+        }
+
+        ActiveModel.Content = content;
+        ActiveModel.SettingStatus = ChatTemplateSettingStatus.ContentEdit;
+
+        ContentEditHolder = content;
+    }
+
+    protected void EditChat(ChatTemplateSettingModel model)
+    {
+        ActiveModel = model;
+        ContentEditHolder = model.Content;
+
+        LogSwitch.Debug("Editing Model...");
     }
 
     protected MarkupString GetHtmlString(string chat)

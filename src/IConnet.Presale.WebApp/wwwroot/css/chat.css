@@ -103,5 +103,30 @@
     height: max-content;
     /* margin: 4px 8px; */
     padding: 4px;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
+}
+
+.scrollable-chat-template-setting-view-section{
+    overflow-x: auto;
+    /* overflow-y: auto; */
+    margin-top: 10px;
+    max-height: calc(100vh - 300px);
+}
+
+.scrollable-chat-template-setting-view-section::-webkit-scrollbar{
+    width: 8px;
+    height: 8px;
+}
+
+.scrollable-chat-template-setting-view-section::-webkit-scrollbar-track{
+    background-color: #cccccc;
+}
+
+.scrollable-chat-template-setting-view-section::-webkit-scrollbar-thumb{
+    background-color: #646464;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
 }
