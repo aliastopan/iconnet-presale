@@ -10,21 +10,21 @@ public partial class ChatTemplateSetting : ComponentBase
     [Parameter]
     public List<ChatTemplateSettingModel> ChatTemplatesSettings { get; set; } = [];
 
-    protected string ActiveTemplateName { get; set; } = default!;
+    protected string TargetTemplateName { get; set; } = default!;
     protected Icon ActiveTemplateIcon = new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success-green)");
 
     protected string GridTemplateCols => GetGridTemplateCols();
 
     protected override void OnInitialized()
     {
-        ActiveTemplateName = AppSettingsService.ChatTemplate;
+        TargetTemplateName = AppSettingsService.ChatTemplate;
     }
 
-    protected void OnActiveTemplateNameChanged(string activeTemplateName)
+    protected void OnTargetTemplateNameChanged(string targetTemplateName)
     {
-        ActiveTemplateName = activeTemplateName;
+        TargetTemplateName = targetTemplateName;
 
-        LogSwitch.Debug("template: {0}", ActiveTemplateName);
+        LogSwitch.Debug("template: {0}", TargetTemplateName);
     }
 
     protected void SelectTemplateName(string templateName)
