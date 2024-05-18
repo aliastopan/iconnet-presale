@@ -4,6 +4,7 @@ public partial class ChatTemplateSetting : ComponentBase
 {
     [Inject] AppSettingsService AppSettingsService { get; set; } = default!;
     [Inject] ChatTemplateEditService ChatTemplateEditService { get; set; } = default!;
+    [Inject] IDialogService DialogService { get; set; } = default!;
 
     [Parameter]
     public IQueryable<string>? ModelAvailable { get; set; }
@@ -43,15 +44,37 @@ public partial class ChatTemplateSetting : ComponentBase
         LogSwitch.Debug("switch template: {0}", SwitchTemplateName);
     }
 
-    protected void SelectTemplateName(string templateName)
+    protected async Task SelectTemplateNameAsync(string templateName)
     {
         TargetTemplateName = templateName;
         ChatTemplateEditService.ResetStash();
 
-        this.StateHasChanged();
+        await OpenCreateClassificationDialogAsync();
 
         LogSwitch.Debug("edit template: {0}", TargetTemplateName);
     }
+
+   protected async Task OpenCreateClassificationDialogAsync()
+    {
+        var parameters = new DialogParameters()
+        {
+            Title = "Edit Chat Template",
+            TrapFocus = true,
+            PreventDismissOnOverlayClick = true,
+            Width = "800px",
+        };
+
+        var dialog = await DialogService.ShowDialogAsync<ChatTemplateEditViewDialog>(EditableChatTemplatesSettings, parameters);
+        var result = await dialog.Result;
+
+        if (result.Cancelled || result.Data == null)
+        {
+            return;
+        }
+
+        var dialogData = (List<ChatTemplateSettingModel>)result.Data;
+    }
+
 
     protected bool IsActive(string templateName)
     {

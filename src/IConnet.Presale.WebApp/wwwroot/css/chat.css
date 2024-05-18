@@ -99,14 +99,25 @@
 
 .chat-bubble-setting{
     background-color: #dcf8c6;
-    width: 500px;
+    width: 400px;
     height: max-content;
-    /* margin: 4px 8px; */
     padding: 4px;
-    margin-bottom: 16px;
+    margin: 4px 12px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.chat-template-setting-view-section{
+    width: 525px;
 }
 
 .scrollable-chat-template-setting-view-section{
+    background-color: #cccccc;
+    background-image: url('/images/chat-background.png');
     overflow-x: auto;
     /* overflow-y: auto; */
     margin-top: 10px;

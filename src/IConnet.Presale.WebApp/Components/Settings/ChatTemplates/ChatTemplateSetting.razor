@@ -42,7 +42,7 @@
                         <FluentButton style="width: 100px;"
                             BackgroundColor="crimson"
                             Color="white"
-                            OnClick="@(() => SelectTemplateName(@context))">
+                            OnClick="@(() => SelectTemplateNameAsync(@context))">
                             SELECT</FluentButton>
                     </div>
                 </TemplateColumn>
@@ -50,11 +50,11 @@
             </FluentDataGrid>
         </div>
         <div style="margin-left: auto; margin-right: 16px;">
-            EDIT TABLE
+            @* EDIT TABLE
 
             <div>
                 <ChatTemplateEditView ChatTemplatesSettings="@EditableChatTemplatesSettings"/>
-            </div>
+            </div> *@
         </div>
 
     </div>
