@@ -58,7 +58,7 @@ internal sealed class ChatTemplateHandler : IChatTemplateHandler
 
         switch (actionEnum)
         {
-            case ChatTemplateAction.Add:
+            case ChatTemplateAction.ChatAdd:
             {
                 ChatTemplate chatTemplate = new ChatTemplate
                 {
@@ -74,7 +74,7 @@ internal sealed class ChatTemplateHandler : IChatTemplateHandler
                 return Result.Ok();
 
             }
-            case ChatTemplateAction.Edit:
+            case ChatTemplateAction.ChatEdit:
             {
                 ChatTemplate? chatTemplate = dbContext.FindChatTemplate(chatTemplateId);
 
@@ -93,7 +93,7 @@ internal sealed class ChatTemplateHandler : IChatTemplateHandler
                 return Result.Ok();
 
             }
-            case ChatTemplateAction.Delete:
+            case ChatTemplateAction.ChatDelete:
             {
                 ChatTemplate? chatTemplate = dbContext.FindChatTemplate(chatTemplateId);
 

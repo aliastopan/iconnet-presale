@@ -2,7 +2,8 @@ namespace IConnet.Presale.Shared.Common;
 
 public enum ChatTemplateAction
 {
-    Add = 0,
-    Edit = 1,
-    Delete = 2
+    Default = 0,
+    ChatAdd = 1,
+    ChatEdit = 2,
+    ChatDelete = 3
 }
