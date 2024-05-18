@@ -10,26 +10,46 @@ public partial class ChatTemplateSetting : ComponentBase
     [Parameter]
     public List<ChatTemplateSettingModel> ChatTemplatesSettings { get; set; } = [];
 
-    protected string TargetTemplateName { get; set; } = default!;
+    protected string SwitchTemplateName { get; set; } = default!;
     protected Icon ActiveTemplateIcon = new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success-green)");
+
+    // protected bool HasSelectChatTemplateTarget => TargetTemplateName.HasValue();
+    protected string TargetTemplateName { get; set; } = default!;
+    protected List<ChatTemplateSettingModel> EditableChatTemplatesSettings => FilterEditableChatTemplate();
 
     protected string GridTemplateCols => GetGridTemplateCols();
 
     protected override void OnInitialized()
     {
+        SwitchTemplateName = AppSettingsService.ChatTemplate;
         TargetTemplateName = AppSettingsService.ChatTemplate;
     }
 
-    protected void OnTargetTemplateNameChanged(string targetTemplateName)
+    protected List<ChatTemplateSettingModel> FilterEditableChatTemplate()
     {
-        TargetTemplateName = targetTemplateName;
+        if (ChatTemplatesSettings.Count == 0)
+        {
+            return [];
+        }
 
-        LogSwitch.Debug("template: {0}", TargetTemplateName);
+        return ChatTemplatesSettings.Where(x => x.TemplateName == TargetTemplateName).ToList();
+    }
+
+    protected void OnSwitchTemplateNameChanged(string switchTemplateName)
+    {
+        SwitchTemplateName = switchTemplateName;
+
+        LogSwitch.Debug("switch template: {0}", SwitchTemplateName);
     }
 
     protected void SelectTemplateName(string templateName)
     {
-        LogSwitch.Debug("template: {0}", templateName);
+        TargetTemplateName = templateName;
+
+        this.StateHasChanged();
+
+        LogSwitch.Debug("edit template: {0}", TargetTemplateName);
+
     }
 
     protected bool IsActive(string templateName)
