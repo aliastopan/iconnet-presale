@@ -12,6 +12,7 @@ public class ChatTemplateEndpoint : IEndpointDefinition
     {
         app.MapGet(UriEndpoint.ChatTemplate.GetChatTemplates, GetChatTemplates).AllowAnonymous();
         app.MapGet(UriEndpoint.ChatTemplate.GetAvailableChatTemplates, GetAvailableChatTemplates).AllowAnonymous();
+        app.MapGet(UriEndpoint.ChatTemplate.ChatTemplateAction, ChatTemplateAction).AllowAnonymous();
     }
 
     internal async Task<IResult> GetChatTemplates([FromServices] ISender sender,
