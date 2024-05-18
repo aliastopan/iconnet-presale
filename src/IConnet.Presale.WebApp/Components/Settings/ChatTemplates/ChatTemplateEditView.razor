@@ -1,3 +1,11 @@
 <div>
     @ChatTemplatesSettings.First().TemplateName
 </div>
+<div>
+    @foreach(var chat in ChatTemplatesSettings)
+    {
+        <div class="chat-bubble-setting">
+            @GetHtmlString(@chat.Content)
+        </div>
+    }
+</div>

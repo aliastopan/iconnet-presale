@@ -96,3 +96,12 @@
     color: #a5a5a5;
     font-size: 12px;
 }
+
+.chat-bubble-setting{
+    background-color: #dcf8c6;
+    width: 500px;
+    height: max-content;
+    /* margin: 4px 8px; */
+    padding: 4px;
+    margin-bottom: 8px;
+}
