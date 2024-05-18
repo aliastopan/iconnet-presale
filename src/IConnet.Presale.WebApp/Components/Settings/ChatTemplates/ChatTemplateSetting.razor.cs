@@ -3,6 +3,7 @@ namespace IConnet.Presale.WebApp.Components.Settings.ChatTemplates;
 public partial class ChatTemplateSetting : ComponentBase
 {
     [Inject] AppSettingsService AppSettingsService { get; set; } = default!;
+    [Inject] ChatTemplateEditService ChatTemplateEditService { get; set; } = default!;
 
     [Parameter]
     public IQueryable<string>? ModelAvailable { get; set; }
@@ -45,11 +46,11 @@ public partial class ChatTemplateSetting : ComponentBase
     protected void SelectTemplateName(string templateName)
     {
         TargetTemplateName = templateName;
+        ChatTemplateEditService.ResetStash();
 
         this.StateHasChanged();
 
         LogSwitch.Debug("edit template: {0}", TargetTemplateName);
-
     }
 
     protected bool IsActive(string templateName)

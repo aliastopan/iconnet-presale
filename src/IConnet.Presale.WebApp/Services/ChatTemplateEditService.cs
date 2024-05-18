@@ -7,6 +7,8 @@ public class ChatTemplateEditService
 
     public void ResetStash()
     {
+        LogSwitch.Debug("Resetting Stash");
+
         AddStash.Clear();
         EditStash.Clear();
     }
