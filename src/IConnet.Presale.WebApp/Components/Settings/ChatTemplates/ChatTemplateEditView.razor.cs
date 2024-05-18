@@ -19,7 +19,7 @@ public partial class ChatTemplateEditView : ComponentBase
         }
 
         ActiveModel.Content = content;
-        ActiveModel.SettingStatus = ChatTemplateSettingStatus.ContentEdit;
+        ActiveModel.ActionSetting = ChatTemplateAction.ChatEdit;
 
         ContentEditHolder = content;
     }
