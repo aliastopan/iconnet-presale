@@ -47,7 +47,7 @@ public partial class ChatTemplateSetting : ComponentBase
             .Distinct()
             .ToList();
 
-        ChatTemplateNameAvailable = chatTemplateNames.AsQueryable();
+        ChatTemplateNameAvailable = chatTemplateNames.Order().AsQueryable();
         ChatTemplatesSettings = new List<ChatTemplateSettingModel>(chatTemplates).OrderBy(x => x.Sequence).ToList();
     }
 
