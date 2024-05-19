@@ -107,10 +107,12 @@ public partial class ChatTemplateSetting : ComponentBase
 
         var editedModels = dialogData.Where(x => x.ActionSetting == ChatTemplateAction.ChatEdit).ToList();
         var addedModels = dialogData.Where(x => x.ActionSetting == ChatTemplateAction.ChatAdd).ToList();
+        var deletedModels = dialogData.Where(x => x.ActionSetting == ChatTemplateAction.ChatDelete).ToList();
 
         LogSwitch.Debug("Edited: {0}. Begin applying edit", editedModels.Count);
 
         IsLoading = true;
+        this.StateHasChanged();
 
         foreach (var editedModel in editedModels)
         {
@@ -124,11 +126,17 @@ public partial class ChatTemplateSetting : ComponentBase
             await ChatTemplateManager.ApplyChatTemplateAction(addedModel);
         }
 
+        LogSwitch.Debug("Deleted: {0}. Begin deleting", deletedModels.Count);
 
-        LogSwitch.Debug("Edit Applied. Reloading result");
+        foreach (var deletedModel in deletedModels)
+        {
+            await ChatTemplateManager.ApplyChatTemplateAction(deletedModel);
+        }
+
         await ReloadChatTemplatesAsync();
 
         IsLoading = false;
+        this.StateHasChanged();
     }
 
     protected bool IsActive(string templateName)

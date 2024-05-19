@@ -39,20 +39,42 @@
                     <FluentButton Appearance="Appearance.Accent"
                         style="margin-right: 8px;"
                         IconStart="@(new Icons.Filled.Size20.Edit())"
+                        Disabled="@IsMarkForDeletion(@chat)"
+                        Title="Edit"
                         OnClick="@(() => EditChat(@chat))">
                         </FluentButton>
+
+                    @if(IsMarkForDeletion(@chat))
+                    {
+                        <FluentButton Appearance="Appearance.Accent"
+                            style="margin-right: 8px;"
+                            IconStart="@(new Icons.Filled.Size20.ArrowCounterclockwise())"
+                            Title="Undo Delete"
+                            OnClick="@(() => UndoMarkForDeletion(@chat))">
+                            </FluentButton>
+                    }
+                    else
+                    {
+                        <FluentButton BackgroundColor="crimson"
+                            Color="white"
+                            style="margin-right: 8px;"
+                            Title="Delete"
+                            IconStart="@(new Icons.Filled.Size20.Dismiss().WithColor("#ffffff"))"
+                            OnClick="@(() => MarkForDeletion(@chat))">
+                            </FluentButton>
+                    }
 
                     @if(CanBeUndo(chat))
                     {
                         <FluentButton BackgroundColor="crimson"
                             Color="white"
                             style="margin-right: 8px;"
-                            IconStart="@(new Icons.Filled.Size20.ArrowUndo().WithColor("#ffffff"))"
+                            IconStart="@(new Icons.Filled.Size20.Dismiss().WithColor("#ffffff"))"
                             OnClick="@(() => UndoAddChatBubble(@chat))">
                             </FluentButton>
                     }
                 </div>
-                <div class="chat-bubble-setting">
+                <div class="chat-bubble-setting" style="@MarkForDeletionStyle(@chat)">
                     @if (IsActiveModel(@chat))
                     {
                         <div class="edit-active">editing</div>

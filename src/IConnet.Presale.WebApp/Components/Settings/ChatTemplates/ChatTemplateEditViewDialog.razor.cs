@@ -52,7 +52,7 @@ public partial class ChatTemplateEditViewDialog : ComponentBase, IDialogContentC
 
         if (ActiveModel.ActionSetting == ChatTemplateAction.Default)
         {
-            ActiveModel.ActionSetting = ChatTemplateAction.ChatEdit;
+            ActiveModel.SetAction(ChatTemplateAction.ChatEdit);
         }
 
         ContentEditHolder = content;
@@ -106,5 +106,27 @@ public partial class ChatTemplateEditViewDialog : ComponentBase, IDialogContentC
     protected void UndoAddChatBubble(ChatTemplateSettingModel settingModel)
     {
         Content.Remove(settingModel);
+    }
+
+    protected void MarkForDeletion(ChatTemplateSettingModel settingModel)
+    {
+        settingModel.SetAction(ChatTemplateAction.ChatDelete);
+    }
+
+    protected void UndoMarkForDeletion(ChatTemplateSettingModel settingModel)
+    {
+        settingModel.UndoAction();
+    }
+
+    protected bool IsMarkForDeletion(ChatTemplateSettingModel settingModel)
+    {
+        return settingModel.ActionSetting == ChatTemplateAction.ChatDelete;
+    }
+
+    protected string MarkForDeletionStyle(ChatTemplateSettingModel settingModel)
+    {
+        return settingModel.ActionSetting == ChatTemplateAction.ChatDelete
+            ? "background-color: crimson; color: white;"
+            : "";
     }
 }
