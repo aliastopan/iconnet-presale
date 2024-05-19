@@ -20,16 +20,25 @@
         </div>
     </div>
     <div class="chat-template-setting-view-section">
-        <div>
-            <span>Template: </span> <span class="chat-template-badge">@Content.First().TemplateName</span>
+        <div class="d-flex flex-row align-items-center">
+            <div>
+                <span>Template: </span> <span class="chat-template-badge">@Content.First().TemplateName</span>
+            </div>
+            <div style="margin-left: auto;">
+                <FluentButton Appearance="Appearance.Accent"
+                    style="margin-right: 8px;"
+                    IconStart="@(new Icons.Filled.Size20.Add())"
+                    OnClick="@AddChatBubbleAsync">
+                    Bubble Chat</FluentButton>
+            </div>
         </div>
-        <div class="scrollable-chat-template-setting-view-section">
+        <div class="scrollable-chat-template-setting-view-section" style="overflow-x: hidden !important;">
             @foreach(var chat in Content)
             {
-                <div style="margin: 4px 12px; margin-top: 16px !important;">
-                    <FluentButton BackgroundColor="crimson"
-                        Color="white"
-                        IconStart="@(new Icons.Regular.Size20.Edit().WithColor("#ffffff"))"
+                <div class="d-flex flex-row" style="margin: 4px 12px; margin-top: 16px !important;">
+                    <FluentButton Appearance="Appearance.Accent"
+                        style="margin-right: 8px;"
+                        IconStart="@(new Icons.Filled.Size20.Edit())"
                         OnClick="@(() => EditChat(@chat))">
                         </FluentButton>
                 </div>
@@ -37,6 +46,7 @@
                     @GetHtmlString(@chat.Content)
                 </div>
             }
+            <span id="chat-bubble-bottom-marker">&nbsp;</span>
         </div>
     </div>
 </div>

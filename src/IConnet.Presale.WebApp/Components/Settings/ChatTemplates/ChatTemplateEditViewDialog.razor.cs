@@ -2,6 +2,8 @@ namespace IConnet.Presale.WebApp.Components.Settings.ChatTemplates;
 
 public partial class ChatTemplateEditViewDialog : IDialogContentComponent<List<ChatTemplateSettingModel>>
 {
+    [Inject] IJSRuntime JsRuntime { get; set; } = default!;
+
     [Parameter]
     public List<ChatTemplateSettingModel> Content { get; set; } = default!;
 
@@ -49,5 +51,18 @@ public partial class ChatTemplateEditViewDialog : IDialogContentComponent<List<C
             .FormatHtmlBreak()
             .FormatHtmlBold()
             .FormatHtmlItalic();
+    }
+
+    public async Task AddChatBubbleAsync()
+    {
+        await ChatBubbleScrollAsync();
+    }
+
+    protected async Task ChatBubbleScrollAsync()
+    {
+        LogSwitch.Debug("Auto Scrolling...");
+
+        var elementId = "chat-bubble-bottom-marker";
+        await JsRuntime.InvokeVoidAsync("scrollToElement", elementId);
     }
 }
