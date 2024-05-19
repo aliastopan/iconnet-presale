@@ -44,26 +44,6 @@
                         OnClick="@(() => EditChat(@chat))">
                         </FluentButton>
 
-                    @if(IsMarkForDeletion(@chat))
-                    {
-                        <FluentButton Appearance="Appearance.Accent"
-                            style="margin-right: 8px;"
-                            IconStart="@(new Icons.Filled.Size20.ArrowCounterclockwise())"
-                            Title="Undo Delete"
-                            OnClick="@(() => UndoMarkForDeletion(@chat))">
-                            </FluentButton>
-                    }
-                    else
-                    {
-                        <FluentButton BackgroundColor="crimson"
-                            Color="white"
-                            style="margin-right: 8px;"
-                            Title="Delete"
-                            IconStart="@(new Icons.Filled.Size20.Dismiss().WithColor("#ffffff"))"
-                            OnClick="@(() => MarkForDeletion(@chat))">
-                            </FluentButton>
-                    }
-
                     @if(CanBeUndo(chat))
                     {
                         <FluentButton BackgroundColor="crimson"
@@ -72,6 +52,29 @@
                             IconStart="@(new Icons.Filled.Size20.Dismiss().WithColor("#ffffff"))"
                             OnClick="@(() => UndoAddChatBubble(@chat))">
                             </FluentButton>
+                    }
+                    else
+                    {
+                        @if(IsMarkForDeletion(@chat))
+                        {
+                            <FluentButton Appearance="Appearance.Accent"
+                                style="margin-right: 8px;"
+                                IconStart="@(new Icons.Filled.Size20.ArrowCounterclockwise())"
+                                Title="Undo Delete"
+                                OnClick="@(() => UndoMarkForDeletion(@chat))">
+                                </FluentButton>
+                        }
+                        else
+                        {
+                            <FluentButton BackgroundColor="crimson"
+                                Color="white"
+                                style="margin-right: 8px;"
+                                Title="Delete"
+                                Disabled="@(DisableMarkForDeletion())"
+                                IconStart="@(new Icons.Filled.Size20.Delete().WithColor("#ffffff"))"
+                                OnClick="@(() => MarkForDeletion(@chat))">
+                                </FluentButton>
+                        }
                     }
                 </div>
                 <div class="chat-bubble-setting" style="@MarkForDeletionStyle(@chat)">

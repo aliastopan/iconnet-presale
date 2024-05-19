@@ -111,11 +111,13 @@ public partial class ChatTemplateEditViewDialog : ComponentBase, IDialogContentC
     protected void MarkForDeletion(ChatTemplateSettingModel settingModel)
     {
         settingModel.SetAction(ChatTemplateAction.ChatDelete);
+        ValidateMarkForDeletion();
     }
 
     protected void UndoMarkForDeletion(ChatTemplateSettingModel settingModel)
     {
         settingModel.UndoAction();
+        ValidateMarkForDeletion();
     }
 
     protected bool IsMarkForDeletion(ChatTemplateSettingModel settingModel)
@@ -128,5 +130,24 @@ public partial class ChatTemplateEditViewDialog : ComponentBase, IDialogContentC
         return settingModel.ActionSetting == ChatTemplateAction.ChatDelete
             ? "background-color: crimson; color: white;"
             : "";
+    }
+
+    protected void ValidateMarkForDeletion()
+    {
+        int totalChatContent = Content.Count;
+        int totalMarkForDeletion = Content.Where(x => x.ActionSetting == ChatTemplateAction.ChatDelete).Count();
+
+        LogSwitch.Debug("Chat Contents: {0}", totalChatContent);
+        LogSwitch.Debug("Mark for Deletion: {0}", totalMarkForDeletion);
+    }
+
+    protected bool DisableMarkForDeletion()
+    {
+        int totalChatContent = Content.Count;
+        int totalMarkForDeletion = Content.Where(x => x.ActionSetting == ChatTemplateAction.ChatDelete).Count();
+
+        int remaining = totalChatContent - totalMarkForDeletion;
+
+        return remaining < 2;
     }
 }
