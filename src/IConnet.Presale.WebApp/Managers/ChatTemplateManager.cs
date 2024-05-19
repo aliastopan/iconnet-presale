@@ -8,14 +8,12 @@ public class ChatTemplateManager
 {
     private readonly List<ChatTemplateModel> _chatTemplateModels = new List<ChatTemplateModel>();
     private readonly IChatTemplateHttpClient _chatTemplateHttpClient;
-    private readonly IConfiguration _configuration;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
 
     public ChatTemplateManager(IChatTemplateHttpClient chatTemplateHttpClient,
         IConfiguration configuration)
     {
         _chatTemplateHttpClient = chatTemplateHttpClient;
-        _configuration = configuration;
 
         _jsonSerializerOptions = new JsonSerializerOptions
         {
@@ -56,11 +54,12 @@ public class ChatTemplateManager
         }
     }
 
-    public async Task SetDefaultChatTemplatesAsync()
+    public async Task SetChatTemplateAsync(string templateName)
     {
+        LogSwitch.Debug("SetChatTemplateAsync {0}", templateName);
+
         try
         {
-            var templateName = _configuration["ChatTemplate"] ?? "default";
             var httpResult = await _chatTemplateHttpClient.GetChatTemplatesAsync(templateName);
 
             if (httpResult.IsSuccessStatusCode)

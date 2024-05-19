@@ -49,7 +49,7 @@ public class StartupService : IHostedService
 
         Task[] tasks =
         [
-            _chatTemplateManager.SetDefaultChatTemplatesAsync(),
+            _chatTemplateManager.SetChatTemplateAsync(_appSettingsService.ChatTemplate),
             _directApprovalManager.SetDirectApprovalsAsync(),
             _representativeOfficeManager.SetRepresentativeOfficesAsync(),
             _rootCauseManager.SetRootCausesAsync(),
