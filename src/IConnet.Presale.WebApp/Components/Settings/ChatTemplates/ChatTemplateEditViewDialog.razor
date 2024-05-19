@@ -1,6 +1,6 @@
 <FluentDialogHeader ShowDismiss="true">
     <FluentStack VerticalAlignment="VerticalAlignment.Center">
-        <FluentIcon Value="@(new Icons.Regular.Size24.CollectionsAdd())" />
+        <FluentIcon Value="@(new Icons.Regular.Size24.ChatSettings())" />
         <FluentLabel Typo="Typography.PaneHeader">
             @Dialog.Instance.Parameters.Title
         </FluentLabel>
@@ -21,7 +21,7 @@
     </div>
     <div class="chat-template-setting-view-section">
         <div>
-            @Content.First().TemplateName
+            <span>Template: </span> <span class="chat-template-badge">@Content.First().TemplateName</span>
         </div>
         <div class="scrollable-chat-template-setting-view-section">
             @foreach(var chat in Content)

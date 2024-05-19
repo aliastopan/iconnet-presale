@@ -141,3 +141,17 @@
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
 }
+
+.chat-template-badge{
+    font-family: 'inter-semibold';
+    font-weight: 600;
+    background-color: var(--accent-blue);
+    text-align: center;
+    color: white;
+    padding: 1px 4px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
