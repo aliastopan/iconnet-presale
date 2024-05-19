@@ -47,6 +47,9 @@ public partial class ChatTemplateEditViewDialog : IDialogContentComponent<List<C
 
     protected MarkupString GetHtmlString(string chat)
     {
-        return (MarkupString) chat.FormatHtmlBreak();
+        return (MarkupString) chat
+            .FormatHtmlBreak()
+            .FormatHtmlBold()
+            .FormatHtmlItalic();
     }
 }
