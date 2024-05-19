@@ -22,7 +22,7 @@
     <div class="chat-template-setting-view-section">
         <div class="d-flex flex-row align-items-center">
             <div>
-                <span>Template: </span> <span class="chat-template-badge">@Content.First().TemplateName</span>
+                <span>Template: </span> <span class="chat-template-badge">@TemplateName</span>
             </div>
             <div style="margin-left: auto;">
                 <FluentButton Appearance="Appearance.Accent"
@@ -41,9 +41,25 @@
                         IconStart="@(new Icons.Filled.Size20.Edit())"
                         OnClick="@(() => EditChat(@chat))">
                         </FluentButton>
+
+                    @if(CanBeUndo(chat))
+                    {
+                        <FluentButton BackgroundColor="crimson"
+                            Color="white"
+                            style="margin-right: 8px;"
+                            IconStart="@(new Icons.Filled.Size20.ArrowUndo().WithColor("#ffffff"))"
+                            OnClick="@(() => UndoAddChatBubble(@chat))">
+                            </FluentButton>
+                    }
                 </div>
                 <div class="chat-bubble-setting">
-                    @GetHtmlString(@chat.Content)
+                    @if (IsActiveModel(@chat))
+                    {
+                        <div class="edit-active">editing</div>
+                    }
+                    <div>
+                        @GetHtmlString(@chat.Content)
+                    </div>
                 </div>
             }
             <span id="chat-bubble-bottom-marker">&nbsp;</span>

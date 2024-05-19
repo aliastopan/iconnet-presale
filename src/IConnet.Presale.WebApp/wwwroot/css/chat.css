@@ -97,7 +97,18 @@
     font-size: 12px;
 }
 
+.edit-active{
+    font-family: 'inter-semibold';
+    border-radius: 5px;
+    padding: 2px 4px;
+    background-color: var(--accent-blue);
+    color: white;
+    margin-left: auto;
+}
+
 .chat-bubble-setting{
+    display: flex;
+    flex-direction: column;
     background-color: #dcf8c6;
     width: 400px;
     height: max-content;

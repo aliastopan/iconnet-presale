@@ -1,6 +1,6 @@
 namespace IConnet.Presale.WebApp.Components.Settings.ChatTemplates;
 
-public partial class ChatTemplateEditViewDialog : IDialogContentComponent<List<ChatTemplateSettingModel>>
+public partial class ChatTemplateEditViewDialog : ComponentBase, IDialogContentComponent<List<ChatTemplateSettingModel>>
 {
     [Inject] IJSRuntime JsRuntime { get; set; } = default!;
 
@@ -9,6 +9,8 @@ public partial class ChatTemplateEditViewDialog : IDialogContentComponent<List<C
 
     [CascadingParameter]
     public FluentDialog Dialog { get; set; } = default!;
+
+    protected string TemplateName => Content.First().TemplateName;
 
     protected async Task SaveAsync()
     {
@@ -24,15 +26,34 @@ public partial class ChatTemplateEditViewDialog : IDialogContentComponent<List<C
     public ChatTemplateSettingModel ActiveModel = default!;
     public string ContentEditHolder { get; set; } = default!;
 
+    protected bool IsActiveModel(ChatTemplateSettingModel model)
+    {
+        if (ActiveModel is null)
+        {
+            return false;
+        }
+
+        return model.ChatTemplateId == ActiveModel.ChatTemplateId;
+    }
+
     protected void OnContentEditHolderChanged(string content)
     {
+        if (!content.HasValue())
+        {
+            content = "SAMPLE TEXT";
+        }
+
         if (ActiveModel is null)
         {
             return;
         }
 
         ActiveModel.Content = content;
-        ActiveModel.ActionSetting = ChatTemplateAction.ChatEdit;
+
+        if (ActiveModel.ActionSetting == ChatTemplateAction.Default)
+        {
+            ActiveModel.ActionSetting = ChatTemplateAction.ChatEdit;
+        }
 
         ContentEditHolder = content;
     }
@@ -62,7 +83,28 @@ public partial class ChatTemplateEditViewDialog : IDialogContentComponent<List<C
     {
         LogSwitch.Debug("Auto Scrolling...");
 
+        var sequence = Content.Max(x => x.Sequence) + 1;
+        var content = "SAMPLE TEXT";
+
+        var newChatBubble = new ChatTemplateSettingModel(
+            TemplateName,
+            sequence,
+            content,
+            ChatTemplateAction.ChatAdd);
+
+        Content.Add(newChatBubble);
+
         var elementId = "chat-bubble-bottom-marker";
         await JsRuntime.InvokeVoidAsync("scrollToElement", elementId);
+    }
+
+    protected bool CanBeUndo(ChatTemplateSettingModel settingModel)
+    {
+        return settingModel.ActionSetting == ChatTemplateAction.ChatAdd;
+    }
+
+    protected void UndoAddChatBubble(ChatTemplateSettingModel settingModel)
+    {
+        Content.Remove(settingModel);
     }
 }

@@ -106,6 +106,7 @@ public partial class ChatTemplateSetting : ComponentBase
         var dialogData = (List<ChatTemplateSettingModel>)result.Data;
 
         var editedModels = dialogData.Where(x => x.ActionSetting == ChatTemplateAction.ChatEdit).ToList();
+        var addedModels = dialogData.Where(x => x.ActionSetting == ChatTemplateAction.ChatAdd).ToList();
 
         LogSwitch.Debug("Edited: {0}. Begin applying edit", editedModels.Count);
 
@@ -115,6 +116,14 @@ public partial class ChatTemplateSetting : ComponentBase
         {
             await ChatTemplateManager.ApplyChatTemplateAction(editedModel);
         }
+
+        LogSwitch.Debug("Added: {0}. Begin adding", addedModels.Count);
+
+        foreach (var addedModel in addedModels)
+        {
+            await ChatTemplateManager.ApplyChatTemplateAction(addedModel);
+        }
+
 
         LogSwitch.Debug("Edit Applied. Reloading result");
         await ReloadChatTemplatesAsync();
