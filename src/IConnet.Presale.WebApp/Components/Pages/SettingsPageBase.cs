@@ -4,15 +4,12 @@ public class SettingsPageBase : ComponentBase, IPageNavigation
 {
     [Inject] public RootCauseManager RootCauseManager { get; set; } = default!;
     [Inject] public DirectApprovalManager DirectApprovalManager { get; set; } = default!;
-    [Inject] public ChatTemplateManager ChatTemplateManager { get; set; } = default!;
     [Inject] public TabNavigationManager TabNavigationManager { get; set; } = default!;
 
     public bool IsInitialized { get; set; } = true;
 
     public IQueryable<RootCauseSettingModel>? RootCauseSettingModels { get; set; }
     public IQueryable<DirectApprovalSettingModel>? DirectApprovalSettingModels { get; set; }
-    public IQueryable<string>? ChatTemplateNameAvailable { get; set; }
-    public List<ChatTemplateSettingModel> ChatTemplatesSettings { get; set; } = [];
 
     public TabNavigationModel PageDeclaration()
     {
@@ -30,7 +27,6 @@ public class SettingsPageBase : ComponentBase, IPageNavigation
 
         await ReloadRootCauseAsync();
         await ReloadDirectApprovalAsync();
-        await ReloadChatTemplatesAsync();
 
         IsInitialized = true;
     }
@@ -43,20 +39,5 @@ public class SettingsPageBase : ComponentBase, IPageNavigation
     protected async Task ReloadDirectApprovalAsync()
     {
         DirectApprovalSettingModels = await DirectApprovalManager.GetDirectApprovalSettingModelsAsync();
-    }
-
-    protected async Task ReloadChatTemplatesAsync()
-    {
-        List<string> chatTemplateNames;
-        List<ChatTemplateSettingModel> chatTemplates;
-
-        chatTemplates = await ChatTemplateManager.GetChatTemplateSettingModelsAsync();
-        chatTemplateNames = chatTemplates
-            .Select(x => x.TemplateName)
-            .Distinct()
-            .ToList();
-
-        ChatTemplateNameAvailable = chatTemplateNames.AsQueryable();
-        ChatTemplatesSettings = new List<ChatTemplateSettingModel>(chatTemplates);
     }
 }

@@ -5,17 +5,16 @@ public partial class ChatTemplateSetting : ComponentBase
     [Inject] AppSettingsService AppSettingsService { get; set; } = default!;
     [Inject] ChatTemplateEditService ChatTemplateEditService { get; set; } = default!;
     [Inject] IDialogService DialogService { get; set; } = default!;
+    [Inject] ChatTemplateManager ChatTemplateManager { get; set; } = default!;
 
-    [Parameter]
-    public IQueryable<string>? ModelAvailable { get; set; }
+    public bool IsInitialized { get; set; } = true;
 
-    [Parameter]
+    public IQueryable<string>? ChatTemplateNameAvailable { get; set; }
     public List<ChatTemplateSettingModel> ChatTemplatesSettings { get; set; } = [];
 
     protected string SwitchTemplateName { get; set; } = default!;
     protected Icon ActiveTemplateIcon = new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success-green)");
 
-    // protected bool HasSelectChatTemplateTarget => TargetTemplateName.HasValue();
     protected string TargetTemplateName { get; set; } = default!;
     protected List<ChatTemplateSettingModel> EditableChatTemplatesSettings => FilterEditableChatTemplate();
 
@@ -25,6 +24,30 @@ public partial class ChatTemplateSetting : ComponentBase
     {
         SwitchTemplateName = AppSettingsService.ChatTemplate;
         TargetTemplateName = AppSettingsService.ChatTemplate;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsInitialized = false;
+
+        await ReloadChatTemplatesAsync();
+
+        IsInitialized = true;
+    }
+
+    protected async Task ReloadChatTemplatesAsync()
+    {
+        List<string> chatTemplateNames;
+        List<ChatTemplateSettingModel> chatTemplates;
+
+        chatTemplates = await ChatTemplateManager.GetChatTemplateSettingModelsAsync();
+        chatTemplateNames = chatTemplates
+            .Select(x => x.TemplateName)
+            .Distinct()
+            .ToList();
+
+        ChatTemplateNameAvailable = chatTemplateNames.AsQueryable();
+        ChatTemplatesSettings = new List<ChatTemplateSettingModel>(chatTemplates);
     }
 
     protected List<ChatTemplateSettingModel> FilterEditableChatTemplate()
@@ -54,7 +77,7 @@ public partial class ChatTemplateSetting : ComponentBase
         LogSwitch.Debug("edit template: {0}", TargetTemplateName);
     }
 
-   protected async Task OpenCreateClassificationDialogAsync()
+    protected async Task OpenCreateClassificationDialogAsync()
     {
         var parameters = new DialogParameters()
         {
@@ -73,8 +96,11 @@ public partial class ChatTemplateSetting : ComponentBase
         }
 
         var dialogData = (List<ChatTemplateSettingModel>)result.Data;
-    }
 
+        var editedModels = dialogData.Where(x => x.ActionSetting == ChatTemplateAction.ChatEdit).ToList();
+
+        LogSwitch.Debug("Edited: {0}", editedModels.Count);
+    }
 
     protected bool IsActive(string templateName)
     {

@@ -1,10 +1,10 @@
-@if (ModelAvailable is not null)
+@if (ChatTemplateNameAvailable is not null)
 {
     <div class="d-flex flex-row">
         <div class="chat-template-settings">
             <div class="d-flex flex-row align-items-end" style="margin: 8px 0;">
                 <div>
-                    <FluentSelect Items="@ModelAvailable.ToList()"
+                    <FluentSelect Items="@ChatTemplateNameAvailable.ToList()"
                         Label="Chat Template Active"
                         Position="SelectPosition.Below"
                         Value="@SwitchTemplateName"
@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <FluentDataGrid Items="@ModelAvailable"
+            <FluentDataGrid Items="@ChatTemplateNameAvailable"
                 TGridItem="string"
                 Virtualize="true"
                 ItemSize="40"
