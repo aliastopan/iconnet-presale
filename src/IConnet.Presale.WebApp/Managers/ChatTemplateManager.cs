@@ -25,6 +25,37 @@ public class ChatTemplateManager
 
     public List<ChatTemplateModel> ChatTemplateModels => _chatTemplateModels;
 
+    public async Task<bool> ApplyChatTemplateAction(ChatTemplateSettingModel model)
+    {
+        try
+        {
+            var httpResult = await _chatTemplateHttpClient.ChatTemplateActionAsync(
+                model.ChatTemplateId,
+                model.TemplateName,
+                model.Sequence,
+                model.Content,
+                (int)model.ActionSetting);
+
+            if (httpResult.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, _jsonSerializerOptions);
+                var extension = problemDetails.GetProblemDetailsExtension();
+
+                return false;
+            }
+        }
+        catch (Exception exception)
+        {
+            Log.Fatal("Fatal error occurred: {message}", exception.Message);
+
+            return false;
+        }
+    }
+
     public async Task SetDefaultChatTemplatesAsync()
     {
         try

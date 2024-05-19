@@ -8,6 +8,7 @@ public partial class ChatTemplateSetting : ComponentBase
     [Inject] ChatTemplateManager ChatTemplateManager { get; set; } = default!;
 
     public bool IsInitialized { get; set; } = true;
+    public bool IsLoading { get; set; } = false;
 
     public IQueryable<string>? ChatTemplateNameAvailable { get; set; }
     public List<ChatTemplateSettingModel> ChatTemplatesSettings { get; set; } = [];
@@ -99,7 +100,19 @@ public partial class ChatTemplateSetting : ComponentBase
 
         var editedModels = dialogData.Where(x => x.ActionSetting == ChatTemplateAction.ChatEdit).ToList();
 
-        LogSwitch.Debug("Edited: {0}", editedModels.Count);
+        LogSwitch.Debug("Edited: {0}. Begin applying edit", editedModels.Count);
+
+        IsLoading = true;
+
+        foreach (var editedModel in editedModels)
+        {
+            await ChatTemplateManager.ApplyChatTemplateAction(editedModel);
+        }
+
+        LogSwitch.Debug("Edit Applied. Reloading result");
+        await ReloadChatTemplatesAsync();
+
+        IsLoading = false;
     }
 
     protected bool IsActive(string templateName)

@@ -49,13 +49,12 @@
 
             </FluentDataGrid>
         </div>
-        <div style="margin-left: auto; margin-right: 16px;">
-            @* EDIT TABLE
-
-            <div>
-                <ChatTemplateEditView ChatTemplatesSettings="@EditableChatTemplatesSettings"/>
-            </div> *@
-        </div>
-
     </div>
 }
+
+<FluentOverlay @bind-Visible=@IsLoading
+    Opacity="0.4"
+    Alignment="@Align.Center"
+    Justification="@JustifyContent.Center">
+    <FluentProgressRing />
+</FluentOverlay>
