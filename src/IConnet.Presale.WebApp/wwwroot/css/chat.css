@@ -119,9 +119,8 @@
     background-color: #cccccc;
     background-image: url('/images/chat-background.png');
     overflow-x: auto;
-    /* overflow-y: auto; */
     margin-top: 10px;
-    max-height: calc(100vh - 200px);
+    max-height: calc(100vh - 225px);
 }
 
 .scrollable-chat-template-setting-view-section::-webkit-scrollbar{
