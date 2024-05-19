@@ -2,8 +2,6 @@ namespace IConnet.Presale.WebApp.Components.Settings.ChatTemplates;
 
 public partial class ChatTemplateEditViewDialog : IDialogContentComponent<List<ChatTemplateSettingModel>>
 {
-    [Inject] AppSettingsService AppSettingsService { get; set; } = default!;
-
     [Parameter]
     public List<ChatTemplateSettingModel> Content { get; set; } = default!;
 
