@@ -49,7 +49,6 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddAccessControl();
 
     services.AddScoped<ChatTemplateService>();
-    services.AddScoped<ChatTemplateEditService>();
     services.AddScoped<TabNavigationManager>();
     services.AddScoped<SessionService>();
     services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();

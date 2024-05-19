@@ -3,7 +3,6 @@ namespace IConnet.Presale.WebApp.Components.Settings.ChatTemplates;
 public partial class ChatTemplateSetting : ComponentBase
 {
     [Inject] AppSettingsService AppSettingsService { get; set; } = default!;
-    [Inject] ChatTemplateEditService ChatTemplateEditService { get; set; } = default!;
     [Inject] IDialogService DialogService { get; set; } = default!;
     [Inject] ChatTemplateManager ChatTemplateManager { get; set; } = default!;
 
@@ -71,7 +70,6 @@ public partial class ChatTemplateSetting : ComponentBase
     protected async Task SelectTemplateNameAsync(string templateName)
     {
         TargetTemplateName = templateName;
-        ChatTemplateEditService.ResetStash();
 
         await OpenCreateClassificationDialogAsync();
 
