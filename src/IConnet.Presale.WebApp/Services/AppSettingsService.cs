@@ -109,6 +109,16 @@ public class AppSettingsService
         _rootCauseClassifications.Add(classification);
     }
 
+    public async Task SwitchChatTemplateAsync(string templateName)
+    {
+        _chatTemplate = templateName;
+
+        await SaveChangesAsync();
+
+        Log.Warning("Switching Chat Template");
+    }
+
+
     public async Task EditOfficeHourPagiAsync(TimeOnly officeHourPagiStart, TimeOnly officeHourPagiEnd)
     {
         _officeHourPagiStart = officeHourPagiStart;

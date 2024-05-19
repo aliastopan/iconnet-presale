@@ -119,6 +119,8 @@ public class ChatTemplateManager
 
     private void SetChatTemplates(ICollection<ChatTemplateDto> chatTemplateDtos)
     {
+        _chatTemplateModels.Clear();
+
         foreach (var chatTemplate in chatTemplateDtos)
         {
             _chatTemplateModels.Add(new ChatTemplateModel

@@ -4,6 +4,7 @@ public partial class ChatTemplateSetting : ComponentBase
 {
     [Inject] AppSettingsService AppSettingsService { get; set; } = default!;
     [Inject] IDialogService DialogService { get; set; } = default!;
+    [Inject] IToastService ToastService { get; set; } = default!;
     [Inject] ChatTemplateManager ChatTemplateManager { get; set; } = default!;
 
     public bool IsInitialized { get; set; } = true;
@@ -76,6 +77,14 @@ public partial class ChatTemplateSetting : ComponentBase
         LogSwitch.Debug("edit template: {0}", TargetTemplateName);
     }
 
+    protected async Task ApplySwitchTemplate()
+    {
+        await AppSettingsService.SwitchChatTemplateAsync(SwitchTemplateName);
+        await ChatTemplateManager.SetChatTemplateAsync(SwitchTemplateName);
+
+        SwitchTemplateToast();
+    }
+
     protected async Task OpenCreateClassificationDialogAsync()
     {
         var parameters = new DialogParameters()
@@ -126,5 +135,14 @@ public partial class ChatTemplateSetting : ComponentBase
     private string GetGridTemplateCols()
     {
         return $"{150}px {130}px;";
+    }
+
+    private void SwitchTemplateToast()
+    {
+        var intent = ToastIntent.Success;
+        var message = $"Chat Template telah berhasil diganti.";
+        var timeout = 5000;
+
+        ToastService.ShowToast(intent, message, timeout);
     }
 }
