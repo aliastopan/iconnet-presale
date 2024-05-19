@@ -25,4 +25,9 @@ internal static class ChatTemplateRepositoryExtensions
     {
         return context.ChatTemplates.Any(x => x.TemplateName == templateName);
     }
+
+    public static int GetContentCount(this AppDbContext context, string templateName)
+    {
+        return context.ChatTemplates.Where(x => x.TemplateName == templateName).Count();
+    }
 }
