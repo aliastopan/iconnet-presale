@@ -1,3 +1,11 @@
+## v4.1.0
+- Fix: Root Cause column width
+- Update: User Manager settings
+- Add: Root Cause Classification settings
+- Add: SLA settings
+- Add: Office Hours settings
+- Add: Chat Template settings
+
 ## v4.0.0
 - Change (major): drop "Jenis Permohonan" column from Import/Upload
 
