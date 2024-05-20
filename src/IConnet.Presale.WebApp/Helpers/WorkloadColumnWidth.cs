@@ -23,5 +23,12 @@ public class WorkloadColumnWidth : ColumnWidthBase<WorkPaper>
         SetColumnWidth(workPaper, crm => crm.ProsesValidasi.Keterangan.Length, width => KeteranganValidasiPx = width, "Keterangan Validasi");
         SetColumnWidth(workPaper, crm => crm.ProsesApproval.Keterangan.Length, width => KeteranganVerifikasiPx = width, "Keterangan Verifikasi");
         SetColumnWidth(workPaper, crm => crm.ProsesApproval.Keterangan.Length, width => KeteranganApprovalPx = width, "Keterangan Approval");
+        SetColumnWidth(workPaper, crm => crm.ProsesApproval.RootCause.Length, width => RootCausePx = width, "Root Cause");
+
+        SetColumnWidth(workPaper, crm => crm.ApprovalOpportunity.SignatureImport.Alias.Length, width => InChargeImportPx = width, "PIC Import");
+        SetColumnWidth(workPaper, crm => crm.ApprovalOpportunity.SignatureVerifikasiImport.Alias.Length, width => InChargeVerificationPx = width, "PIC Verifikasi");
+        SetColumnWidth(workPaper, crm => crm.ProsesValidasi.SignatureChatCallMulai.Alias.Length, width => InChargeChatCallMulaiPx = width, "PIC Chat/Call Mulai");
+        SetColumnWidth(workPaper, crm => crm.ProsesValidasi.SignatureChatCallRespons.Alias.Length, width => InChargeChatCallResponsPx = width, "PIC Chat/Call Respons");
+        SetColumnWidth(workPaper, crm => crm.SignaturePlanningAssetCoverageInCharge.Alias.Length, width => PlanningAssetCoverageInChargePx = width, "PIC Approval");
     }
 }
