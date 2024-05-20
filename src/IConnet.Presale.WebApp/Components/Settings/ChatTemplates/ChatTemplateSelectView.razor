@@ -1,0 +1,15 @@
+<div style="margin-left: 200px; ">
+    <div>
+        <span>Template: </span> <span class="chat-template-badge">@TemplateName</span>
+    </div>
+    <div class="scrollable-chat-template-setting-view-section" style="overflow-x: hidden !important; max-height: calc(100vh - 285px) !important;">
+        @foreach(var chat in ChatTemplates)
+        {
+            <div class="chat-bubble-setting" style="">
+                <div>
+                    @GetHtmlString(@chat.Content)
+                </div>
+            </div>
+        }
+    </div>
+</div>
