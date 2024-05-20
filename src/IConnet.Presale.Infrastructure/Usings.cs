@@ -5,6 +5,7 @@ global using IConnet.Presale.Application.Common.Interfaces.Managers;
 global using IConnet.Presale.Application.Common.Interfaces.Managers.Options;
 global using IConnet.Presale.Application.Common.Interfaces.Services;
 global using IConnet.Presale.Application.Common.Logging;
+global using IConnet.Presale.Application.Common.Models;
 global using IConnet.Presale.Infrastructure.Clients.Http;
 global using IConnet.Presale.Infrastructure.Extensions;
 global using IConnet.Presale.Infrastructure.Extensions.Repository;
@@ -15,6 +16,7 @@ global using IConnet.Presale.Infrastructure.Persistence;
 global using IConnet.Presale.Infrastructure.Security;
 global using IConnet.Presale.Infrastructure.Services;
 global using IConnet.Presale.Infrastructure.Utilities;
+global using IConnet.Presale.Shared.Common;
 
 global using System.Runtime.CompilerServices;
 

@@ -46,6 +46,7 @@ public class FilterPreference
 
     public InProgressExclusionModel InProgressExclusion { get; set; } = default!;
     public RootCauseExclusionModel RootCauseExclusion { get; set; } = default!;
+    public RootCauseClassificationExclusionModel RootCauseClassificationExclusion { get; set; } = default!;
     public ApprovalStatusExclusionModel ApprovalStatusExclusion { get; set; } = default!;
     public OperatorExclusionModel OperatorPacExclusionModel { get; set; } = default!;
     public OperatorExclusionModel OperatorHelpdeskExclusionModel { get; set; } = default!;
@@ -55,6 +56,13 @@ public class FilterPreference
     public void ToggleFilters()
     {
         ShowFilters = !ShowFilters;
+    }
+
+    public bool IsRootCauseBreakdown { get; set; } = false;
+
+    public void ToggleRootCauseBreakdown()
+    {
+        IsRootCauseBreakdown = !IsRootCauseBreakdown;
     }
 
     public void SetFilterTglPermohonanDefault(DateTime dateTimeMin, DateTime dateTimeMax)
@@ -82,6 +90,16 @@ public class FilterPreference
         }
 
         RootCauseExclusion = new RootCauseExclusionModel(rootCauses);
+    }
+
+    public void SetRootCauseClassificationExclusion(ICollection<string> classifications, bool allowOverwrite = false)
+    {
+        if (RootCauseClassificationExclusion is not null && allowOverwrite)
+        {
+            return;
+        }
+
+        RootCauseClassificationExclusion = new RootCauseClassificationExclusionModel(classifications);
     }
 
     public void SetInProgressExclusion()

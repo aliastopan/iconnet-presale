@@ -27,7 +27,7 @@
             <thead>
                 <tr>
                     <th style="padding-right: 1rem; width: 200px;">ID PERMOHONAN</th>
-                    <td style="width: 250px;">
+                    <td style="width: 350px;">
                         @Content.ApprovalOpportunity.IdPermohonan
                     </td>
                 </tr>
@@ -71,7 +71,9 @@
             <thead>
                 <tr>
                     <th style="padding-right: 1rem; width: 200px;">NAMA LENGKAP</th>
-                    <td>@Content.ApprovalOpportunity.Pemohon.NamaPelanggan</td>
+                    <td style="width: 350px;">
+                        @Content.ApprovalOpportunity.Pemohon.NamaPelanggan
+                    </td>
                 </tr>
                 <tr>
                     <th style="padding-right: 1rem; width: 200px;">ID PLN</th>
@@ -111,7 +113,9 @@
             <thead>
                 <tr>
                     <th style="padding-right: 1rem; width: 200px;">NAMA</th>
-                    <td>@Content.ApprovalOpportunity.Agen.NamaLengkap</td>
+                    <td style="width: 350px;">
+                        @Content.ApprovalOpportunity.Agen.NamaLengkap
+                    </td>
                 </tr>
                 <tr>
                     <th style="padding-right: 1rem; width: 200px;">EMAIL</th>
@@ -178,7 +182,7 @@
                         JARAK iCRM+ (meter)
                     </th>
                     <td style="padding-top: 8px;">
-                        <FluentNumberField style="width: 225px;"
+                        <FluentNumberField style="width: 350px;"
                             Min="0"
                             Max="500"
                             Value=@JarakICrmPlusVerification
@@ -191,7 +195,7 @@
                         KETERANGAN
                     </th>
                     <td>
-                        <FluentTextArea class="approval-textarea" style="width: 225px; padding: 8px 0"
+                        <FluentTextArea class="approval-textarea" style="width: 350px; padding: 8px 0"
                             Value="@Keterangan"
                             ValueChanged="OnKeteranganChanged"
                             Placeholder="Keterangan"></FluentTextArea>
@@ -224,7 +228,7 @@
                             Value="@DirectApproval"
                             ValueChanged="OnDirectApprovalChanged"
                             Disabled="@(!IsDirectApproval)"
-                            Width="225px" />
+                            Width="350px" />
                     </td>
                 </tr>
             </thead>

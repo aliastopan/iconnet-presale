@@ -1,16 +1,61 @@
-
-        <div class="direct-approval-settings">
-        <FluentDataGrid Items="@ModelAvailable"
-            TGridItem="string"
-            Virtualize="true"
-            ItemSize="32"
-            GridTemplateColumns="@GridTemplateCols">
-
-            <TemplateColumn Title="CHAT TEMPLATE" Style="@GetWidthStyle(150)">
-                <div class="">
-                    @context
+@if (ChatTemplateNameAvailable is not null)
+{
+    <div class="d-flex flex-row">
+        <div class="chat-template-settings">
+            <div class="d-flex flex-row align-items-end" style="margin: 8px 0; margin-bottom: 32px;">
+                <div>
+                    <FluentSelect Items="@ChatTemplateNameAvailable.ToList()"
+                        Label="Chat Template Active"
+                        Position="SelectPosition.Below"
+                        Value="@SwitchTemplateName"
+                        ValueChanged="OnSwitchTemplateNameChanged"
+                        Width="150px" />
                 </div>
-            </TemplateColumn>
+                <div style="margin-left: 16px">
+                    <FluentButton style="width: 100px;"
+                        BackgroundColor="crimson"
+                        Color="white"
+                        OnClick="ApplySwitchTemplate">
+                        APPLY</FluentButton>
+                </div>
+            </div>
 
-        </FluentDataGrid>
+            <FluentDataGrid Items="@ChatTemplateNameAvailable"
+                TGridItem="string"
+                Virtualize="true"
+                ItemSize="40"
+                GridTemplateColumns="@GridTemplateCols">
+
+                <TemplateColumn Title="CHAT TEMPLATE" Style="@GetWidthStyle(150)">
+                    <div class="d-flex flex-rown align-items-center">
+                        <span>@context</span>
+                        @if(IsActive(@context))
+                        {
+                            <span style="margin-left: 4px">
+                                <FluentIcon Value="@ActiveTemplateIcon"
+                                    Title="Reset"/>
+                            </span>
+                        }
+                    </div>
+                </TemplateColumn>
+                <TemplateColumn Title="EDIT" Style="@GetWidthStyle(130)">
+                    <div class="">
+                        <FluentButton style="width: 100px;"
+                            BackgroundColor="crimson"
+                            Color="white"
+                            OnClick="@(() => SelectTemplateNameAsync(@context))">
+                            SELECT</FluentButton>
+                    </div>
+                </TemplateColumn>
+
+            </FluentDataGrid>
+        </div>
     </div>
+}
+
+<FluentOverlay @bind-Visible=@IsLoading
+    Opacity="0.4"
+    Alignment="@Align.Center"
+    Justification="@JustifyContent.Center">
+    <FluentProgressRing />
+</FluentOverlay>

@@ -10,6 +10,18 @@ public class User : ValueObject
     public IReadOnlyCollection<UserPrivilege> UserPrivileges { get; init; }
     public string JobTitle { get; init; }
 
+    public User ChangeUsername(string username)
+    {
+        return new User
+        {
+            Username = username,
+            EmploymentStatus = this.EmploymentStatus,
+            UserRole = this.UserRole,
+            UserPrivileges = this.UserPrivileges,
+            JobTitle = this.JobTitle,
+        };
+    }
+
     public User ChangeUserRole(UserRole userRole)
     {
         return new User

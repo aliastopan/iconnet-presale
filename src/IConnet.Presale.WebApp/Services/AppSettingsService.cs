@@ -1,7 +1,13 @@
+using System.Text.Json;
+
 namespace IConnet.Presale.WebApp.Services;
 
 public class AppSettingsService
 {
+    private readonly IPresaleAppService _presaleAppService;
+
+    private string _chatTemplate = default!;
+
     private TimeOnly _officeHourPagiStart;
     private TimeOnly _officeHourPagiEnd;
     private TimeOnly _officeHourMalamStart;
@@ -13,32 +19,8 @@ public class AppSettingsService
     private TimeSpan _slaApproval;
 
     private List<string> _rootCauseClassifications = [];
-    public List<string> RootCauseClassifications => _rootCauseClassifications;
 
-    public AppSettingsService(IConfiguration configuration)
-    {
-        string officeHourPagiStartString = configuration["OfficeHours:Pagi:Start"]!;
-        string officeHourPagiEndString = configuration["OfficeHours:Pagi:End"]!;
-        string officeHourMalamStartString = configuration["OfficeHours:Malam:Start"]!;
-        string officeHourMalamEndString = configuration["OfficeHours:Malam:End"]!;
-
-        _officeHourPagiStart = TimeOnly.ParseExact(officeHourPagiStartString, "HH:mm:ss", null);
-        _officeHourPagiEnd = TimeOnly.ParseExact(officeHourPagiEndString, "HH:mm:ss", null);
-        _officeHourMalamStart = TimeOnly.ParseExact(officeHourMalamStartString, "HH:mm:ss", null);
-        _officeHourMalamEnd = TimeOnly.ParseExact(officeHourMalamEndString, "HH:mm:ss", null);
-
-        string slaImportString = configuration["ServiceLevelAgreement:Import"]!;
-        string slaPickUpString = configuration["ServiceLevelAgreement:PickUp"]!;
-        string slaValidasiString = configuration["ServiceLevelAgreement:Validasi"]!;
-        string slaApprovalString = configuration["ServiceLevelAgreement:Approval"]!;
-
-        _slaImport = TimeSpan.Parse(slaImportString);
-        _slaPickUp = TimeSpan.Parse(slaPickUpString);
-        _slaValidasi = TimeSpan.Parse(slaValidasiString);
-        _slaApproval = TimeSpan.Parse(slaApprovalString);
-
-        _rootCauseClassifications = configuration.GetSection("RootCauseClassification").Get<List<string>>()!;
-    }
+    public string ChatTemplate => _chatTemplate;
 
     public TimeOnly OfficeHourPagiStart => _officeHourPagiStart;
     public TimeOnly OfficeHourPagiEnd => _officeHourPagiEnd;
@@ -52,4 +34,134 @@ public class AppSettingsService
     public TimeSpan SlaPickUp => _slaPickUp;
     public TimeSpan SlaValidasi => _slaValidasi;
     public TimeSpan SlaApproval => _slaApproval;
+
+    public List<string> RootCauseClassifications => _rootCauseClassifications;
+
+    public AppSettingsService(IPresaleAppService presaleAppService)
+    {
+        _presaleAppService = presaleAppService;
+    }
+
+    public async Task SetDefaultPresaleSettings()
+    {
+        await _presaleAppService.SetDefaultSettingAsync();
+    }
+
+    public async Task SynchronizeAppSettingsAsync()
+    {
+        Log.Information("Synchronize App Settings");
+
+        var key = "PRESALE_APP";
+        var jsonSettings = await _presaleAppService.GetSettingValueAsync(key);
+
+        var settings = JsonSerializer.Deserialize<PresaleSettingModel>(jsonSettings)!;
+
+        _chatTemplate = settings.ChatTemplate;
+
+        _officeHourPagiStart = settings.OfficeHoursPagi.Start;
+        _officeHourPagiEnd = settings.OfficeHoursPagi.End;
+        _officeHourMalamStart = settings.OfficeHoursMalam.Start;
+        _officeHourMalamEnd = settings.OfficeHoursMalam.End;
+
+        _slaImport = settings.ServiceLevelAgreement.Import;
+        _slaPickUp = settings.ServiceLevelAgreement.PickUp;
+        _slaValidasi = settings.ServiceLevelAgreement.Validasi;
+        _slaApproval = settings.ServiceLevelAgreement.Approval;
+
+        _rootCauseClassifications = settings.RootCauseClassification;
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        var setting = new PresaleSettingModel
+        {
+            ChatTemplate = this._chatTemplate,
+            OfficeHoursPagi = new OfficeHours
+            {
+                Start = this._officeHourPagiStart,
+                End = this._officeHourPagiEnd
+            },
+            OfficeHoursMalam = new OfficeHours
+            {
+                Start = this._officeHourMalamStart,
+                End = this._officeHourMalamEnd
+            },
+            ServiceLevelAgreement = new ServiceLevelAgreement
+            {
+                Import = this._slaImport,
+                PickUp = this._slaPickUp,
+                Validasi = this._slaValidasi,
+                Approval = this._slaApproval,
+            },
+            RootCauseClassification = this._rootCauseClassifications
+        };
+
+        var json = JsonSerializer.Serialize<PresaleSettingModel>(setting);
+        var key = "PRESALE_APP";
+
+        await _presaleAppService.SetSettingValueAsync(key, json);
+
+        await SynchronizeAppSettingsAsync();
+    }
+
+    public void AddRootCauseClassification(string classification)
+    {
+        _rootCauseClassifications.Add(classification);
+    }
+
+    public async Task SwitchChatTemplateAsync(string templateName)
+    {
+        _chatTemplate = templateName;
+
+        await SaveChangesAsync();
+
+        Log.Warning("Switching Chat Template");
+    }
+
+
+    public async Task EditOfficeHourPagiAsync(TimeOnly officeHourPagiStart, TimeOnly officeHourPagiEnd)
+    {
+        _officeHourPagiStart = officeHourPagiStart;
+        _officeHourPagiEnd = officeHourPagiEnd;
+
+        await SaveChangesAsync();
+
+        Log.Warning("Changing Pagi Office Hours");
+    }
+
+    public async Task EditOfficeHourMalamAsync(TimeOnly officeHourMalamStart, TimeOnly officeHourMalamEnd)
+    {
+        _officeHourMalamStart = officeHourMalamStart;
+        _officeHourMalamEnd = officeHourMalamEnd;
+
+        await SaveChangesAsync();
+    }
+
+    public async Task EditSlaImportAsync(TimeSpan newSlaImport)
+    {
+        _slaImport = newSlaImport;
+
+        await SaveChangesAsync();
+    }
+
+    public async Task EditSlaPickUpAsync(TimeSpan newSlaPickUp)
+    {
+        _slaPickUp = newSlaPickUp;
+
+        await SaveChangesAsync();
+    }
+
+    public async Task EditSlaValidasiAsync(TimeSpan newSlaValidasi)
+    {
+        _slaValidasi = newSlaValidasi;
+
+        await SaveChangesAsync();
+    }
+
+    public async Task EditSlaApprovalAsync(TimeSpan newSlaApproval)
+    {
+        _slaApproval = newSlaApproval;
+
+        await SaveChangesAsync();
+    }
 }

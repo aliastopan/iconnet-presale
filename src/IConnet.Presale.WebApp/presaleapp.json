@@ -1,0 +1,29 @@
+{
+  "ChatTemplate": "version_1",
+  "OfficeHours": {
+    "Pagi": {
+      "Start" : "08:00:00",
+      "End" : "15:00:00"
+    },
+    "Malam": {
+      "Start" : "14:00:00",
+      "End" : "21:00:00"
+    }
+  },
+  "ServiceLevelAgreement" : {
+    "Import" : "00:30:00",
+    "PickUp" : "01:00:00",
+    "Validasi" : "00:10:00",
+    "Approval" : "00:30:00"
+  },
+  "RootCauseClassification": [
+    "USER INVALID",
+    "KENDALA PENGECEKAN",
+    "DOUBLE INPUTAN",
+    "JALUR KABEL",
+    "JARAK TIDAK TERCOVER",
+    "KENDALA FAT",
+    "ASSET TERSEGEL",
+    "DEBUG OPTION"
+  ]
+}

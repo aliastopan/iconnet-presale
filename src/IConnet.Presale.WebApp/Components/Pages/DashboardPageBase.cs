@@ -13,6 +13,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
     protected string ActiveTabId { get; set; } = "tab-0";
     protected bool IsBufferLoading => SessionService.FilterPreference.IsBufferLoading;
     protected bool IsExportLoading { get; set; } = false;
+    protected bool IsRootCauseBreakdown => SessionService.FilterPreference.IsRootCauseBreakdown;
 
     public TabNavigationModel PageDeclaration()
     {
@@ -308,6 +309,19 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         StateHasChanged();
     }
 
+    public async Task ApplyRootCauseClassificationExclusionFiltersAsync()
+    {
+        SessionService.FilterPreference.IsBufferLoading = true;
+        StateHasChanged();
+
+        await Task.Delay(500);
+
+        LogSwitch.Debug("Root Cause Classification Exclusions");
+
+        SessionService.FilterPreference.IsBufferLoading = false;
+        StateHasChanged();
+    }
+
     public async Task ApplyInProgressExclusionFiltersAsync()
     {
         SessionService.FilterPreference.IsBufferLoading = true;
@@ -357,6 +371,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 
         GenerateStatusApprovalReports(includeUpper: true, includeMiddle: true, includeLower: true);
         GenerateRootCauseReports(includeUpper: true, includeMiddle: true, includeLower: true);
+        GenerateRootCauseClassificationReports(includeUpper: true, includeMiddle: true, includeLower: true);
         GenerateImportAgingReports(includeUpper: true, includeMiddle: true, includeLower: true);
         GenerateVerificationAgingReports(includeUpper: true, includeMiddle: true, includeLower: true);
         GenerateChatCallMulaiAgingReports(includeUpper: true, includeMiddle: true, includeLower: true);
@@ -373,6 +388,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 
         GenerateStatusApprovalReports(includeMiddle: true);
         GenerateRootCauseReports(includeMiddle: true);
+        GenerateRootCauseClassificationReports(includeMiddle: true);
         GenerateImportAgingReports(includeMiddle: true);
         GenerateVerificationAgingReports(includeMiddle: true);
         GenerateChatCallMulaiAgingReports(includeMiddle: true);
@@ -396,6 +412,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 
         GenerateStatusApprovalReports(includeLower: true);
         GenerateRootCauseReports(includeLower: true);
+        GenerateRootCauseClassificationReports(includeLower: true);
         GenerateImportAgingReports(includeLower: true);
         GenerateVerificationAgingReports(includeLower: true);
         GenerateChatCallMulaiAgingReports(includeLower: true);
@@ -411,6 +428,14 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         StateHasChanged();
 
         SessionService.FilterPreference.RefreshBoundaryFilters(ActiveTabId);
+    }
+
+    public void ToggleRootCauseBreakdown()
+    {
+        SessionService.FilterPreference.ToggleRootCauseBreakdown();
+        this.StateHasChanged();
+
+        LogSwitch.Debug("Toggle Root Cause Breakdown");
     }
 
     private IQueryable<WorkPaper>? GetBoundaryPresaleData(BoundaryFilterMode boundary)

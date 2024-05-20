@@ -55,16 +55,34 @@
                     Root Cause
                 </Header>
                 <Content>
-                    <RootCauseTabulationStack
-                        TabulationId="tab-2"
-                        UpperBoundaryModels="@UpperBoundaryCauseReports"
-                        MiddleBoundaryModels="@MiddleBoundaryRootCauseReports"
-                        LowerBoundaryModels="@LowerRootCauseReports"
-                        PageRefresh="@(this.StateHasChanged)"
-                        PageReload="ReloadDashboardAsync"
-                        ExportXlsx="ExportXlsxAsync"
-                        OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
-                        OnExclusionFilter="ApplyRootCauseExclusionFiltersAsync"/>
+                    @if(!IsRootCauseBreakdown)
+                    {
+                        <RootCauseTabulationStack
+                            TabulationId="tab-2"
+                            UpperBoundaryModels="@UpperBoundaryCauseReports"
+                            MiddleBoundaryModels="@MiddleBoundaryRootCauseReports"
+                            LowerBoundaryModels="@LowerRootCauseReports"
+                            PageRefresh="@(this.StateHasChanged)"
+                            PageReload="ReloadDashboardAsync"
+                            ExportXlsx="ExportXlsxAsync"
+                            OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
+                            OnExclusionFilter="ApplyRootCauseExclusionFiltersAsync"
+                            ToggleRootCauseBreakdown="ToggleRootCauseBreakdown"/>
+                    }
+                    else
+                    {
+                        <RootCauseClassificationTabulationStack
+                            TabulationId="tab-2"
+                            UpperBoundaryModels="@UpperBoundaryRootCauseClassificationReports"
+                            MiddleBoundaryModels="@MiddleBoundaryRootCauseClassificationReports"
+                            LowerBoundaryModels="@LowerBoundaryRootCauseClassificationReports"
+                            PageRefresh="@(this.StateHasChanged)"
+                            PageReload="ReloadDashboardAsync"
+                            ExportXlsx="ExportXlsxAsync"
+                            OpenBoundaryFilter="OpenBoundaryFilterDialogAsync"
+                            OnExclusionFilter="ApplyRootCauseClassificationExclusionFiltersAsync"
+                            ToggleRootCauseBreakdown="ToggleRootCauseBreakdown"/>
+                    }
                 </Content>
             </FluentTab>
             <FluentTab Id="tab-3">

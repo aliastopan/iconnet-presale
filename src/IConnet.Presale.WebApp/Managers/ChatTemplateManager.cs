@@ -8,14 +8,12 @@ public class ChatTemplateManager
 {
     private readonly List<ChatTemplateModel> _chatTemplateModels = new List<ChatTemplateModel>();
     private readonly IChatTemplateHttpClient _chatTemplateHttpClient;
-    private readonly IConfiguration _configuration;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
 
     public ChatTemplateManager(IChatTemplateHttpClient chatTemplateHttpClient,
         IConfiguration configuration)
     {
         _chatTemplateHttpClient = chatTemplateHttpClient;
-        _configuration = configuration;
 
         _jsonSerializerOptions = new JsonSerializerOptions
         {
@@ -25,28 +23,55 @@ public class ChatTemplateManager
 
     public List<ChatTemplateModel> ChatTemplateModels => _chatTemplateModels;
 
-    public async Task SetDefaultChatTemplatesAsync()
+    public async Task<bool> ApplyChatTemplateAction(ChatTemplateSettingModel model)
     {
-        var options = new JsonSerializerOptions
+        try
         {
-            PropertyNameCaseInsensitive = true
-        };
+            var httpResult = await _chatTemplateHttpClient.ChatTemplateActionAsync(
+                model.ChatTemplateId,
+                model.TemplateName,
+                model.Sequence,
+                model.Content,
+                (int)model.ActionSetting);
+
+            if (httpResult.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, _jsonSerializerOptions);
+                var extension = problemDetails.GetProblemDetailsExtension();
+
+                return false;
+            }
+        }
+        catch (Exception exception)
+        {
+            Log.Fatal("Fatal error occurred: {message}", exception.Message);
+
+            return false;
+        }
+    }
+
+    public async Task SetChatTemplateAsync(string templateName)
+    {
+        LogSwitch.Debug("SetChatTemplateAsync {0}", templateName);
 
         try
         {
-            var templateName = _configuration["ChatTemplate"] ?? "default";
             var httpResult = await _chatTemplateHttpClient.GetChatTemplatesAsync(templateName);
 
             if (httpResult.IsSuccessStatusCode)
             {
-                var response = JsonSerializer.Deserialize<GetChatTemplatesQueryResponse>(httpResult.Content, options);
+                var response = JsonSerializer.Deserialize<GetChatTemplatesQueryResponse>(httpResult.Content, _jsonSerializerOptions);
                 ICollection<ChatTemplateDto> chatTemplateDtos = response!.ChatTemplateDtos;
 
                 SetChatTemplates(chatTemplateDtos);
             }
             else
             {
-                var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, options);
+                var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, _jsonSerializerOptions);
                 var extension = problemDetails.GetProblemDetailsExtension();
             }
         }
@@ -94,6 +119,8 @@ public class ChatTemplateManager
 
     private void SetChatTemplates(ICollection<ChatTemplateDto> chatTemplateDtos)
     {
+        _chatTemplateModels.Clear();
+
         foreach (var chatTemplate in chatTemplateDtos)
         {
             _chatTemplateModels.Add(new ChatTemplateModel

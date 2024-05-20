@@ -1,0 +1,18 @@
+@using ApexCharts
+@using IConnet.Presale.WebApp.Models.Presales.Reports
+
+@if (Models.Count != 0)
+{
+    <ApexChart TItem="RootCauseClassificationReportModel"
+        Options="Options">
+
+        <ApexPointSeries TItem="RootCauseClassificationReportModel"
+            Items="Models"
+            Name=""
+            SeriesType="SeriesType.Pie"
+            XValue="@(e => e.Classification.TruncateWithEllipsis(24))"
+            YAggregate="@(e => e.Sum(x => x.GrandTotal))"
+            ShowDataLabels />
+
+    </ApexChart>
+}

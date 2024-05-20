@@ -38,4 +38,89 @@ internal sealed class ChatTemplateHandler : IChatTemplateHandler
 
         return Result<ICollection<ChatTemplate>>.Ok(chatTemplates);
     }
+
+    public async Task<Result> TryChatTemplateAction(Guid chatTemplateId, string templateName,
+        int sequence, string content, int action)
+    {
+        ChatTemplateAction actionEnum;
+
+        try
+        {
+            actionEnum = (ChatTemplateAction)Enum.Parse(typeof(ChatTemplateAction), action.ToString());
+        }
+        catch (Exception)
+        {
+            var error = new Error("Unable to parse action enum", ErrorSeverity.Warning);
+            return Result.Error(error);
+        }
+
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        switch (actionEnum)
+        {
+            case ChatTemplateAction.ChatAdd:
+            {
+                ChatTemplate chatTemplate = new ChatTemplate
+                {
+                    ChatTemplateId = chatTemplateId,
+                    TemplateName = templateName,
+                    Sequence = sequence,
+                    Content = content
+                };
+
+                dbContext.ChatTemplates.Add(chatTemplate);
+                await dbContext.SaveChangesAsync();
+
+                return Result.Ok();
+
+            }
+            case ChatTemplateAction.ChatEdit:
+            {
+                ChatTemplate? chatTemplate = dbContext.FindChatTemplate(chatTemplateId);
+
+                if(chatTemplate is null)
+                {
+                    var error = new Error("Chat Template not found", ErrorSeverity.Warning);
+                    return Result.NotFound(error);
+                }
+
+                chatTemplate.Sequence = sequence;
+                chatTemplate.Content = content;
+
+                dbContext.ChatTemplates.Update(chatTemplate);
+                await dbContext.SaveChangesAsync();
+
+                return Result.Ok();
+
+            }
+            case ChatTemplateAction.ChatDelete:
+            {
+                ChatTemplate? chatTemplate = dbContext.FindChatTemplate(chatTemplateId);
+
+                if(chatTemplate is null)
+                {
+                    var error = new Error("Chat Template not found", ErrorSeverity.Warning);
+                    return Result.NotFound(error);
+                }
+
+                int contentCount = dbContext.GetContentCount(chatTemplate.TemplateName);
+
+                if (contentCount < 2)
+                {
+                    var error = new Error($"Invalid Chat Template content count for deletion", ErrorSeverity.Warning);
+                    return Result.Error(error);
+                }
+
+                dbContext.ChatTemplates.Remove(chatTemplate);
+                await dbContext.SaveChangesAsync();
+
+                return Result.Ok();
+            }
+            default:
+            {
+                var error = new Error("No action", ErrorSeverity.Warning);
+                return Result.Error(error);
+            }
+        }
+    }
 }

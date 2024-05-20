@@ -47,8 +47,10 @@ internal class RootCauseHandler : IRootCauseHandler
             return Result.NotFound(error);
         }
 
-        rootCause.Cause = cause;
+        // rootCause.Cause = cause;
         rootCause.Classification = classification;
+        dbContext.RootCauses.Update(rootCause);
+
         await dbContext.SaveChangesAsync();
 
         return Result.Ok();
@@ -68,6 +70,8 @@ internal class RootCauseHandler : IRootCauseHandler
 
         rootCause.IsDeleted = isDeleted;
         rootCause.IsOnVerification = isOnVerification;
+        dbContext.RootCauses.Update(rootCause);
+
         await dbContext.SaveChangesAsync();
 
         return Result.Ok();

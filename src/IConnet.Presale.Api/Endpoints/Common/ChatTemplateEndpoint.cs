@@ -1,5 +1,8 @@
+using IConnet.Presale.Application.ChatTemplates.Commands.ChatTemplateAction;
 using IConnet.Presale.Application.ChatTemplates.Queries.GetChatTemplates;
 using IConnet.Presale.Application.ChatTemplates.Queries.GetAvailableChatTemplates;
+using IConnet.Presale.Shared.Contracts.Common;
+
 
 namespace IConnet.Presale.Api.Endpoints.Common;
 
@@ -9,6 +12,7 @@ public class ChatTemplateEndpoint : IEndpointDefinition
     {
         app.MapGet(UriEndpoint.ChatTemplate.GetChatTemplates, GetChatTemplates).AllowAnonymous();
         app.MapGet(UriEndpoint.ChatTemplate.GetAvailableChatTemplates, GetAvailableChatTemplates).AllowAnonymous();
+        app.MapPost(UriEndpoint.ChatTemplate.ChatTemplateAction, ChatTemplateAction).AllowAnonymous();
     }
 
     internal async Task<IResult> GetChatTemplates([FromServices] ISender sender,
@@ -48,5 +52,23 @@ public class ChatTemplateEndpoint : IEndpointDefinition
                 Instance = httpContext.Request.Path
             },
             context: httpContext));;
+    }
+
+    internal async Task<IResult> ChatTemplateAction([FromServices] ISender sender,
+        ChatTemplateActionRequest request, HttpContext httpContext)
+    {
+        var result = await sender.Send(new ChatTemplateActionCommand(
+            request.ChatTemplateId,
+            request.TemplateName,
+            request.Sequence,
+            request.Content,
+            request.Action));
+
+        return result.Match(() => Results.Ok(),
+            error => error.AsProblem(new ProblemDetails
+            {
+                Title = "Failed to perform Chat Template action"
+            },
+            context: httpContext));
     }
 }

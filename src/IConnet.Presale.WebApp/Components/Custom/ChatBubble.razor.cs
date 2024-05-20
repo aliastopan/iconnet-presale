@@ -1,5 +1,3 @@
-using IConnet.Presale.Shared.Common;
-
 namespace IConnet.Presale.WebApp.Components.Custom;
 
 public partial class ChatBubble : ComponentBase

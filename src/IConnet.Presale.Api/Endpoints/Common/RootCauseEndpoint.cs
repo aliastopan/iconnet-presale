@@ -1,4 +1,5 @@
 using IConnet.Presale.Application.RootCauses.Commands.AddRootCause;
+using IConnet.Presale.Application.RootCauses.Commands.EditRootCause;
 using IConnet.Presale.Application.RootCauses.Commands.ToggleOptions;
 using IConnet.Presale.Application.RootCauses.Queries;
 using IConnet.Presale.Shared.Contracts.Common;
@@ -11,6 +12,7 @@ public class RootCauseEndpoint : IEndpointDefinition
     {
         app.MapGet(UriEndpoint.RootCauses.GetRootCauses, GetRootCauses).AllowAnonymous();
         app.MapPost(UriEndpoint.RootCauses.AddRootCause, AddRootCause).AllowAnonymous();
+        app.MapPost(UriEndpoint.RootCauses.EditRootCause, EditRootCause).AllowAnonymous();
         app.MapPost(UriEndpoint.RootCauses.ToggleOptions, ToggleOptions).AllowAnonymous();
     }
 
@@ -43,6 +45,20 @@ public class RootCauseEndpoint : IEndpointDefinition
             error => error.AsProblem(new ProblemDetails
             {
                 Title = "Failed to add Root Cause"
+            },
+            context: httpContext));
+    }
+
+    internal async Task<IResult> EditRootCause([FromServices] ISender sender,
+        EditRootCauseRequest request, HttpContext httpContext)
+    {
+        var command = new EditRootCauseCommand(request.RootCauseId, request.RootCause, request.Classification);
+        var result = await sender.Send(command);
+
+        return result.Match(() => Results.Ok(),
+            error => error.AsProblem(new ProblemDetails
+            {
+                Title = "Failed to edit Root Cause"
             },
             context: httpContext));
     }

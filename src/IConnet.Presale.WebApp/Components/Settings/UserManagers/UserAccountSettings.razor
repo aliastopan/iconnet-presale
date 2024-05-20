@@ -1,0 +1,64 @@
+@using IConnet.Presale.WebApp.Models.Identity
+
+<div class="d-flex flex-row">
+    <FluentSearch style="width: 225px; margin-right: 32px;"
+        @bind-Value="@UsernameFilter"
+        Immediate="true"
+        Spellcheck="false"
+        Placeholder="Cari Username"></FluentSearch>
+
+    <FluentButton Appearance="Appearance.Accent"
+        OnClick="@RefreshAsync">
+        Refresh</FluentButton>
+</div>
+
+<div class="user-manager-settings datagrid-wrapper" style="">
+    @if (UserAccounts is not null)
+    {
+        <FluentDataGrid Items="@FilteredUserAccounts"
+            TGridItem="UserAccountModel"
+            Virtualize="true"
+            ItemSize="40"
+            GridTemplateColumns="@GridTemplateCols"
+            EmptyContent="@HtmlFragment.EmptyContentWarning">
+
+            <TemplateColumn Title="Username" Style="@GetWidthStyle(250)"
+                SortBy="@SortByUsername">
+                <div class="d-flex flex-row align-items-center">
+                    <div>
+                        <FluentButton BackgroundColor="crimson"
+                            Color="white"
+                            IconStart="@(new Icons.Regular.Size20.Edit().WithColor("#ffffff"))"
+                            OnClick="@(() => OpenChangeUsernameDialogAsync(@context))">
+                            </FluentButton>
+                    </div>
+                    <div class="" style="margin-left: 16px;">
+                        @context.Username
+                    </div>
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="Role" Style="@GetWidthStyle(150)"
+                SortBy="@SortByUserRole">
+                <div class="">
+                    @context.UserRole
+                </div>
+            </TemplateColumn>
+            <TemplateColumn Title="MANAGE" Style="@GetWidthStyle(300)">
+                <div class="" style="text-align: center;">
+                    <FluentButton BackgroundColor="crimson"
+                        Color="white"
+                        style="width: 150px;"
+                        OnClick="@(() => OpenChangePasswordDialogAsync(@context))">
+                        Change Password</FluentButton>
+                </div>
+            </TemplateColumn>
+        </FluentDataGrid>
+    }
+
+    <FluentOverlay @bind-Visible=@IsLoading
+        Opacity="0.4"
+        Alignment="@Align.Center"
+        Justification="@JustifyContent.Center">
+        <FluentProgressRing />
+    </FluentOverlay>
+</div>

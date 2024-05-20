@@ -4,6 +4,8 @@ namespace IConnet.Presale.Application.Common.Interfaces.Managers;
 
 public interface IIdentityManager
 {
+    Task<Result> TryEditUserAccount(Guid userAccountId, string newUsername,
+        string newPassword, bool isChangeUsername, bool isChangePassword);
     Task<Result<UserAccount>> TrySignUpAsync(string username, string password,
         string statusEmploymentString, string userRoleString, string jobTitle,
         bool autoPrivilege = false);

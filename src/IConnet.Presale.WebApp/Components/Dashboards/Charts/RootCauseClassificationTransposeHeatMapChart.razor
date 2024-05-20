@@ -1,0 +1,23 @@
+@using ApexCharts
+@using IConnet.Presale.WebApp.Models.Presales.Reports
+
+@if (Models.Count != 0)
+{
+    <div style="margin-top: -16px;">
+        <ApexChart TItem="RootCauseClassificationReportTransposeModel"
+            Height="@GetCharHeight()"
+            Options="Options">
+
+            @foreach (var classification in Models.First().ClassificationMetrics.Keys)
+            {
+                <ApexPointSeries TItem="RootCauseClassificationReportTransposeModel"
+                    Items="Models"
+                    Name="@classification.TruncateWithEllipsis(24)"
+                    SeriesType="SeriesType.Heatmap"
+                    XValue="@(e => e.Office)"
+                    YAggregate="@(e => e.Sum(x => x.ClassificationMetrics[classification]))"/>
+            }
+
+        </ApexChart>
+    </div>
+}

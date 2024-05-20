@@ -17,6 +17,14 @@ builder.ConfigureLogging();
 
 builder.Host.ConfigureServices((context, services) =>
 {
+    var configBuilder = new ConfigurationBuilder()
+        .SetBasePath(builder.Environment.ContentRootPath)
+        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+        .AddJsonFile("presaleapp.json", optional: false, reloadOnChange: true);
+
+    var configuration = configBuilder.Build();
+    builder.Services.AddSingleton<IConfiguration>(configuration);
+
     services.AddTransient(sp => new HttpClient(new HttpClientHandler
     {
         ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator

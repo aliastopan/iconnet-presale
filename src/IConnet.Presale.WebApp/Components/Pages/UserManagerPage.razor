@@ -2,20 +2,52 @@
 @inherits UserManagerPageBase
 @rendermode @(InteractiveServer.DisablePreRender())
 
+@using IConnet.Presale.WebApp.Components.Settings.UserManagers
+
 <PageTitle>User Manager</PageTitle>
 
 <AuthorizeView Policy="@Policies.AdministratorPrivilege"
     Context="AuthenticationContext">
 
     <Authorized>
-        <div class="d-flex flex-row align-items-center">
-            <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">User Manager</FluentLabel>
-        </div>
-        <span class="page-description">Olah User Account</span>
 
-        <div class="create-user-form">
-            <CreateUserForm />
-        </div>
+        <FluentLabel Typo="Typography.H3" MarginBlock="0.5rem">Settings</FluentLabel>
+
+        @if (IsInitialized)
+        {
+            <span class="page-description">Configure App Settings</span>
+
+            <FluentTabs @bind-ActiveTabId="@_activeTabId">
+                <FluentTab Id="tab-1">
+                    <Header>
+                        <FluentIcon Value="@(new Icons.Regular.Size16.PersonAdd())" Color="@Color.Accent"/>
+                        Create User
+                    </Header>
+                    <Content>
+                        <div class="create-user-form">
+                            <CreateUserForm />
+                        </div>
+                    </Content>
+                </FluentTab>
+                <FluentTab Id="tab-2">
+                    <Header>
+                        <FluentIcon Value="@(new Icons.Regular.Size16.PersonSettings())" Color="@Color.Accent"/>
+                        Credential
+                    </Header>
+                    <Content>
+                        <UserAccountSettings />
+                    </Content>
+                </FluentTab>
+
+            </FluentTabs>
+        }
+        else
+        {
+            <div class="d-flex flex-row align-items-center">
+                <span class="px-1">Loading</span>
+                <FluentProgressRing style="width: 16px; height: 16px;"></FluentProgressRing>
+            </div>
+        }
 
     </Authorized>
 
@@ -24,3 +56,8 @@
     </NotAuthorized>
 
 </AuthorizeView>
+
+@code
+{
+    private string _activeTabId = "tab-1";
+}

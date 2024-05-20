@@ -96,3 +96,72 @@
     color: #a5a5a5;
     font-size: 12px;
 }
+
+.edit-active{
+    font-family: 'inter-semibold';
+    border-radius: 5px;
+    padding: 2px 4px;
+    background-color: var(--accent-blue);
+    color: white;
+    margin-left: auto;
+}
+
+.chat-bubble-setting{
+    display: flex;
+    flex-direction: column;
+    background-color: #dcf8c6;
+    width: 400px;
+    height: max-content;
+    padding: 4px;
+    margin: 4px 12px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.chat-template-setting-view-section{
+    width: 525px;
+}
+
+.scrollable-chat-template-setting-view-section{
+    background-color: #cccccc;
+    background-image: url('/images/chat-background.png');
+    overflow-x: auto;
+    margin-top: 10px;
+    max-height: calc(100vh - 225px);
+}
+
+.scrollable-chat-template-setting-view-section::-webkit-scrollbar{
+    width: 8px;
+    height: 8px;
+}
+
+.scrollable-chat-template-setting-view-section::-webkit-scrollbar-track{
+    background-color: #cccccc;
+}
+
+.scrollable-chat-template-setting-view-section::-webkit-scrollbar-thumb{
+    background-color: #646464;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+.chat-template-badge{
+    font-family: 'inter-semibold';
+    font-weight: 600;
+    background-color: var(--accent-blue);
+    text-align: center;
+    color: white;
+    padding: 1px 4px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}

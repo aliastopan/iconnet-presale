@@ -1,0 +1,30 @@
+<FluentDialogHeader ShowDismiss="true">
+    <FluentStack VerticalAlignment="VerticalAlignment.Center">
+        <FluentIcon Value="@(new Icons.Regular.Size24.CollectionsAdd())" />
+        <FluentLabel Typo="Typography.PaneHeader">
+            @Dialog.Instance.Parameters.Title
+        </FluentLabel>
+    </FluentStack>
+</FluentDialogHeader>
+
+<div class="d-flex flex-row">
+
+    <div class="root-cause-edit">
+        <span>@Content.RootCause</span>
+    </div>
+    <div>
+        <FluentSelect Items="@RootCauseClassifications"
+            Position="SelectPosition.Below"
+            Value="@Classification"
+            ValueChanged="OnClassificationChanged"
+            Width="225px" />
+    </div>
+
+</div>
+
+<FluentDialogFooter>
+    <FluentStack VerticalAlignment="VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.End">
+        <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync" IconStart="@(new Icons.Regular.Size16.Save())">Simpan</FluentButton>
+        <FluentButton Appearance="Appearance.Neutral" OnClick="@CancelAsync">Batal</FluentButton>
+    </FluentStack>
+</FluentDialogFooter>

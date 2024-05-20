@@ -2,14 +2,14 @@ using IConnet.Presale.Application.Identity.Queries.GetUserAccounts;
 
 namespace IConnet.Presale.Api.Endpoints.Identity;
 
-public class GetUsersEndpoint : IEndpointDefinition
+public class GetUserAccountsEndpoint : IEndpointDefinition
 {
     public void DefineEndpoints(WebApplication app)
     {
-        app.MapGet(UriEndpoint.Identity.GetUsers, GetUsers);
+        app.MapGet(UriEndpoint.Identity.GetUserAccounts, GetUserAccounts).AllowAnonymous();
     }
 
-    internal async Task<IResult> GetUsers([FromServices] ISender sender,
+    internal async Task<IResult> GetUserAccounts([FromServices] ISender sender,
         HttpContext httpContext)
     {
         var request = new GetUserAccountsQuery();

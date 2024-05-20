@@ -9,10 +9,11 @@ public static class UriEndpoint
         public const string SignUp = "/api/sign-up";
         public const string Refresh = "/api/sign-in/refresh";
         public const string ResetPassword = "/api/identity/reset-password";
+        public const string EditUserAccount = "/api/identity/edit-account";
         public const string SetRole = "/api/identity/set-role";
         public const string GrantPrivilege = "/api/identity/grant-privilege";
         public const string RevokePrivilege = "/api/identity/revoke-privilege";
-        public const string GetUsers = "/api/identity/get-range";
+        public const string GetUserAccounts = "/api/identity/get-range";
         public const string GetPresaleOperators = "/api/identity/presale/presale-operators";
     }
 
@@ -25,6 +26,7 @@ public static class UriEndpoint
     {
         public const string GetChatTemplates = "/api/chat-templates/get-{templateName}";
         public const string GetAvailableChatTemplates = "/api/chat-templates/get-range";
+        public const string ChatTemplateAction = "/api/chat-templates/action";
     }
 
     public static class DirectApproval
@@ -43,6 +45,7 @@ public static class UriEndpoint
     {
         public const string GetRootCauses = "/api/root-causes/get";
         public const string AddRootCause = "/api/root-cause/add";
+        public const string EditRootCause = "/api/root-cause/edit";
         public const string ToggleOptions = "/api/root-cause/toggle-options";
     }
 }

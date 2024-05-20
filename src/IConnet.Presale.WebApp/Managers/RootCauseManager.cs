@@ -111,6 +111,32 @@ public class RootCauseManager
         }
     }
 
+    public async Task<bool> EditRootCauseAsync(Guid rootCauseId, string cause, string classification)
+    {
+        try
+        {
+            var httpResult = await _rootCauseHttpClient.EditRootCauseAsync(rootCauseId, cause, classification);
+
+            if (httpResult.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(httpResult.Content, _jsonSerializerOptions);
+                var extension = problemDetails.GetProblemDetailsExtension();
+
+                return false;
+            }
+        }
+        catch (Exception exception)
+        {
+            Log.Fatal("Fatal error occurred: {message}", exception.Message);
+
+            return false;
+        }
+    }
+
     public async Task<bool> ToggleOptionsAsync(Guid rootCauseId, bool isDeleted, bool isOnVerification)
     {
         try

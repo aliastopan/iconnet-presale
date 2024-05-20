@@ -13,6 +13,14 @@ public static class HtmlFragment
         builder.CloseElement();
     };
 
+    public static RenderFragment EmptyContentWarning => builder =>
+    {
+        builder.OpenElement(0, "span");
+        builder.AddAttribute(1, "class", "");
+        builder.AddContent(2, "Data tidak tersedia.");
+        builder.CloseElement();
+    };
+
     public static RenderFragment MeterUnitOfMeasurement => builder =>
     {
         builder.OpenElement(0, "span");

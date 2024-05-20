@@ -36,6 +36,12 @@
             OnClick="OpenRootCauseExclusionDialogFilter">
             Pilah</FluentButton>
 
+        <FluentButton Appearance="Appearance.Accent"
+            IconStart="@(new Icons.Filled.Size20.DocumentMultipleSync())"
+            style="width: 135px; margin-top: 8px;"
+            OnClick="ToggleRootCauseBreakdownAsync">
+            Breakdown</FluentButton>
+
         <FluentCheckbox style="margin-top: 16px;"
             @bind-Value="@IsPageView"
             Label="Page View"/>

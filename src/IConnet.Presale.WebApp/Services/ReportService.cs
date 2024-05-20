@@ -72,6 +72,58 @@ public class ReportService
         return new RootCauseReportModel(rootCause, offices, rootCausePerOffice);
     }
 
+    public RootCauseClassificationReportModel GenerateRootCauseClassificationReport(string rootCause,
+        IQueryable<WorkPaper> presaleData)
+    {
+        string classification = _optionService.GetRootCauseClassification(rootCause);
+        List<string> offices = _optionService.KantorPerwakilanOptions.Skip(1).ToList();
+        List<int> classificationPerOffice = [];
+
+        for (int i = 0; i < offices.Count; i++)
+        {
+            int count = presaleData.Count(x => (x.ProsesApproval.StatusApproval == ApprovalStatus.Reject
+                || x.ProsesApproval.StatusApproval == ApprovalStatus.CloseLost)
+                && x.ProsesApproval.RootCause.Equals(rootCause, StringComparison.OrdinalIgnoreCase)
+                && x.ApprovalOpportunity.Regional.KantorPerwakilan.Equals(offices[i], StringComparison.OrdinalIgnoreCase));
+
+            classificationPerOffice.Add(count);
+        }
+
+        return new RootCauseClassificationReportModel(classification, offices, classificationPerOffice);
+    }
+
+    public List<RootCauseClassificationReportModel> MergeRootCauseClassificationReport(List<RootCauseClassificationReportModel> reportModels)
+    {
+        var mergedReports = new List<RootCauseClassificationReportModel>();
+
+        var groupedByClassification = reportModels.GroupBy(m => m.Classification);
+
+        foreach (var group in groupedByClassification)
+        {
+            var classification = group.Key;
+            var classificationPerOffice = new Dictionary<string, int>();
+
+            foreach (var model in group)
+            {
+                foreach (var kvp in model.ClassificationPerOffice)
+                {
+                    if (classificationPerOffice.ContainsKey(kvp.Key))
+                    {
+                        classificationPerOffice[kvp.Key] += kvp.Value;
+                    }
+                    else
+                    {
+                        classificationPerOffice[kvp.Key] = kvp.Value;
+                    }
+                }
+            }
+
+            mergedReports.Add(new RootCauseClassificationReportModel(classification, classificationPerOffice));
+        }
+
+        return mergedReports;
+    }
+
     public CustomerResponseAgingReport GenerateCustomerResponseAgingReport(IQueryable<WorkPaper> presaleData)
     {
         List<TimeSpan> agingIntervals = [];
@@ -493,6 +545,23 @@ public class ReportService
             .ToList();
     }
 
+    public List<RootCauseClassificationReportTransposeModel> TransposeModel(List<RootCauseClassificationReportModel> models)
+    {
+        return models.SelectMany(model => model.ClassificationPerOffice.Select(classification => new
+            {
+                model.Classification,
+                Office = classification.Key,
+                Count = classification.Value
+            }))
+            .GroupBy(x => x.Office)
+            .Select(group => new RootCauseClassificationReportTransposeModel
+            {
+                Office = group.Key,
+                ClassificationMetrics = group.ToDictionary(x => x.Classification, x => x.Count)
+            })
+            .ToList();
+    }
+
     public Dictionary<string, List<ApprovalStatusReportModel>> ApprovalStatusBoundaryGrouping(List<ApprovalStatusReportModel> boundaryModels)
     {
         var boundaryModelGroups = new Dictionary<string, List<ApprovalStatusReportModel>>();
@@ -557,6 +626,38 @@ public class ReportService
         return boundaryModelGroups;
     }
 
+    public Dictionary<string, List<RootCauseClassificationReportModel>> RootCauseClassificationBoundaryGrouping(List<RootCauseClassificationReportModel> boundaryModels)
+    {
+        var boundaryModelGroups = new Dictionary<string, List<RootCauseClassificationReportModel>>();
+
+        var availableOffices = boundaryModels.SelectMany(x => x.ClassificationPerOffice.Keys).Distinct().ToList();
+        var reportModelGroups = boundaryModels.GroupBy(x => x.Classification);
+
+        foreach (var group in reportModelGroups)
+        {
+            var classification = group.Key;
+
+            foreach (var office in availableOffices)
+            {
+                var officeTotal = group.Sum(x => x.ClassificationPerOffice.GetValueOrDefault(office, 0));
+                var statusPerOffice = new Dictionary<string, int>
+                {
+                    { office, officeTotal }
+                };
+                var reportModel = new RootCauseClassificationReportModel(classification, statusPerOffice);
+
+                if (!boundaryModelGroups.ContainsKey(office))
+                {
+                    boundaryModelGroups[office] = new List<RootCauseClassificationReportModel>();
+                }
+
+                boundaryModelGroups[office].Add(reportModel);
+            }
+        }
+
+        return boundaryModelGroups;
+    }
+
     public List<RootCauseReportModel> SortRootCauseModels(List<RootCauseReportModel> boundaryModels)
     {
         var orderedModels = boundaryModels.OrderByDescending(m => m.GrandTotal).ToList();
@@ -576,6 +677,30 @@ public class ReportService
         }
 
         var result = new List<RootCauseReportModel>(listA)
+        {
+            etcModel
+        };
+
+        return result;
+    }
+
+    public List<RootCauseClassificationReportModel> SortRootCauseClassificationModel(List<RootCauseClassificationReportModel> boundaryModels)
+    {
+        var orderedModels = boundaryModels.OrderByDescending(m => m.GrandTotal).ToList();
+
+        var listA = orderedModels.Take(9).ToList();
+        var listB = orderedModels.Skip(9).ToList();
+
+        var etcClassification = "Lain-lain";
+        var etcModel = new RootCauseClassificationReportModel(etcClassification, new Dictionary<string, int>());
+        var officeKeys = listB.SelectMany(m => m.ClassificationPerOffice.Keys).Distinct().ToList();
+
+        foreach (var officeKey in officeKeys)
+        {
+            etcModel.ClassificationPerOffice[officeKey] = listB.Sum(m => m.ClassificationPerOffice.GetValueOrDefault(officeKey, 0));
+        }
+
+        var result = new List<RootCauseClassificationReportModel>(listA)
         {
             etcModel
         };
