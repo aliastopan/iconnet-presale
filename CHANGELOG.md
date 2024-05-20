@@ -1,5 +1,10 @@
-## v4.1.0
+## v4.1.1
+- Fix: Chat Template settings view
 - Fix: Root Cause column width
+- Fix: PIC column width
+- Perf: appsettings.json add"Parallelism:BatchSize" option
+
+## v4.1.0
 - Update: User Manager settings
 - Add: Root Cause Classification settings
 - Add: SLA settings
