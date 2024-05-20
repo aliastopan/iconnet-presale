@@ -10,7 +10,6 @@ public class AppSecretSettings
         public const string RedisConnectionString = "AppSecrets:RedisConnectionString";
         public const string RedisPassword = "AppSecrets:RedisPassword";
         public const string RedisDbIndex = "AppSecrets:RedisDbIndex";
-        public const string BatchSizeOperation = "AppSecrets:BatchSizeOperation";
         public const string JwtIssuer = "AppSecrets:JwtIssuer";
         public const string JwtAudience = "AppSecrets:JwtAudience";
     }
@@ -23,7 +22,6 @@ public class AppSecretSettings
     public string RedisConnectionString { get; set; } = string.Empty;
     public string RedisPassword { get; set; } = string.Empty;
     public int RedisDbIndex { get; set; } = 0;
-    public int BatchSizeOperation { get; set; } = 100;
 
     public string JwtIssuer { get; init; } = string.Empty;
     public string JwtAudience { get; init; } = string.Empty;

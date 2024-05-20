@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 
@@ -11,10 +12,12 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
     private readonly IConnectionMultiplexer _connectionMultiplexer;
     private readonly AppSecretSettings _appSecretSettings;
 
+    private readonly int _batchSize;
     private readonly int _processorCount;
     private readonly ParallelOptions _parallelOptions;
 
-    public RedisProvider(IConnectionMultiplexer connectionMultiplexer,
+    public RedisProvider(IConfiguration configuration,
+        IConnectionMultiplexer connectionMultiplexer,
         IOptions<AppSecretSettings> appSecretOptions)
     {
         _connectionMultiplexer = connectionMultiplexer;
@@ -22,6 +25,12 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
 
         _inProgressDbIndex = _appSecretSettings.RedisDbIndex;
         _archiveDbIndex = _appSecretSettings.RedisDbIndex + 1;
+
+        var parsableBatchSize = int.TryParse(configuration["Parallelism:BatchSize"]!, out int batchSize);
+
+        _batchSize = parsableBatchSize
+            ? batchSize
+            : 250;
 
         _processorCount = Environment.ProcessorCount;
         _parallelOptions = new ParallelOptions
@@ -75,9 +84,9 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
     {
         Log.Warning("Fetching Done Processing persistence");
 
-        int doneProcessingBatchSize = _appSecretSettings.BatchSizeOperation < 100
+        int doneProcessingBatchSize = _batchSize < 100
             ? 100
-            : _appSecretSettings.BatchSizeOperation;
+            : _batchSize;
 
         return await GetAllValuesAsync(_archiveDbIndex, DatabaseArchive, batchSize: doneProcessingBatchSize);
     }
@@ -86,9 +95,9 @@ internal sealed class RedisProvider : IInProgressPersistenceService, IDoneProces
     {
         Log.Warning("Fetching all scored values");
 
-        int doneProcessingBatchSize = _appSecretSettings.BatchSizeOperation < 100
+        int doneProcessingBatchSize = _batchSize< 100
             ? 100
-            : _appSecretSettings.BatchSizeOperation;
+            : _batchSize;
 
         Log.Warning("Batch size: {0}", doneProcessingBatchSize);
 
