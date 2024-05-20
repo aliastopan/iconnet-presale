@@ -14,6 +14,7 @@ public partial class ChatTemplateSetting : ComponentBase
     public List<ChatTemplateSettingModel> ChatTemplatesSettings { get; set; } = [];
 
     protected string SwitchTemplateName { get; set; } = default!;
+    protected List<ChatTemplateSettingModel> SwitchableChatTemplatesSettings => FilterSwitchableChatTemplate();
     protected Icon ActiveTemplateIcon = new Icons.Filled.Size20.CheckmarkCircle().WithColor("var(--success-green)");
 
     protected string TargetTemplateName { get; set; } = default!;
@@ -59,6 +60,16 @@ public partial class ChatTemplateSetting : ComponentBase
         }
 
         return ChatTemplatesSettings.Where(x => x.TemplateName == TargetTemplateName).ToList();
+    }
+
+    protected List<ChatTemplateSettingModel> FilterSwitchableChatTemplate()
+    {
+        if (ChatTemplatesSettings.Count == 0)
+        {
+            return [];
+        }
+
+        return ChatTemplatesSettings.Where(x => x.TemplateName == SwitchTemplateName).ToList();
     }
 
     protected void OnSwitchTemplateNameChanged(string switchTemplateName)
