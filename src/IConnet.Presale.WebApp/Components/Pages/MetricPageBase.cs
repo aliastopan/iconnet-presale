@@ -1,6 +1,7 @@
 using IConnet.Presale.WebApp.Models.Identity;
 using IConnet.Presale.WebApp.Models.Presales.Reports;
 using IConnet.Presale.WebApp.Components.Dashboards.Filters;
+using System.Diagnostics;
 
 namespace IConnet.Presale.WebApp.Components.Pages;
 
@@ -16,6 +17,7 @@ public class MetricPageBase : ComponentBase
     [Inject] protected OptionService OptionService { get; set; } = default!;
     [Inject] protected ReportService ReportService { get; set; } = default!;
     [Inject] protected SessionService SessionService { get; set; } = default!;
+    [Inject] protected IJSRuntime JsRuntime { get; set; } = default!;
 
     private bool _isInitialized = false;
 
@@ -129,7 +131,14 @@ public class MetricPageBase : ComponentBase
             var middleBoundaryMax = SessionService.FilterPreference.MiddleBoundaryDateTimeMax;
             var lowerBoundary = SessionService.FilterPreference.LowerBoundaryDateTime;
 
+            var stopwatch = Stopwatch.StartNew();
+
             _topLevelBoundaryPresaleData = await PresaleDataBoundaryManager.GetBoundaryRangePresaleDataAsync(upperBoundaryMin, upperBoundaryMax);
+
+            stopwatch.Stop();
+
+            string executionTIme = $"Dashboard loading took {stopwatch.ElapsedMilliseconds} ms";
+            await JsRuntime.InvokeVoidAsync("console.log", executionTIme);
 
             _upperBoundaryPresaleData = PresaleDataBoundaryManager.GetUpperBoundaryPresaleData(_topLevelBoundaryPresaleData!, upperBoundaryMin, upperBoundaryMax);
             _middleBoundaryPresaleData = PresaleDataBoundaryManager.GetMiddleBoundaryPresaleData(_topLevelBoundaryPresaleData!, middleBoundaryMin, middleBoundaryMax);

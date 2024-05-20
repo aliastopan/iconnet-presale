@@ -5,7 +5,6 @@ namespace IConnet.Presale.WebApp.Components.Pages;
 public class DashboardPageBase : MetricPageBase, IPageNavigation
 {
     [Inject] WorksheetService WorksheetService { get; set; } = default!;
-    [Inject] public IJSRuntime JsRuntime { get; set; } = default!;
     [Inject] public IToastService ToastService { get; set; } = default!;
 
     private ToastParameters<ProgressToastContent> _progressToastExporting = default!;
