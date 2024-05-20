@@ -20,12 +20,12 @@ public class DeveloperPageBase : ComponentBase
             }
             else
             {
-                LogSwitch.Debug("ROOT CAUSE CLASSIFICATION IS EMPTY");
+                // LogSwitch.Debug("ROOT CAUSE CLASSIFICATION IS EMPTY");
             }
 
             foreach (var option in OptionService.RootCauseOptionStack)
             {
-                LogSwitch.Debug("{0}/{1}", option.rootCause, option.classification);
+                // LogSwitch.Debug("{0}/{1}", option.rootCause, option.classification);
             }
 
             _init = true;

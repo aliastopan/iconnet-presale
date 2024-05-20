@@ -65,7 +65,7 @@ public partial class ChatTemplateSetting : ComponentBase
     {
         SwitchTemplateName = switchTemplateName;
 
-        LogSwitch.Debug("switch template: {0}", SwitchTemplateName);
+        // LogSwitch.Debug("switch template: {0}", SwitchTemplateName);
     }
 
     protected async Task SelectTemplateNameAsync(string templateName)
@@ -74,7 +74,7 @@ public partial class ChatTemplateSetting : ComponentBase
 
         await OpenCreateClassificationDialogAsync();
 
-        LogSwitch.Debug("edit template: {0}", TargetTemplateName);
+        // LogSwitch.Debug("edit template: {0}", TargetTemplateName);
     }
 
     protected async Task ApplySwitchTemplate()
@@ -109,7 +109,7 @@ public partial class ChatTemplateSetting : ComponentBase
         var addedModels = dialogData.Where(x => x.ActionSetting == ChatTemplateAction.ChatAdd).ToList();
         var deletedModels = dialogData.Where(x => x.ActionSetting == ChatTemplateAction.ChatDelete).ToList();
 
-        LogSwitch.Debug("Edited: {0}. Begin applying edit", editedModels.Count);
+        // LogSwitch.Debug("Edited: {0}. Begin applying edit", editedModels.Count);
 
         IsLoading = true;
         this.StateHasChanged();
@@ -119,14 +119,14 @@ public partial class ChatTemplateSetting : ComponentBase
             await ChatTemplateManager.ApplyChatTemplateAction(editedModel);
         }
 
-        LogSwitch.Debug("Added: {0}. Begin adding", addedModels.Count);
+        // LogSwitch.Debug("Added: {0}. Begin adding", addedModels.Count);
 
         foreach (var addedModel in addedModels)
         {
             await ChatTemplateManager.ApplyChatTemplateAction(addedModel);
         }
 
-        LogSwitch.Debug("Deleted: {0}. Begin deleting", deletedModels.Count);
+        // LogSwitch.Debug("Deleted: {0}. Begin deleting", deletedModels.Count);
 
         foreach (var deletedModel in deletedModels)
         {

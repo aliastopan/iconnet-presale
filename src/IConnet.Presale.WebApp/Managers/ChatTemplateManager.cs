@@ -56,7 +56,7 @@ public class ChatTemplateManager
 
     public async Task SetChatTemplateAsync(string templateName)
     {
-        LogSwitch.Debug("SetChatTemplateAsync {0}", templateName);
+        // LogSwitch.Debug("SetChatTemplateAsync {0}", templateName);
 
         try
         {

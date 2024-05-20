@@ -316,7 +316,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
 
         await Task.Delay(500);
 
-        LogSwitch.Debug("Root Cause Classification Exclusions");
+        // LogSwitch.Debug("Root Cause Classification Exclusions");
 
         SessionService.FilterPreference.IsBufferLoading = false;
         StateHasChanged();
@@ -435,7 +435,7 @@ public class DashboardPageBase : MetricPageBase, IPageNavigation
         SessionService.FilterPreference.ToggleRootCauseBreakdown();
         this.StateHasChanged();
 
-        LogSwitch.Debug("Toggle Root Cause Breakdown");
+        // LogSwitch.Debug("Toggle Root Cause Breakdown");
     }
 
     private IQueryable<WorkPaper>? GetBoundaryPresaleData(BoundaryFilterMode boundary)

@@ -63,7 +63,7 @@ public partial class ChatTemplateEditViewDialog : ComponentBase, IDialogContentC
         ActiveModel = model;
         ContentEditHolder = model.Content;
 
-        LogSwitch.Debug("Editing Model...");
+        // LogSwitch.Debug("Editing Model...");
     }
 
     protected MarkupString GetHtmlString(string chat)
@@ -81,7 +81,7 @@ public partial class ChatTemplateEditViewDialog : ComponentBase, IDialogContentC
 
     protected async Task ChatBubbleScrollAsync()
     {
-        LogSwitch.Debug("Auto Scrolling...");
+        // LogSwitch.Debug("Auto Scrolling...");
 
         var sequence = Content.Max(x => x.Sequence) + 1;
         var content = "SAMPLE TEXT";
@@ -137,8 +137,8 @@ public partial class ChatTemplateEditViewDialog : ComponentBase, IDialogContentC
         int totalChatContent = Content.Count;
         int totalMarkForDeletion = Content.Where(x => x.ActionSetting == ChatTemplateAction.ChatDelete).Count();
 
-        LogSwitch.Debug("Chat Contents: {0}", totalChatContent);
-        LogSwitch.Debug("Mark for Deletion: {0}", totalMarkForDeletion);
+        // LogSwitch.Debug("Chat Contents: {0}", totalChatContent);
+        // LogSwitch.Debug("Mark for Deletion: {0}", totalMarkForDeletion);
     }
 
     protected bool DisableMarkForDeletion()
